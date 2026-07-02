@@ -3,7 +3,7 @@
     <head>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1JR8GXH76"></script>
-        
+
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -20,13 +20,16 @@
     </head>
 
     <body>
+        <div class="top-bar">
+        <div id="date-temp">Loading...</div>
+        </div>
         
         <header>
             <h1>विश्वदर्पण</h1>
         </header>
 
         <nav>
-            <!-- Spacer to balance the button on the right -->
+           <!-- Spacer to balance the button on the right -->
             <span class="nav-spacer"></span> 
             
             <div class="nav-links">
@@ -48,6 +51,16 @@
         function toggleTheme() {
             document.body.classList.toggle("dark-mode");
         }
+        </script>
+
+        <script>
+        // Update the date in Marathi
+        const now = new Date();
+        const options = { weekday: 'short', month: 'short', day: 'numeric' };
+        const dateStr = now.toLocaleDateString('mr-IN', options);
+
+        // Set the text
+        document.getElementById('date-temp').innerText = `${dateStr} | पुणे: 28°C`;
         </script>
 
     </body>
