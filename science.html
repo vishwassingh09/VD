@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html lang="mr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>विज्ञान | विश्वदर्पण</title>
-    
-    <!-- MathJax script for LaTeX physics equations -->
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>विज्ञान | विश्वदर्पण</title>
+        
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<body>
-    
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="index.html">ई-पेपर</a>
-        <a href="news.html">बातम्या</a>
-        <a href="science.html">विज्ञान</a>
-    </nav>
+    <body>
+        
+        <!-- Header Section -->
+        <header>
+            <h1>विश्वदर्पण</h1>
+        </header>
 
-    <div class="container">
-        <h1>विज्ञान प्रश्नमंजुषा</h1>
-
-        <div class="question-box">
-            <div class="question-text">
-                <strong></strong> A one-dimensional quantum harmonic oscillator with frequency \(\omega\) is in its ground state. Its normalised wave function is given by:
-                
-                <p style="text-align: center; font-size: 1.2em;">
-                    \(\psi(x) = \left( \frac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}} \exp\left[ -\frac{m\omega}{2\hbar}x^2 \right]\)
-                </p>
-                
-                The frequency is suddenly increased to \(2\omega\). The probability of finding the particle in its new ground state is:
-            </div>
+        <!-- Navigation Section -->
+        <nav>
+            <span class="nav-spacer"></span> 
             
-            <ol class="options">
-                <li>\(\frac{2\sqrt{2}}{3}\)</li>
-                <li>\(\left( \frac{2\sqrt{2}}{3} \right)^{\frac{1}{2}}\)</li>
-                <li>\(\frac{2}{3}\)</li>
-                <li>\(\left( \frac{3}{2\sqrt{2}} \right)^{\frac{1}{2}}\)</li>
-            </ol>
-        </div>
-    </div>
+            <div class="nav-links">
+                <a href="index.html">ई-पेपर</a>
+                <a href="science.html">विज्ञान</a>
+                <a href="news.html">बातम्या</a>
+            </div>
 
-</body>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </nav>
+
+        <div class="container">
+            <h1>विज्ञान प्रश्नमंजुषा</h1>
+
+            <div class="question-box">
+                <div class="question-text">
+                    <strong></strong> A one-dimensional quantum harmonic oscillator with frequency \(\omega\) is in its ground state. Its normalised wave function is given by:
+                    
+                    <p style="text-align: center; font-size: 1.2em;">
+                        \(\psi(x) = \left( \frac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}} \exp\left[ -\frac{m\omega}{2\hbar}x^2 \right]\)
+                    </p>
+                    
+                    The frequency is suddenly increased to \(2\omega\). The probability of finding the particle in its new ground state is:
+                </div>
+                
+                <ol class="options">
+                    <li>\(\frac{2\sqrt{2}}{3}\)</li>
+                    <li>\(\left( \frac{2\sqrt{2}}{3} \right)^{\frac{1}{2}}\)</li>
+                    <li>\(\frac{2}{3}\)</li>
+                    <li>\(\left( \frac{3}{2\sqrt{2}} \right)^{\frac{1}{2}}\)</li>
+                </ol>
+            </div>
+        </div>
+            <script>
+            function toggleTheme() {
+                document.body.classList.toggle("dark-mode");
+            }
+            </script>
+    </body>
 </html>

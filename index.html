@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html lang="mr">
-<head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1JR8GXH76"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1JR8GXH76"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-      gtag('config', 'G-N1JR8GXH76');
-    </script>
+            gtag('config', 'G-N1JR8GXH76');
+        </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>विश्वदर्पण ई-पेपर</title>
-    
-    <link rel="stylesheet" href="style.css">
-</head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>विश्वदर्पण ई-पेपर</title>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<body>
-    
-    <header>
-        <h1>विश्वदर्पण</h1>
-    </header>
+    <body>
+        
+        <header>
+            <h1>विश्वदर्पण</h1>
+        </header>
 
-    <nav>
-        <a href="index.html">ई-पेपर</a>        
-        <a href="news.html">बातम्या</a>
-        <a href="science.html">विज्ञान</a>
-    </nav>
-    
-    <div class="pdf-container">
-        <iframe src="https://docs.google.com/gview?url=https://vishwadarpan.com/newspaper.pdf&embedded=true" title="VishwaDarpan Daily PDF">
-            <p>Your browser does not support embedded PDFs.</p>
-        </iframe>
-    </div>
+        <nav>
+            <!-- Spacer to balance the button on the right -->
+            <span class="nav-spacer"></span> 
+            
+            <div class="nav-links">
+                <a href="index.html">ई-पेपर</a>
+                <a href="science.html">विज्ञान</a>
+                <a href="news.html">बातम्या</a>
+            </div>
 
-</body>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </nav>
+        
+        <div class="pdf-container">
+            <iframe src="https://docs.google.com/gview?url=https://vishwadarpan.com/newspaper.pdf&embedded=true" title="VishwaDarpan Daily PDF">
+                <p>Your browser does not support embedded PDFs.</p>
+            </iframe>
+        </div>
+
+        <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+        </script>
+
+    </body>
+
 </html>
