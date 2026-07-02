@@ -91,3 +91,12 @@ iframe {
     margin-bottom: 20px;
     text-align: center;
 }
+
+/* Responsive Image Styling */
+.article-image {
+    width: 100%;           /* Makes the image fill the container width */
+    max-height: 400px;     /* Prevents it from getting too tall */
+    object-fit: cover;     /* Ensures the image doesn't look stretched */
+    border-radius: 6px;    /* Adds nice rounded corners */
+    margin-bottom: 25px;   /* Adds space before the text starts */
+}
