@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="mr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>क्रीडा | विश्वदर्पण</title>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div class="top-bar">
+            <div id="date-temp">Loading...</div>
+        </div>
+
+        <header>
+            <h1>विश्वदर्पण</h1>
+        </header>
+
+        <nav>
+            <span class="nav-spacer"></span> 
+            
+            <div class="nav-links">
+                <a href="index.html">ई-पेपर</a>
+                <a href="news.html">बातम्या</a>
+                <a href="science.html">विज्ञान</a>
+                <a href="sports.html">क्रीडा</a>
+            </div>
+
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </nav>
+
+        <div class="news-container">
+        <h2 class="news-headline">फिफा विश्वचषक २०२६: 'स्निको' तंत्रज्ञानाच्या वादग्रस्त निर्णयामुळे क्रोएशियाचे आव्हान संपुष्टात; पोर्तुगालचा २-१ ने विजय</h2>
+        <img src="images/Portugal.png" alt="Description of the event" class="article-image">
+        <div class="news-content">
+        <p class="dateline">• टोरोंटो •</p>
+
+        <p>फिफा विश्वचषक २०२६ मधील 'राउंड ऑफ ३२' च्या अटीतटीच्या सामन्यात पोर्तुगालने क्रोएशियाचा २-१ असा पराभव केला आहे. या विजयासह पोर्तुगालने स्पर्धेच्या पुढील फेरीत प्रवेश केला असून, सामन्याच्या अंतिम क्षणी 'व्हार' (VAR) आणि 'स्निको' (Snicko) तंत्रज्ञानाच्या वापराने दिलेला निर्णय फुटबॉल वर्तुळात चर्चेचा विषय ठरला आहे.</p>
+
+        <p>सामन्याच्या ५३ व्या मिनिटाला इव्हान पेरिसिकने गोल करत क्रोएशियाला १-० अशी आघाडी मिळवून दिली होती. मात्र, काही वेळातच पोर्तुगालच्या ख्रिस्तियानो रोनाल्डोने मिळालेल्या पेनल्टीचे अचूक गोलमध्ये रूपांतर करत सामन्यात १-१ अशी बरोबरी साधली. सामना अतिरिक्त वेळेकडे (Extra Time) झुकत असताना, ९४ व्या मिनिटाला गोन्सालो रामोसने हेडरद्वारे उत्कृष्ट गोल करून पोर्तुगालला २-१ अशी महत्त्वपूर्ण आघाडी मिळवून दिली.</p>
+
+        <p>सामन्यातील निर्णायक आणि वादग्रस्त प्रसंग १०३ व्या मिनिटाला घडला. क्रोएशियाच्या मारिओ पसालिकच्या पासवर जोसको ग्वार्डिओलने चेंडू थेट गोलपोस्टमध्ये धाडला आणि क्रोएशियाने बरोबरी साधल्याचा आनंद साजरा करण्यास सुरुवात केली. मात्र, फुटबॉलमधील सेन्सरवर आधारित 'स्निको' तंत्रज्ञानाच्या आधारे तपासणी केली असता, चेंडू बॉक्समध्ये येत असताना क्रोएशियाच्या इगोर माटानोविचच्या डोक्याला अत्यंत सूक्ष्मपणे स्पर्श करून गेल्याचे निदर्शनास आले. मुख्य रेफरी एस्पेन एस्कास यांनी मॉनिटरवर या घटनेची सखोल तपासणी केली आणि हा गोल 'ऑफसाईड' (Offside) ठरवत अवैध घोषित केला.</p>
+
+        <p>या निर्णयामुळे क्रोएशियाचे विश्वचषकातील आव्हान दुर्दैवीरीत्या संपुष्टात आले. या निर्णयानंतर मैदानावरील क्रोएशियन चाहत्यांनी तीव्र संताप व्यक्त करत मैदानावर पाण्याच्या बाटल्या फेकल्या. परिस्थिती नियंत्रणात आणण्यासाठी इव्हान पेरिसिकला स्वतः प्रेक्षकांना शांत करण्यासाठी पुढे यावे लागले. या विजयामुळे पोर्तुगालने 'राउंड ऑफ १६' मध्ये प्रवेश केला असून, आता त्यांचा पुढील सामना स्पेनविरुद्ध होणार आहे.</p>
+        </div>
+        </div>
+
+        <script>
+            // 1. Dark Mode Toggle
+            function toggleTheme() {
+                document.body.classList.toggle("dark-mode");
+            }
+
+            // 2. Date in Marathi
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('mr-IN', options);
+
+            // 3. Live Weather Fetch
+            const infoBox = document.getElementById('date-temp');
+            infoBox.innerText = `${dateStr} | हवामान लोड करत आहे...`; 
+
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=18.5204&longitude=73.8567&current_weather=true')
+                .then(response => response.json())
+                .then(data => {
+                    const currentTemp = Math.round(data.current_weather.temperature);
+                    infoBox.innerText = `${dateStr} | पुणे: ${currentTemp}°C`;
+                })
+                .catch(error => {
+                    infoBox.innerText = `${dateStr} | पुणे: --°C`;
+                    console.error("Could not load weather data:", error);
+                });
+        </script>
+    </body>
+
+</html>
