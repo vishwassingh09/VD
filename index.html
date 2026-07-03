@@ -54,13 +54,30 @@
         </script>
 
         <script>
-        // Update the date in Marathi
-        const now = new Date();
-        const options = { weekday: 'short', month: 'short', day: 'numeric' };
-        const dateStr = now.toLocaleDateString('mr-IN', options);
+            // 1. Set the Date in Marathi
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('mr-IN', options);
 
-        // Set the text
-        document.getElementById('date-temp').innerText = `${dateStr} | पुणे: 28°C`;
+            // 2. Find the top bar element and set a loading message
+            const infoBox = document.getElementById('date-temp');
+            infoBox.innerText = `${dateStr} | हवामान लोड करत आहे...`; // "Loading weather..."
+
+            // 3. Fetch live weather data for Pune (Latitude: 18.52, Longitude: 73.85)
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=18.5204&longitude=73.8567&current_weather=true')
+                .then(response => response.json())
+                .then(data => {
+                    // Extract the current temperature and round it to a whole number
+                    const currentTemp = Math.round(data.current_weather.temperature);
+                    
+                    // Update the top bar with the real temperature
+                    infoBox.innerText = `${dateStr} | पुणे: ${currentTemp}°C`;
+                })
+                .catch(error => {
+                    // If the user's internet is acting up, show a fallback
+                    infoBox.innerText = `${dateStr} | पुणे: --°C`;
+                    console.error("Could not load weather data:", error);
+                });
         </script>
 
     </body>
