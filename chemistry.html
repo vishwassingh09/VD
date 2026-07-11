@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry | Vishwa Darpan</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="subject-header">
+        <a href="science.html" class="icon-btn" title="Back to Vigyan">⬅️</a>
+        <h1>Chemistry</h1>
+        <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+    </header>
+
+    <div class="container">
+        <section id="physical">
+            <h2>Physical Chemistry: The Ideal Gas Law</h2>
+            <p>Physical chemistry blends the principles of physics and chemistry to study the physical characteristics, or properties, of molecules. The equation of state of a hypothetical ideal gas is given by:</p>
+            <p style="text-align: center; font-size: 1.2em;">
+                $$PV = nRT$$
+            </p>
+        </section>
+
+        <hr>
+
+        <section id="thermodynamics">
+            <h2>Chemical Thermodynamics: Gibbs Free Energy</h2>
+            <p>Gibbs free energy is a thermodynamic potential that can be used to calculate the maximum reversible work that may be performed by a thermodynamic system at a constant temperature and pressure:</p>
+            <p style="text-align: center; font-size: 1.2em;">
+                $$\Delta G = \Delta H - T\Delta S$$
+            </p>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+</html>

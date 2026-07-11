@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology | Vishwa Darpan</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="subject-header">
+        <a href="science.html" class="icon-btn" title="Back to Vigyan">⬅️</a>
+        <h1>Biology</h1>
+        <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+    </header>
+
+    <div class="container">
+        <section id="genetics">
+            <h2>Population Genetics: Hardy-Weinberg</h2>
+            <p>The Hardy-Weinberg principle states that allele and genotype frequencies in a population will remain constant from generation to generation in the absence of other evolutionary influences. The equation for a diallelic gene is:</p>
+            <p style="text-align: center; font-size: 1.2em;">
+                $$p^2 + 2pq + q^2 = 1$$
+            </p>
+        </section>
+
+        <hr>
+
+        <section id="ecology">
+            <h2>Ecology: Logistic Growth</h2>
+            <p>In population ecology, the logistic model describes how a population grows exponentially at first, but slows as it reaches the carrying capacity of its environment:</p>
+            <p style="text-align: center; font-size: 1.2em;">
+                $$\frac{dN}{dt} = rN \left(1 - \frac{N}{K}\right)$$
+            </p>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+    
+</body>
+</html>

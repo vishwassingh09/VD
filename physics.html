@@ -11,11 +11,13 @@
     </head>
 
     <body>
-        <header>
+        <header class="subject-header">
+            <a href="science.html" class="icon-btn" title="Back to Vigyan">⬅️</a>
             <h1>Physics</h1>
+            <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
         </header>
 
-       
+
         <div class="container">
             
             <div class="tab-box">
@@ -79,5 +81,12 @@
             evt.currentTarget.className += " active";
         }
         </script>
+
+        <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+        </script>
+
     </body>
 </html>
