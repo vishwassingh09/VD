@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Physics | Vishwa Darpan</title>
+        
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <header>
+            <h1>Physics</h1>
+        </header>
+
+       
+        <div class="container">
+            
+            <div class="tab-box">
+                <button class="tab-btn active" onclick="openTab(event, 'introduction')">Introduction</button>
+                <button class="tab-btn" onclick="openTab(event, 'school-physics')">School Physics</button>
+                <button class="tab-btn" onclick="openTab(event, 'college-physics')">College Physics</button>
+                <button class="tab-btn" onclick="openTab(event, 'research-physics')">Research Physics</button>
+            </div>
+
+            <section id="introduction" class="tab-content" style="display: block;">
+                <h2>Introduction to Physics</h2>
+                <p>Physics is the natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force. The most famous equation demonstrating the mass-energy equivalence is:</p>
+                <p style="text-align: center; font-size: 1.2em;">
+                    $$E = mc^2$$
+                </p>
+            </section>
+
+            <section id="school-physics" class="tab-content">
+                <h2>School Physics</h2>
+                <p>At the high school level, classical mechanics introduces us to the equations of motion. For an object under constant acceleration, the final velocity can be calculated using this kinematic formula:</p>
+                <p style="text-align: center; font-size: 1.2em;">
+                    $$v^2 = u^2 + 2as$$
+                </p>
+            </section>
+
+            <section id="college-physics" class="tab-content">
+                <h2>College Physics</h2>
+                <p>University physics dives into electromagnetism and quantum mechanics. A foundational concept is Gauss's Law. In its differential form, it is written as:</p>
+                <p style="text-align: center; font-size: 1.2em;">
+                    $$\nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0}$$
+                </p>
+            </section>
+
+            <section id="research-physics" class="tab-content">
+                <h2>Research Physics</h2>
+                <p>Advanced condensed matter research often explores strongly correlated electron systems. For example, the Hubbard Model Hamiltonian, which captures the transition between conducting and insulating systems, is defined as:</p>
+                <p style="text-align: center; font-size: 1.2em;">
+                    $$H = -t \sum_{\langle i,j \rangle, \sigma} (c_{i\sigma}^\dagger c_{j\sigma} + h.c.) + U \sum_i n_{i\uparrow} n_{i\downarrow}$$
+                </p>
+                <p>Solving for the exact ground state energy of such systems can be achieved through computational approaches like Exact Diagonalization in Fortran, or by mapping the problem to quantum circuits using Qiskit and applying a Variational Quantum Eigensolver (VQE).</p>
+            </section>
+        </div>
+
+        <script>
+        function openTab(evt, sectionName) {
+            // Hide all elements with class="tab-content"
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Remove the class "active" from all tab buttons
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(sectionName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        </script>
+    </body>
+</html>
