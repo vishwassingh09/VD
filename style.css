@@ -305,3 +305,7 @@ iframe {
 body.dark-mode .icon-btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+.left-align {
+    text-align: left;
+}
