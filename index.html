@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="mr">
     <head>
+
+        <!-- pdf embedding tool called "pdf.js" from firefox -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+        </script>
+        
         <!-- To make it mobile friendly -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -54,24 +61,39 @@
 --> 
     
 <!--new pdf test start-->
- <div class="calendar-container">
-    <div class="calendar-header">
-        <h2 id="month-title">Archive</h2>
-        <a id="download-btn" href="#" download class="btn-download">📥 Download Edition</a>
-    </div>
-    
-    <div class="calendar-weekdays">
-        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-    </div>
-    
-    <div id="calendar-grid" class="calendar-grid"></div>
-</div>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 id="month-title">Archive</h2>
+                    <a id="download-btn" href="#" download class="btn-download">📥 Download Edition</a>
+                </div>
+                
+                <div class="calendar-weekdays">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                
+                <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
+            
+            <!--new pdf container-->
+            <div class="pdf-container" style="text-align: center; background: #eee; padding: 10px; border-radius: 5px;">
+                
+                <div style="margin-bottom: 10px;">
+                    <button id="prev-page" class="btn-download" style="padding: 5px 15px;">⬅️ Prev</button>
+                    <span style="margin: 0 15px; font-weight: bold;">Page: <span id="page-num">1</span> / <span id="page-count">--</span></span>
+                    <button id="next-page" class="btn-download" style="padding: 5px 15px;">Next ➡️</button>
+                </div>
 
-<div class="pdf-container">
-    <iframe id="pdf-viewer" src="" width="100%" height="850px" style="border: 2px solid #ccc; border-radius: 5px;">
-        This browser does not support PDFs. Please download the PDF to view it.
-    </iframe>
-</div>
+                <canvas id="pdf-render" style="max-width: 100%; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></canvas>
+            </div>
+
+            <!-- 
+            <div class="pdf-container">
+                <iframe id="pdf-viewer" src="" width="100%" height="850px" style="border: 2px solid #ccc; border-radius: 5px;">
+                    This browser does not support PDFs. Please download the PDF to view it.
+                </iframe>
+            </div>
+            -->
+
 <!--new pdf test end -->
 
         <script>
@@ -170,6 +192,7 @@
             }
         }
 
+        /*
         function changePaper(fileUrl, clickedBox) {
             // Swap PDF and Update Download Link
             document.getElementById("pdf-viewer").src = fileUrl;
@@ -181,6 +204,96 @@
                 allDays[i].classList.remove("selected-day");
             }
             clickedBox.classList.add("selected-day");
+        }
+        */
+        </script>
+
+        <script>
+        // --- PDF.js Variables ---
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false,
+            pageNumIsPending = null;
+
+        const scale = 1.5, // Adjust this to make the PDF clearer/larger
+            canvas = document.getElementById('pdf-render'),
+            ctx = canvas.getContext('2d');
+
+        // --- Render the Page ---
+        function renderPage(num) {
+            pageIsRendering = true;
+
+            // Fetch page
+            pdfDoc.getPage(num).then(page => {
+                const viewport = page.getViewport({ scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderCtx = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                page.render(renderCtx).promise.then(() => {
+                    pageIsRendering = false;
+                    if (pageNumIsPending !== null) {
+                        renderPage(pageNumIsPending);
+                        pageNumIsPending = null;
+                    }
+                });
+
+                // Output current page number
+                document.getElementById('page-num').textContent = num;
+            });
+        }
+
+        // Check for pending pages
+        function queueRenderPage(num) {
+            if (pageIsRendering) {
+                pageNumIsPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        // Button Events
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        });
+
+        document.getElementById('next-page').addEventListener('click', () => {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        });
+
+        // --- Updated changePaper Function ---
+        function changePaper(fileUrl, clickedBox) {
+            // 1. Update Download Link
+            document.getElementById("download-btn").href = fileUrl;
+
+            // 2. Load the PDF using PDF.js
+            pdfjsLib.getDocument(fileUrl).promise.then(pdfDoc_ => {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-count').textContent = pdfDoc.numPages;
+                pageNum = 1; // Reset to page 1 on new document
+                renderPage(pageNum);
+            }).catch(err => {
+                console.log("No PDF found for this date.");
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas on error
+                document.getElementById('page-count').textContent = "--";
+            });
+
+            // 3. Handle Calendar Highlighting (Keep this from before)
+            if (clickedBox) {
+                let allDays = document.getElementsByClassName("active-day");
+                for (let i = 0; i < allDays.length; i++) {
+                    allDays[i].classList.remove("selected-day");
+                }
+                clickedBox.classList.add("selected-day");
+            }
         }
         </script>
 <!--Calender java script end-->
