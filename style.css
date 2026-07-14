@@ -351,3 +351,107 @@ body.dark-mode .evolution-table th {
     background-color: #222;
     color: #fff;
 }
+
+/* =======================================================
+   10. Calender Stuff
+   ========================================================= */
+/* Calendar Container */
+.calendar-container {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.btn-download {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-download:hover {
+    background-color: #003d82;
+}
+
+/* Calendar Grid */
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+/* Active & Selected Days */
+.active-day {
+    cursor: pointer;
+    color: #0056b3;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.active-day:hover {
+    background-color: #e2e6ea;
+}
+
+.selected-day {
+    background-color: #0056b3;
+    color: white !important;
+    border-color: #004494;
+}
+
+/* Future Days & Empty Slots */
+.future-day {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    border: 1px dashed #ccc;
+}
+
+.empty-day {
+    background-color: transparent;
+    border: none;
+}
+
+/* Dark Mode Support */
+body.dark-mode .calendar-container {
+    background-color: #222;
+    border-color: #444;
+}
+body.dark-mode .calendar-header h2, 
+body.dark-mode .calendar-weekdays { color: #eee; }
+body.dark-mode .calendar-day { background-color: #333; border-color: #555; }
+body.dark-mode .future-day { background-color: #2a2a2a; color: #666; }
+body.dark-mode .active-day:hover { background-color: #444; }

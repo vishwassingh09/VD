@@ -41,12 +41,35 @@
 
             <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </nav>
-        
+<!--old pdf commented out -->
+<!--      
         <div class="pdf-container">
             <iframe src="https://docs.google.com/gview?url=https://vishwadarpan.com/newspaper.pdf&embedded=true" title="VishwaDarpan Daily PDF">
                 <p>Your browser does not support embedded PDFs.</p>
             </iframe>
         </div>
+--> 
+    
+<!--new pdf test start-->
+ <div class="calendar-container">
+    <div class="calendar-header">
+        <h2 id="month-title">Archive</h2>
+        <a id="download-btn" href="#" download class="btn-download">📥 Download Edition</a>
+    </div>
+    
+    <div class="calendar-weekdays">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+    
+    <div id="calendar-grid" class="calendar-grid"></div>
+</div>
+
+<div class="pdf-container">
+    <iframe id="pdf-viewer" src="" width="100%" height="850px" style="border: 2px solid #ccc; border-radius: 5px;">
+        This browser does not support PDFs. Please download the PDF to view it.
+    </iframe>
+</div>
+<!--new pdf test end -->
 
         <script>
         function toggleTheme() {
@@ -80,6 +103,85 @@
                     console.error("Could not load weather data:", error);
                 });
         </script>
+
+<!--Calender java script start-->
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            buildCalendar();
+        });
+
+        function buildCalendar() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth(); // January is 0
+            const currentDate = today.getDate();
+
+            // Set Header
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById("month-title").innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // Grid Setup
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
+            const grid = document.getElementById("calendar-grid");
+            grid.innerHTML = ""; 
+
+            // Inject empty spaces before the 1st day of the month
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                let empty = document.createElement("div");
+                empty.className = "calendar-day empty-day";
+                grid.appendChild(empty);
+            }
+
+            // Inject actual days
+            for (let day = 1; day <= daysInMonth; day++) {
+                let dayBox = document.createElement("div");
+                dayBox.className = "calendar-day";
+                dayBox.innerText = day;
+
+                if (day > currentDate) {
+                    // Disable future days
+                    dayBox.classList.add("future-day");
+                } else {
+                    // Enable valid past/current days
+                    dayBox.classList.add("active-day");
+                    
+                    // Format numbers to match your screenshot exactly (e.g., "01" instead of "1")
+                    let dd = String(day).padStart(2, '0');
+                    let mm = String(currentMonth + 1).padStart(2, '0'); 
+                    let yyyy = currentYear;
+                    
+                    // This builds: archive/01-07-2026-VISHWADARPAN.pdf
+                    let fileName = `archive/${dd}-${mm}-${yyyy}-VISHWADARPAN.pdf`;
+
+                    dayBox.onclick = function() {
+                        changePaper(fileName, dayBox);
+                    };
+
+                    // Auto-load today's paper on page refresh
+                    if (day === currentDate) {
+                        changePaper(fileName, dayBox);
+                    }
+                }
+                grid.appendChild(dayBox);
+            }
+        }
+
+        function changePaper(fileUrl, clickedBox) {
+            // Swap PDF and Update Download Link
+            document.getElementById("pdf-viewer").src = fileUrl;
+            document.getElementById("download-btn").href = fileUrl;
+
+            // Shift styling highlight to the newly selected box
+            let allDays = document.getElementsByClassName("active-day");
+            for (let i = 0; i < allDays.length; i++) {
+                allDays[i].classList.remove("selected-day");
+            }
+            clickedBox.classList.add("selected-day");
+        }
+        </script>
+<!--Calender java script end-->
+
 
     </body>
 
