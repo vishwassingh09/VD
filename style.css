@@ -455,3 +455,21 @@ body.dark-mode .calendar-weekdays { color: #eee; }
 body.dark-mode .calendar-day { background-color: #333; border-color: #555; }
 body.dark-mode .future-day { background-color: #2a2a2a; color: #666; }
 body.dark-mode .active-day:hover { background-color: #444; }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 600px) {
+    .calendar-container {
+        padding: 10px;
+    }
+    .calendar-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .calendar-day {
+        padding: 8px 2px;
+        font-size: 0.85em;
+    }
+    .calendar-weekdays {
+        font-size: 0.8em;
+    }
+}
