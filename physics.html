@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script>
+            MathJax = {
+                tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                packages: {'[+]': ['physics', 'ams']}
+                },
+                loader: {load: ['[tex]/physics']}
+            };
+            </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Physics | Vishwa Darpan</title>
@@ -119,16 +131,274 @@
             </section>
 
             <section id="research-physics" class="tab-content">
-                <h2>Research Physics</h2>
-                <p>Condensed matter research often explores strongly correlated electron systems. For example, the Hubbard Model Hamiltonian, which captures the transition between conducting and insulating systems, is defined as:</p>
+                
+                <div class="report-container" style="max-width: 900px; margin: 0 auto; line-height: 1.6; text-align: justify;">
+                    <h1 style="text-align: center; margin-bottom: 30px;">Simulating Hubbard Model using Exact Diagonalization and Quantum Computation</h1>
 
-                <img src="images/Hubbard.png" class="article-image" style="margin-top: 10px; width: 25%;">
+                    <h2>Second Quantization</h2>
+                    <p>In formulating quantum mechanics from classical mechanics, we elevate the dynamical variables $q_i$'s and $p_i$'s to operators and define a commutation relation between them as $[q_i,p_i]=i\hbar$. This is called First Quantization.</p>
 
-                <p style="text-align: center; font-size: 1.2em;">
-                    $$H = -t \sum_{\langle i,j \rangle, \sigma} (c_{i\sigma}^\dagger c_{j\sigma} + h.c.) + U \sum_i n_{i\uparrow} n_{i\downarrow}$$
-                </p>
-                <p>Solving for the exact ground state energy of such systems can be achieved through computational approaches like Exact Diagonalization in Fortran, or by mapping the problem to quantum circuits using Qiskit and applying a Variational Quantum Eigensolver (VQE).</p>
+                    <p>When we elevate the wavefunction $\psi(r)$ itself to operator also known as Field Operator $\vu{\psi}(r)$, this formulation is called Second Quantization. Similar to how a $q_i$ has a canonical conjugate as $p_i$, the field operator $\vu{\psi}(r)$ has $\vu{\psi}^{\dagger}(r)$ and they have a commutation relation between them given as $[\vu{\psi}(r_1),\vu{\psi}^{\dagger}(r_2)]=\delta(r_1 - r_2)$ for Bosons and Anti-commutation relation for Fermions i.e. $\{\vu{\psi}(r_1),\vu{\psi^{\dagger}}(r_2)\}=\delta(r_1 - r_2)$.</p>
+
+                    <p>This field operator which is function of space and time in one dimension in general is defined as :</p>
+                    $$ \vu{\psi}(r)=\sum_n  c_n \phi_n(r) $$
+                    <p>where, $\phi_n(x)$ is the usual first quantization wavefunction and $c_n$ is the annihilation operator. Similarly its canonical conjugate is defined as :</p>
+                    $$ \vu{\psi}^{\dagger}(r)=\sum_n c_n^{\dagger} \phi_n^*(r) $$
+                    <p>where, $\phi_n^*(x)$ is the complex conjugate of the wave function and $c_n^{\dagger}$ is the creation operator.</p>
+
+                    <p>These creation and annhilation operators will act on the STATE of the system which is called the "Fock Space". which we will denote by :</p>
+                    $$ \ket{n_1, n_2, n_3, ..., n_i, ... , n_N} $$
+                    <p>where, $n_i$ tells us the number of particles present at the ith state (first quantization wavefunction).</p>
+
+                    <p>A "Vaccum State", where physically there are no particles present in our space is $\ket{0, 0, ..., 0}$. So as an example if we act $c_1^{\dagger}$ on the vaccum state, we get $\sqrt{2} \ket{1, 0, ..., 0}$  and $c_1$ acting on vacuum state will give us zero.</p>
+
+                    <h4>Disclaimer</h4>
+                    <p>We have borrowed the action of ladder operators from first quantization from the harmonic oscillator but physically these are two different operators. In first quantization the creation ladder operator will change the $\ket{n}$ to $\ket{n+1}$ by and factor of $\sqrt{n+1}$ and annihilation operator will change $\ket{n}$ to $\ket{n-1}$ by a factor of $\sqrt{n}$.</p>
+
+                    <hr style="margin: 40px 0;">
+
+                    <h3>System</h3>
+                    <p>If we look at atoms whose outermost shell is the s orbital then their wave function is not localized i.e. of the form $\psi = e^{i(k\cdot r)}$ (The probability of finding the particle is equally like everywhere). But if we take a look at the atoms whose outermost electrons lie in the d orbital. These wavefunctions are bound to the atom and they have localization around the ion. But the localization is not strong enough for them so as to stop them from tunneling the neighbouring atoms and occupy and empty state present. Now given the fixed number of such electrons and fixed number of sites, the system will choose a state such that the total energy of the system is minimized. The dynamics of such materials can be modelled by what is called the Hubbard Model whose Hamiltonian can be written as:</p>
+                    
+                    $$ H = -t \sum_{i,\sigma} c_{i,\sigma}^\dagger c_{i+1,\sigma} + h.c + U \sum_{i}^n {n_{i\uparrow}} {n_{i\downarrow}} $$
+                    
+                    <p>where:</p>
+                    <ul>
+                        <li>$c_{i,\sigma}^\dagger$: The creation operator for an electron with spin $\sigma$ ($\uparrow$ or $\downarrow$) at site $i$.</li>
+                        <li>$c_{i,\sigma}$: The annihilation operator for an electron with spin $\sigma$ at site $i$.</li>
+                        <li>$t$: The hopping amplitude, representing the kinetic energy of an electron hopping between nearest-neighbor sites.</li>
+                        <li>$n_{i\sigma} = c_{i,\sigma}^\dagger c_{i,\sigma}$: The number operator for electrons with spin $\sigma$ at site $i$.</li>
+                        <li>$U$: The on-site Coulomb interaction energy between two electrons of opposite spins ($\uparrow$ and $\downarrow$) at the same site.</li>
+                    </ul>
+
+                    <p>It is an extension of the Tight Binding Approximation for single band and inclusion of electron-electron repulsion. Hubbard Model was introduced in order to explain the insulating behaviour of partially filled Transition Metal Oxide like TiO. Not only that in the limiting behaviour where the repulsion between electrons is more than the tunneling term, the electrons tends to localize on sites having same spin and hence show ferromagnetism.</p>
+
+                    <hr style="margin: 40px 0;">
+
+                    <h3>State</h3>
+                    <p>We are going to choose our basis state as what is called Wernier Wave Functions (they are fourier transforms of conventional Bloch States) which will give us the state of ONE electron localized on ONE particular site labelled by index i.</p>
+                    
+                    $$ W_\gamma(\vec{r}-\vec{R_i}) = \frac{1}{\sqrt{N}} \sum_{k} e^{-i \vec{k}\cdot\vec{R_i}} \phi_{k,\gamma}(\vec{r}) $$
+                    
+                    <p>Here, $\gamma$ is the band index, $\vec{R}$ is the ionic position vector, $\phi(\vec{r})$ is the Bloch wave function. We can then also define a ortho normality between states of different sites.</p>
+                    
+                    $$ \bra{W_n(\vec{r}-\vec{R_i})}\ket{W_n(\vec{r}-\vec{R_j})} = \delta_{R_i,R_j} $$
+                    
+                    <p>Since this is a fermionic system, each site can have either one up spin or one down spin or both one up and one down spin. In order to denote the state of the system i.e. all sites at once we will use the notation as follows:</p>
+                    $$ \ket{\uparrow} \quad \ket{\downarrow} \quad \ket{\uparrow\downarrow} $$
+
+                    <hr style="margin: 40px 0;">
+
+                    <h2>Exact Diagonalization</h2>
+                    
+                    <h3>2 Sites 2 Electrons</h3>
+                    <p>All possible states for 2 sites and 2 electrons will look like:</p>
+                    $$ \ket{\uparrow,\uparrow} \quad \ket{0,\uparrow\downarrow} \quad \ket{\uparrow, \downarrow} \quad \ket{\downarrow,\uparrow} \quad \ket{\uparrow\downarrow, 0} \quad \ket{\downarrow,\downarrow} $$
+                    
+                    <p>The Hamiltonian for this system is:</p>
+                    $$ \begin{aligned} H = &-t ( c_{1\uparrow}^\dagger c_{2\uparrow} + c_{2\uparrow}^\dagger c_{1\uparrow} + c_{1\downarrow}^\dagger c_{2\downarrow} + c_{2\downarrow}^\dagger c_{1\downarrow} ) \\ &+ U ( n_{1\uparrow} n_{1\downarrow} + n_{2\uparrow} n_{2\downarrow} ) \end{aligned} $$
+                    
+                    <p>When we operate this Hamiltonian operator on all the six states we get:</p>
+                    <div style="background: #f4f4f4; padding: 15px; border-radius: 5px;">
+                        <p>$H \ket{\uparrow,\uparrow} = 0$</p>
+                        <p>$H \ket{0,\uparrow\downarrow} = -t ( \ket{\uparrow, \downarrow} + \ket{\downarrow,\uparrow} ) + U (\ket{0,\uparrow\downarrow})$</p>
+                        <p>$H \ket{\downarrow, \uparrow} =  -t ( \ket{0,\uparrow\downarrow} + \ket{\uparrow\downarrow, 0} )$</p>
+                        <p>$H \ket{\downarrow\uparrow, 0} = -t ( \ket{\downarrow,\uparrow} + \ket{\uparrow, \downarrow}) + U \ket{\uparrow\downarrow, 0}$</p>
+                        <p>$H \ket{\downarrow,\downarrow} = 0$</p>
+                    </div>
+
+                    <p>From this we can easily get the matrix element. For t = 1, U = 1:</p>
+                    $$ \begin{bmatrix}
+                        0 & 0 & 0 & 0 & 0 & 0 \\
+                        0 & 1 & -1 & -1 & 0 & 0 \\
+                        0 & -1 & 0 & 0 & -1 & 0 \\
+                        0 & -1 & 0 & 0 & -1 & 0 \\
+                        0 & 0 & -1 & -1 & 1 & 0 \\
+                        0 & 0 & 0 & 0 & 0 & 0
+                    \end{bmatrix} $$
+                    <p>On Diagonalizing this matrix numerically using LAPACK library function, we get Eigenvalues : 2.56, -1.56, 1, 0, 0, 0. The Ground State Energy as -1.56.</p>
+
+                    <hr style="margin: 40px 0;">
+
+                    <h3>Nagaoka's Theorem</h3>
+                    <p><strong>Statement:</strong> In Hubbard Model, the relative ground state in the sector with one unoccupied site is maximally FERROMAGNETIC for large U.</p>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <!-- Remember to convert Nagaoka.eps to Nagaoka.png -->
+                        <img src="research_images/Nagaoka.png" alt="Nagaoka's Theorem Graph" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
+                        <p><em>For 4 sites and 3 electrons we have plotted U v/s Ground State Energies</em></p>
+                    </div>
+
+                    <p>In operational sense it means that if we take one less than half filled sites, then for large value of U (interaction between electrons on same site), the ground state of the system will be Ferromagnetic and spins will try to allow themselves in one direction. The Hubbard model can become equivalent to the Heisenberg model in the limit of strong electron-electron interactions (U) compared to the kinetic energy (t), particularly in the limit of large U and at half-filling of the electron density (one electron per lattice site). In this regime, virtual hopping processes are suppressed due to the high energy cost of double occupancy, leading to an effective spin-spin interaction between localized electrons. Under these conditions, the Hubbard model effectively reduces to the Heisenberg model, where the kinetic energy terms are neglected, and the dominant interactions are described by spin operators.</p>
+
+                    <hr style="margin: 40px 0;">
+
+                    <h2>Quantum Simulation</h2>
+                    
+                    <h3>Qubit</h3>
+                    <p>In quantum computing, the fundamental unit of information is the qubit, which can exist in a superposition of two basis states $|0\rangle$ and $|1\rangle$. The state of a single qubit is generally represented as:</p>
+                    $$ |\psi\rangle = \alpha |0\rangle + \beta |1\rangle $$
+                    <p>where:</p>
+                    <ul>
+                        <li>$|0\rangle$ and $|1\rangle$ are the computational basis states, analogous to the classical binary states.</li>
+                        <li>$\alpha$ and $\beta$ are complex numbers representing the probability amplitudes of the respective basis states.</li>
+                        <li>The coefficients satisfy the normalization condition $|\alpha|^2 + |\beta|^2 = 1$, ensuring the total probability is conserved.</li>
+                    </ul>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/Bloch.png" alt="Bloch Sphere" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Bloch Sphere</em></p>
+                    </div>
+
+                    <p>A general qubit in this 3 dimensional space can then be written as:</p>
+                    $$ |\psi\rangle = \cos\left(\frac{\theta}{2}\right) |0\rangle + e^{i\phi} \sin\left(\frac{\theta}{2}\right) |1\rangle $$
+                    <p>where:</p>
+                    <ul>
+                        <li>$\theta$ is the polar angle ($0 \leq \theta \leq \pi$).</li>
+                        <li>$\phi$ is the azimuthal angle ($0 \leq \phi < 2\pi$).</li>
+                        <li>The coefficients $\alpha$ and $\beta$ are parameterized as: $\alpha = \cos\left(\frac{\theta}{2}\right)$ and $\beta = e^{i\phi} \sin\left(\frac{\theta}{2}\right)$.</li>
+                    </ul>
+
+                    <p>In the context of quantum computing, the $|0\rangle$ and $|1\rangle$ states of a qubit can be mapped to the physical occupation states of a fermionic site:</p>
+                    <ul>
+                        <li>$|0\rangle$: Represents the absence of a particle (no occupation) at the site.</li>
+                        <li>$|1\rangle$: Represents the presence of a particle (occupied) at the site.</li>
+                    </ul>
+
+                    <p>For the Hubbard Model, which includes both spin-up ($\uparrow$) and spin-down ($\downarrow$) fermions at each site, the Hilbert space of a single site is expanded to account for four possible states:</p>
+                    <ul>
+                        <li>$|00\rangle$: No particles at the site.</li>
+                        <li>$|01\rangle$: A spin-down ($\downarrow$) particle occupies the site.</li>
+                        <li>$|10\rangle$: A spin-up ($\uparrow$) particle occupies the site.</li>
+                        <li>$|11\rangle$: Both spin-up ($\uparrow$) and spin-down ($\downarrow$) particles occupy the site.</li>
+                    </ul>
+
+                    <hr style="margin: 40px 0;">
+
+                    <h3>Jordan Wigner Transformation</h3>
+                    <p>The Jordan-Wigner Transformation allows fermionic creation and annihilation operators to be represented as spin operators. Specifically, the creation and annihilation operators at site $j$ are expressed as:</p>
+                    $$ \begin{aligned} c_{j}^\dagger &= \frac{1}{2} \left( \prod_{k=1}^{j-1} Z_k \right) (X_j - i Y_j) \\ c_{j} &= \frac{1}{2} \left( \prod_{k=1}^{j-1} Z_k \right) (X_j + i Y_j) \end{aligned} $$
+
+                    <hr style="margin: 40px 0;">
+
+                    <h3>Variational Quantum Eigensolver</h3>
+                    <p>The ground state energy of a quantum system can be expressed as the expectation value of the Hamiltonian $H$ with respect to a trial wavefunction $|\psi(\theta)\rangle$, parameterized by $\theta$. Mathematically, this is given by:</p>
+                    $$ E(\theta) = \langle \psi(\theta) | H | \psi(\theta) \rangle $$
+                    <p>where $E(\theta)$ represents the energy for a given parameter set $\theta$. The Variational Quantum Eigensolver aims to minimize this energy by optimizing the parameters $\theta$ such that:</p>
+                    $$ E_{\text{ground}} = \min_{\theta} \langle \psi(\theta) | H | \psi(\theta) \rangle $$
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/VQE.png" alt="Variational Quantum Eigensolver" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Variational Quantum Algorithm Eigensolver</em></p>
+                    </div>
+
+                    <p>The <em>Variational Quantum Eigensolver</em> (VQE) is a hybrid quantum-classical algorithm designed to find the ground state energy of quantum systems. The algorithm minimizes the expectation value of the Hamiltonian $H$, which represents the system's energy operator, to identify the lowest possible energy state.</p>
+
+                    <hr style="margin: 40px 0;">
+                    <!--
+                    <h2>Hubbard Model Quantum Simulation</h2>
+                    <p>On Google Sycamore, we will try to simulate hubbard model for 8 fermionic sites for which we will need 16 qubits, 8 for up spins and 8 for down spins. The Hamiltonian used contains the tunneling term, the coulombic term and a new local diagonal interaction term with open boundary conditions.</p>
+                    
+                    $$ H = -J \sum_{j=1}^{L-1} \sum_{\nu=\uparrow,\downarrow} c_{j,\nu}^\dagger c_{j+1,\nu} + h.c + U \sum_{i}^n {n_{i\uparrow}} {n_{i\downarrow}} + \sum_{j=1}^{L} \sum_{\nu=\uparrow,\downarrow} \epsilon_{j,\nu} n_{j,\nu} $$
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image.png" alt="Three Step Simulation" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Three Step Simulation</em></p>
+                    </div>
+
+                    <p>We will be using a lot of iSWAP which takes input as two qubits and simply exchanges the second and third term of given two qubits and also multiples by factor i, hence the name iSWAP:</p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image6.png" alt="iSWAP Gate" style="max-width: 20%; height: auto; border: 1px solid #ccc;">
+                        <p><em>iSWAP Gate</em></p>
+                    </div>
+
+                    <h3>The Initial State</h3>
+                    <p>The choice is of initial state is of utmost importance. Here first we will not consider the coulomb term. The two terms which we are left with are the one body terms. The off diagonal terms will be the tunneling terms and the diagonal terms will the local interaction term.</p>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image3.png" alt="A Givens Network Two Qubit Gate" style="max-width: 40%; height: auto; border: 1px solid #ccc;">
+                        <p><em>A Givens Network Two Qubit Gate</em></p>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image2.png" alt="Network of Givens Rotations" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Network of Givens Rotations</em></p>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image7.png" alt="Decomposition of Givens Two Qubit Gate" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Decomposition of Givens Two Qubit Gate</em></p>
+                    </div>
+
+                    <h3>Tunneling and Coulomb Gates</h3>
+                    <p>We will be using a two qubit gate called K($\theta$) which takes input the nearest neighbouring fermionic sites and performs the adiabatic evolution of the tunneling term.</p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image8.png" alt="Tunneling Gate" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Tunneling Gate</em></p>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image9.png" alt="Decomposition of Tunneling Gate" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Decomposition of Tunneling Gate</em></p>
+                    </div>
+
+                    <p>To simulate the Coulombic interaction term on the same fermionic site, we will be using a CPHASE gate as shown below.</p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image10.png" alt="CPHASE Gate" style="max-width: 40%; height: auto; border: 1px solid #ccc;">
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image11.png" alt="Decomposition of CPHASE Gate" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Decomposition of CPHASE Gate</em></p>
+                    </div>
+
+                    <h3>Five Stage Trotter Step</h3>
+                    <p>To do one full length trotter step of size $\tau$, we will need to go through five stages.</p>
+                    <ul>
+                        <li>The first stage is a series of two qubit K gates which help us adiabatically evolve the tunneling term for the Odd number of sites.</li>
+                        <li>The second stage adds the coulomb term using the PHASE gate on Odd number of sites.</li>
+                        <li>The third stage is the iSWAP gates. Due to geometric constraints on the processor, this gate is applied to the odd-numbered lattice sites in one stage and the even-numbered sites in another.</li>
+                        <li>The forth stage is evolving the Coulomb term on even sites.</li>
+                        <li>The fifth stage is evolving the tunneling term on even number of sites.</li>
+                    </ul>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="research_images/image5.png" alt="Five Stage Trotterization" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
+                        <p><em>Five Stage Trotterization</em></p>
+                    </div>
+
+                    <hr style="margin: 40px 0;">
+
+                    <h2>Spin Charge Seperation</h2>
+                    
+                    <h3>Bosonization of 1D Hubbard Model</h3>
+                    <p>To theoretically demonstrate spin-charge separation, we map the discrete 1D Fermi-Hubbard lattice model onto a continuous bosonic field theory.</p>
+                    
+                    <h4>The 1D Hubbard Model</h4>
+                    <p>We begin with the standard 1D Fermi-Hubbard Hamiltonian on a lattice of spacing $a$:</p>
+                    $$ H = -t \sum_{x, \sigma} \left( c^\dagger_{x,\sigma} c_{x+a,\sigma} + \text{h.c.} \right) + U \sum_x n_{x,\uparrow} n_{x,\downarrow} $$
+                    
+                    <h4>The Continuum Limit and Linearization</h4>
+                    <p>At low temperatures, only electrons near the Fermi points ($\pm k_F$) are active. We take the continuum limit ($a \to 0$) and expand the fermionic operator into "Right-moving" ($R$) and "Left-moving" ($L$) fields:</p>
+                    $$ \psi_\sigma(x) \approx e^{i k_F x} R_\sigma(x) + e^{-i k_F x} L_\sigma(x) $$
+                    
+                    <h4>The Bosonization Identity</h4>
+                    <p>We express the fermionic operators $R$ and $L$ as exponentials of continuous bosonic phase fields. For each spin $\sigma$, we define a field $\phi_\sigma(x)$ (related to density) and its conjugate momentum field $\theta_\sigma(x)$ (related to current):</p>
+                    $$ \begin{aligned} R_\sigma(x) &= \frac{\eta_\sigma}{\sqrt{2\pi \alpha}} e^{i\sqrt{\pi} [ \phi_\sigma(x) - \theta_\sigma(x) ]} \\ L_\sigma(x) &= \frac{\eta_\sigma}{\sqrt{2\pi \alpha}} e^{-i\sqrt{\pi} [ \phi_\sigma(x) + \theta_\sigma(x) ]} \end{aligned} $$
+
+                    <h4>Separation of the Hamiltonian</h4>
+                    <p>Combining the kinetic and interaction terms ($H = H_0 + H_{int}$), the cross-terms sort entirely into separate charge and spin sectors, establishing mathematical independence:</p>
+                    $$ H = H_{charge} + H_{spin} $$
+                    
+                    <p><strong>The Charge Sector</strong></p>
+                    $$ H_{charge} = \frac{1}{2} \int dx \left[ \left( v_F + \frac{U}{\pi} \right) (\partial_x \phi_c)^2 + v_F (\partial_x \theta_c)^2 \right] $$
+                    <!--
+                    <p><strong>The Spin Sector</strong></p>
+                    $$ H_{spin} = \frac{1}{2} \int dx \left[ \left( v_F - \frac{U}{\pi} \right) (\partial_x \phi_s)^2 + v_F (\partial_x \theta_s)^2 \right] $$
+                    
+                    <p><strong>Conclusion:</strong><br>
+                    The Coulomb repulsion $U$ adds to the kinetic energy gradient in the charge sector but subtracts from it in the spin sector, explicitly proving that $v_c > v_s$. The charge and spin wave equations completely decouple.</p>
+                    -->
+                </div>
+                
             </section>
+
         </div>
 
         <script>
