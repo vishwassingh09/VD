@@ -473,3 +473,14 @@ body.dark-mode .active-day:hover { background-color: #444; }
         font-size: 0.8em;
     }
 }
+/* Health news formatting */
+.news-content ul {
+  display: inline-block;   /* shrink-wraps the list to its content width */
+  text-align: left;        /* keep text/bullets aligned to each other */
+  margin: 0 auto 1.2em;    /* centers the whole block on the page */
+  padding-left: 1.5em;     /* normal bullet indent */
+}
+
+.news-content li {
+  margin-bottom: 0.4em;
+}
