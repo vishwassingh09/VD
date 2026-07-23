@@ -484,3 +484,22 @@ body.dark-mode .active-day:hover { background-color: #444; }
 .news-content li {
   margin-bottom: 0.4em;
 }
+
+
+/* for pdf output*/
+@page {
+    size: 297mm 420mm; /* A3 Print Size */
+    margin: 10mm;
+}
+
+.front-page-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4-column layout */
+    gap: 12px;
+}
+
+.article-body {
+    column-count: 3; /* Multi-column news flow */
+    column-gap: 15px;
+    text-align: justify;
+}
