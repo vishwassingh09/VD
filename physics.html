@@ -154,30 +154,266 @@
                         </div>
 
                         <!-- Electricity -->
+
+                        <!-- Electrostatics -->
                         <div id="phys-electrostatics" class="school-note-section">
                             <h2>Electrostatics</h2>
-                            <p>The study of stationary electric charges, Coulomb's Law, electric fields, and Gauss's Law.</p>
+                            <p>Electrostatics deals with the study of forces, fields, and potentials arising from static charges. This forms the foundation for electromagnetism.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">1. Coulomb's Law</h3>
+                            <p>Coulomb's law states that the electrostatic force between two point charges is directly proportional to the product of the magnitudes of charges and inversely proportional to the square of the distance between them.</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$F = \frac{1}{4\pi\epsilon_0} \frac{q_1 q_2}{r^2}$$
+                            </p>
+                            <p><strong>Vector Form:</strong> The force on charge $q_2$ due to $q_1$ is given by:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\vec{F}_{12} = \frac{1}{4\pi\epsilon_0} \frac{q_1 q_2}{r^2} \hat{r}_{12}$$
+                            </p>
+                            <p>Where $\epsilon_0$ is the permittivity of free space ($\approx 8.854 \times 10^{-12} \text{ C}^2\text{N}^{-1}\text{m}^{-2}$).</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">2. Electric Field and Potential</h3>
+                            <p><strong>Electric Field (E):</strong> The electrostatic force experienced per unit positive test charge. For a point charge $q$ at a distance $r$:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\vec{E} = \frac{\vec{F}}{q_0} = \frac{1}{4\pi\epsilon_0} \frac{q}{r^2} \hat{r}$$
+                            </p>
+                            
+                            <p><strong>Electric Potential (V):</strong> The work done by an external force in bringing a unit positive charge from infinity to a point. For a point charge $q$:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$V = \frac{1}{4\pi\epsilon_0} \frac{q}{r}$$
+                            </p>
+
+                            <p><strong>Relation between E and V:</strong> The electric field is the negative gradient of the electric potential.</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\vec{E} = -\nabla V = -\left( \frac{\partial V}{\partial x}\hat{i} + \frac{\partial V}{\partial y}\hat{j} + \frac{\partial V}{\partial z}\hat{k} \right)$$
+                            </p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">3. Electric Dipole</h3>
+                            <p>A system of two equal and opposite charges ($+q$ and $-q$) separated by a small distance ($2a$). The dipole moment $\vec{p}$ is a vector directed from $-q$ to $+q$ with magnitude $p = q(2a)$.</p>
+
+                            <p><strong>Torque in a Uniform Electric Field:</strong> When placed in a uniform field $\vec{E}$, the net force is zero, but the charges experience equal and opposite forces creating a couple. The torque ($\tau$) is the cross product of dipole moment and electric field:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\vec{\tau} = \vec{p} \times \vec{E} \implies \tau = pE \sin\theta$$
+                            </p>
+
+                            <p><strong>Potential Energy of a Dipole:</strong> The work done in rotating a dipole from an angle $\theta_1$ to $\theta_2$ is stored as potential energy ($U$). Taking standard reference at $90^\circ$:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$U = -\vec{p} \cdot \vec{E} = -pE \cos\theta$$
+                            </p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">4. Gauss's Law</h3>
+                            <p><strong>Electric Flux ($\Phi_E$):</strong> The measure of electric field lines crossing a given surface area. For a uniform electric field and a planar area vector $\vec{A}$:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\Phi_E = \int \vec{E} \cdot d\vec{A}$$
+                            </p>
+
+                            <p><strong>Gauss's Theorem:</strong> The total electric flux through any closed surface is equal to $1/\epsilon_0$ times the net charge enclosed by the surface.</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\oint \vec{E} \cdot d\vec{A} = \frac{q_{\text{enclosed}}}{\epsilon_0}$$
+                            </p>
+                            <p><em>Exam Note:</em> Gauss's Law is primarily useful for finding electric fields for highly symmetric charge distributions (e.g., infinite line charge, infinite plane sheet, spherical shells).</p>
                         </div>
+
+
+<!-- Current Electricity -->
                         <div id="phys-current" class="school-note-section">
                             <h2>Current Electricity</h2>
-                            <p>The dynamics of moving charges in conductors, Ohm's law, electrical resistance, and complex circuit analysis using Kirchhoff's rules.</p>
+                            <p>The study of electric current in conductors, encompassing the dynamics of moving charges, resistance, and complex circuit analysis.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">1. Electric Current and Drift Speed</h3>
+                            <p>Electric current is the rate of flow of charge. In a conductor, electrons move with an average velocity called drift speed ($v_d$) when an electric field is applied.</p>
+                            <p>The relation between current ($I$) and drift speed is:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$I = neAv_d$$
+                            </p>
+                            <p>Where $n$ is number density of electrons, $e$ is elementary charge, and $A$ is the cross-sectional area.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">2. Ohm's Law and Resistivity</h3>
+                            <p>Ohm's Law states that voltage across a conductor is directly proportional to the current flowing through it, provided temperature remains constant.</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$V = IR$$
+                            </p>
+                            <p>The microscopic form relating current density ($\vec{J}$) and electric field ($\vec{E}$) is $\vec{J} = \sigma\vec{E}$, where $\sigma$ is conductivity.</p>
+                            <p><strong>Temperature Dependence of Resistivity:</strong> Resistivity ($\rho$) changes with temperature ($T$) according to the empirical formula:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\rho = \rho_0 [1 + \alpha(T - T_0)]$$
+                            </p>
+                            <p>Where $\alpha$ is the temperature coefficient of resistivity.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">3. Kirchhoff's Laws</h3>
+                            <p>Essential for analyzing complex electrical circuits:</p>
+                            <ul>
+                                <li><strong>Junction Rule (KCL):</strong> The algebraic sum of currents at any junction is zero ($\sum I = 0$). This is based on the conservation of charge.</li>
+                                <li><strong>Loop Rule (KVL):</strong> The algebraic sum of changes in potential around any closed loop is zero ($\sum \Delta V = 0$). This is based on the conservation of energy.</li>
+                            </ul>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">4. Wheatstone Bridge</h3>
+                            <p>A specific arrangement of four resistors used to determine an unknown resistance. In the balanced condition (no current through the galvanometer), the ratio of the arms is equal:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$\frac{R_1}{R_2} = \frac{R_3}{R_4}$$
+                            </p>
                         </div>
+
+                        <!-- Capacitor -->
                         <div id="phys-capacitor" class="school-note-section">
-                            <h2>Capacitor</h2>
-                            <p>Devices that store electrical energy in an electric field, their capacitance, and their behavior in series and parallel combinations.</p>
+                            <h2>Capacitors</h2>
+                            <p>Devices designed to store electrical energy and charge in an electric field.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">1. Capacitor and Capacitance</h3>
+                            <p>Capacitance ($C$) is the ratio of the charge ($Q$) on either conductor to the potential difference ($V$) between them.</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$C = \frac{Q}{V}$$
+                            </p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">2. Parallel-Plate Capacitor</h3>
+                            <p>The most common type of capacitor. For plates of area $A$ separated by a distance $d$ in a vacuum, the calculation of capacitance yields:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$C_0 = \frac{\epsilon_0 A}{d}$$
+                            </p>
+                            <p><strong>With a Dielectric:</strong> When a dielectric material of constant $K$ fills the space, the capacitance increases:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$C = K C_0 = \frac{K \epsilon_0 A}{d}$$
+                            </p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">3. Combination of Capacitors</h3>
+                            <p>Capacitors can be grouped in circuits to achieve a desired equivalent capacitance:</p>
+                            <ul>
+                                <li><strong>Series Combination:</strong> Charge remains constant across all capacitors. The equivalent capacitance is given by:
+                                    <p style="text-align: center; font-size: 1.2em;">$$\frac{1}{C_{eq}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n}$$</p>
+                                </li>
+                                <li><strong>Parallel Combination:</strong> Voltage remains constant across all capacitors. The equivalent capacitance is given by:
+                                    <p style="text-align: center; font-size: 1.2em;">$$C_{eq} = C_1 + C_2 + \dots + C_n$$</p>
+                                </li>
+                            </ul>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">4. Energy Stored and Energy Density</h3>
+                            <p>The work done in charging a capacitor is stored as electrostatic potential energy ($U$). It can be calculated as:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$U = \frac{1}{2}CV^2 = \frac{Q^2}{2C} = \frac{1}{2}QV$$
+                            </p>
+                            <p><strong>Energy Density ($u$):</strong> The energy stored per unit volume in the electric field between the plates is:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$u = \frac{1}{2}\epsilon_0 E^2$$
+                            </p>
                         </div>
+
+                        <!-- Moving Charges and Magnetism -->
                         <div id="phys-moving-charges" class="school-note-section">
                             <h2>Moving Charges and Magnetism</h2>
-                            <p>How electric currents generate magnetic fields, the Biot-Savart law, Ampere's law, and the magnetic force on moving charges.</p>
+                            <p>This section explores the Definition of Magnetic Field $\vec{B}$, the Relation between Electric and Magnetic Fields, and the Motion of a Charged Particle in a Uniform Magnetic Field.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">1. Magnetic Force</h3>
+                            <ul>
+                                <li><strong>On a moving charge:</strong> A charge $q$ moving with velocity $\vec{v}$ in a magnetic field $\vec{B}$ experiences a force given by $\vec{F} = q(\vec{v} \times \vec{B})$.</li>
+                                <li><strong>On a current-carrying wire:</strong> The Magnetic Force on a Current-carrying Wire of length $\vec{l}$ and current $I$ is calculated as $\vec{F} = I(\vec{l} \times \vec{B})$.</li>
+                                <li><strong>Torque:</strong> The Torque on a Current Loop is given by $\vec{\tau} = \vec{m} \times \vec{B}$, where $\vec{m}$ is the magnetic moment.</li>
+                            </ul>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">2. Magnetic Field due to a Current</h3>
+                            <ul>
+                                <li><strong>Biot-Savart Law:</strong> Determines the magnetic field $d\vec{B}$ generated by a differential current element $Id\vec{l}$.
+                                    <p style="text-align: center; font-size: 1.2em;">$$d\vec{B} = \frac{\mu_0}{4\pi} \frac{I d\vec{l} \times \hat{r}}{r^2}$$</p>
+                                </li>
+                                <li><strong>Ampere's Law:</strong> States that the line integral of the magnetic field around any closed loop is equal to $\mu_0$ times the enclosed current. 
+                                    <p style="text-align: center; font-size: 1.2em;">$$\oint \vec{B} \cdot d\vec{l} = \mu_0 I_{\text{enc}}$$</p>
+                                </li>
+                            </ul>
+
+                            <h3 style="color: var(--accent-color, #007bff);">3. Key Applications</h3>
+                            <ul>
+                                <li>Derivations for the Magnetic Field due to Current in a Straight Wire and the Field due to a Circular Current.</li>
+                                <li>Calculating the Force between Parallel Currents, which is historically used to define the Ampere.</li>
+                                <li>Determining the magnetic field inside a Solenoid and a Toroid using Ampere's Law.</li>
+                            </ul>
                         </div>
+
+                        <!-- Magnetism and Matter -->
                         <div id="phys-magnetism" class="school-note-section">
                             <h2>Magnetism and Matter</h2>
-                            <p>The magnetic properties of materials, Earth's magnetism, and the classification of substances into dia-, para-, and ferromagnetic.</p>
+                            <p>This chapter studies Permanent Magnets, including Magnetic Poles and Bar Magnets, and the underlying Magnetic Properties of Matter.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">1. Permanent Magnets & Earth's Field</h3>
+                            <ul>
+                                <li><strong>Bar Magnets:</strong> Core concepts include calculating the Torque on a Bar Magnet Placed in a Magnetic Field, the Magnetic Field due to a Bar Magnet, and understanding Magnetic Scalar Potential.</li>
+                                <li><strong>Earth's Magnetism:</strong> Encompasses Terrestrial Magnetism, the Determination of Dip at a Place, and identifying a Neutral Point.</li>
+                                <li><strong>Gauss's Law for Magnetism:</strong> States that the net magnetic flux through any closed surface is zero ($\oint \vec{B} \cdot d\vec{A} = 0$), implying magnetic monopoles do not exist.</li>
+                            </ul>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">2. Measuring Instruments</h3>
+                            <ul>
+                                <li>Operational principles of the Tangent Galvanometer, Moving-coil Galvanometer, and Deflection Magnetometer.</li>
+                                <li>Galvanometer modifications involve calculating and applying a Shunt resistor.</li>
+                            </ul>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">3. Magnetic Properties of Matter</h3>
+                            <ul>
+                                <li><strong>Key Metrics:</strong> Defining Magnetization of Materials: Intensity of Magnetization, Magnetic Intensity $H$, Magnetic Susceptibility, and Permeability.</li>
+                                <li><strong>Classification:</strong> Studying the Properties of Dia-, Para- and Ferromagnetic Substances.</li>
+                                <li><strong>Laws and Effects:</strong> Exploring Curie's Law, Hysteresis, and the practical differences between Soft Iron and Steel.</li>
+                            </ul>
                         </div>
+
+                        <!-- Electromagnetic Induction -->
                         <div id="phys-emi" class="school-note-section">
                             <h2>Electromagnetic Induction</h2>
-                            <p>Faraday's and Lenz's laws describing how changing magnetic fields can induce an electromotive force (EMF) and current.</p>
+                            <p>The study of how changing magnetic environments can induce electromotive forces and currents.</p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">1. Fundamental Laws</h3>
+                            <ul>
+                                <li><strong>Faraday's Law of Electromagnetic Induction:</strong> The induced emf is equal to the negative rate of change of magnetic flux.
+                                    <p style="text-align: center; font-size: 1.2em;">$$\mathcal{E} = -\frac{d\Phi_B}{dt}$$</p>
+                                </li>
+                                <li><strong>Lenz's Law:</strong> Dictates that the direction of the induced current opposes the change in magnetic flux that produced it, aligning with the conservation of energy.</li>
+                                <li><strong>Origin:</strong> Explaining The Origin of Induced emf and the formation of Eddy Current in bulk conductors.</li>
+                            </ul>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3 style="color: var(--accent-color, #007bff);">2. Induction and Circuits</h3>
+                            <ul>
+                                <li><strong>Types of Induction:</strong> Definitions and formulas for Self-induction and Mutual Induction.</li>
+                                <li><strong>Energy:</strong> The Energy Stored in an Inductor is given by the formula $U = \frac{1}{2}LI^2$.</li>
+                                <li><strong>Transient Responses:</strong> Formulating the Growth and Decay of Current in an $LR$ Circuit.</li>
+                                <li><strong>Applications:</strong> Understanding the mechanics of the Induction Coil.</li>
+                            </ul>
                         </div>
+
+
                         <div id="phys-ac" class="school-note-section">
                             <h2>Alternating Current</h2>
                             <p>Electrical circuits where the current periodically reverses direction, analyzing impedance, resonance, and transformers.</p>
