@@ -7,37 +7,530 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header class="subject-header">
-        <a href="science.html" class="icon-btn" title="Back to Vigyan">⬅️</a>
-        <h1>Chemistry</h1>
-        <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <a href="science.html" class="icon-btn" title="Back to Vigyan" style="text-decoration: none;">⬅️</a>
+        <h1 style="margin: 0; font-size: 1.5em;">Chemistry</h1>
+        <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode" style="background: none; border: none; font-size: 1.5em; cursor: pointer;">🌙</button>
     </header>
 
-    <div class="container">
-        <section id="physical">
-            <h2>Physical Chemistry: The Ideal Gas Law</h2>
-            <p>Physical chemistry blends the principles of physics and chemistry to study the physical characteristics, or properties, of molecules. The equation of state of a hypothetical ideal gas is given by:</p>
-            <p style="text-align: center; font-size: 1.2em;">
-                $$PV = nRT$$
-            </p>
-        </section>
+    <div class="layout-container">
+        <!-- Navigation Sidebar -->
+        <nav class="sidebar" id="sidebar">
 
-        <hr>
+            <ul>
+                <!-- Top Left Home Access -->
+                <li style="margin-bottom: 15px; background: rgba(0, 123, 255, 0.05);">
+                    <a onclick="showSection('periodic-table-view')" style="font-weight: bold; color: var(--accent-color); font-size: 1.1em;">
+                        🏠 Periodic Table
+                    </a>
+                </li>
+            </ul>
 
-        <section id="thermodynamics">
-            <h2>Chemical Thermodynamics: Gibbs Free Energy</h2>
-            <p>Gibbs free energy is a thermodynamic potential that can be used to calculate the maximum reversible work that may be performed by a thermodynamic system at a constant temperature and pressure:</p>
-            <p style="text-align: center; font-size: 1.2em;">
-                $$\Delta G = \Delta H - T\Delta S$$
-            </p>
-        </section>
+            <h3>Physical Chemistry</h3>
+            <ul>
+                <li><a onclick="showSection('pc-concepts')">Some Basic Concepts of Chemistry</a></li>
+                <li><a onclick="showSection('pc-atom')">Structure of Atom</a></li>
+                <li><a onclick="showSection('pc-redox')">Redox Reactions</a></li>
+                <li><a onclick="showSection('pc-gaseous')">Gaseous State</a></li>
+                <li><a onclick="showSection('pc-chemeq')">Chemical Equilibrium</a></li>
+                <li><a onclick="showSection('pc-ioniceq')">Ionic Equilibrium</a></li>
+                <li><a onclick="showSection('pc-solutions')">Solutions</a></li>
+                <li><a onclick="showSection('pc-thermo')">Thermodynamics</a></li>
+                <li><a onclick="showSection('pc-electro')">Electrochemistry</a></li>
+                <li><a onclick="showSection('pc-kinetics')">Chemical Kinetics</a></li>
+                <li><a onclick="showSection('pc-nuclear')">Nuclear Chemistry</a></li>
+                <li><a onclick="showSection('pc-solid')">Solid State</a></li>
+                <li><a onclick="showSection('pc-surface')">Surface Chemistry</a></li>
+            </ul>
+
+            <h3>Organic Chemistry</h3>
+            <ul>
+                <li><a onclick="showSection('oc-concepts')">Some Basic Concepts of Organic Chemistry</a></li>
+                <li><a onclick="showSection('oc-hydro')">Hydrocarbons</a></li>
+                <li><a onclick="showSection('oc-halo')">Haloalkanes and Haloarenes</a></li>
+                <li><a onclick="showSection('oc-alcohols')">Alcohol, Phenols and Ethers</a></li>
+                <li><a onclick="showSection('oc-aldehydes')">Aldehydes, Ketones and Carboxylic Acids</a></li>
+                <li><a onclick="showSection('oc-nitrogen')">Organic Compounds Containing Nitrogen</a></li>
+                <li><a onclick="showSection('oc-polymers')">Polymers</a></li>
+                <li><a onclick="showSection('oc-biomolecules')">Biomolecules</a></li>
+                <li><a onclick="showSection('oc-everyday')">Chemistry in Everyday Life</a></li>
+            </ul>
+
+            <h3>Inorganic Chemistry</h3>
+            <ul>
+                <li><a onclick="showSection('ic-periodic')">Periodic Table and Periodicity</a></li>
+                <li><a onclick="showSection('ic-bonding')">Chemical Bonding and Molecular Structure</a></li>
+                <li><a onclick="showSection('ic-isolation')">Processes of Isolation of Elements</a></li>
+                <li><a onclick="showSection('ic-sblock')">s-Block Elements</a></li>
+                <li><a onclick="showSection('ic-hydrogen')">Hydrogen</a></li>
+                <li><a onclick="showSection('ic-pblock')">p-Block Elements</a></li>
+                <li><a onclick="showSection('ic-dfblock')">d and f Block Elements</a></li>
+                <li><a onclick="showSection('ic-coordination')">Coordination Compounds</a></li>
+                <li><a onclick="showSection('ic-environmental')">Environmental Chemistry</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Notes Area -->
+        <main class="main-content" onclick="closeSidebarOnMobile()">
+            
+            <!-- Default placeholder -->
+            <section id="default-view" class="note-section active">
+                <h2>Welcome to Chemistry Notes</h2>
+                <p>Select a topic from the sidebar</p>
+            </section>
+
+            <!-- NEW Interactive Periodic Table Front Page -->
+            <section id="periodic-table-view" class="note-section active">
+                <!-- New Element Modal -->
+                <div id="element-modal" class="modal-overlay" onclick="closeModal(event)">
+                    <div class="modal-content" onclick="event.stopPropagation()">
+                        <button class="close-btn" onclick="closeModal()">×</button>
+                        <h2 id="modal-title">Element</h2>
+                        
+                        <div class="modal-body">
+                            <div class="property-group">
+                                <h3>General Properties</h3>
+                                <div class="info-grid">
+                                    <div class="info-item"><span>Atomic Number</span> <strong id="info-num">-</strong></div>
+                                    <div class="info-item"><span>Symbol</span> <strong id="info-sym">-</strong></div>
+                                    <div class="info-item"><span>Atomic Mass</span> <strong id="info-mass">-</strong></div>
+                                    <div class="info-item"><span>Electron Config</span> <strong id="info-config">-</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="property-group">
+                                <h3>Physical Properties</h3>
+                                <div class="info-grid">
+                                    <div class="info-item"><span>State at STP</span> <strong id="info-state">-</strong></div>
+                                    <div class="info-item"><span>Melting Point</span> <strong id="info-melt">-</strong></div>
+                                    <div class="info-item"><span>Boiling Point</span> <strong id="info-boil">-</strong></div>
+                                    <div class="info-item"><span>Atomic Radius</span> <strong id="info-radius">-</strong></div>
+                                    <div class="info-item"><span>Ionization Energy</span> <strong id="info-energy">-</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="property-group">
+                                <h3>Nuclear Properties</h3>
+                                <div class="info-grid">
+                                    <div class="info-item"><span>Radioactive</span> <strong id="info-radio">-</strong></div>
+                                    <!-- You can add more nuclear properties here later -->
+                                    <p style="grid-column: 1 / -1; font-size: 0.9em; color: #888; font-style: italic;">Extended nuclear data coming soon...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="periodic-table" id="ptable-grid">
+                    <!-- Elements will be injected here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- PHYSICAL CHEMISTRY SECTIONS -->
+            <!-- ============================================== -->
+            <section id="pc-concepts" class="note-section">
+                <h2>Some Basic Concepts of Chemistry</h2>
+                <p>An introduction to the nature of matter, atomic mass, molecular mass, and the principles of stoichiometry.</p>
+            </section>
+
+            <section id="pc-atom" class="note-section">
+                <h2>Structure of Atom</h2>
+                <p>Exploration of subatomic particles, atomic models, quantum mechanics, and electron configurations.</p>
+            </section>
+
+            <section id="pc-redox" class="note-section">
+                <h2>Redox Reactions</h2>
+                <p>The study of oxidation and reduction processes, involving the transfer of electrons and changes in oxidation states.</p>
+            </section>
+
+            <section id="pc-gaseous" class="note-section">
+                <h2>Gaseous State</h2>
+                <p>The behavior, properties, and fundamental gas laws governing the physical state of gases.</p>
+                <p>The equation of state of a hypothetical ideal gas is given by:</p>
+                <p style="text-align: center; font-size: 1.2em;">
+                    $$PV = nRT$$
+                </p>
+            </section>
+
+            <section id="pc-chemeq" class="note-section">
+                <h2>Chemical Equilibrium</h2>
+                <p>The dynamic state where the rates of forward and reverse chemical reactions are perfectly balanced.</p>
+            </section>
+
+            <section id="pc-ioniceq" class="note-section">
+                <h2>Ionic Equilibrium</h2>
+                <p>The study of equilibrium involving ions in aqueous solutions, including weak acids, weak bases, and pH calculations.</p>
+            </section>
+
+            <section id="pc-solutions" class="note-section">
+                <h2>Solutions</h2>
+                <p>The properties of homogeneous mixtures, methods of expressing concentration, and colligative properties.</p>
+            </section>
+
+            <section id="pc-thermo" class="note-section">
+                <h2>Thermodynamics</h2>
+                <p>The study of energy transformations, heat, work, and the spontaneity of physical and chemical processes.</p>
+                <p>Gibbs free energy is a thermodynamic potential calculated as:</p>
+                <p style="text-align: center; font-size: 1.2em;">
+                    $$\Delta G = \Delta H - T\Delta S$$
+                </p>
+            </section>
+
+            <section id="pc-electro" class="note-section">
+                <h2>Electrochemistry</h2>
+                <p>The relationship between electrical energy and chemical change, encompassing both galvanic and electrolytic cells.</p>
+            </section>
+
+            <section id="pc-kinetics" class="note-section">
+                <h2>Chemical Kinetics</h2>
+                <p>The study of the rates at which chemical reactions occur and the mechanisms by which they proceed.</p>
+            </section>
+
+            <section id="pc-nuclear" class="note-section">
+                <h2>Nuclear Chemistry</h2>
+                <p>The study of reactions that involve changes in atomic nuclei, including radioactivity and nuclear transmutation.</p>
+            </section>
+
+            <section id="pc-solid" class="note-section">
+                <h2>Solid State</h2>
+                <p>The arrangement of constituent particles in crystalline solids and their structural properties.</p>
+            </section>
+
+            <section id="pc-surface" class="note-section">
+                <h2>Surface Chemistry</h2>
+                <p>The study of physical and chemical phenomena occurring at the interface of two phases, such as adsorption and catalysis.</p>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- ORGANIC CHEMISTRY SECTIONS -->
+            <!-- ============================================== -->
+            <section id="oc-concepts" class="note-section">
+                <h2>Some Basic Concepts of Organic Chemistry</h2>
+                <p>The fundamental principles underlying carbon compounds, including IUPAC nomenclature, reaction mechanisms, and isomerism.</p>
+            </section>
+
+            <section id="oc-hydro" class="note-section">
+                <h2>Hydrocarbons</h2>
+                <p>The comprehensive study of organic compounds composed entirely of carbon and hydrogen atoms.</p>
+            </section>
+
+            <section id="oc-halo" class="note-section">
+                <h2>Haloalkanes and Haloarenes</h2>
+                <p>Organic compounds where one or more hydrogen atoms have been replaced by halogen atoms in aliphatic and aromatic chains.</p>
+            </section>
+
+            <section id="oc-alcohols" class="note-section">
+                <h2>Alcohol, Phenols and Ethers</h2>
+                <p>The study of carbon compounds containing hydroxyl (-OH) groups and oxygen linkages between carbon atoms.</p>
+            </section>
+
+            <section id="oc-aldehydes" class="note-section">
+                <h2>Aldehydes, Ketones and Carboxylic Acids</h2>
+                <p>Important organic compounds characterized by the presence of a carbonyl (C=O) functional group.</p>
+            </section>
+
+            <section id="oc-nitrogen" class="note-section">
+                <h2>Organic Compounds Containing Nitrogen</h2>
+                <p>The chemistry of amines, diazonium salts, and other functional groups built around nitrogen atoms.</p>
+            </section>
+
+            <section id="oc-polymers" class="note-section">
+                <h2>Polymers</h2>
+                <p>The study of macromolecules formed by the repeated linkage of smaller repeating units called monomers.</p>
+            </section>
+
+            <section id="oc-biomolecules" class="note-section">
+                <h2>Biomolecules</h2>
+                <p>The complex organic compounds, such as carbohydrates, proteins, and nucleic acids, that form the basis of living organisms.</p>
+            </section>
+
+            <section id="oc-everyday" class="note-section">
+                <h2>Chemistry in Everyday Life</h2>
+                <p>The practical applications of chemical principles in daily products like medicines, food additives, and cleansing agents.</p>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- INORGANIC CHEMISTRY SECTIONS -->
+            <!-- ============================================== -->
+            <section id="ic-periodic" class="note-section">
+                <h2>Periodic Table and Periodicity</h2>
+                <p>The logical classification of elements and the recurring trends in their physical and chemical properties.</p>
+            </section>
+
+            <section id="ic-bonding" class="note-section">
+                <h2>Chemical Bonding and Molecular Structure</h2>
+                <p>The study of the forces holding atoms together and the principles determining the three-dimensional shapes of molecules.</p>
+            </section>
+
+            <section id="ic-isolation" class="note-section">
+                <h2>Processes of Isolation of Elements</h2>
+                <p>The general principles and metallurgical processes employed to extract pure metals from their natural ores.</p>
+            </section>
+
+            <section id="ic-sblock" class="note-section">
+                <h2>s-Block Elements</h2>
+                <p>The study of the highly reactive alkali and alkaline earth metals located in Groups 1 and 2 of the periodic table.</p>
+            </section>
+
+            <section id="ic-hydrogen" class="note-section">
+                <h2>Hydrogen</h2>
+                <p>The properties, preparation, and compounds of the simplest and most abundant element in the universe.</p>
+            </section>
+
+            <section id="ic-pblock" class="note-section">
+                <h2>p-Block Elements</h2>
+                <p>A diverse array of metals, metalloids, and non-metals encompassing Groups 13 through 18 of the periodic table.</p>
+            </section>
+
+            <section id="ic-dfblock" class="note-section">
+                <h2>d and f Block Elements</h2>
+                <p>The chemistry of transition and inner transition metals, noted for complex formation and variable oxidation states.</p>
+            </section>
+
+            <section id="ic-coordination" class="note-section">
+                <h2>Coordination Compounds</h2>
+                <p>The study of complex molecules where a central metallic ion is surrounded by electron-donating ligands.</p>
+            </section>
+
+            <section id="ic-environmental" class="note-section">
+                <h2>Environmental Chemistry</h2>
+                <p>The investigation of chemical processes occurring in natural environments and the mechanisms of pollution.</p>
+            </section>
+
+        </main>
     </div>
 
     <script>
         function toggleTheme() {
             document.body.classList.toggle("dark-mode");
         }
+
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById("sidebar").classList.remove("open");
+            }
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.note-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show target section
+            const target = document.getElementById(sectionId);
+            if(target) {
+                target.classList.add('active');
+            }
+            
+            // Close sidebar automatically on mobile after selection
+            closeSidebarOnMobile();
+        }
+
+        // Periodic Table Data & Logic
+        const elementsData = [
+        // Row 1
+        { num: 1, sym: 'H', name: 'Hydrogen', col: 1, row: 1, mass: '1.008', config: '1s¹', radius: '53 pm', energy: '13.598 eV', state: 'Gas', melt: '-259.1 °C', boil: '-252.9 °C', radio: 'No (Tritium is)' },
+        { num: 2, sym: 'He', name: 'Helium', col: 18, row: 1, mass: '4.0026', config: '1s²', radius: '31 pm', energy: '24.587 eV', state: 'Gas', melt: '-272.2 °C', boil: '-268.9 °C', radio: 'No' },
+
+        // Row 2
+        { num: 3, sym: 'Li', name: 'Lithium', col: 1, row: 2, mass: '6.94', config: '[He] 2s¹', radius: '167 pm', energy: '5.392 eV', state: 'Solid', melt: '180.5 °C', boil: '1342 °C', radio: 'No' },
+        { num: 4, sym: 'Be', name: 'Beryllium', col: 2, row: 2, mass: '9.0122', config: '[He] 2s²', radius: '112 pm', energy: '9.323 eV', state: 'Solid', melt: '1287 °C', boil: '2469 °C', radio: 'No' },
+        { num: 5, sym: 'B', name: 'Boron', col: 13, row: 2, mass: '10.81', config: '[He] 2s² 2p¹', radius: '87 pm', energy: '8.298 eV', state: 'Solid', melt: '2075 °C', boil: '3927 °C', radio: 'No' },
+        { num: 6, sym: 'C', name: 'Carbon', col: 14, row: 2, mass: '12.011', config: '[He] 2s² 2p²', radius: '67 pm', energy: '11.260 eV', state: 'Solid', melt: '3500 °C (sublimes)', boil: 'N/A', radio: 'No (C-14 is)' },
+        { num: 7, sym: 'N', name: 'Nitrogen', col: 15, row: 2, mass: '14.007', config: '[He] 2s² 2p³', radius: '56 pm', energy: '14.534 eV', state: 'Gas', melt: '-210.0 °C', boil: '-195.8 °C', radio: 'No' },
+        { num: 8, sym: 'O', name: 'Oxygen', col: 16, row: 2, mass: '15.999', config: '[He] 2s² 2p⁴', radius: '48 pm', energy: '13.618 eV', state: 'Gas', melt: '-218.8 °C', boil: '-183.0 °C', radio: 'No' },
+        { num: 9, sym: 'F', name: 'Fluorine', col: 17, row: 2, mass: '18.998', config: '[He] 2s² 2p⁵', radius: '42 pm', energy: '17.423 eV', state: 'Gas', melt: '-219.6 °C', boil: '-188.1 °C', radio: 'No' },
+        { num: 10, sym: 'Ne', name: 'Neon', col: 18, row: 2, mass: '20.180', config: '[He] 2s² 2p⁶', radius: '38 pm', energy: '21.565 eV', state: 'Gas', melt: '-248.6 °C', boil: '-246.0 °C', radio: 'No' },
+
+        // Row 3
+        { num: 11, sym: 'Na', name: 'Sodium', col: 1, row: 3, mass: '22.990', config: '[Ne] 3s¹', radius: '190 pm', energy: '5.139 eV', state: 'Solid', melt: '97.7 °C', boil: '883 °C', radio: 'No' },
+        { num: 12, sym: 'Mg', name: 'Magnesium', col: 2, row: 3, mass: '24.305', config: '[Ne] 3s²', radius: '145 pm', energy: '7.646 eV', state: 'Solid', melt: '650 °C', boil: '1090 °C', radio: 'No' },
+        { num: 13, sym: 'Al', name: 'Aluminum', col: 13, row: 3, mass: '26.982', config: '[Ne] 3s² 3p¹', radius: '118 pm', energy: '5.986 eV', state: 'Solid', melt: '660.3 °C', boil: '2470 °C', radio: 'No' },
+        { num: 14, sym: 'Si', name: 'Silicon', col: 14, row: 3, mass: '28.085', config: '[Ne] 3s² 3p²', radius: '111 pm', energy: '8.152 eV', state: 'Solid', melt: '1414 °C', boil: '3265 °C', radio: 'No' },
+        { num: 15, sym: 'P', name: 'Phosphorus', col: 15, row: 3, mass: '30.974', config: '[Ne] 3s² 3p³', radius: '98 pm', energy: '10.487 eV', state: 'Solid', melt: '44.1 °C (white)', boil: '280.5 °C (white)', radio: 'No' },
+        { num: 16, sym: 'S', name: 'Sulfur', col: 16, row: 3, mass: '32.06', config: '[Ne] 3s² 3p⁴', radius: '88 pm', energy: '10.360 eV', state: 'Solid', melt: '115.2 °C', boil: '444.6 °C', radio: 'No' },
+        { num: 17, sym: 'Cl', name: 'Chlorine', col: 17, row: 3, mass: '35.45', config: '[Ne] 3s² 3p⁵', radius: '79 pm', energy: '12.968 eV', state: 'Gas', melt: '-101.5 °C', boil: '-34.0 °C', radio: 'No' },
+        { num: 18, sym: 'Ar', name: 'Argon', col: 18, row: 3, mass: '39.948', config: '[Ne] 3s² 3p⁶', radius: '71 pm', energy: '15.760 eV', state: 'Gas', melt: '-189.3 °C', boil: '-185.8 °C', radio: 'No' },
+
+        // Row 4
+        { num: 19, sym: 'K', name: 'Potassium', col: 1, row: 4, mass: '39.098', config: '[Ar] 4s¹', radius: '243 pm', energy: '4.341 eV', state: 'Solid', melt: '63.5 °C', boil: '759 °C', radio: 'No (K-40 is)' },
+        { num: 20, sym: 'Ca', name: 'Calcium', col: 2, row: 4, mass: '40.078', config: '[Ar] 4s²', radius: '194 pm', energy: '6.113 eV', state: 'Solid', melt: '842 °C', boil: '1484 °C', radio: 'No' },
+        { num: 21, sym: 'Sc', name: 'Scandium', col: 3, row: 4, mass: '44.956', config: '[Ar] 3d¹ 4s²', radius: '184 pm', energy: '6.561 eV', state: 'Solid', melt: '1541 °C', boil: '2836 °C', radio: 'No' },
+        { num: 22, sym: 'Ti', name: 'Titanium', col: 4, row: 4, mass: '47.867', config: '[Ar] 3d² 4s²', radius: '176 pm', energy: '6.828 eV', state: 'Solid', melt: '1668 °C', boil: '3287 °C', radio: 'No' },
+        { num: 23, sym: 'V', name: 'Vanadium', col: 5, row: 4, mass: '50.942', config: '[Ar] 3d³ 4s²', radius: '171 pm', energy: '6.746 eV', state: 'Solid', melt: '1910 °C', boil: '3407 °C', radio: 'No' },
+        { num: 24, sym: 'Cr', name: 'Chromium', col: 6, row: 4, mass: '51.996', config: '[Ar] 3d⁵ 4s¹', radius: '166 pm', energy: '6.767 eV', state: 'Solid', melt: '1907 °C', boil: '2671 °C', radio: 'No' },
+        { num: 25, sym: 'Mn', name: 'Manganese', col: 7, row: 4, mass: '54.938', config: '[Ar] 3d⁵ 4s²', radius: '161 pm', energy: '7.434 eV', state: 'Solid', melt: '1246 °C', boil: '2061 °C', radio: 'No' },
+        { num: 26, sym: 'Fe', name: 'Iron', col: 8, row: 4, mass: '55.845', config: '[Ar] 3d⁶ 4s²', radius: '156 pm', energy: '7.902 eV', state: 'Solid', melt: '1538 °C', boil: '2862 °C', radio: 'No' },
+        { num: 27, sym: 'Co', name: 'Cobalt', col: 9, row: 4, mass: '58.933', config: '[Ar] 3d⁷ 4s²', radius: '152 pm', energy: '7.881 eV', state: 'Solid', melt: '1495 °C', boil: '2927 °C', radio: 'No' },
+        { num: 28, sym: 'Ni', name: 'Nickel', col: 10, row: 4, mass: '58.693', config: '[Ar] 3d⁸ 4s²', radius: '149 pm', energy: '7.640 eV', state: 'Solid', melt: '1455 °C', boil: '2730 °C', radio: 'No' },
+        { num: 29, sym: 'Cu', name: 'Copper', col: 11, row: 4, mass: '63.546', config: '[Ar] 3d¹⁰ 4s¹', radius: '145 pm', energy: '7.726 eV', state: 'Solid', melt: '1084.6 °C', boil: '2562 °C', radio: 'No' },
+        { num: 30, sym: 'Zn', name: 'Zinc', col: 12, row: 4, mass: '65.38', config: '[Ar] 3d¹⁰ 4s²', radius: '142 pm', energy: '9.394 eV', state: 'Solid', melt: '419.5 °C', boil: '907 °C', radio: 'No' },
+        { num: 31, sym: 'Ga', name: 'Gallium', col: 13, row: 4, mass: '69.723', config: '[Ar] 3d¹⁰ 4s² 4p¹', radius: '136 pm', energy: '6.000 eV', state: 'Solid (melts in hand)', melt: '29.76 °C', boil: '2204 °C', radio: 'No' },
+        { num: 32, sym: 'Ge', name: 'Germanium', col: 14, row: 4, mass: '72.630', config: '[Ar] 3d¹⁰ 4s² 4p²', radius: '125 pm', energy: '7.900 eV', state: 'Solid', melt: '938.2 °C', boil: '2833 °C', radio: 'No' },
+        { num: 33, sym: 'As', name: 'Arsenic', col: 15, row: 4, mass: '74.922', config: '[Ar] 3d¹⁰ 4s² 4p³', radius: '114 pm', energy: '9.789 eV', state: 'Solid', melt: '817 °C (sublimes)', boil: 'N/A', radio: 'No' },
+        { num: 34, sym: 'Se', name: 'Selenium', col: 16, row: 4, mass: '78.971', config: '[Ar] 3d¹⁰ 4s² 4p⁴', radius: '103 pm', energy: '9.752 eV', state: 'Solid', melt: '221 °C', boil: '685 °C', radio: 'No' },
+        { num: 35, sym: 'Br', name: 'Bromine', col: 17, row: 4, mass: '79.904', config: '[Ar] 3d¹⁰ 4s² 4p⁵', radius: '94 pm', energy: '11.814 eV', state: 'Liquid', melt: '-7.2 °C', boil: '58.8 °C', radio: 'No' },
+        { num: 36, sym: 'Kr', name: 'Krypton', col: 18, row: 4, mass: '83.798', config: '[Ar] 3d¹⁰ 4s² 4p⁶', radius: '88 pm', energy: '14.000 eV', state: 'Gas', melt: '-157.4 °C', boil: '-153.2 °C', radio: 'No' },
+
+        // Row 5
+        { num: 37, sym: 'Rb', name: 'Rubidium', col: 1, row: 5, mass: '85.468', config: '[Kr] 5s¹', radius: '265 pm', energy: '4.177 eV', state: 'Solid', melt: '39.3 °C', boil: '688 °C', radio: 'No' },
+        { num: 38, sym: 'Sr', name: 'Strontium', col: 2, row: 5, mass: '87.62', config: '[Kr] 5s²', radius: '219 pm', energy: '5.695 eV', state: 'Solid', melt: '777 °C', boil: '1382 °C', radio: 'No' },
+        { num: 39, sym: 'Y', name: 'Yttrium', col: 3, row: 5, mass: '88.906', config: '[Kr] 4d¹ 5s²', radius: '212 pm', energy: '6.217 eV', state: 'Solid', melt: '1522 °C', boil: '3338 °C', radio: 'No' },
+        { num: 40, sym: 'Zr', name: 'Zirconium', col: 4, row: 5, mass: '91.224', config: '[Kr] 4d² 5s²', radius: '206 pm', energy: '6.634 eV', state: 'Solid', melt: '1855 °C', boil: '4409 °C', radio: 'No' },
+        { num: 41, sym: 'Nb', name: 'Niobium', col: 5, row: 5, mass: '92.906', config: '[Kr] 4d⁴ 5s¹', radius: '198 pm', energy: '6.759 eV', state: 'Solid', melt: '2477 °C', boil: '4744 °C', radio: 'No' },
+        { num: 42, sym: 'Mo', name: 'Molybdenum', col: 6, row: 5, mass: '95.95', config: '[Kr] 4d⁵ 5s¹', radius: '190 pm', energy: '7.092 eV', state: 'Solid', melt: '2623 °C', boil: '4639 °C', radio: 'No' },
+        { num: 43, sym: 'Tc', name: 'Technetium', col: 7, row: 5, mass: '(98)', config: '[Kr] 4d⁵ 5s²', radius: '183 pm', energy: '7.280 eV', state: 'Solid', melt: '2157 °C', boil: '4265 °C', radio: 'Yes' },
+        { num: 44, sym: 'Ru', name: 'Ruthenium', col: 8, row: 5, mass: '101.07', config: '[Kr] 4d⁷ 5s¹', radius: '178 pm', energy: '7.361 eV', state: 'Solid', melt: '2334 °C', boil: '4150 °C', radio: 'No' },
+        { num: 45, sym: 'Rh', name: 'Rhodium', col: 9, row: 5, mass: '102.91', config: '[Kr] 4d⁸ 5s¹', radius: '173 pm', energy: '7.459 eV', state: 'Solid', melt: '1964 °C', boil: '3695 °C', radio: 'No' },
+        { num: 46, sym: 'Pd', name: 'Palladium', col: 10, row: 5, mass: '106.42', config: '[Kr] 4d¹⁰', radius: '169 pm', energy: '8.337 eV', state: 'Solid', melt: '1555 °C', boil: '2963 °C', radio: 'No' },
+        { num: 47, sym: 'Ag', name: 'Silver', col: 11, row: 5, mass: '107.87', config: '[Kr] 4d¹⁰ 5s¹', radius: '165 pm', energy: '7.576 eV', state: 'Solid', melt: '961.8 °C', boil: '2162 °C', radio: 'No' },
+        { num: 48, sym: 'Cd', name: 'Cadmium', col: 12, row: 5, mass: '112.41', config: '[Kr] 4d¹⁰ 5s²', radius: '161 pm', energy: '8.994 eV', state: 'Solid', melt: '321.1 °C', boil: '767 °C', radio: 'No' },
+        { num: 49, sym: 'In', name: 'Indium', col: 13, row: 5, mass: '114.82', config: '[Kr] 4d¹⁰ 5s² 5p¹', radius: '156 pm', energy: '5.786 eV', state: 'Solid', melt: '156.6 °C', boil: '2072 °C', radio: 'No' },
+        { num: 50, sym: 'Sn', name: 'Tin', col: 14, row: 5, mass: '118.71', config: '[Kr] 4d¹⁰ 5s² 5p²', radius: '145 pm', energy: '7.344 eV', state: 'Solid', melt: '231.9 °C', boil: '2602 °C', radio: 'No' },
+        { num: 51, sym: 'Sb', name: 'Antimony', col: 15, row: 5, mass: '121.76', config: '[Kr] 4d¹⁰ 5s² 5p³', radius: '133 pm', energy: '8.608 eV', state: 'Solid', melt: '630.6 °C', boil: '1587 °C', radio: 'No' },
+        { num: 52, sym: 'Te', name: 'Tellurium', col: 16, row: 5, mass: '127.60', config: '[Kr] 4d¹⁰ 5s² 5p⁴', radius: '123 pm', energy: '9.010 eV', state: 'Solid', melt: '449.5 °C', boil: '988 °C', radio: 'No' },
+        { num: 53, sym: 'I', name: 'Iodine', col: 17, row: 5, mass: '126.90', config: '[Kr] 4d¹⁰ 5s² 5p⁵', radius: '115 pm', energy: '10.451 eV', state: 'Solid', melt: '113.7 °C', boil: '184.3 °C', radio: 'No' },
+        { num: 54, sym: 'Xe', name: 'Xenon', col: 18, row: 5, mass: '131.29', config: '[Kr] 4d¹⁰ 5s² 5p⁶', radius: '108 pm', energy: '12.130 eV', state: 'Gas', melt: '-111.8 °C', boil: '-108.1 °C', radio: 'No' },
+
+        // Row 6 (Main Body)
+        { num: 55, sym: 'Cs', name: 'Cesium', col: 1, row: 6, mass: '132.91', config: '[Xe] 6s¹', radius: '298 pm', energy: '3.894 eV', state: 'Solid', melt: '28.5 °C', boil: '671 °C', radio: 'No' },
+        { num: 56, sym: 'Ba', name: 'Barium', col: 2, row: 6, mass: '137.33', config: '[Xe] 6s²', radius: '253 pm', energy: '5.212 eV', state: 'Solid', melt: '727 °C', boil: '1897 °C', radio: 'No' },
+        { num: 72, sym: 'Hf', name: 'Hafnium', col: 4, row: 6, mass: '178.49', config: '[Xe] 4f¹⁴ 5d² 6s²', radius: '208 pm', energy: '6.825 eV', state: 'Solid', melt: '2233 °C', boil: '4603 °C', radio: 'No' },
+        { num: 73, sym: 'Ta', name: 'Tantalum', col: 5, row: 6, mass: '180.95', config: '[Xe] 4f¹⁴ 5d³ 6s²', radius: '200 pm', energy: '7.550 eV', state: 'Solid', melt: '3017 °C', boil: '5458 °C', radio: 'No' },
+        { num: 74, sym: 'W', name: 'Tungsten', col: 6, row: 6, mass: '183.84', config: '[Xe] 4f¹⁴ 5d⁴ 6s²', radius: '193 pm', energy: '7.864 eV', state: 'Solid', melt: '3422 °C', boil: '5555 °C', radio: 'No' },
+        { num: 75, sym: 'Re', name: 'Rhenium', col: 7, row: 6, mass: '186.21', config: '[Xe] 4f¹⁴ 5d⁵ 6s²', radius: '188 pm', energy: '7.833 eV', state: 'Solid', melt: '3186 °C', boil: '5596 °C', radio: 'No' },
+        { num: 76, sym: 'Os', name: 'Osmium', col: 8, row: 6, mass: '190.23', config: '[Xe] 4f¹⁴ 5d⁶ 6s²', radius: '185 pm', energy: '8.438 eV', state: 'Solid', melt: '3033 °C', boil: '5012 °C', radio: 'No' },
+        { num: 77, sym: 'Ir', name: 'Iridium', col: 9, row: 6, mass: '192.22', config: '[Xe] 4f¹⁴ 5d⁷ 6s²', radius: '180 pm', energy: '8.967 eV', state: 'Solid', melt: '2446 °C', boil: '4130 °C', radio: 'No' },
+        { num: 78, sym: 'Pt', name: 'Platinum', col: 10, row: 6, mass: '195.08', config: '[Xe] 4f¹⁴ 5d⁹ 6s¹', radius: '177 pm', energy: '8.959 eV', state: 'Solid', melt: '1768 °C', boil: '3825 °C', radio: 'No' },
+        { num: 79, sym: 'Au', name: 'Gold', col: 11, row: 6, mass: '196.97', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s¹', radius: '174 pm', energy: '9.226 eV', state: 'Solid', melt: '1064 °C', boil: '2970 °C', radio: 'No' },
+        { num: 80, sym: 'Hg', name: 'Mercury', col: 12, row: 6, mass: '200.59', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s²', radius: '171 pm', energy: '10.438 eV', state: 'Liquid', melt: '-38.8 °C', boil: '356.7 °C', radio: 'No' },
+        { num: 81, sym: 'Tl', name: 'Thallium', col: 13, row: 6, mass: '204.38', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹', radius: '156 pm', energy: '6.108 eV', state: 'Solid', melt: '304 °C', boil: '1473 °C', radio: 'No' },
+        { num: 82, sym: 'Pb', name: 'Lead', col: 14, row: 6, mass: '207.2', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²', radius: '154 pm', energy: '7.417 eV', state: 'Solid', melt: '327.5 °C', boil: '1749 °C', radio: 'No' },
+        { num: 83, sym: 'Bi', name: 'Bismuth', col: 15, row: 6, mass: '208.98', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³', radius: '143 pm', energy: '7.286 eV', state: 'Solid', melt: '271.4 °C', boil: '1564 °C', radio: 'No (Extremely long half-life)' },
+        { num: 84, sym: 'Po', name: 'Polonium', col: 16, row: 6, mass: '(209)', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴', radius: '135 pm', energy: '8.414 eV', state: 'Solid', melt: '254 °C', boil: '962 °C', radio: 'Yes' },
+        { num: 85, sym: 'At', name: 'Astatine', col: 17, row: 6, mass: '(210)', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵', radius: '127 pm', energy: '9.317 eV', state: 'Solid', melt: '302 °C', boil: '337 °C', radio: 'Yes' },
+        { num: 86, sym: 'Rn', name: 'Radon', col: 18, row: 6, mass: '(222)', config: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶', radius: '120 pm', energy: '10.749 eV', state: 'Gas', melt: '-71.1 °C', boil: '-61.7 °C', radio: 'Yes' },
+
+        // Row 7 (Main Body)
+        { num: 87, sym: 'Fr', name: 'Francium', col: 1, row: 7, mass: '(223)', config: '[Rn] 7s¹', radius: 'N/A', energy: '4.073 eV', state: 'Solid', melt: '27 °C', boil: '677 °C', radio: 'Yes' },
+        { num: 88, sym: 'Ra', name: 'Radium', col: 2, row: 7, mass: '(226)', config: '[Rn] 7s²', radius: 'N/A', energy: '5.278 eV', state: 'Solid', melt: '700 °C', boil: '1737 °C', radio: 'Yes' },
+        { num: 104, sym: 'Rf', name: 'Rutherfordium', col: 4, row: 7, mass: '(267)', config: '[Rn] 5f¹⁴ 6d² 7s²', radius: 'N/A', energy: '6.0 eV', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 105, sym: 'Db', name: 'Dubnium', col: 5, row: 7, mass: '(268)', config: '[Rn] 5f¹⁴ 6d³ 7s²', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 106, sym: 'Sg', name: 'Seaborgium', col: 6, row: 7, mass: '(269)', config: '[Rn] 5f¹⁴ 6d⁴ 7s²', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 107, sym: 'Bh', name: 'Bohrium', col: 7, row: 7, mass: '(270)', config: '[Rn] 5f¹⁴ 6d⁵ 7s²', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 108, sym: 'Hs', name: 'Hassium', col: 8, row: 7, mass: '(270)', config: '[Rn] 5f¹⁴ 6d⁶ 7s²', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 109, sym: 'Mt', name: 'Meitnerium', col: 9, row: 7, mass: '(278)', config: '[Rn] 5f¹⁴ 6d⁷ 7s²', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 110, sym: 'Ds', name: 'Darmstadtium', col: 10, row: 7, mass: '(281)', config: '[Rn] 5f¹⁴ 6d⁹ 7s¹', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 111, sym: 'Rg', name: 'Roentgenium', col: 11, row: 7, mass: '(282)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s¹', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 112, sym: 'Cn', name: 'Copernicium', col: 12, row: 7, mass: '(285)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s²', radius: 'N/A', energy: 'N/A', state: 'Synthetic (Likely Gas)', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 113, sym: 'Nh', name: 'Nihonium', col: 13, row: 7, mass: '(286)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 114, sym: 'Fl', name: 'Flerovium', col: 14, row: 7, mass: '(289)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 115, sym: 'Mc', name: 'Moscovium', col: 15, row: 7, mass: '(290)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 116, sym: 'Lv', name: 'Livermorium', col: 16, row: 7, mass: '(293)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 117, sym: 'Ts', name: 'Tennessine', col: 17, row: 7, mass: '(294)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+        { num: 118, sym: 'Og', name: 'Oganesson', col: 18, row: 7, mass: '(294)', config: '[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶', radius: 'N/A', energy: 'N/A', state: 'Synthetic', melt: 'N/A', boil: 'N/A', radio: 'Yes' },
+
+        // Row 9 (Lanthanides)
+        { num: 57, sym: 'La', name: 'Lanthanum', col: 4, row: 9, mass: '138.91', config: '[Xe] 5d¹ 6s²', radius: '235 pm', energy: '5.577 eV', state: 'Solid', melt: '920 °C', boil: '3464 °C', radio: 'No' },
+        { num: 58, sym: 'Ce', name: 'Cerium', col: 5, row: 9, mass: '140.12', config: '[Xe] 4f¹ 5d¹ 6s²', radius: '231 pm', energy: '5.539 eV', state: 'Solid', melt: '795 °C', boil: '3443 °C', radio: 'No' },
+        { num: 59, sym: 'Pr', name: 'Praseodymium', col: 6, row: 9, mass: '140.91', config: '[Xe] 4f³ 6s²', radius: '228 pm', energy: '5.473 eV', state: 'Solid', melt: '931 °C', boil: '3130 °C', radio: 'No' },
+        { num: 60, sym: 'Nd', name: 'Neodymium', col: 7, row: 9, mass: '144.24', config: '[Xe] 4f⁴ 6s²', radius: '226 pm', energy: '5.525 eV', state: 'Solid', melt: '1024 °C', boil: '3074 °C', radio: 'No' },
+        { num: 61, sym: 'Pm', name: 'Promethium', col: 8, row: 9, mass: '(145)', config: '[Xe] 4f⁵ 6s²', radius: '224 pm', energy: '5.582 eV', state: 'Solid', melt: '1042 °C', boil: '3000 °C', radio: 'Yes' },
+        { num: 62, sym: 'Sm', name: 'Samarium', col: 9, row: 9, mass: '150.36', config: '[Xe] 4f⁶ 6s²', radius: '222 pm', energy: '5.644 eV', state: 'Solid', melt: '1072 °C', boil: '1794 °C', radio: 'No' },
+        { num: 63, sym: 'Eu', name: 'Europium', col: 10, row: 9, mass: '151.96', config: '[Xe] 4f⁷ 6s²', radius: '220 pm', energy: '5.670 eV', state: 'Solid', melt: '822 °C', boil: '1529 °C', radio: 'No' },
+        { num: 64, sym: 'Gd', name: 'Gadolinium', col: 11, row: 9, mass: '157.25', config: '[Xe] 4f⁷ 5d¹ 6s²', radius: '219 pm', energy: '6.150 eV', state: 'Solid', melt: '1313 °C', boil: '3273 °C', radio: 'No' },
+        { num: 65, sym: 'Tb', name: 'Terbium', col: 12, row: 9, mass: '158.93', config: '[Xe] 4f⁹ 6s²', radius: '217 pm', energy: '5.864 eV', state: 'Solid', melt: '1356 °C', boil: '3230 °C', radio: 'No' },
+        { num: 66, sym: 'Dy', name: 'Dysprosium', col: 13, row: 9, mass: '162.50', config: '[Xe] 4f¹⁰ 6s²', radius: '215 pm', energy: '5.939 eV', state: 'Solid', melt: '1412 °C', boil: '2567 °C', radio: 'No' },
+        { num: 67, sym: 'Ho', name: 'Holmium', col: 14, row: 9, mass: '164.93', config: '[Xe] 4f¹¹ 6s²', radius: '214 pm', energy: '6.022 eV', state: 'Solid', melt: '1474 °C', boil: '2700 °C', radio: 'No' },
+        { num: 68, sym: 'Er', name: 'Erbium', col: 15, row: 9, mass: '167.26', config: '[Xe] 4f¹² 6s²', radius: '212 pm', energy: '6.108 eV', state: 'Solid', melt: '1529 °C', boil: '2868 °C', radio: 'No' },
+        { num: 69, sym: 'Tm', name: 'Thulium', col: 16, row: 9, mass: '168.93', config: '[Xe] 4f¹³ 6s²', radius: '211 pm', energy: '6.184 eV', state: 'Solid', melt: '1545 °C', boil: '1950 °C', radio: 'No' },
+        { num: 70, sym: 'Yb', name: 'Ytterbium', col: 17, row: 9, mass: '173.05', config: '[Xe] 4f¹⁴ 6s²', radius: '210 pm', energy: '6.254 eV', state: 'Solid', melt: '824 °C', boil: '1196 °C', radio: 'No' },
+        { num: 71, sym: 'Lu', name: 'Lutetium', col: 18, row: 9, mass: '174.97', config: '[Xe] 4f¹⁴ 5d¹ 6s²', radius: '209 pm', energy: '5.426 eV', state: 'Solid', melt: '1663 °C', boil: '3402 °C', radio: 'No' },
+
+        // Row 10 (Actinides)
+        { num: 89, sym: 'Ac', name: 'Actinium', col: 4, row: 10, mass: '(227)', config: '[Rn] 6d¹ 7s²', radius: '247 pm', energy: '5.17 eV', state: 'Solid', melt: '1050 °C', boil: '3198 °C', radio: 'Yes' },
+        { num: 90, sym: 'Th', name: 'Thorium', col: 5, row: 10, mass: '232.04', config: '[Rn] 6d² 7s²', radius: '243 pm', energy: '6.08 eV', state: 'Solid', melt: '1750 °C', boil: '4788 °C', radio: 'Yes' },
+        { num: 91, sym: 'Pa', name: 'Protactinium', col: 6, row: 10, mass: '231.04', config: '[Rn] 5f² 6d¹ 7s²', radius: '240 pm', energy: '5.89 eV', state: 'Solid', melt: '1568 °C', boil: '4027 °C', radio: 'Yes' },
+        { num: 92, sym: 'U', name: 'Uranium', col: 7, row: 10, mass: '238.03', config: '[Rn] 5f³ 6d¹ 7s²', radius: '237 pm', energy: '6.194 eV', state: 'Solid', melt: '1132 °C', boil: '4131 °C', radio: 'Yes' },
+        { num: 93, sym: 'Np', name: 'Neptunium', col: 8, row: 10, mass: '(237)', config: '[Rn] 5f⁴ 6d¹ 7s²', radius: '234 pm', energy: '6.266 eV', state: 'Solid', melt: '644 °C', boil: '3902 °C', radio: 'Yes' },
+        { num: 94, sym: 'Pu', name: 'Plutonium', col: 9, row: 10, mass: '(244)', config: '[Rn] 5f⁶ 7s²', radius: '231 pm', energy: '6.026 eV', state: 'Solid', melt: '640 °C', boil: '3228 °C', radio: 'Yes' },
+        { num: 95, sym: 'Am', name: 'Americium', col: 10, row: 10, mass: '(243)', config: '[Rn] 5f⁷ 7s²', radius: '228 pm', energy: '5.974 eV', state: 'Solid', melt: '1176 °C', boil: '2607 °C', radio: 'Yes' },
+        { num: 96, sym: 'Cm', name: 'Curium', col: 11, row: 10, mass: '(247)', config: '[Rn] 5f⁷ 6d¹ 7s²', radius: '225 pm', energy: '5.991 eV', state: 'Solid', melt: '1340 °C', boil: '3110 °C', radio: 'Yes' },
+        { num: 97, sym: 'Bk', name: 'Berkelium', col: 12, row: 10, mass: '(247)', config: '[Rn] 5f⁹ 7s²', radius: '223 pm', energy: '6.198 eV', state: 'Solid', melt: '986 °C', boil: '2627 °C', radio: 'Yes' },
+        { num: 98, sym: 'Cf', name: 'Californium', col: 13, row: 10, mass: '(251)', config: '[Rn] 5f¹⁰ 7s²', radius: '221 pm', energy: '6.281 eV', state: 'Solid', melt: '900 °C', boil: '1470 °C', radio: 'Yes' },
+        { num: 99, sym: 'Es', name: 'Einsteinium', col: 14, row: 10, mass: '(252)', config: '[Rn] 5f¹¹ 7s²', radius: '219 pm', energy: '6.42 eV', state: 'Solid', melt: '860 °C', boil: '996 °C', radio: 'Yes' },
+        { num: 100, sym: 'Fm', name: 'Fermium', col: 15, row: 10, mass: '(257)', config: '[Rn] 5f¹² 7s²', radius: '217 pm', energy: '6.50 eV', state: 'Synthetic', melt: '1527 °C', boil: 'N/A', radio: 'Yes' },
+        { num: 101, sym: 'Md', name: 'Mendelevium', col: 16, row: 10, mass: '(258)', config: '[Rn] 5f¹³ 7s²', radius: '215 pm', energy: '6.58 eV', state: 'Synthetic', melt: '827 °C', boil: 'N/A', radio: 'Yes' },
+        { num: 102, sym: 'No', name: 'Nobelium', col: 17, row: 10, mass: '(259)', config: '[Rn] 5f¹⁴ 7s²', radius: '213 pm', energy: '6.65 eV', state: 'Synthetic', melt: '827 °C', boil: 'N/A', radio: 'Yes' },
+        { num: 103, sym: 'Lr', name: 'Lawrencium', col: 18, row: 10, mass: '(266)', config: '[Rn] 5f¹⁴ 7s² 7p¹', radius: '211 pm', energy: '4.9 eV', state: 'Synthetic', melt: '1627 °C', boil: 'N/A', radio: 'Yes' }
+        ];
+
+        function getBlockClass(num, col, row) {
+        if (row === 9 || row === 10) return 'block-f';
+        if (col === 1 || col === 2 || num === 2) return 'block-s';
+        if (col >= 3 && col <= 12) return 'block-d';
+        if (col >= 13 && col <= 18) return 'block-p';
+        return '';
+        }
+
+        function buildPeriodicTable() {
+        const grid = document.getElementById('ptable-grid');
+
+        elementsData.forEach(el => {
+        const elDiv = document.createElement('div');
+        const blockClass = getBlockClass(el.num, el.col, el.row);
+        elDiv.className = `element ${blockClass}`;
+
+        elDiv.style.gridColumn = el.col;
+        elDiv.style.gridRow = el.row;
+
+        elDiv.innerHTML = `
+        <div class="number">${el.num}</div>
+        <div class="symbol">${el.sym}</div>
+        <div class="mass">${el.mass}</div>
+        `;
+
+        elDiv.addEventListener('click', () => updateElementInfo(el));
+        grid.appendChild(elDiv);
+        });
+        }
+
+        function updateElementInfo(el) {
+        // Populate the modal with the new extended data
+        document.getElementById('modal-title').innerText = `${el.num} - ${el.name}`;
+        document.getElementById('info-num').innerText = el.num;
+        document.getElementById('info-sym').innerText = el.sym;
+        document.getElementById('info-mass').innerText = el.mass;
+        document.getElementById('info-config').innerText = el.config;
+        document.getElementById('info-state').innerText = el.state;
+        document.getElementById('info-melt').innerText = el.melt;
+        document.getElementById('info-boil').innerText = el.boil;
+        document.getElementById('info-radius').innerText = el.radius;
+        document.getElementById('info-energy').innerText = el.energy;
+        document.getElementById('info-radio').innerText = el.radio;
+
+        // Show the modal
+        document.getElementById('element-modal').classList.add('show');
+        }
+
+        function closeModal(event) {
+        // If event is provided, only close if clicking outside the modal content
+        if (event && event.target.id !== 'element-modal') return;
+        document.getElementById('element-modal').classList.remove('show');
+        }
+
+        document.addEventListener('DOMContentLoaded', buildPeriodicTable);
+
     </script>
 </body>
 </html>
