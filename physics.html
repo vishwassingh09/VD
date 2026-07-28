@@ -20,6 +20,8 @@
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         
         <link rel="stylesheet" href="style.css">
+
+        
     </head>
 
     <body>
@@ -29,7 +31,7 @@
             <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
         </header>
 
-
+        
         <div class="container">
             
             <div class="tab-box">
@@ -47,12 +49,168 @@
                 </p>
             </section>
 
+            <!-- ============================================== -->
+            <!-- UPDATED SCHOOL PHYSICS SECTION -->
+            <!-- ============================================== -->
             <section id="school-physics" class="tab-content">
-                <h2>School Physics</h2>
-                <p>At the high school level, classical mechanics introduces us to the equations of motion. For an object under constant acceleration, the final velocity can be calculated using this kinematic formula:</p>
-                <p style="text-align: center; font-size: 1.2em;">
-                    $$v^2 = u^2 + 2as$$
-                </p>
+                <div class="school-layout-container">
+                    
+                    <!-- Nested Sidebar -->
+                    <nav class="school-sidebar">
+                        <ul>
+                            <li><a onclick="showSchoolSection('phys-intro')" style="font-weight: bold;">🏠 School Home</a></li>
+                            
+                            <li class="section-header">Mechanics</li>
+                            <li><a onclick="showSchoolSection('phys-units')">Units & Measurement</a></li>
+                            <li><a onclick="showSchoolSection('phys-straight')">Motion in a Straight Line</a></li>
+                            <li><a onclick="showSchoolSection('phys-plane')">Motion in a Plane</a></li>
+                            <li><a onclick="showSchoolSection('phys-laws')">Laws of Motion</a></li>
+                            <li><a onclick="showSchoolSection('phys-work')">Work, Energy and Power</a></li>
+                            <li><a onclick="showSchoolSection('phys-com')">Center of Mass and Collision</a></li>
+                            <li><a onclick="showSchoolSection('phys-rotation')">Rotational Motion</a></li>
+                            <li><a onclick="showSchoolSection('phys-gravitation')">Gravitation</a></li>
+                            <li><a onclick="showSchoolSection('phys-properties')">Properties of Matter</a></li>
+                            <li><a onclick="showSchoolSection('phys-thermo')">Heat and Thermodynamics</a></li>
+                            <li><a onclick="showSchoolSection('phys-oscillations')">Oscillations</a></li>
+                            <li><a onclick="showSchoolSection('phys-waves')">Waves</a></li>
+
+                            <li class="section-header">Electricity</li>
+                            <li><a onclick="showSchoolSection('phys-electrostatics')">Electrostatics</a></li>
+                            <li><a onclick="showSchoolSection('phys-current')">Current Electricity</a></li>
+                            <li><a onclick="showSchoolSection('phys-capacitor')">Capacitor</a></li>
+                            <li><a onclick="showSchoolSection('phys-moving-charges')">Moving Charges and Magnetism</a></li>
+                            <li><a onclick="showSchoolSection('phys-magnetism')">Magnetism and Matter</a></li>
+                            <li><a onclick="showSchoolSection('phys-emi')">Electromagnetic Induction</a></li>
+                            <li><a onclick="showSchoolSection('phys-ac')">Alternating Current</a></li>
+                            <li><a onclick="showSchoolSection('phys-emw')">Electromagnetic Waves</a></li>
+
+                            <li class="section-header">Optics & Modern</li>
+                            <li><a onclick="showSchoolSection('phys-geom-optics')">Geometrical Optics</a></li>
+                            <li><a onclick="showSchoolSection('phys-wave-optics')">Wave Optics</a></li>
+                            <li><a onclick="showSchoolSection('phys-atoms')">Atoms and Nuclei</a></li>
+                            <li><a onclick="showSchoolSection('phys-dual')">Dual Nature of Radiation and Matter</a></li>
+                            <li><a onclick="showSchoolSection('phys-semi')">Semiconductor Electronics</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Nested Main Content -->
+                    <main class="school-main-content">
+                        
+                        <!-- Original Intro (Default View) -->
+                        <div id="phys-intro" class="school-note-section active-school-section">
+                            <h2>School Physics</h2>
+                            <p>
+                            <p><em>Subtopics can be accessed from the sidebar</em></p>
+                        </div>
+
+                        <!-- Mechanics -->
+                        <div id="phys-units" class="school-note-section">
+                            <h2>Units & Measurement</h2>
+                            <p>The foundational study of physical quantities, the international system of units (SI), dimensional analysis, and error calculation.</p>
+                        </div>
+                        <div id="phys-straight" class="school-note-section">
+                            <h2>Motion in a Straight Line</h2>
+                            <p>The kinematics of objects moving in one dimension, exploring concepts like displacement, velocity, and acceleration over time.</p>
+                        </div>
+                        <div id="phys-plane" class="school-note-section">
+                            <h2>Motion in a Plane</h2>
+                            <p>The study of two-dimensional kinematics, introducing vectors, projectile motion, and uniform circular motion.</p>
+                        </div>
+                        <div id="phys-laws" class="school-note-section">
+                            <h2>Laws of Motion</h2>
+                            <p>Newton's three fundamental laws governing classical mechanics, including inertia, force, and action-reaction pairs.</p>
+                        </div>
+                        <div id="phys-work" class="school-note-section">
+                            <h2>Work, Energy and Power</h2>
+                            <p>The relationship between forces applied over a distance, the conservation of mechanical energy, and the rate of doing work.</p>
+                        </div>
+                        <div id="phys-com" class="school-note-section">
+                            <h2>Center of Mass and Collision</h2>
+                            <p>Analyzing systems of particles, defining the center of mass, and understanding the conservation of momentum in elastic and inelastic collisions.</p>
+                        </div>
+                        <div id="phys-rotation" class="school-note-section">
+                            <h2>Rotational Motion</h2>
+                            <p>The kinematics and dynamics of rigid bodies rotating about a fixed axis, including torque and angular momentum.</p>
+                        </div>
+                        <div id="phys-gravitation" class="school-note-section">
+                            <h2>Gravitation</h2>
+                            <p>Newton's law of universal gravitation, Kepler's laws of planetary motion, and the concept of gravitational potential energy.</p>
+                        </div>
+                        <div id="phys-properties" class="school-note-section">
+                            <h2>Properties of Matter</h2>
+                            <p>The mechanical properties of solids and fluids, including elasticity, surface tension, viscosity, and Bernoulli's principle.</p>
+                        </div>
+                        <div id="phys-thermo" class="school-note-section">
+                            <h2>Heat and Thermodynamics</h2>
+                            <p>The study of thermal expansion, calorimetry, heat transfer, and the fundamental laws of thermodynamics governing energy and entropy.</p>
+                        </div>
+                        <div id="phys-oscillations" class="school-note-section">
+                            <h2>Oscillations</h2>
+                            <p>The physics of periodic motion, focusing heavily on Simple Harmonic Motion (SHM) in springs and pendulums.</p>
+                        </div>
+                        <div id="phys-waves" class="school-note-section">
+                            <h2>Waves</h2>
+                            <p>The propagation of mechanical disturbances through mediums, exploring concepts like wavelength, frequency, superposition, and the Doppler effect.</p>
+                        </div>
+
+                        <!-- Electricity -->
+                        <div id="phys-electrostatics" class="school-note-section">
+                            <h2>Electrostatics</h2>
+                            <p>The study of stationary electric charges, Coulomb's Law, electric fields, and Gauss's Law.</p>
+                        </div>
+                        <div id="phys-current" class="school-note-section">
+                            <h2>Current Electricity</h2>
+                            <p>The dynamics of moving charges in conductors, Ohm's law, electrical resistance, and complex circuit analysis using Kirchhoff's rules.</p>
+                        </div>
+                        <div id="phys-capacitor" class="school-note-section">
+                            <h2>Capacitor</h2>
+                            <p>Devices that store electrical energy in an electric field, their capacitance, and their behavior in series and parallel combinations.</p>
+                        </div>
+                        <div id="phys-moving-charges" class="school-note-section">
+                            <h2>Moving Charges and Magnetism</h2>
+                            <p>How electric currents generate magnetic fields, the Biot-Savart law, Ampere's law, and the magnetic force on moving charges.</p>
+                        </div>
+                        <div id="phys-magnetism" class="school-note-section">
+                            <h2>Magnetism and Matter</h2>
+                            <p>The magnetic properties of materials, Earth's magnetism, and the classification of substances into dia-, para-, and ferromagnetic.</p>
+                        </div>
+                        <div id="phys-emi" class="school-note-section">
+                            <h2>Electromagnetic Induction</h2>
+                            <p>Faraday's and Lenz's laws describing how changing magnetic fields can induce an electromotive force (EMF) and current.</p>
+                        </div>
+                        <div id="phys-ac" class="school-note-section">
+                            <h2>Alternating Current</h2>
+                            <p>Electrical circuits where the current periodically reverses direction, analyzing impedance, resonance, and transformers.</p>
+                        </div>
+                        <div id="phys-emw" class="school-note-section">
+                            <h2>Electromagnetic Waves</h2>
+                            <p>The unified propagation of electric and magnetic fields through space, and the complete electromagnetic spectrum.</p>
+                        </div>
+
+                        <!-- Optics & Modern Physics -->
+                        <div id="phys-geom-optics" class="school-note-section">
+                            <h2>Geometrical Optics</h2>
+                            <p>The behavior of light utilizing ray approximations to study reflection, refraction, lenses, mirrors, and optical instruments.</p>
+                        </div>
+                        <div id="phys-wave-optics" class="school-note-section">
+                            <h2>Wave Optics</h2>
+                            <p>The phenomena of light that require a wave model to explain, including interference (Young's double-slit), diffraction, and polarization.</p>
+                        </div>
+                        <div id="phys-atoms" class="school-note-section">
+                            <h2>Atoms and Nuclei</h2>
+                            <p>Rutherford and Bohr models of the atom, atomic spectra, and the composition, stability, and radioactive decay of atomic nuclei.</p>
+                        </div>
+                        <div id="phys-dual" class="school-note-section">
+                            <h2>Dual Nature of Radiation and Matter</h2>
+                            <p>The quantum mechanical reality that light exhibits particle properties (photons) and matter exhibits wave properties (de Broglie waves).</p>
+                        </div>
+                        <div id="phys-semi" class="school-note-section">
+                            <h2>Semiconductor Electronics</h2>
+                            <p>The physics of materials with conductivity between insulators and conductors, forming the basis of diodes, transistors, and modern computing.</p>
+                        </div>
+
+                    </main>
+                </div>
             </section>
 
             <section id="college-physics" class="tab-content">
@@ -388,7 +546,7 @@
                     
                     <p><strong>The Charge Sector</strong></p>
                     $$ H_{charge} = \frac{1}{2} \int dx \left[ \left( v_F + \frac{U}{\pi} \right) (\partial_x \phi_c)^2 + v_F (\partial_x \theta_c)^2 \right] $$
-                    <!--
+                    
                     <p><strong>The Spin Sector</strong></p>
                     $$ H_{spin} = \frac{1}{2} \int dx \left[ \left( v_F - \frac{U}{\pi} \right) (\partial_x \phi_s)^2 + v_F (\partial_x \theta_s)^2 \right] $$
                     
@@ -419,6 +577,21 @@
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(sectionName).style.display = "block";
             evt.currentTarget.className += " active";
+        }
+
+        // Added this new function specifically to handle the nested School Physics sidebar
+        function showSchoolSection(sectionId) {
+            var i, sections;
+            // Hide all the nested school content sections
+            sections = document.getElementsByClassName("school-note-section");
+            for (i = 0; i < sections.length; i++) {
+                sections[i].classList.remove("active-school-section");
+            }
+            // Show the specific section requested
+            var target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add("active-school-section");
+            }
         }
         </script>
 
