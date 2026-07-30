@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/1584795214_2071260062_223132457.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_2220554401_3898917856.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_3201849554_3831782751.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_2180970120_805716634.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_3776251100_672536478.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_1839128356_2857634376.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_4110050677_4047848159.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_3197170126_1850794568.mp4'
+file 'file:D:/VD/2.Vishwa Darpan Work/Website/VD/animation/chem/media/videos/resonance/480p15/partial_movie_files/AnilineMechanism/4072820271_2408024828_2754367298.mp4'
