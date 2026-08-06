@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="mr">
+    <head>
+
+        <!-- pdf embedding tool called "pdf.js" from firefox -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+        </script>
+        
+        <!-- To make it mobile friendly -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1JR8GXH76"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-N1JR8GXH76');
+        </script>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>विश्वदर्पण ई-पेपर</title>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="top-bar">
+        <div id="date-temp">Loading...</div>
+        </div>
+        
+        <header>
+            <h1>विश्वदर्पण</h1>
+        </header>
+
+        <nav>
+           <!-- Spacer to balance the button on the right -->
+            <span class="nav-spacer"></span> 
+            
+        <div class="nav-links">
+            <a href="index.html">ई-पेपर</a>
+            <a href="news.html">बातम्या</a>
+            <a href="science.html">विज्ञान</a>
+            <a href="sports.html">क्रीडा</a>
+            <a href="health.html">आरोग्य</a>
+            <a href="business.html">व्यवसाय</a>
+        </div>
+
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </nav>
+<!--old pdf commented out -->
+<!--      
+        <div class="pdf-container">
+            <iframe src="https://docs.google.com/gview?url=https://vishwadarpan.com/newspaper.pdf&embedded=true" title="VishwaDarpan Daily PDF">
+                <p>Your browser does not support embedded PDFs.</p>
+            </iframe>
+        </div>
+--> 
+    
+<!--new pdf test start-->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 id="month-title">Archive</h2>
+                    <a id="download-btn" href="#" download class="btn-download">📥 Download Edition</a>
+                </div>
+                
+                <div class="calendar-weekdays">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                
+                <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
+            
+            <!--new pdf container-->
+            <div class="pdf-container" style="text-align: center; background: #eee; padding: 10px; border-radius: 5px;">
+                
+                <div style="margin-bottom: 10px;">
+                    <button id="prev-page" class="btn-download" style="padding: 5px 15px;">⬅️ Prev</button>
+                    <span style="margin: 0 15px; font-weight: bold;">Page: <span id="page-num">1</span> / <span id="page-count">--</span></span>
+                    <button id="next-page" class="btn-download" style="padding: 5px 15px;">Next ➡️</button>
+                </div>
+
+                <div style="position: relative; display: inline-block;">
+    <canvas id="pdf-render" style="max-width: 100%; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></canvas>
+    <!-- This overlay container will hold the clickable YOLO boxes -->
+    <div id="overlay-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+</div>
+            </div>
+
+            <!-- 
+            <div class="pdf-container">
+                <iframe id="pdf-viewer" src="" width="100%" height="850px" style="border: 2px solid #ccc; border-radius: 5px;">
+                    This browser does not support PDFs. Please download the PDF to view it.
+                </iframe>
+            </div>
+            -->
+
+<!--new pdf test end -->
+
+        <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+        </script>
+
+        <script>
+            // 1. Set the Date in Marathi
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('mr-IN', options);
+
+            // 2. Find the top bar element and set a loading message
+            const infoBox = document.getElementById('date-temp');
+            infoBox.innerText = `${dateStr} | हवामान लोड करत आहे...`; // "Loading weather..."
+
+            // 3. Fetch live weather data for Pune (Latitude: 18.52, Longitude: 73.85)
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=18.5204&longitude=73.8567&current_weather=true')
+                .then(response => response.json())
+                .then(data => {
+                    // Extract the current temperature and round it to a whole number
+                    const currentTemp = Math.round(data.current_weather.temperature);
+                    
+                    // Update the top bar with the real temperature
+                    infoBox.innerText = `${dateStr} | पुणे: ${currentTemp}°C`;
+                })
+                .catch(error => {
+                    // If the user's internet is acting up, show a fallback
+                    infoBox.innerText = `${dateStr} | पुणे: --°C`;
+                    console.error("Could not load weather data:", error);
+                });
+        </script>
+
+<!--Calender java script start-->
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            buildCalendar();
+        });
+
+        function buildCalendar() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth(); // January is 0
+            const currentDate = today.getDate();
+
+            // Set Header
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById("month-title").innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // Grid Setup
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
+            const grid = document.getElementById("calendar-grid");
+            grid.innerHTML = ""; 
+
+            // Inject empty spaces before the 1st day of the month
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                let empty = document.createElement("div");
+                empty.className = "calendar-day empty-day";
+                grid.appendChild(empty);
+            }
+
+            // Inject actual days
+            for (let day = 1; day <= daysInMonth; day++) {
+                let dayBox = document.createElement("div");
+                dayBox.className = "calendar-day";
+                dayBox.innerText = day;
+
+                if (day > currentDate) {
+                    // Disable future days
+                    dayBox.classList.add("future-day");
+                } else {
+                    // Enable valid past/current days
+                    dayBox.classList.add("active-day");
+                    
+                    // Format numbers to match your screenshot exactly (e.g., "01" instead of "1")
+                    let dd = String(day).padStart(2, '0');
+                    let mm = String(currentMonth + 1).padStart(2, '0'); 
+                    let yyyy = currentYear;
+                    
+                    // This builds: archive/01-07-2026-VISHWADARPAN.pdf
+                    let fileName = `archive/${dd}-${mm}-${yyyy}-VISHWADARPAN.pdf`;
+
+                    dayBox.onclick = function() {
+                        changePaper(fileName, dayBox);
+                    };
+
+                    // Auto-load today's paper on page refresh
+                    if (day === currentDate) {
+                        changePaper(fileName, dayBox);
+                    }
+                }
+                grid.appendChild(dayBox);
+            }
+        }
+
+        /*
+        function changePaper(fileUrl, clickedBox) {
+            // Swap PDF and Update Download Link
+            document.getElementById("pdf-viewer").src = fileUrl;
+            document.getElementById("download-btn").href = fileUrl;
+
+            // Shift styling highlight to the newly selected box
+            let allDays = document.getElementsByClassName("active-day");
+            for (let i = 0; i < allDays.length; i++) {
+                allDays[i].classList.remove("selected-day");
+            }
+            clickedBox.classList.add("selected-day");
+        }
+        */
+        </script>
+
+        <script>
+        // --- PDF.js Variables ---
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false,
+            pageNumIsPending = null;
+
+        const scale = 1.5, // Adjust this to make the PDF clearer/larger
+            canvas = document.getElementById('pdf-render'),
+            ctx = canvas.getContext('2d');
+
+        // --- Render the Page ---
+        // --- Render the Page (Updated for YOLO Overlays) ---
+        function renderPage(num) {
+            pageIsRendering = true;
+
+            // Fetch page
+            pdfDoc.getPage(num).then(page => {
+                const viewport = page.getViewport({ scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderCtx = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                page.render(renderCtx).promise.then(() => {
+                    pageIsRendering = false;
+                    
+                    // --- NEW YOLO OVERLAY LOGIC ---
+                    const overlayContainer = document.getElementById('overlay-container');
+                    overlayContainer.innerHTML = ''; // Clear previous boxes
+
+                    // Only attempt to load JSON for page 1 during this test
+                    if (num === 1) {
+                        fetch('page_1_layout.json')
+                            .then(response => response.json())
+                            .then(data => {
+                                data.forEach(box => {
+                                    const articleDiv = document.createElement('div');
+                                    
+                                    // Apply the CSS percentages from our Python script
+                                    articleDiv.style.position = 'absolute';
+                                    articleDiv.style.left = box.left;
+                                    articleDiv.style.top = box.top;
+                                    articleDiv.style.width = box.width;
+                                    articleDiv.style.height = box.height;
+                                    
+                                    // Styling to make the boxes visible for testing
+                                    articleDiv.style.backgroundColor = 'rgba(255, 0, 0, 0.2)'; // Semi-transparent red
+                                    articleDiv.style.border = '2px solid red';
+                                    articleDiv.style.cursor = 'pointer';
+                                    articleDiv.style.pointerEvents = 'auto'; // Make it clickable
+                                    
+                                    // Click action
+                                    articleDiv.onclick = () => {
+                                        alert("Article Clicked! In the future, this will open a cropped image or text.");
+                                    };
+                                    
+                                    overlayContainer.appendChild(articleDiv);
+                                });
+                            })
+                            .catch(err => console.log("No layout JSON found for this page."));
+                    }
+                    // --- END YOLO OVERLAY LOGIC ---
+
+                    if (pageNumIsPending !== null) {
+                        renderPage(pageNumIsPending);
+                        pageNumIsPending = null;
+                    }
+                });
+
+                // Output current page number
+                document.getElementById('page-num').textContent = num;
+            });
+        }
+
+        // Check for pending pages
+        function queueRenderPage(num) {
+            if (pageIsRendering) {
+                pageNumIsPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        // Button Events
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        });
+
+        document.getElementById('next-page').addEventListener('click', () => {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        });
+
+        // --- Updated changePaper Function ---
+        function changePaper(fileUrl, clickedBox) {
+            // 1. Update Download Link
+            document.getElementById("download-btn").href = fileUrl;
+
+            // 2. Load the PDF using PDF.js
+            pdfjsLib.getDocument(fileUrl).promise.then(pdfDoc_ => {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-count').textContent = pdfDoc.numPages;
+                pageNum = 1; // Reset to page 1 on new document
+                renderPage(pageNum);
+            }).catch(err => {
+                console.log("No PDF found for this date.");
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas on error
+                document.getElementById('page-count').textContent = "--";
+            });
+
+            // 3. Handle Calendar Highlighting (Keep this from before)
+            if (clickedBox) {
+                let allDays = document.getElementsByClassName("active-day");
+                for (let i = 0; i < allDays.length; i++) {
+                    allDays[i].classList.remove("selected-day");
+                }
+                clickedBox.classList.add("selected-day");
+            }
+        }
+        </script>
+<!--Calender java script end-->
+
+
+    </body>
+
+</html>

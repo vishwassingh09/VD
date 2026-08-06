@@ -1,0 +1,6 @@
+path: D:\VD\2.Vishwa Darpan Work\Website\VD\Machine_Learning\dataset
+train: train/images
+val: valid/images
+
+nc: 1
+names: ['Article']
