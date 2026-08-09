@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="mr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>संपर्क | विश्वदर्पण</title>
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9667197563513742" crossorigin="anonymous"></script>
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1JR8GXH76"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-N1JR8GXH76');
+        </script>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="top-bar"><div id="date-temp">Loading...</div></div>
+        <header><h1>विश्वदर्पण</h1></header>
+
+        <nav>
+            <span class="nav-spacer"></span> 
+            <div class="nav-links">
+                <a href="index.html">ई-पेपर</a>
+                <a href="news.html">बातम्या</a>
+                <a href="science.html">विज्ञान</a>
+                <a href="sports.html">क्रीडा</a>
+                <a href="health.html">आरोग्य</a>
+                <a href="business.html">व्यवसाय</a>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </nav>
+
+        <main style="max-width: 800px; margin: 40px auto; padding: 30px; line-height: 1.8; text-align: center;">
+            <h2 style="border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px; text-align: left;">आमच्याशी संपर्क साधा (Contact Us)</h2>
+            <p>कोणत्याही प्रश्नांसाठी, सूचनांसाठी किंवा जाहिरातींसाठी कृपया खालील ईमेलवर आमच्याशी संपर्क साधा. आमची टीम आपल्याला लवकरात लवकर प्रतिसाद देईल.</p>
+            <div style="background: var(--sidebar-border, #f9f9f9); padding: 30px; margin-top: 30px; border-radius: 8px;">
+                <h3 style="margin-bottom: 10px;">ईमेल (Email):</h3>
+                <a href="mailto:contact@vishwadarpan.com" style="font-size: 1.2em; color: #d32f2f; font-weight: bold; text-decoration: none;">contact@vishwadarpan.com</a>
+            </div>
+        </main>
+
+        <footer style="background-color: var(--sidebar-bg, #f4f4f4); padding: 20px; text-align: center; border-top: 1px solid #ddd; margin-top: 40px;">
+            <div style="margin-bottom: 15px;">
+                <a href="about.html" style="margin: 0 15px; text-decoration: none; color: #333; font-weight: bold;">आमच्याबद्दल</a>
+                <a href="contact.html" style="margin: 0 15px; text-decoration: none; color: #333; font-weight: bold;">संपर्क</a>
+                <a href="privacy.html" style="margin: 0 15px; text-decoration: none; color: #333; font-weight: bold;">गोपनीयता धोरण</a>
+            </div>
+            <p style="color: #666; font-size: 0.9em;">&copy; 2026 विश्वदर्पण (Vishwa Darpan). सर्व हक्क राखीव.</p>
+        </footer>
+
+        <script>
+            function toggleTheme() { document.body.classList.toggle("dark-mode"); }
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('mr-IN', options);
+            const infoBox = document.getElementById('date-temp');
+            infoBox.innerText = `${dateStr} | हवामान लोड करत आहे...`; 
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=18.5204&longitude=73.8567&current_weather=true')
+                .then(response => response.json())
+                .then(data => { infoBox.innerText = `${dateStr} | पुणे: ${Math.round(data.current_weather.temperature)}°C`; })
+                .catch(() => infoBox.innerText = `${dateStr} | पुणे: --°C`);
+        </script>
+    </body>
+</html>
