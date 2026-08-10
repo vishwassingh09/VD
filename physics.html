@@ -61,7 +61,7 @@
                     <!-- Nested Sidebar -->
                     <nav class="school-sidebar">
                         <ul>
-                            <li><a onclick="showSchoolSection('phys-intro')" style="font-weight: bold;">🏠 School Home</a></li>
+                            <li><a onclick="showSchoolSection('phys-intro')" style="font-weight: bold;">🏠 School</a></li>
                             
                             <li class="section-header">Mechanics</li>
                             <li><a onclick="showSchoolSection('phys-units')">Units & Measurement</a></li>
@@ -452,81 +452,149 @@
                 </div>
             </section>
 
+            <!-- =============================-->
+            <!-- COLLEGE PHYSICS SECTION -->
+            <!-- ============================= -->
             <section id="college-physics" class="tab-content">
-                <h2>Dynamics</h2>
-                
-                <p>    
-                    To simplify the study of dynamical systems we will divide it into six main parts depending on weather we are studying single/many body, at low/high speeds and if we are in the quantum/classical limits. For three out of four forces we have experimentally verified Quantum Theory. For the forth force of Gravity we a very beautiful classical theory by Einstein whose Quantum Part is yet to be discovered experimentally but still we have really a very strong candidate called String Theory which is mathematically consistent and brings all forces unders one formalism. For now we will be exploring these experimentally verified regims :
-                <p>    
+                <div class="school-layout-container">
+                    
+                    <!-- Nested Sidebar for College Physics -->
+                    <nav class="school-sidebar">
+                        <ul>
+                            <li><a onclick="showSchoolSection('college-intro')" style="font-weight: bold;">🎓 College </a></li>
+                            
+                            <li class="section-header">Classical Limits</li>
+                            <li><a onclick="showSchoolSection('college-cm')">1. Classical Mechanics (CM)</a></li>
+                            <li><a onclick="showSchoolSection('college-sm')">2. Statistical Mechanics (SM)</a></li>
 
-                    <ol>
-                    <li>Single Body Non-Relativistic Classical Physics (CM)</li>
-                    <li>Many Body Non-Relativistic Classical Physics (SM)</li>
+                            <li class="section-header">Quantum Limits</li>
+                            <li><a onclick="showSchoolSection('college-qm')">3. Quantum Mechanics (QM)</a></li>
+                            <li><a onclick="showSchoolSection('college-cmp')">4. Condensed Matter (CMP)</a></li>
 
-                    <li>Single Body Non-Relativistic Quantum Physics (QM)</li>
-                    <li>Many Body Non-Relativistic Quantum Physics (CMP)</li>
+                            <li class="section-header">Relativistic Limits</li>
+                            <li><a onclick="showSchoolSection('college-str')">5. Relativity (STR+GR)</a></li>
+                            <li><a onclick="showSchoolSection('college-qft')">6. Quantum Field Theory (QFT)</a></li>
+                        </ul>
+                    </nav>
 
-                    <li>Single Body Relativistic Classical Physics (STR+GR)</li>
-                    <li>Many-Body Relativistic Quantum Physics (QFT)</li>
-                     </ol> 
-                
-                <p>
-                    In any kind of Dynamics, its helpful define the SYSTEM, the STATE and EVOLUTION. In Newtonian Mechanics, we defined the SYSTEM as the particle acted on by a Force whose STATE (Initial) was given by pair of position and velocity vectors and finally using Newtons Laws F=ma (solving this differential equation), we can get the position and velocity at later times (final state). We can extend this idea to our six divisions.
-                <p>
-                
-<div class="table-container">
-    <table class="evolution-table">
-        <thead>
-            <tr>
-                <th>System Framework</th>
-                <th>1. CM</th>
-                <th>2. SM</th>
-                <th>3. QM</th>
-                <th>4. CMP</th>
-                <th>5. STR+GR</th>
-                <th>6. QFT</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>The System</strong></td>
-                <td>A low-speed particle</td>
-                <td>A probability distribution (ensemble)</td>
-                <td>A wavefunction</td>
-                <td>An interacting many-body lattice</td>
-                <td>A massive body in curved spacetime</td>
-                <td>A quantized field</td>
-            </tr>
-            <tr>
-                <td><strong>State Variables (State)</strong></td>
-                <td>$$(\mathbf{x}, \mathbf{p})$$</td>
-                <td>$$\rho(\mathbf{q}, \mathbf{p})$$</td>
-                <td>$$|\psi\rangle$$</td>
-                <td>$$|\Psi\rangle$$</td>
-                <td>$$g_{\mu\nu}, x^\mu(\tau)$$</td>
-                <td>$$\hat{\phi}(x), |0\rangle$$</td>
-            </tr>
-            <tr>
-                <td><strong>Dynamical Equation (Evolution)</strong></td>
-                <td>$$m\ddot{\mathbf{x}} = -\nabla V$$</td>
-                <td>$$\frac{\partial \rho}{\partial t} = \{H, \rho\}$$</td>
-                <td>$$i\hbar\frac{\partial}{\partial t}|\psi\rangle = \hat{H}|\psi\rangle$$</td>
-                <td>$$\hat{H} = -t \sum_{\langle i,j \rangle, \sigma} (\hat{c}_{i\sigma}^\dagger \hat{c}_{j\sigma} + h.c.) + U \sum_i \hat{n}_{i\uparrow} \hat{n}_{i\downarrow}$$</td>
-                <td>$$R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}$$</td>
-                <td>$$\mathcal{L} = \bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi$$</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                    <!-- Nested Main Content for College Physics -->
+                    <main class="school-main-content">
+                        
+                        <!-- College Intro (Default View) -->
+                        <div id="college-intro" class="school-note-section active-school-section">
+                            <h2>Dynamics</h2>
+                            
+                            <p>    
+                                To simplify the study of dynamical systems we will divide it into six main parts depending on whether we are studying single/many body, at low/high speeds and if we are in the quantum/classical limits. For three out of four forces we have experimentally verified Quantum Theory. For the fourth force of Gravity we have a very beautiful classical theory by Einstein whose Quantum Part is yet to be discovered experimentally but still we have really a very strong candidate called String Theory which is mathematically consistent and brings all forces under one formalism. For now we will be exploring these experimentally verified regimes:
+                            </p>    
+
+                            <ol>
+                                <li>Single Body Non-Relativistic Classical Physics (CM)</li>
+                                <li>Many Body Non-Relativistic Classical Physics (SM)</li>
+                                <li>Single Body Non-Relativistic Quantum Physics (QM)</li>
+                                <li>Many Body Non-Relativistic Quantum Physics (CMP)</li>
+                                <li>Single Body Relativistic Classical Physics (STR+GR)</li>
+                                <li>Many-Body Relativistic Quantum Physics (QFT)</li>
+                            </ol> 
+                            
+                            <p>
+                                In any kind of Dynamics, it's helpful to define the SYSTEM, the STATE and EVOLUTION. In Newtonian Mechanics, we defined the SYSTEM as the particle acted on by a Force whose STATE (Initial) was given by pair of position and velocity vectors and finally using Newtons Laws F=ma (solving this differential equation), we can get the position and velocity at later times (final state). We can extend this idea to our six divisions.
+                            </p>
+                            
+                            <div class="table-container" style="overflow-x: auto;">
+                                <table class="evolution-table">
+                                    <thead>
+                                        <tr>
+                                            <th>System Framework</th>
+                                            <th>1. CM</th>
+                                            <th>2. SM</th>
+                                            <th>3. QM</th>
+                                            <th>4. CMP</th>
+                                            <th>5. STR+GR</th>
+                                            <th>6. QFT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>The System</strong></td>
+                                            <td>A low-speed particle</td>
+                                            <td>A probability distribution (ensemble)</td>
+                                            <td>A wavefunction</td>
+                                            <td>An interacting many-body lattice</td>
+                                            <td>A massive body in curved spacetime</td>
+                                            <td>A quantized field</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>State Variables (State)</strong></td>
+                                            <td>$$(\mathbf{x}, \mathbf{p})$$</td>
+                                            <td>$$\rho(\mathbf{q}, \mathbf{p})$$</td>
+                                            <td>$$|\psi\rangle$$</td>
+                                            <td>$$|\Psi\rangle$$</td>
+                                            <td>$$g_{\mu\nu}, x^\mu(\tau)$$</td>
+                                            <td>$$\hat{\phi}(x), |0\rangle$$</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Dynamical Equation (Evolution)</strong></td>
+                                            <td>$$m\ddot{\mathbf{x}} = -\nabla V$$</td>
+                                            <td>$$\frac{\partial \rho}{\partial t} = \{H, \rho\}$$</td>
+                                            <td>$$i\hbar\frac{\partial}{\partial t}|\psi\rangle = \hat{H}|\psi\rangle$$</td>
+                                            <td>$$\hat{H} = -t \sum_{\langle i,j \rangle, \sigma} (\hat{c}_{i\sigma}^\dagger \hat{c}_{j\sigma} + h.c.) + U \sum_i \hat{n}_{i\uparrow} \hat{n}_{i\downarrow}$$</td>
+                                            <td>$$R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}$$</td>
+                                            <td>$$\mathcal{L} = \bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi$$</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 1. CM -->
+                        <div id="college-cm" class="school-note-section">
+                            <h2>Single Body Non-Relativistic Classical Physics (CM)</h2>
+                            <p>This section explores classical mechanics frameworks (Newtonian, Lagrangian, and Hamiltonian) for macroscopic objects moving at speeds much less than the speed of light.</p>
+                        </div>
+
+                        <!-- 2. SM -->
+                        <div id="college-sm" class="school-note-section">
+                            <h2>Many Body Non-Relativistic Classical Physics (SM)</h2>
+                            <p>This section explores Statistical Mechanics and Thermodynamics, analyzing the macroscopic properties of systems containing a massive number of classical particles using probability ensembles.</p>
+                        </div>
+
+                        <!-- 3. QM -->
+                        <div id="college-qm" class="school-note-section">
+                            <h2>Single Body Non-Relativistic Quantum Physics (QM)</h2>
+                            <p>Here we study the wave-like behavior of single subatomic particles using the Schrödinger equation, quantum operators, and wavefunctions.</p>
+                        </div>
+
+                        <!-- 4. CMP -->
+                        <div id="college-cmp" class="school-note-section">
+                            <h2>Many Body Non-Relativistic Quantum Physics (CMP)</h2>
+                            <p>Also known as Condensed Matter Physics, this field studies the complex emergent behaviors (like superconductivity, magnetism, and Mott insulators) that arise when many quantum particles interact in a lattice.</p>
+                        </div>
+
+                        <!-- 5. STR+GR -->
+                        <div id="college-str" class="school-note-section">
+                            <h2>Single Body Relativistic Classical Physics (STR+GR)</h2>
+                            <p>This covers Einstein's Special and General Relativity, describing the dynamics of massive bodies at high speeds and the curvature of spacetime caused by gravity.</p>
+                        </div>
+
+                        <!-- 6. QFT -->
+                        <div id="college-qft" class="school-note-section">
+                            <h2>Many-Body Relativistic Quantum Physics (QFT)</h2>
+                            <p> QFT is an attempt to unify the rules of the fast world with the rules of the small world. One of the first steps in these directions can be just to pick up the classical rules of energy conservation, apply the operator formalism and see if we can keep the conservation of probability intact while maintain the lorentz covariance</p>
+                        </div>
+
+                    </main>
+                </div>
+            </section>
                 
                 <p style="text-align: center; font-size: 1.2em;">
                     $$...$$
                 </p>
-
-
-
             </section>
 
+            <!-- =============================-->
+            <!-- RESEARCH PHYSICS SECTION -->
+            <!-- ============================= -->
             <section id="research-physics" class="tab-content">
                 
                 <div class="report-container" style="max-width: 900px; margin: 0 auto; line-height: 1.6; text-align: justify;">
@@ -692,106 +760,7 @@
                     <p>The <em>Variational Quantum Eigensolver</em> (VQE) is a hybrid quantum-classical algorithm designed to find the ground state energy of quantum systems. The algorithm minimizes the expectation value of the Hamiltonian $H$, which represents the system's energy operator, to identify the lowest possible energy state.</p>
 
                     <hr style="margin: 40px 0;">
-                    <!--
-                    <h2>Hubbard Model Quantum Simulation</h2>
-                    <p>On Google Sycamore, we will try to simulate hubbard model for 8 fermionic sites for which we will need 16 qubits, 8 for up spins and 8 for down spins. The Hamiltonian used contains the tunneling term, the coulombic term and a new local diagonal interaction term with open boundary conditions.</p>
                     
-                    $$ H = -J \sum_{j=1}^{L-1} \sum_{\nu=\uparrow,\downarrow} c_{j,\nu}^\dagger c_{j+1,\nu} + h.c + U \sum_{i}^n {n_{i\uparrow}} {n_{i\downarrow}} + \sum_{j=1}^{L} \sum_{\nu=\uparrow,\downarrow} \epsilon_{j,\nu} n_{j,\nu} $$
-
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image.png" alt="Three Step Simulation" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Three Step Simulation</em></p>
-                    </div>
-
-                    <p>We will be using a lot of iSWAP which takes input as two qubits and simply exchanges the second and third term of given two qubits and also multiples by factor i, hence the name iSWAP:</p>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image6.png" alt="iSWAP Gate" style="max-width: 20%; height: auto; border: 1px solid #ccc;">
-                        <p><em>iSWAP Gate</em></p>
-                    </div>
-
-                    <h3>The Initial State</h3>
-                    <p>The choice is of initial state is of utmost importance. Here first we will not consider the coulomb term. The two terms which we are left with are the one body terms. The off diagonal terms will be the tunneling terms and the diagonal terms will the local interaction term.</p>
-
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image3.png" alt="A Givens Network Two Qubit Gate" style="max-width: 40%; height: auto; border: 1px solid #ccc;">
-                        <p><em>A Givens Network Two Qubit Gate</em></p>
-                    </div>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image2.png" alt="Network of Givens Rotations" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Network of Givens Rotations</em></p>
-                    </div>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image7.png" alt="Decomposition of Givens Two Qubit Gate" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Decomposition of Givens Two Qubit Gate</em></p>
-                    </div>
-
-                    <h3>Tunneling and Coulomb Gates</h3>
-                    <p>We will be using a two qubit gate called K($\theta$) which takes input the nearest neighbouring fermionic sites and performs the adiabatic evolution of the tunneling term.</p>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image8.png" alt="Tunneling Gate" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Tunneling Gate</em></p>
-                    </div>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image9.png" alt="Decomposition of Tunneling Gate" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Decomposition of Tunneling Gate</em></p>
-                    </div>
-
-                    <p>To simulate the Coulombic interaction term on the same fermionic site, we will be using a CPHASE gate as shown below.</p>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image10.png" alt="CPHASE Gate" style="max-width: 40%; height: auto; border: 1px solid #ccc;">
-                    </div>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image11.png" alt="Decomposition of CPHASE Gate" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Decomposition of CPHASE Gate</em></p>
-                    </div>
-
-                    <h3>Five Stage Trotter Step</h3>
-                    <p>To do one full length trotter step of size $\tau$, we will need to go through five stages.</p>
-                    <ul>
-                        <li>The first stage is a series of two qubit K gates which help us adiabatically evolve the tunneling term for the Odd number of sites.</li>
-                        <li>The second stage adds the coulomb term using the PHASE gate on Odd number of sites.</li>
-                        <li>The third stage is the iSWAP gates. Due to geometric constraints on the processor, this gate is applied to the odd-numbered lattice sites in one stage and the even-numbered sites in another.</li>
-                        <li>The forth stage is evolving the Coulomb term on even sites.</li>
-                        <li>The fifth stage is evolving the tunneling term on even number of sites.</li>
-                    </ul>
-
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/image5.png" alt="Five Stage Trotterization" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Five Stage Trotterization</em></p>
-                    </div>
-
-                    <hr style="margin: 40px 0;">
-
-                    <h2>Spin Charge Seperation</h2>
-                    
-                    <h3>Bosonization of 1D Hubbard Model</h3>
-                    <p>To theoretically demonstrate spin-charge separation, we map the discrete 1D Fermi-Hubbard lattice model onto a continuous bosonic field theory.</p>
-                    
-                    <h4>The 1D Hubbard Model</h4>
-                    <p>We begin with the standard 1D Fermi-Hubbard Hamiltonian on a lattice of spacing $a$:</p>
-                    $$ H = -t \sum_{x, \sigma} \left( c^\dagger_{x,\sigma} c_{x+a,\sigma} + \text{h.c.} \right) + U \sum_x n_{x,\uparrow} n_{x,\downarrow} $$
-                    
-                    <h4>The Continuum Limit and Linearization</h4>
-                    <p>At low temperatures, only electrons near the Fermi points ($\pm k_F$) are active. We take the continuum limit ($a \to 0$) and expand the fermionic operator into "Right-moving" ($R$) and "Left-moving" ($L$) fields:</p>
-                    $$ \psi_\sigma(x) \approx e^{i k_F x} R_\sigma(x) + e^{-i k_F x} L_\sigma(x) $$
-                    
-                    <h4>The Bosonization Identity</h4>
-                    <p>We express the fermionic operators $R$ and $L$ as exponentials of continuous bosonic phase fields. For each spin $\sigma$, we define a field $\phi_\sigma(x)$ (related to density) and its conjugate momentum field $\theta_\sigma(x)$ (related to current):</p>
-                    $$ \begin{aligned} R_\sigma(x) &= \frac{\eta_\sigma}{\sqrt{2\pi \alpha}} e^{i\sqrt{\pi} [ \phi_\sigma(x) - \theta_\sigma(x) ]} \\ L_\sigma(x) &= \frac{\eta_\sigma}{\sqrt{2\pi \alpha}} e^{-i\sqrt{\pi} [ \phi_\sigma(x) + \theta_\sigma(x) ]} \end{aligned} $$
-
-                    <h4>Separation of the Hamiltonian</h4>
-                    <p>Combining the kinetic and interaction terms ($H = H_0 + H_{int}$), the cross-terms sort entirely into separate charge and spin sectors, establishing mathematical independence:</p>
-                    $$ H = H_{charge} + H_{spin} $$
-                    
-                    <p><strong>The Charge Sector</strong></p>
-                    $$ H_{charge} = \frac{1}{2} \int dx \left[ \left( v_F + \frac{U}{\pi} \right) (\partial_x \phi_c)^2 + v_F (\partial_x \theta_c)^2 \right] $$
-                    
-                    <p><strong>The Spin Sector</strong></p>
-                    $$ H_{spin} = \frac{1}{2} \int dx \left[ \left( v_F - \frac{U}{\pi} \right) (\partial_x \phi_s)^2 + v_F (\partial_x \theta_s)^2 \right] $$
-                    
-                    <p><strong>Conclusion:</strong><br>
-                    The Coulomb repulsion $U$ adds to the kinetic energy gradient in the charge sector but subtracts from it in the spin sector, explicitly proving that $v_c > v_s$. The charge and spin wave equations completely decouple.</p>
-                    -->
                 </div>
                 
             </section>
