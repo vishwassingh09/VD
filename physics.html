@@ -578,9 +578,151 @@
                         </div>
 
                         <!-- 6. QFT -->
+                        <!-- 6. QFT -->
                         <div id="college-qft" class="school-note-section">
                             <h2>Many-Body Relativistic Quantum Physics (QFT)</h2>
-                            <p> QFT is an attempt to unify the rules of the fast world with the rules of the small world. One of the first steps in these directions can be just to pick up the classical rules of energy conservation, apply the operator formalism and see if we can keep the conservation of probability intact while maintain the lorentz covariance</p>
+                            <p>QFT is an attempt to unify the rules of the fast world with the rules of the small world. One of the first steps in these directions can be just to pick up the classical rules of energy conservation, apply the operator formalism and see if we can keep the conservation of probability intact while maintaining the Lorentz covariance.</p>
+
+                            <!-- Deep Dive: Symmetries (You can delete this div if it feels like overkill) -->
+                            <div style="background: var(--sidebar-border, #f8f9fa); padding: 15px; border-left: 4px solid var(--accent-color, #007bff); margin: 25px 0; border-radius: 4px;">
+                                <h3 style="margin-top: 0; color: var(--accent-color, #007bff); font-size: 1.1em;">Deep Dive: Where do the operators come from?</h3>
+                                <p style="margin-bottom: 0;">Fundamentally, energy and momentum are the conserved quantities associated with time and space translation symmetries (Noether's Theorem). In quantum mechanics, the generator of time translation is the Hamiltonian, giving us the energy operator $E \to i\hbar \frac{\partial}{\partial t}$. The generator of space translation gives us the momentum operator $\mathbf{p} \to -i\hbar \nabla$. We plug these directly into classical energy equations to find our quantum equations of motion.</p>
+                            </div>
+
+                            <hr style="margin: 40px 0; border: 0; border-top: 2px solid var(--accent-color, #007bff);">
+
+                            <h3>1. The Non-Relativistic Case (Schrödinger Equation)</h3>
+                            <p>We start with the classical energy conservation for a free particle:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ E = \frac{p^2}{2m} $$
+                            </p>
+                            <p>Applying the operator formalism to a state $|\psi\rangle$ (represented by a complex wavefunction $\psi$), we get the standard Schrödinger equation:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m} \nabla^2 \psi $$
+                            </p>
+                            <p>Doing the same for the "bra" vector (taking the complex conjugate of the equation) gives:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ -i\hbar \frac{\partial \psi^*}{\partial t} = -\frac{\hbar^2}{2m} \nabla^2 \psi^* $$
+                            </p>
+                            <p>To verify if probability is conserved, we calculate the time evolution of the probability density (the mod square, $\rho = \psi^*\psi$):</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ \frac{\partial \rho}{\partial t} = \frac{\partial}{\partial t}(\psi^* \psi) = \psi^* \frac{\partial \psi}{\partial t} + \frac{\partial \psi^*}{\partial t} \psi $$
+                            </p>
+                            <p>Substituting the time derivatives from our two Schrödinger equations:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ \frac{\partial \rho}{\partial t} = \psi^* \left( \frac{i\hbar}{2m} \nabla^2 \psi \right) - \left( \frac{i\hbar}{2m} \nabla^2 \psi^* \right) \psi $$
+                            </p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ \frac{\partial \rho}{\partial t} = \frac{i\hbar}{2m} \nabla \cdot (\psi^* \nabla \psi - \psi \nabla \psi^*) $$
+                            </p>
+                            <p>By defining the probability current $\mathbf{j} = \frac{-i\hbar}{2m} (\psi^* \nabla \psi - \psi \nabla \psi^*)$, we arrive at the continuity equation:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ \frac{\partial \rho}{\partial t} + \nabla \cdot \mathbf{j} = 0 $$
+                            </p>
+                            <p>Because $\rho = |\psi|^2 \geq 0$, probability is strictly positive and perfectly conserved. Non-relativistic QM works beautifully!</p>
+
+                            <hr style="margin: 40px 0; border: 0; border-top: 2px solid var(--accent-color, #007bff);">
+
+                            <h3>2. The Relativistic Case (Klein-Gordon Equation)</h3>
+                            <p>Now, let's attempt the exact same procedure using the relativistic energy-momentum relation:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ E^2 = p^2c^2 + m^2c^4 $$
+                            </p>
+                            <p>Applying the energy and momentum operators to a wavefunction $\phi$, we obtain the Klein-Gordon equation:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ -\hbar^2 \frac{\partial^2 \phi}{\partial t^2} = -\hbar^2 c^2 \nabla^2 \phi + m^2 c^4 \phi $$
+                            </p>
+                            <p>Taking the complex conjugate for the bra vector:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ -\hbar^2 \frac{\partial^2 \phi^*}{\partial t^2} = -\hbar^2 c^2 \nabla^2 \phi^* + m^2 c^4 \phi^* $$
+                            </p>
+                            <p>To check for probability conservation, we multiply the first equation by $\phi^*$, the second by $\phi$, and subtract them (effectively taking the dot product to find the conserved current):</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ -\hbar^2 \left( \phi^* \frac{\partial^2 \phi}{\partial t^2} - \phi \frac{\partial^2 \phi^*}{\partial t^2} \right) = -\hbar^2 c^2 \left( \phi^* \nabla^2 \phi - \phi \nabla^2 \phi^* \right) $$
+                            </p>
+                            <p>This can be mathematically massaged into a continuity equation $\frac{\partial \rho}{\partial t} + \nabla \cdot \mathbf{j} = 0$, but this time, the "probability density" $\rho$ evaluates to:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ \rho = \frac{i\hbar}{2mc^2} \left( \phi^* \frac{\partial \phi}{\partial t} - \phi \frac{\partial \phi^*}{\partial t} \right) $$
+                            </p>
+                            
+                            <h4 style="color: #d32f2f; margin-top: 25px;">The Breakdown of Single-Particle Probability</h4>
+                            <p>Here lies the catastrophic failure of single-particle relativistic quantum mechanics. Because the Klein-Gordon equation is <em>second-order</em> in time, both the initial wavefunction $\phi$ and its time derivative $\partial_t \phi$ can be chosen completely independently.</p>
+                            <p>As a direct result, <strong>the density $\rho$ can be negative!</strong></p>
+                            <p>A negative probability makes absolutely no physical sense. To resolve this paradox, we can no longer treat $\phi$ as a simple probability wavefunction. Instead, $\rho$ must be reinterpreted as a <em>charge density</em> (which is allowed to be positive or negative), and $\phi$ must be elevated from a state vector to a <strong>Quantum Field Operator</strong> capable of creating and annihilating particles. This mathematical necessity is the birthplace of Quantum Field Theory.</p>
+                            
+
+                            <hr style="margin: 40px 0; border: 0; border-top: 2px solid var(--accent-color, #007bff);">
+
+                            <h3>3. Dirac's Brilliant Fix (The Dirac Equation)</h3>
+                            <p>In 1928, Paul Dirac sought to cure the negative probability disease of the Klein-Gordon equation. He realized that to guarantee a positive probability density (like the Schrödinger equation), the new equation had to be <strong>first-order in time</strong>. However, to satisfy special relativity, space and time must be treated on equal footing, meaning the equation also had to be <strong>first-order in space</strong>.</p>
+                            
+                            <p>Dirac effectively tried to take the "square root" of the relativistic energy equation $E^2 = p^2c^2 + m^2c^4$. He proposed a linear equation of the form:</p>
+                            
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ E = c(\alpha_1 p_1 + \alpha_2 p_2 + \alpha_3 p_3) + \beta mc^2 $$
+                            </p>
+                            
+                            <div style="background: var(--sidebar-border, #f8f9fa); padding: 20px; border-left: 4px solid #28a745; margin: 25px 0; border-radius: 4px;">
+                                <h4 style="margin-top: 0; color: #28a745; font-size: 1.1em;">The Algebraic Deduction: Why 4x4?</h4>
+                                <p>Dirac knew that if he squared his new linear equation, it had to perfectly reproduce the standard relativistic energy equation. Let's expand $E^2$:</p>
+                                <p style="text-align: center; font-size: 1.1em;">
+                                    $$ E^2 = c^2 \sum_{i=1}^3 \alpha_i^2 p_i^2 + c^2 \sum_{i < j} (\alpha_i \alpha_j + \alpha_j \alpha_i)p_i p_j + mc^3 \sum_{i=1}^3 (\alpha_i \beta + \beta \alpha_i)p_i + \beta^2 m^2c^4 $$
+                                </p>
+                                <p>For this massive expansion to collapse neatly back into $E^2 = p^2c^2 + m^2c^4$, the coefficients $\alpha_i$ and $\beta$ must satisfy three strict mathematical rules:</p>
+                                <ol>
+                                    <li><strong>They must square to 1:</strong> $\alpha_1^2 = \alpha_2^2 = \alpha_3^2 = \beta^2 = I$</li>
+                                    <li><strong>They must mutually anti-commute:</strong> $\alpha_i \alpha_j + \alpha_j \alpha_i = 0$ (for $i \neq j$)</li>
+                                    <li><strong>$\beta$ must anti-commute with all $\alpha$'s:</strong> $\alpha_i \beta + \beta \alpha_i = 0$</li>
+                                </ol>
+                                <p>Clearly, ordinary numbers cannot anti-commute ($2 \times 3$ is always $3 \times 2$). Therefore, $\alpha_i$ and $\beta$ <strong>must be matrices</strong>. But what size?</p>
+                                <ul>
+                                    <li>Because they square to $I$, their eigenvalues can only be $+1$ or $-1$.</li>
+                                    <li>Because they anti-commute, one can prove mathematically that their <em>trace</em> (the sum of their diagonal elements) must be strictly zero.</li>
+                                    <li>For the trace to be zero, there must be an equal number of $+1$ and $-1$ eigenvalues. This means the matrices <strong>must have an even dimension</strong> ($2 \times 2$, $4 \times 4$, $6 \times 6$, etc.).</li>
+                                </ul>
+                                <p>Could they be $2 \times 2$? The physics world already knew of three mutually anti-commuting $2 \times 2$ matrices: the Pauli spin matrices ($\sigma_x, \sigma_y, \sigma_z$). However, Dirac needed <strong>four</strong> mutually anti-commuting matrices (three $\alpha$'s for spatial dimensions, and one $\beta$ for mass). Since there are only three such $2 \times 2$ matrices in existence, $2 \times 2$ is too small!</p>
+                                <p>Dirac was therefore forced to move to the next smallest even dimension: <strong>$4 \times 4$ matrices</strong>.</p>
+                            </div>
+
+                            <p>Applying the quantum operator formalism ($E \to i\hbar \partial_t$ and $\mathbf{p} \to -i\hbar \nabla$) to Dirac's linear Hamiltonian yields the original <strong>Dirac Equation</strong>:</p>
+                            
+                            <p style="text-align: center; font-size: 1.2em; font-weight: bold; background-color: var(--sidebar-border, #f9f9f9); padding: 15px; border-radius: 8px;">
+                                $$ i\hbar \frac{\partial \psi}{\partial t} = \left( -i\hbar c \boldsymbol{\alpha} \cdot \nabla + \beta mc^2 \right) \psi $$
+                            </p>
+
+                            <p>Because the operators are $4 \times 4$ matrices, the wavefunction $\psi$ can no longer be a simple scalar function. It is forced by the math to become a 4-component column vector called a <strong>Dirac Spinor</strong>. This mathematical inevitability accidentally predicted the existence of intrinsic <em>spin-1/2</em> (up and down states) and the existence of <em>antimatter</em> (the positron)!</p>
+
+                            <h4 style="margin-top: 25px;">The Covariant Form</h4>
+                            <p>To make the Lorentz symmetry obvious, we multiply the equation by $\beta / c$ and define new matrices called the Gamma matrices: $\gamma^0 = \beta$ and $\gamma^i = \beta \alpha_i$. In natural units ($\hbar = c = 1$), the Dirac equation takes its most famous, compact covariant form:</p>
+                            <p style="text-align: center; font-size: 1.2em;">
+                                $$ (i\gamma^\mu \partial_\mu - m)\psi = 0 $$
+                            </p>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                            <h3>4. Popular Bases for the Gamma Matrices</h3>
+                            <p>The algebra of the Gamma matrices ($\{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu\nu}$) defines the physics, but the actual $4 \times 4$ matrices can be written in different ways (bases) depending on the physical regime being studied. Here are the three most common representations:</p>
+
+                            <ul>
+                                <li style="margin-bottom: 15px;">
+                                    <strong>The Dirac (Standard) Basis:</strong><br>
+                                    Best suited for <em>non-relativistic limits</em>. In this basis, $\gamma^0$ is diagonal. It perfectly separates the spinor into a "large" upper component (representing the particle) and a "small" lower component (representing the antiparticle) at low energies.
+                                    <p style="text-align: center; font-size: 1.1em; margin-top: 5px;">
+                                        $$ \gamma^0 = \begin{pmatrix} I & 0 \\ 0 & -I \end{pmatrix}, \quad \gamma^i = \begin{pmatrix} 0 & \sigma^i \\ -\sigma^i & 0 \end{pmatrix} $$
+                                    </p>
+                                </li>
+                                <li style="margin-bottom: 15px;">
+                                    <strong>The Weyl (Chiral) Basis:</strong><br>
+                                    Best suited for <em>ultra-relativistic limits</em> or massless particles (like the historical view of neutrinos). Here, $\gamma^5$ is diagonal. It splits the Dirac spinor into left-handed and right-handed chiral Weyl spinors, which is essential for studying the Weak Interaction and parity violation.
+                                    <p style="text-align: center; font-size: 1.1em; margin-top: 5px;">
+                                        $$ \gamma^0 = \begin{pmatrix} 0 & I \\ I & 0 \end{pmatrix}, \quad \gamma^i = \begin{pmatrix} 0 & \sigma^i \\ -\sigma^i & 0 \end{pmatrix} $$
+                                    </p>
+                                </li>
+                                <li style="margin-bottom: 15px;">
+                                    <strong>The Majorana Basis:</strong><br>
+                                    Designed so that all Gamma matrices are purely imaginary. As a result, the Dirac equation becomes a purely real differential equation. This is used to describe Majorana fermions—particles that are their own antiparticles (a heavy area of research in modern condensed matter and neutrino physics).
+                                </li>
+                            </ul>
                         </div>
 
                     </main>
@@ -592,177 +734,221 @@
                 </p>
             </section>
 
-            <!-- =============================-->
-            <!-- RESEARCH PHYSICS SECTION -->
-            <!-- ============================= -->
+            <!-- ============================================== -->
+            <!-- UPDATED RESEARCH PHYSICS SECTION -->
+            <!-- ============================================== -->
             <section id="research-physics" class="tab-content">
-                
-                <div class="report-container" style="max-width: 900px; margin: 0 auto; line-height: 1.6; text-align: justify;">
-                    <h1 style="text-align: center; margin-bottom: 30px;">Simulating Hubbard Model using Exact Diagonalization and Quantum Computation</h1>
-
-                    <h2>Second Quantization</h2>
-                    <p>In formulating quantum mechanics from classical mechanics, we elevate the dynamical variables $q_i$'s and $p_i$'s to operators and define a commutation relation between them as $[q_i,p_i]=i\hbar$. This is called First Quantization.</p>
-
-                    <p>When we elevate the wavefunction $\psi(r)$ itself to operator also known as Field Operator $\vu{\psi}(r)$, this formulation is called Second Quantization. Similar to how a $q_i$ has a canonical conjugate as $p_i$, the field operator $\vu{\psi}(r)$ has $\vu{\psi}^{\dagger}(r)$ and they have a commutation relation between them given as $[\vu{\psi}(r_1),\vu{\psi}^{\dagger}(r_2)]=\delta(r_1 - r_2)$ for Bosons and Anti-commutation relation for Fermions i.e. $\{\vu{\psi}(r_1),\vu{\psi^{\dagger}}(r_2)\}=\delta(r_1 - r_2)$.</p>
-
-                    <p>This field operator which is function of space and time in one dimension in general is defined as :</p>
-                    $$ \vu{\psi}(r)=\sum_n  c_n \phi_n(r) $$
-                    <p>where, $\phi_n(x)$ is the usual first quantization wavefunction and $c_n$ is the annihilation operator. Similarly its canonical conjugate is defined as :</p>
-                    $$ \vu{\psi}^{\dagger}(r)=\sum_n c_n^{\dagger} \phi_n^*(r) $$
-                    <p>where, $\phi_n^*(x)$ is the complex conjugate of the wave function and $c_n^{\dagger}$ is the creation operator.</p>
-
-                    <p>These creation and annhilation operators will act on the STATE of the system which is called the "Fock Space". which we will denote by :</p>
-                    $$ \ket{n_1, n_2, n_3, ..., n_i, ... , n_N} $$
-                    <p>where, $n_i$ tells us the number of particles present at the ith state (first quantization wavefunction).</p>
-
-                    <p>A "Vaccum State", where physically there are no particles present in our space is $\ket{0, 0, ..., 0}$. So as an example if we act $c_1^{\dagger}$ on the vaccum state, we get $\sqrt{2} \ket{1, 0, ..., 0}$  and $c_1$ acting on vacuum state will give us zero.</p>
-
-                    <h4>Disclaimer</h4>
-                    <p>We have borrowed the action of ladder operators from first quantization from the harmonic oscillator but physically these are two different operators. In first quantization the creation ladder operator will change the $\ket{n}$ to $\ket{n+1}$ by and factor of $\sqrt{n+1}$ and annihilation operator will change $\ket{n}$ to $\ket{n-1}$ by a factor of $\sqrt{n}$.</p>
-
-                    <hr style="margin: 40px 0;">
-
-                    <h3>System</h3>
-                    <p>If we look at atoms whose outermost shell is the s orbital then their wave function is not localized i.e. of the form $\psi = e^{i(k\cdot r)}$ (The probability of finding the particle is equally like everywhere). But if we take a look at the atoms whose outermost electrons lie in the d orbital. These wavefunctions are bound to the atom and they have localization around the ion. But the localization is not strong enough for them so as to stop them from tunneling the neighbouring atoms and occupy and empty state present. Now given the fixed number of such electrons and fixed number of sites, the system will choose a state such that the total energy of the system is minimized. The dynamics of such materials can be modelled by what is called the Hubbard Model whose Hamiltonian can be written as:</p>
+                <div class="school-layout-container">
                     
-                    $$ H = -t \sum_{i,\sigma} c_{i,\sigma}^\dagger c_{i+1,\sigma} + h.c + U \sum_{i}^n {n_{i\uparrow}} {n_{i\downarrow}} $$
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>$c_{i,\sigma}^\dagger$: The creation operator for an electron with spin $\sigma$ ($\uparrow$ or $\downarrow$) at site $i$.</li>
-                        <li>$c_{i,\sigma}$: The annihilation operator for an electron with spin $\sigma$ at site $i$.</li>
-                        <li>$t$: The hopping amplitude, representing the kinetic energy of an electron hopping between nearest-neighbor sites.</li>
-                        <li>$n_{i\sigma} = c_{i,\sigma}^\dagger c_{i,\sigma}$: The number operator for electrons with spin $\sigma$ at site $i$.</li>
-                        <li>$U$: The on-site Coulomb interaction energy between two electrons of opposite spins ($\uparrow$ and $\downarrow$) at the same site.</li>
-                    </ul>
+                    <!-- Nested Sidebar for Research Physics -->
+                    <nav class="school-sidebar">
+                        <ul>
+                            <li><a onclick="showSchoolSection('research-intro')" style="font-weight: bold;">🔬 Research</a></li>
+                            
+                            <li class="section-header">Active Topics</li>
+                            <li><a onclick="showSchoolSection('research-hubbard')">1. Hubbard Model</a></li>
+                            <li><a onclick="showSchoolSection('research-supercond')">2. Superconductivity</a></li>
+                            <li><a onclick="showSchoolSection('research-string')">3. String Theory</a></li>
+                        </ul>
+                    </nav>
 
-                    <p>It is an extension of the Tight Binding Approximation for single band and inclusion of electron-electron repulsion. Hubbard Model was introduced in order to explain the insulating behaviour of partially filled Transition Metal Oxide like TiO. Not only that in the limiting behaviour where the repulsion between electrons is more than the tunneling term, the electrons tends to localize on sites having same spin and hence show ferromagnetism.</p>
+                    <!-- Nested Main Content for Research Physics -->
+                    <main class="school-main-content">
+                        
+                        <!-- Research Intro (Default View) -->
+                        <div id="research-intro" class="school-note-section active-school-section">
+                            <h2>Research Physics</h2>
+                            <p>Welcome to the research frontier. This section is dedicated to advanced topics, ongoing personal projects, and deep dives into the current boundaries of modern physics.</p>
+                            <p><em>Select a topic from the sidebar to view the detailed research notes and simulations.</em></p>
+                        </div>
 
-                    <hr style="margin: 40px 0;">
+                        <!-- 1. Hubbard Model (Your Existing Content) -->
+                        <div id="research-hubbard" class="school-note-section">
+                            <div class="report-container" style="max-width: 900px; margin: 0 auto; line-height: 1.6; text-align: justify;">
+                                <h1 style="text-align: center; margin-bottom: 30px;">Simulating Hubbard Model using Exact Diagonalization and Quantum Computation</h1>
 
-                    <h3>State</h3>
-                    <p>We are going to choose our basis state as what is called Wernier Wave Functions (they are fourier transforms of conventional Bloch States) which will give us the state of ONE electron localized on ONE particular site labelled by index i.</p>
-                    
-                    $$ W_\gamma(\vec{r}-\vec{R_i}) = \frac{1}{\sqrt{N}} \sum_{k} e^{-i \vec{k}\cdot\vec{R_i}} \phi_{k,\gamma}(\vec{r}) $$
-                    
-                    <p>Here, $\gamma$ is the band index, $\vec{R}$ is the ionic position vector, $\phi(\vec{r})$ is the Bloch wave function. We can then also define a ortho normality between states of different sites.</p>
-                    
-                    $$ \bra{W_n(\vec{r}-\vec{R_i})}\ket{W_n(\vec{r}-\vec{R_j})} = \delta_{R_i,R_j} $$
-                    
-                    <p>Since this is a fermionic system, each site can have either one up spin or one down spin or both one up and one down spin. In order to denote the state of the system i.e. all sites at once we will use the notation as follows:</p>
-                    $$ \ket{\uparrow} \quad \ket{\downarrow} \quad \ket{\uparrow\downarrow} $$
+                                <h2>Second Quantization</h2>
+                                <p>In formulating quantum mechanics from classical mechanics, we elevate the dynamical variables $q_i$'s and $p_i$'s to operators and define a commutation relation between them as $[q_i,p_i]=i\hbar$. This is called First Quantization.</p>
 
-                    <hr style="margin: 40px 0;">
+                                <p>When we elevate the wavefunction $\psi(r)$ itself to operator also known as Field Operator $\vu{\psi}(r)$, this formulation is called Second Quantization. Similar to how a $q_i$ has a canonical conjugate as $p_i$, the field operator $\vu{\psi}(r)$ has $\vu{\psi}^{\dagger}(r)$ and they have a commutation relation between them given as $[\vu{\psi}(r_1),\vu{\psi}^{\dagger}(r_2)]=\delta(r_1 - r_2)$ for Bosons and Anti-commutation relation for Fermions i.e. $\{\vu{\psi}(r_1),\vu{\psi^{\dagger}}(r_2)\}=\delta(r_1 - r_2)$.</p>
 
-                    <h2>Exact Diagonalization</h2>
-                    
-                    <h3>2 Sites 2 Electrons</h3>
-                    <p>All possible states for 2 sites and 2 electrons will look like:</p>
-                    $$ \ket{\uparrow,\uparrow} \quad \ket{0,\uparrow\downarrow} \quad \ket{\uparrow, \downarrow} \quad \ket{\downarrow,\uparrow} \quad \ket{\uparrow\downarrow, 0} \quad \ket{\downarrow,\downarrow} $$
-                    
-                    <p>The Hamiltonian for this system is:</p>
-                    $$ \begin{aligned} H = &-t ( c_{1\uparrow}^\dagger c_{2\uparrow} + c_{2\uparrow}^\dagger c_{1\uparrow} + c_{1\downarrow}^\dagger c_{2\downarrow} + c_{2\downarrow}^\dagger c_{1\downarrow} ) \\ &+ U ( n_{1\uparrow} n_{1\downarrow} + n_{2\uparrow} n_{2\downarrow} ) \end{aligned} $$
-                    
-                    <p>When we operate this Hamiltonian operator on all the six states we get:</p>
-                    <div style="background: #f4f4f4; padding: 15px; border-radius: 5px;">
-                        <p>$H \ket{\uparrow,\uparrow} = 0$</p>
-                        <p>$H \ket{0,\uparrow\downarrow} = -t ( \ket{\uparrow, \downarrow} + \ket{\downarrow,\uparrow} ) + U (\ket{0,\uparrow\downarrow})$</p>
-                        <p>$H \ket{\downarrow, \uparrow} =  -t ( \ket{0,\uparrow\downarrow} + \ket{\uparrow\downarrow, 0} )$</p>
-                        <p>$H \ket{\downarrow\uparrow, 0} = -t ( \ket{\downarrow,\uparrow} + \ket{\uparrow, \downarrow}) + U \ket{\uparrow\downarrow, 0}$</p>
-                        <p>$H \ket{\downarrow,\downarrow} = 0$</p>
-                    </div>
+                                <p>This field operator which is function of space and time in one dimension in general is defined as :</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \vu{\psi}(r)=\sum_n  c_n \phi_n(r) $$</p>
+                                <p>where, $\phi_n(x)$ is the usual first quantization wavefunction and $c_n$ is the annihilation operator. Similarly its canonical conjugate is defined as :</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \vu{\psi}^{\dagger}(r)=\sum_n c_n^{\dagger} \phi_n^*(r) $$</p>
+                                <p>where, $\phi_n^*(x)$ is the complex conjugate of the wave function and $c_n^{\dagger}$ is the creation operator.</p>
 
-                    <p>From this we can easily get the matrix element. For t = 1, U = 1:</p>
-                    $$ \begin{bmatrix}
-                        0 & 0 & 0 & 0 & 0 & 0 \\
-                        0 & 1 & -1 & -1 & 0 & 0 \\
-                        0 & -1 & 0 & 0 & -1 & 0 \\
-                        0 & -1 & 0 & 0 & -1 & 0 \\
-                        0 & 0 & -1 & -1 & 1 & 0 \\
-                        0 & 0 & 0 & 0 & 0 & 0
-                    \end{bmatrix} $$
-                    <p>On Diagonalizing this matrix numerically using LAPACK library function, we get Eigenvalues : 2.56, -1.56, 1, 0, 0, 0. The Ground State Energy as -1.56.</p>
+                                <p>These creation and annhilation operators will act on the STATE of the system which is called the "Fock Space". which we will denote by :</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \ket{n_1, n_2, n_3, ..., n_i, ... , n_N} $$</p>
+                                <p>where, $n_i$ tells us the number of particles present at the ith state (first quantization wavefunction).</p>
 
-                    <hr style="margin: 40px 0;">
+                                <p>A "Vaccum State", where physically there are no particles present in our space is $\ket{0, 0, ..., 0}$. So as an example if we act $c_1^{\dagger}$ on the vaccum state, we get $\sqrt{2} \ket{1, 0, ..., 0}$  and $c_1$ acting on vacuum state will give us zero.</p>
 
-                    <h3>Nagaoka's Theorem</h3>
-                    <p><strong>Statement:</strong> In Hubbard Model, the relative ground state in the sector with one unoccupied site is maximally FERROMAGNETIC for large U.</p>
+                                <div style="background: var(--sidebar-border, #f8f9fa); padding: 15px; border-left: 4px solid var(--accent-color, #d32f2f); margin: 25px 0; border-radius: 4px;">
+                                    <h4 style="margin-top: 0; color: var(--accent-color, #d32f2f);">Disclaimer</h4>
+                                    <p style="margin-bottom: 0;">We have borrowed the action of ladder operators from first quantization from the harmonic oscillator but physically these are two different operators. In first quantization the creation ladder operator will change the $\ket{n}$ to $\ket{n+1}$ by and factor of $\sqrt{n+1}$ and annihilation operator will change $\ket{n}$ to $\ket{n-1}$ by a factor of $\sqrt{n}$.</p>
+                                </div>
 
-                    <div style="text-align: center; margin: 20px 0;">
-                        <!-- Remember to convert Nagaoka.eps to Nagaoka.png -->
-                        <img src="research_images/Nagaoka.png" alt="Nagaoka's Theorem Graph" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
-                        <p><em>For 4 sites and 3 electrons we have plotted U v/s Ground State Energies</em></p>
-                    </div>
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                    <p>In operational sense it means that if we take one less than half filled sites, then for large value of U (interaction between electrons on same site), the ground state of the system will be Ferromagnetic and spins will try to allow themselves in one direction. The Hubbard model can become equivalent to the Heisenberg model in the limit of strong electron-electron interactions (U) compared to the kinetic energy (t), particularly in the limit of large U and at half-filling of the electron density (one electron per lattice site). In this regime, virtual hopping processes are suppressed due to the high energy cost of double occupancy, leading to an effective spin-spin interaction between localized electrons. Under these conditions, the Hubbard model effectively reduces to the Heisenberg model, where the kinetic energy terms are neglected, and the dominant interactions are described by spin operators.</p>
+                                <h3>System</h3>
+                                <p>If we look at atoms whose outermost shell is the s orbital then their wave function is not localized i.e. of the form $\psi = e^{i(k\cdot r)}$ (The probability of finding the particle is equally like everywhere). But if we take a look at the atoms whose outermost electrons lie in the d orbital. These wavefunctions are bound to the atom and they have localization around the ion. But the localization is not strong enough for them so as to stop them from tunneling the neighbouring atoms and occupy and empty state present. Now given the fixed number of such electrons and fixed number of sites, the system will choose a state such that the total energy of the system is minimized. The dynamics of such materials can be modelled by what is called the Hubbard Model whose Hamiltonian can be written as:</p>
+                                
+                                <p style="text-align: center; font-size: 1.2em;">$$ H = -t \sum_{i,\sigma} c_{i,\sigma}^\dagger c_{i+1,\sigma} + h.c + U \sum_{i}^n {n_{i\uparrow}} {n_{i\downarrow}} $$</p>
+                                
+                                <p>where:</p>
+                                <ul>
+                                    <li>$c_{i,\sigma}^\dagger$: The creation operator for an electron with spin $\sigma$ ($\uparrow$ or $\downarrow$) at site $i$.</li>
+                                    <li>$c_{i,\sigma}$: The annihilation operator for an electron with spin $\sigma$ at site $i$.</li>
+                                    <li>$t$: The hopping amplitude, representing the kinetic energy of an electron hopping between nearest-neighbor sites.</li>
+                                    <li>$n_{i\sigma} = c_{i,\sigma}^\dagger c_{i,\sigma}$: The number operator for electrons with spin $\sigma$ at site $i$.</li>
+                                    <li>$U$: The on-site Coulomb interaction energy between two electrons of opposite spins ($\uparrow$ and $\downarrow$) at the same site.</li>
+                                </ul>
 
-                    <hr style="margin: 40px 0;">
+                                <p>It is an extension of the Tight Binding Approximation for single band and inclusion of electron-electron repulsion. Hubbard Model was introduced in order to explain the insulating behaviour of partially filled Transition Metal Oxide like TiO. Not only that in the limiting behaviour where the repulsion between electrons is more than the tunneling term, the electrons tends to localize on sites having same spin and hence show ferromagnetism.</p>
 
-                    <h2>Quantum Simulation</h2>
-                    
-                    <h3>Qubit</h3>
-                    <p>In quantum computing, the fundamental unit of information is the qubit, which can exist in a superposition of two basis states $|0\rangle$ and $|1\rangle$. The state of a single qubit is generally represented as:</p>
-                    $$ |\psi\rangle = \alpha |0\rangle + \beta |1\rangle $$
-                    <p>where:</p>
-                    <ul>
-                        <li>$|0\rangle$ and $|1\rangle$ are the computational basis states, analogous to the classical binary states.</li>
-                        <li>$\alpha$ and $\beta$ are complex numbers representing the probability amplitudes of the respective basis states.</li>
-                        <li>The coefficients satisfy the normalization condition $|\alpha|^2 + |\beta|^2 = 1$, ensuring the total probability is conserved.</li>
-                    </ul>
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
 
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/Bloch.png" alt="Bloch Sphere" style="max-width: 50%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Bloch Sphere</em></p>
-                    </div>
+                                <h3>State</h3>
+                                <p>We are going to choose our basis state as what is called Wernier Wave Functions (they are fourier transforms of conventional Bloch States) which will give us the state of ONE electron localized on ONE particular site labelled by index i.</p>
+                                
+                                <p style="text-align: center; font-size: 1.2em;">$$ W_\gamma(\vec{r}-\vec{R_i}) = \frac{1}{\sqrt{N}} \sum_{k} e^{-i \vec{k}\cdot\vec{R_i}} \phi_{k,\gamma}(\vec{r}) $$</p>
+                                
+                                <p>Here, $\gamma$ is the band index, $\vec{R}$ is the ionic position vector, $\phi(\vec{r})$ is the Bloch wave function. We can then also define a ortho normality between states of different sites.</p>
+                                
+                                <p style="text-align: center; font-size: 1.2em;">$$ \bra{W_n(\vec{r}-\vec{R_i})}\ket{W_n(\vec{r}-\vec{R_j})} = \delta_{R_i,R_j} $$</p>
+                                
+                                <p>Since this is a fermionic system, each site can have either one up spin or one down spin or both one up and one down spin. In order to denote the state of the system i.e. all sites at once we will use the notation as follows:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \ket{\uparrow} \quad \ket{\downarrow} \quad \ket{\uparrow\downarrow} $$</p>
 
-                    <p>A general qubit in this 3 dimensional space can then be written as:</p>
-                    $$ |\psi\rangle = \cos\left(\frac{\theta}{2}\right) |0\rangle + e^{i\phi} \sin\left(\frac{\theta}{2}\right) |1\rangle $$
-                    <p>where:</p>
-                    <ul>
-                        <li>$\theta$ is the polar angle ($0 \leq \theta \leq \pi$).</li>
-                        <li>$\phi$ is the azimuthal angle ($0 \leq \phi < 2\pi$).</li>
-                        <li>The coefficients $\alpha$ and $\beta$ are parameterized as: $\alpha = \cos\left(\frac{\theta}{2}\right)$ and $\beta = e^{i\phi} \sin\left(\frac{\theta}{2}\right)$.</li>
-                    </ul>
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
 
-                    <p>In the context of quantum computing, the $|0\rangle$ and $|1\rangle$ states of a qubit can be mapped to the physical occupation states of a fermionic site:</p>
-                    <ul>
-                        <li>$|0\rangle$: Represents the absence of a particle (no occupation) at the site.</li>
-                        <li>$|1\rangle$: Represents the presence of a particle (occupied) at the site.</li>
-                    </ul>
+                                <h2>Exact Diagonalization</h2>
+                                
+                                <h3>2 Sites 2 Electrons</h3>
+                                <p>All possible states for 2 sites and 2 electrons will look like:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \ket{\uparrow,\uparrow} \quad \ket{0,\uparrow\downarrow} \quad \ket{\uparrow, \downarrow} \quad \ket{\downarrow,\uparrow} \quad \ket{\uparrow\downarrow, 0} \quad \ket{\downarrow,\downarrow} $$</p>
+                                
+                                <p>The Hamiltonian for this system is:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \begin{aligned} H = &-t ( c_{1\uparrow}^\dagger c_{2\uparrow} + c_{2\uparrow}^\dagger c_{1\uparrow} + c_{1\downarrow}^\dagger c_{2\downarrow} + c_{2\downarrow}^\dagger c_{1\downarrow} ) \\ &+ U ( n_{1\uparrow} n_{1\downarrow} + n_{2\uparrow} n_{2\downarrow} ) \end{aligned} $$</p>
+                                
+                                <p>When we operate this Hamiltonian operator on all the six states we get:</p>
+                                <div style="background: var(--sidebar-border, #f9f9f9); padding: 15px; border-radius: 5px; font-size: 1.1em; text-align: center;">
+                                    <p>$H \ket{\uparrow,\uparrow} = 0$</p>
+                                    <p>$H \ket{0,\uparrow\downarrow} = -t ( \ket{\uparrow, \downarrow} + \ket{\downarrow,\uparrow} ) + U (\ket{0,\uparrow\downarrow})$</p>
+                                    <p>$H \ket{\downarrow, \uparrow} =  -t ( \ket{0,\uparrow\downarrow} + \ket{\uparrow\downarrow, 0} )$</p>
+                                    <p>$H \ket{\downarrow\uparrow, 0} = -t ( \ket{\downarrow,\uparrow} + \ket{\uparrow, \downarrow}) + U \ket{\uparrow\downarrow, 0}$</p>
+                                    <p>$H \ket{\downarrow,\downarrow} = 0$</p>
+                                </div>
 
-                    <p>For the Hubbard Model, which includes both spin-up ($\uparrow$) and spin-down ($\downarrow$) fermions at each site, the Hilbert space of a single site is expanded to account for four possible states:</p>
-                    <ul>
-                        <li>$|00\rangle$: No particles at the site.</li>
-                        <li>$|01\rangle$: A spin-down ($\downarrow$) particle occupies the site.</li>
-                        <li>$|10\rangle$: A spin-up ($\uparrow$) particle occupies the site.</li>
-                        <li>$|11\rangle$: Both spin-up ($\uparrow$) and spin-down ($\downarrow$) particles occupy the site.</li>
-                    </ul>
+                                <p>From this we can easily get the matrix element. For t = 1, U = 1:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \begin{bmatrix}
+                                    0 & 0 & 0 & 0 & 0 & 0 \\
+                                    0 & 1 & -1 & -1 & 0 & 0 \\
+                                    0 & -1 & 0 & 0 & -1 & 0 \\
+                                    0 & -1 & 0 & 0 & -1 & 0 \\
+                                    0 & 0 & -1 & -1 & 1 & 0 \\
+                                    0 & 0 & 0 & 0 & 0 & 0
+                                \end{bmatrix} $$</p>
+                                <p>On Diagonalizing this matrix numerically using LAPACK library function, we get Eigenvalues : 2.56, -1.56, 1, 0, 0, 0. The Ground State Energy as -1.56.</p>
 
-                    <hr style="margin: 40px 0;">
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
 
-                    <h3>Jordan Wigner Transformation</h3>
-                    <p>The Jordan-Wigner Transformation allows fermionic creation and annihilation operators to be represented as spin operators. Specifically, the creation and annihilation operators at site $j$ are expressed as:</p>
-                    $$ \begin{aligned} c_{j}^\dagger &= \frac{1}{2} \left( \prod_{k=1}^{j-1} Z_k \right) (X_j - i Y_j) \\ c_{j} &= \frac{1}{2} \left( \prod_{k=1}^{j-1} Z_k \right) (X_j + i Y_j) \end{aligned} $$
+                                <h3>Nagaoka's Theorem</h3>
+                                <p><strong>Statement:</strong> In Hubbard Model, the relative ground state in the sector with one unoccupied site is maximally FERROMAGNETIC for large U.</p>
 
-                    <hr style="margin: 40px 0;">
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <img src="research_images/Nagaoka.png" alt="Nagaoka's Theorem Graph" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+                                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;"><em>For 4 sites and 3 electrons we have plotted U v/s Ground State Energies</em></p>
+                                </div>
 
-                    <h3>Variational Quantum Eigensolver</h3>
-                    <p>The ground state energy of a quantum system can be expressed as the expectation value of the Hamiltonian $H$ with respect to a trial wavefunction $|\psi(\theta)\rangle$, parameterized by $\theta$. Mathematically, this is given by:</p>
-                    $$ E(\theta) = \langle \psi(\theta) | H | \psi(\theta) \rangle $$
-                    <p>where $E(\theta)$ represents the energy for a given parameter set $\theta$. The Variational Quantum Eigensolver aims to minimize this energy by optimizing the parameters $\theta$ such that:</p>
-                    $$ E_{\text{ground}} = \min_{\theta} \langle \psi(\theta) | H | \psi(\theta) \rangle $$
+                                <p>In operational sense it means that if we take one less than half filled sites, then for large value of U (interaction between electrons on same site), the ground state of the system will be Ferromagnetic and spins will try to allow themselves in one direction. The Hubbard model can become equivalent to the Heisenberg model in the limit of strong electron-electron interactions (U) compared to the kinetic energy (t), particularly in the limit of large U and at half-filling of the electron density (one electron per lattice site). In this regime, virtual hopping processes are suppressed due to the high energy cost of double occupancy, leading to an effective spin-spin interaction between localized electrons. Under these conditions, the Hubbard model effectively reduces to the Heisenberg model, where the kinetic energy terms are neglected, and the dominant interactions are described by spin operators.</p>
 
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="research_images/VQE.png" alt="Variational Quantum Eigensolver" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
-                        <p><em>Variational Quantum Algorithm Eigensolver</em></p>
-                    </div>
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                    <p>The <em>Variational Quantum Eigensolver</em> (VQE) is a hybrid quantum-classical algorithm designed to find the ground state energy of quantum systems. The algorithm minimizes the expectation value of the Hamiltonian $H$, which represents the system's energy operator, to identify the lowest possible energy state.</p>
+                                <h2>Quantum Simulation</h2>
+                                
+                                <h3>Qubit</h3>
+                                <p>In quantum computing, the fundamental unit of information is the qubit, which can exist in a superposition of two basis states $|0\rangle$ and $|1\rangle$. The state of a single qubit is generally represented as:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ |\psi\rangle = \alpha |0\rangle + \beta |1\rangle $$</p>
+                                <p>where:</p>
+                                <ul>
+                                    <li>$|0\rangle$ and $|1\rangle$ are the computational basis states, analogous to the classical binary states.</li>
+                                    <li>$\alpha$ and $\beta$ are complex numbers representing the probability amplitudes of the respective basis states.</li>
+                                    <li>The coefficients satisfy the normalization condition $|\alpha|^2 + |\beta|^2 = 1$, ensuring the total probability is conserved.</li>
+                                </ul>
 
-                    <hr style="margin: 40px 0;">
-                    
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <img src="research_images/Bloch.png" alt="Bloch Sphere" style="max-width: 50%; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+                                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;"><em>Bloch Sphere</em></p>
+                                </div>
+
+                                <p>A general qubit in this 3 dimensional space can then be written as:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ |\psi\rangle = \cos\left(\frac{\theta}{2}\right) |0\rangle + e^{i\phi} \sin\left(\frac{\theta}{2}\right) |1\rangle $$</p>
+                                <p>where:</p>
+                                <ul>
+                                    <li>$\theta$ is the polar angle ($0 \leq \theta \leq \pi$).</li>
+                                    <li>$\phi$ is the azimuthal angle ($0 \leq \phi < 2\pi$).</li>
+                                    <li>The coefficients $\alpha$ and $\beta$ are parameterized as: $\alpha = \cos\left(\frac{\theta}{2}\right)$ and $\beta = e^{i\phi} \sin\left(\frac{\theta}{2}\right)$.</li>
+                                </ul>
+
+                                <p>In the context of quantum computing, the $|0\rangle$ and $|1\rangle$ states of a qubit can be mapped to the physical occupation states of a fermionic site:</p>
+                                <ul>
+                                    <li>$|0\rangle$: Represents the absence of a particle (no occupation) at the site.</li>
+                                    <li>$|1\rangle$: Represents the presence of a particle (occupied) at the site.</li>
+                                </ul>
+
+                                <p>For the Hubbard Model, which includes both spin-up ($\uparrow$) and spin-down ($\downarrow$) fermions at each site, the Hilbert space of a single site is expanded to account for four possible states:</p>
+                                <ul>
+                                    <li>$|00\rangle$: No particles at the site.</li>
+                                    <li>$|01\rangle$: A spin-down ($\downarrow$) particle occupies the site.</li>
+                                    <li>$|10\rangle$: A spin-up ($\uparrow$) particle occupies the site.</li>
+                                    <li>$|11\rangle$: Both spin-up ($\uparrow$) and spin-down ($\downarrow$) particles occupy the site.</li>
+                                </ul>
+
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                                <h3>Jordan Wigner Transformation</h3>
+                                <p>The Jordan-Wigner Transformation allows fermionic creation and annihilation operators to be represented as spin operators. Specifically, the creation and annihilation operators at site $j$ are expressed as:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ \begin{aligned} c_{j}^\dagger &= \frac{1}{2} \left( \prod_{k=1}^{j-1} Z_k \right) (X_j - i Y_j) \\ c_{j} &= \frac{1}{2} \left( \prod_{k=1}^{j-1} Z_k \right) (X_j + i Y_j) \end{aligned} $$</p>
+
+                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
+
+                                <h3>Variational Quantum Eigensolver</h3>
+                                <p>The ground state energy of a quantum system can be expressed as the expectation value of the Hamiltonian $H$ with respect to a trial wavefunction $|\psi(\theta)\rangle$, parameterized by $\theta$. Mathematically, this is given by:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ E(\theta) = \langle \psi(\theta) | H | \psi(\theta) \rangle $$</p>
+                                <p>where $E(\theta)$ represents the energy for a given parameter set $\theta$. The Variational Quantum Eigensolver aims to minimize this energy by optimizing the parameters $\theta$ such that:</p>
+                                <p style="text-align: center; font-size: 1.2em;">$$ E_{\text{ground}} = \min_{\theta} \langle \psi(\theta) | H | \psi(\theta) \rangle $$</p>
+
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <img src="research_images/VQE.png" alt="Variational Quantum Eigensolver" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+                                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;"><em>Variational Quantum Algorithm Eigensolver</em></p>
+                                </div>
+
+                                <p>The <em>Variational Quantum Eigensolver</em> (VQE) is a hybrid quantum-classical algorithm designed to find the ground state energy of quantum systems. The algorithm minimizes the expectation value of the Hamiltonian $H$, which represents the system's energy operator, to identify the lowest possible energy state.</p>
+                            </div>
+                        </div>
+
+                        <!-- 2. Superconductivity -->
+                        <div id="research-supercond" class="school-note-section">
+                            <h2>Superconductivity</h2>
+                            <p>Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials when cooled below a characteristic critical temperature.</p>
+                            <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+                            <h3>BCS Theory & Cooper Pairs</h3>
+                            <p>Currently developing notes on the microscopic theory of superconductivity, focusing on electron-phonon interactions and the formation of Cooper pairs.</p>
+                        </div>
+
+                        <!-- 3. String Theory -->
+                        <div id="research-string" class="school-note-section">
+                            <h2>String Theory</h2>
+                            <p>A theoretical framework in which the point-like particles of particle physics are replaced by one-dimensional objects called strings.</p>
+                            <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+                            <h3>Fundamental Strings & Extra Dimensions</h3>
+                            <p>Currently developing notes on the quantization of the relativistic string, D-branes, and the necessity of extra spatial dimensions for mathematical consistency.</p>
+                        </div>
+
+                    </main>
                 </div>
-                
             </section>
 
         </div>
