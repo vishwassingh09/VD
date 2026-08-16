@@ -42,6 +42,8 @@
                 <button class="tab-btn" onclick="openTab(event, 'school-physics')">School Physics</button>
                 <button class="tab-btn" onclick="openTab(event, 'college-physics')">College Physics</button>
                 <button class="tab-btn" onclick="openTab(event, 'research-physics')">Research Physics</button>
+                <button class="tab-btn" onclick="openTab(event, 'exercises')">Exercises</button>
+                <button class="tab-btn" onclick="openTab(event, 'genealogy')">Academic Lineage</button>
             </div>
 
             <section id="introduction" class="tab-content" style="display: block;">
@@ -946,12 +948,356 @@
                             <h3>Fundamental Strings & Extra Dimensions</h3>
                             <p>Currently developing notes on the quantization of the relativistic string, D-branes, and the necessity of extra spatial dimensions for mathematical consistency.</p>
                         </div>
+                    </main>
+                </div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- NEW EXERCISES & PYQ SECTION                    -->
+            <!-- ============================================== -->
+            <section id="exercises" class="tab-content">
+                <div class="school-layout-container">
+                    
+                    <!-- Nested Sidebar for Exercises -->
+                    <nav class="school-sidebar">
+                        <ul>
+                            <li><a onclick="showSchoolSection('exe-intro')" style="font-weight: bold;">📝 Exercises Home</a></li>
+                            
+                            <li class="section-header">TIFR GS Syllabus</li>
+                            <li><a onclick="showSchoolSection('exe-math')">Mathematical Physics</a></li>
+                            <li><a onclick="showSchoolSection('exe-cm')">Classical Mechanics</a></li>
+                            <li><a onclick="showSchoolSection('exe-qm')">Quantum Mechanics</a></li>
+                            <li><a onclick="showSchoolSection('exe-stat')">Heat, Thermo & Stat Mech</a></li>
+                            <li><a onclick="showSchoolSection('exe-ssp')">Solid State / Condensed</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Nested Main Content for Exercises -->
+                    <main class="school-main-content">
+                        
+                        <div id="exe-intro" class="school-note-section active-school-section">
+                            <h2>Physics Exercises Archive</h2>
+                            <p>Welcome to the testing frontier. Select a topic from the sidebar to practice chapter-wise Previous Year Questions (PYQs) for TIFR, JEST, and NET.</p>
+                        </div>
+
+                        <!-- 1. Mathematical Physics -->
+                        <div id="exe-math" class="school-note-section">
+                            <h2>Mathematical Physics - TIFR PYQs</h2>
+
+                            <div class="mcq-card">
+                                <div class="mcq-question">
+                                    <span class="q-number">Q1 (2013).</span> The product $AB$ of two Hermitian matrices $A$ and $B$ is anti-Hermitian[cite: 7]. It follows that[cite: 7]:
+                                </div>
+                                <div class="mcq-options" data-correct="A">
+                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> $\{A, B\} = 0$</button>
+                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> $[A, B] = 0$</button>
+                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> $A^\dagger = B$</button>
+                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> $A^\dagger = B^{-1}$</button>
+                                </div>
+                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+                                <div class="mcq-explanation">
+                                    <strong style="color: #28a745;">Correct Answer: A</strong><br><br>
+                                    <strong>Explanation:</strong><br>
+                                    By definition, a matrix is Hermitian if it is equal to its own conjugate transpose. Thus, we are given $A^\dagger = A$ and $B^\dagger = B$.<br><br>
+                                    We are also given that their product $AB$ is anti-Hermitian, which means taking its conjugate transpose yields the negative of the matrix: $(AB)^\dagger = -(AB)$.<br><br>
+                                    Using the matrix property that $(AB)^\dagger = B^\dagger A^\dagger$, we substitute our knowns:<br>
+                                    $$ B^\dagger A^\dagger = -(AB) $$<br>
+                                    $$ BA = -AB $$<br>
+                                    $$ AB + BA = 0 $$<br>
+                                    The expression $AB + BA$ is the definition of the anticommutator, denoted as $\{A, B\}$. Therefore, $\{A, B\} = 0$.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Classical Mechanics -->
+                        <div id="exe-cm" class="school-note-section">
+                            <h2>Classical Mechanics - TIFR PYQs</h2>
+
+                            <div class="mcq-card">
+                                <div class="mcq-question">
+                                    <span class="q-number">Q1 (2010).</span> A high-velocity missile, travelling in a horizontal line with a kinetic energy of $3.0 \text{ GigaJoules (GJ)}$, explodes in flight and breaks into two pieces A and B of equal mass[cite: 3]. One of these pieces (A) flies off in a straight line perpendicular to the original direction in which the missile was moving and its kinetic energy is found to be $2.0 \text{ GJ}$[cite: 3]. If gravity can be neglected for such high-velocity projectiles, it follows that the other piece (B) flew off in a direction at an angle with the original direction of[cite: 3]:
+                                </div>
+                                <div class="mcq-options" data-correct="A">
+                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> $30^\circ$</button>
+                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> $33^\circ 24'$</button>
+                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> $45^\circ$</button>
+                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> $60^\circ$</button>
+                                </div>
+                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+                                <div class="mcq-explanation">
+                                    <strong style="color: #28a745;">Correct Answer: A</strong><br><br>
+                                    <strong>Explanation:</strong><br>
+                                    Let the initial mass of the missile be $2m$. The two pieces A and B each have mass $m$.<br>
+                                    Using $E = \frac{p^2}{2 \times \text{mass}}$, we can relate kinetic energy to momentum:<br>
+                                    Initial momentum (horizontal, say x-axis): $p_0 = \sqrt{2(2m)E_0} = \sqrt{4m(3)} = \sqrt{12m}$.<br>
+                                    Momentum of piece A (perpendicular, say y-axis): $p_A = \sqrt{2m E_A} = \sqrt{2m(2)} = \sqrt{4m}$.<br><br>
+                                    By conservation of linear momentum:<br>
+                                    x-axis: $p_0 = p_{Bx} \implies p_{Bx} = \sqrt{12m}$<br>
+                                    y-axis: $0 = p_A + p_{By} \implies p_{By} = -p_A = -\sqrt{4m}$<br><br>
+                                    The angle $\theta$ that piece B makes with the original horizontal direction is given by:<br>
+                                    $$ \tan\theta = \left| \frac{p_{By}}{p_{Bx}} \right| = \frac{\sqrt{4m}}{\sqrt{12m}} = \frac{1}{\sqrt{3}} $$<br>
+                                    Thus, $\theta = 30^\circ$.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Quantum Mechanics -->
+                        <div id="exe-qm" class="school-note-section">
+                            <h2>Quantum Mechanics - TIFR PYQs</h2>
+
+                            <div class="mcq-card">
+                                <div class="mcq-question">
+                                    <span class="q-number">Q1 (2011).</span> Two identical non-interacting particles, each of mass $m$ and spin $1/2$, are placed in a one-dimensional box of length $L$[cite: 4]. In quantum mechanics, the lowest possible value of the total energy of these two particles is $\epsilon_0$[cite: 4]. If, instead, four such particles are introduced into a similar one-dimensional box of length $2L$, then the lowest possible value of their total energy will be[cite: 4]:
+                                </div>
+                                <div class="mcq-options" data-correct="B">
+                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> $2\epsilon_0$</button>
+                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> $5\epsilon_0/4$</button>
+                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> $3\epsilon_0/2$</button>
+                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> $\epsilon_0$</button>
+                                </div>
+                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+                                <div class="mcq-explanation">
+                                    <strong style="color: #28a745;">Correct Answer: B</strong><br><br>
+                                    <strong>Explanation:</strong><br>
+                                    The energy levels of a particle in a 1D box of length $L$ are $E_n = \frac{n^2 \pi^2 \hbar^2}{2mL^2}$.<br>
+                                    Since the particles are spin-1/2 fermions (electrons), the Pauli exclusion principle dictates that at most two particles (spin up, spin down) can occupy each energy level.<br><br>
+                                    For 2 particles in a box of length $L$, both can occupy the ground state ($n=1$).<br>
+                                    $$ \epsilon_0 = 2 \times E_1 = 2 \times \frac{\pi^2 \hbar^2}{2mL^2} = \frac{\pi^2 \hbar^2}{mL^2} $$<br>
+                                    Now, consider a box of length $2L$. The new energy levels are $E'_n = \frac{n^2 \pi^2 \hbar^2}{2m(2L)^2} = \frac{n^2}{8} \left( \frac{\pi^2 \hbar^2}{mL^2} \right) = \frac{n^2}{8}\epsilon_0$.<br><br>
+                                    For 4 particles in this new box, two will occupy $n=1$, and two will occupy $n=2$.<br>
+                                    $$ E_{\text{total}} = 2(E'_1) + 2(E'_2) = 2\left(\frac{1}{8}\epsilon_0\right) + 2\left(\frac{4}{8}\epsilon_0\right) $$<br>
+                                    $$ E_{\text{total}} = \frac{1}{4}\epsilon_0 + \epsilon_0 = \frac{5}{4}\epsilon_0 $$
+                                </div>
+                            </div>
+                            
+                            <div class="mcq-card">
+                                <div class="mcq-question">
+                                    <span class="q-number">Q2 (2014).</span> Consider the Hamiltonian $\hat{H} = f \vec{x} \cdot \vec{\sigma}$[cite: 9]. Here $\vec{x}$ is the position vector, $f$ is a constant and $\vec{\sigma} = (\sigma_x, \sigma_y, \sigma_z)$ , where $\sigma_x, \sigma_y, \sigma_z$ are the three Pauli matrices[cite: 9]. The energy eigenvalues are[cite: 9]:
+                                </div>
+                                <div class="mcq-options" data-correct="C">
+                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> $f(\sqrt{x^2+y^2} \pm z)$</button>
+                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> $f(x \pm iy)$</button>
+                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> $\pm f\sqrt{x^2+y^2+z^2}$</button>
+                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> $\pm f(x+y+z)$</button>
+                                </div>
+                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+                                <div class="mcq-explanation">
+                                    <strong style="color: #28a745;">Correct Answer: C</strong><br><br>
+                                    <strong>Explanation:</strong><br>
+                                    By expanding the dot product $\vec{x} \cdot \vec{\sigma}$, we multiply the position coordinates by their respective Pauli matrices:<br>
+                                    $$ H = f(x\sigma_x + y\sigma_y + z\sigma_z) $$
+                                    $$ H = f \left[ x\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} + y\begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} + z\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} \right] $$
+                                    $$ H = f \begin{pmatrix} z & x - iy \\ x + iy & -z \end{pmatrix} $$<br>
+                                    To find the eigenvalues $\lambda$, we solve the characteristic equation $\det(H - \lambda I) = 0$:<br>
+                                    $$ (fz - \lambda)(-fz - \lambda) - f^2(x - iy)(x + iy) = 0 $$
+                                    $$ -f^2z^2 + \lambda^2 - f^2(x^2 + y^2) = 0 $$
+                                    $$ \lambda^2 = f^2(x^2 + y^2 + z^2) $$<br>
+                                    Taking the square root gives $\lambda = \pm f\sqrt{x^2 + y^2 + z^2}$.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Heat, Thermo & Stat Mech -->
+                        <div id="exe-stat" class="school-note-section">
+                            <h2>Heat & Statistical Mechanics - TIFR PYQs</h2>
+
+                            <div class="mcq-card">
+                                <div class="mcq-question">
+                                    <span class="q-number">Q1 (2012).</span> Consider a sealed but thermally conducting container of total volume $V$, which is in equilibrium with a thermal bath at temperature $T$[cite: 5]. The container is divided into two equal chambers by a thin but impermeable partition[cite: 5]. One of these chambers contains an ideal gas, while the other half is a vacuum[cite: 5]. If the partition is removed and the ideal gas is allowed to expand and fill the entire container, then the entropy per molecule of the system will increase by an amount[cite: 5]:
+                                </div>
+                                <div class="mcq-options" data-correct="C">
+                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> $2k_B$</button>
+                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> $k_B \ln(1/2)$</button>
+                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> $k_B \ln 2$</button>
+                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> $(k_B \ln 2)/2$</button>
+                                </div>
+                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+                                <div class="mcq-explanation">
+                                    <strong style="color: #28a745;">Correct Answer: C</strong><br><br>
+                                    <strong>Explanation:</strong><br>
+                                    This represents a free expansion of an ideal gas. The initial volume occupied by the gas is $V_i = V/2$, and the final volume is $V_f = V$.<br>
+                                    The change in entropy for an ideal gas expanding isothermally into a vacuum is given by:<br>
+                                    $$ \Delta S = n R \ln\left(\frac{V_f}{V_i}\right) = N k_B \ln\left(\frac{V}{V/2}\right) = N k_B \ln(2) $$<br>
+                                    where $N$ is the total number of molecules and $k_B$ is the Boltzmann constant.<br>
+                                    The question asks for the entropy increase *per molecule*, so we divide by $N$:<br>
+                                    $$ \Delta s = \frac{\Delta S}{N} = k_B \ln 2 $$
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Solid State / Condensed Matter -->
+                        <div id="exe-ssp" class="school-note-section">
+                            <h2>Solid State & Condensed Matter - TIFR PYQs</h2>
+
+                            <div class="mcq-card">
+                                <div class="mcq-question">
+                                    <span class="q-number">Q1 (2015).</span> In the basic band structure theory of crystalline solids, which of the following leads to energy gaps in the allowed electronic energy values?[cite: 11]
+                                </div>
+                                <div class="mcq-options" data-correct="B">
+                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> Electron spin</button>
+                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> Bragg reflection</button>
+                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> Electron-electron interaction</button>
+                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> Electron-phonon interaction</button>
+                                </div>
+                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+                                <div class="mcq-explanation">
+                                    <strong style="color: #28a745;">Correct Answer: B</strong><br><br>
+                                    <strong>Explanation:</strong><br>
+                                    In the nearly-free electron model, electrons moving through a periodic crystal lattice behave mostly as free waves. However, when the electron's wave vector $k$ approaches the Brillouin zone boundaries (i.e., $k \approx \pm \pi/a$), the Bragg reflection condition is satisfied.<br><br>
+                                    The forward-moving and backward-reflected waves interfere to produce standing waves, splitting the continuous energy parabolic dispersion into two distinct states (one with probability peaks at the ion cores, and one peaking between them). The difference in potential energy between these two standing wave states creates the forbidden energy band gaps.
+                                </div>
+                            </div>
+                        </div>
 
                     </main>
                 </div>
             </section>
 
+            <!-- ============================================== -->
+            <!-- 3D ACADEMIC GENEALOGY UNIVERSE                 -->
+            <!-- ============================================== -->
+            <section id="genealogy" class="tab-content">
+                <div class="school-layout-container" style="display: block; padding: 0;">
+                    
+                    <!-- Overlay Text -->
+                    <div style="position: absolute; z-index: 10; padding: 20px; pointer-events: none;">
+                        <h2 style="color: #fff; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.5);">The Physics Network</h2>
+                        <p style="color: #aaa; margin-top: 5px;">Left-Click & Drag to Rotate | Scroll to Zoom | Click a Node to Fly</p>
+                    </div>
+
+                    <!-- 3D WebGL Container -->
+                    <div id="3d-graph" style="width: 100%; height: 800px; background-color: #000005; border-radius: 8px; overflow: hidden;"></div>
+
+                </div>
+            </section>
+
+            <!-- Custom Sci-Fi Tooltip Styling -->
+            <style>
+                .node-tooltip {
+                    background: rgba(10, 20, 40, 0.85);
+                    border: 1px solid #00d2ff;
+                    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+                    border-radius: 8px;
+                    padding: 15px;
+                    color: #fff;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    max-width: 300px;
+                    backdrop-filter: blur(4px);
+                }
+                .node-tooltip h3 {
+                    margin: 0 0 5px 0;
+                    color: #00d2ff;
+                    font-size: 1.2em;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                .node-tooltip .legacy {
+                    color: #ffaa00;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                    display: block;
+                }
+                .node-tooltip p {
+                    margin: 0;
+                    font-size: 0.85em;
+                    line-height: 1.5;
+                    color: #ddd;
+                    white-space: normal;
+                }
+            </style>
+
         </div>
+        <!-- ====================================================================================================== -->
+
+
+        <!-- =============JAVA SCRIPTS================================================================================ -->
+
+        <!-- Load 3D Force Graph Library -->
+        <script src="https://unpkg.com/3d-force-graph"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                
+                // 1. The Physics Data Network
+                const gData = {
+                    nodes: [
+                        { id: 'Sterman', name: 'George Sterman', group: 1, val: 5, role: 'PhD Advisor (Stony Brook)', desc: 'Pioneered perturbative Quantum Chromodynamics (QCD) and the theory of strong interactions.' },
+                        { id: 'Raychaudhuri', name: 'Amal Kumar Raychaudhuri', group: 1, val: 6, role: 'Undergrad Mentor', desc: 'Renowned for the Raychaudhuri Equation, a fundamental result in General Relativity.' },
+                        { id: 'Sen', name: 'Ashoke Sen', group: 2, val: 10, role: 'Theoretical Physicist', desc: 'Revolutionized String Theory. Discovered S-Duality. Pioneered the entropy function formalism for extremal black holes.' },
+                        { id: 'Maldacena', name: 'Juan Maldacena', group: 2, val: 10, role: 'String Theorist', desc: 'Authored the AdS/CFT Correspondence, linking quantum gravity to conformal field theories.' },
+                        { id: 'Hubbard', name: 'John Hubbard', group: 3, val: 8, role: 'Condensed Matter Pioneer', desc: 'Formulated the Hubbard Model in 1963 to describe electron correlations and metal-insulator transitions in narrow energy bands.' },
+                        { id: 'Sachdev', name: 'Subir Sachdev', group: 4, val: 8, role: 'Condensed Matter Physicist', desc: 'Extended the study of quantum phase transitions. Co-creator of the SYK model.' },
+                        { id: 'Ye', name: 'Jinwu Ye', group: 4, val: 5, role: 'Theoretical Physicist', desc: 'Co-developed the Sachdev-Ye model for quantum magnets with random exchange interactions.' },
+                        { id: 'Kitaev', name: 'Alexei Kitaev', group: 4, val: 9, role: 'Quantum Computer Scientist', desc: 'Proposed the Majorana fermion quantum computer and generalized the SYK model to study black hole chaos.' }
+                    ],
+                    links: [
+                        { source: 'Sterman', target: 'Sen', name: 'Advised' },
+                        { source: 'Raychaudhuri', target: 'Sen', name: 'Mentored' },
+                        { source: 'Maldacena', target: 'Sen', name: 'String Theory Collaboration' },
+                        { source: 'Hubbard', target: 'Sachdev', name: 'Theoretical Foundation' },
+                        { source: 'Sachdev', target: 'Ye', name: 'Co-authored SY Model' },
+                        { source: 'Kitaev', target: 'Sachdev', name: 'Extended to SYK Model' },
+                        { source: 'Sachdev', target: 'Maldacena', name: 'Holographic Connections (AdS/CFT)' }
+                    ]
+                };
+
+                // 2. Initialize the 3D Universe
+                const elem = document.getElementById('3d-graph');
+                
+                const Graph = ForceGraph3D()(elem)
+                    .graphData(gData)
+                    .nodeAutoColorBy('group')
+                    .nodeVal('val') // Size of the sphere
+                    .linkWidth(2)
+                    .linkOpacity(0.5)
+                    .linkColor(() => '#00d2ff')
+                    
+                    // The Sci-Fi Tooltip
+                    .nodeLabel(node => `
+                        <div class="node-tooltip">
+                            <h3>${node.name}</h3>
+                            <span class="legacy">${node.role}</span>
+                            <p>${node.desc}</p>
+                        </div>
+                    `)
+                    
+                    // The "Game-like" Camera Fly Animation on Click
+                    .onNodeClick(node => {
+                        // Calculate a safe distance to stop the camera
+                        const distance = 40;
+                        const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+                        
+                        // Tell the camera where to fly, where to look, and how long to take (2000ms)
+                        Graph.cameraPosition(
+                            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, 
+                            node, 
+                            2000 
+                        );
+                    });
+
+                // Add a subtle rotation to the whole universe when idle
+                let angle = 0;
+                setInterval(() => {
+                    Graph.cameraPosition({
+                        x: 150 * Math.sin(angle),
+                        z: 150 * Math.cos(angle)
+                    });
+                    angle += Math.PI / 1000;
+                }, 30);
+
+                // Fix chart rendering size when switching tabs
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => { 
+                        setTimeout(() => {
+                            Graph.width(elem.clientWidth);
+                            Graph.height(elem.clientHeight);
+                        }, 50); 
+                    });
+                });
+            });
+        </script>
+
 
         <script>
         function openTab(evt, sectionName) {
@@ -993,6 +1339,169 @@
         function toggleTheme() {
             document.body.classList.toggle("dark-mode");
         }
+        </script>
+
+        <!-- MCQ Logic Script -->
+        <script>
+        function checkAnswer(btn) {
+            let optionsContainer = btn.parentElement;
+            let correctOpt = optionsContainer.getAttribute('data-correct');
+            let selectedOpt = btn.getAttribute('data-opt');
+            let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
+
+            // 1. Disable all buttons to prevent multiple guesses
+            allBtns.forEach(b => b.disabled = true);
+
+            // 2. Check if the clicked button is correct or incorrect
+            if (selectedOpt === correctOpt) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('incorrect');
+                
+                // If wrong, find and highlight the correct answer so the user learns it
+                allBtns.forEach(b => {
+                    if (b.getAttribute('data-opt') === correctOpt) {
+                        b.classList.add('correct');
+                    }
+                });
+            }
+
+            // 3. Automatically show the explanation and hide the manual reveal button
+            let revealBtn = optionsContainer.nextElementSibling;
+            let explanation = revealBtn.nextElementSibling;
+            
+            revealBtn.style.display = 'none';
+            explanation.style.display = 'block';
+        }
+
+        function revealExplanation(btn) {
+            let optionsContainer = btn.previousElementSibling;
+            let correctOpt = optionsContainer.getAttribute('data-correct');
+            let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
+
+            // Just highlight the correct answer and lock the options
+            allBtns.forEach(b => {
+                b.disabled = true;
+                if (b.getAttribute('data-opt') === correctOpt) {
+                    b.classList.add('correct');
+                }
+            });
+
+            // Show explanation
+            let explanation = btn.nextElementSibling;
+            explanation.style.display = 'block';
+            btn.style.display = 'none'; 
+        }
+        </script>
+
+        <!-- Load ECharts -->
+        <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize the chart in our container
+            var chartDom = document.getElementById('tree-container');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            // The JSON data structure acting as our "Tree"
+            const treeData = {
+                name: 'George Sterman',
+                value: 'PhD Advisor (Stony Brook)',
+                contributions: 'Pioneering work in Quantum Chromodynamics (QCD) and the theory of strong interactions.',
+                // You can replace the default circle with a literal leaf icon!
+                // symbol: 'image://link_to_your_leaf_icon.png', 
+                children: [
+                    {
+                        name: 'Ashoke Sen',
+                        value: 'PhD Student',
+                        contributions: 'Revolutionized String Theory. Discovered S-Duality (strong-weak coupling). Formulated the Sen Conjecture regarding tachyon condensation on unstable D-branes. Pioneered the entropy function formalism for extremal black holes.',
+                        children: [
+                            {
+                                name: 'Student 1 (Placeholder)',
+                                value: 'PhD Student',
+                                contributions: 'Research into Superstring perturbation theory.'
+                            },
+                            {
+                                name: 'Student 2 (Placeholder)',
+                                value: 'PhD Student',
+                                contributions: 'Research into Black Hole Microstates.'
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderColor: '#007bff',
+                    borderWidth: 1,
+                    textStyle: { color: '#333' },
+                    // This formatter creates the beautiful pop-up box
+                    formatter: function (info) {
+                        var data = info.data;
+                        return `
+                            <div style="max-width: 300px; padding: 10px; white-space: normal;">
+                                <h3 style="margin: 0 0 5px 0; color: #d32f2f;">${data.name}</h3>
+                                <strong style="color: #007bff;">${data.value}</strong>
+                                <hr style="margin: 10px 0; border: 0; border-top: 1px solid #ccc;">
+                                <p style="margin: 0; font-size: 0.9em; line-height: 1.5;">${data.contributions}</p>
+                            </div>
+                        `;
+                    }
+                },
+                series: [
+                    {
+                        type: 'tree',
+                        data: [treeData],
+                        top: '10%',
+                        left: '10%',
+                        bottom: '10%',
+                        right: '20%',
+                        symbolSize: 20, // Size of the "leaves"
+                        symbol: 'emptyCircle', 
+                        itemStyle: {
+                            color: '#28a745', // Leaf green color
+                            borderColor: '#1e7e34'
+                        },
+                        lineStyle: {
+                            color: '#8B4513', // Branch brown color
+                            width: 3,
+                            curveness: 0.5 // Gives the branches an organic, sweeping look
+                        },
+                        label: {
+                            position: 'top',
+                            verticalAlign: 'middle',
+                            align: 'center',
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            color: 'var(--text-color, #333)'
+                        },
+                        leaves: {
+                            label: {
+                                position: 'right',
+                                verticalAlign: 'middle',
+                                align: 'left'
+                            }
+                        },
+                        expandAndCollapse: true,
+                        animationDuration: 550,
+                        animationDurationUpdate: 750
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+            
+            // Fix chart rendering size when switching tabs
+            window.addEventListener('resize', myChart.resize);
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => { setTimeout(myChart.resize, 50); });
+            });
+        });
         </script>
 
     </body>
