@@ -1172,4 +1172,121 @@ body.dark-mode {
         column-count: 1;      
     }
 }
+
+/* =========================================
+   MCQ / PROBLEMS SECTION STYLING
+   ========================================= */
+
+.mcq-card {
+    background-color: var(--sidebar-bg, #ffffff);
+    border: 1px solid var(--sidebar-border, #e2e8f0);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.mcq-question {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.q-number {
+    font-weight: bold;
+    color: var(--accent-color, #007bff);
+    margin-right: 5px;
+}
+
+.mcq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mcq-opt {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    border: 1px solid var(--sidebar-border, #ccc);
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-color, #333);
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+}
+
+.mcq-opt:hover:not(:disabled) {
+    border-color: var(--accent-color, #007bff);
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.mcq-opt span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--sidebar-border, #eee);
+    color: var(--text-color, #333);
+    border-radius: 50%;
+    margin-right: 15px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Correct Answer Styling */
+.mcq-opt.correct {
+    border-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+.mcq-opt.correct span {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Incorrect Answer Styling */
+.mcq-opt.incorrect {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+.mcq-opt.incorrect span {
+    background-color: #dc3545;
+    color: white;
+}
+
+.mcq-opt:disabled {
+    cursor: not-allowed;
+}
+
+.show-ans-btn {
+    background-color: transparent;
+    color: var(--accent-color, #007bff);
+    border: 1px solid var(--accent-color, #007bff);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 0.95em;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.show-ans-btn:hover {
+    background-color: var(--accent-color, #007bff);
+    color: white;
+}
+
+.mcq-explanation {
+    display: none; /* Hidden by default */
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--sidebar-border, #ccc);
+    line-height: 1.6;
+}
+
+
         
