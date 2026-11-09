@@ -1,0 +1,252 @@
+---
+// Astro frontmatter
+---
+<!DOCTYPE html>
+<html lang="mr">
+    <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9667197563513742" crossorigin="anonymous" is:inline></script>
+        <meta name="google-adsense-account" content="ca-pub-9667197563513742">
+
+        <!-- pdf embedding tool called "pdf.js" from firefox -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js" is:inline></script>
+        <script is:inline>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+        </script>
+        
+        <!-- To make it mobile friendly -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1JR8GXH76" is:inline></script>
+
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-N1JR8GXH76');
+        </script>
+
+        <meta charset="UTF-8">
+        <title>विश्वदर्पण ई-पेपर</title>
+        
+        <!-- CSS Fix -->
+        <link rel="stylesheet" href="/style.css">
+    </head>
+
+    <body>
+        <div class="top-bar">
+        <div id="date-temp">Loading...</div>
+        </div>
+        
+        <header>
+            <h1>विश्वदर्पण</h1>
+        </header>
+
+        <nav>
+           <!-- Spacer to balance the button on the right -->
+            <span class="nav-spacer"></span> 
+            
+        <div class="nav-links">
+            <!-- Link Fixes -->
+            <a href="/">ई-पेपर</a>
+            <a href="/news">बातम्या</a>
+            <a href="/science">विज्ञान</a>
+            <a href="/sports">क्रीडा</a>
+            <a href="/health">आरोग्य</a>
+            <a href="/business">व्यवसाय</a>
+        </div>
+
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </nav>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 id="month-title">Archive</h2>
+                    <a id="download-btn" href="#" download class="btn-download">📥 Download Edition</a>
+                </div>
+                
+                <div class="calendar-weekdays">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                
+                <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
+            
+            <div class="pdf-container" style="text-align: center; background: #eee; padding: 10px; border-radius: 5px;">
+                
+                <div style="margin-bottom: 10px;">
+                    <button id="prev-page" class="btn-download" style="padding: 5px 15px;">⬅️ Prev</button>
+                    <span style="margin: 0 15px; font-weight: bold;">Page: <span id="page-num">1</span> / <span id="page-count">--</span></span>
+                    <button id="next-page" class="btn-download" style="padding: 5px 15px;">Next ➡️</button>
+                </div>
+
+                <canvas id="pdf-render" style="max-width: 100%; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></canvas>
+            </div>
+
+        <!-- Script Fixes -->
+        <script is:inline>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+        </script>
+
+        <script is:inline>
+            // 1. Set the Date in Marathi
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('mr-IN', options);
+
+            // 2. Find the top bar element and set a loading message
+            const infoBox = document.getElementById('date-temp');
+            infoBox.innerText = `${dateStr} | हवामान लोड करत आहे...`; 
+
+            // 3. Fetch live weather data for Pune
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=18.5204&longitude=73.8567&current_weather=true')
+                .then(response => response.json())
+                .then(data => {
+                    const currentTemp = Math.round(data.current_weather.temperature);
+                    infoBox.innerText = `${dateStr} | पुणे: ${currentTemp}°C`;
+                })
+                .catch(error => {
+                    infoBox.innerText = `${dateStr} | पुणे: --°C`;
+                    console.error("Could not load weather data:", error);
+                });
+        </script>
+
+        <!--Calender java script start-->
+        <script is:inline>
+        document.addEventListener("DOMContentLoaded", function() {
+            buildCalendar();
+        });
+
+        function buildCalendar() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth(); 
+            const currentDate = today.getDate();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById("month-title").innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
+            const grid = document.getElementById("calendar-grid");
+            grid.innerHTML = ""; 
+
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                let empty = document.createElement("div");
+                empty.className = "calendar-day empty-day";
+                grid.appendChild(empty);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                let dayBox = document.createElement("div");
+                dayBox.className = "calendar-day";
+                dayBox.innerText = day;
+
+                if (day > currentDate) {
+                    dayBox.classList.add("future-day");
+                } else {
+                    dayBox.classList.add("active-day");
+                    
+                    let dd = String(day).padStart(2, '0');
+                    let mm = String(currentMonth + 1).padStart(2, '0'); 
+                    let yyyy = currentYear;
+                    
+                    let fileName = `archive/${dd}-${mm}-${yyyy}-VISHWADARPAN.pdf`;
+
+                    dayBox.onclick = function() {
+                        changePaper(fileName, dayBox);
+                    };
+
+                    if (day === currentDate) {
+                        changePaper(fileName, dayBox);
+                    }
+                }
+                grid.appendChild(dayBox);
+            }
+        }
+        </script>
+
+        <script is:inline>
+        // --- PDF.js Variables ---
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false,
+            pageNumIsPending = null;
+
+        const scale = 1.5, 
+            canvas = document.getElementById('pdf-render'),
+            ctx = canvas.getContext('2d');
+
+        function renderPage(num) {
+            pageIsRendering = true;
+
+            pdfDoc.getPage(num).then(page => {
+                const viewport = page.getViewport({ scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderCtx = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                page.render(renderCtx).promise.then(() => {
+                    pageIsRendering = false;
+                    if (pageNumIsPending !== null) {
+                        renderPage(pageNumIsPending);
+                        pageNumIsPending = null;
+                    }
+                });
+
+                document.getElementById('page-num').textContent = num;
+            });
+        }
+
+        function queueRenderPage(num) {
+            if (pageIsRendering) {
+                pageNumIsPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        });
+
+        document.getElementById('next-page').addEventListener('click', () => {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        });
+
+        function changePaper(fileUrl, clickedBox) {
+            document.getElementById("download-btn").href = `/${fileUrl}`; // Added slash for absolute pathing
+
+            pdfjsLib.getDocument(`/${fileUrl}`).promise.then(pdfDoc_ => { // Added slash for absolute pathing
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-count').textContent = pdfDoc.numPages;
+                pageNum = 1; 
+                renderPage(pageNum);
+            }).catch(err => {
+                console.log("No PDF found for this date.");
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                document.getElementById('page-count').textContent = "--";
+            });
+
+            if (clickedBox) {
+                let allDays = document.getElementsByClassName("active-day");
+                for (let i = 0; i < allDays.length; i++) {
+                    allDays[i].classList.remove("selected-day");
+                }
+                clickedBox.classList.add("selected-day");
+            }
+        }
+        </script>
+    </body>
+</html>
