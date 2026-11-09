@@ -1,0 +1,1292 @@
+/* =========================================================
+   1. THEME VARIABLES (Colors for Light and Dark Mode)
+   ========================================================= */
+:root {
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --header-bg: #ffffff;
+    --header-title: #1a237e;
+    --nav-bg: #cc0000;
+    --nav-text: #ffffff;
+    --container-bg: #ffffff;
+    --border-color: #ccc;
+    --shadow-color: rgba(0,0,0,0.1);
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --header-title: #8c9eff; /* A lighter blue so it shows up on dark backgrounds */
+    --nav-bg: #1a1a1a;
+    --nav-text: #ffcccc;
+    --container-bg: #2a2a2a;
+    --border-color: #444;
+    --shadow-color: rgba(0,0,0,0.5);
+}
+
+/* =========================================================
+   2. GLOBAL STYLING
+   ========================================================= */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    text-align: center; 
+    padding: 0; 
+    margin: 0; 
+    background-color: var(--bg-color); 
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* =========================================================
+   3. HEADER STYLING
+   ========================================================= */
+header { 
+    text-align: center; 
+    padding: 20px 0; 
+    background-color: var(--header-bg); 
+    transition: background-color 0.3s;
+}
+
+header h1 { 
+    font-size: 4em;           
+    font-weight: 700;         
+    margin: 0; 
+    color: var(--header-title);           
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+/* =========================================================
+   4. NAVIGATION STYLING
+   ========================================================= */
+nav { 
+    background-color: var(--nav-bg); 
+    display: flex; 
+    justify-content: space-between; /* Pushes outer items to edges */
+    align-items: center; 
+    padding: 12px 20px; 
+    margin-bottom: 20px; 
+    transition: background-color 0.3s;
+}
+
+/* The spacer forces the links to the center */
+.nav-spacer {
+    width: 40px; 
+}
+
+/* Container for links to keep them centered */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; 
+}
+
+nav a { 
+    color: var(--nav-text); 
+    text-decoration: none; 
+    padding: 8px 20px; 
+    font-size: 1.1em; 
+    font-weight: 500;
+}
+
+nav a:hover { 
+    background-color: #990000; 
+    transition: 0.3s; 
+}
+
+/* Dark Mode Toggle Button */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--nav-text);
+    color: var(--nav-text);
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.1em;
+    transition: 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================================
+   5. SPECIFIC PAGE ELEMENTS (E-Paper & News)
+   ========================================================= */
+
+/* E-Paper PDF Container */
+.pdf-container { 
+    width: 100%; 
+    max-width: 900px; 
+    height: 75vh; 
+    margin: 0 auto 30px auto; 
+    border: 1px solid var(--border-color); 
+    box-shadow: 0 4px 10px var(--shadow-color); 
+    background-color: var(--container-bg); 
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+iframe { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+}
+
+/* News Article Container */
+.news-container {
+    max-width: 900px;
+    margin: 20px auto 50px auto; 
+    background-color: var(--container-bg);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: background-color 0.3s;
+}
+
+/* Article Headline */
+.news-headline {
+    color: #cc0000; /* Kept red for emphasis, even in dark mode */
+    font-size: 2.0em;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Article Body Text */
+.news-content p {
+    font-size: 1.15em;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Dateline */
+.dateline {
+    font-weight: bold;
+    color: var(--text-color); /* Updated to use variable so it stays visible */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Responsive Image Styling */
+.article-image {
+    width: 100%;           
+    max-height: 400px;     
+    object-fit: cover;     
+    border-radius: 6px;    
+    margin-bottom: 25px;   
+}
+
+
+/* Top Bar Styling */
+.top-bar {
+    background-color: #ffffff; /* Matches your header */
+    color: #333;
+    padding: 5px 20px;
+    font-size: 0.9em;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode support for Top Bar */
+.dark-mode .top-bar {
+    background-color: #121212;
+    color: #e0e0e0;
+    border-bottom: 1px solid #444;
+}
+
+/* =======================================================
+   6. SCIENCE PAGE SUB-NAVIGATION
+   /* =======================================================
+   /* Science Sub-Navigation Bar */
+.sub-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #333; /* Adjust to match your dark theme/nav color */
+    padding: 10px;
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+}
+
+.sub-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95em;
+    padding: 5px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.sub-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =======================================================
+   7. SPECIFIC PAGE ELEMENTS (E-Paper & News)
+   ========================================================= */
+/* Blog Tab Interface */
+.tab-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background-color: transparent;
+    color: #888;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+    color: white;
+    background-color: #333; /* Matches your dark theme */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tab-content {
+    display: none; /* Hides all content by default */
+    animation: fadeEffect 0.5s; /* Smooth fade in */
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* =======================================================
+   8. PCMB SUBJECT PAGES STYLING
+   ========================================================= */
+/* PCMB Subject Header */
+.subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: transparent; /* Adjust if your main header has a color */
+}
+
+/* Icon Button Styling (Back arrow & Moon) */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit; 
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hover effect for Light Mode */
+.icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for Dark Mode */
+body.dark-mode .icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.left-align {
+    text-align: left;
+}
+/* =======================================================
+   9.  Physics Evolution Table Styling 
+   ========================================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Allows scrolling if table is too wide */
+    margin: 30px 0;
+}
+
+.evolution-table {
+    width: 100%;
+    border-collapse: collapse; /* Merges double borders into single neat lines */
+    font-size: 0.95em;
+}
+
+.evolution-table th, 
+.evolution-table td {
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center; /* Centers the equations in the boxes */
+}
+
+.evolution-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.evolution-table td:first-child {
+    text-align: left; /* Keeps the row titles aligned to the left */
+}
+
+/* Dark Mode Support for the Table */
+body.dark-mode .evolution-table th, 
+body.dark-mode .evolution-table td {
+    border: 1px solid #555;
+}
+
+body.dark-mode .evolution-table th {
+    background-color: #222;
+    color: #fff;
+}
+
+/* =======================================================
+   10. Calender Stuff
+   ========================================================= */
+/* Calendar Container */
+.calendar-container {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.btn-download {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-download:hover {
+    background-color: #003d82;
+}
+
+/* Calendar Grid */
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+/* Active & Selected Days */
+.active-day {
+    cursor: pointer;
+    color: #0056b3;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.active-day:hover {
+    background-color: #e2e6ea;
+}
+
+.selected-day {
+    background-color: #0056b3;
+    color: white !important;
+    border-color: #004494;
+}
+
+/* Future Days & Empty Slots */
+.future-day {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    border: 1px dashed #ccc;
+}
+
+.empty-day {
+    background-color: transparent;
+    border: none;
+}
+
+/* Dark Mode Support */
+body.dark-mode .calendar-container {
+    background-color: #222;
+    border-color: #444;
+}
+body.dark-mode .calendar-header h2, 
+body.dark-mode .calendar-weekdays { color: #eee; }
+body.dark-mode .calendar-day { background-color: #333; border-color: #555; }
+body.dark-mode .future-day { background-color: #2a2a2a; color: #666; }
+body.dark-mode .active-day:hover { background-color: #444; }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 600px) {
+    .calendar-container {
+        padding: 10px;
+    }
+    .calendar-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .calendar-day {
+        padding: 8px 2px;
+        font-size: 0.85em;
+    }
+    .calendar-weekdays {
+        font-size: 0.8em;
+    }
+}
+/* Health news formatting */
+.news-content ul {
+  display: inline-block;   /* shrink-wraps the list to its content width */
+  text-align: left;        /* keep text/bullets aligned to each other */
+  margin: 0 auto 1.2em;    /* centers the whole block on the page */
+  padding-left: 1.5em;     /* normal bullet indent */
+}
+
+.news-content li {
+  margin-bottom: 0.4em;
+}
+
+
+/* for pdf output*/
+@page {
+    size: 297mm 420mm; /* A3 Print Size */
+    margin: 10mm;
+}
+
+.front-page-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4-column layout */
+    gap: 12px;
+}
+
+.article-body {
+    column-count: 3; /* Multi-column news flow */
+    column-gap: 15px;
+    text-align: justify;
+}
+
+/*Chemistry subdivisons*/
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --sidebar-bg: #fff;
+    --sidebar-border: #ddd;
+    --header-bg: #fff;
+    --accent-color: #007bff;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --sidebar-bg: #1e1e1e;
+    --sidebar-border: #333;
+    --header-bg: #1e1e1e;
+    --accent-color: #4da3ff;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Changed from height: 100vh */
+    overflow-x: hidden; /* Changed from overflow: hidden to only hide horizontal scroll */
+}
+
+.subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--sidebar-border);
+    z-index: 10;
+}
+
+.layout-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0; /* Prevents the main content from squishing the sidebar */
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    overflow-y: auto; /* Keeps vertical scrolling */
+    overflow-x: hidden; /* Kills the sideways scroll */
+    display: block; /* Enforces a strict vertical layout */
+    transition: transform 0.3s ease;
+}
+
+.sidebar h3 {
+    padding: 15px;
+    margin: 0;
+    font-size: 1.1em;
+    background: rgba(0,0,0,0.05);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--sidebar-border);
+    font-size: 0.9em;
+    cursor: pointer;
+    white-space: normal; /* Forces long text to wrap to the next line */
+    word-wrap: break-word; /* Prevents long words from breaking the container */
+    line-height: 1.4; /* Adds a bit of breathing room for wrapped text */
+}
+
+.sidebar li a:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: var(--accent-color);
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.note-section {
+    display: none; /* Hide all sections by default */
+}
+
+.note-section.active {
+    display: block; /* Show only active section */
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    .sidebar {
+        position: absolute;
+        left: 0;
+        top: 60px; /* Height of header */
+        bottom: 0;
+        transform: translateX(-100%);
+        z-index: 100;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+/* Periodic Table Interactive Elements */
+.info-panel {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--sidebar-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.info-panel h2 {
+    margin-top: 0;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--sidebar-border);
+    padding-bottom: 10px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.info-item span {
+    display: block;
+    font-size: 0.9em;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-item strong {
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+/* Periodic Table Grid */
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+    overflow-x: auto; /* Allows scrolling on very small screens if necessary */
+    padding-bottom: 20px;
+}
+
+.element {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--sidebar-border);
+    border-radius: 4px;
+    padding: 8px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.element:hover {
+    transform: scale(1.15);
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-color: var(--accent-color);
+}
+
+.element.active-element {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+.element .number {
+    font-size: 0.7em;
+    text-align: left;
+    opacity: 0.8;
+}
+
+.element .symbol {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 2px 0;
+}
+
+.element .mass {
+    font-size: 0.6em;
+    opacity: 0.8;
+}
+
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --sidebar-bg: #fff;
+    --sidebar-border: #ddd;
+    --header-bg: #fff;
+    --accent-color: #007bff;
+    
+    /* New Block Colors - Light Mode */
+    --s-block: #f8d7da; /* Soft Red */
+    --p-block: #d1ecf1; /* Soft Blue */
+    --d-block: #fff3cd; /* Soft Yellow */
+    --f-block: #d4edda; /* Soft Green */
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --sidebar-bg: #1e1e1e;
+    --sidebar-border: #333;
+    --header-bg: #1e1e1e;
+    --accent-color: #4da3ff;
+    
+    /* New Block Colors - Dark Mode */
+    --s-block: #492a2d;
+    --p-block: #213e48;
+    --d-block: #4d4424;
+    --f-block: #224229;
+}
+
+/* Block Background Assignments */
+.block-s { background-color: var(--s-block); }
+.block-p { background-color: var(--p-block); }
+.block-d { background-color: var(--d-block); }
+.block-f { background-color: var(--f-block); }
+
+/* Ensure the active element still overrides the block color */
+.element.active-element {
+    background-color: var(--accent-color) !important;
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--sidebar-border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh; /* Prevents modal from being taller than screen */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.modal-overlay.show .modal-content {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--text-color);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-content h2 {
+    margin: 0;
+    padding: 20px;
+    border-bottom: 1px solid var(--sidebar-border);
+    color: var(--accent-color);
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto; /* Makes the modal scrollable */
+}
+
+.property-group {
+    margin-bottom: 25px;
+}
+
+.property-group h3 {
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    border-bottom: 1px dashed var(--sidebar-border);
+    padding-bottom: 5px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.info-item span {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-item strong {
+    font-size: 1.05em;
+    color: var(--text-color);
+}
+
+/*Added CSS specifically for the nested School Physics layout*/
+        
+            .school-layout-container {
+                display: flex;
+                margin-top: 15px;
+                border-top: 1px solid var(--sidebar-border, #e2e8f0);
+                min-height: 65vh;
+            }
+            
+            .school-sidebar {
+                width: 260px;
+                flex: 0 0 260px;
+                background-color: var(--sidebar-bg, #ffffff); 
+                border-right: 1px solid var(--sidebar-border, #e2e8f0);
+                overflow-y: auto;
+                height: 100%; 
+                padding-right: 0;
+                display: block !important; /* Overrides any global flex rules causing top-clipping */
+            }
+
+            .school-sidebar ul {
+                display: block !important; /* Strictly forces a top-to-bottom block layout */
+                list-style: none;
+                padding-left: 0;
+                margin: 0;
+                height: auto;
+            }
+            
+            .school-sidebar li a {
+                display: block;
+                padding: 12px 20px;
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 0.95em;
+                color: var(--text-color, #334155);
+                background-color: transparent !important; /* Kills the red background */
+                border-bottom: 1px solid var(--sidebar-border, #f8f9fa);
+                transition: all 0.25s ease; /* Smooth animation */
+            }
+            
+            /* Modern Hover Effect */
+            .school-sidebar li a:hover {
+                background-color: rgba(0, 123, 255, 0.05) !important;
+                color: var(--accent-color, #007bff);
+                padding-left: 26px; /* Gentle indent animation on hover */
+                border-left: 4px solid var(--accent-color, #007bff); /* Blue accent line */
+            }
+            
+            .school-main-content {
+                flex: 1;
+                padding: 10px 40px;
+                overflow-y: auto;
+                max-height: 70vh;
+            }
+            
+            .school-note-section {
+                display: none;
+            }
+            
+            .school-note-section.active-school-section {
+                display: block;
+                animation: fadeIn 0.3s ease-in-out; /* Soft fade-in for content */
+            }
+            
+            /* Modernized Sub-headers */
+            .section-header {
+                font-weight: 600; 
+                padding: 25px 20px 8px 20px; 
+                font-size: 0.75em; 
+                color: #64748b; /* Muted slate color */
+                text-transform: uppercase;
+                letter-spacing: 1.2px; /* Adds breathing room to uppercase text */
+                background-color: transparent !important;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(5px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+ 
+
+           /* <!-- Added CSS specifically for the nested School Physics layout --> */
+
+            .school-layout-container {
+                display: flex;
+                flex-direction: row !important; /* Strictly enforces side-by-side */
+                flex-wrap: nowrap !important; /* FORBIDS the content from dropping below */
+                align-items: flex-start;
+                margin-top: 15px;
+                border-top: 1px solid var(--sidebar-border, #e2e8f0);
+                height: 70vh; /* Locks the height for the internal scroll */
+            }
+            
+            .school-sidebar {
+                width: 260px;
+                flex: 0 0 260px; /* Bulletproof width: refuses to grow or shrink */
+                background-color: var(--sidebar-bg, #ffffff); 
+                border-right: 1px solid var(--sidebar-border, #e2e8f0);
+                overflow-y: auto;
+                height: 100%; /* Fills the 70vh container */
+                padding-right: 0;
+            }
+            
+            .school-sidebar ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 0;
+            }
+            
+            .school-sidebar li a {
+                display: block;
+                padding: 12px 20px;
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 0.95em;
+                color: var(--text-color, #334155);
+                background-color: transparent !important; 
+                border-bottom: 1px solid var(--sidebar-border, #f8f9fa);
+                transition: all 0.25s ease; 
+            }
+            
+            /* Modern Hover Effect */
+            .school-sidebar li a:hover {
+                background-color: rgba(0, 123, 255, 0.05) !important;
+                color: var(--accent-color, #007bff);
+                padding-left: 26px; 
+                border-left: 4px solid var(--accent-color, #007bff); 
+            }
+            
+            .school-main-content {
+                flex: 1 1 auto; /* Takes up all remaining space */
+                min-width: 0; /* Stops long math equations from breaking the flex layout */
+                padding: 20px 40px;
+                overflow-y: auto;
+                height: 100%; /* Fills the 70vh container */
+                text-align: left !important; /* Prevents text from strangely centering */
+            }
+            
+            .school-note-section {
+                display: none;
+            }
+            
+            .school-note-section.active-school-section {
+                display: block;
+                animation: fadeIn 0.3s ease-in-out; 
+            }
+            
+            /* Modernized Sub-headers */
+            .section-header {
+                font-weight: 600; 
+                padding: 25px 20px 8px 20px; 
+                font-size: 0.75em; 
+                color: #64748b; 
+                text-transform: uppercase;
+                letter-spacing: 1.2px; 
+                background-color: transparent !important;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(5px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+ 
+
+/*=========================================
+   NATURE JOURNAL ARTICLE STYLING (SCIENCE)
+========================================= */
+
+.journal-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 0 20px;
+    background-color: var(--sidebar-bg, #ffffff);
+}
+
+.journal-article {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--text-color, #222222);
+    line-height: 1.8;
+    font-size: 1.1em;
+}
+
+.article-header {
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--sidebar-border, #eaeaea);
+    padding-bottom: 20px;
+}
+
+.article-category {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85em;
+    color: #d32f2f;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.article-title {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 2.8em;
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    color: var(--text-color, #111111);
+}
+
+.article-subtitle {
+    font-size: 1.25em;
+    color: var(--text-color, #555555);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.article-meta {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.9em;
+    color: #777777;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.article-meta .author {
+    font-weight: bold;
+    color: var(--text-color, #333333);
+}
+
+.article-hero {
+    margin: 0 0 40px 0;
+}
+
+.article-hero img {
+    /* If you haven't added this to the img tag inline, it's good to have it here */
+    max-width: 100%;
+    max-height: 450px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.article-hero figcaption {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85em;
+    color: #666666;
+    margin-top: 10px;
+    border-left: 3px solid #d32f2f;
+    padding-left: 10px;
+}
+
+/* --- 2-Column Layout for the Body --- */
+.article-body {
+    column-count: 3;          
+    column-gap: 40px;         
+    text-align: justify;      
+}
+
+/* Make the abstract stretch across the top, ignoring columns */
+.abstract {
+    column-span: all;
+    font-size: 1.15em;
+    font-weight: bold;
+    background-color: var(--sidebar-border, #f9f9f9);
+    padding: 20px;
+    border-left: 4px solid var(--accent-color, #0056b3);
+    margin-bottom: 30px;
+}
+
+/* Subheadings break columns and span full width */
+.article-body h2 {
+    column-span: all;         
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.6em;
+    margin: 40px 0 15px 0;
+    color: var(--text-color, #111111);
+    border-bottom: 1px solid var(--sidebar-border, #eaeaea); 
+    padding-bottom: 8px;
+}
+
+.article-body p {
+    margin-bottom: 20px;
+}
+
+/* Prevent lists from breaking awkwardly in half across columns */
+.article-body ul {
+    margin-bottom: 25px;
+    padding-left: 20px;
+    break-inside: avoid-column;
+}
+
+.article-body li {
+    margin-bottom: 15px;
+}
+
+/* Responsive Adjustments: Revert to 1 column on mobile phones */
+@media (max-width: 768px) {
+    .article-title {
+        font-size: 2.2em;
+    }
+    .article-hero img {
+        height: auto;
+    }
+    .article-body {
+        column-count: 1;      
+    }
+}
+
+/* =========================================
+   MCQ / PROBLEMS SECTION STYLING
+   ========================================= */
+
+.mcq-card {
+    background-color: var(--sidebar-bg, #ffffff);
+    border: 1px solid var(--sidebar-border, #e2e8f0);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.mcq-question {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.q-number {
+    font-weight: bold;
+    color: var(--accent-color, #007bff);
+    margin-right: 5px;
+}
+
+.mcq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mcq-opt {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    border: 1px solid var(--sidebar-border, #ccc);
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-color, #333);
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+}
+
+.mcq-opt:hover:not(:disabled) {
+    border-color: var(--accent-color, #007bff);
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.mcq-opt span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--sidebar-border, #eee);
+    color: var(--text-color, #333);
+    border-radius: 50%;
+    margin-right: 15px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Correct Answer Styling */
+.mcq-opt.correct {
+    border-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+.mcq-opt.correct span {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Incorrect Answer Styling */
+.mcq-opt.incorrect {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+.mcq-opt.incorrect span {
+    background-color: #dc3545;
+    color: white;
+}
+
+.mcq-opt:disabled {
+    cursor: not-allowed;
+}
+
+.show-ans-btn {
+    background-color: transparent;
+    color: var(--accent-color, #007bff);
+    border: 1px solid var(--accent-color, #007bff);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 0.95em;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.show-ans-btn:hover {
+    background-color: var(--accent-color, #007bff);
+    color: white;
+}
+
+.mcq-explanation {
+    display: none; /* Hidden by default */
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--sidebar-border, #ccc);
+    line-height: 1.6;
+}
+
+
+        

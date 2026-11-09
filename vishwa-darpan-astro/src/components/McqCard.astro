@@ -1,0 +1,53 @@
+---
+const { questionNum, year, questionText, optA, optB, optC, optD, correctOpt, explanation } = Astro.props;
+---
+<div class="mcq-card">
+    <div class="mcq-question">
+        <span class="q-number">Q{questionNum} ({year}).</span> <Fragment set:html={questionText} />
+    </div>
+    <div class="mcq-options" data-correct={correctOpt}>
+        <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> <Fragment set:html={optA} /></button>
+        <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> <Fragment set:html={optB} /></button>
+        <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> <Fragment set:html={optC} /></button>
+        <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> <Fragment set:html={optD} /></button>
+    </div>
+    <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
+    <div class="mcq-explanation" style="display: none;">
+        <strong style="color: #28a745;">Correct Answer: {correctOpt}</strong><br><br>
+        <strong>Explanation:</strong><br>
+        <Fragment set:html={explanation} />
+    </div>
+</div>
+
+<script is:inline>
+    function checkAnswer(btn) {
+        let optionsContainer = btn.parentElement;
+        let correctOpt = optionsContainer.getAttribute('data-correct');
+        let selectedOpt = btn.getAttribute('data-opt');
+        let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
+
+        allBtns.forEach(b => b.disabled = true);
+        if (selectedOpt === correctOpt) { btn.classList.add('correct'); } 
+        else {
+            btn.classList.add('incorrect');
+            allBtns.forEach(b => { if (b.getAttribute('data-opt') === correctOpt) b.classList.add('correct'); });
+        }
+        let revealBtn = optionsContainer.nextElementSibling;
+        let explanation = revealBtn.nextElementSibling;
+        revealBtn.style.display = 'none';
+        explanation.style.display = 'block';
+    }
+
+    function revealExplanation(btn) {
+        let optionsContainer = btn.previousElementSibling;
+        let correctOpt = optionsContainer.getAttribute('data-correct');
+        let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
+        allBtns.forEach(b => {
+            b.disabled = true;
+            if (b.getAttribute('data-opt') === correctOpt) b.classList.add('correct');
+        });
+        let explanation = btn.nextElementSibling;
+        explanation.style.display = 'block';
+        btn.style.display = 'none'; 
+    }
+</script>

@@ -1,0 +1,30 @@
+---
+layout: ../../layouts/BaseLayout.astro
+title: Electrostatics
+---
+import McqCard from '../../components/McqCard.astro';
+
+# Electrostatics
+
+Electrostatics deals with the study of forces, fields, and potentials arising from static charges.
+
+### 1. Coulomb's Law
+Coulomb's law states that the electrostatic force between two point charges is directly proportional to the product of the magnitudes of charges and inversely proportional to the square of the distance between them.
+
+<div style="text-align: center; font-size: 1.2em;" set:html={"$$F = \\frac{1}{4\\pi\\epsilon_0} \\frac{q_1 q_2}{r^2}$$"} />
+
+---
+
+### Previous Year Questions
+
+<McqCard 
+    questionNum="1" 
+    year="2016"
+    questionText={"A grounded conducting sphere of radius $a$ is placed with its centre at the origin. A point dipole of dipole moment $\\vec{p} = p\\hat{k}$ is placed at a distance $d$ along the x-axis..."}
+    optA={"$-\\left(\\frac{a}{d}\\right)^4 p\\hat{k}$"}
+    optB={"$-\\left(\\frac{a}{d}\\right)^3 p\\hat{k}$"}
+    optC={"$-\\left(\\frac{a}{d}\\right)^2 p\\hat{k}$"}
+    optD={"$-\\left(\\frac{a}{d}\\right) p\\hat{k}$"}
+    correctOpt="B"
+    explanation={"A dipole can be modeled as two charges $+q$ and $-q$ separated by a very small distance $\\Delta z$..."}
+/>
