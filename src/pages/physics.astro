@@ -1677,24 +1677,48 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
 
 
         <script is:inline>
-        function openTab(evt, sectionName) {
-            // Hide all elements with class="tab-content"
+        function activateTabByName(sectionName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
 
-            // Remove the class "active" from all tab buttons
             tablinks = document.getElementsByClassName("tab-btn");
             for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].classList.remove("active");
             }
 
-            // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById(sectionName).style.display = "block";
-            evt.currentTarget.className += " active";
+            var targetContent = document.getElementById(sectionName);
+            if (targetContent) {
+                targetContent.style.display = "block";
+                var targetBtn = document.querySelector(`.tab-btn[onclick*="'${sectionName}'"]`);
+                if (targetBtn) {
+                    targetBtn.classList.add("active");
+                }
+            }
         }
+
+        function openTab(evt, sectionName) {
+            activateTabByName(sectionName);
+            if (history.replaceState) {
+                history.replaceState(null, '', '#' + sectionName);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var hash = window.location.hash.replace('#', '');
+            if (hash) {
+                activateTabByName(hash);
+            }
+        });
+
+        window.addEventListener('hashchange', function() {
+            var hash = window.location.hash.replace('#', '');
+            if (hash) {
+                activateTabByName(hash);
+            }
+        });
 
         // Added this new function specifically to handle the nested School Physics sidebar
         function showSchoolSection(sectionId) {
