@@ -1187,12 +1187,14 @@
                             <li><a onclick="showSchoolSection('notes-intro')" style="font-weight: bold;">📚 Notes Home</a></li>
                             
                             <li class="section-header">Core Foundations</li>
+                            <li><a onclick="showSchoolSection('notes-mmp')">Mathematical Methods (MMP)</a></li>
                             <li><a onclick="showSchoolSection('notes-cm')">Classical Mechanics</a></li>
                             <li><a onclick="showSchoolSection('notes-qm')">Quantum Mechanics</a></li>
                             <li><a onclick="showSchoolSection('notes-sm')">Statistical Mechanics</a></li>
                             <li><a onclick="showSchoolSection('notes-ed')">Electrodynamics</a></li>
                             
-                            <li class="section-header">Advanced Condensed & High Energy</li>
+                            <li class="section-header">Applied & Modern Physics</li>
+                            <li><a onclick="showSchoolSection('notes-elec')">Electronics & Instrumentation</a></li>
                             <li><a onclick="showSchoolSection('notes-ssp')">Solid State Physics</a></li>
                             <li><a onclick="showSchoolSection('notes-np')">Nuclear Physics</a></li>
                             <li><a onclick="showSchoolSection('notes-pp')">Particle Physics</a></li>
@@ -1213,7 +1215,7 @@
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0;">
                                 <div style="background: var(--container-bg, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                                     <h3 style="margin-top: 0; color: #d32f2f;">📖 Theory Notes</h3>
-                                    <p>Comprehensive lecture notes covering Lagrangian & Hamiltonian dynamics, Quantum Postulates, Canonical Ensembles, Maxwell Equations, Band Theory, and the Standard Model.</p>
+                                    <p>Comprehensive lecture notes covering Mathematical Methods (MMP), Lagrangian & Hamiltonian dynamics, Quantum Postulates, Canonical Ensembles, Maxwell Equations, Electronics & Op-Amps, Band Theory, and the Standard Model.</p>
                                 </div>
                                 <div style="background: var(--container-bg, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                                     <h3 style="margin-top: 0; color: #007bff;">💻 Numerical Methods & Notebooks</h3>
@@ -1226,7 +1228,81 @@
                             </div>
                         </div>
 
-                        <!-- 1. Classical Mechanics -->
+                        <!-- 1. Mathematical Methods in Physics (MMP) -->
+                        <div id="notes-mmp" class="school-note-section">
+                            <h2>Mathematical Methods in Physics (MMP)</h2>
+                            <p>Advanced mathematical frameworks for theoretical physics: Complex variables & contour integration, linear vector spaces, differential equations & special functions, Fourier & Laplace transforms, Green's functions, group theory, and tensor calculus.</p>
+                            
+                            <!-- PDF Reader Container with Lecture Picker -->
+                            <div class="notes-pdf-box">
+                                <div class="notes-toolbar" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                        <span style="font-weight: bold;">📄 Select Lecture:</span>
+                                        <select id="mmp-lecture-select" onchange="changeMmpLecture(this.value)" style="padding: 6px 12px; border-radius: 4px; border: 1px solid var(--border-color, #ccc); background: var(--bg-color, #fff); font-size: 0.9em; max-width: 330px;">
+                                            <option value="/notes/mathematical_physics.pdf">Lecture 1: Matrices</option>
+                                            <option value="/notes/mmp/L2_230822_Linear Equations.pdf">Lecture 2: Linear Equations</option>
+                                            <option value="/notes/mmp/L3_230823_Vectors.pdf">Lecture 3: Vectors</option>
+                                            <option value="/notes/mmp/L4_230824_VECTOR_SPACES.pdf">Lecture 4: Vector Spaces</option>
+                                            <option value="/notes/mmp/L5_230828_The_minus_sign.pdf">Lecture 5: The Minus Sign</option>
+                                            <option value="/notes/mmp/L6_230903_Linear_Comb_Sub_Space.pdf">Lecture 6: Linear Combination & Subspaces</option>
+                                            <option value="/notes/mmp/L7_230902_Span_and_Basis.pdf">Lecture 7: Span & Basis</option>
+                                            <option value="/notes/mmp/L9_230905_COB(2)_Linear_Transformations.pdf">Lecture 9: Change of Basis & Linear Transformations</option>
+                                            <option value="/notes/mmp/L11_230907_LT_and_Linear_Operators.pdf">Lecture 11: Linear Transformations & Operators</option>
+                                            <option value="/notes/mmp/L12_230907_Functions_of_Operators.pdf">Lecture 12: Functions of Operators</option>
+                                            <option value="/notes/mmp/L13_230912_Inner_Product_Space.pdf">Lecture 13: Inner Product Space</option>
+                                            <option value="/notes/mmp/L14_230912_Bessels_Inequality.pdf">Lecture 14: Bessel's Inequality</option>
+                                            <option value="/notes/mmp/L15_230913_Completeness_GramSchmidt_Matrix_Element.pdf">Lecture 15: Gram-Schmidt & Completeness</option>
+                                            <option value="/notes/mmp/L16_230914_Dagger.pdf">Lecture 16: Dagger (Hermitian Adjoint)</option>
+                                            <option value="/notes/mmp/L17_230915_Unitary_COB(3)_EIGENVALUE_EIGENVECTORS.pdf">Lecture 17: Unitary, Eigenvalues & Eigenvectors</option>
+                                            <option value="/notes/mmp/L19_230920_Degenerate_Diagonalization.pdf">Lecture 19: Degenerate Diagonalization</option>
+                                            <option value="/notes/mmp/L20_230921_Complete_Set_of_Commuting_Operators.pdf">Lecture 20: CSCO (Commuting Operators)</option>
+                                            <option value="/notes/mmp/L20_Supplement_HCVerma_CSCO.pdf">Lecture 20 Supplement: HC Verma CSCO</option>
+                                            <option value="/notes/mmp/L 1810_231207_091329.pdf">Lecture 18 Oct: Notes</option>
+                                            <option value="/notes/mmp/L 1910_231207_091345.pdf">Lecture 19 Oct: Notes</option>
+                                            <option value="/notes/mmp/L 2310_231207_091358.pdf">Lecture 23 Oct: Notes</option>
+                                            <option value="/notes/mmp/L 2510_231207_091413.pdf">Lecture 25 Oct: Part 1</option>
+                                            <option value="/notes/mmp/L 2510-2_231207_091430.pdf">Lecture 25 Oct: Part 2</option>
+                                            <option value="/notes/mmp/L 2710_231207_091444.pdf">Lecture 27 Oct: Part 1</option>
+                                            <option value="/notes/mmp/L 2710-2_231207_091519.pdf">Lecture 27 Oct: Part 2</option>
+                                            <option value="/notes/mmp/L 611 Forced Oscillator _231207_091535.pdf">Lecture: Forced Oscillator</option>
+                                            <option value="/notes/mmp/L 2111 Bessel _231207_091625.pdf">Lecture: Bessel Functions</option>
+                                            <option value="/notes/mmp/L25.pdf">Lecture 25: Notes</option>
+                                            <option value="/notes/mmp/L26.pdf">Lecture 26: Notes</option>
+                                            <option value="/notes/mmp/L27.pdf">Lecture 27: Notes</option>
+                                            <option value="/notes/mmp/L28_Foundation.pdf">Lecture 28: Foundations</option>
+                                            <option value="/notes/mmp/L29.pdf">Lecture 29: Notes</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <a id="mmp-download-btn" href="/notes/mathematical_physics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
+                                        <a id="mmp-fullscreen-btn" href="/notes/mathematical_physics.pdf" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">↗️ Open Fullscreen</a>
+                                    </div>
+                                </div>
+                                <div style="background: #f0f0f0; border-radius: 6px; padding: 25px 15px; border: 1px dashed #bbb; margin-top: 10px;">
+                                    <iframe id="mmp-iframe" src="/notes/mathematical_physics.pdf" width="100%" height="600px" style="border: none; border-radius: 4px;" title="Mathematical Methods in Physics Notes">
+                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/mathematical_physics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
+                                    </iframe>
+                                </div>
+                            </div>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3>Key Mathematical Formulations</h3>
+                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #17a2b8; margin: 15px 0;">
+                                <h4>Cauchy's Residue Theorem</h4>
+                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\oint_C f(z) \\, dz = 2\\pi i \\sum_{k=1}^n \\operatorname{Res}(f, z_k) $$"} />
+                                <p>Essential for evaluating contour integrals and real improper integrals across the complex plane. Residue at a pole of order {"$m$"}:</p>
+                                <p style="text-align: center; font-size: 1.1em;" set:html={"$$ \\operatorname{Res}(f, z_0) = \\frac{1}{(m-1)!} \\lim_{z \\to z_0} \\frac{d^{m-1}}{dz^{m-1}} \\left[(z - z_0)^m f(z)\\right] $$"} />
+                            </div>
+
+                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #6c757d; margin: 15px 0;">
+                                <h4>Green's Function for Boundary Value Problems</h4>
+                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\mathcal{L}_x [G(x, x')] = \\delta(x - x'), \\quad u(x) = \\int G(x, x') f(x') \\, dx' $$"} />
+                                <p>where {"$\\mathcal{L}_x$"} is a linear differential operator with boundary conditions satisfied by {"$G(x, x')$"}.</p>
+                            </div>
+                        </div>
+
+                        <!-- 2. Classical Mechanics -->
                         <div id="notes-cm" class="school-note-section">
                             <h2>Classical Mechanics (MSc Level)</h2>
                             <p>Advanced formulation of classical dynamics: D'Alembert's principle, Euler-Lagrange equations, canonical transformations, Poisson brackets, and Hamilton-Jacobi theory.</p>
@@ -1339,7 +1415,42 @@
                             </div>
                         </div>
 
-                        <!-- 5. Solid State Physics -->
+                        <!-- 6. Electronics & Experimental Techniques -->
+                        <div id="notes-elec" class="school-note-section">
+                            <h2>Electronics & Experimental Techniques (MSc Level)</h2>
+                            <p>Postgraduate physics electronics: Semiconductor physics, operational amplifiers (linear & non-linear configurations, active filters, Schmitt triggers, multivibrators), digital logic gates, combinational and sequential circuits (flip-flops, counters, registers), data converters (ADC/DAC), and optoelectronic detectors.</p>
+                            
+                            <!-- PDF Reader Container -->
+                            <div class="notes-pdf-box">
+                                <div class="notes-toolbar">
+                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Electronics</span>
+                                    <a href="/notes/electronics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
+                                    <a href="/notes/electronics.pdf" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">↗️ Open Fullscreen</a>
+                                </div>
+                                <div style="background: #f0f0f0; border-radius: 6px; padding: 25px 15px; border: 1px dashed #bbb; margin-top: 10px;">
+                                    <iframe src="/notes/electronics.pdf" width="100%" height="600px" style="border: none; border-radius: 4px;" title="Electronics Notes">
+                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/electronics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
+                                    </iframe>
+                                </div>
+                            </div>
+
+                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
+
+                            <h3>Key Theoretical Highlights</h3>
+                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #fd7e14; margin: 15px 0;">
+                                <h4>Operational Amplifier: Inverting Amplifier & Virtual Short</h4>
+                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ V_+ \\approx V_- \\quad (\\text{Virtual Short Concept}), \\quad V_{\\text{out}} = -\\frac{R_f}{R_{\\text{in}}} V_{\\text{in}} $$"} />
+                                <p>For non-inverting amplifier configuration: {"$V_{\\text{out}} = \\left(1 + \\frac{R_f}{R_1}\\right) V_{\\text{in}}$"} providing exceptionally high input impedance.</p>
+                            </div>
+
+                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #20c997; margin: 15px 0;">
+                                <h4>Barkhausen Criterion for Sustained Oscillations</h4>
+                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ |A \\beta| = 1, \\quad \\angle A \\beta = 2n\\pi \\quad (n = 0, 1, 2, \\dots) $$"} />
+                                <p>The loop gain must be unity with zero phase shift (or an integer multiple of {"$360^\\circ$"}) across the feedback network.</p>
+                            </div>
+                        </div>
+
+                        <!-- 7. Solid State Physics -->
                         <div id="notes-ssp" class="school-note-section">
                             <h2>Solid State Physics (MSc Level)</h2>
                             <p>Crystal structures, reciprocal lattice, Bloch theorem, Kronig-Penney model, nearly free electron approximation, tight-binding method, phonons, and BCS theory of superconductivity.</p>
@@ -1696,6 +1807,15 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
                 if (targetBtn) {
                     targetBtn.classList.add("active");
                 }
+
+                // If entering a tab with sub-sections, ensure an active sub-section is visible
+                var activeSub = targetContent.querySelector('.active-school-section');
+                if (!activeSub) {
+                    var defaultSub = targetContent.querySelector('.school-note-section');
+                    if (defaultSub) {
+                        defaultSub.classList.add('active-school-section');
+                    }
+                }
             }
         }
 
@@ -1706,33 +1826,49 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
             }
         }
 
-        window.addEventListener('DOMContentLoaded', function() {
+        function handleHashRouting() {
             var hash = window.location.hash.replace('#', '');
-            if (hash) {
+            if (!hash) return;
+            var targetEl = document.getElementById(hash);
+            if (!targetEl) return;
+            
+            if (targetEl.classList.contains('tab-content')) {
                 activateTabByName(hash);
+            } else if (targetEl.classList.contains('school-note-section')) {
+                var parentTab = targetEl.closest('.tab-content');
+                if (parentTab) {
+                    activateTabByName(parentTab.id);
+                }
+                showSchoolSection(hash, false);
             }
-        });
+        }
 
-        window.addEventListener('hashchange', function() {
-            var hash = window.location.hash.replace('#', '');
-            if (hash) {
-                activateTabByName(hash);
-            }
-        });
+        window.addEventListener('DOMContentLoaded', handleHashRouting);
+        window.addEventListener('hashchange', handleHashRouting);
 
-        // Added this new function specifically to handle the nested School Physics sidebar
-        function showSchoolSection(sectionId) {
+        // Function specifically to handle nested sidebars
+        function showSchoolSection(sectionId, updateHash = true) {
             var i, sections;
-            // Hide all the nested school content sections
             sections = document.getElementsByClassName("school-note-section");
             for (i = 0; i < sections.length; i++) {
                 sections[i].classList.remove("active-school-section");
             }
-            // Show the specific section requested
             var target = document.getElementById(sectionId);
             if (target) {
                 target.classList.add("active-school-section");
             }
+            if (updateHash && history.replaceState) {
+                history.replaceState(null, '', '#' + sectionId);
+            }
+        }
+
+        function changeMmpLecture(pdfUrl) {
+            var frame = document.getElementById('mmp-iframe');
+            var downloadBtn = document.getElementById('mmp-download-btn');
+            var fullBtn = document.getElementById('mmp-fullscreen-btn');
+            if (frame) frame.src = pdfUrl;
+            if (downloadBtn) downloadBtn.href = pdfUrl;
+            if (fullBtn) fullBtn.href = pdfUrl;
         }
         </script>
 
