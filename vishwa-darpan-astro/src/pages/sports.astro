@@ -25,12 +25,12 @@
             <span class="nav-spacer"></span> 
             
             <div class="nav-links">
-                <a href="index.html">ई-पेपर</a>
-                <a href="news.html">बातम्या</a>
-                <a href="science.html">विज्ञान</a>
-                <a href="sports.html">क्रीडा</a>
-                <a href="health.html">आरोग्य</a>
-                <a href="business.html">व्यवसाय</a>
+                <a href="/">ई-पेपर</a>
+                <a href="/news">बातम्या</a>
+                <a href="/science">विज्ञान</a>
+                <a href="/sports">क्रीडा</a>
+                <a href="/health">आरोग्य</a>
+                <a href="/business">व्यवसाय</a>
             </div>
 
             <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
@@ -40,7 +40,7 @@
                 <!-- Sports Article: Argentina vs Cape Verde -->
         <div class="news-container">
             <h2 class="news-headline">फिफा विश्वचषक २०२६: नवख्या केप व्हर्डेची अर्जेंटिनाला कडवी झुंज; ३-२ च्या थरारक विजयासह अर्जेंटिनाची 'अंतिम १६' मध्ये धडक</h2>
-            <img src="images/messi.png" alt="Description of the event" class="article-image" style="margin-top: 10px; width: 50%;">
+            <img src="/images/messi.png" alt="Description of the event" class="article-image" style="margin-top: 10px; width: 50%;">
             <div class="news-content">
                 <p class="dateline">• मियामी •</p>
                 
@@ -57,7 +57,7 @@
         <!-- Sports Article: Portugal vs Croatia -->
         <div class="news-container">
         <h2 class="news-headline">फिफा विश्वचषक २०२६: 'स्निको' तंत्रज्ञानाच्या वादग्रस्त निर्णयामुळे क्रोएशियाचे आव्हान संपुष्टात; पोर्तुगालचा २-१ ने विजय</h2>
-        <img src="images/Portugal.png" alt="Description of the event" class="article-image">
+        <img src="/images/Portugal.png" alt="Description of the event" class="article-image">
         <div class="news-content">
         <p class="dateline">• टोरोंटो •</p>
 
@@ -73,8 +73,16 @@
 <!---------------------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------------------->
 
+        <footer style="background-color: var(--sidebar-bg, #f4f4f4); padding: 20px; text-align: center; border-top: 1px solid #ddd; margin-top: 40px;">
+            <div style="margin-bottom: 15px;">
+                <a href="/about" style="margin: 0 15px; text-decoration: none; color: #333; font-weight: bold;">आमच्याबद्दल</a>
+                <a href="/contact" style="margin: 0 15px; text-decoration: none; color: #333; font-weight: bold;">संपर्क</a>
+                <a href="/privacy" style="margin: 0 15px; text-decoration: none; color: #333; font-weight: bold;">गोपनीयता धोरण</a>
+            </div>
+            <p style="color: #666; font-size: 0.9em;">&copy; 2026 विश्वदर्पण (Vishwa Darpan). सर्व हक्क राखीव.</p>
+        </footer>
 
-        <script>
+        <script is:inline>
             // 1. Dark Mode Toggle
             function toggleTheme() {
                 document.body.classList.toggle("dark-mode");
