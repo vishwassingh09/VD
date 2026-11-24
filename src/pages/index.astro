@@ -146,6 +146,7 @@
             for (let day = 1; day <= daysInMonth; day++) {
                 let dayBox = document.createElement("div");
                 dayBox.className = "calendar-day";
+                dayBox.id = `calendar-day-${day}`;
                 dayBox.innerText = day;
 
                 if (day > currentDate) {
@@ -157,19 +158,17 @@
                     let mm = String(currentMonth + 1).padStart(2, '0'); 
                     let yyyy = currentYear;
                     
-                    // Added leading slash for absolute pathing
                     let fileName = `/archive/${dd}-${mm}-${yyyy}-VISHWADARPAN.pdf`;
 
                     dayBox.onclick = function() {
                         changePaper(fileName, dayBox);
                     };
-
-                    if (day === currentDate) {
-                        changePaper(fileName, dayBox);
-                    }
                 }
                 grid.appendChild(dayBox);
             }
+
+            // Automatically load today's paper or fallback to the latest available day
+            tryLoadLatestPaper(currentDate, currentMonth, currentYear);
         }
         </script>
 
@@ -224,10 +223,26 @@
         });
 
         document.getElementById('next-page').addEventListener('click', () => {
-            if (pageNum >= pdfDoc.numPages) return;
+            if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
             pageNum++;
             queueRenderPage(pageNum);
         });
+
+        function showNoPaperNotice() {
+            canvas.width = 650;
+            canvas.height = 220;
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#cc0000";
+            ctx.font = "bold 18px 'Segoe UI', Tahoma, sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("या तारखेचा ई-पेपर अद्याप उपलब्ध नाही.", canvas.width / 2, 95);
+            ctx.fillStyle = "#555555";
+            ctx.font = "14px 'Segoe UI', Tahoma, sans-serif";
+            ctx.fillText("मागील तारखेचा पेपर वाचण्यासाठी कृपया कॅलेंडरमधील तारखेवर क्लिक करा.", canvas.width / 2, 130);
+            document.getElementById('page-count').textContent = "--";
+            document.getElementById('page-num').textContent = "0";
+        }
 
         function changePaper(fileUrl, clickedBox) {
             document.getElementById("download-btn").href = fileUrl; 
@@ -238,9 +253,9 @@
                 pageNum = 1; 
                 renderPage(pageNum);
             }).catch(err => {
-                console.log("No PDF found for this date.");
-                ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                document.getElementById('page-count').textContent = "--";
+                console.log("No PDF found for date:", fileUrl);
+                pdfDoc = null;
+                showNoPaperNotice();
             });
 
             if (clickedBox) {
@@ -250,6 +265,35 @@
                 }
                 clickedBox.classList.add("selected-day");
             }
+        }
+
+        function tryLoadLatestPaper(day, month, year) {
+            if (day < 1) {
+                showNoPaperNotice();
+                return;
+            }
+            let dd = String(day).padStart(2, '0');
+            let mm = String(month + 1).padStart(2, '0'); 
+            let fileName = `/archive/${dd}-${mm}-${year}-VISHWADARPAN.pdf`;
+            let dayBox = document.getElementById(`calendar-day-${day}`);
+
+            pdfjsLib.getDocument(fileName).promise.then(pdfDoc_ => {
+                pdfDoc = pdfDoc_;
+                document.getElementById("download-btn").href = fileName;
+                document.getElementById('page-count').textContent = pdfDoc.numPages;
+                pageNum = 1;
+                renderPage(pageNum);
+                if (dayBox) {
+                    let allDays = document.getElementsByClassName("active-day");
+                    for (let i = 0; i < allDays.length; i++) {
+                        allDays[i].classList.remove("selected-day");
+                    }
+                    dayBox.classList.add("selected-day");
+                }
+            }).catch(() => {
+                // If today is not uploaded yet, fallback to previous available day
+                tryLoadLatestPaper(day - 1, month, year);
+            });
         }
         </script>
     </body>
