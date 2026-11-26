@@ -1,0 +1,204 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch2-sec4" class="ed-sec-block">
+
+### 2.4 Work and Energy in Electrostatics
+
+<div class="ed-theory-box">
+
+**Minimal Theory (Notes p. 4):**
+
+- **Work to move charge $Q$:** $W = Q\left[V(\vec{b}) - V(\vec{a})\right]$ (if ref. at $\infty$, $W = QV(\vec{r})$).
+- **Point charge assembly:** $W = \dfrac{1}{2}\sum_{i=1}^n q_i V(\vec{r}_i)$ (where $V(\vec{r}_i)$ is the potential at $\vec{r}_i$ due to all *other* charges).
+- **Continuous charge distribution:**
+
+$$
+W = \frac{1}{2}\int \rho V\,d\tau = \frac{\epsilon_0}{2}\left(\int_{\mathcal{V}} E^2\,d\tau + \oint_{\mathcal{S}} V\vec{E}\cdot d\vec{a}\right) = \frac{\epsilon_0}{2}\int_{\text{all space}} E^2\,d\tau
+$$
+
+- **Interaction Energy (Superposition of two fields $\vec{E}_1 + \vec{E}_2$):** $W_{\text{tot}} = W_1 + W_2 + \epsilon_0 \int \vec{E}_1\cdot\vec{E}_2\,d\tau$.
+
+</div>
+
+<ProblemCard num="2.31" title="Work to Assemble Four Alternating Charges on a Square" tag="Griffiths 2.31 · Point Charge Energy">
+  <div slot="problem">
+    Three charges ($-q, +q, -q$) are situated at three corners of a square of side $a$ (with $+q$ diagonally opposite the fourth corner).
+    1. How much work does it take to bring in another charge, $+q$, from far away and place it in the fourth corner?
+    2. How much work does it take to assemble the whole configuration of four charges?
+  </div>
+
+  <div slot="answer">
+    1. $W_4 = \dfrac{q^2}{4\pi\epsilon_0 a}\left(-2 + \dfrac{1}{\sqrt{2}}\right)$.
+    2. $W_{\text{tot}} = \dfrac{1}{4\pi\epsilon_0}\dfrac{2q^2}{a}\left(-2 + \dfrac{1}{\sqrt{2}}\right)$.
+  </div>
+
+  <div slot="solution">
+    1. The potential at the fourth corner due to the existing three charges is:
+       $$
+       V = \frac{1}{4\pi\epsilon_0}\left(\frac{-q}{a} + \frac{q}{\sqrt{2}a} + \frac{-q}{a}\right) = \frac{q}{4\pi\epsilon_0 a}\left(-2 + \frac{1}{\sqrt{2}}\right)
+       $$
+       So $W_4 = qV = \dfrac{q^2}{4\pi\epsilon_0 a}\left(-2 + \dfrac{1}{\sqrt{2}}\right)$.
+    2. Assembling one by one: $W_1 = 0$, $W_2 = \frac{1}{4\pi\epsilon_0}\left(-\frac{q^2}{a}\right)$, $W_3 = \frac{1}{4\pi\epsilon_0}\left(\frac{q^2}{\sqrt{2}a} - \frac{q^2}{a}\right)$, $W_4 = \text{part (1)}$. Summing:
+       $$
+       W_{\text{tot}} = \frac{q^2}{4\pi\epsilon_0 a}\left(-1 + \frac{1}{\sqrt{2}} - 1 - 2 + \frac{1}{\sqrt{2}}\right) = \frac{1}{4\pi\epsilon_0}\frac{2q^2}{a}\left(-2 + \frac{1}{\sqrt{2}}\right)
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.32" title="Two Repelling Charges Released from Rest" tag="Griffiths 2.32 · Energy Conservation">
+  <div slot="problem">
+    Two positive point charges, $q_A$ and $q_B$ (masses $m_A$ and $m_B$), are at rest, held together by a massless string of length $a$. Now the string is cut, and the particles fly off in opposite directions. How fast is each one going when they are far apart?
+  </div>
+
+  <div slot="answer">
+    $$
+    v_A = \sqrt{\frac{1}{2\pi\epsilon_0}\frac{q_A q_B}{(m_A + m_B)a}\left(\frac{m_B}{m_A}\right)}, \qquad v_B = \sqrt{\frac{1}{2\pi\epsilon_0}\frac{q_A q_B}{(m_A + m_B)a}\left(\frac{m_A}{m_B}\right)}
+    $$
+  </div>
+
+  <div slot="solution">
+    By conservation of energy ($E_{\text{initial}} = \frac{1}{4\pi\epsilon_0}\frac{q_A q_B}{a}$ and $V(\infty) = 0$):
+
+    $$
+    \frac{1}{2}m_A v_A^2 + \frac{1}{2}m_B v_B^2 = \frac{1}{4\pi\epsilon_0}\frac{q_A q_B}{a}
+    $$
+
+    By conservation of linear momentum, $m_A v_A = m_B v_B \implies v_B = \frac{m_A}{m_B}v_A$. Substituting:
+
+    $$
+    \frac{1}{2}\left(\frac{m_A}{m_B}\right)(m_A + m_B)v_A^2 = \frac{1}{4\pi\epsilon_0}\frac{q_A q_B}{a} \implies v_A = \sqrt{\frac{1}{2\pi\epsilon_0}\frac{q_A q_B}{(m_A + m_B)a}\left(\frac{m_B}{m_A}\right)}
+    $$
+
+    and symmetrically for $v_B$ by swapping $A \leftrightarrow B$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.33" title="1D Madelung Constant of an Infinite Alternating Chain" tag="Griffiths 2.33 · Point Charge Energy">
+  <div slot="problem">
+    Consider an infinite chain of point charges, $\pm q$ (with alternating signs), strung out along the $x$-axis, each a distance $a$ from its nearest neighbors. Find the work per particle required to assemble this system (determine $\alpha$ in $W = -\alpha\dfrac{q^2}{4\pi\epsilon_0 a}$).
+  </div>
+
+  <div slot="answer">
+    $$
+    \alpha = \ln 2
+    $$
+  </div>
+
+  <div slot="solution">
+    Using $W = \frac{1}{2}qV$, where the factor of $2$ inside the sum counts both left and right neighbors of a $+q$ particle:
+
+    $$
+    W = \frac{1}{2}q\left[2\sum_{n=1}^\infty \frac{1}{4\pi\epsilon_0}\frac{(-1)^n q}{na}\right] = \frac{q^2}{4\pi\epsilon_0 a}\sum_{n=1}^\infty \frac{(-1)^n}{n}
+    $$
+
+    From $\ln(1 + x) = x - \frac{1}{2}x^2 + \frac{1}{3}x^3 - \cdots$ evaluated at $x = 1$, $\sum_{n=1}^\infty \frac{(-1)^n}{n} = -\ln 2$. Thus $W = -\ln(2)\,\dfrac{q^2}{4\pi\epsilon_0 a}$, so $\alpha = \ln 2$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.34" title="Energy of a Uniformly Charged Solid Sphere (Three Ways)" tag="Griffiths 2.34 · Electrostatic Energy">
+  <div slot="problem">
+    Find the energy stored in a uniformly charged solid sphere of radius $R$ and charge $q$ in three ways:
+    1. $W = \frac{1}{2}\int \rho V\,d\tau$ (using $V$ from Prob. 2.21).
+    2. $W = \frac{\epsilon_0}{2}\int_{\text{all space}} E^2\,d\tau$.
+    3. $W = \frac{\epsilon_0}{2}\left(\oint_S V\vec{E}\cdot d\vec{a} + \int_{\mathcal{V}} E^2\,d\tau\right)$ over a spherical volume $\mathcal{V}$ of radius $a > R$, and examine $a \to \infty$.
+  </div>
+
+  <div slot="answer">
+    $W = \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{3}{5}\dfrac{q^2}{R}\right)$ in all three methods; in (3), the surface integral $\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{2a} \to 0$ as $a \to \infty$.
+  </div>
+
+  <div slot="solution">
+    1. **Using $\frac{1}{2}\int \rho V\,d\tau$:**
+       $$
+       W = \frac{1}{2}\rho\frac{q}{4\pi\epsilon_0(2R)}\int_0^R \left(3 - \frac{r^2}{R^2}\right)4\pi r^2\,dr = \frac{q\rho}{4\epsilon_0 R}\left(R^3 - \frac{R^3}{5}\right) = \frac{q\rho R^2}{5\epsilon_0} = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
+       $$
+    2. **Using $\frac{\epsilon_0}{2}\int_{\text{all space}} E^2\,d\tau$:**
+       $$
+       W = \frac{\epsilon_0}{2}\frac{q^2}{(4\pi\epsilon_0)^2}\left[\int_R^\infty \frac{1}{r^4}(4\pi r^2\,dr) + \int_0^R \left(\frac{r}{R^3}\right)^2 (4\pi r^2\,dr)\right] = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{R} + \frac{1}{5R}\right) = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
+       $$
+    3. **Using sphere of radius $a > R$:**
+       $$
+       W = \frac{1}{4\pi\epsilon_0}\frac{q^2}{2}\left(\frac{1}{a} + \frac{1}{5R} - \frac{1}{a} + \frac{1}{R}\right) = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
+       $$
+       As $a \to \infty$, the surface term $\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{2a} \to 0$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.35" title="Energy of a Solid Sphere by Layer-by-Layer Assembly" tag="Griffiths 2.35 · Snowball Method">
+  <div slot="problem">
+    Compute the energy of a uniformly charged solid sphere (radius $R$, charge $q$) by assembling it like a snowball, layer by layer: find $dW$ to add charge $dq$ of thickness $dr$ onto a sphere of radius $r$, and integrate $r: 0 \to R$.
+  </div>
+
+  <div slot="answer">
+    $$
+    W = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    When the sphere has radius $r$, its charge is $\bar{q} = q\dfrac{r^3}{R^3}$ and its surface potential is $V = \dfrac{1}{4\pi\epsilon_0}\dfrac{\bar{q}}{r}$. Adding a thin shell of charge $d\bar{q} = 4\pi r^2\,dr\,\rho = \dfrac{3q}{R^3}r^2\,dr$ costs:
+
+    $$
+    dW = d\bar{q}\,V = \frac{1}{4\pi\epsilon_0}\left(\frac{q r^3}{R^3}\right)\frac{1}{r}\left(\frac{3q}{R^3}r^2\,dr\right) = \frac{1}{4\pi\epsilon_0}\frac{3q^2}{R^6}r^4\,dr
+    $$
+
+    Integrating from $0$ to $R$:
+
+    $$
+    W = \frac{1}{4\pi\epsilon_0}\frac{3q^2}{R^6}\int_0^R r^4\,dr = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right) \quad\checkmark
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.36" title="Energy of Concentric Spherical Shells (+q, −q)" tag="Griffiths 2.36 · Field & Interaction Energy">
+  <div slot="problem">
+    Consider two concentric spherical shells of radii $a$ and $b$ ($b > a$). The inner carries charge $+q$ and the outer carries $-q$ (both uniform). Calculate the energy of this configuration:
+    1. Using $W = \dfrac{\epsilon_0}{2}\int E^2\,d\tau$.
+    2. Using $W_{\text{tot}} = W_1 + W_2 + \epsilon_0 \int \vec{E}_1\cdot\vec{E}_2\,d\tau$ (with shell self-energy $W_{\text{shell}} = \dfrac{q^2}{8\pi\epsilon_0 R}$).
+  </div>
+
+  <div slot="answer">
+    $$
+    W = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a} - \frac{1}{b}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    1. **Direct field energy:** $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\hat{r}$ for $a < r < b$, and $\mathbf{0}$ elsewhere:
+       $$
+       W = \frac{\epsilon_0}{2}\left(\frac{q}{4\pi\epsilon_0}\right)^2\int_a^b \frac{1}{r^4}4\pi r^2\,dr = \frac{q^2}{8\pi\epsilon_0}\int_a^b \frac{dr}{r^2} = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a} - \frac{1}{b}\right)
+       $$
+    2. **Via superposition:** $W_1 = \dfrac{q^2}{8\pi\epsilon_0 a}$, $W_2 = \dfrac{q^2}{8\pi\epsilon_0 b}$. Since $\vec{E}_1 = \mathbf{0}$ for $r < a$ and $\vec{E}_2 = \mathbf{0}$ for $r < b$, $\vec{E}_1\cdot\vec{E}_2 = -\left(\dfrac{1}{4\pi\epsilon_0}\right)^2\dfrac{q^2}{r^4}$ only for $r > b$, giving $\epsilon_0\int \vec{E}_1\cdot\vec{E}_2\,d\tau = -\dfrac{q^2}{4\pi\epsilon_0 b}$. Summing:
+       $$
+       W_{\text{tot}} = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a} + \frac{1}{b} - \frac{2}{b}\right) = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a} - \frac{1}{b}\right) \quad\checkmark
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.37" title="Interaction Energy of Two Point Charges via Field Integral" tag="Griffiths 2.37 · Interaction Energy">
+  <div slot="problem">
+    Find the interaction energy $W_i = \epsilon_0 \int \vec{E}_1\cdot\vec{E}_2\,d\tau$ for two point charges, $q_1$ and $q_2$, a distance $a$ apart. (Put $q_1$ at the origin and $q_2$ at $(0, 0, a)$, use spherical coordinates, and do the $r$ integral first.)
+  </div>
+
+  <div slot="answer">
+    $$
+    W_i = \frac{q_1 q_2}{4\pi\epsilon_0 a}
+    $$
+  </div>
+
+  <div slot="solution">
+    With $\vec{E}_1 = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_1}{r^2}\hat{r}$ and $\vec{E}_2 = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_2}{\mathscr{r}^2}\hat{\mathscr{r}}$, where $\mathscr{r} = \sqrt{r^2 + a^2 - 2ra\cos\theta}$ and $\cos\beta = \hat{r}\cdot\hat{\mathscr{r}} = \dfrac{r - a\cos\theta}{\mathscr{r}}$:
+
+    $$
+    W_i = \epsilon_0\frac{q_1 q_2}{(4\pi\epsilon_0)^2}\int \frac{1}{r^2 \mathscr{r}^2}\frac{r - a\cos\theta}{\mathscr{r}}(r^2\sin\theta\,dr\,d\theta\,d\phi) = \frac{q_1 q_2}{(4\pi)^2\epsilon_0}2\pi\int_0^\pi \int_0^\infty \frac{r - a\cos\theta}{\mathscr{r}^3}\sin\theta\,dr\,d\theta
+    $$
+
+    Holding $\theta$ fixed, $\mathscr{r}^2 = r^2 + a^2 - 2ra\cos\theta \implies 2\mathscr{r}\,d\mathscr{r} = (2r - 2a\cos\theta)\,dr$, so $(r - a\cos\theta)\,dr = \mathscr{r}\,d\mathscr{r}$! As $r: 0 \to \infty$, $\mathscr{r}: a \to \infty$:
+
+    $$
+    W_i = \frac{q_1 q_2}{8\pi\epsilon_0}\int_0^\pi \left(\int_a^\infty \frac{d\mathscr{r}}{\mathscr{r}^2}\right)\sin\theta\,d\theta = \frac{q_1 q_2}{8\pi\epsilon_0 a}\int_0^\pi \sin\theta\,d\theta = \frac{q_1 q_2}{4\pi\epsilon_0 a}
+    $$
+  </div>
+</ProblemCard>
+
+</section>

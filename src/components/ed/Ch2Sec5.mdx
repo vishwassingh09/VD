@@ -1,0 +1,197 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch2-sec5" class="ed-sec-block">
+
+### 2.5 Conductors & Capacitors
+
+<div class="ed-theory-box">
+
+**Minimal Theory (Notes p. 4 bottom + Griffiths 2.5):**
+
+- **Five Basic Rules of an Electrostatic Conductor:**
+  1. $\vec{E} = \mathbf{0}$ inside a conductor.
+  2. $\rho = 0$ inside a conductor.
+  3. Any net charge resides strictly on the surface.
+  4. A conductor is an equipotential ($V = \text{const}$).
+  5. $\vec{E}$ is perpendicular to the surface just outside: $\vec{E}_{\text{above}} = \dfrac{\sigma}{\epsilon_0}\hat{n}$, and $\sigma = -\epsilon_0\dfrac{\partial V}{\partial n}$.
+- **Electrostatic Force & Pressure on a Surface Charge:** A patch $\sigma\,da$ experiences the *average* field $\vec{E}_{\text{ave}} = \frac{1}{2}(\vec{E}_{\text{above}} + \vec{E}_{\text{below}})$, giving force per unit area (electrostatic pressure):
+
+$$
+\vec{f} = \sigma\vec{E}_{\text{ave}} = \frac{\sigma^2}{2\epsilon_0}\hat{n}, \qquad P = \frac{\epsilon_0}{2}E^2 = \frac{\sigma^2}{2\epsilon_0}
+$$
+
+- **Capacitors (Two Conductors with $+Q, -Q$):**
+
+$$
+C \equiv \frac{Q}{V}, \qquad W = \frac{1}{2}CV^2 = \frac{Q^2}{2C}
+$$
+
+</div>
+
+<EdDiagram
+  name="ch2-conductors-cavities"
+  caption="Left: Concentric metal sphere & shell (Prob. 2.38). Right: Conducting sphere with two cavities holding qₐ, q_b (Prob. 2.39)."
+/>
+
+<ProblemCard num="2.38" title="Metal Sphere Surrounded by a Concentric Metal Shell" tag="Griffiths 2.38 · Conductors">
+  <div slot="problem">
+    A metal sphere of radius $R$, carrying charge $q$, is surrounded by a thick concentric metal shell (inner radius $a$, outer radius $b$). The shell carries no net charge.
+    1. Find the surface charge density $\sigma$ at $R$, at $a$, and at $b$.
+    2. Find the potential at the center, using infinity as the reference point.
+    3. Now the outer surface is touched to a grounding wire, which drains off charge and lowers its potential to zero. How do your answers to (1) and (2) change?
+  </div>
+
+  <div slot="answer">
+    1. $\sigma_R = \dfrac{q}{4\pi R^2}$, $\sigma_a = -\dfrac{q}{4\pi a^2}$, $\sigma_b = \dfrac{q}{4\pi b^2}$.
+    2. $V(0) = \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{q}{b} + \dfrac{q}{R} - \dfrac{q}{a}\right)$.
+    3. Grounding sets $\sigma_b \to 0$, and $V(0) = \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{q}{R} - \dfrac{q}{a}\right)$.
+  </div>
+
+  <div slot="solution">
+    1. By Gauss's law inside the metal shell ($a < r < b$), $\vec{E} = \mathbf{0} \implies Q_{\text{enc}} = 0$, so the inner surface at $a$ carries induced charge $-q$. Since the shell is neutral, $+q$ is forced to the outer surface at $b$:
+       $$
+       \sigma_R = \frac{q}{4\pi R^2}, \qquad \sigma_a = -\frac{q}{4\pi a^2}, \qquad \sigma_b = \frac{q}{4\pi b^2}
+       $$
+    2. Integrate $\vec{E}$ from $\infty$ to $0$ (zero inside $R$, zero inside $a < r < b$, Coulomb outside $b$ and between $R < r < a$):
+       $$
+       V(0) = -\int_\infty^b \frac{q}{4\pi\epsilon_0 r^2}\,dr - \int_a^R \frac{q}{4\pi\epsilon_0 r^2}\,dr = \frac{1}{4\pi\epsilon_0}\left(\frac{q}{b} + \frac{q}{R} - \frac{q}{a}\right)
+       $$
+    3. Grounding drains $+q$ off the outer surface ($\sigma_b \to 0$), leaving $\vec{E} = \mathbf{0}$ for $r > a$. Thus $V(0) = -\int_a^R \dfrac{q}{4\pi\epsilon_0 r^2}\,dr = \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{q}{R} - \dfrac{q}{a}\right)$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.39" title="Conducting Sphere with Two Spherical Cavities" tag="Griffiths 2.39 · Shielding & Cavities">
+  <div slot="problem">
+    Two spherical cavities, of radii $a$ and $b$, are hollowed out from the interior of a (neutral) conducting sphere of radius $R$. At the center of each cavity a point charge is placed—$q_a$ and $q_b$.
+    1. Find the surface charge densities $\sigma_a$, $\sigma_b$, and $\sigma_R$.
+    2. What is the field outside the conductor?
+    3. What is the field within each cavity?
+    4. What is the force on $q_a$ and $q_b$?
+    5. Which of these answers would change if a third charge, $q_c$, were brought near the conductor?
+  </div>
+
+  <div slot="answer">
+    1. $\sigma_a = -\dfrac{q_a}{4\pi a^2}$, $\sigma_b = -\dfrac{q_b}{4\pi b^2}$, $\sigma_R = \dfrac{q_a + q_b}{4\pi R^2}$.
+    2. $\vec{E}_{\text{out}} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_a + q_b}{r^2}\hat{r}$.
+    3. $\vec{E}_a = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_a}{r_a^2}\hat{r}_a$, $\vec{E}_b = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_b}{r_b^2}\hat{r}_b$.
+    4. Zero on both $q_a$ and $q_b$.
+    5. Only $\sigma_R$ and $\vec{E}_{\text{out}}$ change (the cavities remain completely shielded!).
+  </div>
+
+  <div slot="solution">
+    1. Since $\vec{E} = \mathbf{0}$ in the metal surrounding each cavity, Gauss's law forces $-q_a$ onto cavity wall $a$ and $-q_b$ onto cavity wall $b$. Because the conductor is neutral overall, $+(q_a + q_b)$ goes to the outer spherical surface $R$ (distributed uniformly since the outer conductor shields the cavity shapes):
+       $$
+       \sigma_a = -\frac{q_a}{4\pi a^2}, \qquad \sigma_b = -\frac{q_b}{4\pi b^2}, \qquad \sigma_R = \frac{q_a + q_b}{4\pi R^2}
+       $$
+    2. Outside $R$, $\sigma_R$ is uniform, so $\vec{E}_{\text{out}} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_a + q_b}{r^2}\hat{r}$.
+    3. Inside each spherical cavity, the uniform wall charge exerts zero field inside, leaving only the centered point charge's field: $\vec{E}_a = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_a}{r_a^2}\hat{r}_a$ and $\vec{E}_b = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_b}{r_b^2}\hat{r}_b$.
+    4. By symmetry around each centered charge, the net force on $q_a$ and $q_b$ is **zero**.
+    5. Bringing $q_c$ outside redistributes $\sigma_R$ and alters $\vec{E}_{\text{out}}$, **but $\sigma_a, \sigma_b, \vec{E}_a, \vec{E}_b$ and the zero forces remain unchanged** because the conductor is an equipotential shield.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.40" title="Forces on Charges Near or Inside Uncharged Conductors" tag="Griffiths 2.40 · Conceptual">
+  <div slot="problem">
+    1. A point charge $q$ is inside an arbitrary cavity in an uncharged conductor (not necessarily at the center). Is the force on $q$ necessarily zero?
+    2. Is the force between a point charge and a nearby uncharged conductor always attractive?
+  </div>
+
+  <div slot="answer">
+    1. **No** (if $q$ is near a cavity wall, it induces opposite charge on that wall and is attracted to it).
+    2. **No** (generally attractive, though contrived non-convex shapes can create a small repulsive regime — see Griffiths footnote 12).
+  </div>
+
+  <div slot="solution">
+    1. **No.** Only the exterior field is shielded; if $q$ is placed off-center close to one side of the cavity wall, it induces a concentrated opposite charge on the nearby wall and feels an attractive force toward it.
+    2. **No.** Usually an external charge $q$ induces opposite charge on the near face and like charge on the far face, creating net attraction; however, as noted in Griffiths footnote 12 (Levin & Johnson), certain sharp/bowl-like geometries can produce a repulsive force at special locations.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.41" title="Electrostatic Pressure on Two Charged Metal Plates" tag="Griffiths 2.41 · Surface Force">
+  <div slot="problem">
+    Two large metal plates (each of area $A$) are held a small distance $d$ apart. Suppose we put a charge $Q$ on *each* plate; what is the electrostatic pressure on the plates?
+  </div>
+
+  <div slot="answer">
+    $$
+    P = \frac{Q^2}{2\epsilon_0 A^2}
+    $$
+  </div>
+
+  <div slot="solution">
+    By symmetry, each plate carries $+Q$ on its outer face ($\sigma = Q/A$) and zero charge on the inner facing surfaces, so $E = 0$ between the plates and $E = \dfrac{\sigma}{\epsilon_0} = \dfrac{Q}{\epsilon_0 A}$ outside the plates. Thus the outward electrostatic pressure on each plate is:
+
+    $$
+    P = \frac{\epsilon_0}{2}E^2 = \frac{\epsilon_0}{2}\frac{Q^2}{\epsilon_0^2 A^2} = \frac{Q^2}{2\epsilon_0 A^2}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.42" title="Repulsion Between the Northern and Southern Hemispheres of a Metal Sphere" tag="Griffiths 2.42 · Electrostatic Pressure">
+  <div slot="problem">
+    A metal sphere of radius $R$ carries a total charge $Q$. What is the force of repulsion between the "northern" hemisphere and the "southern" hemisphere?
+  </div>
+
+  <div slot="answer">
+    $$
+    F_z = \frac{Q^2}{32\pi R^2\epsilon_0}
+    $$
+  </div>
+
+  <div slot="solution">
+    Inside the metal sphere $\vec{E} = \mathbf{0}$, and just outside $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{Q}{R^2}\hat{r}$, so $\vec{E}_{\text{ave}} = \dfrac{1}{2}\left(\dfrac{1}{4\pi\epsilon_0}\dfrac{Q}{R^2}\right)\hat{r}$ and $\sigma = \dfrac{Q}{4\pi R^2}$.
+
+    The upward ($z$) force per unit area on the northern hemisphere is $f_z = \sigma(E_{\text{ave}})_z = \sigma E_{\text{ave}}\cos\theta$. Integrating over the northern hemisphere ($\theta: 0 \to \pi/2$, $\phi: 0 \to 2\pi$):
+
+    $$
+    F_z = \int f_z\,da = \int_0^{2\pi}\int_0^{\pi/2} \left(\frac{Q}{4\pi R^2}\right)\frac{1}{2}\left(\frac{1}{4\pi\epsilon_0}\frac{Q}{R^2}\right)\cos\theta\,(R^2\sin\theta\,d\theta\,d\phi)
+    $$
+
+    $$
+    F_z = \frac{1}{2\epsilon_0}\left(\frac{Q}{4\pi R}\right)^2 (2\pi)\int_0^{\pi/2}\sin\theta\cos\theta\,d\theta = \frac{1}{\pi\epsilon_0}\left(\frac{Q}{4R}\right)^2\left[\frac{1}{2}\sin^2\theta\right]_0^{\pi/2} = \frac{Q^2}{32\pi R^2\epsilon_0}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.43" title="Capacitance per Unit Length of Coaxial Cylinders" tag="Griffiths 2.43 · Capacitors">
+  <div slot="problem">
+    Find the capacitance per unit length of two coaxial metal cylindrical tubes of radii $a$ and $b$ ($b > a$).
+  </div>
+
+  <div slot="answer">
+    $$
+    \frac{C}{L} = \frac{2\pi\epsilon_0}{\ln(b/a)}
+    $$
+  </div>
+
+  <div slot="solution">
+    Place charge $+Q$ on the inner cylinder and $-Q$ on the outer cylinder over length $L$. By Gauss's law for $a < s < b$, $\vec{E} = \dfrac{Q}{2\pi\epsilon_0 L}\dfrac{1}{s}\hat{s}$. The potential difference is:
+
+    $$
+    V = V(a) - V(b) = \int_a^b \vec{E}\cdot d\vec{l} = \frac{Q}{2\pi\epsilon_0 L}\int_a^b \frac{ds}{s} = \frac{Q}{2\pi\epsilon_0 L}\ln\!\left(\frac{b}{a}\right)
+    $$
+
+    Therefore $C = \dfrac{Q}{V} = \dfrac{2\pi\epsilon_0 L}{\ln(b/a)}$, so capacitance per unit length is $\dfrac{2\pi\epsilon_0}{\ln(b/a)}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.44" title="Work vs. Field Energy Lost When Capacitor Plates Move Closer" tag="Griffiths 2.44 · Energy Conservation">
+  <div slot="problem">
+    Suppose the plates of a parallel-plate capacitor move closer together by an infinitesimal distance $\epsilon$, as a result of their mutual attraction.
+    1. Use the electrostatic pressure $P = \frac{\epsilon_0}{2}E^2$ to express the work done by electrostatic forces, in terms of $E$ and plate area $A$.
+    2. Use $W = \frac{\epsilon_0}{2}\int E^2\,d\tau$ to express the energy lost by the field in this process.
+  </div>
+
+  <div slot="answer">
+    1. $dW = \dfrac{\epsilon_0}{2}E^2 A\epsilon$.
+    2. Energy lost $= \dfrac{\epsilon_0}{2}E^2 A\epsilon$ (exact match!).
+  </div>
+
+  <div slot="solution">
+    1. Work $= (\text{force})\times(\text{distance}) = (\text{pressure})\times(\text{area})\times(\text{distance}) = \left(\dfrac{\epsilon_0}{2}E^2\right)A\epsilon$.
+    2. The field $E$ inside remains unchanged while the volume containing the field shrinks by $\Delta\mathcal{V} = A\epsilon$, so the field energy lost is $(\text{energy density})\times(\text{decrease in volume}) = \left(\dfrac{\epsilon_0}{2}E^2\right)(A\epsilon)$, confirming conservation of energy.
+  </div>
+</ProblemCard>
+
+</section>

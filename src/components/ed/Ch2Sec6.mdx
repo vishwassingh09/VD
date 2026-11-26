@@ -1,0 +1,434 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch2-sec6" class="ed-sec-block">
+
+### Chapter 2 Review Problems (2.45 – 2.61)
+
+<ProblemCard num="2.45" title="Electric Field Above the Center of a Uniformly Charged Square Sheet" tag="Griffiths 2.45 · Surface Charge">
+  <div slot="problem">
+    Find the electric field at a height $z$ above the center of a square sheet (side $a$) carrying a uniform surface charge $\sigma$. Check your result for the limiting cases $a \to \infty$ and $z \gg a$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{2\sigma}{\pi\epsilon_0}\left[\tan^{-1}\!\sqrt{1 + \frac{a^2}{2z^2}} - \frac{\pi}{4}\right]\hat{z} = \frac{\sigma}{\pi\epsilon_0}\tan^{-1}\!\left(\frac{a^2}{4z\sqrt{z^2 + a^2/2}}\right)\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    Break the square into concentric square ribbon frames of side $\tilde{a}$ and strip width $d\tilde{a}/2$ ($\lambda \to \sigma\,d\tilde{a}/2$). Using Prob. 2.4 and integrating $\tilde{a}: 0 \to a$:
+
+    $$
+    E_z = \frac{2\sigma z}{4\pi\epsilon_0}\int_0^a \frac{\tilde{a}\,d\tilde{a}}{\left(z^2 + \frac{\tilde{a}^2}{4}\right)\sqrt{z^2 + \frac{\tilde{a}^2}{2}}}
+    $$
+
+    Substitute $u = \tilde{a}^2/4$ ($\tilde{a}\,d\tilde{a} = 2\,du$):
+
+    $$
+    E_z = \frac{4\sigma z}{4\pi\epsilon_0}\int_0^{a^2/4} \frac{du}{(u + z^2)\sqrt{2u + z^2}} = \frac{\sigma}{\pi\epsilon_0}\left[2\tan^{-1}\!\left(\frac{\sqrt{2u+z^2}}{z}\right)\right]_0^{a^2/4} = \frac{2\sigma}{\pi\epsilon_0}\left[\tan^{-1}\!\sqrt{1 + \frac{a^2}{2z^2}} - \frac{\pi}{4}\right]
+    $$
+
+    - **Limit $a \to \infty$:** $\tan^{-1}(\infty) - \frac{\pi}{4} = \frac{\pi}{4} \implies \vec{E} = \dfrac{\sigma}{2\epsilon_0}\hat{z}$ (infinite plane). ✓
+    - **Limit $z \gg a$:** Expanding $\tan^{-1}\sqrt{1+x} - \frac{\pi}{4} \approx \frac{1}{4}x$ with $x = \frac{a^2}{2z^2}$ gives $E \approx \dfrac{2\sigma}{\pi\epsilon_0}\left(\dfrac{a^2}{8z^2}\right) = \dfrac{1}{4\pi\epsilon_0}\dfrac{\sigma a^2}{z^2}$ (point charge $q = \sigma a^2$). ✓
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.46" title="Charge Density from a Non-Central Spherical Electric Field" tag="Griffiths 2.46 · Spherical Divergence">
+  <div slot="problem">
+    If the electric field in some region is given (in spherical coordinates) by the expression
+
+    $$
+    \vec{E}(\vec{r}) = \frac{k}{r}\left[3\,\hat{r} + 2\sin\theta\cos\theta\sin\phi\,\hat{\theta} + \sin\theta\cos\phi\,\hat{\phi}\right]
+    $$
+
+    for some constant $k$, what is the charge density $\rho$?
+  </div>
+
+  <div slot="answer">
+    $$
+    \rho = \frac{3k\epsilon_0}{r^2}\left(1 + \cos 2\theta\sin\phi\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    Apply $\rho = \epsilon_0 \vec{\nabla}\cdot\vec{E}$ in spherical coordinates:
+
+    $$
+    \rho = \epsilon_0\left\{\frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{3k}{r}\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{2k\sin\theta\cos\theta\sin\phi}{r}\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}\left(\frac{k\sin\theta\cos\phi}{r}\right)\right\}
+    $$
+
+    $$
+    \rho = \frac{k\epsilon_0}{r^2}\left[3 + 2\sin\phi(2\cos^2\theta - \sin^2\theta) - \sin\phi\right] = \frac{k\epsilon_0}{r^2}\left[3 + \sin\phi(4\cos^2\theta - 2 + 2\cos^2\theta - 1)\right]
+    $$
+
+    $$
+    \rho = \frac{3k\epsilon_0}{r^2}\left[1 + \sin\phi(2\cos^2\theta - 1)\right] = \frac{3k\epsilon_0}{r^2}(1 + \cos 2\theta\sin\phi)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.47" title="Net Force Between Hemispheres of a Uniformly Charged Solid Sphere" tag="Griffiths 2.47 · Volume Force">
+  <div slot="problem">
+    Find the net force that the southern hemisphere of a uniformly charged solid sphere exerts on the northern hemisphere. Express your answer in terms of the radius $R$ and the total charge $Q$.
+  </div>
+
+  <div slot="answer">
+    $$
+    F_z = \frac{1}{4\pi\epsilon_0}\frac{3Q^2}{16 R^2} = \frac{3Q^2}{64\pi\epsilon_0 R^2}
+    $$
+  </div>
+
+  <div slot="solution">
+    Inside the sphere, $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{Q}{R^3}\vec{r}$ and $\rho = \dfrac{Q}{\frac{4}{3}\pi R^3}$. The force per unit volume is $\vec{f} = \rho\vec{E} = \dfrac{3}{\epsilon_0}\left(\dfrac{Q}{4\pi R^3}\right)^2\vec{r}$. Integrating the $z$-component ($r\cos\theta$) over the northern hemisphere ($r: 0\to R$, $\theta: 0\to\pi/2$, $\phi: 0\to 2\pi$):
+
+    $$
+    F_z = \int f_z\,d\tau = \frac{3}{\epsilon_0}\left(\frac{Q}{4\pi R^3}\right)^2 \int_0^R r^3\,dr \int_0^{\pi/2}\cos\theta\sin\theta\,d\theta \int_0^{2\pi} d\phi = \frac{3}{\epsilon_0}\left(\frac{Q}{4\pi R^3}\right)^2\left(\frac{R^4}{4}\right)\left(\frac{1}{2}\right)(2\pi) = \frac{3Q^2}{64\pi\epsilon_0 R^2}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.48" title="Potential Difference on an Inverted Hemispherical Bowl" tag="Griffiths 2.48 · Potential Integral">
+  <div slot="problem">
+    An inverted hemispherical bowl of radius $R$ carries a uniform surface charge density $\sigma$. Find the potential difference between the "north pole" and the center.
+  </div>
+
+  <div slot="answer">
+    $$
+    V_{\text{pole}} - V_{\text{center}} = \frac{R\sigma}{2\epsilon_0}(\sqrt{2} - 1)
+    $$
+  </div>
+
+  <div slot="solution">
+    At the center, every patch is at distance $R$:
+
+    $$
+    V_{\text{center}} = \frac{1}{4\pi\epsilon_0}\int \frac{\sigma}{R}\,da = \frac{\sigma}{4\pi\epsilon_0 R}(2\pi R^2) = \frac{\sigma R}{2\epsilon_0}
+    $$
+
+    At the north pole, a ring at colatitude $\theta$ has $da = 2\pi R^2\sin\theta\,d\theta$ and distance $\mathscr{r} = \sqrt{R^2 + R^2 - 2R^2\cos\theta} = R\sqrt{2(1 - \cos\theta)}$:
+
+    $$
+    V_{\text{pole}} = \frac{\sigma(2\pi R^2)}{4\pi\epsilon_0 R\sqrt{2}}\int_0^{\pi/2} \frac{\sin\theta\,d\theta}{\sqrt{1 - \cos\theta}} = \frac{\sigma R}{2\sqrt{2}\epsilon_0}\left[2\sqrt{1 - \cos\theta}\right]_0^{\pi/2} = \frac{\sigma R}{\sqrt{2}\epsilon_0}
+    $$
+
+    Hence $V_{\text{pole}} - V_{\text{center}} = \dfrac{\sigma R}{2\epsilon_0}(\sqrt{2} - 1)$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.49" title="Energy of a Sphere with Charge Density ρ(r) = kr" tag="Griffiths 2.49 · Energy (Two Ways)">
+  <div slot="problem">
+    A sphere of radius $R$ carries a charge density $\rho(r) = kr$ (where $k$ is a constant). Find the energy of the configuration. Check your answer by calculating it in at least two different ways.
+  </div>
+
+  <div slot="answer">
+    $$
+    W = \frac{\pi k^2 R^7}{7\epsilon_0}
+    $$
+  </div>
+
+  <div slot="solution">
+    From Gauss's law, $Q_{\text{enc}}(r) = 4\pi k\int_0^r \bar{r}^3\,d\bar{r} = \pi k r^4$ ($r < R$) and $\pi k R^4$ ($r > R$), so $\vec{E} = \dfrac{k r^2}{4\epsilon_0}\hat{r}$ ($r < R$) and $\vec{E} = \dfrac{k R^4}{4\epsilon_0 r^2}\hat{r}$ ($r > R$).
+    - **Method I ($W = \frac{\epsilon_0}{2}\int E^2\,d\tau$):**
+      $$
+      W = 4\pi\frac{\epsilon_0}{2}\left(\frac{k}{4\epsilon_0}\right)^2\left\{\int_0^R r^6\,dr + R^8\int_R^\infty \frac{dr}{r^2}\right\} = \frac{\pi k^2}{8\epsilon_0}\left(\frac{R^7}{7} + R^7\right) = \frac{\pi k^2 R^7}{7\epsilon_0}
+      $$
+    - **Method II ($W = \frac{1}{2}\int \rho V\,d\tau$):** For $r < R$, $V(r) = -\int_\infty^R \frac{kR^4}{4\epsilon_0 r^2}\,dr - \int_R^r \frac{k\bar{r}^2}{4\epsilon_0}\,d\bar{r} = \frac{k}{3\epsilon_0}\left(R^3 - \frac{r^3}{4}\right)$, giving:
+      $$
+      W = \frac{1}{2}\int_0^R (kr)\left[\frac{k}{3\epsilon_0}\left(R^3 - \frac{r^3}{4}\right)\right]4\pi r^2\,dr = \frac{2\pi k^2}{3\epsilon_0}\left(\frac{R^7}{4} - \frac{R^7}{28}\right) = \frac{\pi k^2 R^7}{7\epsilon_0} \quad\checkmark
+      $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.50" title="Field, Charge Density & Total Charge for Screened Potential V = A e^(−λr)/r" tag="Griffiths 2.50 · Dirac Delta">
+  <div slot="problem">
+    The electric potential of some configuration is given by $V(r) = A\dfrac{e^{-\lambda r}}{r}$, where $A$ and $\lambda$ are constants. Find $\vec{E}(\vec{r})$, the charge density $\rho(\vec{r})$, and the total charge $Q$.
+  </div>
+
+  <div slot="answer">
+    $\vec{E}(\vec{r}) = A e^{-\lambda r}(1 + \lambda r)\dfrac{\hat{r}}{r^2}$, $\rho(\vec{r}) = \epsilon_0 A\left[4\pi\delta^3(\vec{r}) - \dfrac{\lambda^2}{r}e^{-\lambda r}\right]$, and $Q = 0$.
+  </div>
+
+  <div slot="solution">
+    1. **Field:** $\vec{E} = -\vec{\nabla}V = -A\dfrac{\partial}{\partial r}\left(\dfrac{e^{-\lambda r}}{r}\right)\hat{r} = A e^{-\lambda r}(1 + \lambda r)\dfrac{\hat{r}}{r^2}$.
+    2. **Charge density:** Using the product rule $\nabla\cdot(f\vec{A}) = f(\nabla\cdot\vec{A}) + \vec{A}\cdot\nabla f$ with $\nabla\cdot(\hat{r}/r^2) = 4\pi\delta^3(\vec{r})$ and $e^{-\lambda r}(1+\lambda r)\delta^3(\vec{r}) = \delta^3(\vec{r})$:
+       $$
+       \rho = \epsilon_0 \vec{\nabla}\cdot\vec{E} = \epsilon_0 A\left[4\pi\delta^3(\vec{r}) + \frac{\hat{r}}{r^2}\cdot\vec{\nabla}\!\left(e^{-\lambda r}(1 + \lambda r)\right)\right] = \epsilon_0 A\left[4\pi\delta^3(\vec{r}) - \frac{\lambda^2}{r}e^{-\lambda r}\right]
+       $$
+    3. **Total charge:**
+       $$
+       Q = \int \rho\,d\tau = \epsilon_0 A\left(4\pi - 4\pi\lambda^2\int_0^\infty r e^{-\lambda r}\,dr\right) = 4\pi\epsilon_0 A\left(1 - \lambda^2\frac{1}{\lambda^2}\right) = 0
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.51" title="Potential on the Rim of a Uniformly Charged Disk" tag="Griffiths 2.51 · Potential Integral">
+  <div slot="problem">
+    Find the potential on the rim of a uniformly charged disk (radius $R$, charge density $\sigma$).
+  </div>
+
+  <div slot="answer">
+    $$
+    V = \frac{\sigma R}{\pi\epsilon_0}
+    $$
+  </div>
+
+  <div slot="solution">
+    Place the field point at $(R, 0)$ on the rim and integrate over disk polar coordinates $(s, \phi)$ centered at the disk center ($s \in [0, R]$, $\phi \in [0, 2\pi]$, $\mathscr{r} = \sqrt{R^2 + s^2 - 2Rs\cos\phi}$):
+
+    $$
+    V = \frac{\sigma}{4\pi\epsilon_0}\int_0^R \int_0^{2\pi} \frac{s\,d\phi\,ds}{\sqrt{R^2 + s^2 - 2Rs\cos\phi}}
+    $$
+
+    With $u = s/R$:
+
+    $$
+    V = \frac{\sigma R}{2\pi\epsilon_0}\int_0^1 \left(\int_0^\pi \frac{u\,d\phi}{\sqrt{1 + u^2 - 2u\cos\phi}}\right)du
+    $$
+
+    (Equivalently, integrating in polar coordinates centered *on the rim* $(r, \theta)$ with $r \in [0, 2R\cos\theta]$ and $\theta \in [-\pi/2, \pi/2]$ gives $V = \frac{\sigma}{4\pi\epsilon_0}\int_{-\pi/2}^{\pi/2} 2R\cos\theta\,d\theta = \frac{\sigma R}{\pi\epsilon_0}$, confirming the double integral equals $2$!)
+  </div>
+</ProblemCard>
+
+<EdDiagram
+  name="ch2-two-wires"
+  caption="Two parallel infinite line charges ±λ at y = ±a and circular cylindrical equipotentials (Prob. 2.52)."
+/>
+
+<ProblemCard num="2.52" title="Equipotential Cylinders of Two Opposite Infinite Line Charges" tag="Griffiths 2.52 · Line Charge Potentials">
+  <div slot="problem">
+    Two infinitely long wires running parallel to the $x$-axis carry uniform charge densities $+\lambda$ at $y = +a$ and $-\lambda$ at $y = -a$ (in the $xy$-plane).
+    1. Find the potential at any point $(x, y, z)$, using the origin as your reference.
+    2. Show that the equipotential surfaces are circular cylinders, and locate the axis $(y_0, 0)$ and radius $R$ of the cylinder corresponding to a given potential $V_0$.
+  </div>
+
+  <div slot="answer">
+    1. $V(x, y, z) = \dfrac{\lambda}{4\pi\epsilon_0}\ln\!\left[\dfrac{(y + a)^2 + z^2}{(y - a)^2 + z^2}\right]$.
+    2. Circular cylinders parallel to the $x$-axis centered at $y = y_0 = a\coth\!\left(\dfrac{2\pi\epsilon_0 V_0}{\lambda}\right)$, $z = 0$, with radius $R = a\,\left|\mathrm{csch}\!\left(\dfrac{2\pi\epsilon_0 V_0}{\lambda}\right)\right|$.
+  </div>
+
+  <div slot="solution">
+    1. Using Prob. 2.22 with reference at the origin (distance $a$ from each wire), $s_+ = \sqrt{(y-a)^2 + z^2}$ and $s_- = \sqrt{(y+a)^2 + z^2}$:
+       $$
+       V = -\frac{\lambda}{2\pi\epsilon_0}\ln\left(\frac{s_+}{a}\right) + \frac{\lambda}{2\pi\epsilon_0}\ln\left(\frac{s_-}{a}\right) = \frac{\lambda}{2\pi\epsilon_0}\ln\left(\frac{s_-}{s_+}\right) = \frac{\lambda}{4\pi\epsilon_0}\ln\!\left[\frac{(y + a)^2 + z^2}{(y - a)^2 + z^2}\right]
+       $$
+    2. Setting $V = V_0$ gives $\dfrac{(y + a)^2 + z^2}{(y - a)^2 + z^2} = e^{4\pi\epsilon_0 V_0/\lambda} \equiv k$. Rearranging:
+       $$
+       y^2 + z^2 + a^2 - 2ay\left(\frac{k+1}{k-1}\right) = 0 \implies (y - y_0)^2 + z^2 = R^2
+       $$
+       which is a circular cylinder with center $y_0 = a\dfrac{k+1}{k-1} = a\coth\!\left(\dfrac{2\pi\epsilon_0 V_0}{\lambda}\right)$ and radius $R = \sqrt{y_0^2 - a^2} = \dfrac{a}{\left|\sinh(2\pi\epsilon_0 V_0/\lambda)\right|}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.53" title="Vacuum Diode & the Child-Langmuir Law" tag="Griffiths 2.53 · Poisson's Equation">
+  <div slot="problem">
+    In a parallel-plate vacuum diode (plate area $A$, separation $d$), electrons (mass $m$, charge $-q$) leave the cathode at $x = 0$ ($V = 0$, $V'(0) = 0$) from rest and accelerate to the anode at $x = d$ ($V = V_0$), forming steady current $I$.
+    1. Write Poisson's equation for $V(x)$.
+    2. Find electron speed $v(x)$ in terms of $V(x)$, and relate $\rho, v, I$.
+    3. Eliminate $\rho$ and $v$ to get a differential equation for $V(x)$ and solve for $V(x)$, $\rho(x)$, and $v(x)$.
+    4. Show $I = K V_0^{3/2}$ and find $K$.
+  </div>
+
+  <div slot="answer">
+    $V(x) = V_0\left(\dfrac{x}{d}\right)^{4/3}$, $\rho(x) = -\dfrac{4\epsilon_0 V_0}{9(d^2 x)^{2/3}}$, $v(x) = \sqrt{\dfrac{2qV_0}{m}}\left(\dfrac{x}{d}\right)^{2/3}$, and $I = K V_0^{3/2}$ with $K = \dfrac{4\epsilon_0 A}{9d^2}\sqrt{\dfrac{2q}{m}}$.
+  </div>
+
+  <div slot="solution">
+    1. $\dfrac{d^2 V}{dx^2} = -\dfrac{\rho}{\epsilon_0}$.
+    2. Conservation of energy gives $\frac{1}{2}mv^2 = qV \implies v = \sqrt{\dfrac{2qV}{m}}$. Steady current gives $I = A\rho v$ (with $\rho < 0$, $I < 0$).
+    3. Eliminating $\rho$ and $v$:
+       $$
+       \frac{d^2 V}{dx^2} = -\frac{I}{\epsilon_0 A}\sqrt{\frac{m}{2q}}\,V^{-1/2} = \beta V^{-1/2}, \qquad \beta \equiv -\frac{I}{\epsilon_0 A}\sqrt{\frac{m}{2q}} > 0
+       $$
+       Multiply by $V'$ and integrate using $V(0) = V'(0) = 0$: $\frac{1}{2}(V')^2 = 2\beta V^{1/2} \implies V^{-1/4}\,dV = 2\sqrt{\beta}\,dx \implies V(x) = \left(\frac{3}{2}\sqrt{\beta}\,x\right)^{4/3}$. Since $V(d) = V_0$:
+       $$
+       V(x) = V_0\left(\frac{x}{d}\right)^{4/3}, \qquad \rho(x) = -\epsilon_0 V'' = -\frac{4\epsilon_0 V_0}{9(d^2 x)^{2/3}}, \qquad v(x) = \sqrt{\frac{2qV_0}{m}}\left(\frac{x}{d}\right)^{2/3}
+       $$
+    4. Evaluating $|I|$ from $V_0 = \left(\frac{81 I^2 m}{32\epsilon_0^2 A^2 q}\right)^{1/3} d^{4/3}$ yields $I = K V_0^{3/2}$ with $K = \dfrac{4\epsilon_0 A}{9d^2}\sqrt{\dfrac{2q}{m}}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.54" title="Reformulating Electrostatics if Coulomb's Law Had a Yukawa Correction" tag="Griffiths 2.54 · Modified Electrostatics">
+  <div slot="problem">
+    Suppose the force between two point charges were $\vec{F} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q_1 q_2}{r^2}\left(1 + \dfrac{r}{\lambda}\right)e^{-r/\lambda}\hat{r}$.
+    1. Find $\vec{E}(\vec{r})$ for a charge density $\rho$.
+    2. Does $\vec{E}$ admit a scalar potential? If so, find $V(r)$ of a point charge $q$ (ref. $\infty$).
+    3. Show $\oint_S \vec{E}\cdot d\vec{a} + \dfrac{1}{\lambda^2}\int_V V\,d\tau = \dfrac{Q_{\text{enc}}}{\epsilon_0}$ for any closed surface $S$.
+    4. Write the differential "Gauss's law" and "Poisson's equation", and show charge on a conductor distributes over the volume + surface.
+  </div>
+
+  <div slot="answer">
+    $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\int \dfrac{\rho\hat{\mathscr{r}}}{\mathscr{r}^2}\left(1 + \dfrac{\mathscr{r}}{\lambda}\right)e^{-\mathscr{r}/\lambda}d\tau'$; $V(r) = \dfrac{q}{4\pi\epsilon_0}\dfrac{e^{-r/\lambda}}{r}$; differential laws: $\vec{\nabla}\cdot\vec{E} + \dfrac{1}{\lambda^2}V = \dfrac{\rho}{\epsilon_0}$ and $\left(\nabla^2 - \dfrac{1}{\lambda^2}\right)V = -\dfrac{\rho}{\epsilon_0}$.
+  </div>
+
+  <div slot="solution">
+    1. By superposition, $\vec{E}(\vec{r}) = \dfrac{1}{4\pi\epsilon_0}\int \dfrac{\rho(\vec{r}')\hat{\mathscr{r}}}{\mathscr{r}^2}\left(1 + \dfrac{\mathscr{r}}{\lambda}\right)e^{-\mathscr{r}/\lambda}d\tau'$.
+    2. **Yes**, a point charge field is purely radial ($\vec{\nabla}\times\vec{E} = \mathbf{0}$), and superposition preserves curl-freeness. Integrating from $\infty$ to $r$:
+       $$
+       V(r) = -\int_\infty^r \frac{q}{4\pi\epsilon_0 r'^2}\left(1 + \frac{r'}{\lambda}\right)e^{-r'/\lambda}\,dr' = \frac{q}{4\pi\epsilon_0}\frac{e^{-r/\lambda}}{r}
+       $$
+    3. For a centered sphere of radius $R$: $\oint_S \vec{E}\cdot d\vec{a} = \frac{q}{\epsilon_0}\left(1 + \frac{R}{\lambda}\right)e^{-R/\lambda}$ and $\frac{1}{\lambda^2}\int_V V\,d\tau = \frac{q}{\epsilon_0}\left[1 - \left(1 + \frac{R}{\lambda}\right)e^{-R/\lambda}\right]$, summing to $q/\epsilon_0$. Deforming a small patch from $R$ to $S$ changes both terms by equal and opposite amounts, extending the identity to any closed surface and arbitrary charge distribution ($Q_{\text{enc}}/\epsilon_0$).
+    4. Divergence theorem yields $\vec{\nabla}\cdot\vec{E} + \dfrac{1}{\lambda^2}V = \dfrac{\rho}{\epsilon_0}$ and $\left(\nabla^2 - \dfrac{1}{\lambda^2}\right)V = -\dfrac{\rho}{\epsilon_0}$. Inside a conductor, $\vec{E} = \mathbf{0} \implies V = V_0 = \text{const} \implies \rho = \dfrac{\epsilon_0 V_0}{\lambda^2}$ is uniform throughout the volume, with any remaining charge on the surface.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.55" title="Uniform Charge Density Filling All Space (Ill-Posed Problem)" tag="Griffiths 2.55 · Uniqueness & B.C.">
+  <div slot="problem">
+    Suppose $\vec{E}(x, y, z) = ax\,\hat{x}$ ($E_y = E_z = 0$), where $a$ is a constant. What is the charge density $\rho$? How do you account for the fact that the field points in a particular direction when $\rho$ is uniform?
+  </div>
+
+  <div slot="answer">
+    $\rho = \epsilon_0 a$ (uniform everywhere). Gauss's law + $\vec{\nabla}\times\vec{E} = \mathbf{0}$ alone do not determine $\vec{E}$ without boundary conditions; an infinite uniform $\rho$ filling all space is physically ill-posed.
+  </div>
+
+  <div slot="solution">
+    $\rho = \epsilon_0\vec{\nabla}\cdot\vec{E} = \epsilon_0\dfrac{\partial(ax)}{\partial x} = \epsilon_0 a$.
+
+    Yet $\vec{E} = ay\,\hat{y}$ or $\vec{E} = \frac{a}{3}\vec{r}$ also satisfy $\vec{\nabla}\cdot\vec{E} = a$ and $\vec{\nabla}\times\vec{E} = \mathbf{0}$! Differential equations require **boundary conditions** to yield a unique solution. Because $\rho$ fills all space, neither "$\vec{E} \to 0$ at $\infty$" nor spherical symmetry around a single origin exists—so "the field of uniform charge filling all space" is ill-posed (Coulomb's integral doesn't converge either).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.56" title="Gravitational Energy of a Uniform Sphere & Kelvin-Helmholtz Age of the Sun" tag="Griffiths 2.56 · Electrostatics Analogy">
+  <div slot="problem">
+    By analogy with electrostatics ($1/4\pi\epsilon_0 \to G$, $q \to m$ with opposite sign), find the gravitational energy of a uniform sphere of mass $M$ and radius $R$. Estimate the Sun's gravitational energy ($M = 1.99\times 10^{30}\text{ kg}$, $R = 6.96\times 10^8\text{ m}$), and find how long the Sun would last radiating at $3.86\times 10^{26}\text{ W}$.
+  </div>
+
+  <div slot="answer">
+    $W_{\text{grav}} = -\dfrac{3}{5}G\dfrac{M^2}{R} \approx -2.28\times 10^{41}\text{ J}$, lasting $t \approx 5.90\times 10^{14}\text{ s} \approx 1.87\times 10^7\text{ years}$.
+  </div>
+
+  <div slot="solution">
+    Translating Prob. 2.34 via $1/(4\pi\epsilon_0) \to G$, $q \to M$ (attractive $\implies$ negative energy):
+
+    $$
+    W_{\text{grav}} = -\frac{3}{5}G\frac{M^2}{R}
+    $$
+
+    With $G = 6.67\times 10^{-11}\text{ N}\cdot\text{m}^2/\text{kg}^2$, $M = 1.99\times 10^{30}\text{ kg}$, $R = 6.96\times 10^8\text{ m}$:
+
+    $$
+    |W_{\text{grav}}| = \frac{3}{5}(6.67\times 10^{-11})\frac{(1.99\times 10^{30})^2}{6.96\times 10^8} \approx 2.28\times 10^{41}\text{ J}
+    $$
+
+    Lifetime at luminosity $P = 3.86\times 10^{26}\text{ W}$: $t = \dfrac{|W_{\text{grav}}|}{P} = \dfrac{2.28\times 10^{41}}{3.86\times 10^{26}} = 5.90\times 10^{14}\text{ s} \approx 1.87\times 10^7\text{ years}$ (too short for Earth's geological age—the Kelvin-Helmholtz argument before nuclear fusion was discovered).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.57" title="Surface Charge on a Conducting Disk, Ribbon, and Needle from an Ellipsoid" tag="Griffiths 2.57 · Conducting Ellipsoid">
+  <div slot="problem">
+    For a conducting ellipsoid $\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}=1$ carrying charge $Q$, $\sigma = \dfrac{Q}{4\pi abc}\left(\dfrac{x^2}{a^4}+\dfrac{y^2}{b^4}+\dfrac{z^2}{c^4}\right)^{-1/2}$. Obtain the net (both sides) charge density for:
+    1. A circular disk of radius $R$.
+    2. An infinite ribbon along $y$ from $x = -a$ to $x = a$ (charge per unit length $\Lambda$).
+    3. A conducting needle along $x \in [-a, a]$.
+  </div>
+
+  <div slot="answer">
+    1. Disk: $\sigma(r) = \dfrac{Q}{2\pi R\sqrt{R^2 - r^2}}$.
+    2. Ribbon: $\sigma(x) = \dfrac{\Lambda}{2\pi\sqrt{a^2 - x^2}}$.
+    3. Needle: $\lambda(x) = \dfrac{Q}{2a}$ (uniform!).
+  </div>
+
+  <div slot="solution">
+    Eliminating $z/c$ gives $\sigma(x,y) = \dfrac{Q}{4\pi ab}\left[c^2(x^2/a^4 + y^2/b^4) + 1 - x^2/a^2 - y^2/b^2\right]^{-1/2}$.
+    1. **Disk:** Let $c \to 0$ (multiplying by $2$ for top + bottom faces), set $a = b = R$ and $r = \sqrt{x^2+y^2}$:
+       $$
+       \sigma(r) = \frac{Q}{2\pi R^2\sqrt{1 - r^2/R^2}} = \frac{Q}{2\pi R\sqrt{R^2 - r^2}}
+       $$
+    2. **Ribbon:** In the squashed $c\to 0$ ellipse, set $\Lambda \equiv Q/(2b)$ and take $b \to \infty$:
+       $$
+       \sigma(x) = \frac{\Lambda}{2\pi a\sqrt{1 - x^2/a^2}} = \frac{\Lambda}{2\pi\sqrt{a^2 - x^2}}
+       $$
+    3. **Needle:** Set $b = c$, $r = \sqrt{y^2+z^2}$, so $dq = \sigma(2\pi r\,ds)$ with $ds = dx\sqrt{1+(dr/dx)^2} = dx\,\frac{c^2}{r}\sqrt{x^2/a^4 + r^2/c^4}$:
+       $$
+       \lambda(x) = \frac{dq}{dx} = 2\pi r\frac{Q}{4\pi a c^2\sqrt{x^2/a^4 + r^2/c^4}}\frac{c^2}{r}\sqrt{\frac{x^2}{a^4} + \frac{r^2}{c^4}} = \frac{Q}{2a} \quad\text{(constant!)}.
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.58" title="Zero-Field Points Inside a Regular n-Gon of Equal Charges" tag="Griffiths 2.58 · Equilibrium Points">
+  <div slot="problem">
+    1. Consider an equilateral triangle inscribed in a circle of radius $a$ with charge $q$ at each vertex. Besides the center, find the three interior points where $\vec{E} = \mathbf{0}$.
+    2. Find the distance of the $n$ off-center zero-field points for a square ($n=4$) and pentagon ($n=5$), and describe $n \to \infty$.
+  </div>
+
+  <div slot="answer">
+    1. $r = 0.284718\,a$ along the three symmetry spokes bisecting the sides.
+    2. Square ($n=4$): $r = 0.546936\,a$; Pentagon ($n=5$): $r = 0.688917\,a$. As $n \to \infty$, they approach the circle ($r \to a$).
+  </div>
+
+  <div slot="solution">
+    1. Place vertices on the circle of radius $a$ at $(-a,0)$ and $(a/2, \pm\frac{\sqrt{3}}{2}a)$, and test $(r, 0)$ along the $+x$ bisector. Setting $E_x = 0$:
+       $$
+       \frac{1}{(a+r)^2} = \frac{2\cos\theta}{b^2} = \frac{2(a/2 - r)}{(a^2 - ar + r^2)^{3/2}}
+       $$
+       With $u \equiv r/a$, this simplifies to $(1-2u)^2(1+u)^4 = (1-u+u^2)^3 \implies 3u(1 - 4u + u^2 + u^3 + 5u^4 + u^5) = 0$. Besides $u = 0$ (center), the unique interior root is $u = 0.284718 \implies r = 0.284718\,a$.
+    2. By the same symmetry along side-bisecting spokes:
+       - **$n = 4$:** $4 - 8v + v^2 + 2v^3 = 0$ ($v = 2r^2/a^2$) yields $r = 0.546936\,a$.
+       - **$n = 5$:** Solving $E_x = 0$ numerically yields $r = 0.688917\,a$. As $n \to \infty$, the zero-field points fill out a circle approaching the ring itself ($r \to a$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.59" title="Does Reversing the External Field Always Reverse the Force on a Conductor?" tag="Griffiths 2.59 · Induced Charges">
+  <div slot="problem">
+    Prove or disprove (with a counterexample): *Suppose a conductor carrying net charge $Q$, when placed in an external electric field $\vec{E}_e$, experiences a force $\vec{F}$; if $\vec{E}_e \to -\vec{E}_e$, the force also reverses ($\vec{F} \to -\vec{F}$).* What if $\vec{E}_e$ is uniform?
+  </div>
+
+  <div slot="answer">
+    **False** in general (counterexample: neutral conducting sphere near a point charge $+q$ vs $-q$ — both attract!). **True** if $\vec{E}_e$ is uniform ($\vec{F} = Q\vec{E}_e$).
+  </div>
+
+  <div slot="solution">
+    - **General case — False:** Take a neutral ($Q = 0$) conducting sphere in the external field of a nearby point charge $+q$. Induced opposite charge on the near side makes the force **attractive** toward $q$. Reversing $\vec{E}_e \to -\vec{E}_e$ (changing $+q$ to $-q$) also reverses all induced charges, so the force remains **attractive** (same direction, NOT reversed!).
+    - **Uniform external field — True:** In a uniform field $\vec{E}_e$, the force on the induced dipole/multipole charges sums to zero, leaving $\vec{F} = Q\vec{E}_e$, which strictly reverses when $\vec{E}_e \to -\vec{E}_e$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.60" title="Work to Extract a Central Charge from a Conducting Shell" tag="Griffiths 2.60 · Electrostatic Energy">
+  <div slot="problem">
+    A point charge $q$ is at the center of an uncharged spherical conducting shell, of inner radius $a$ and outer radius $b$. How much work does it take to move the charge out to infinity (through a tiny hole drilled in the shell)?
+  </div>
+
+  <div slot="answer">
+    $$
+    W = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a} - \frac{1}{b}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    Compute the difference $W = W_f - W_i$ between the initial and final electrostatic energies:
+    - **Initial state:** $+q$ at the center, $-q$ induced uniformly at $r = a$, and $+q$ on the outer surface at $r = b$. By Prob. 2.36 (or Prob. 2.35), assembling $-q$ at $a$ costs $-q^2/(8\pi\epsilon_0 a)$ and assembling $+q$ at $b$ costs $+q^2/(8\pi\epsilon_0 b)$ (wait: equivalently, the field energy is $\frac{\epsilon_0}{2}\int E^2\,d\tau$ inside $(0, a)$ and $(b, \infty)$, minus the point charge's infinite self-energy; removing the point charge leaves only the shell energy!). Using the shell-assembly method relative to the point charge:
+      $$
+      W_i = -\frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a} - \frac{1}{b}\right)
+      $$
+    - **Final state:** Neutral shell + point charge at $\infty \implies W_f = 0$ (excluding point self-energy).
+    - **Work required:** $W = W_f - W_i = \dfrac{q^2}{8\pi\epsilon_0}\left(\dfrac{1}{a} - \dfrac{1}{b}\right)$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.61" title="Minimum-Energy Configuration of N Equal Charges on or Inside a Circle" tag="Griffiths 2.61 · Discrete Charges">
+  <div slot="problem">
+    What is the minimum-energy configuration for $N$ equal point charges placed on or inside a circle of radius $R$? Show that for $N = 12$ it is lower energy to put 11 on the circumference and 1 at the center, whereas for $N = 11$ all 11 on the circumference is lower energy.
+  </div>
+
+  <div slot="answer">
+    In units of $\dfrac{q^2}{4\pi\epsilon_0 R}$:
+    - $N = 11$: all 11 on rim ($\Omega_{11} = 48.5757$) $<$ 10 on rim + 1 at center ($\Omega_{10} + 10 = 48.6245$).
+    - $N = 12$: 11 on rim + 1 at center ($\Omega_{11} + 11 = 59.5757$) $<$ all 12 on rim ($\Omega_{12} = 59.8074$).
+  </div>
+
+  <div slot="solution">
+    With $n$ charges evenly spaced on the rim at angles $2\pi j/n$, the distance from charge $n$ to charge $j$ is $\mathscr{r}_j = 2R\sin(j\pi/n)$, giving total energy $W_n = \dfrac{q^2}{4\pi\epsilon_0 R}\Omega_n$ where:
+
+    $$
+    \Omega_n = \frac{n}{4}\sum_{j=1}^{n-1}\frac{1}{\sin(j\pi/n)}
+    $$
+
+    Evaluating numerically: $\Omega_{10} = 38.6245$, $\Omega_{11} = 48.5757$, $\Omega_{12} = 59.8074$.
+
+    If $(n-1)$ charges sit on the rim and $1$ sits at the center (distance $R$ from each rim charge), the dimensionless energy is $\Omega_{n-1} + (n - 1)$:
+    - **$N = 11$:** $\Omega_{10} + 10 = 48.6245 > \Omega_{11} = 48.5757$ $\implies$ **all 11 on the rim** wins.
+    - **$N = 12$:** $\Omega_{11} + 11 = 59.5757 < \Omega_{12} = 59.8074$ $\implies$ **11 on the rim + 1 at the center** wins! (Unlike 3D conductors, 2D charges obeying $1/r$ Coulomb repulsion do *not* all sit on the boundary!)
+  </div>
+</ProblemCard>
+
+</section>

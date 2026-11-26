@@ -280,6 +280,163 @@ def make_multipole_geometry():
     save_fig(fig, "multipole-geometry")
 
 
+def make_ch2_gauss_surfaces():
+    fig, axes = plt.subplots(1, 3, figsize=(8.2, 2.5))
+    for a in axes:
+        a.set_aspect("equal")
+        a.axis("off")
+
+    # 1. Spherical Gaussian surface
+    ax = axes[0]
+    ax.set_xlim(-1.4, 1.4)
+    ax.set_ylim(-1.5, 1.4)
+    ax.add_patch(plt.Circle((0, 0), 0.55, facecolor="#fee2e2", edgecolor="#dc2626", lw=1.6))
+    ax.add_patch(plt.Circle((0, 0), 1.05, facecolor="none", edgecolor="#0066cc", lw=1.6, ls="--"))
+    arrow(ax, (0, 0), (0.74, 0.74), color="#0066cc", lw=1.6, mutation_scale=11)
+    ax.text(0.28, 0.52, r"$r$", fontsize=13, color="#0066cc")
+    ax.text(-0.18, -0.10, r"$R$", fontsize=12, color="#dc2626")
+    ax.text(0, -1.38, r"Spherical ($4\pi r^2$)", ha="center", fontsize=11.5, color="#1e293b")
+
+    # 2. Cylindrical Gaussian surface
+    ax = axes[1]
+    ax.set_xlim(-1.4, 1.4)
+    ax.set_ylim(-1.5, 1.4)
+    ax.plot([-1.15, 1.15], [0, 0], color="#dc2626", lw=2.4)
+    rect_x = [-0.65, 0.65, 0.65, -0.65, -0.65]
+    rect_y = [-0.65, -0.65, 0.65, 0.65, -0.65]
+    ax.plot(rect_x, rect_y, color="#0066cc", lw=1.5, ls="--")
+    arrow(ax, (0, 0), (0, 0.65), color="#0066cc", lw=1.5, mutation_scale=10)
+    ax.text(0.10, 0.28, r"$s$", fontsize=13, color="#0066cc")
+    ax.text(0, 0.80, r"$l$", ha="center", fontsize=12, color="#0066cc")
+    ax.text(0, -1.38, r"Coaxial ($2\pi s l$)", ha="center", fontsize=11.5, color="#1e293b")
+
+    # 3. Overlapping spheres (+rho, -rho)
+    ax = axes[2]
+    ax.set_xlim(-1.5, 1.6)
+    ax.set_ylim(-1.5, 1.4)
+    c1 = (-0.42, 0.0)
+    c2 = (0.48, 0.0)
+    ax.add_patch(plt.Circle(c1, 0.78, facecolor="#fee2e2", edgecolor="#dc2626", lw=1.5, alpha=0.55))
+    ax.add_patch(plt.Circle(c2, 0.78, facecolor="#dbeafe", edgecolor="#0066cc", lw=1.5, alpha=0.55))
+    ax.scatter([c1[0], c2[0]], [0, 0], s=25, color="#1e293b", zorder=5)
+    arrow(ax, c1, c2, color="#1e293b", lw=1.6, mutation_scale=11, zorder=6)
+    ax.text(-0.02, 0.14, r"$\vec{d}$", fontsize=13, color="#1e293b")
+    ax.text(-0.92, 0.72, r"$+\rho$", fontsize=12, color="#dc2626")
+    ax.text(0.68, 0.72, r"$-\rho$", fontsize=12, color="#0066cc")
+    ax.text(0.05, -1.38, r"Overlap ($\vec{E}=\frac{\rho}{3\epsilon_0}\vec{d}$)", ha="center", fontsize=11.5, color="#1e293b")
+
+    fig.tight_layout(w_pad=1.2)
+    save_fig(fig, "ch2-gauss-surfaces")
+
+
+def make_ch2_triangle():
+    fig, ax = plt.subplots(figsize=(5.6, 3.6))
+    ax.set_xlim(-0.4, 5.4)
+    ax.set_ylim(-0.4, 3.9)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    top = (2.5, 3.35)
+    left = (0.55, 0.45)
+    right = (4.45, 0.45)
+
+    for p, lbl, c in [(top, r"$\rho$", "#dc2626"), (left, r"$V$", "#15803d"), (right, r"$\vec{E}$", "#0066cc")]:
+        ax.add_patch(plt.Circle(p, 0.34, facecolor="#f8fafc", edgecolor=c, lw=2.0, zorder=5))
+        ax.text(p[0], p[1], lbl, ha="center", va="center", fontsize=16, color=c, zorder=6)
+
+    # Top <-> Right (rho <-> E)
+    arrow(ax, (2.82, 3.15), (4.25, 0.85), color="#1e293b", lw=1.6, mutation_scale=11)
+    arrow(ax, (4.05, 0.70), (2.62, 3.00), color="#64748b", lw=1.5, mutation_scale=11)
+    ax.text(3.75, 2.25, r"$\vec{E} = \frac{1}{4\pi\epsilon_0}\int\frac{\rho}{\mathfrak{r}^2}\hat{\mathfrak{r}}\,d\tau'$", fontsize=11.5, color="#1e293b", rotation=-56, ha="center", va="center")
+    ax.text(3.05, 1.85, r"$\nabla\cdot\vec{E} = \frac{\rho}{\epsilon_0}$", fontsize=11.5, color="#475569", rotation=-56, ha="center", va="center")
+
+    # Top <-> Left (rho <-> V)
+    arrow(ax, (2.18, 3.15), (0.75, 0.85), color="#1e293b", lw=1.6, mutation_scale=11)
+    arrow(ax, (0.95, 0.70), (2.38, 3.00), color="#64748b", lw=1.5, mutation_scale=11)
+    ax.text(1.18, 2.22, r"$V = \frac{1}{4\pi\epsilon_0}\int\frac{\rho}{\mathfrak{r}}\,d\tau'$", fontsize=11.5, color="#1e293b", rotation=56, ha="center", va="center")
+    ax.text(1.88, 1.82, r"$\nabla^2 V = -\frac{\rho}{\epsilon_0}$", fontsize=11.5, color="#475569", rotation=56, ha="center", va="center")
+
+    # Left <-> Right (V <-> E)
+    arrow(ax, (0.98, 0.56), (4.02, 0.56), color="#1e293b", lw=1.6, mutation_scale=11)
+    arrow(ax, (4.02, 0.34), (0.98, 0.34), color="#64748b", lw=1.5, mutation_scale=11)
+    ax.text(2.5, 0.76, r"$\vec{E} = -\vec{\nabla}V$", ha="center", fontsize=12.5, color="#1e293b")
+    ax.text(2.5, 0.02, r"$V(\vec{r}) = -\int_{\mathcal{O}}^{\vec{r}}\vec{E}\cdot d\vec{l}$", ha="center", fontsize=12, color="#475569")
+
+    save_fig(fig, "ch2-electrostatics-triangle")
+
+
+def make_ch2_conductors_cavities():
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 3.0))
+    for a in axes:
+        a.set_aspect("equal")
+        a.axis("off")
+
+    # Left: Concentric metal sphere + shell (Prob 2.38)
+    ax = axes[0]
+    ax.set_xlim(-1.6, 1.6)
+    ax.set_ylim(-1.7, 1.5)
+    ax.add_patch(plt.Circle((0, 0), 1.25, facecolor="#cbd5e1", edgecolor="#1e293b", lw=1.6))
+    ax.add_patch(plt.Circle((0, 0), 0.82, facecolor="white", edgecolor="#1e293b", lw=1.4))
+    ax.add_patch(plt.Circle((0, 0), 0.42, facecolor="#fca5a5", edgecolor="#dc2626", lw=1.6))
+    arrow(ax, (0, 0), (0.30, 0.28), color="#1e293b", lw=1.2, mutation_scale=9)
+    ax.text(0.18, 0.02, r"$R$", fontsize=11, color="#1e293b")
+    arrow(ax, (0, 0), (-0.58, 0.58), color="#1e293b", lw=1.2, mutation_scale=9)
+    ax.text(-0.55, 0.25, r"$a$", fontsize=11, color="#1e293b")
+    arrow(ax, (0, 0), (0.88, -0.88), color="#1e293b", lw=1.2, mutation_scale=9)
+    ax.text(0.55, -0.78, r"$b$", fontsize=11, color="#1e293b")
+    ax.text(-0.12, -0.15, r"$q$", fontsize=12, color="#b91c1c")
+    ax.text(0, -1.55, "Concentric Shell (Prob. 2.38)", ha="center", fontsize=11.5, color="#1e293b")
+
+    # Right: Conductor with two spherical cavities (Prob 2.39)
+    ax = axes[1]
+    ax.set_xlim(-1.6, 1.6)
+    ax.set_ylim(-1.7, 1.5)
+    ax.add_patch(plt.Circle((0, 0), 1.25, facecolor="#cbd5e1", edgecolor="#1e293b", lw=1.6))
+    ax.add_patch(plt.Circle((-0.48, 0.12), 0.42, facecolor="white", edgecolor="#1e293b", lw=1.4))
+    ax.add_patch(plt.Circle((0.48, -0.10), 0.36, facecolor="white", edgecolor="#1e293b", lw=1.4))
+    ax.scatter([-0.48, 0.48], [0.12, -0.10], s=32, color="#dc2626", zorder=5)
+    ax.text(-0.54, 0.26, r"$q_a$", fontsize=11.5, color="#dc2626")
+    ax.text(-0.30, -0.12, r"$a$", fontsize=10.5, color="#334155")
+    ax.text(0.42, 0.02, r"$q_b$", fontsize=11.5, color="#dc2626")
+    ax.text(0.60, -0.32, r"$b$", fontsize=10.5, color="#334155")
+    arrow(ax, (0, 0), (0, 1.25), color="#1e293b", lw=1.2, mutation_scale=9)
+    ax.text(0.08, 0.90, r"$R$", fontsize=11.5, color="#1e293b")
+    ax.text(0, -1.55, "Two Cavities (Prob. 2.39)", ha="center", fontsize=11.5, color="#1e293b")
+
+    fig.tight_layout(w_pad=1.5)
+    save_fig(fig, "ch2-conductors-cavities")
+
+
+def make_ch2_two_wires():
+    fig, ax = plt.subplots(figsize=(5.2, 3.0))
+    ax.set_xlim(-2.6, 2.6)
+    ax.set_ylim(-1.5, 1.7)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    arrow(ax, (-2.3, 0), (2.3, 0), color="#64748b", lw=1.3, mutation_scale=10)
+    arrow(ax, (0, -1.3), (0, 1.45), color="#64748b", lw=1.3, mutation_scale=10)
+    ax.text(2.35, -0.05, r"$y$", fontsize=13, color="#475569")
+    ax.text(0.08, 1.42, r"$z$", fontsize=13, color="#475569")
+
+    # Wires at y = +a and y = -a
+    a = 0.85
+    ax.scatter([a], [0], s=55, color="#dc2626", zorder=5)
+    ax.scatter([-a], [0], s=55, color="#0066cc", zorder=5)
+    ax.text(a - 0.08, -0.26, r"$+\lambda$", fontsize=12.5, color="#dc2626")
+    ax.text(-a - 0.16, -0.26, r"$-\lambda$", fontsize=12.5, color="#0066cc")
+
+    # Circular cylindrical equipotentials (x^2 doesn't matter; y0 = a coth, R = a csch)
+    for u in [0.7, 1.1]:
+        y0 = a / np.tanh(u)
+        R = a / np.sinh(u)
+        ax.add_patch(plt.Circle((y0, 0), R, facecolor="none", edgecolor="#dc2626", lw=1.2, alpha=0.7))
+        ax.add_patch(plt.Circle((-y0, 0), R, facecolor="none", edgecolor="#0066cc", lw=1.2, alpha=0.7))
+
+    ax.text(1.80, 1.38, r"$(y_0, 0)$, radius $R$", fontsize=11.5, color="#dc2626")
+    save_fig(fig, "ch2-two-wires")
+
+
 if __name__ == "__main__":
     make_coulomb_vectors()
     make_gaussian_pillbox()
@@ -287,4 +444,8 @@ if __name__ == "__main__":
     make_method_of_images()
     make_separation_slot()
     make_multipole_geometry()
-    print("Regenerated 6 SVG diagrams and PNG previews.")
+    make_ch2_gauss_surfaces()
+    make_ch2_triangle()
+    make_ch2_conductors_cavities()
+    make_ch2_two_wires()
+    print("Regenerated all SVG diagrams and PNG previews.")

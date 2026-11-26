@@ -1,0 +1,114 @@
+---
+interface ChapterOption {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  chapters: ChapterOption[];
+}
+
+const { chapters } = Astro.props;
+---
+<div class="ed-chapter-picker">
+    <label for="ed-chapter-select" class="ed-chapter-label">📚 Select Chapter:</label>
+    <select id="ed-chapter-select" class="ed-chapter-select" onchange="changeEdChapter(this.value)">
+        {chapters.map((ch, idx) => (
+            <option value={ch.id} selected={idx === 0}>{ch.label}</option>
+        ))}
+    </select>
+</div>
+
+<slot />
+
+<style is:global>
+.ed-chapter-picker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    background: var(--container-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-left: 4px solid var(--accent-color, #007bff);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 22px 0;
+}
+
+.ed-chapter-label {
+    font-weight: 700;
+    color: var(--text-color, #222);
+}
+
+.ed-chapter-select {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color, #cbd5e1);
+    background: var(--bg-color, #fff);
+    color: var(--text-color, #222);
+    font-size: 0.96em;
+    font-weight: 600;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.ed-chapter-toc {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 24px 0;
+    padding: 12px 16px;
+    background: rgba(0, 123, 255, 0.04);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 8px;
+}
+
+.ed-toc-label {
+    font-weight: 700;
+    font-size: 0.9em;
+    margin-right: 4px;
+}
+
+.ed-chapter-toc a,
+.ed-chapter-toc button {
+    font-size: 0.86em;
+    font-weight: 600;
+    color: var(--accent-color, #007bff);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 123, 255, 0.25);
+    background: var(--container-bg, #ffffff);
+    cursor: pointer;
+}
+
+.ed-chapter-toc a:hover,
+.ed-chapter-toc button:hover {
+    background: var(--accent-color, #007bff);
+    color: #ffffff;
+}
+
+.ed-sec-divider {
+    margin: 40px 0;
+    border: 0;
+    border-top: 2px solid var(--border-color, #e2e8f0);
+}
+</style>
+
+<script is:inline>
+if (!window.changeEdChapter) {
+    window.changeEdChapter = function(chapterId) {
+        var panels = document.getElementsByClassName('ed-chapter-panel');
+        for (var i = 0; i < panels.length; i++) {
+            panels[i].style.display = 'none';
+            panels[i].classList.remove('active-ed-chapter');
+        }
+        var target = document.getElementById(chapterId);
+        if (target) {
+            target.style.display = 'block';
+            target.classList.add('active-ed-chapter');
+        }
+    };
+}
+</script>

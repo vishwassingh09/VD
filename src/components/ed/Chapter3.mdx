@@ -1,0 +1,86 @@
+import ProblemCard from '../ProblemCard.astro';
+import EdDiagram from '../EdDiagram.astro';
+
+### Chapter 3: Potentials (Summary &amp; Key Problems)
+
+<div class="ed-theory-box">
+
+**Short Theory (Notes Ch. 3 — Uniqueness, Method of Images, Separation of Variables &amp; Multipoles):**
+
+- **First &amp; Second Uniqueness Theorems:** $V$ inside $\mathcal{V}$ is uniquely fixed by $\rho$ in $\mathcal{V}$ and $V$ on $\mathcal{S}$; $\vec{E}$ is uniquely fixed by $\rho$ and total conductor charges $Q_i$.
+- **Separation of Variables (Cartesian 2D Slot):** $V(x, y) = \sum_{n=1}^\infty C_n e^{-n\pi x/a}\sin(n\pi y/a)$.
+- **Multipole Expansion:** $V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\sum_{n=0}^\infty \frac{1}{r^{n+1}}\int (r')^n P_n(\cos\alpha)\,\rho(\vec{r}')\,d\tau'$.
+
+</div>
+
+<EdDiagram
+  name="uniqueness-conductors"
+  caption="Second Uniqueness Theorem: Volume V containing charge density ρ(r⃗) and conductors Qₐ, Q_b, Q_c, Q_d (from notes p. 7)."
+/>
+
+<EdDiagram
+  name="method-of-images"
+  caption="Method of Images: +q above grounded z = 0 plane (left) vs equivalent image system +q, −q (right) (from notes p. 8)."
+/>
+
+<ProblemCard num="3.7" title="Force on +q Above a Grounded Plane with Multiple Charges" tag="Griffiths Ch. 3 · Problem 3.7">
+  <div slot="problem">
+    Two point charges are located on the $z$-axis above an infinite grounded conducting $xy$-plane ($V = 0$ at $z = 0$): a charge $-2q$ at $z = d$, and a charge $+q$ at $z = 3d$. Find the net force $\vec{F}$ on the charge $+q$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{F} = -\frac{1}{4\pi\epsilon_0}\left(\frac{29 q^2}{72 d^2}\right)\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    Place image charges $+2q$ at $z = -d$ and $-q$ at $z = -3d$:
+
+    $$
+    \vec{F} = \frac{q}{4\pi\epsilon_0}\left[\frac{-2q}{(2d)^2} + \frac{2q}{(4d)^2} + \frac{-q}{(6d)^2}\right]\hat{z} = -\frac{1}{4\pi\epsilon_0}\left(\frac{29 q^2}{72 d^2}\right)\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<EdDiagram
+  name="separation-slot"
+  caption="Semi-infinite 2D slot with grounded plates at y = 0, a and specified potential V₀(y) at x = 0 (from notes p. 10)."
+/>
+
+<ProblemCard num="3.15" title="Potential Inside a Finite Rectangular Pipe" tag="Griffiths Ch. 3 · Problem 3.15">
+  <div slot="problem">
+    A rectangular pipe running parallel to the $z$-axis has three grounded metal sides at $y = 0$, $y = a$, and $x = 0$, and the fourth side at $x = b$ is held at $V_0(y)$. Find $V(x,y)$ in general and for $V_0(y) = V_0$.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(x, y) = \frac{4V_0}{\pi} \sum_{n=1,3,5,\dots}^\infty \frac{\sinh(n\pi x/a)\sin(n\pi y/a)}{n\sinh(n\pi b/a)}
+    $$
+  </div>
+
+  <div slot="solution">
+    Using $V(x,y) = \sum_{n=1}^\infty C_n \sinh(n\pi x/a)\sin(n\pi y/a)$ and Fourier sine orthogonality at $x = b$ gives $C_n = \frac{2}{a\sinh(n\pi b/a)}\int_0^a V_0(y)\sin(n\pi y/a)\,dy$, which evaluates to $\frac{4V_0}{n\pi\sinh(n\pi b/a)}$ for odd $n$ when $V_0(y) = V_0$.
+  </div>
+</ProblemCard>
+
+<EdDiagram
+  name="multipole-geometry"
+  caption="Multipole geometry: source point r', field point r, separation |r − r'|, and angle α (from notes p. 14)."
+/>
+
+<ProblemCard num="3.28" title="Multipole Expansion of a Uniformly Charged Ring" tag="Griffiths Ch. 3 · Problem 3.28">
+  <div slot="problem">
+    A circular ring in the $xy$-plane (radius $R$, centered at the origin) carries a uniform line charge $\lambda$. Find the first three terms ($n = 0, 1, 2$) in the multipole expansion for $V(r, \theta)$.
+  </div>
+
+  <div slot="answer">
+    $$
+    V_0 = \frac{\lambda}{2\epsilon_0}\frac{R}{r}, \qquad V_1 = 0, \qquad V_2 = -\frac{\lambda}{4\epsilon_0}\frac{R^3}{r^3}P_2(\cos\theta)
+    $$
+  </div>
+
+  <div slot="solution">
+    Integrating $Q = 2\pi R\lambda$ gives $V_0$; odd symmetry in $\cos\alpha$ gives $V_1 = 0$; integrating $(r')^2 P_2(\cos\alpha)\lambda R\,d\phi'$ gives $-\pi\lambda R^3 P_2(\cos\theta)$, yielding $V_2 = -\frac{\lambda}{4\epsilon_0}\frac{R^3}{r^3}P_2(\cos\theta)$.
+  </div>
+</ProblemCard>

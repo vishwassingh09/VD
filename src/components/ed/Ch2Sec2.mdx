@@ -1,0 +1,300 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch2-sec2" class="ed-sec-block">
+
+### 2.2 Divergence & Curl of $\vec{E}$
+
+<div class="ed-theory-box">
+
+**Minimal Theory (Notes pp. 1–2):**
+
+- **Electric Flux & Gauss's Law:**
+
+$$
+\Phi_E \equiv \int_S \vec{E}\cdot d\vec{a}, \qquad \oint_S \vec{E}\cdot d\vec{a} = \frac{Q_{\text{enc}}}{\epsilon_0}, \qquad \vec{\nabla}\cdot\vec{E} = \frac{\rho}{\epsilon_0}
+$$
+
+- **Choosing Gaussian Surfaces by Symmetry:**
+  - *Spherical* ($4\pi r^2$), *Coaxial cylinder* ($2\pi s l$), *Planar pillbox* ($2A$ or $A$).
+- **Curl of $\vec{E}$:** Because $\vec{\nabla}\times(\hat{\mathscr{r}}/\mathscr{r}^2) = \mathbf{0}$ (and $\oint \vec{E}\cdot d\vec{l} = 0$):
+
+$$
+\vec{\nabla}\times\vec{E} = \mathbf{0}
+$$
+
+</div>
+
+<EdDiagram
+  name="ch2-gauss-surfaces"
+  caption="Three symmetry geometries for Gauss's law & superposition: spherical, coaxial cylindrical, and overlapping ±ρ spheres."
+/>
+
+<ProblemCard num="2.9" title="Charge Density and Total Charge from E = kr³ r̂" tag="Griffiths 2.9 · Divergence & Gauss">
+  <div slot="problem">
+    Suppose the electric field in some region is found to be $\vec{E} = kr^3\,\hat{r}$ in spherical coordinates ($k$ is a constant).
+    1. Find the charge density $\rho$.
+    2. Find the total charge contained in a sphere of radius $R$ centered at the origin (do it two different ways).
+  </div>
+
+  <div slot="answer">
+    1. $\rho = 5\epsilon_0 k r^2$.
+    2. $Q_{\text{enc}} = 4\pi\epsilon_0 k R^5$.
+  </div>
+
+  <div slot="solution">
+    1. Using spherical divergence:
+       $$
+       \rho = \epsilon_0 \vec{\nabla}\cdot\vec{E} = \epsilon_0 \frac{1}{r^2}\frac{\partial}{\partial r}(r^2 \cdot k r^3) = \epsilon_0 \frac{1}{r^2}(5k r^4) = 5\epsilon_0 k r^2
+       $$
+    2. **Way 1 (Gauss's law):**
+       $$
+       Q_{\text{enc}} = \epsilon_0 \oint \vec{E}\cdot d\vec{a} = \epsilon_0 (k R^3)(4\pi R^2) = 4\pi\epsilon_0 k R^5
+       $$
+       **Way 2 (Direct integration):**
+       $$
+       Q_{\text{enc}} = \int \rho\,d\tau = \int_0^R (5\epsilon_0 k r^2)(4\pi r^2\,dr) = 20\pi\epsilon_0 k \int_0^R r^4\,dr = 4\pi\epsilon_0 k R^5 \quad\checkmark
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.10" title="Flux Through One Face of a Cube from a Corner Charge" tag="Griffiths 2.10 · Gauss's Law">
+  <div slot="problem">
+    A point charge $q$ sits at the back corner of a cube. What is the flux of $\vec{E}$ through one of the three faces *not* touching that corner?
+  </div>
+
+  <div slot="answer">
+    $$
+    \Phi = \frac{q}{24\epsilon_0}
+    $$
+  </div>
+
+  <div slot="solution">
+    Surround the charge $q$ symmetrically with 8 identical cubes forming a single large cube of twice the side length. The outer surface of the large cube consists of $6 \times 4 = 24$ identical squares, each receiving equal flux. By Gauss's law, the total flux through the large cube is $q/\epsilon_0$, so the flux through one face is:
+
+    $$
+    \int_{\text{one face}} \vec{E}\cdot d\vec{a} = \frac{1}{24}\oint_{\text{large cube}} \vec{E}\cdot d\vec{a} = \frac{q}{24\epsilon_0}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.11" title="Spherical Shell via Gauss's Law" tag="Griffiths 2.11 · Gauss's Law">
+  <div slot="problem">
+    Use Gauss's law to find the electric field inside and outside a spherical shell of radius $R$ that carries a uniform surface charge density $\sigma$. Compare your answer to Prob. 2.7.
+  </div>
+
+  <div slot="answer">
+    Inside ($r < R$): $\vec{E} = \mathbf{0}$. Outside ($r > R$): $\vec{E} = \dfrac{\sigma R^2}{\epsilon_0 r^2}\,\hat{r} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\,\hat{r}$.
+  </div>
+
+  <div slot="solution">
+    Draw a concentric spherical Gaussian surface of radius $r$:
+    - **Inside ($r < R$):** $Q_{\text{enc}} = 0 \implies E(4\pi r^2) = 0 \implies \vec{E} = \mathbf{0}$.
+    - **Outside ($r > R$):** $Q_{\text{enc}} = \sigma(4\pi R^2) = q$, so:
+      $$
+      E(4\pi r^2) = \frac{\sigma(4\pi R^2)}{\epsilon_0} \implies \vec{E} = \frac{\sigma R^2}{\epsilon_0 r^2}\,\hat{r} = \frac{1}{4\pi\epsilon_0}\frac{q}{r^2}\,\hat{r}
+      $$
+    Identical to Prob. 2.7, with far less algebra.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.12" title="Field Inside a Uniformly Charged Solid Sphere via Gauss's Law" tag="Griffiths 2.12 · Gauss's Law">
+  <div slot="problem">
+    Use Gauss's law to find the electric field inside a uniformly charged solid sphere (charge density $\rho$). Compare your answer to Prob. 2.8.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{\rho}{3\epsilon_0}r\,\hat{r} = \frac{1}{4\pi\epsilon_0}\frac{q}{R^3}\vec{r}
+    $$
+  </div>
+
+  <div slot="solution">
+    For a spherical Gaussian surface of radius $r < R$:
+
+    $$
+    \oint \vec{E}\cdot d\vec{a} = E(4\pi r^2) = \frac{Q_{\text{enc}}}{\epsilon_0} = \frac{1}{\epsilon_0}\left(\frac{4}{3}\pi r^3 \rho\right) \implies \vec{E} = \frac{\rho}{3\epsilon_0}r\,\hat{r}
+    $$
+
+    Since $q = \frac{4}{3}\pi R^3\rho$, this equals $\dfrac{1}{4\pi\epsilon_0}\dfrac{q}{R^3}\vec{r}$, matching Prob. 2.8.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.13" title="Infinite Straight Wire via Gauss's Law" tag="Griffiths 2.13 · Gauss's Law">
+  <div slot="problem">
+    Find the electric field a distance $s$ from an infinitely long straight wire that carries a uniform line charge $\lambda$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{\lambda}{2\pi\epsilon_0 s}\,\hat{s}
+    $$
+  </div>
+
+  <div slot="solution">
+    Use a coaxial cylindrical Gaussian surface of radius $s$ and length $l$. By symmetry $\vec{E} \parallel \hat{s}$, so the end caps contribute zero flux and the curved wall gives:
+
+    $$
+    \oint \vec{E}\cdot d\vec{a} = E(2\pi s l) = \frac{Q_{\text{enc}}}{\epsilon_0} = \frac{\lambda l}{\epsilon_0} \implies \vec{E} = \frac{\lambda}{2\pi\epsilon_0 s}\,\hat{s}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.14" title="Sphere with Charge Density ρ = kr" tag="Griffiths 2.14 · Gauss's Law">
+  <div slot="problem">
+    Find the electric field inside a sphere that carries a charge density proportional to the distance from the origin, $\rho = kr$, for some constant $k$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{k}{4\epsilon_0}r^2\,\hat{r}
+    $$
+  </div>
+
+  <div slot="solution">
+    For a spherical Gaussian surface of radius $r$:
+
+    $$
+    Q_{\text{enc}} = \int \rho\,d\tau = \int_0^r (k\bar{r})(4\pi \bar{r}^2\,d\bar{r}) = 4\pi k \int_0^r \bar{r}^3\,d\bar{r} = \pi k r^4
+    $$
+
+    Applying Gauss's law $E(4\pi r^2) = \dfrac{Q_{\text{enc}}}{\epsilon_0} = \dfrac{\pi k r^4}{\epsilon_0}$:
+
+    $$
+    \vec{E} = \frac{k}{4\epsilon_0}r^2\,\hat{r}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.15" title="Thick Spherical Shell with ρ = k/r²" tag="Griffiths 2.15 · Gauss's Law">
+  <div slot="problem">
+    A thick spherical shell carries charge density $\rho = \dfrac{k}{r^2}$ ($a \le r \le b$). Find the electric field in the three regions: (i) $r < a$, (ii) $a < r < b$, (iii) $r > b$.
+  </div>
+
+  <div slot="answer">
+    (i) $\vec{E} = \mathbf{0}$ ($r < a$); (ii) $\vec{E} = \dfrac{k}{\epsilon_0}\left(\dfrac{r - a}{r^2}\right)\hat{r}$ ($a < r < b$); (iii) $\vec{E} = \dfrac{k}{\epsilon_0}\left(\dfrac{b - a}{r^2}\right)\hat{r}$ ($r > b$).
+  </div>
+
+  <div slot="solution">
+    Using spherical Gaussian surfaces of radius $r$:
+    - **(i) $r < a$:** $Q_{\text{enc}} = 0 \implies \vec{E} = \mathbf{0}$.
+    - **(ii) $a < r < b$:**
+      $$
+      Q_{\text{enc}} = \int_a^r \frac{k}{\bar{r}^2}(4\pi \bar{r}^2\,d\bar{r}) = 4\pi k(r - a) \implies \vec{E} = \frac{k}{\epsilon_0}\left(\frac{r - a}{r^2}\right)\hat{r}
+      $$
+    - **(iii) $r > b$:**
+      $$
+      Q_{\text{enc}} = \int_a^b \frac{k}{\bar{r}^2}(4\pi \bar{r}^2\,d\bar{r}) = 4\pi k(b - a) \implies \vec{E} = \frac{k}{\epsilon_0}\left(\frac{b - a}{r^2}\right)\hat{r}
+      $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.16" title="Coaxial Cable with Neutral Outer Shell" tag="Griffiths 2.16 · Cylindrical Symmetry">
+  <div slot="problem">
+    A long coaxial cable carries a uniform volume charge density $\rho$ on the inner cylinder (radius $a$), and a uniform negative surface charge density on the outer cylindrical shell (radius $b$) such that the cable as a whole is electrically neutral. Find $\vec{E}$ for: (i) $s < a$, (ii) $a < s < b$, (iii) $s > b$.
+  </div>
+
+  <div slot="answer">
+    (i) $\vec{E} = \dfrac{\rho s}{2\epsilon_0}\hat{s}$ ($s < a$); (ii) $\vec{E} = \dfrac{\rho a^2}{2\epsilon_0 s}\hat{s}$ ($a < s < b$); (iii) $\vec{E} = \mathbf{0}$ ($s > b$).
+  </div>
+
+  <div slot="solution">
+    Apply Gauss's law to a coaxial cylinder of radius $s$ and length $l$ ($E\cdot 2\pi s l = Q_{\text{enc}}/\epsilon_0$):
+    - **(i) $s < a$:** $Q_{\text{enc}} = \rho\pi s^2 l \implies \vec{E} = \dfrac{\rho s}{2\epsilon_0}\hat{s}$.
+    - **(ii) $a < s < b$:** $Q_{\text{enc}} = \rho\pi a^2 l \implies \vec{E} = \dfrac{\rho a^2}{2\epsilon_0 s}\hat{s}$.
+    - **(iii) $s > b$:** Total enclosed charge is zero by neutrality, so $Q_{\text{enc}} = 0 \implies \vec{E} = \mathbf{0}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.17" title="Infinite Plane Slab of Thickness 2d" tag="Griffiths 2.17 · Planar Symmetry">
+  <div slot="problem">
+    An infinite plane slab, of thickness $2d$, carries a uniform volume charge density $\rho$. Find the electric field as a function of $y$, where $y = 0$ at the center.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E}(y) = \begin{cases} \dfrac{\rho}{\epsilon_0}y\,\hat{y}, & |y| < d \\[6pt] \dfrac{\rho}{\epsilon_0}d\,\hat{y}, & y > d \\[6pt] -\dfrac{\rho}{\epsilon_0}d\,\hat{y}, & y < -d \end{cases}
+    $$
+  </div>
+
+  <div slot="solution">
+    By symmetry, on the $xz$ midplane ($y = 0$), $\vec{E} = \mathbf{0}$. Draw a Gaussian pillbox with one face of area $A$ on the $y = 0$ plane (flux $= 0$) and the other at $y > 0$ (flux $= EA$):
+    - **Inside ($0 < y < d$):** $Q_{\text{enc}} = A y\rho \implies E A = \dfrac{Ay\rho}{\epsilon_0} \implies \vec{E} = \dfrac{\rho}{\epsilon_0}y\,\hat{y}$ (which also gives the negative sign for $-d < y < 0$).
+    - **Outside ($y > d$):** $Q_{\text{enc}} = A d\rho \implies \vec{E} = \dfrac{\rho}{\epsilon_0}d\,\hat{y}$ (and $-\dfrac{\rho}{\epsilon_0}d\,\hat{y}$ for $y < -d$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.18" title="Uniform Field in the Overlap of Two Oppositely Charged Spheres" tag="Griffiths 2.18 · Superposition">
+  <div slot="problem">
+    Two spheres, each of radius $R$ and carrying uniform volume charge densities $+\rho$ and $-\rho$, respectively, are placed so that they partially overlap. Call the vector from the positive center to the negative center $\vec{d}$. Show that the field in the region of overlap is constant, and find its value.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{\rho}{3\epsilon_0}\vec{d}
+    $$
+  </div>
+
+  <div slot="solution">
+    From Prob. 2.12, inside the positive sphere the field is $\vec{E}_+ = \dfrac{\rho}{3\epsilon_0}\vec{r}_+$, where $\vec{r}_+$ points from the positive center to the point in question. Inside the negative sphere, $\vec{E}_- = -\dfrac{\rho}{3\epsilon_0}\vec{r}_-$. By superposition, in the overlap region:
+
+    $$
+    \vec{E} = \vec{E}_+ + \vec{E}_- = \frac{\rho}{3\epsilon_0}(\vec{r}_+ - \vec{r}_-)
+    $$
+
+    From triangle vector addition ($\vec{d} + \vec{r}_- = \vec{r}_+$), $\vec{r}_+ - \vec{r}_- = \vec{d}$, so:
+
+    $$
+    \vec{E} = \frac{\rho}{3\epsilon_0}\vec{d} \quad\text{(strictly constant!)}.
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.19" title="Direct Proof that ∇ × E = 0" tag="Griffiths 2.19 · Curl of E">
+  <div slot="problem">
+    Calculate $\vec{\nabla}\times\vec{E}$ directly from $\vec{E}(\vec{r}) = \dfrac{1}{4\pi\epsilon_0}\int \dfrac{\hat{\mathscr{r}}}{\mathscr{r}^2}\rho(\vec{r}')\,d\tau'$.
+  </div>
+
+  <div slot="answer">
+    $\vec{\nabla}\times\vec{E} = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    Since $\vec{\nabla}$ differentiates with respect to $\vec{r}$ (while $\rho(\vec{r}')$ depends only on $\vec{r}'$), bring $\vec{\nabla}\times$ inside the integral:
+
+    $$
+    \vec{\nabla}\times\vec{E} = \frac{1}{4\pi\epsilon_0}\int \left[\vec{\nabla}\times\left(\frac{\hat{\mathscr{r}}}{\mathscr{r}^2}\right)\right]\rho(\vec{r}')\,d\tau'
+    $$
+
+    Because $\dfrac{\hat{\mathscr{r}}}{\mathscr{r}^2} = -\vec{\nabla}\left(\dfrac{1}{\mathscr{r}}\right)$ and the curl of any gradient is identically zero (even at $\mathscr{r} = 0$, by Prob. 1.63), $\vec{\nabla}\times\left(\dfrac{\hat{\mathscr{r}}}{\mathscr{r}^2}\right) = \mathbf{0}$, so $\vec{\nabla}\times\vec{E} = \mathbf{0}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.20" title="Identifying Impossible Electrostatic Fields & Finding V" tag="Griffiths 2.20 · Curl & Potential">
+  <div slot="problem">
+    One of these is an impossible electrostatic field. Which one?
+    1. $\vec{E}_1 = k\left[xy\,\hat{x} + 2yz\,\hat{y} + 3xz\,\hat{z}\right]$
+    2. $\vec{E}_2 = k\left[y^2\,\hat{x} + (2xy + z^2)\,\hat{y} + 2yz\,\hat{z}\right]$
+
+    For the possible one, find the potential $V(x, y, z)$, using the origin as your reference point, and check your answer by computing $-\vec{\nabla}V$.
+  </div>
+
+  <div slot="answer">
+    $\vec{E}_1$ is impossible ($\vec{\nabla}\times\vec{E}_1 \neq \mathbf{0}$). $\vec{E}_2$ is possible, with $V(x, y, z) = -k(xy^2 + yz^2)$.
+  </div>
+
+  <div slot="solution">
+    Compute the curls:
+    1. $\vec{\nabla}\times\vec{E}_1 = k\left[\hat{x}(0 - 2y) + \hat{y}(0 - 3z) + \hat{z}(0 - x)\right] \neq \mathbf{0} \implies \vec{E}_1$ is **impossible**.
+    2. $\vec{\nabla}\times\vec{E}_2 = k\left[\hat{x}(2z - 2z) + \hat{y}(0 - 0) + \hat{z}(2y - 2y)\right] = \mathbf{0} \implies \vec{E}_2$ is **possible**.
+
+    Integrate along the three-segment path from $(0,0,0) \to (x_0,0,0) \to (x_0,y_0,0) \to (x_0,y_0,z_0)$:
+    - Step I ($y = z = 0$): $\vec{E}\cdot d\vec{l} = ky^2\,dx = 0$.
+    - Step II ($x = x_0, z = 0, y: 0 \to y_0$): $\int_0^{y_0} 2kx_0 y\,dy = kx_0 y_0^2$.
+    - Step III ($x = x_0, y = y_0, z: 0 \to z_0$): $\int_0^{z_0} 2ky_0 z\,dz = ky_0 z_0^2$.
+
+    Hence $V(x, y, z) = -\int_0^{(x,y,z)}\vec{E}_2\cdot d\vec{l} = -k(xy^2 + yz^2)$. Checking $-\vec{\nabla}V = k\left[y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}\right] = \vec{E}_2$. ✓
+  </div>
+</ProblemCard>
+
+</section>

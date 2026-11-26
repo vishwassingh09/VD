@@ -1,0 +1,284 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch2-sec3" class="ed-sec-block">
+
+### 2.3 Electric Potential
+
+<div class="ed-theory-box">
+
+**Minimal Theory (Notes pp. 2–3):**
+
+- **Scalar Potential & Gradient:** Since $\vec{\nabla}\times\vec{E} = \mathbf{0}$, $V$ is path-independent:
+
+$$
+V(\vec{r}) = -\int_{\mathcal{O}}^{\vec{r}} \vec{E}\cdot d\vec{l}, \qquad \vec{E} = -\vec{\nabla}V, \qquad \nabla^2 V = -\frac{\rho}{\epsilon_0}\;\text{(Poisson's Eq.)}
+$$
+
+- **Direct Potential Integral (when $V(\infty)=0$):**
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\int \frac{dq}{\mathscr{r}} \qquad \left(dq = \lambda\,dl',\; \sigma\,da',\; \rho\,d\tau'\right)
+$$
+
+- **Electrostatic Boundary Conditions (Gaussian Pillbox $\epsilon \to 0$):**
+
+$$
+E_{\text{above}}^\perp - E_{\text{below}}^\perp = \frac{\sigma}{\epsilon_0}, \qquad \vec{E}_{\text{above}}^\parallel = \vec{E}_{\text{below}}^\parallel, \qquad V_{\text{above}} = V_{\text{below}}, \qquad \frac{\partial V_{\text{above}}}{\partial n} - \frac{\partial V_{\text{below}}}{\partial n} = -\frac{\sigma}{\epsilon_0}
+$$
+
+</div>
+
+<EdDiagram
+  name="ch2-electrostatics-triangle"
+  caption="Griffiths Electrostatics Triangle relating source ρ, field E, and potential V (cf. Fig. 2.35)."
+/>
+
+<EdDiagram
+  name="gaussian-pillbox"
+  caption="Wafer-thin Gaussian pillbox (ε → 0) across a surface charge density σ (from handwritten notes p. 3)."
+/>
+
+<ProblemCard num="2.21" title="Potential Inside and Outside a Uniformly Charged Solid Sphere" tag="Griffiths 2.21 · Potential from E">
+  <div slot="problem">
+    Find the potential inside and outside a uniformly charged solid sphere whose radius is $R$ and whose total charge is $q$. Use infinity as your reference point. Compute the gradient of $V$ in each region, and check that it yields the correct field.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(r) = \begin{cases} \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r}, & r > R \\[8pt] \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{2R}\left(3 - \dfrac{r^2}{R^2}\right), & r < R \end{cases}
+    $$
+  </div>
+
+  <div slot="solution">
+    Using $V(r) = -\int_\infty^r \vec{E}\cdot d\vec{l}$ with $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\hat{r}$ ($r > R$) and $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{R^3}r\hat{r}$ ($r < R$):
+    - **Outside ($r > R$):**
+      $$
+      V(r) = -\int_\infty^r \frac{1}{4\pi\epsilon_0}\frac{q}{\bar{r}^2}\,d\bar{r} = \frac{1}{4\pi\epsilon_0}\frac{q}{r}
+      $$
+      Check: $-\vec{\nabla}V = -\dfrac{q}{4\pi\epsilon_0}\dfrac{\partial}{\partial r}\left(\dfrac{1}{r}\right)\hat{r} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\hat{r}$. ✓
+    - **Inside ($r < R$):**
+      $$
+      V(r) = -\int_\infty^R \frac{q}{4\pi\epsilon_0 \bar{r}^2}\,d\bar{r} - \int_R^r \frac{q\bar{r}}{4\pi\epsilon_0 R^3}\,d\bar{r} = \frac{q}{4\pi\epsilon_0}\left[\frac{1}{R} - \frac{1}{R^3}\left(\frac{r^2 - R^2}{2}\right)\right] = \frac{q}{4\pi\epsilon_0}\frac{1}{2R}\left(3 - \frac{r^2}{R^2}\right)
+      $$
+      Check: $-\vec{\nabla}V = -\dfrac{q}{4\pi\epsilon_0}\dfrac{1}{2R}\left(-\dfrac{2r}{R^2}\right)\hat{r} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{R^3}r\hat{r}$. ✓
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.22" title="Potential of an Infinitely Long Straight Wire" tag="Griffiths 2.22 · Reference Point">
+  <div slot="problem">
+    Find the potential a distance $s$ from an infinitely long straight wire that carries a uniform line charge $\lambda$. Compute the gradient of your potential, and check that it yields the correct field.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(s) = -\frac{\lambda}{2\pi\epsilon_0}\ln\!\left(\frac{s}{a}\right)
+    $$
+    where $a$ is a finite reference radius ($V(a) = 0$).
+  </div>
+
+  <div slot="solution">
+    Since the charge extends to infinity, we cannot set the reference point at $\infty$ (nor at $s = 0$). Choose a finite reference point $s = a$:
+
+    $$
+    V(s) = -\int_a^s \left(\frac{1}{4\pi\epsilon_0}\frac{2\lambda}{\bar{s}}\right)d\bar{s} = -\frac{\lambda}{2\pi\epsilon_0}\ln\!\left(\frac{s}{a}\right)
+    $$
+
+    Checking the gradient: $-\vec{\nabla}V = \dfrac{\lambda}{2\pi\epsilon_0}\dfrac{\partial}{\partial s}\ln\!\left(\dfrac{s}{a}\right)\hat{s} = \dfrac{\lambda}{2\pi\epsilon_0 s}\hat{s} = \vec{E}$. ✓
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.23" title="Potential at the Center of Thick Spherical Shell (ρ = k/r²)" tag="Griffiths 2.23 · Potential from E">
+  <div slot="problem">
+    For the thick spherical shell of Prob. 2.15 ($\rho = k/r^2$ for $a \le r \le b$), find the potential at the center $r = 0$, using infinity as your reference point.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(0) = \frac{k}{\epsilon_0}\ln\!\left(\frac{b}{a}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    Using the electric fields from Prob. 2.15 and integrating from $\infty \to 0$:
+
+    $$
+    V(0) = -\int_\infty^0 \vec{E}\cdot d\vec{l} = -\int_\infty^b \frac{k}{\epsilon_0}\left(\frac{b - a}{r^2}\right)dr - \int_b^a \frac{k}{\epsilon_0}\left(\frac{r - a}{r^2}\right)dr - \int_a^0 (0)\,dr
+    $$
+
+    $$
+    V(0) = \frac{k}{\epsilon_0}\frac{b - a}{b} - \frac{k}{\epsilon_0}\left[\ln\left(\frac{a}{b}\right) + a\left(\frac{1}{a} - \frac{1}{b}\right)\right] = \frac{k}{\epsilon_0}\left\{1 - \frac{a}{b} - \ln\left(\frac{a}{b}\right) - 1 + \frac{a}{b}\right\} = \frac{k}{\epsilon_0}\ln\!\left(\frac{b}{a}\right)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.24" title="Potential Difference in the Coaxial Cable" tag="Griffiths 2.24 · Potential Difference">
+  <div slot="problem">
+    For the coaxial cable of Prob. 2.16 (volume density $\rho$ inside $s < a$, zero field outside $s > b$), find the potential difference $V(b) - V(0)$ between a point on the outer cylinder and a point on the axis.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(b) - V(0) = -\frac{\rho a^2}{4\epsilon_0}\left(1 + 2\ln\left(\frac{b}{a}\right)\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    Using the fields from Prob. 2.16 ($\vec{E} = \frac{\rho s}{2\epsilon_0}\hat{s}$ for $s < a$, $\vec{E} = \frac{\rho a^2}{2\epsilon_0 s}\hat{s}$ for $a < s < b$):
+
+    $$
+    V(b) - V(0) = -\int_0^b \vec{E}\cdot d\vec{l} = -\frac{\rho}{2\epsilon_0}\int_0^a s\,ds - \frac{\rho a^2}{2\epsilon_0}\int_a^b \frac{1}{s}\,ds = -\frac{\rho a^2}{4\epsilon_0} - \frac{\rho a^2}{2\epsilon_0}\ln\!\left(\frac{b}{a}\right) = -\frac{\rho a^2}{4\epsilon_0}\left(1 + 2\ln\left(\frac{b}{a}\right)\right)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.25" title="Potentials and Fields for Symmetric Configurations (+q/+q, Line, Disk)" tag="Griffiths 2.25 · Potential Integral">
+  <div slot="problem">
+    Find the potential at a distance $z$ above the center of:
+    1. Two equal point charges $+q$ separated by distance $d$.
+    2. A uniform line charge $\lambda$ of length $2L$.
+    3. A uniform disk of radius $R$ and surface charge $\sigma$.
+    Compute $\vec{E} = -\vec{\nabla}V$ in each case. What happens in (1) if the right-hand charge is changed to $-q$? Explain carefully.
+  </div>
+
+  <div slot="answer">
+    1. $V = \dfrac{1}{4\pi\epsilon_0}\dfrac{2q}{\sqrt{z^2 + (d/2)^2}} \implies \vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{2qz}{(z^2 + (d/2)^2)^{3/2}}\hat{z}$.
+    2. $V = \dfrac{\lambda}{2\pi\epsilon_0}\ln\!\left(\dfrac{L + \sqrt{z^2+L^2}}{z}\right) \implies \vec{E} = \dfrac{2L\lambda}{4\pi\epsilon_0 z\sqrt{z^2+L^2}}\hat{z}$.
+    3. $V = \dfrac{\sigma}{2\epsilon_0}\left(\sqrt{R^2 + z^2} - z\right) \implies \vec{E} = \dfrac{\sigma}{2\epsilon_0}\left[1 - \dfrac{z}{\sqrt{R^2 + z^2}}\right]\hat{z}$.
+    With $-q$, $V(0,0,z) = 0$ identically along the $z$-axis, so you cannot compute $E_x = -\partial V/\partial x$ from $V(z)$ alone!
+  </div>
+
+  <div slot="solution">
+    1. **Two point charges:** $V = \dfrac{1}{4\pi\epsilon_0}\dfrac{2q}{\sqrt{z^2 + (d/2)^2}}$. By symmetry $\partial_x V = \partial_y V = 0$, so $\vec{E} = -\dfrac{\partial V}{\partial z}\hat{z} = \dfrac{1}{4\pi\epsilon_0}\dfrac{2qz}{\left(z^2 + (d/2)^2\right)^{3/2}}\hat{z}$.
+    2. **Line charge ($-L$ to $+L$):**
+       $$
+       V = \frac{1}{4\pi\epsilon_0}\int_{-L}^L \frac{\lambda\,dx}{\sqrt{z^2+x^2}} = \frac{\lambda}{4\pi\epsilon_0}\ln\!\left(\frac{L+\sqrt{z^2+L^2}}{-L+\sqrt{z^2+L^2}}\right) = \frac{\lambda}{2\pi\epsilon_0}\ln\!\left(\frac{L+\sqrt{z^2+L^2}}{z}\right)
+       $$
+       Taking $-\partial V/\partial z$ gives $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{2L\lambda}{z\sqrt{z^2 + L^2}}\hat{z}$.
+    3. **Disk ($0$ to $R$):**
+       $$
+       V = \frac{1}{4\pi\epsilon_0}\int_0^R \frac{\sigma\,2\pi r\,dr}{\sqrt{r^2+z^2}} = \frac{\sigma}{2\epsilon_0}\left(\sqrt{R^2+z^2} - z\right) \implies \vec{E} = -\frac{\partial V}{\partial z}\hat{z} = \frac{\sigma}{2\epsilon_0}\left[1 - \frac{z}{\sqrt{R^2+z^2}}\right]\hat{z}
+       $$
+    **If right-hand charge is $-q$:** Along the $z$-axis ($x = y = 0$), $V(0,0,z) = 0$. One cannot deduce $\vec{E} = -\vec{\nabla}V = \mathbf{0}$ from this, because $E_x = -\partial V/\partial x$ requires knowing $V$ off the $z$-axis too (indeed, by Prob. 2.2, $\vec{E}$ points in the $\hat{x}$ direction!).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.26" title="Potential Difference of a Uniformly Charged Conical Surface" tag="Griffiths 2.26 · Surface Potential">
+  <div slot="problem">
+    A conical surface (an empty ice-cream cone) carries a uniform surface charge $\sigma$. The height of the cone is $h$, as is the radius of the top. Find the potential difference $V(a) - V(b)$ between points $a$ (the vertex) and $b$ (the center of the top).
+  </div>
+
+  <div slot="answer">
+    $$
+    V(a) - V(b) = \frac{\sigma h}{2\epsilon_0}\left[1 - \ln(1 + \sqrt{2})\right]
+    $$
+  </div>
+
+  <div slot="solution">
+    Since the cone has half-angle $45^\circ$ (radius $=$ height $= h$), a horizontal ring at slant distance $\mathscr{r}$ from the vertex $a$ has radius $r = \mathscr{r}/\sqrt{2}$, area $da = 2\pi r\,d\mathscr{r}$, and slant length running from $0$ to $\sqrt{2}h$:
+    - **At vertex $a$:**
+      $$
+      V(a) = \frac{1}{4\pi\epsilon_0}\int_0^{\sqrt{2}h} \frac{\sigma(2\pi r)}{\mathscr{r}}\,d\mathscr{r} = \frac{2\pi\sigma}{4\pi\epsilon_0\sqrt{2}}(\sqrt{2}h) = \frac{\sigma h}{2\epsilon_0}
+      $$
+    - **At top center $b$:** Distance from $b$ to a ring at slant distance $\mathscr{r}$ is $\bar{\mathscr{r}} = \sqrt{h^2 + \mathscr{r}^2 - \sqrt{2}h\mathscr{r}}$:
+      $$
+      V(b) = \frac{\sigma}{2\sqrt{2}\epsilon_0}\int_0^{\sqrt{2}h} \frac{\mathscr{r}\,d\mathscr{r}}{\sqrt{h^2 + \mathscr{r}^2 - \sqrt{2}h\mathscr{r}}} = \frac{\sigma h}{2\epsilon_0}\ln(1 + \sqrt{2})
+      $$
+    Hence $V(a) - V(b) = \dfrac{\sigma h}{2\epsilon_0}\left[1 - \ln(1 + \sqrt{2})\right]$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.27" title="Potential and Field on the Axis of a Charged Solid Cylinder" tag="Griffiths 2.27 · Volume Potential">
+  <div slot="problem">
+    Find the potential on the axis of a uniformly charged solid cylinder, a distance $z$ from the center. The length of the cylinder is $L$, its radius is $R$, and the charge density is $\rho$. Use your result to calculate the electric field at this point (assume $z > L/2$).
+  </div>
+
+  <div slot="answer">
+    $$
+    V(z) = \frac{\rho}{4\epsilon_0}\left\{\left(z+\frac{L}{2}\right)\sqrt{R^2 + \left(z+\frac{L}{2}\right)^2} - \left(z-\frac{L}{2}\right)\sqrt{R^2 + \left(z-\frac{L}{2}\right)^2} + R^2\ln\!\left[\frac{z + \frac{L}{2} + \sqrt{R^2 + \left(z+\frac{L}{2}\right)^2}}{z - \frac{L}{2} + \sqrt{R^2 + \left(z-\frac{L}{2}\right)^2}}\right] - 2zL\right\}
+    $$
+    $$
+    \vec{E}(z) = \frac{\rho}{2\epsilon_0}\left[L - \sqrt{R^2 + \left(z+\frac{L}{2}\right)^2} + \sqrt{R^2 + \left(z-\frac{L}{2}\right)^2}\right]\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    Cut the cylinder into thin circular disks of thickness $dx$ ($\sigma \to \rho\,dx$), located at distance $x$ from the field point ($x$ runs from $z - L/2$ to $z + L/2$). Using Prob. 2.25(c):
+
+    $$
+    V = \frac{\rho}{2\epsilon_0}\int_{z-L/2}^{z+L/2} \left(\sqrt{R^2 + x^2} - x\right)dx = \frac{\rho}{4\epsilon_0}\left[x\sqrt{R^2+x^2} + R^2\ln\!\left(x + \sqrt{R^2+x^2}\right) - x^2\right]_{z-L/2}^{z+L/2}
+    $$
+
+    Evaluating the limits yields $V(z)$ above (using $-\left(z+\frac{L}{2}\right)^2 + \left(z-\frac{L}{2}\right)^2 = -2zL$). Differentiating $\vec{E} = -\frac{\partial V}{\partial z}\hat{z}$ and simplifying the square roots yields:
+
+    $$
+    \vec{E}(z) = \frac{\rho}{2\epsilon_0}\left[L - \sqrt{R^2 + \left(z+\frac{L}{2}\right)^2} + \sqrt{R^2 + \left(z-\frac{L}{2}\right)^2}\right]\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.28" title="Potential Inside a Uniformly Charged Sphere (Direct Integration)" tag="Griffiths 2.28 · Volume Potential">
+  <div slot="problem">
+    Use $V(\vec{r}) = \dfrac{1}{4\pi\epsilon_0}\int \dfrac{\rho}{\mathscr{r}}\,d\tau'$ directly to calculate the potential inside a uniformly charged solid sphere of radius $R$ and total charge $q$. Compare your answer to Prob. 2.21.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(r) = \frac{q}{8\pi\epsilon_0 R}\left(3 - \frac{r^2}{R^2}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    Place the field point $P$ on the $z$-axis at distance $z < R$. Then $\mathscr{r} = \sqrt{z^2 + r'^2 - 2zr'\cos\theta'}$ and $\int_0^{2\pi} d\phi' = 2\pi$:
+
+    $$
+    \int_0^\pi \frac{\sin\theta'\,d\theta'}{\sqrt{z^2 + r'^2 - 2zr'\cos\theta'}} = \frac{1}{r' z}\left(r' + z - |r' - z|\right) = \begin{cases} 2/z, & r' < z \\ 2/r', & r' > z \end{cases}
+    $$
+
+    Split the radial integral at $r' = z$:
+
+    $$
+    V(z) = \frac{\rho}{4\pi\epsilon_0}(2\pi)(2)\left\{\int_0^z \frac{r'^2}{z}\,dr' + \int_z^R r'\,dr'\right\} = \frac{\rho}{2\epsilon_0}\left(R^2 - \frac{z^2}{3}\right)
+    $$
+
+    Substituting $\rho = \dfrac{q}{\frac{4}{3}\pi R^3}$ gives $V(r) = \dfrac{q}{8\pi\epsilon_0 R}\left(3 - \dfrac{r^2}{R^2}\right)$, matching Prob. 2.21. ✓
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.29" title="Direct Check that the Potential Integral Satisfies Poisson's Equation" tag="Griffiths 2.29 · Poisson's Equation">
+  <div slot="problem">
+    Check that $V(\vec{r}) = \dfrac{1}{4\pi\epsilon_0}\int \dfrac{\rho(\vec{r}')}{\mathscr{r}}\,d\tau'$ satisfies Poisson's equation $\nabla^2 V = -\rho/\epsilon_0$, using $\nabla^2(1/\mathscr{r}) = -4\pi\delta^3(\vec{r} - \vec{r}')$.
+  </div>
+
+  <div slot="answer">
+    $\nabla^2 V(\vec{r}) = -\dfrac{\rho(\vec{r})}{\epsilon_0}$.
+  </div>
+
+  <div slot="solution">
+    Since $\nabla^2$ differentiates with respect to $\vec{r}$ while $\rho(\vec{r}')$ depends only on $\vec{r}'$:
+
+    $$
+    \nabla^2 V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\int \rho(\vec{r}')\left[\nabla^2\left(\frac{1}{\mathscr{r}}\right)\right]d\tau' = \frac{1}{4\pi\epsilon_0}\int \rho(\vec{r}')\left[-4\pi\delta^3(\vec{r} - \vec{r}')\right]d\tau' = -\frac{1}{\epsilon_0}\rho(\vec{r}) \quad\checkmark
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.30" title="Boundary Condition Verification Across Surfaces" tag="Griffiths 2.30 · Boundary Conditions">
+  <div slot="problem">
+    1. Check that the fields of an infinite plane ($\pm\sigma/2\epsilon_0$), two parallel plates ($\pm\sigma$), and a spherical shell (Prob. 2.11) are consistent with $\vec{E}_{\text{above}} - \vec{E}_{\text{below}} = \dfrac{\sigma}{\epsilon_0}\hat{n}$.
+    2. Use Gauss's law to find the field inside and outside a long hollow cylindrical tube (radius $R$, surface charge $\sigma$) and check $\Delta\vec{E} = \dfrac{\sigma}{\epsilon_0}\hat{s}$.
+    3. Check that the potential of a spherical shell ($V_{\text{out}} = \frac{R^2\sigma}{\epsilon_0 r}$, $V_{\text{in}} = \frac{R\sigma}{\epsilon_0}$) satisfies $V_{\text{out}} = V_{\text{in}}$ and $\dfrac{\partial V_{\text{out}}}{\partial r} - \dfrac{\partial V_{\text{in}}}{\partial r} = -\dfrac{\sigma}{\epsilon_0}$ at $r = R$.
+  </div>
+
+  <div slot="answer">
+    All configurations satisfy $\Delta\vec{E} = \dfrac{\sigma}{\epsilon_0}\hat{n}$, continuity of $V$, and $\Delta\left(\dfrac{\partial V}{\partial n}\right) = -\dfrac{\sigma}{\epsilon_0}$.
+  </div>
+
+  <div slot="solution">
+    1. **Infinite plane:** $\vec{E}_{\text{above}} = \frac{\sigma}{2\epsilon_0}\hat{n}$, $\vec{E}_{\text{below}} = -\frac{\sigma}{2\epsilon_0}\hat{n} \implies \Delta\vec{E} = \frac{\sigma}{\epsilon_0}\hat{n}$. **Parallel plates:** $E = 0$ on one side, $\sigma/\epsilon_0$ on the other $\implies \Delta E = \sigma/\epsilon_0$. **Spherical shell:** $\vec{E}_{\text{out}}(R) = \frac{\sigma}{\epsilon_0}\hat{r}$, $\vec{E}_{\text{in}} = 0 \implies \Delta\vec{E} = \frac{\sigma}{\epsilon_0}\hat{r}$. ✓
+    2. **Hollow cylinder:** Outside ($s > R$), $E(2\pi s l) = \frac{\sigma(2\pi R l)}{\epsilon_0} \implies \vec{E}_{\text{out}} = \frac{\sigma R}{\epsilon_0 s}\hat{s} = \frac{\sigma}{\epsilon_0}\hat{s}$ at $s = R$. Inside ($s < R$), $Q_{\text{enc}} = 0 \implies \vec{E}_{\text{in}} = \mathbf{0}$. Jump: $\Delta\vec{E} = \frac{\sigma}{\epsilon_0}\hat{s}$. ✓
+    3. **Spherical shell potential:** At $r = R$, $V_{\text{out}}(R) = \frac{R\sigma}{\epsilon_0} = V_{\text{in}}$. Meanwhile $\left.\frac{\partial V_{\text{out}}}{\partial r}\right|_R = -\frac{\sigma}{\epsilon_0}$ and $\frac{\partial V_{\text{in}}}{\partial r} = 0$, so $\frac{\partial V_{\text{out}}}{\partial r} - \frac{\partial V_{\text{in}}}{\partial r} = -\frac{\sigma}{\epsilon_0}$. ✓
+  </div>
+</ProblemCard>
+
+</section>

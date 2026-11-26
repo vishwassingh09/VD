@@ -1,0 +1,242 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch2-sec1" class="ed-sec-block">
+
+### 2.1 The Electric Field
+
+<div class="ed-theory-box">
+
+**Minimal Theory (Notes p. 1):**
+
+- **Coulomb's Law & Superposition:** Force on test charge $Q$ at $\vec{r}$ due to source charges $q_i$ at $\vec{r}_i'$ is $\vec{F} = Q\vec{E}(\vec{r})$, with separation vector $\vec{\mathscr{r}}_i = \vec{r} - \vec{r}_i'$:
+
+$$
+\vec{E}(\vec{r}) = \frac{1}{4\pi\epsilon_0}\sum_{i=1}^n \frac{q_i}{\mathscr{r}_i^2}\hat{\mathscr{r}}_i
+$$
+
+- **Continuous Charge Distributions:** Replace the sum by an integral over the charge distribution:
+
+$$
+\vec{E}(\vec{r}) = \frac{1}{4\pi\epsilon_0}\int \frac{dq}{\mathscr{r}^2}\hat{\mathscr{r}}, \qquad dq = \begin{cases} \lambda\,dl' & \text{(line)} \\ \sigma\,da' & \text{(surface)} \\ \rho\,d\tau' & \text{(volume)} \end{cases}
+$$
+
+- **Standard Useful Building Blocks (from Ex. 2.1–2.2):**
+  - Infinite straight line ($\lambda$): $\vec{E} = \dfrac{\lambda}{2\pi\epsilon_0 s}\hat{s}$.
+  - Finite segment ($-L$ to $+L$, distance $z$ above midpoint): $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{2\lambda L}{z\sqrt{z^2 + L^2}}\hat{z}$.
+
+</div>
+
+<EdDiagram
+  name="coulomb-vectors"
+  caption="Source vector r'ᵢ, field point r, and separation vector r − r'ᵢ (from handwritten notes p. 1)."
+/>
+
+<ProblemCard num="2.1" title="Regular Polygon of Point Charges" tag="Griffiths 2.1 · Coulomb & Superposition">
+  <div slot="problem">
+    1. Twelve equal charges, $q$, are situated at the corners of a regular 12-sided polygon (for instance, one on each numeral of a clock face). What is the net force on a test charge $Q$ at the center?
+    2. Suppose one of the 12 $q$'s is removed (the one at "6 o'clock"). What is the force on $Q$? Explain your reasoning carefully.
+    3. Now 13 equal charges, $q$, are placed at the corners of a regular 13-sided polygon. What is the force on a test charge $Q$ at the center?
+    4. If one of the 13 $q$'s is removed, what is the force on $Q$? Explain your reasoning.
+  </div>
+
+  <div slot="answer">
+    1. Zero.
+    2. $F = \dfrac{1}{4\pi\epsilon_0}\dfrac{qQ}{r^2}$ pointing toward the missing charge (6 o'clock).
+    3. Zero.
+    4. $\dfrac{1}{4\pi\epsilon_0}\dfrac{qQ}{r^2}$ pointing toward the missing charge.
+  </div>
+
+  <div slot="solution">
+    1. **Zero.** Every charge has an equal charge directly opposite it (12 vs 6, 1 vs 7, etc.), or by rotational symmetry the vector sum vanishes.
+    2. Removing the charge at 6 o'clock is equivalent by superposition to keeping all 12 charges (net force $0$) and adding a charge $-q$ at 6 o'clock. Hence the net force equals that of $-q$ alone at 6 o'clock: magnitude $\dfrac{1}{4\pi\epsilon_0}\dfrac{qQ}{r^2}$, pointing toward 6 o'clock.
+    3. **Zero.** Any regular $n$-gon is symmetric under rotation by $2\pi/13$, so the net force vector at the center must vanish (since rotating a nonzero vector by $2\pi/13$ changes it).
+    4. $\dfrac{1}{4\pi\epsilon_0}\dfrac{qQ}{r^2}$ pointing toward the missing $q$. By the same superposition trick, removing one $+q$ is equivalent to adding $-q$ at that corner. (Notice the opposite-pair argument from (b) would fail for $n=13$, whereas superposition works for all $n$.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.2" title="Field Above the Midpoint of Opposite Charges (+q, −q)" tag="Griffiths 2.2 · Superposition">
+  <div slot="problem">
+    Find the electric field (magnitude and direction) a distance $z$ above the midpoint between equal and opposite charges ($+q$ at $x = -d/2$ and $-q$ at $x = +d/2$), a distance $d$ apart.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{qd}{\left[z^2 + (d/2)^2\right]^{3/2}}\,\hat{x}
+    $$
+  </div>
+
+  <div slot="solution">
+    Here $+q$ pushes away (to the right and up) and $-q$ pulls toward itself (to the right and down). The vertical ($z$) components cancel, while the horizontal ($x$) components add:
+
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{2q}{\mathscr{r}^2}\sin\theta\,\hat{x}, \qquad \mathscr{r} = \sqrt{z^2 + (d/2)^2}, \qquad \sin\theta = \frac{d/2}{\mathscr{r}}
+    $$
+
+    Substituting $\sin\theta$ and $\mathscr{r}$ gives:
+
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{qd}{\left[z^2 + (d/2)^2\right]^{3/2}}\,\hat{x}
+    $$
+
+    For $z \gg d$, $E \approx \dfrac{1}{4\pi\epsilon_0}\dfrac{qd}{z^3}\hat{x}$ (electric dipole decay $\sim 1/z^3$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.3" title="Field Above One End of a Finite Line Charge" tag="Griffiths 2.3 · Line Charge">
+  <div slot="problem">
+    Find the electric field a distance $z$ above one end of a straight line segment of length $L$ (along $x \in [0, L]$) that carries a uniform line charge $\lambda$. Check that your formula is consistent with what you would expect for the case $z \gg L$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{\lambda}{z}\left[\left(-1 + \frac{z}{\sqrt{z^2 + L^2}}\right)\hat{x} + \left(\frac{L}{\sqrt{z^2 + L^2}}\right)\hat{z}\right]
+    $$
+  </div>
+
+  <div slot="solution">
+    For a segment $dq = \lambda\,dx$ at $(x, 0, 0)$ and field point $(0, 0, z)$: $\mathscr{r} = \sqrt{z^2 + x^2}$, $\cos\theta = z/\mathscr{r}$, $\sin\theta = x/\mathscr{r}$.
+
+    $$
+    E_z = \frac{1}{4\pi\epsilon_0}\int_0^L \frac{\lambda\,dx}{\mathscr{r}^2}\cos\theta = \frac{\lambda z}{4\pi\epsilon_0}\int_0^L \frac{dx}{(z^2+x^2)^{3/2}} = \frac{\lambda z}{4\pi\epsilon_0}\left[\frac{x}{z^2\sqrt{z^2+x^2}}\right]_0^L = \frac{1}{4\pi\epsilon_0}\frac{\lambda L}{z\sqrt{z^2 + L^2}}
+    $$
+
+    $$
+    E_x = -\frac{1}{4\pi\epsilon_0}\int_0^L \frac{\lambda\,dx}{\mathscr{r}^2}\sin\theta = -\frac{\lambda}{4\pi\epsilon_0}\int_0^L \frac{x\,dx}{(z^2+x^2)^{3/2}} = -\frac{\lambda}{4\pi\epsilon_0}\left[-\frac{1}{\sqrt{z^2+x^2}}\right]_0^L = \frac{\lambda}{4\pi\epsilon_0 z}\left(-1 + \frac{z}{\sqrt{z^2 + L^2}}\right)
+    $$
+
+    For $z \gg L$, $E_x \to 0$ and $E_z \to \dfrac{1}{4\pi\epsilon_0}\dfrac{\lambda L}{z^2} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{z^2}$, matching a point charge $q = \lambda L$. ✓
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.4" title="Field Above the Center of a Square Loop" tag="Griffiths 2.4 · Line Charge">
+  <div slot="problem">
+    Find the electric field a distance $z$ above the center of a square loop (side $a$) carrying uniform line charge $\lambda$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{4\lambda a z}{\left(z^2 + \frac{a^2}{4}\right)\sqrt{z^2 + \frac{a^2}{2}}}\,\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    Using the result for a finite segment of length $2L$ ($\vec{E} = \frac{1}{4\pi\epsilon_0}\frac{2\lambda L}{r_\perp \sqrt{r_\perp^2 + L^2}}$) with $L \to a/2$ and perpendicular distance $r_\perp = \sqrt{z^2 + (a/2)^2}$ from the center of one edge to $P$:
+
+    $$
+    E_1 = \frac{1}{4\pi\epsilon_0}\frac{\lambda a}{\sqrt{z^2 + \frac{a^2}{4}}\sqrt{z^2 + \frac{a^2}{4} + \frac{a^2}{4}}}
+    $$
+
+    All 4 sides contribute symmetrically in the vertical direction with $\cos\theta = \dfrac{z}{\sqrt{z^2 + a^2/4}}$, so multiplying by $4\cos\theta$:
+
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{4\lambda a z}{\left(z^2 + \frac{a^2}{4}\right)\sqrt{z^2 + \frac{a^2}{2}}}\,\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.5" title="Field Above the Center of a Circular Loop" tag="Griffiths 2.5 · Line Charge">
+  <div slot="problem">
+    Find the electric field a distance $z$ above the center of a circular loop of radius $r$ that carries a uniform line charge $\lambda$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{\lambda(2\pi r)z}{(r^2 + z^2)^{3/2}}\,\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    Horizontal components cancel by azimuthal symmetry, leaving:
+
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\left(\int \frac{\lambda\,dl}{\mathscr{r}^2}\cos\theta\right)\hat{z}
+    $$
+
+    Here $\mathscr{r}^2 = r^2 + z^2$ and $\cos\theta = z/\mathscr{r}$ are constant around the ring, while $\int dl = 2\pi r$. Thus:
+
+    $$
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{\lambda(2\pi r)z}{(r^2 + z^2)^{3/2}}\,\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.6" title="Field Above a Uniformly Charged Circular Disk" tag="Griffiths 2.6 · Surface Charge">
+  <div slot="problem">
+    Find the electric field a distance $z$ above the center of a flat circular disk of radius $R$ that carries a uniform surface charge $\sigma$. What does your formula give in the limit $R \to \infty$? Also check the case $z \gg R$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E}_{\text{disk}} = \frac{1}{4\pi\epsilon_0}2\pi\sigma z\left[\frac{1}{z} - \frac{1}{\sqrt{R^2 + z^2}}\right]\hat{z}
+    $$
+    For $R \gg z$ (infinite plane): $\vec{E} = \dfrac{\sigma}{2\epsilon_0}\hat{z}$. For $z \gg R$ (point charge $Q = \pi R^2\sigma$): $\vec{E} \approx \dfrac{1}{4\pi\epsilon_0}\dfrac{Q}{z^2}\hat{z}$.
+  </div>
+
+  <div slot="solution">
+    Slice the disk into concentric rings of radius $r$ and thickness $dr$, each having effective line charge $\lambda = \sigma\,dr$. By Prob. 2.5:
+
+    $$
+    E_{\text{ring}} = \frac{1}{4\pi\epsilon_0}\frac{(\sigma\,dr)2\pi r z}{(r^2 + z^2)^{3/2}} \implies \vec{E}_{\text{disk}} = \frac{1}{4\pi\epsilon_0}2\pi\sigma z \int_0^R \frac{r\,dr}{(r^2 + z^2)^{3/2}}\,\hat{z}
+    $$
+
+    Integrating with $u = r^2 + z^2$ gives:
+
+    $$
+    \vec{E}_{\text{disk}} = \frac{1}{4\pi\epsilon_0}2\pi\sigma z\left[\frac{1}{z} - \frac{1}{\sqrt{R^2 + z^2}}\right]\hat{z}
+    $$
+
+    - For $R \gg z$: the second term $\to 0$, giving $\vec{E}_{\text{plane}} = \dfrac{2\pi\sigma}{4\pi\epsilon_0}\hat{z} = \dfrac{\sigma}{2\epsilon_0}\hat{z}$.
+    - For $z \gg R$: $\dfrac{1}{\sqrt{R^2+z^2}} = \dfrac{1}{z}\left(1 + \dfrac{R^2}{z^2}\right)^{-1/2} \approx \dfrac{1}{z}\left(1 - \dfrac{R^2}{2z^2}\right)$, so $E \approx \dfrac{1}{4\pi\epsilon_0}\dfrac{\pi R^2\sigma}{z^2} = \dfrac{1}{4\pi\epsilon_0}\dfrac{Q}{z^2}$. ✓
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.7" title="Field Inside and Outside a Spherical Shell (Direct Integration)" tag="Griffiths 2.7 · Surface Charge">
+  <div slot="problem">
+    Find the electric field a distance $z$ from the center of a spherical surface of radius $R$ that carries a uniform charge density $\sigma$. Treat the case $z < R$ (inside) as well as $z > R$ (outside). Express your answers in terms of the total charge $q$ on the sphere.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E} = \begin{cases} \mathbf{0}, & z < R \\[6pt] \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{z^2}\,\hat{z}, & z > R \end{cases}
+    $$
+  </div>
+
+  <div slot="solution">
+    By symmetry $\vec{E}$ is along $\hat{z}$. For surface element $dq = \sigma R^2\sin\theta\,d\theta\,d\phi$:
+    $\mathscr{r}^2 = R^2 + z^2 - 2Rz\cos\theta$ and $\cos\psi = \dfrac{z - R\cos\theta}{\mathscr{r}}$. Integrating over $\phi$ ($\int d\phi = 2\pi$):
+
+    $$
+    E_z = \frac{1}{4\pi\epsilon_0}(2\pi R^2\sigma)\int_0^\pi \frac{(z - R\cos\theta)\sin\theta}{(R^2 + z^2 - 2Rz\cos\theta)^{3/2}}\,d\theta
+    $$
+
+    Substitute $u = \cos\theta$ ($du = -\sin\theta\,d\theta$, $u: 1 \to -1$):
+
+    $$
+    E_z = \frac{2\pi R^2\sigma}{4\pi\epsilon_0}\int_{-1}^1 \frac{z - Ru}{(R^2 + z^2 - 2Rzu)^{3/2}}\,du = \frac{2\pi R^2\sigma}{4\pi\epsilon_0 z^2}\left[\frac{zu - R}{\sqrt{R^2 + z^2 - 2Rzu}}\right]_{-1}^1 = \frac{2\pi R^2\sigma}{4\pi\epsilon_0 z^2}\left\{\frac{z - R}{|z - R|} - \frac{-z - R}{|z + R|}\right\}
+    $$
+
+    - For $z > R$: $\{1 - (-1)\} = 2$, so $E_z = \dfrac{4\pi R^2\sigma}{4\pi\epsilon_0 z^2} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{z^2}$.
+    - For $z < R$: $\{-1 - (-1)\} = 0$, so $\vec{E} = \mathbf{0}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="2.8" title="Field of a Uniformly Charged Solid Sphere via Shells" tag="Griffiths 2.8 · Volume Charge">
+  <div slot="problem">
+    Use your result in Prob. 2.7 to find the field inside and outside a solid sphere of radius $R$ that carries a uniform volume charge density $\rho$. Express your answers in terms of the total charge of the sphere, $q$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E}(r) = \begin{cases} \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{R^3}\vec{r}, & r < R \\[8pt] \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\hat{r}, & r > R \end{cases}
+    $$
+  </div>
+
+  <div slot="solution">
+    By Prob. 2.7, shells *exterior* to $r$ exert zero field, while all shells *interior* to $r$ act as if their charge were concentrated at the center: $\vec{E}(r) = \dfrac{1}{4\pi\epsilon_0}\dfrac{Q_{\text{int}}}{r^2}\hat{r}$.
+    - **Outside ($r > R$):** $Q_{\text{int}} = q \implies \vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\hat{r}$.
+    - **Inside ($r < R$):** $Q_{\text{int}} = \dfrac{\frac{4}{3}\pi r^3}{\frac{4}{3}\pi R^3}q = \dfrac{r^3}{R^3}q \implies \vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{r^3 q}{R^3 r^2}\hat{r} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{R^3}\vec{r}$.
+  </div>
+</ProblemCard>
+
+</section>
