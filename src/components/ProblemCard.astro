@@ -1,0 +1,77 @@
+---
+interface Props {
+  num?: string | number;
+  title?: string;
+  tag?: string;
+}
+
+const { num, title, tag } = Astro.props;
+---
+<div class="problem-card">
+    <div class="problem-header">
+        <div class="problem-title-row">
+            <span class="problem-badge">Problem{num ? ` ${num}` : ''}</span>
+            {title && <strong class="problem-title">{title}</strong>}
+        </div>
+        {tag && <span class="problem-tag">{tag}</span>}
+    </div>
+
+    <div class="problem-statement">
+        <slot name="problem" />
+    </div>
+
+    <div class="problem-actions">
+        <button
+            type="button"
+            class="problem-btn problem-btn-answer"
+            onclick="toggleProblemReveal(this, 'answer')"
+            data-show-label="Show Answer"
+            data-hide-label="Hide Answer"
+        >
+            Show Answer
+        </button>
+        <button
+            type="button"
+            class="problem-btn problem-btn-solution"
+            onclick="toggleProblemReveal(this, 'solution')"
+            data-show-label="Show Solution"
+            data-hide-label="Hide Solution"
+        >
+            Show Solution
+        </button>
+    </div>
+
+    <div class="problem-reveal problem-answer" style="display: none;">
+        <div class="problem-reveal-label answer-label">Answer</div>
+        <div class="problem-reveal-body">
+            <slot name="answer" />
+        </div>
+    </div>
+
+    <div class="problem-reveal problem-solution" style="display: none;">
+        <div class="problem-reveal-label solution-label">Step-by-Step Solution</div>
+        <div class="problem-reveal-body">
+            <slot name="solution" />
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+if (!window.__vdProblemInitialized) {
+    window.__vdProblemInitialized = true;
+
+    window.toggleProblemReveal = function(btn, target) {
+        var card = btn.closest('.problem-card');
+        if (!card) return;
+        var panel = card.querySelector(target === 'answer' ? '.problem-answer' : '.problem-solution');
+        if (!panel) return;
+
+        var isHidden = panel.style.display === 'none' || panel.style.display === '';
+        panel.style.display = isHidden ? 'block' : 'none';
+        btn.classList.toggle('is-active', isHidden);
+        btn.textContent = isHidden
+            ? (btn.getAttribute('data-hide-label') || 'Hide')
+            : (btn.getAttribute('data-show-label') || 'Show');
+    };
+}
+</script>

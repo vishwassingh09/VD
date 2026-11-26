@@ -1,0 +1,239 @@
+---
+interface Props {
+  name:
+    | 'coulomb-vectors'
+    | 'gaussian-pillbox'
+    | 'uniqueness-conductors'
+    | 'method-of-images'
+    | 'separation-slot'
+    | 'multipole-geometry';
+  caption?: string;
+}
+
+const { name, caption } = Astro.props;
+---
+<figure class="physics-diagram-figure">
+    {name === 'coulomb-vectors' && (
+        <svg viewBox="0 0 420 240" class="physics-diagram-svg" role="img" aria-label="Source vector r-prime, field vector r, and separation vector">
+            <defs>
+                <marker id="ed-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="currentColor" />
+                </marker>
+                <marker id="ed-arrow-accent" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent-color, #007bff)" />
+                </marker>
+            </defs>
+            <!-- Coordinate Axes -->
+            <line x1="70" y1="185" x2="70" y2="25" stroke="currentColor" stroke-width="1.5" marker-end="url(#ed-arrow)" opacity="0.65" />
+            <line x1="70" y1="185" x2="360" y2="185" stroke="currentColor" stroke-width="1.5" marker-end="url(#ed-arrow)" opacity="0.65" />
+            <line x1="70" y1="185" x2="22" y2="225" stroke="currentColor" stroke-width="1.5" marker-end="url(#ed-arrow)" opacity="0.65" />
+            <text x="58" y="30" fill="currentColor" font-size="14" font-style="italic">y</text>
+            <text x="366" y="190" fill="currentColor" font-size="14" font-style="italic">x</text>
+            <text x="14" y="232" fill="currentColor" font-size="14" font-style="italic">z</text>
+
+            <!-- Source charges -->
+            <circle cx="135" cy="95" r="3" fill="currentColor" opacity="0.5" />
+            <text x="115" y="88" fill="currentColor" font-size="12" opacity="0.75">q₁</text>
+            <circle cx="155" cy="80" r="3" fill="currentColor" opacity="0.5" />
+            <text x="150" y="70" fill="currentColor" font-size="12" opacity="0.75">q₂</text>
+            <circle cx="170" cy="112" r="4.5" fill="#d32f2f" />
+            <text x="176" y="106" fill="#d32f2f" font-size="13" font-weight="bold">qᵢ</text>
+
+            <!-- Field point Q -->
+            <circle cx="325" cy="58" r="4.5" fill="var(--accent-color, #007bff)" />
+            <text x="334" y="56" fill="var(--accent-color, #007bff)" font-size="13" font-weight="bold">Q (Field Point)</text>
+
+            <!-- Vectors r', r, separation r_i -->
+            <line x1="70" y1="185" x2="167" y2="115" stroke="currentColor" stroke-width="2" marker-end="url(#ed-arrow)" />
+            <text x="102" y="142" fill="currentColor" font-size="14" font-style="italic">r⃗ᵢ′</text>
+
+            <line x1="70" y1="185" x2="321" y2="61" stroke="currentColor" stroke-width="2" marker-end="url(#ed-arrow)" />
+            <text x="215" y="144" fill="currentColor" font-size="14" font-style="italic">r⃗</text>
+
+            <line x1="173" y1="111" x2="320" y2="60" stroke="var(--accent-color, #007bff)" stroke-width="2.2" marker-end="url(#ed-arrow-accent)" />
+            <text x="234" y="76" fill="var(--accent-color, #007bff)" font-size="14" font-weight="bold">𝔯⃗ᵢ = r⃗ − r⃗ᵢ′</text>
+        </svg>
+    )}
+
+    {name === 'gaussian-pillbox' && (
+        <svg viewBox="0 0 420 220" class="physics-diagram-svg" role="img" aria-label="Gaussian pillbox across a surface charge density sigma">
+            <defs>
+                <marker id="ed-arr2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent-color, #007bff)" />
+                </marker>
+                <marker id="ed-arr-n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#28a745" />
+                </marker>
+            </defs>
+
+            <!-- Surface sheet -->
+            <polygon points="40,130 140,85 385,85 285,130" fill="rgba(0, 123, 255, 0.12)" stroke="currentColor" stroke-width="1.8" />
+            <text x="315" y="106" fill="#d32f2f" font-size="15" font-weight="bold">σ (surface charge)</text>
+
+            <!-- Pillbox -->
+            <ellipse cx="210" cy="72" rx="46" ry="13" fill="rgba(40, 167, 69, 0.14)" stroke="currentColor" stroke-width="1.8" />
+            <path d="M 164 72 L 164 136 A 46 13 0 0 0 256 136 L 256 72" fill="rgba(40, 167, 69, 0.08)" stroke="currentColor" stroke-width="1.8" />
+            <ellipse cx="210" cy="136" rx="46" ry="13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" />
+
+            <!-- Height epsilon -->
+            <line x1="270" y1="72" x2="270" y2="136" stroke="currentColor" stroke-width="1.2" />
+            <line x1="265" y1="72" x2="275" y2="72" stroke="currentColor" stroke-width="1.2" />
+            <line x1="265" y1="136" x2="275" y2="136" stroke="currentColor" stroke-width="1.2" />
+            <text x="278" y="108" fill="currentColor" font-size="13">ε → 0</text>
+            <text x="198" y="76" fill="currentColor" font-size="12">Area A</text>
+
+            <!-- E_above and E_below -->
+            <line x1="210" y1="72" x2="238" y2="20" stroke="var(--accent-color, #007bff)" stroke-width="2.2" marker-end="url(#ed-arr2)" />
+            <text x="244" y="34" fill="var(--accent-color, #007bff)" font-size="14" font-weight="bold">E⃗_above</text>
+
+            <line x1="210" y1="136" x2="232" y2="195" stroke="var(--accent-color, #007bff)" stroke-width="2.2" marker-end="url(#ed-arr2)" />
+            <text x="238" y="190" fill="var(--accent-color, #007bff)" font-size="14" font-weight="bold">E⃗_below</text>
+
+            <!-- Normal unit vector -->
+            <line x1="125" y1="112" x2="125" y2="64" stroke="#28a745" stroke-width="2" marker-end="url(#ed-arr-n)" />
+            <text x="108" y="64" fill="#28a745" font-size="14" font-weight="bold">n̂</text>
+        </svg>
+    )}
+
+    {name === 'uniqueness-conductors' && (
+        <svg viewBox="0 0 420 220" class="physics-diagram-svg" role="img" aria-label="Volume V containing conductors and charge density rho">
+            <!-- Outer boundary -->
+            <path d="M 65 115 C 55 45, 165 25, 255 32 C 345 40, 375 95, 360 150 C 345 198, 220 205, 130 192 C 75 182, 70 150, 65 115 Z"
+                  fill="rgba(0, 123, 255, 0.06)" stroke="currentColor" stroke-width="2" />
+            <text x="305" y="188" fill="currentColor" font-size="13" font-weight="bold">Volume V</text>
+            <text x="28" y="60" fill="currentColor" font-size="13">Outer Surface S₀</text>
+
+            <!-- Conductors inside -->
+            <ellipse cx="145" cy="92" rx="34" ry="22" fill="rgba(211, 47, 47, 0.14)" stroke="#d32f2f" stroke-width="1.8" />
+            <text x="136" y="97" fill="#d32f2f" font-size="13" font-weight="bold">Qₐ</text>
+
+            <ellipse cx="255" cy="80" rx="36" ry="24" fill="rgba(211, 47, 47, 0.14)" stroke="#d32f2f" stroke-width="1.8" />
+            <text x="246" y="85" fill="#d32f2f" font-size="13" font-weight="bold">Q_b</text>
+
+            <ellipse cx="165" cy="150" rx="32" ry="20" fill="rgba(211, 47, 47, 0.14)" stroke="#d32f2f" stroke-width="1.8" />
+            <text x="157" y="155" fill="#d32f2f" font-size="13" font-weight="bold">Q_c</text>
+
+            <ellipse cx="275" cy="142" rx="34" ry="22" fill="rgba(211, 47, 47, 0.14)" stroke="#d32f2f" stroke-width="1.8" />
+            <text x="266" y="147" fill="#d32f2f" font-size="13" font-weight="bold">Q_d</text>
+
+            <!-- Interior rho -->
+            <text x="202" y="122" fill="var(--accent-color, #007bff)" font-size="15" font-weight="bold">ρ(r⃗)</text>
+            <text x="295" y="112" fill="currentColor" font-size="11" opacity="0.8">Interior</text>
+            <text x="295" y="125" fill="currentColor" font-size="11" opacity="0.8">surfaces Sᵢ</text>
+        </svg>
+    )}
+
+    {name === 'method-of-images' && (
+        <svg viewBox="0 0 440 220" class="physics-diagram-svg" role="img" aria-label="Method of images: point charge above grounded plane and equivalent image charge">
+            <!-- Left: Situation A -->
+            <text x="45" y="24" fill="currentColor" font-size="13" font-weight="bold">Situation A (Actual)</text>
+            <polygon points="25,135 65,105 195,105 155,135" fill="rgba(100, 116, 139, 0.25)" stroke="currentColor" stroke-width="1.8" />
+            <text x="148" y="148" fill="currentColor" font-size="12">V = 0 (z = 0)</text>
+            <line x1="110" y1="120" x2="110" y2="56" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" />
+            <circle cx="110" cy="56" r="5" fill="#d32f2f" />
+            <text x="119" y="59" fill="#d32f2f" font-size="14" font-weight="bold">+q</text>
+            <text x="94" y="92" fill="currentColor" font-size="13">d</text>
+            <!-- Ground symbol -->
+            <line x1="42" y1="135" x2="42" y2="154" stroke="currentColor" stroke-width="1.5" />
+            <line x1="32" y1="154" x2="52" y2="154" stroke="currentColor" stroke-width="1.5" />
+            <line x1="36" y1="159" x2="48" y2="159" stroke="currentColor" stroke-width="1.5" />
+            <line x1="39" y1="164" x2="45" y2="164" stroke="currentColor" stroke-width="1.5" />
+
+            <!-- Arrow between situations -->
+            <text x="206" y="115" fill="var(--accent-color, #007bff)" font-size="20" font-weight="bold">≡</text>
+
+            <!-- Right: Situation B -->
+            <text x="250" y="24" fill="currentColor" font-size="13" font-weight="bold">Situation B (Image)</text>
+            <line x1="245" y1="120" x2="410" y2="120" stroke="currentColor" stroke-width="1.5" />
+            <text x="368" y="112" fill="currentColor" font-size="12">z = 0 (V = 0)</text>
+            <line x1="325" y1="56" x2="325" y2="184" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" />
+
+            <circle cx="325" cy="56" r="5" fill="#d32f2f" />
+            <text x="334" y="60" fill="#d32f2f" font-size="14" font-weight="bold">+q</text>
+            <text x="311" y="92" fill="currentColor" font-size="13">d</text>
+
+            <circle cx="325" cy="184" r="5" fill="var(--accent-color, #007bff)" />
+            <text x="334" y="188" fill="var(--accent-color, #007bff)" font-size="14" font-weight="bold">−q (image)</text>
+            <text x="311" y="156" fill="currentColor" font-size="13">d</text>
+        </svg>
+    )}
+
+    {name === 'separation-slot' && (
+        <svg viewBox="0 0 420 220" class="physics-diagram-svg" role="img" aria-label="Semi-infinite rectangular slot for 2D Laplace equation">
+            <defs>
+                <marker id="ed-arr3" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="currentColor" />
+                </marker>
+            </defs>
+            <!-- Top plate y=a -->
+            <polygon points="105,65 165,30 355,30 295,65" fill="rgba(0, 123, 255, 0.1)" stroke="currentColor" stroke-width="1.8" />
+            <text x="235" y="52" fill="currentColor" font-size="13">V = 0 (y = a)</text>
+
+            <!-- Bottom plate y=0 -->
+            <polygon points="105,155 165,120 355,120 295,155" fill="rgba(0, 123, 255, 0.1)" stroke="currentColor" stroke-width="1.8" />
+            <text x="235" y="142" fill="currentColor" font-size="13">V = 0 (y = 0)</text>
+
+            <!-- Back end strip x=0 -->
+            <polygon points="105,65 165,30 165,120 105,155" fill="rgba(211, 47, 47, 0.18)" stroke="#d32f2f" stroke-width="1.8" />
+            <text x="32" y="102" fill="#d32f2f" font-size="13" font-weight="bold">V₀(y) at x = 0</text>
+
+            <!-- Axes -->
+            <line x1="105" y1="155" x2="105" y2="22" stroke="currentColor" stroke-width="1.5" marker-end="url(#ed-arr3)" />
+            <text x="92" y="28" fill="currentColor" font-size="14" font-style="italic">y</text>
+
+            <line x1="325" y1="138" x2="395" y2="138" stroke="currentColor" stroke-width="1.5" marker-end="url(#ed-arr3)" />
+            <text x="398" y="142" fill="currentColor" font-size="14" font-style="italic">x → ∞</text>
+
+            <line x1="105" y1="155" x2="65" y2="182" stroke="currentColor" stroke-width="1.5" marker-end="url(#ed-arr3)" />
+            <text x="52" y="192" fill="currentColor" font-size="14" font-style="italic">z</text>
+
+            <!-- Height a indicator -->
+            <line x1="315" y1="65" x2="315" y2="155" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 2" />
+            <text x="322" y="110" fill="currentColor" font-size="13" font-style="italic">a</text>
+        </svg>
+    )}
+
+    {name === 'multipole-geometry' && (
+        <svg viewBox="0 0 420 220" class="physics-diagram-svg" role="img" aria-label="Multipole expansion geometry showing r, r-prime, separation vector, and angle alpha">
+            <defs>
+                <marker id="ed-arr4" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="currentColor" />
+                </marker>
+                <marker id="ed-arr4-b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent-color, #007bff)" />
+                </marker>
+            </defs>
+            <!-- Charge blob -->
+            <path d="M 58 130 C 40 90, 82 58, 130 68 C 172 78, 182 128, 152 158 C 122 184, 70 168, 58 130 Z"
+                  fill="rgba(211, 47, 47, 0.1)" stroke="#d32f2f" stroke-width="1.8" />
+            <text x="65" y="148" fill="#d32f2f" font-size="13" font-weight="bold">ρ(r⃗′) dτ′</text>
+
+            <!-- Origin O -->
+            <circle cx="95" cy="175" r="3.5" fill="currentColor" />
+            <text x="80" y="192" fill="currentColor" font-size="13">O</text>
+
+            <!-- Volume element -->
+            <rect x="122" y="90" width="12" height="12" fill="rgba(211, 47, 47, 0.35)" stroke="#d32f2f" stroke-width="1.4" />
+
+            <!-- Field point P -->
+            <circle cx="355" cy="68" r="4.5" fill="var(--accent-color, #007bff)" />
+            <text x="364" y="72" fill="var(--accent-color, #007bff)" font-size="14" font-weight="bold">P</text>
+
+            <!-- Vectors -->
+            <line x1="95" y1="175" x2="127" y2="103" stroke="currentColor" stroke-width="2" marker-end="url(#ed-arr4)" />
+            <text x="95" y="132" fill="currentColor" font-size="14" font-style="italic">r⃗′</text>
+
+            <line x1="95" y1="175" x2="350" y2="70" stroke="currentColor" stroke-width="2" marker-end="url(#ed-arr4)" />
+            <text x="235" y="142" fill="currentColor" font-size="14" font-style="italic">r⃗</text>
+
+            <line x1="134" y1="95" x2="349" y2="69" stroke="var(--accent-color, #007bff)" stroke-width="2.2" marker-end="url(#ed-arr4-b)" />
+            <text x="238" y="72" fill="var(--accent-color, #007bff)" font-size="14" font-weight="bold">𝔯</text>
+
+            <!-- Angle alpha arc -->
+            <path d="M 106 151 A 26 26 0 0 1 119 165" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <text x="118" y="153" fill="currentColor" font-size="13" font-style="italic">α</text>
+        </svg>
+    )}
+
+    {caption && <figcaption class="physics-diagram-caption">{caption}</figcaption>}
+</figure>
