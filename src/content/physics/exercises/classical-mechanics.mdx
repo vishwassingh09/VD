@@ -1,0 +1,31 @@
+---
+title: "Classical Mechanics"
+tab: "exercises"
+sectionId: "exe-cm"
+group: "TIFR GS Syllabus"
+order: 2
+---
+import McqCard from '../../../components/McqCard.astro';
+
+## Classical Mechanics - TIFR PYQs
+
+<McqCard
+  questionNum="1"
+  year="2010"
+  questionText={String.raw`A high-velocity missile, travelling in a horizontal line with a kinetic energy of $3.0 \text{ GigaJoules (GJ)}$, explodes in flight and breaks into two pieces A and B of equal mass. One of these pieces (A) flies off in a straight line perpendicular to the original direction in which the missile was moving and its kinetic energy is found to be $2.0 \text{ GJ}$. If gravity can be neglected for such high-velocity projectiles, it follows that the other piece (B) flew off in a direction at an angle with the original direction of:`}
+  optA={String.raw`$30^\circ$`}
+  optB={String.raw`$33^\circ 24'$`}
+  optC={String.raw`$45^\circ$`}
+  optD={String.raw`$60^\circ$`}
+  correctOpt="A"
+  explanation={String.raw`Let the initial mass of the missile be $2m$. The two pieces A and B each have mass $m$.<br>
+Using $E = \frac{p^2}{2 \times \text{mass}}$, we can relate kinetic energy to momentum:<br>
+Initial momentum (horizontal, say x-axis): $p_0 = \sqrt{2(2m)E_0} = \sqrt{4m(3)} = \sqrt{12m}$.<br>
+Momentum of piece A (perpendicular, say y-axis): $p_A = \sqrt{2m E_A} = \sqrt{2m(2)} = \sqrt{4m}$.<br><br>
+By conservation of linear momentum:<br>
+x-axis: $p_0 = p_{Bx} \implies p_{Bx} = \sqrt{12m}$<br>
+y-axis: $0 = p_A + p_{By} \implies p_{By} = -p_A = -\sqrt{4m}$<br><br>
+The angle $\theta$ that piece B makes with the original horizontal direction is given by:<br>
+$$\tan\theta = \left| \frac{p_{By}}{p_{Bx}} \right| = \frac{\sqrt{4m}}{\sqrt{12m}} = \frac{1}{\sqrt{3}}$$
+Thus, $\theta = 30^\circ$.`}
+/>

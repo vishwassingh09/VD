@@ -1,18 +1,68 @@
 ---
-// Astro frontmatter
+import { getCollection, render } from 'astro:content';
+
+const allEntries = (await getCollection('physics')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const renderedByTab = new Map<string, Array<{ entry: (typeof allEntries)[number]; Content: any }>>();
+
+for (const entry of allEntries) {
+  const { Content } = await render(entry);
+  const tab = entry.data.tab;
+  if (!renderedByTab.has(tab)) {
+    renderedByTab.set(tab, []);
+  }
+  renderedByTab.get(tab)!.push({ entry, Content });
+}
+
+interface SidebarGroup {
+  name: string;
+  items: Array<(typeof allEntries)[number]>;
+}
+
+function buildSidebar(tab: string) {
+  const items = (renderedByTab.get(tab) ?? []).map((item) => item.entry);
+  const intro = items.find((item) => item.data.isIntro);
+  const groups: SidebarGroup[] = [];
+  const groupMap = new Map<string, SidebarGroup>();
+
+  for (const item of items) {
+    if (item.data.isIntro) continue;
+    const groupName = item.data.group ?? 'Topics';
+    if (!groupMap.has(groupName)) {
+      const group = { name: groupName, items: [] };
+      groupMap.set(groupName, group);
+      groups.push(group);
+    }
+    groupMap.get(groupName)!.items.push(item);
+  }
+
+  return { intro, groups };
+}
+
+const tabbedSections = [
+  { tabKey: 'school', domId: 'school-physics' },
+  { tabKey: 'college', domId: 'college-physics' },
+  { tabKey: 'research', domId: 'research-physics' },
+  { tabKey: 'exercises', domId: 'exercises' },
+  { tabKey: 'notes', domId: 'msc-notes' },
+] as const;
+
+const introEntries = renderedByTab.get('introduction') ?? [];
 ---
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9667197563513742" crossorigin="anonymous" is:inline></script>
         <meta name="google-adsense-account" content="ca-pub-9667197563513742">
-     
+
         <script is:inline>
             MathJax = {
                 tex: {
-                inlineMath: [['$', '$']],
-                displayMath: [['$$', '$$']],
-                packages: {'[+]': ['physics', 'ams']}
+                    inlineMath: [['$', '$']],
+                    displayMath: [['$$', '$$']],
+                    packages: {'[+]': ['physics', 'ams']}
                 },
                 loader: {load: ['[tex]/physics']}
             };
@@ -22,1621 +72,93 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Physics | Vishwa Darpan</title>
-        
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" is:inline></script>
-        
-        <!-- CSS Fix -->
+
         <link rel="stylesheet" href="/style.css">
     </head>
 
     <body>
         <header class="subject-header">
-            <!-- Link Fix -->
             <a href="/science" class="icon-btn" title="Back to Vigyan">⬅️</a>
             <h1>Physics</h1>
             <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
         </header>
 
         <div class="container">
-            
             <div class="tab-box">
                 <button class="tab-btn active" onclick="openTab(event, 'introduction')">Introduction</button>
                 <button class="tab-btn" onclick="openTab(event, 'school-physics')">School Physics</button>
                 <button class="tab-btn" onclick="openTab(event, 'college-physics')">College Physics</button>
                 <button class="tab-btn" onclick="openTab(event, 'research-physics')">Research Physics</button>
                 <button class="tab-btn" onclick="openTab(event, 'exercises')">Exercises</button>
-                                <button class="tab-btn" onclick="openTab(event, 'msc-notes')">MSc Notes</button>
+                <button class="tab-btn" onclick="openTab(event, 'msc-notes')">MSc Notes</button>
                 <button class="tab-btn" onclick="openTab(event, 'genealogy')">Academic Lineage</button>
             </div>
 
             <section id="introduction" class="tab-content" style="display: block;">
-                <h2>Introduction to Physics</h2>
-                <p>Physics is the natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force. The most famous equation demonstrating the mass-energy equivalence is:</p>
-                <p style="text-align: center; font-size: 1.2em;" set:html={"$$E = mc^2$$"} />
+                {introEntries.map(({ Content }) => <Content />)}
             </section>
 
-            <!-- ============================================== -->
-            <!-- UPDATED SCHOOL PHYSICS SECTION -->
-            <!-- ============================================== -->
-            <section id="school-physics" class="tab-content">
-                <div class="school-layout-container">
-                    
-                    <!-- Nested Sidebar -->
-                    <nav class="school-sidebar">
-                        <ul>
-                            <li><a onclick="showSchoolSection('phys-intro')" style="font-weight: bold;">🏠 School</a></li>
-                            
-                            <li class="section-header">Mechanics</li>
-                            <li><a onclick="showSchoolSection('phys-units')">Units & Measurement</a></li>
-                            <li><a onclick="showSchoolSection('phys-straight')">Motion in a Straight Line</a></li>
-                            <li><a onclick="showSchoolSection('phys-plane')">Motion in a Plane</a></li>
-                            <li><a onclick="showSchoolSection('phys-laws')">Laws of Motion</a></li>
-                            <li><a onclick="showSchoolSection('phys-work')">Work, Energy and Power</a></li>
-                            <li><a onclick="showSchoolSection('phys-com')">Center of Mass and Collision</a></li>
-                            <li><a onclick="showSchoolSection('phys-rotation')">Rotational Motion</a></li>
-                            <li><a onclick="showSchoolSection('phys-gravitation')">Gravitation</a></li>
-                            <li><a onclick="showSchoolSection('phys-properties')">Properties of Matter</a></li>
-                            <li><a onclick="showSchoolSection('phys-thermo')">Heat and Thermodynamics</a></li>
-                            <li><a onclick="showSchoolSection('phys-oscillations')">Oscillations</a></li>
-                            <li><a onclick="showSchoolSection('phys-waves')">Waves</a></li>
-
-                            <li class="section-header">Electricity</li>
-                            <li><a onclick="showSchoolSection('phys-electrostatics')">Electrostatics</a></li>
-                            <li><a onclick="showSchoolSection('phys-current')">Current Electricity</a></li>
-                            <li><a onclick="showSchoolSection('phys-capacitor')">Capacitor</a></li>
-                            <li><a onclick="showSchoolSection('phys-moving-charges')">Moving Charges and Magnetism</a></li>
-                            <li><a onclick="showSchoolSection('phys-magnetism')">Magnetism and Matter</a></li>
-                            <li><a onclick="showSchoolSection('phys-emi')">Electromagnetic Induction</a></li>
-                            <li><a onclick="showSchoolSection('phys-ac')">Alternating Current</a></li>
-                            <li><a onclick="showSchoolSection('phys-emw')">Electromagnetic Waves</a></li>
-
-                            <li class="section-header">Optics & Modern</li>
-                            <li><a onclick="showSchoolSection('phys-geom-optics')">Geometrical Optics</a></li>
-                            <li><a onclick="showSchoolSection('phys-wave-optics')">Wave Optics</a></li>
-                            <li><a onclick="showSchoolSection('phys-atoms')">Atoms and Nuclei</a></li>
-                            <li><a onclick="showSchoolSection('phys-dual')">Dual Nature of Radiation and Matter</a></li>
-                            <li><a onclick="showSchoolSection('phys-semi')">Semiconductor Electronics</a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Nested Main Content -->
-                    <main class="school-main-content">
-                        
-                        <!-- Original Intro (Default View) -->
-                        <div id="phys-intro" class="school-note-section active-school-section">
-                            <h2>School Physics</h2>
-                            
-                            <p><em>Subtopics can be accessed from the sidebar</em></p>
-                        </div>
-
-                        <!-- Mechanics -->
-                        <div id="phys-units" class="school-note-section">
-                            <h2>Units & Measurement</h2>
-                            <p>The foundational study of physical quantities, the international system of units (SI), dimensional analysis, and error calculation.</p>
-                        </div>
-                        <div id="phys-straight" class="school-note-section">
-                            <h2>Motion in a Straight Line</h2>
-                            <p>The kinematics of objects moving in one dimension, exploring concepts like displacement, velocity, and acceleration over time.</p>
-                        </div>
-                        <div id="phys-plane" class="school-note-section">
-                            <h2>Motion in a Plane</h2>
-                            <p>The study of two-dimensional kinematics, introducing vectors, projectile motion, and uniform circular motion.</p>
-                        </div>
-                        <div id="phys-laws" class="school-note-section">
-                            <h2>Laws of Motion</h2>
-                            <p>Newton's three fundamental laws governing classical mechanics, including inertia, force, and action-reaction pairs.</p>
-                        </div>
-                        <div id="phys-work" class="school-note-section">
-                            <h2>Work, Energy and Power</h2>
-                            <p>The relationship between forces applied over a distance, the conservation of mechanical energy, and the rate of doing work.</p>
-                        </div>
-                        <div id="phys-com" class="school-note-section">
-                            <h2>Center of Mass and Collision</h2>
-                            <p>Analyzing systems of particles, defining the center of mass, and understanding the conservation of momentum in elastic and inelastic collisions.</p>
-                        </div>
-                        <div id="phys-rotation" class="school-note-section">
-                            <h2>Rotational Motion</h2>
-                            <p>The kinematics and dynamics of rigid bodies rotating about a fixed axis, including torque and angular momentum.</p>
-                        </div>
-                        <div id="phys-gravitation" class="school-note-section">
-                            <h2>Gravitation</h2>
-                            <p>Newton's law of universal gravitation, Kepler's laws of planetary motion, and the concept of gravitational potential energy.</p>
-                        </div>
-                        <div id="phys-properties" class="school-note-section">
-                            <h2>Properties of Matter</h2>
-                            <p>The mechanical properties of solids and fluids, including elasticity, surface tension, viscosity, and Bernoulli's principle.</p>
-                        </div>
-                        <div id="phys-thermo" class="school-note-section">
-                            <h2>Heat and Thermodynamics</h2>
-                            <p>The study of thermal expansion, calorimetry, heat transfer, and the fundamental laws of thermodynamics governing energy and entropy.</p>
-                        </div>
-                        <div id="phys-oscillations" class="school-note-section">
-                            <h2>Oscillations</h2>
-                            <p>The physics of periodic motion, focusing heavily on Simple Harmonic Motion (SHM) in springs and pendulums.</p>
-                        </div>
-                        <div id="phys-waves" class="school-note-section">
-                            <h2>Waves</h2>
-                            <p>The propagation of mechanical disturbances through mediums, exploring concepts like wavelength, frequency, superposition, and the Doppler effect.</p>
-                        </div>
-
-                        <!-- Electricity -->
-
-                        <!-- Electrostatics -->
-                        <div id="phys-electrostatics" class="school-note-section">
-                            <h2>Electrostatics</h2>
-                            <p>Electrostatics deals with the study of forces, fields, and potentials arising from static charges. This forms the foundation for electromagnetism.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">1. Coulomb's Law</h3>
-                            <p>Coulomb's law states that the electrostatic force between two point charges is directly proportional to the product of the magnitudes of charges and inversely proportional to the square of the distance between them.</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$F = \\frac{1}{4\\pi\\epsilon_0} \\frac{q_1 q_2}{r^2}$$"} />
-                            <p><strong>Vector Form:</strong> The force on charge {"$q_2$"} due to {"$q_1$"} is given by:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\vec{F}_{12} = \\frac{1}{4\\pi\\epsilon_0} \\frac{q_1 q_2}{r^2} \\hat{r}_{12}$$"} />
-                            <p>Where {"$\\epsilon_0$"} is the permittivity of free space ({"$\\approx 8.854 \\times 10^{-12} \\text{ C}^2\\text{N}^{-1}\\text{m}^{-2}$"}).</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">2. Electric Field and Potential</h3>
-                            <p><strong>Electric Field (E):</strong> The electrostatic force experienced per unit positive test charge. For a point charge {"$q$"} at a distance {"$r$"}:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\vec{E} = \\frac{\\vec{F}}{q_0} = \\frac{1}{4\\pi\\epsilon_0} \\frac{q}{r^2} \\hat{r}$$"} />
-                            
-                            <p><strong>Electric Potential (V):</strong> The work done by an external force in bringing a unit positive charge from infinity to a point. For a point charge {"$q$"}:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$V = \\frac{1}{4\\pi\\epsilon_0} \\frac{q}{r}$$"} />
-
-                            <p><strong>Relation between E and V:</strong> The electric field is the negative gradient of the electric potential.</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\vec{E} = -\\nabla V = -\\left( \\frac{\\partial V}{\\partial x}\\hat{i} + \\frac{\\partial V}{\\partial y}\\hat{j} + \\frac{\\partial V}{\\partial z}\\hat{k} \\right)$$"} />
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">3. Electric Dipole</h3>
-                            <p>A system of two equal and opposite charges ({"$+q$"} and {"$-q$"}) separated by a small distance ({"$2a$"}). The dipole moment {"$\\vec{p}$"} is a vector directed from {"$-q$"} to {"$+q$"} with magnitude {"$p = q(2a)$"}.</p>
-
-                            <p><strong>Torque in a Uniform Electric Field:</strong> When placed in a uniform field {"$\\vec{E}$"}, the net force is zero, but the charges experience equal and opposite forces creating a couple. The torque ({"$\\tau$"}) is the cross product of dipole moment and electric field:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\vec{\\tau} = \\vec{p} \\times \\vec{E} \\implies \\tau = pE \\sin\\theta$$"} />
-
-                            <p><strong>Potential Energy of a Dipole:</strong> The work done in rotating a dipole from an angle {"$\\theta_1$"} to {"$\\theta_2$"} is stored as potential energy ({"$U$"}). Taking standard reference at {"$90^\\circ$"}:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$U = -\\vec{p} \\cdot \\vec{E} = -pE \\cos\\theta$$"} />
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">4. Gauss's Law</h3>
-                            <p><strong>Electric Flux ({"$\\Phi_E$"}):</strong> The measure of electric field lines crossing a given surface area. For a uniform electric field and a planar area vector {"$\\vec{A}$"}:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\Phi_E = \\int \\vec{E} \\cdot d\\vec{A}$$"} />
-
-                            <p><strong>Gauss's Theorem:</strong> The total electric flux through any closed surface is equal to {"$1/\\epsilon_0$"} times the net charge enclosed by the surface.</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{\\text{enclosed}}}{\\epsilon_0}$$"} />
-                            <p><em>Exam Note:</em> Gauss's Law is primarily useful for finding electric fields for highly symmetric charge distributions (e.g., infinite line charge, infinite plane sheet, spherical shells).</p>
-                        </div>
-
-
-                        <!-- Current Electricity -->
-                        <div id="phys-current" class="school-note-section">
-                            <h2>Current Electricity</h2>
-                            <p>The study of electric current in conductors, encompassing the dynamics of moving charges, resistance, and complex circuit analysis.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">1. Electric Current and Drift Speed</h3>
-                            <p>Electric current is the rate of flow of charge. In a conductor, electrons move with an average velocity called drift speed ({"$v_d$"}) when an electric field is applied.</p>
-                            <p>The relation between current ({"$I$"}) and drift speed is:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$I = neAv_d$$"} />
-                            <p>Where {"$n$"} is number density of electrons, {"$e$"} is elementary charge, and {"$A$"} is the cross-sectional area.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">2. Ohm's Law and Resistivity</h3>
-                            <p>Ohm's Law states that voltage across a conductor is directly proportional to the current flowing through it, provided temperature remains constant.</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$V = IR$$"} />
-                            <p>The microscopic form relating current density ({"$\\vec{J}$"}) and electric field ({"$\\vec{E}$"}) is {"$\\vec{J} = \\sigma\\vec{E}$"}, where {"$\\sigma$"} is conductivity.</p>
-                            <p><strong>Temperature Dependence of Resistivity:</strong> Resistivity ({"$\\rho$"}) changes with temperature ({"$T$"}) according to the empirical formula:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\rho = \\rho_0 [1 + \\alpha(T - T_0)]$$"} />
-                            <p>Where {"$\\alpha$"} is the temperature coefficient of resistivity.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">3. Kirchhoff's Laws</h3>
-                            <p>Essential for analyzing complex electrical circuits:</p>
-                            <ul>
-                                <li><strong>Junction Rule (KCL):</strong> The algebraic sum of currents at any junction is zero ({"$\\sum I = 0$"}). This is based on the conservation of charge.</li>
-                                <li><strong>Loop Rule (KVL):</strong> The algebraic sum of changes in potential around any closed loop is zero ({"$\\sum \\Delta V = 0$"}). This is based on the conservation of energy.</li>
-                            </ul>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">4. Wheatstone Bridge</h3>
-                            <p>A specific arrangement of four resistors used to determine an unknown resistance. In the balanced condition (no current through the galvanometer), the ratio of the arms is equal:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\frac{R_1}{R_2} = \\frac{R_3}{R_4}$$"} />
-                        </div>
-
-                        <!-- Capacitor -->
-                        <div id="phys-capacitor" class="school-note-section">
-                            <h2>Capacitors</h2>
-                            <p>Devices designed to store electrical energy and charge in an electric field.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">1. Capacitor and Capacitance</h3>
-                            <p>Capacitance ({"$C$"}) is the ratio of the charge ({"$Q$"}) on either conductor to the potential difference ({"$V$"}) between them.</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$C = \\frac{Q}{V}$$"} />
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">2. Parallel-Plate Capacitor</h3>
-                            <p>The most common type of capacitor. For plates of area {"$A$"} separated by a distance {"$d$"} in a vacuum, the calculation of capacitance yields:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$C_0 = \\frac{\\epsilon_0 A}{d}$$"} />
-                            <p><strong>With a Dielectric:</strong> When a dielectric material of constant {"$K$"} fills the space, the capacitance increases:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$C = K C_0 = \\frac{K \\epsilon_0 A}{d}$$"} />
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">3. Combination of Capacitors</h3>
-                            <p>Capacitors can be grouped in circuits to achieve a desired equivalent capacitance:</p>
-                            <ul>
-                                <li><strong>Series Combination:</strong> Charge remains constant across all capacitors. The equivalent capacitance is given by:
-                                    <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\frac{1}{C_{eq}} = \\frac{1}{C_1} + \\frac{1}{C_2} + \\dots + \\frac{1}{C_n}$$"} />
-                                </li>
-                                <li><strong>Parallel Combination:</strong> Voltage remains constant across all capacitors. The equivalent capacitance is given by:
-                                    <p style="text-align: center; font-size: 1.2em;" set:html={"$$C_{eq} = C_1 + C_2 + \\dots + C_n$$"} />
-                                </li>
-                            </ul>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">4. Energy Stored and Energy Density</h3>
-                            <p>The work done in charging a capacitor is stored as electrostatic potential energy ({"$U$"}). It can be calculated as:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$U = \\frac{1}{2}CV^2 = \\frac{Q^2}{2C} = \\frac{1}{2}QV$$"} />
-                            <p><strong>Energy Density ({"$u$"}):</strong> The energy stored per unit volume in the electric field between the plates is:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$u = \\frac{1}{2}\\epsilon_0 E^2$$"} />
-                        </div>
-
-                        <!-- Moving Charges and Magnetism -->
-                        <div id="phys-moving-charges" class="school-note-section">
-                            <h2>Moving Charges and Magnetism</h2>
-                            <p>This section explores the Definition of Magnetic Field {"$\\vec{B}$"}, the Relation between Electric and Magnetic Fields, and the Motion of a Charged Particle in a Uniform Magnetic Field.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">1. Magnetic Force</h3>
-                            <ul>
-                                <li><strong>On a moving charge:</strong> A charge {"$q$"} moving with velocity {"$\\vec{v}$"} in a magnetic field {"$\\vec{B}$"} experiences a force given by {"$\\vec{F} = q(\\vec{v} \\times \\vec{B})$"}.</li>
-                                <li><strong>On a current-carrying wire:</strong> The Magnetic Force on a Current-carrying Wire of length {"$\\vec{l}$"} and current {"$I$"} is calculated as {"$\\vec{F} = I(\\vec{l} \\times \\vec{B})$"}.</li>
-                                <li><strong>Torque:</strong> The Torque on a Current Loop is given by {"$\\vec{\\tau} = \\vec{m} \\times \\vec{B}$"}, where {"$\\vec{m}$"} is the magnetic moment.</li>
-                            </ul>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">2. Magnetic Field due to a Current</h3>
-                            <ul>
-                                <li><strong>Biot-Savart Law:</strong> Determines the magnetic field {"$d\\vec{B}$"} generated by a differential current element {"$Id\\vec{l}$"}.
-                                    <p style="text-align: center; font-size: 1.2em;" set:html={"$$d\\vec{B} = \\frac{\\mu_0}{4\\pi} \\frac{I d\\vec{l} \\times \\hat{r}}{r^2}$$"} />
-                                </li>
-                                <li><strong>Ampere's Law:</strong> States that the line integral of the magnetic field around any closed loop is equal to {"$\\mu_0$"} times the enclosed current. 
-                                    <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\oint \\vec{B} \\cdot d\\vec{l} = \\mu_0 I_{\\text{enc}}$$$"} />
-                                </li>
-                            </ul>
-
-                            <h3 style="color: var(--accent-color, #007bff);">3. Key Applications</h3>
-                            <ul>
-                                <li>Derivations for the Magnetic Field due to Current in a Straight Wire and the Field due to a Circular Current.</li>
-                                <li>Calculating the Force between Parallel Currents, which is historically used to define the Ampere.</li>
-                                <li>Determining the magnetic field inside a Solenoid and a Toroid using Ampere's Law.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Magnetism and Matter -->
-                        <div id="phys-magnetism" class="school-note-section">
-                            <h2>Magnetism and Matter</h2>
-                            <p>This chapter studies Permanent Magnets, including Magnetic Poles and Bar Magnets, and the underlying Magnetic Properties of Matter.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">1. Permanent Magnets & Earth's Field</h3>
-                            <ul>
-                                <li><strong>Bar Magnets:</strong> Core concepts include calculating the Torque on a Bar Magnet Placed in a Magnetic Field, the Magnetic Field due to a Bar Magnet, and understanding Magnetic Scalar Potential.</li>
-                                <li><strong>Earth's Magnetism:</strong> Encompasses Terrestrial Magnetism, the Determination of Dip at a Place, and identifying a Neutral Point.</li>
-                                <li><strong>Gauss's Law for Magnetism:</strong> States that the net magnetic flux through any closed surface is zero ({"$\\oint \\vec{B} \\cdot d\\vec{A} = 0$"}), implying magnetic monopoles do not exist.</li>
-                            </ul>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">2. Measuring Instruments</h3>
-                            <ul>
-                                <li>Operational principles of the Tangent Galvanometer, Moving-coil Galvanometer, and Deflection Magnetometer.</li>
-                                <li>Galvanometer modifications involve calculating and applying a Shunt resistor.</li>
-                            </ul>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">3. Magnetic Properties of Matter</h3>
-                            <ul>
-                                <li><strong>Key Metrics:</strong> Defining Magnetization of Materials: Intensity of Magnetization, Magnetic Intensity {"$H$"}, Magnetic Susceptibility, and Permeability.</li>
-                                <li><strong>Classification:</strong> Studying the Properties of Dia-, Para- and Ferromagnetic Substances.</li>
-                                <li><strong>Laws and Effects:</strong> Exploring Curie's Law, Hysteresis, and the practical differences between Soft Iron and Steel.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Electromagnetic Induction -->
-                        <div id="phys-emi" class="school-note-section">
-                            <h2>Electromagnetic Induction</h2>
-                            <p>The study of how changing magnetic environments can induce electromotive forces and currents.</p>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">1. Fundamental Laws</h3>
-                            <ul>
-                                <li><strong>Faraday's Law of Electromagnetic Induction:</strong> The induced emf is equal to the negative rate of change of magnetic flux.
-                                    <p style="text-align: center; font-size: 1.2em;" set:html={"$$\\mathcal{E} = -\\frac{d\\Phi_B}{dt}$$"} />
-                                </li>
-                                <li><strong>Lenz's Law:</strong> Dictates that the direction of the induced current opposes the change in magnetic flux that produced it, aligning with the conservation of energy.</li>
-                                <li><strong>Origin:</strong> Explaining The Origin of Induced emf and the formation of Eddy Current in bulk conductors.</li>
-                            </ul>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3 style="color: var(--accent-color, #007bff);">2. Induction and Circuits</h3>
-                            <ul>
-                                <li><strong>Types of Induction:</strong> Definitions and formulas for Self-induction and Mutual Induction.</li>
-                                <li><strong>Energy:</strong> The Energy Stored in an Inductor is given by the formula {"$U = \\frac{1}{2}LI^2$"}.</li>
-                                <li><strong>Transient Responses:</strong> Formulating the Growth and Decay of Current in an {"$LR$"} Circuit.</li>
-                                <li><strong>Applications:</strong> Understanding the mechanics of the Induction Coil.</li>
-                            </ul>
-                        </div>
-
-
-                        <div id="phys-ac" class="school-note-section">
-                            <h2>Alternating Current</h2>
-                            <p>Electrical circuits where the current periodically reverses direction, analyzing impedance, resonance, and transformers.</p>
-                        </div>
-                        <div id="phys-emw" class="school-note-section">
-                            <h2>Electromagnetic Waves</h2>
-                            <p>The unified propagation of electric and magnetic fields through space, and the complete electromagnetic spectrum.</p>
-                        </div>
-
-                        <!-- Optics & Modern Physics -->
-                        <div id="phys-geom-optics" class="school-note-section">
-                            <h2>Geometrical Optics</h2>
-                            <p>The behavior of light utilizing ray approximations to study reflection, refraction, lenses, mirrors, and optical instruments.</p>
-                        </div>
-                        <div id="phys-wave-optics" class="school-note-section">
-                            <h2>Wave Optics</h2>
-                            <p>The phenomena of light that require a wave model to explain, including interference (Young's double-slit), diffraction, and polarization.</p>
-                        </div>
-                        <div id="phys-atoms" class="school-note-section">
-                            <h2>Atoms and Nuclei</h2>
-                            <p>Rutherford and Bohr models of the atom, atomic spectra, and the composition, stability, and radioactive decay of atomic nuclei.</p>
-                        </div>
-                        <div id="phys-dual" class="school-note-section">
-                            <h2>Dual Nature of Radiation and Matter</h2>
-                            <p>The quantum mechanical reality that light exhibits particle properties (photons) and matter exhibits wave properties (de Broglie waves).</p>
-                        </div>
-                        <div id="phys-semi" class="school-note-section">
-                            <h2>Semiconductor Electronics</h2>
-                            <p>The physics of materials with conductivity between insulators and conductors, forming the basis of diodes, transistors, and modern computing.</p>
-                        </div>
-
-                    </main>
-                </div>
-            </section>
-
-            <!-- =============================-->
-            <!-- COLLEGE PHYSICS SECTION -->
-            <!-- ============================= -->
-            <section id="college-physics" class="tab-content">
-                <div class="school-layout-container">
-                    
-                    <!-- Nested Sidebar for College Physics -->
-                    <nav class="school-sidebar">
-                        <ul>
-                            <li><a onclick="showSchoolSection('college-intro')" style="font-weight: bold;">🎓 College </a></li>
-                            
-                            <li class="section-header">Classical Limits</li>
-                            <li><a onclick="showSchoolSection('college-cm')">1. Classical Mechanics (CM)</a></li>
-                            <li><a onclick="showSchoolSection('college-sm')">2. Statistical Mechanics (SM)</a></li>
-
-                            <li class="section-header">Quantum Limits</li>
-                            <li><a onclick="showSchoolSection('college-qm')">3. Quantum Mechanics (QM)</a></li>
-                            <li><a onclick="showSchoolSection('college-cmp')">4. Condensed Matter (CMP)</a></li>
-
-                            <li class="section-header">Relativistic Limits</li>
-                            <li><a onclick="showSchoolSection('college-str')">5. Relativity (STR+GR)</a></li>
-                            <li><a onclick="showSchoolSection('college-qft')">6. Quantum Field Theory (QFT)</a></li>
-
-                            <li class="section-header">PG Level Courses</li>
-
-                            <li><a onclick="showSchoolSection('college-ssp')">7. Solid State Physics</a></li>
-
-                            <li><a onclick="showSchoolSection('college-ED')">7. Electrodynamics</a></li>
-
-                            <li><a onclick="showSchoolSection('college-NP')">8. Nuclear Physics</a></li>
-
-                            <li><a onclick="showSchoolSection('college-PP')">9. Particle Physics </a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Nested Main Content for College Physics -->
-                    <main class="school-main-content">
-                        
-                        <!-- College Intro (Default View) -->
-                        <div id="college-intro" class="school-note-section active-school-section">
-                            <h2>Dynamics</h2>
-                            
-                            <p>  
-                                To simplify the study of dynamical systems we will divide it into six main parts depending on whether we are studying single/many body, at low/high speeds and if we are in the quantum/classical limits. For three out of four forces we have experimentally verified Quantum Theory. For the fourth force of Gravity we have a very beautiful classical theory by Einstein whose Quantum Part is yet to be discovered experimentally but still we have really a very strong candidate called String Theory which is mathematically consistent and brings all forces under one formalism. For now we will be exploring these experimentally verified regimes:
-                            </p>  
-
-                            <ol>
-                                <li>Single Body Non-Relativistic Classical Physics (CM)</li>
-                                <li>Many Body Non-Relativistic Classical Physics (SM)</li>
-                                <li>Single Body Non-Relativistic Quantum Physics (QM)</li>
-                                <li>Many Body Non-Relativistic Quantum Physics (CMP)</li>
-                                <li>Single Body Relativistic Classical Physics (STR+GR)</li>
-                                <li>Many-Body Relativistic Quantum Physics (QFT)</li>
-                            </ol> 
-                            
-                            <p>
-                                In any kind of Dynamics, it's helpful to define the SYSTEM, the STATE and EVOLUTION. In Newtonian Mechanics, we defined the SYSTEM as the particle acted on by a Force whose STATE (Initial) was given by pair of position and velocity vectors and finally using Newtons Laws F=ma (solving this differential equation), we can get the position and velocity at later times (final state). We can extend this idea to our six divisions.
-                            </p>
-                            
-                            <div class="table-container" style="overflow-x: auto;">
-                                <table class="evolution-table">
-                                    <thead>
-                                        <tr>
-                                            <th>System Framework</th>
-                                            <th>1. CM</th>
-                                            <th>2. SM</th>
-                                            <th>3. QM</th>
-                                            <th>4. CMP</th>
-                                            <th>5. STR+GR</th>
-                                            <th>6. QFT</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>The System</strong></td>
-                                            <td>A low-speed particle</td>
-                                            <td>A probability distribution (ensemble)</td>
-                                            <td>A wavefunction</td>
-                                            <td>An interacting many-body lattice</td>
-                                            <td>A massive body in curved spacetime</td>
-                                            <td>A quantized field</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>State Variables (State)</strong></td>
-                                            <td set:html={"$$(\\mathbf{x}, \\mathbf{p})$$"} />
-                                            <td set:html={"$$\\rho(\\mathbf{q}, \\mathbf{p})$$"} />
-                                            <td set:html={"$$|\\psi\\rangle$$"} />
-                                            <td set:html={"$$|\\Psi\\rangle$$"} />
-                                            <td set:html={"$$g_{\\mu\\nu}, x^\\mu(\\tau)$$"} />
-                                            <td set:html={"$$\\hat{\\phi}(x), |0\\rangle$$"} />
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Dynamical Equation (Evolution)</strong></td>
-                                            <td set:html={"$$m\\ddot{\\mathbf{x}} = -\\nabla V$$"} />
-                                            <td set:html={"$$\\frac{\\partial \\rho}{\\partial t} = \\{H, \\rho\\}$$"} />
-                                            <td set:html={"$$i\\hbar\\frac{\\partial}{\\partial t}|\\psi\\rangle = \\hat{H}|\\psi\\rangle$$"} />
-                                            <td set:html={"$$\\hat{H} = -t \\sum_{\\langle i,j \\rangle, \\sigma} (\\hat{c}_{i\\sigma}^\\dagger \\hat{c}_{j\\sigma} + h.c.) + U \\sum_i \\hat{n}_{i\\uparrow} \\hat{n}_{i\\downarrow}$$"} />
-                                            <td set:html={"$$R_{\\mu\\nu} - \\frac{1}{2}Rg_{\\mu\\nu} = \\frac{8\\pi G}{c^4} T_{\\mu\\nu}$$"} />
-                                            <td set:html={"$$\\mathcal{L} = \\bar{\\psi}(i\\gamma^\\mu\\partial_\\mu - m)\\psi$$"} />
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- 1. CM -->
-                        <div id="college-cm" class="school-note-section">
-                            <h2>Single Body Non-Relativistic Classical Physics (CM)</h2>
-                            <p>This section explores classical mechanics frameworks (Newtonian, Lagrangian, and Hamiltonian) for macroscopic objects moving at speeds much less than the speed of light.</p>
-                        </div>
-
-                        <!-- 2. SM -->
-                        <div id="college-sm" class="school-note-section">
-                            <h2>Many Body Non-Relativistic Classical Physics (SM)</h2>
-                            <p>This section explores Statistical Mechanics and Thermodynamics, analyzing the macroscopic properties of systems containing a massive number of classical particles using probability ensembles.</p>
-                        </div>
-
-                        <!-- 3. QM -->
-                        <div id="college-qm" class="school-note-section">
-                            <h2>Single Body Non-Relativistic Quantum Physics (QM)</h2>
-                            <p>Here we study the wave-like behavior of single subatomic particles using the Schrödinger equation, quantum operators, and wavefunctions.</p>
-                        </div>
-
-                        <!-- 4. CMP -->
-                        <div id="college-cmp" class="school-note-section">
-                            <h2>Many Body Non-Relativistic Quantum Physics (CMP)</h2>
-                            <p>Also known as Condensed Matter Physics, this field studies the complex emergent behaviors (like superconductivity, magnetism, and Mott insulators) that arise when many quantum particles interact in a lattice.</p>
-                        </div>
-
-                        <!-- 5. STR+GR -->
-                        <div id="college-str" class="school-note-section">
-                            <h2>Single Body Relativistic Classical Physics (STR+GR)</h2>
-                            <p>This covers Einstein's Special and General Relativity, describing the dynamics of massive bodies at high speeds and the curvature of spacetime caused by gravity.</p>
-                        </div>
-
-                        <!-- 6. QFT -->
-                        <div id="college-qft" class="school-note-section">
-                            <h2>Many-Body Relativistic Quantum Physics (QFT)</h2>
-                            <p>QFT is an attempt to unify the rules of the fast world with the rules of the small world. One of the first steps in these directions can be just to pick up the classical rules of energy conservation, apply the operator formalism and see if we can keep the conservation of probability intact while maintaining the Lorentz covariance.</p>
-
-                            <!-- Deep Dive: Symmetries -->
-                            <div style="background: var(--sidebar-border, #f8f9fa); padding: 15px; border-left: 4px solid var(--accent-color, #007bff); margin: 25px 0; border-radius: 4px;">
-                                <h3 style="margin-top: 0; color: var(--accent-color, #007bff); font-size: 1.1em;">Deep Dive: Where do the operators come from?</h3>
-                                <p style="margin-bottom: 0;">Fundamentally, energy and momentum are the conserved quantities associated with time and space translation symmetries (Noether's Theorem). In quantum mechanics, the generator of time translation is the Hamiltonian, giving us the energy operator {"$E \\to i\\hbar \\frac{\\partial}{\\partial t}$"}. The generator of space translation gives us the momentum operator {"$\\mathbf{p} \\to -i\\hbar \\nabla$"}. We plug these directly into classical energy equations to find our quantum equations of motion.</p>
-                            </div>
-
-                            <hr style="margin: 40px 0; border: 0; border-top: 2px solid var(--accent-color, #007bff);">
-
-                            <h3>1. The Non-Relativistic Case (Schrödinger Equation)</h3>
-                            <p>We start with the classical energy conservation for a free particle:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ E = \\frac{p^2}{2m} $$"} />
-                            <p>Applying the operator formalism to a state {"$|\\psi\\rangle$"} (represented by a complex wavefunction {"$\\psi$"}), we get the standard Schrödinger equation:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ i\\hbar \\frac{\\partial \\psi}{\\partial t} = -\\frac{\\hbar^2}{2m} \\nabla^2 \\psi $$"} />
-                            <p>Doing the same for the "bra" vector (taking the complex conjugate of the equation) gives:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ -i\\hbar \\frac{\\partial \\psi^*}{\\partial t} = -\\frac{\\hbar^2}{2m} \\nabla^2 \\psi^* $$"} />
-                            <p>To verify if probability is conserved, we calculate the time evolution of the probability density (the mod square, {"$\\rho = \\psi^*\\psi$"}):</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\frac{\\partial \\rho}{\\partial t} = \\frac{\\partial}{\\partial t}(\\psi^* \\psi) = \\psi^* \\frac{\\partial \\psi}{\\partial t} + \\frac{\\partial \\psi^*}{\\partial t} \\psi $$"} />
-                            <p>Substituting the time derivatives from our two Schrödinger equations:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\frac{\\partial \\rho}{\\partial t} = \\psi^* \\left( \\frac{i\\hbar}{2m} \\nabla^2 \\psi \\right) - \\left( \\frac{i\\hbar}{2m} \\nabla^2 \\psi^* \\right) \\psi $$"} />
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\frac{\\partial \\rho}{\\partial t} = \\frac{i\\hbar}{2m} \\nabla \\cdot (\\psi^* \\nabla \\psi - \\psi \\nabla \\psi^*) $$"} />
-                            <p>By defining the probability current {"$\\mathbf{j} = \\frac{-i\\hbar}{2m} (\\psi^* \\nabla \\psi - \\psi \\nabla \\psi^*)$"}, we arrive at the continuity equation:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\frac{\\partial \\rho}{\\partial t} + \\nabla \\cdot \\mathbf{j} = 0 $$"} />
-                            <p>Because {"$\\rho = |\\psi|^2 \\geq 0$"}, probability is strictly positive and perfectly conserved. Non-relativistic QM works beautifully!</p>
-
-                            <hr style="margin: 40px 0; border: 0; border-top: 2px solid var(--accent-color, #007bff);">
-
-                            <h3>2. The Relativistic Case (Klein-Gordon Equation)</h3>
-                            <p>Now, let's attempt the exact same procedure using the relativistic energy-momentum relation:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ E^2 = p^2c^2 + m^2c^4 $$"} />
-                            <p>Applying the energy and momentum operators to a wavefunction {"$\\phi$"}, we obtain the Klein-Gordon equation:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ -\\hbar^2 \\frac{\\partial^2 \\phi}{\\partial t^2} = -\\hbar^2 c^2 \\nabla^2 \\phi + m^2 c^4 \\phi $$"} />
-                            <p>Taking the complex conjugate for the bra vector:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ -\\hbar^2 \\frac{\\partial^2 \\phi^*}{\\partial t^2} = -\\hbar^2 c^2 \\nabla^2 \\phi^* + m^2 c^4 \\phi^* $$"} />
-                            <p>To check for probability conservation, we multiply the first equation by {"$\\phi^*$"}, the second by {"$\\phi$"}, and subtract them (effectively taking the dot product to find the conserved current):</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ -\\hbar^2 \\left( \\phi^* \\frac{\\partial^2 \\phi}{\\partial t^2} - \\phi \\frac{\\partial^2 \\phi^*}{\\partial t^2} \\right) = -\\hbar^2 c^2 \\left( \\phi^* \\nabla^2 \\phi - \\phi \\nabla^2 \\phi^* \\right) $$"} />
-                            <p>This can be mathematically massaged into a continuity equation {"$\\frac{\\partial \\rho}{\\partial t} + \\nabla \\cdot \\mathbf{j} = 0$"}, but this time, the "probability density" {"$\\rho$"} evaluates to:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\rho = \\frac{i\\hbar}{2mc^2} \\left( \\phi^* \\frac{\\partial \\phi}{\\partial t} - \\phi \\frac{\\partial \\phi^*}{\\partial t} \\right) $$"} />
-                            
-                            <h4 style="color: #d32f2f; margin-top: 25px;">The Breakdown of Single-Particle Probability</h4>
-                            <p>Here lies the catastrophic failure of single-particle relativistic quantum mechanics. Because the Klein-Gordon equation is <em>second-order</em> in time, both the initial wavefunction {"$\\phi$"} and its time derivative {"$\\partial_t \\phi$"} can be chosen completely independently.</p>
-                            <p>As a direct result, <strong>the density {"$\\rho$"} can be negative!</strong></p>
-                            <p>A negative probability makes absolutely no physical sense. To resolve this paradox, we can no longer treat {"$\\phi$"} as a simple probability wavefunction. Instead, {"$\\rho$"} must be reinterpreted as a <em>charge density</em> (which is allowed to be positive or negative), and {"$\\phi$"} must be elevated from a state vector to a <strong>Quantum Field Operator</strong> capable of creating and annihilating particles. This mathematical necessity is the birthplace of Quantum Field Theory.</p>
-                            
-                            <hr style="margin: 40px 0; border: 0; border-top: 2px solid var(--accent-color, #007bff);">
-
-                            <h3>3. Dirac's Brilliant Fix (The Dirac Equation)</h3>
-                            <p>In 1928, Paul Dirac sought to cure the negative probability disease of the Klein-Gordon equation. He realized that to guarantee a positive probability density (like the Schrödinger equation), the new equation had to be <strong>first-order in time</strong>. However, to satisfy special relativity, space and time must be treated on equal footing, meaning the equation also had to be <strong>first-order in space</strong>.</p>
-                            
-                            <p>Dirac effectively tried to take the "square root" of the relativistic energy equation {"$E^2 = p^2c^2 + m^2c^4$"}. He proposed a linear equation of the form:</p>
-                            
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ E = c(\\alpha_1 p_1 + \\alpha_2 p_2 + \\alpha_3 p_3) + \\beta mc^2 $$"} />
-                            
-                            <div style="background: var(--sidebar-border, #f8f9fa); padding: 20px; border-left: 4px solid #28a745; margin: 25px 0; border-radius: 4px;">
-                                <h4 style="margin-top: 0; color: #28a745; font-size: 1.1em;">The Algebraic Deduction: Why 4x4?</h4>
-                                <p>Dirac knew that if he squared his new linear equation, it had to perfectly reproduce the standard relativistic energy equation. Let's expand {"$E^2$"}:</p>
-                                <p style="text-align: center; font-size: 1.1em;" set:html={"$$ E^2 = c^2 \\sum_{i=1}^3 \\alpha_i^2 p_i^2 + c^2 \\sum_{i < j} (\\alpha_i \\alpha_j + \\alpha_j \\alpha_i)p_i p_j + mc^3 \\sum_{i=1}^3 (\\alpha_i \\beta + \\beta \\alpha_i)p_i + \\beta^2 m^2c^4 $$"} />
-                                <p>For this massive expansion to collapse neatly back into {"$E^2 = p^2c^2 + m^2c^4$"}, the coefficients {"$\\alpha_i$"} and {"$\\beta$"} must satisfy three strict mathematical rules:</p>
-                                <ol>
-                                    <li><strong>They must square to 1:</strong> {"$\\alpha_1^2 = \\alpha_2^2 = \\alpha_3^2 = \\beta^2 = I$"}</li>
-                                    <li><strong>They must mutually anti-commute:</strong> {"$\\alpha_i \\alpha_j + \\alpha_j \\alpha_i = 0$"} (for {"$i \\neq j$"})</li>
-                                    <li><strong>{"$\\beta$"} must anti-commute with all {"$\\alpha$"}'s:</strong> {"$\\alpha_i \\beta + \\beta \\alpha_i = 0$"}</li>
-                                </ol>
-                                <p>Clearly, ordinary numbers cannot anti-commute ({"$2 \\times 3$"} is always {"$3 \\times 2$"}). Therefore, {"$\\alpha_i$"} and {"$\\beta$"} <strong>must be matrices</strong>. But what size?</p>
+            {tabbedSections.map(({ tabKey, domId }) => {
+                const { intro, groups } = buildSidebar(tabKey);
+                const entries = renderedByTab.get(tabKey) ?? [];
+                return (
+                    <section id={domId} class="tab-content">
+                        <div class="school-layout-container">
+                            <nav class="school-sidebar">
                                 <ul>
-                                    <li>Because they square to {"$I$"}, their eigenvalues can only be {"$+1$"} or {"$-1$"}.</li>
-                                    <li>Because they anti-commute, one can prove mathematically that their <em>trace</em> (the sum of their diagonal elements) must be strictly zero.</li>
-                                    <li>For the trace to be zero, there must be an equal number of {"$+1$"} and {"$-1$"} eigenvalues. This means the matrices <strong>must have an even dimension</strong> ({"$2 \\times 2$"}, {"$4 \\times 4$"}, {"$6 \\times 6$"}, etc.).</li>
+                                    {intro && (
+                                        <li>
+                                            <a
+                                                onclick={`showSchoolSection('${intro.data.sectionId}')`}
+                                                style="font-weight: bold;"
+                                            >
+                                                {intro.data.sidebarLabel ?? intro.data.title}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {groups.map((group) => (
+                                        <>
+                                            <li class="section-header">{group.name}</li>
+                                            {group.items.map((item) => (
+                                                <li>
+                                                    <a
+                                                        onclick={`showSchoolSection('${item.data.sectionId}')`}
+                                                        style={item.data.highlight ? 'color: #007bff; font-weight: bold;' : undefined}
+                                                    >
+                                                        {item.data.sidebarLabel ?? item.data.title}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </>
+                                    ))}
                                 </ul>
-                                <p>Could they be {"$2 \\times 2$"}? The physics world already knew of three mutually anti-commuting {"$2 \\times 2$"} matrices: the Pauli spin matrices ({"$\\sigma_x, \\sigma_y, \\sigma_z$"}). However, Dirac needed <strong>four</strong> mutually anti-commuting matrices (three {"$\\alpha$"}'s for spatial dimensions, and one {"$\\beta$"} for mass). Since there are only three such {"$2 \\times 2$"} matrices in existence, {"$2 \\times 2$"} is too small!</p>
-                                <p>Dirac was therefore forced to move to the next smallest even dimension: <strong>{"$4 \\times 4$"} matrices</strong>.</p>
-                            </div>
-
-                            <p>Applying the quantum operator formalism ({"$E \\to i\\hbar \\partial_t$"} and {"$\\mathbf{p} \\to -i\\hbar \\nabla$"}) to Dirac's linear Hamiltonian yields the original <strong>Dirac Equation</strong>:</p>
-                            
-                            <p style="text-align: center; font-size: 1.2em; font-weight: bold; background-color: var(--sidebar-border, #f9f9f9); padding: 15px; border-radius: 8px;" set:html={"$$ i\\hbar \\frac{\\partial \\psi}{\\partial t} = \\left( -i\\hbar c \\boldsymbol{\\alpha} \\cdot \\nabla + \\beta mc^2 \\right) \\psi $$"} />
-
-                            <p>Because the operators are {"$4 \\times 4$"} matrices, the wavefunction {"$\\psi$"} can no longer be a simple scalar function. It is forced by the math to become a 4-component column vector called a <strong>Dirac Spinor</strong>. This mathematical inevitability accidentally predicted the existence of intrinsic <em>spin-1/2</em> (up and down states) and the existence of <em>antimatter</em> (the positron)!</p>
-
-                            <h4 style="margin-top: 25px;">The Covariant Form</h4>
-                            <p>To make the Lorentz symmetry obvious, we multiply the equation by {"$\\beta / c$"} and define new matrices called the Gamma matrices: {"$\\gamma^0 = \\beta$"} and {"$\\gamma^i = \\beta \\alpha_i$"}. In natural units ({"$\\hbar = c = 1$"}), the Dirac equation takes its most famous, compact covariant form:</p>
-                            <p style="text-align: center; font-size: 1.2em;" set:html={"$$ (i\\gamma^\\mu \\partial_\\mu - m)\\psi = 0 $$"} />
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                            <h3>4. Popular Bases for the Gamma Matrices</h3>
-                            <p>The algebra of the Gamma matrices ({"$\\{\\gamma^\\mu, \\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$"}) defines the physics, but the actual {"$4 \\times 4$"} matrices can be written in different ways (bases) depending on the physical regime being studied. Here are the three most common representations:</p>
-
-                            <ul>
-                                <li style="margin-bottom: 15px;">
-                                    <strong>The Dirac (Standard) Basis:</strong><br>
-                                    Best suited for <em>non-relativistic limits</em>. In this basis, {"$\\gamma^0$"} is diagonal. It perfectly separates the spinor into a "large" upper component (representing the particle) and a "small" lower component (representing the antiparticle) at low energies.
-                                    <p style="text-align: center; font-size: 1.1em; margin-top: 5px;" set:html={"$$ \\gamma^0 = \\begin{pmatrix} I & 0 \\\\ 0 & -I \\end{pmatrix}, \\quad \\gamma^i = \\begin{pmatrix} 0 & \\sigma^i \\\\ -\\sigma^i & 0 \\end{pmatrix} $$"} />
-                                </li>
-                                <li style="margin-bottom: 15px;">
-                                    <strong>The Weyl (Chiral) Basis:</strong><br>
-                                    Best suited for <em>ultra-relativistic limits</em> or massless particles (like the historical view of neutrinos). Here, {"$\\gamma^5$"} is diagonal. It splits the Dirac spinor into left-handed and right-handed chiral Weyl spinors, which is essential for studying the Weak Interaction and parity violation.
-                                    <p style="text-align: center; font-size: 1.1em; margin-top: 5px;" set:html={"$$ \\gamma^0 = \\begin{pmatrix} 0 & I \\\\ I & 0 \\end{pmatrix}, \\quad \\gamma^i = \\begin{pmatrix} 0 & \\sigma^i \\\\ -\\sigma^i & 0 \\end{pmatrix} $$"} />
-                                </li>
-                                <li style="margin-bottom: 15px;">
-                                    <strong>The Majorana Basis:</strong><br>
-                                    Designed so that all Gamma matrices are purely imaginary. As a result, the Dirac equation becomes a purely real differential equation. This is used to describe Majorana fermions—particles that are their own antiparticles (a heavy area of research in modern condensed matter and neutrino physics).
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- PG Level Course Sections -->
-                        <div id="college-ssp" class="school-note-section">
-                            <h2>Solid State Physics (PG Level)</h2>
-                            <p>Detailed lecture notes and materials for advanced Solid State Physics are currently being developed.</p>
-                        </div>
-
-                        <div id="college-ED" class="school-note-section">
-                            <h2>Electrodynamics (PG Level)</h2>
-                            <p>Detailed lecture notes and materials for advanced Classical and Quantum Electrodynamics are currently being developed.</p>
-                        </div>
-
-                        <div id="college-NP" class="school-note-section">
-                            <h2>Nuclear Physics (PG Level)</h2>
-                            <p>Detailed lecture notes and materials for Nuclear Physics and Nuclear Models are currently being developed.</p>
-                        </div>
-
-                        <div id="college-PP" class="school-note-section">
-                            <h2>Particle Physics (PG Level)</h2>
-                            <p>Detailed lecture notes and materials for Particle Physics and the Standard Model are currently being developed.</p>
-                        </div>
-
-                    </main>
-                </div>
-            </section>
-                
-                <p style="text-align: center; font-size: 1.2em;" set:html={"$$...$$"} />
-
-
-            <!-- ============================================== -->
-            <!-- UPDATED RESEARCH PHYSICS SECTION -->
-            <!-- ============================================== -->
-            <section id="research-physics" class="tab-content">
-                <div class="school-layout-container">
-                    
-                    <!-- Nested Sidebar for Research Physics -->
-                    <nav class="school-sidebar">
-                        <ul>
-                            <li><a onclick="showSchoolSection('research-intro')" style="font-weight: bold;">🔬 Research</a></li>
-                            
-                            <li class="section-header">Active Topics</li>
-                            <li><a onclick="showSchoolSection('research-hubbard')">1. Hubbard Model</a></li>
-                            <li><a onclick="showSchoolSection('research-supercond')">2. Superconductivity</a></li>
-                            <li><a onclick="showSchoolSection('research-string')">3. String Theory</a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Nested Main Content for Research Physics -->
-                    <main class="school-main-content">
-                        
-                        <!-- Research Intro (Default View) -->
-                        <div id="research-intro" class="school-note-section active-school-section">
-                            <h2>Research Physics</h2>
-                            <p><em>Select a topic from the sidebar to view the detailed research notes and simulations.</em></p>
-                        </div>
-
-                        <!-- 1. Hubbard Model (Your Existing Content) -->
-                        <div id="research-hubbard" class="school-note-section">
-                            <div class="report-container" style="max-width: 900px; margin: 0 auto; line-height: 1.6; text-align: justify;">
-                                <h1 style="text-align: center; margin-bottom: 30px;">Simulating Hubbard Model using Exact Diagonalization and Quantum Computation</h1>
-
-                                <h2>Second Quantization</h2>
-                                <p>In formulating quantum mechanics from classical mechanics, we elevate the dynamical variables {"$q_i$"} and {"$p_i$"} to operators and define a commutation relation between them as {"$[q_i,p_i]=i\\hbar$"}. This is called First Quantization.</p>
-
-                                <p>When we elevate the wavefunction {"$\\psi(r)$"} itself to operator also known as Field Operator {"$\\vu{\\psi}(r)$"}, this formulation is called Second Quantization. Similar to how a {"$q_i$"} has a canonical conjugate as {"$p_i$"}, the field operator {"$\\vu{\\psi}(r)$"} has {"$\\vu{\\psi}^{\\dagger}(r)$"} and they have a commutation relation between them given as {"$[\\vu{\\psi}(r_1),\\vu{\\psi}^{\\dagger}(r_2)]=\\delta(r_1 - r_2)$"} for Bosons and Anti-commutation relation for Fermions i.e. {"$\\{\\vu{\\psi}(r_1),\\vu{\\psi^{\\dagger}}(r_2)\\}=\\delta(r_1 - r_2)$"}.</p>
-
-                                <p>This field operator which is function of space and time in one dimension in general is defined as :</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\vu{\\psi}(r)=\\sum_n  c_n \\phi_n(r) $$"} />
-                                <p>where, {"$\\phi_n(x)$"} is the usual first quantization wavefunction and {"$c_n$"} is the annihilation operator. Similarly its canonical conjugate is defined as :</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\vu{\\psi}^{\\dagger}(r)=\\sum_n c_n^{\\dagger} \\phi_n^*(r) $$"} />
-                                <p>where, {"$\\phi_n^*(x)$"} is the complex conjugate of the wave function and {"$c_n^{\\dagger}$"} is the creation operator.</p>
-
-                                <p>These creation and annhilation operators will act on the STATE of the system which is called the "Fock Space". which we will denote by :</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\ket{n_1, n_2, n_3, ..., n_i, ... , n_N} $$"} />
-                                <p>where, {"$n_i$"} tells us the number of particles present at the ith state (first quantization wavefunction).</p>
-
-                                <p>A "Vaccum State", where physically there are no particles present in our space is {"$\\ket{0, 0, ..., 0}$"}. So as an example if we act {"$c_1^{\\dagger}$"} on the vaccum state, we get {"$\\sqrt{2} \\ket{1, 0, ..., 0}$"}  and {"$c_1$"} acting on vacuum state will give us zero.</p>
-
-                                <div style="background: var(--sidebar-border, #f8f9fa); padding: 15px; border-left: 4px solid var(--accent-color, #d32f2f); margin: 25px 0; border-radius: 4px;">
-                                    <h4 style="margin-top: 0; color: var(--accent-color, #d32f2f);">Disclaimer</h4>
-                                    <p style="margin-bottom: 0;">We have borrowed the action of ladder operators from first quantization from the harmonic oscillator but physically these are two different operators. In first quantization the creation ladder operator will change the {"$\\ket{n}$"} to {"$\\ket{n+1}$"} by and factor of {"$\\sqrt{n+1}$"} and annihilation operator will change {"$\\ket{n}$"} to {"$\\ket{n-1}$"} by a factor of {"$\\sqrt{n}$"}.</p>
-                                </div>
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                                <h3>System</h3>
-                                <p>If we look at atoms whose outermost shell is the s orbital then their wave function is not localized i.e. of the form {"$\\psi = e^{i(k\\cdot r)}$"} (The probability of finding the particle is equally like everywhere). But if we take a look at the atoms whose outermost electrons lie in the d orbital. These wavefunctions are bound to the atom and they have localization around the ion. But the localization is not strong enough for them so as to stop them from tunneling the neighbouring atoms and occupy and empty state present. Now given the fixed number of such electrons and fixed number of sites, the system will choose a state such that the total energy of the system is minimized. The dynamics of such materials can be modelled by what is called the Hubbard Model whose Hamiltonian can be written as:</p>
-                                
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ H = -t \\sum_{i,\\sigma} c_{i,\\sigma}^\\dagger c_{i+1,\\sigma} + h.c + U \\sum_{i}^n {n_{i\\uparrow}} {n_{i\\downarrow}} $$"} />
-                                
-                                <p>where:</p>
-                                <ul>
-                                    <li>{"$c_{i,\\sigma}^\\dagger$"}: The creation operator for an electron with spin {"$\\sigma$"} ({"$\\uparrow$"} or {"$\\downarrow$"}) at site i.</li>
-                                    <li>{"$c_{i,\\sigma}$"}: The annihilation operator for an electron with spin {"$\\sigma$"} at site i.</li>
-                                    <li>{"$t$"}: The hopping amplitude, representing the kinetic energy of an electron hopping between nearest-neighbor sites.</li>
-                                    <li>{"$n_{i\\sigma} = c_{i,\\sigma}^\\dagger c_{i,\\sigma}$"}: The number operator for electrons with spin {"$\\sigma$"} at site i.</li>
-                                    <li>{"$U$"}: The on-site Coulomb interaction energy between two electrons of opposite spins ({"$\\uparrow$"} and {"$\\downarrow$"}) at the same site.</li>
-                                </ul>
-
-                                <p>It is an extension of the Tight Binding Approximation for single band and inclusion of electron-electron repulsion. Hubbard Model was introduced in order to explain the insulating behaviour of partially filled Transition Metal Oxide like TiO. Not only that in the limiting behaviour where the repulsion between electrons is more than the tunneling term, the electrons tends to localize on sites having same spin and hence show ferromagnetism.</p>
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h3>State</h3>
-                                <p>We are going to choose our basis state as what is called Wernier Wave Functions (they are fourier transforms of conventional Bloch States) which will give us the state of ONE electron localized on ONE particular site labelled by index i.</p>
-                                
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ W_\\gamma(\\vec{r}-\\vec{R_i}) = \\frac{1}{\\sqrt{N}} \\sum_{k} e^{-i \\vec{k}\\cdot\\vec{R_i}} \\phi_{k,\\gamma}(\\vec{r}) $$"} />
-                                
-                                <p>Here, {"$\\gamma$"} is the band index, {"$\\vec{R}$"} is the ionic position vector, {"$\\phi(\\vec{r})$"} is the Bloch wave function. We can then also define a ortho normality between states of different sites.</p>
-                                
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\bra{W_n(\\vec{r}-\\vec{R_i})}\\ket{W_n(\\vec{r}-\\vec{R_j})} = \\delta_{R_i,R_j} $$"} />
-                                
-                                <p>Since this is a fermionic system, each site can have either one up spin or one down spin or both one up and one down spin. In order to denote the state of the system i.e. all sites at once we will use the notation as follows:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\ket{\\uparrow} \\quad \\ket{\\downarrow} \\quad \\ket{\\uparrow\\downarrow} $$"} />
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h2>Exact Diagonalization</h2>
-                                
-                                <h3>2 Sites 2 Electrons</h3>
-                                <p>All possible states for 2 sites and 2 electrons will look like:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\ket{\\uparrow,\\uparrow} \\quad \\ket{0,\\uparrow\\downarrow} \\quad \\ket{\\uparrow, \\downarrow} \\quad \\ket{\\downarrow,\\uparrow} \\quad \\ket{\\uparrow\\downarrow, 0} \\quad \\ket{\\downarrow,\\downarrow} $$"} />
-                                
-                                <p>The Hamiltonian for this system is:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\begin{aligned} H = &-t ( c_{1\\uparrow}^\\dagger c_{2\\uparrow} + c_{2\\uparrow}^\\dagger c_{1\\uparrow} + c_{1\\downarrow}^\\dagger c_{2\\downarrow} + c_{2\\downarrow}^\\dagger c_{1\\downarrow} ) \\\\ &+ U ( n_{1\\uparrow} n_{1\\downarrow} + n_{2\\uparrow} n_{2\\downarrow} ) \\end{aligned} $$"} />
-                                
-                                <p>When we operate this Hamiltonian operator on all the six states we get:</p>
-                                <div style="background: var(--sidebar-border, #f9f9f9); padding: 15px; border-radius: 5px; font-size: 1.1em; text-align: center;">
-                                    <p>{"$H \\ket{\\uparrow,\\uparrow} = 0$"}</p>
-                                    <p>{"$H \\ket{0,\\uparrow\\downarrow} = -t ( \\ket{\\uparrow, \\downarrow} + \\ket{\\downarrow,\\uparrow} ) + U (\\ket{0,\\uparrow\\downarrow})$"}</p>
-                                    <p>{"$H \\ket{\\downarrow, \\uparrow} =  -t ( \\ket{0,\\uparrow\\downarrow} + \\ket{\\uparrow\\downarrow, 0} )$"}</p>
-                                    <p>{"$H \\ket{\\downarrow\\uparrow, 0} = -t ( \\ket{\\downarrow,\\uparrow} + \\ket{\\uparrow, \\downarrow}) + U \\ket{\\uparrow\\downarrow, 0}$"}</p>
-                                    <p>{"$H \\ket{\\downarrow,\\downarrow} = 0$"}</p>
-                                </div>
-
-                                <p>From this we can easily get the matrix element. For t = 1, U = 1:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 1 & -1 & -1 & 0 & 0 \\\\ 0 & -1 & 0 & 0 & -1 & 0 \\\\ 0 & -1 & 0 & 0 & -1 & 0 \\\\ 0 & 0 & -1 & -1 & 1 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{bmatrix} $$"} />
-                                <p>On Diagonalizing this matrix numerically using LAPACK library function, we get Eigenvalues : 2.56, -1.56, 1, 0, 0, 0. The Ground State Energy as -1.56.</p>
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h3>Nagaoka's Theorem</h3>
-                                <p><strong>Statement:</strong> In Hubbard Model, the relative ground state in the sector with one unoccupied site is maximally FERROMAGNETIC for large U.</p>
-
-                                <div style="text-align: center; margin: 30px 0;">
-                                    <img src="/images/Nagaoka.png" alt="Nagaoka's Theorem Graph" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;">
-                                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;"><em>For 4 sites and 3 electrons we have plotted U v/s Ground State Energies</em></p>
-                                </div>
-
-                                <p>In operational sense it means that if we take one less than half filled sites, then for large value of U (interaction between electrons on same site), the ground state of the system will be Ferromagnetic and spins will try to allow themselves in one direction. The Hubbard model can become equivalent to the Heisenberg model in the limit of strong electron-electron interactions (U) compared to the kinetic energy (t), particularly in the limit of large U and at half-filling of the electron density (one electron per lattice site). In this regime, virtual hopping processes are suppressed due to the high energy cost of double occupancy, leading to an effective spin-spin interaction between localized electrons. Under these conditions, the Hubbard model effectively reduces to the Heisenberg model, where the kinetic energy terms are neglected, and the dominant interactions are described by spin operators.</p>
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                                <h2>Quantum Simulation</h2>
-                                
-                                <h3>Qubit</h3>
-                                <p>In quantum computing, the fundamental unit of information is the qubit, which can exist in a superposition of two basis states {"$|0\\rangle$"} and {"$|1\\rangle$"}. The state of a single qubit is generally represented as:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ |\\psi\\rangle = \\alpha |0\\rangle + \\beta |1\\rangle $$"} />
-                                <p>where:</p>
-                                <ul>
-                                    <li>{"$|0\\rangle$"} and {"$|1\\rangle$"} are the computational basis states, analogous to the classical binary states.</li>
-                                    <li>{"$\\alpha$"} and {"$\\beta$"} are complex numbers representing the probability amplitudes of the respective basis states.</li>
-                                    <li>The coefficients satisfy the normalization condition {"$|\\alpha|^2 + |\\beta|^2 = 1$"}, ensuring the total probability is conserved.</li>
-                                </ul>
-
-                                <div style="text-align: center; margin: 30px 0;">
-                                    <img src="/images/Bloch.png" alt="Bloch Sphere" style="max-width: 50%; height: auto; border: 1px solid #ccc; border-radius: 4px;">
-                                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;"><em>Bloch Sphere</em></p>
-                                </div>
-
-                                <p>A general qubit in this 3 dimensional space can then be written as:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ |\\psi\\rangle = \\cos\\left(\\frac{\\theta}{2}\\right) |0\\rangle + e^{i\\phi} \\sin\\left(\\frac{\\theta}{2}\\right) |1\\rangle $$"} />
-                                <p>where:</p>
-                                <ul>
-                                    <li>{"$\\theta$"} is the polar angle ({"$0 \\leq \\theta \\leq \\pi$"}).</li>
-                                    <li>{"$\\phi$"} is the azimuthal angle ({"$0 \\leq \\phi < 2\\pi$"}).</li>
-                                    <li>The coefficients {"$\\alpha$"} and {"$\\beta$"} are parameterized as: {"$\\alpha = \\cos\\left(\\frac{\\theta}{2}\\right)$"} and {"$\\beta = e^{i\\phi} \\sin\\left(\\frac{\\theta}{2}\\right)$"}.</li>
-                                </ul>
-
-                                <p>In the context of quantum computing, the {"$|0\\rangle$"} and {"$|1\\rangle$"} states of a qubit can be mapped to the physical occupation states of a fermionic site:</p>
-                                <ul>
-                                    <li>{"$|0\\rangle$"}: Represents the absence of a particle (no occupation) at the site.</li>
-                                    <li>{"$|1\\rangle$"}: Represents the presence of a particle (occupied) at the site.</li>
-                                </ul>
-
-                                <p>For the Hubbard Model, which includes both spin-up ({"$\\uparrow$"}) and spin-down ({"$\\downarrow$"}) fermions at each site, the Hilbert space of a single site is expanded to account for four possible states:</p>
-                                <ul>
-                                    <li>{"$|00\\rangle$"}: No particles at the site.</li>
-                                    <li>{"$|01\\rangle$"}: A spin-down ({"$\\downarrow$"}) particle occupies the site.</li>
-                                    <li>{"$|10\\rangle$"}: A spin-up ({"$\\uparrow$"}) particle occupies the site.</li>
-                                    <li>{"$|11\\rangle$"}: Both spin-up ({"$\\uparrow$"}) and spin-down ({"$\\downarrow$"}) particles occupy the site.</li>
-                                </ul>
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h3>Jordan Wigner Transformation</h3>
-                                <p>The Jordan-Wigner Transformation allows fermionic creation and annihilation operators to be represented as spin operators. Specifically, the creation and annihilation operators at site {"$j$"} are expressed as:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\begin{aligned} c_{j}^\\dagger &= \\frac{1}{2} \\left( \\prod_{k=1}^{j-1} Z_k \\right) (X_j - i Y_j) \\\\ c_{j} &= \\frac{1}{2} \\left( \\prod_{k=1}^{j-1} Z_k \\right) (X_j + i Y_j) \\end{aligned} $$"} />
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h3>Variational Quantum Eigensolver</h3>
-                                <p>The ground state energy of a quantum system can be expressed as the expectation value of the Hamiltonian {"$H$"} with respect to a trial wavefunction {"$|\\psi(\\theta)\\rangle$"}, parameterized by {"$\\theta$"}. Mathematically, this is given by:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ E(\\theta) = \\langle \\psi(\\theta) | H | \\psi(\\theta) \\rangle $$"} />
-                                <p>where {"$E(\\theta)$"} represents the energy for a given parameter set {"$\\theta$"}. The Variational Quantum Eigensolver aims to minimize this energy by optimizing the parameters {"$\\theta$"} such that:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ E_{\\text{ground}} = \\min_{\\theta} \\langle \\psi(\\theta) | H | \\psi(\\theta) \\rangle $$"} />
-
-                                <div style="text-align: center; margin: 30px 0;">
-                                    <img src="/images/VQE.png" alt="Variational Quantum Eigensolver" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;">
-                                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;"><em>Variational Quantum Algorithm Eigensolver</em></p>
-                                </div>
-
-                                <p>The <em>Variational Quantum Eigensolver</em> (VQE) is a hybrid quantum-classical algorithm designed to find the ground state energy of quantum systems. The algorithm minimizes the expectation value of the Hamiltonian {"$H$"}, which represents the system's energy operator, to identify the lowest possible energy state.</p>
-                            </div>
-                        </div>
-
-                         
-                        <!-- 2. Superconductivity -->
-                        <div id="research-supercond" class="school-note-section">
-                            <h2>Superconductivity</h2>
-                            <p>Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials when cooled below a characteristic critical temperature.</p>
-                            <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-                            <h3>BCS Theory & Cooper Pairs</h3>
-                            <p>Currently developing notes on the microscopic theory of superconductivity, focusing on electron-phonon interactions and the formation of Cooper pairs.</p>
-                        </div>
-
-                        <!-- 3. String Theory -->
-                        <div id="research-string" class="school-note-section">
-                            <h2>String Theory</h2>
-                            <p>A theoretical framework in which the point-like particles of particle physics are replaced by one-dimensional objects called strings.</p>
-                            <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-                            <h3>Fundamental Strings & Extra Dimensions</h3>
-                            <p>Currently developing notes on the quantization of the relativistic string, D-branes, and the necessity of extra spatial dimensions for mathematical consistency.</p>
-
-<hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                                <h2>1. The Relativistic Point Particle</h2>
-                                <p>Consider a point particle propagating in a {"$d$"}-dimensional target spacetime, tracing out a 1D worldline {"$x^\\mu(\\tau)$"} where {"$\\tau$"} is the proper time. In classical physics, the principle of least action dictates that a free particle follows the path of extremal length. The proper length interval is {"$dl = \\sqrt{-ds^2} = \\sqrt{-\\eta_{\\mu\\nu}dx^\\mu dx^\\nu}$"}.</p>
-                                
-                                <p>The action is strictly proportional to the length of this worldline, with the particle's mass {"$m$"} serving as the proportionality constant:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ S[x] = -m \\int dl = -m \\int d\\tau \\sqrt{-\\eta_{\\mu\\nu} \\dot{x}^\\mu \\dot{x}^\\nu} $$"} />
-                                <p><em> Note:</em> The negative sign inside the square root ensures a real value, as massive particles travel on timelike trajectories ({"$ds^2 < 0$"}). The negative sign outside ensures that maximizing the proper time (the straightest path in Minkowski space) minimizes the classical action.</p>
-
-                                <p>Varying this action yields the canonical momentum {"$p_\\mu = \\frac{\\partial L}{\\partial \\dot{x}^\\mu} = \\frac{m\\dot{x}_\\mu}{\\sqrt{-\\dot{x}^2}}$"}. Squaring this momentum vector inherently produces the classical mass-shell constraint:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ p^\\mu p_\\mu = \\frac{m^2 \\dot{x}^\\mu \\dot{x}_\\mu}{-\\dot{x}^\\alpha \\dot{x}_\\alpha} = -m^2 \\implies p^2 + m^2 = 0 $$"} />
-                                <p>Upon applying Dirac quantization constraints ({"$\\hat{p}_\\mu \\to -i\\partial_\\mu$"}), we demand that physical quantum states are annihilated by this constraint: {"$(\\hat{p}^2 + m^2)|\\psi\\rangle = 0$"}, flawlessly recovering the Klein-Gordon equation.</p>
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h2>2. The Bosonic String Actions</h2>
-                                <p>We now elevate our 0D point particle to a 1D string. As it moves through time, it sweeps out a 2D surface called a <strong>worldsheet</strong>, parameterized by {"$\\sigma^a = (\\tau, \\sigma)$"}. The target spacetime coordinates are now scalar fields on this worldsheet: {"$X^\\mu(\\tau, \\sigma)$"}.</p>
-
-                                <h3>The Nambu-Goto Action</h3>
-                                <p>Generalizing the point particle, the string's action must be proportional to the proper <em>area</em> of the worldsheet. Geometrically, the area of a parallelogram spanned by two vectors {"$\\vec{a}$"} and {"$\\vec{b}$"} is {"$A = |\\vec{a}||\\vec{b}|\\sin\\theta$"}. Using {"$\\sin^2\\theta = 1 - \\cos^2\\theta$"}, we can rewrite this strictly using dot products:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ A = \\sqrt{|\\vec{a}|^2|\\vec{b}|^2 - (\\vec{a} \\cdot \\vec{b})^2} $$"} />
-                                <p>On the worldsheet, the tangent vectors are {"$\\partial_\\tau X^\\mu$"} and {"$\\partial_\\sigma X^\\mu$"}. Their dot products form the <strong>induced metric</strong> {"$h_{ab} = \\eta_{\\mu\\nu} \\partial_a X^\\mu \\partial_b X^\\nu$"}. The term under the square root is exactly the negative determinant of this metric. Therefore, the Nambu-Goto action is:</p>
-                                <p style="text-align: center; font-size: 1.2em; background: var(--sidebar-border, #f9f9f9); padding: 15px; border-radius: 8px;" set:html={"$$ S_{NG} = -T \\int d\\tau d\\sigma \\sqrt{-\\det(h_{ab})} $$"} />
-                                <p>Here, {"$T = \\frac{1}{2\\pi\\alpha'}$"} is the string tension, where {"$\\alpha'$"} is the Regge slope.</p>
-
-                                <h3>The Polyakov Action</h3>
-                                <p>The Nambu-Goto action is highly non-linear due to the square root, making path-integral quantization notoriously difficult. To solve this, Polyakov introduced an independent, auxiliary worldsheet metric {"$\\gamma_{ab}(\\tau, \\sigma)$"} to eliminate the square root:</p>
-                                <p style="text-align: center; font-size: 1.2em; background: var(--sidebar-border, #f9f9f9); padding: 15px; border-radius: 8px;" set:html={"$$ S_{P} = -\\frac{T}{2} \\int d^2\\sigma \\sqrt{-\\gamma} \\, \\gamma^{ab} \\partial_a X^\\mu \\partial_b X_\\mu $$"} />
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h2>3. Symmetries and the Conformal Gauge</h2>
-                                <p>The Polyakov action is invariant under three critical symmetries:</p>
-                                <ol>
-                                    <li><strong>Global Poincaré Invariance:</strong> Spacetime translations and rotations ({"$X^\\mu \\to \\Lambda^\\mu_\\nu X^\\nu + a^\\mu$"}).</li>
-                                    <li><strong>Local Diffeomorphism:</strong> Worldsheet coordinate reparameterizations.</li>
-                                    <li><strong>Weyl Invariance:</strong> Local scale transformations of the metric: {"$\\gamma_{ab} \\to e^{2\\omega(\\tau, \\sigma)}\\gamma_{ab}$"}.</li>
-                                </ol>
-                                
-                                <div style="background: var(--sidebar-border, #f8f9fa); padding: 15px; border-left: 4px solid var(--accent-color, #007bff); margin: 25px 0; border-radius: 4px;">
-                                    <h4 style="margin-top: 0; color: var(--accent-color, #007bff);">The Magic of 2D Weyl Invariance</h4>
-                                    <p style="margin-bottom: 0;">Why does Weyl scaling work so perfectly? If {"$\\gamma_{ab} \\to e^{2\\omega}\\gamma_{ab}$"}, the inverse metric scales as {"$\\gamma^{ab} \\to e^{-2\\omega}\\gamma^{ab}$"}. Meanwhile, the determinant {"$\\gamma$"} scales as {"$e^{4\\omega}\\gamma$"}, so its square root scales as {"$\\sqrt{-\\gamma} \\to e^{2\\omega}\\sqrt{-\\gamma}$"}. Plugging this into the action: {"$(e^{2\\omega})(e^{-2\\omega}) = 1$"}. The scaling factors exactly cancel out! This remarkable cancellation is unique to 2-dimensional worldsheets.</p>
-                                </div>
-
-                                <p>A {"$2 \\times 2$"} symmetric metric {"$\\gamma_{ab}$"} has 3 independent components. We can use our 2 diffeomorphism freedoms and 1 Weyl freedom to completely fix the metric to the flat Minkowski metric multiplied by a conformal factor: {"$\\gamma_{ab} = e^\\phi \\eta_{ab}$"}. Because of Weyl invariance, {"$e^\\phi$"} drops out entirely, leaving the <strong>Conformal Gauge</strong>:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ S = \\frac{T}{2} \\int d\\tau d\\sigma (\\dot{X}^2 - X'^2) $$"} />
-                                <p>The equations of motion are simply the 2D wave equation: {"$(\\partial_\\tau^2 - \\partial_\\sigma^2)X^\\mu = 0$"}.</p>
-                                
-                                <p>However, fixing the gauge means we must impose the equations of motion for the auxiliary metric {"$\\gamma_{ab}$"} as manual constraints. Varying the action with respect to {"$\\gamma^{ab}$"} yields the worldsheet stress-energy tensor {"$T_{ab} = 0$"}, giving us the <strong>Virasoro Constraints</strong>:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\dot{X} \\cdot X' = 0 \\quad \\text{and} \\quad \\dot{X}^2 + X'^2 = 0 $$"} />
-
-                                <hr style="margin: 40px 0; border: 0; border-top: 1px dashed var(--sidebar-border, #e2e8f0);">
-
-                                <h2>4. Quantization and the Critical Dimension</h2>
-                                <p>Solving the wave equation with Neumann boundary conditions (for open strings) yields a Fourier mode expansion of harmonic oscillators:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ X^\\mu(\\tau, \\sigma) = x_0^\\mu + 2\\alpha' p_0^\\mu \\tau + i\\sqrt{2\\alpha'} \\sum_{n \\neq 0} \\frac{\\alpha_n^\\mu}{n} e^{-in\\tau} \\cos(n\\sigma) $$"} />
-                                <p>When quantized, the zero-mode of the Hamiltonian (the {"$L_0$"} Virasoro operator) becomes:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ L_0 = \\frac{1}{2} \\alpha_0^2 + \\sum_{n=1}^\\infty \\alpha_{-n} \\cdot \\alpha_n + \\epsilon_0 $$"} />
-                                <p>Here, {"$\\epsilon_0$"} is the infinite zero-point vacuum energy of all oscillator modes across the {"$d-2$"} transverse dimensions. Using Riemann zeta-function regularization ({"$\\sum_{n=1}^\\infty n = \\zeta(-1) = -1/12$"}), we find:</p>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\epsilon_0 = \\frac{d-2}{2} \\sum_{n=1}^\\infty n = -\\frac{d-2}{24} $$"} />
-                                <p>To preserve quantum conformal symmetry without anomalies, the intercept parameter {"$a$"} must equal 1 ({"$a = -\\epsilon_0 = 1$"}). Therefore:</p>
-                                <p style="text-align: center; font-size: 1.2em; font-weight: bold; color: #d32f2f;" set:html={"$$ \\frac{d-2}{24} = 1 \\implies d = 26 $$"} />
-                                <p>The mathematics strictly demands that Bosonic String Theory can only exist in a 26-dimensional spacetime!</p>
-                                
-                                <h3>The Tachyon Problem</h3>
-                                <p>The mass-squared operator for physical states is {"$m^2 = \\frac{1}{\\alpha'}(N - 1)$"}. For the ground state ({"$N=0$"}), we find {"$m^2 < 0$"}. This imaginary mass particle is the <strong>Tachyon</strong>. Its existence indicates that the bosonic vacuum is unstable, providing the historical and mathematical motivation to introduce fermions and Supersymmetry (leading to 10D Superstring Theory).</p>
-                        </div>
-                    </main>
-                </div>
-            </section>
-
-
-            
-            <!-- ============================================== -->
-            <!-- NEW EXERCISES & PYQ SECTION                    -->
-            <!-- ============================================== -->
-            <section id="exercises" class="tab-content">
-                <div class="school-layout-container">
-                    
-                    <!-- Nested Sidebar for Exercises -->
-                    <nav class="school-sidebar">
-                        <ul>
-                            <li><a onclick="showSchoolSection('exe-intro')" style="font-weight: bold;">📝 Exercises Home</a></li>
-                            
-                            <li class="section-header">TIFR GS Syllabus</li>
-                            <li><a onclick="showSchoolSection('exe-math')">Mathematical Physics</a></li>
-                            <li><a onclick="showSchoolSection('exe-cm')">Classical Mechanics</a></li>
-                            <li><a onclick="showSchoolSection('exe-qm')">Quantum Mechanics</a></li>
-                            <li><a onclick="showSchoolSection('exe-stat')">Heat, Thermo & Stat Mech</a></li>
-                            <li><a onclick="showSchoolSection('exe-ssp')">Solid State / Condensed</a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Nested Main Content for Exercises -->
-                    <main class="school-main-content">
-                        
-                        <div id="exe-intro" class="school-note-section active-school-section">
-                            <h2>Physics Exercises Archive</h2>
-                            <p>Welcome to the testing frontier. Select a topic from the sidebar to practice chapter-wise Previous Year Questions (PYQs) for TIFR, JEST, and NET.</p>
-                        </div>
-
-                        <!-- 1. Mathematical Physics -->
-                        <div id="exe-math" class="school-note-section">
-                            <h2>Mathematical Physics - TIFR PYQs</h2>
-
-                            <div class="mcq-card">
-                                <div class="mcq-question">
-                                    <span class="q-number">Q1 (2013).</span> The product {"$AB$"} of two Hermitian matrices {"$A$"} and {"$B$"} is anti-Hermitian. It follows that:
-                                </div>
-                                <div class="mcq-options" data-correct="A">
-                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> {"$\\{A, B\\} = 0$"}</button>
-                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> {"$[A, B] = 0$"}</button>
-                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> {"$A^\\dagger = B$"}</button>
-                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> {"$A^\\dagger = B^{-1}$"}</button>
-                                </div>
-                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
-                                <div class="mcq-explanation">
-                                    <strong style="color: #28a745;">Correct Answer: A</strong><br><br>
-                                    <strong>Explanation:</strong><br>
-                                    By definition, a matrix is Hermitian if it is equal to its own conjugate transpose. Thus, we are given {"$A^\\dagger = A$"} and {"$B^\\dagger = B$"}.<br><br>
-                                    We are also given that their product {"$AB$"} is anti-Hermitian, which means taking its conjugate transpose yields the negative of the matrix: {"$(AB)^\\dagger = -(AB)$"}.<br><br>
-                                    Using the matrix property that {"$(AB)^\\dagger = B^\\dagger A^\\dagger$"}, we substitute our knowns:<br>
-                                    <div set:html={"$$ B^\\dagger A^\\dagger = -(AB) $$"} />
-                                    <div set:html={"$$ BA = -AB $$"} />
-                                    <div set:html={"$$ AB + BA = 0 $$"} />
-                                    The expression {"$AB + BA$"} is the definition of the anticommutator, denoted as {"$\\{A, B\\}$"}. Therefore, {"$\\{A, B\\} = 0$"}.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 2. Classical Mechanics -->
-                        <div id="exe-cm" class="school-note-section">
-                            <h2>Classical Mechanics - TIFR PYQs</h2>
-
-                            <div class="mcq-card">
-                                <div class="mcq-question">
-                                    <span class="q-number">Q1 (2010).</span> A high-velocity missile, travelling in a horizontal line with a kinetic energy of {"$3.0 \\text{ GigaJoules (GJ)}$"}, explodes in flight and breaks into two pieces A and B of equal mass. One of these pieces (A) flies off in a straight line perpendicular to the original direction in which the missile was moving and its kinetic energy is found to be {"$2.0 \\text{ GJ}$"}. If gravity can be neglected for such high-velocity projectiles, it follows that the other piece (B) flew off in a direction at an angle with the original direction of:
-                                </div>
-                                <div class="mcq-options" data-correct="A">
-                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> {"$30^\\circ$"}</button>
-                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> {"$33^\\circ 24'$"}</button>
-                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> {"$45^\\circ$"}</button>
-                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> {"$60^\\circ$"}</button>
-                                </div>
-                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
-                                <div class="mcq-explanation">
-                                    <strong style="color: #28a745;">Correct Answer: A</strong><br><br>
-                                    <strong>Explanation:</strong><br>
-                                    Let the initial mass of the missile be {"$2m$"}. The two pieces A and B each have mass {"$m$"}.<br>
-                                    Using {"$E = \\frac{p^2}{2 \\times \\text{mass}}$"}, we can relate kinetic energy to momentum:<br>
-                                    Initial momentum (horizontal, say x-axis): {"$p_0 = \\sqrt{2(2m)E_0} = \\sqrt{4m(3)} = \\sqrt{12m}$"}.<br>
-                                    Momentum of piece A (perpendicular, say y-axis): {"$p_A = \\sqrt{2m E_A} = \\sqrt{2m(2)} = \\sqrt{4m}$"}.<br><br>
-                                    By conservation of linear momentum:<br>
-                                    x-axis: {"$p_0 = p_{Bx} \\implies p_{Bx} = \\sqrt{12m}$"}<br>
-                                    y-axis: {"$0 = p_A + p_{By} \\implies p_{By} = -p_A = -\\sqrt{4m}$"}<br><br>
-                                    The angle {"$\\theta$"} that piece B makes with the original horizontal direction is given by:<br>
-                                    <div set:html={"$$ \\tan\\theta = \\left| \\frac{p_{By}}{p_{Bx}} \\right| = \\frac{\\sqrt{4m}}{\\sqrt{12m}} = \\frac{1}{\\sqrt{3}} $$"} />
-                                    Thus, {"$\\theta = 30^\\circ$"}.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 3. Quantum Mechanics -->
-                        <div id="exe-qm" class="school-note-section">
-                            <h2>Quantum Mechanics - TIFR PYQs</h2>
-
-                            <div class="mcq-card">
-                                <div class="mcq-question">
-                                    <span class="q-number">Q1 (2011).</span> Two identical non-interacting particles, each of mass {"$m$"} and spin {"$1/2$"}, are placed in a one-dimensional box of length {"$L$"}. In quantum mechanics, the lowest possible value of the total energy of these two particles is {"$\\epsilon_0$"}. If, instead, four such particles are introduced into a similar one-dimensional box of length {"$2L$"}, then the lowest possible value of their total energy will be:
-                                </div>
-                                <div class="mcq-options" data-correct="B">
-                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> {"$2\\epsilon_0$"}</button>
-                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> {"$5\\epsilon_0/4$"}</button>
-                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> {"$3\\epsilon_0/2$"}</button>
-                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> {"$\\epsilon_0$"}</button>
-                                </div>
-                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
-                                <div class="mcq-explanation">
-                                    <strong style="color: #28a745;">Correct Answer: B</strong><br><br>
-                                    <strong>Explanation:</strong><br>
-                                    The energy levels of a particle in a 1D box of length {"$L$"} are {"$E_n = \\frac{n^2 \\pi^2 \\hbar^2}{2mL^2}$"}.<br>
-                                    Since the particles are spin-1/2 fermions (electrons), the Pauli exclusion principle dictates that at most two particles (spin up, spin down) can occupy each energy level.<br><br>
-                                    For 2 particles in a box of length {"$L$"}, both can occupy the ground state ({"$n=1$"}).<br>
-                                    <div set:html={"$$ \\epsilon_0 = 2 \\times E_1 = 2 \\times \\frac{\\pi^2 \\hbar^2}{2mL^2} = \\frac{\\pi^2 \\hbar^2}{mL^2} $$"} />
-                                    Now, consider a box of length {"$2L$"}. The new energy levels are {"$E'_n = \\frac{n^2 \\pi^2 \\hbar^2}{2m(2L)^2} = \\frac{n^2}{8} \\left( \\frac{\\pi^2 \\hbar^2}{mL^2} \\right) = \\frac{n^2}{8}\\epsilon_0$"}.<br><br>
-                                    For 4 particles in this new box, two will occupy {"$n=1$"}, and two will occupy {"$n=2$"}.<br>
-                                    <div set:html={"$$ E_{\\text{total}} = 2(E'_1) + 2(E'_2) = 2\\left(\\frac{1}{8}\\epsilon_0\\right) + 2\\left(\\frac{4}{8}\\epsilon_0\\right) $$"} />
-                                    <div set:html={"$$ E_{\\text{total}} = \\frac{1}{4}\\epsilon_0 + \\epsilon_0 = \\frac{5}{4}\\epsilon_0 $$"} />
-                                </div>
-                            </div>
-                            
-                            <div class="mcq-card">
-                                <div class="mcq-question">
-                                    <span class="q-number">Q2 (2014).</span> Consider the Hamiltonian {"$\\hat{H} = f \\vec{x} \\cdot \\vec{\\sigma}$"}. Here {"$\\vec{x}$"} is the position vector, {"$f$"} is a constant and {"$\\vec{\\sigma} = (\\sigma_x, \\sigma_y, \\sigma_z)$"} , where {"$\\sigma_x, \\sigma_y, \\sigma_z$"} are the three Pauli matrices. The energy eigenvalues are:
-                                </div>
-                                <div class="mcq-options" data-correct="C">
-                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> {"$f(\\sqrt{x^2+y^2} \\pm z)$"}</button>
-                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> {"$f(x \\pm iy)$"}</button>
-                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> {"$\\pm f\\sqrt{x^2+y^2+z^2}$"}</button>
-                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> {"$\\pm f(x+y+z)$"}</button>
-                                </div>
-                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
-                                <div class="mcq-explanation">
-                                    <strong style="color: #28a745;">Correct Answer: C</strong><br><br>
-                                    <strong>Explanation:</strong><br>
-                                    By expanding the dot product {"$\\vec{x} \\cdot \\vec{\\sigma}$"}, we multiply the position coordinates by their respective Pauli matrices:<br>
-                                    <div set:html={"$$ H = f(x\\sigma_x + y\\sigma_y + z\\sigma_z) $$"} />
-                                    <div set:html={"$$ H = f \\left[ x\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} + y\\begin{pmatrix} 0 & -i \\\\ i & 0 \\end{pmatrix} + z\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix} \\right] $$"} />
-                                    <div set:html={"$$ H = f \\begin{pmatrix} z & x - iy \\\\ x + iy & -z \\end{pmatrix} $$"} /><br>
-                                    To find the eigenvalues {"$\\lambda$"}, we solve the characteristic equation {"$\\det(H - \\lambda I) = 0$"}:<br>
-                                    <div set:html={"$$ (fz - \\lambda)(-fz - \\lambda) - f^2(x - iy)(x + iy) = 0 $$"} />
-                                    <div set:html={"$$ -f^2z^2 + \\lambda^2 - f^2(x^2 + y^2) = 0 $$"} />
-                                    <div set:html={"$$ \\lambda^2 = f^2(x^2 + y^2 + z^2) $$"} /><br>
-                                    Taking the square root gives {"$\\lambda = \\pm f\\sqrt{x^2 + y^2 + z^2}$"}.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 4. Heat, Thermo & Stat Mech -->
-                        <div id="exe-stat" class="school-note-section">
-                            <h2>Heat & Statistical Mechanics - TIFR PYQs</h2>
-
-                            <div class="mcq-card">
-                                <div class="mcq-question">
-                                    <span class="q-number">Q1 (2012).</span> Consider a sealed but thermally conducting container of total volume {"$V$"}, which is in equilibrium with a thermal bath at temperature {"$T$"}. The container is divided into two equal chambers by a thin but impermeable partition. One of these chambers contains an ideal gas, while the other half is a vacuum. If the partition is removed and the ideal gas is allowed to expand and fill the entire container, then the entropy per molecule of the system will increase by an amount:
-                                </div>
-                                <div class="mcq-options" data-correct="C">
-                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> {"$2k_B$"}</button>
-                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> {"$k_B \\ln(1/2)$"}</button>
-                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> {"$k_B \\ln 2$"}</button>
-                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> {"$(k_B \\ln 2)/2$"}</button>
-                                </div>
-                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
-                                <div class="mcq-explanation">
-                                    <strong style="color: #28a745;">Correct Answer: C</strong><br><br>
-                                    <strong>Explanation:</strong><br>
-                                    This represents a free expansion of an ideal gas. The initial volume occupied by the gas is {"$V_i = V/2$"}, and the final volume is {"$V_f = V$"}.<br>
-                                    The change in entropy for an ideal gas expanding isothermally into a vacuum is given by:<br>
-                                    <div set:html={"$$ \\Delta S = n R \\ln\\left(\\frac{V_f}{V_i}\\right) = N k_B \\ln\\left(\\frac{V}{V/2}\\right) = N k_B \\ln(2) $$"} />
-                                    where {"$N$"} is the total number of molecules and {"$k_B$"} is the Boltzmann constant.<br>
-                                    The question asks for the entropy increase *per molecule*, so we divide by {"$N$"}:<br>
-                                    <div set:html={"$$ \\Delta s = \\frac{\\Delta S}{N} = k_B \\ln 2 $$"} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 5. Solid State / Condensed Matter -->
-                        <div id="exe-ssp" class="school-note-section">
-                            <h2>Solid State & Condensed Matter - TIFR PYQs</h2>
-
-                            <div class="mcq-card">
-                                <div class="mcq-question">
-                                    <span class="q-number">Q1 (2015).</span> In the basic band structure theory of crystalline solids, which of the following leads to energy gaps in the allowed electronic energy values?
-                                </div>
-                                <div class="mcq-options" data-correct="B">
-                                    <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> Electron spin</button>
-                                    <button class="mcq-opt" data-opt="B" onclick="checkAnswer(this)"><span>B</span> Bragg reflection</button>
-                                    <button class="mcq-opt" data-opt="C" onclick="checkAnswer(this)"><span>C</span> Electron-electron interaction</button>
-                                    <button class="mcq-opt" data-opt="D" onclick="checkAnswer(this)"><span>D</span> Electron-phonon interaction</button>
-                                </div>
-                                <button class="show-ans-btn" onclick="revealExplanation(this)">Show Answer & Explanation</button>
-                                <div class="mcq-explanation">
-                                    <strong style="color: #28a745;">Correct Answer: B</strong><br><br>
-                                    <strong>Explanation:</strong><br>
-                                    In the nearly-free electron model, electrons moving through a periodic crystal lattice behave mostly as free waves. However, when the electron's wave vector {"$k$"} approaches the Brillouin zone boundaries (i.e., {"$k \\approx \\pm \\pi/a$"}), the Bragg reflection condition is satisfied.<br><br>
-                                    The forward-moving and backward-reflected waves interfere to produce standing waves, splitting the continuous energy parabolic dispersion into two distinct states (one with probability peaks at the ion cores, and one peaking between them). The difference in potential energy between these two standing wave states creates the forbidden energy band gaps.
-                                </div>
-                            </div>
-                        </div>
-
-                    </main>
-                </div>
-            </section>
-
-            <!-- ============================================== -->
-            <!-- 3D ACADEMIC GENEALOGY UNIVERSE                 -->
-            <!-- ============================================== -->
-                        <!-- ============================================== -->
-            <!-- MSC PHYSICS NOTES & JUPYTER COMPUTATIONAL LAB  -->
-            <!-- ============================================== -->
-            <section id="msc-notes" class="tab-content">
-                <div class="school-layout-container">
-                    
-                    <!-- Nested Sidebar for MSc Notes -->
-                    <nav class="school-sidebar">
-                        <ul>
-                            <li><a onclick="showSchoolSection('notes-intro')" style="font-weight: bold;">📚 Notes Home</a></li>
-                            
-                            <li class="section-header">Core Foundations</li>
-                            <li><a onclick="showSchoolSection('notes-mmp')">Mathematical Methods (MMP)</a></li>
-                            <li><a onclick="showSchoolSection('notes-cm')">Classical Mechanics</a></li>
-                            <li><a onclick="showSchoolSection('notes-qm')">Quantum Mechanics</a></li>
-                            <li><a onclick="showSchoolSection('notes-sm')">Statistical Mechanics</a></li>
-                            <li><a onclick="showSchoolSection('notes-ed')">Electrodynamics</a></li>
-                            
-                            <li class="section-header">Applied & Modern Physics</li>
-                            <li><a onclick="showSchoolSection('notes-elec')">Electronics & Instrumentation</a></li>
-                            <li><a onclick="showSchoolSection('notes-ssp')">Solid State Physics</a></li>
-                            <li><a onclick="showSchoolSection('notes-np')">Nuclear Physics</a></li>
-                            <li><a onclick="showSchoolSection('notes-pp')">Particle Physics</a></li>
-                            
-                            <li class="section-header">Computational Physics</li>
-                            <li><a onclick="showSchoolSection('notes-num')" style="color: #007bff; font-weight: bold;">⚡ Numerical Methods (Codes & Notebooks)</a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Main Content Area for Notes -->
-                    <main class="school-main-content">
-                        
-                        <!-- 0. Notes Overview -->
-                        <div id="notes-intro" class="school-note-section active-school-section">
-                            <h2>Notes</h2>
-                            
-                            
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0;">
-                                <div style="background: var(--container-bg, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
-                                    <h3 style="margin-top: 0; color: #d32f2f;">📖 Theory Notes</h3>
-                                    <p>Comprehensive lecture notes covering Mathematical Methods (MMP), Lagrangian & Hamiltonian dynamics, Quantum Postulates, Canonical Ensembles, Maxwell Equations, Electronics & Op-Amps, Band Theory, and the Standard Model.</p>
-                                </div>
-                                <div style="background: var(--container-bg, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
-                                    <h3 style="margin-top: 0; color: #007bff;">💻 Numerical Methods & Notebooks</h3>
-                                    <p>Computational algorithms formatted as <strong> Jupyter-style interactive notebooks</strong> with code blocks, mathematical explanations, and numerical outputs.</p>
-                                </div>
-                            </div>
-
-                            <div style="background: var(--sidebar-border, #f8f9fa); padding: 15px; border-left: 4px solid var(--accent-color, #007bff); border-radius: 4px;">
-                                <strong>How to view PDFs:</strong> Click on any subject in the sidebar. You can view the complete handwritten notes in the embedded online reader, navigate pages, zoom, or download the full PDF to your device.
-                            </div>
-                        </div>
-
-                        <!-- 1. Mathematical Methods in Physics (MMP) -->
-                        <div id="notes-mmp" class="school-note-section">
-                            <h2>Mathematical Methods in Physics (MMP)</h2>
-                            <p>MMP Notes are divided lecture wise, select from drop down list.</p>
-                            
-                            <!-- PDF Reader Container with Lecture Picker -->
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                        <span style="font-weight: bold;">📄 Select Lecture:</span>
-                                        <select id="mmp-lecture-select" onchange="changeMmpLecture(this.value)" style="padding: 6px 12px; border-radius: 4px; border: 1px solid var(--border-color, #ccc); background: var(--bg-color, #fff); font-size: 0.9em; max-width: 330px;">
-                                            <option value="/notes/mathematical_physics.pdf">Lecture 1: Matrices</option>
-                                            <option value="/notes/mmp/L2_230822_Linear Equations.pdf">Lecture 2: Linear Equations</option>
-                                            <option value="/notes/mmp/L3_230823_Vectors.pdf">Lecture 3: Vectors</option>
-                                            <option value="/notes/mmp/L4_230824_VECTOR_SPACES.pdf">Lecture 4: Vector Spaces</option>
-                                            <option value="/notes/mmp/L5_230828_The_minus_sign.pdf">Lecture 5: The Minus Sign</option>
-                                            <option value="/notes/mmp/L6_230903_Linear_Comb_Sub_Space.pdf">Lecture 6: Linear Combination & Subspaces</option>
-                                            <option value="/notes/mmp/L7_230902_Span_and_Basis.pdf">Lecture 7: Span & Basis</option>
-                                            <option value="/notes/mmp/L9_230905_COB(2)_Linear_Transformations.pdf">Lecture 9: Change of Basis & Linear Transformations</option>
-                                            <option value="/notes/mmp/L11_230907_LT_and_Linear_Operators.pdf">Lecture 11: Linear Transformations & Operators</option>
-                                            <option value="/notes/mmp/L12_230907_Functions_of_Operators.pdf">Lecture 12: Functions of Operators</option>
-                                            <option value="/notes/mmp/L13_230912_Inner_Product_Space.pdf">Lecture 13: Inner Product Space</option>
-                                            <option value="/notes/mmp/L14_230912_Bessels_Inequality.pdf">Lecture 14: Bessel's Inequality</option>
-                                            <option value="/notes/mmp/L15_230913_Completeness_GramSchmidt_Matrix_Element.pdf">Lecture 15: Gram-Schmidt & Completeness</option>
-                                            <option value="/notes/mmp/L16_230914_Dagger.pdf">Lecture 16: Dagger (Hermitian Adjoint)</option>
-                                            <option value="/notes/mmp/L17_230915_Unitary_COB(3)_EIGENVALUE_EIGENVECTORS.pdf">Lecture 17: Unitary, Eigenvalues & Eigenvectors</option>
-                                            <option value="/notes/mmp/L19_230920_Degenerate_Diagonalization.pdf">Lecture 19: Degenerate Diagonalization</option>
-                                            <option value="/notes/mmp/L20_230921_Complete_Set_of_Commuting_Operators.pdf">Lecture 20: CSCO (Commuting Operators)</option>
-                                            <option value="/notes/mmp/L20_Supplement_HCVerma_CSCO.pdf">Lecture 20 Supplement: HC Verma CSCO</option>
-                                            <option value="/notes/mmp/L 1810_231207_091329.pdf">Lecture 18 Oct: Notes</option>
-                                            <option value="/notes/mmp/L 1910_231207_091345.pdf">Lecture 19 Oct: Notes</option>
-                                            <option value="/notes/mmp/L 2310_231207_091358.pdf">Lecture 23 Oct: Notes</option>
-                                            <option value="/notes/mmp/L 2510_231207_091413.pdf">Lecture 25 Oct: Part 1</option>
-                                            <option value="/notes/mmp/L 2510-2_231207_091430.pdf">Lecture 25 Oct: Part 2</option>
-                                            <option value="/notes/mmp/L 2710_231207_091444.pdf">Lecture 27 Oct: Part 1</option>
-                                            <option value="/notes/mmp/L 2710-2_231207_091519.pdf">Lecture 27 Oct: Part 2</option>
-                                            <option value="/notes/mmp/L 611 Forced Oscillator _231207_091535.pdf">Lecture: Forced Oscillator</option>
-                                            <option value="/notes/mmp/L 2111 Bessel _231207_091625.pdf">Lecture: Bessel Functions</option>
-                                            <option value="/notes/mmp/L25.pdf">Lecture 25: Notes</option>
-                                            <option value="/notes/mmp/L26.pdf">Lecture 26: Notes</option>
-                                            <option value="/notes/mmp/L27.pdf">Lecture 27: Notes</option>
-                                            <option value="/notes/mmp/L28_Foundation.pdf">Lecture 28: Foundations</option>
-                                            <option value="/notes/mmp/L29.pdf">Lecture 29: Notes</option>
-                                        </select>
+                            </nav>
+
+                            <main class="school-main-content">
+                                {entries.map(({ entry, Content }) => (
+                                    <div
+                                        id={entry.data.sectionId}
+                                        class={`school-note-section${entry.data.isIntro ? ' active-school-section' : ''}`}
+                                    >
+                                        <Content />
                                     </div>
-                                    <div>
-                                        <a id="mmp-download-btn" href="/notes/mathematical_physics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a id="mmp-fullscreen-btn" href="/notes/mathematical_physics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe id="mmp-iframe" src="/notes/mathematical_physics.pdf#view=FitH&toolbar=1" title="Mathematical Methods in Physics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/mathematical_physics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            
+                                ))}
+                            </main>
                         </div>
+                    </section>
+                );
+            })}
 
-                        <!-- 2. Classical Mechanics -->
-                        <div id="notes-cm" class="school-note-section">
-                            <h2>Classical Mechanics (MSc Level)</h2>
-                            <p>These were made using watching the legendary Bala Sir's NPTEL Lectures on Classical Mechanics</p>
-                            
-                            <!-- PDF Reader Container -->
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Classical Mechanics</span>
-                                    <div>
-                                        <a href="/notes/classical_mechanics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/classical_mechanics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/classical_mechanics.pdf#view=FitH&toolbar=1" title="Classical Mechanics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/classical_mechanics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            <h3>Key Theoretical Highlights</h3>
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #d32f2f; margin: 15px 0;">
-                                <h4>Hamilton's Equations of Motion</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \dot{q}_i = \frac{\partial H}{\partial p_i}, \quad \dot{p}_i = -\frac{\partial H}{\partial q_i} $$"} />
-                                <p>where the Hamiltonian {"$H(q, p, t)$"} is obtained via Legendre transformation {"$H = \sum p_i \dot{q}_i - L$"}.</p>
-                            </div>
-                        </div>
-
-                        <!-- 2. Quantum Mechanics -->
-                        <div id="notes-qm" class="school-note-section">
-                            <h2>Quantum Mechanics (MSc Level)</h2>
-                            <p>Again these were made using Bala Sir's NPTEL Lectures on QM</p>
-                            
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Quantum Mechanics</span>
-                                    <div>
-                                        <a href="/notes/quantum_mechanics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/quantum_mechanics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/quantum_mechanics.pdf#view=FitH&toolbar=1" title="Quantum Mechanics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/quantum_mechanics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            
-                        </div>
-
-                        <!-- 3. Statistical Mechanics -->
-                        <div id="notes-sm" class="school-note-section">
-                            <h2>Statistical Mechanics (MSc Level)</h2>
-                            <p>Within Bala Sir's Lecture on Classical Mechanics, there is section on Statistical Mechanics. Its super precise and to the point. Loved it. I had made these when i was trying out pen tab. Thats why such poor handwriting.</p>
-                            
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Statistical Mechanics</span>
-                                    <div>
-                                        <a href="/notes/statistical_mechanics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/statistical_mechanics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/statistical_mechanics.pdf#view=FitH&toolbar=1" title="Statistical Mechanics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/statistical_mechanics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            
-                        </div>
-
-                        <!-- 4. Electrodynamics -->
-                        <div id="notes-ed" class="school-note-section">
-                            <h2>Electrodynamics (MSc Level)</h2>
-                            <p>This is my first reading of D.J.Griffiths book which is my first proper introduction to electrodynamics.</p>
-                            
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Electrodynamics</span>
-                                    <div>
-                                        <a href="/notes/electrodynamics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/electrodynamics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/electrodynamics.pdf#view=FitH&toolbar=1" title="Electrodynamics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/electrodynamics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            
-                        </div>
-
-                        <!-- 6. Electronics & Experimental Techniques -->
-                        <div id="notes-elec" class="school-note-section">
-                            <h2>Electronics & Experimental Techniques (MSc Level)</h2>
-                            <p>Postgraduate physics electronics: Semiconductor physics, operational amplifiers (linear & non-linear configurations, active filters, Schmitt triggers, multivibrators), digital logic gates, combinational and sequential circuits (flip-flops, counters, registers), data converters (ADC/DAC), and optoelectronic detectors.</p>
-                            
-                            <!-- PDF Reader Container -->
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Electronics</span>
-                                    <div>
-                                        <a href="/notes/electronics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/electronics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/electronics.pdf#view=FitH&toolbar=1" title="Electronics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/electronics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-
-                            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
-
-                            
-                        </div>
-
-                        <!-- 7. Solid State Physics -->
-                        <div id="notes-ssp" class="school-note-section">
-                            <h2>Solid State Physics (MSc Level)</h2>
-                            <p>These are notes i tried to make using the legendary book by Ashcroft and Mermin and some other texts.</p>
-                            
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Solid State Physics</span>
-                                    <div>
-                                        <a href="/notes/solid_state_physics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/solid_state_physics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/solid_state_physics.pdf#view=FitH&toolbar=1" title="Solid State Physics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/solid_state_physics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 6. Nuclear Physics -->
-                        <div id="notes-np" class="school-note-section">
-                            <h2>Nuclear Physics (MSc Level)</h2>
-                            <p>Nuclear models (Liquid Drop Model, Fermi Gas Model, Shell Model with spin-orbit coupling), deuteron bound state, nuclear reactions, alpha-beta-gamma decay, and nuclear fission/fusion.</p>
-                            
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Nuclear Physics</span>
-                                    <div>
-                                        <a href="/notes/nuclear_physics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/nuclear_physics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/nuclear_physics.pdf#view=FitH&toolbar=1" title="Nuclear Physics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/nuclear_physics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 7. Particle Physics -->
-                        <div id="notes-pp" class="school-note-section">
-                            <h2>Particle Physics (MSc Level)</h2>
-                            <p>The Standard Model: quarks, leptons, gauge bosons, Higgs mechanism, conservation laws, SU(2) and SU(3) symmetries, Feynman diagrams, and parity violation in weak interactions.</p>
-                            
-                            <div class="notes-pdf-box">
-                                <div class="notes-toolbar">
-                                    <span style="font-weight: bold; margin-right: 15px;">📄 Handwritten Notes: Particle Physics</span>
-                                    <div>
-                                        <a href="/notes/particle_physics.pdf" download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
-                                        <a href="/notes/particle_physics.pdf#view=FitH" target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
-                                    </div>
-                                </div>
-                                <div class="notes-iframe-wrapper">
-                                    <iframe src="/notes/particle_physics.pdf#view=FitH&toolbar=1" title="Particle Physics Notes">
-                                        <p>Your browser does not support inline PDF viewing. <a href="/notes/particle_physics.pdf" target="_blank">Click here to view or download the PDF.</a></p>
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 8. Numerical Methods (Jupyter / IBM Quantum Tutorial Style) -->
-                        <div id="notes-num" class="school-note-section">
-                            <h2>Numerical Methods & Computational Physics</h2>
-                            <p>Under construction. Trying out stuff.</p>
-                            
-                            <!-- Notebook 1 -->
-                            <div class="jupyter-notebook">
-                                <div class="notebook-header">
-                                    <div>
-                                        <h3 style="margin: 0; color: #007bff;">Tutorial 1: Numerov's Method for the 1D Schrödinger Equation</h3>
-                                        <span style="font-size: 0.85em; color: #666;">Quantum Eigenvalues & Shooting Method</span>
-                                    </div>
-                                    <div>
-                                        <span class="notebook-badge">Python 3.11</span>
-                                        <span class="notebook-badge">NumPy</span>
-                                        <span class="notebook-badge">SciPy</span>
-                                    </div>
-                                </div>
-
-                                <!-- Markdown Cell -->
-                                <div class="jupyter-markdown-cell">
-                                    <h4>Mathematical Theory</h4>
-                                    <p>The 1D Time-Independent Schrödinger equation can be rewritten in the standard second-order form without first derivatives:</p>
-                                    <p style="text-align: center; font-size: 1.15em;" set:html={"$$ \frac{d^2\psi}{dx^2} + k^2(x)\psi(x) = 0, \quad \text{where } k^2(x) = \frac{2m}{\hbar^2}[E - V(x)] $$"} />
-                                    <p>Numerov's algorithm achieves a local truncation error of {"$\mathcal{O}(h^6)$"} by taking advantage of the absence of {"$\psi'(x)$"}:</p>
-                                    <p style="text-align: center; font-size: 1.1em;" set:html={"$$ \psi_{n+1} = \frac{2\left(1 - \frac{5h^2}{12}k_n^2\right)\psi_n - \left(1 + \frac{h^2}{12}k_{n-1}^2\right)\psi_{n-1}}{1 + \frac{h^2}{12}k_{n+1}^2} $$"} />
-                                </div>
-
-                                <!-- Code Cell -->
-                                <div class="jupyter-cell">
-                                    <div class="jupyter-code-container">
-                                        <div class="jupyter-prompt-in">In [1]:</div>
-                                        <pre class="jupyter-code-content"><code>import numpy as np
-
-def numerov_step(psi_curr, psi_prev, k_sq_next, k_sq_curr, k_sq_prev, h):
-    """Calculates psi_&#123;n+1&#125; using Numerov's three-point formula"""
-    c = h**2 / 12.0
-    numerator = 2.0 * (1.0 - 5.0 * c * k_sq_curr) * psi_curr - (1.0 + c * k_sq_prev) * psi_prev
-    denominator = 1.0 + c * k_sq_next
-    return numerator / denominator
-
-def shoot_schrodinger(E, V_func, x_grid, h, m=1.0, hbar=1.0):
-    """Integrates outward from x=0 to find boundary mismatch"""
-    N = len(x_grid)
-    psi = np.zeros(N)
-    psi[0] = 0.0          # Boundary condition at x=0 (odd parity or wall)
-    psi[1] = 1e-4         # Small seed value
-    
-    k_sq = (2.0 * m / hbar**2) * (E - V_func(x_grid))
-    
-    for i in range(1, N - 1):
-        psi[i+1] = numerov_step(psi[i], psi[i-1], k_sq[i+1], k_sq[i], k_sq[i-1], h)
-        
-    return psi[-1] # Return value at outer boundary x_max
-
-# Test with Harmonic Oscillator Potential: V(x) = 0.5 * m * w^2 * x^2
-h = 0.01
-x = np.arange(0.0, 5.0 + h, h)
-V = lambda x_pts: 0.5 * (x_pts**2)
-
-# Bisect to find ground state energy
-from scipy.optimize import brentq
-E_ground = brentq(shoot_schrodinger, 0.2, 0.8, args=(V, x, h))
-print(f"Computed Ground State Energy E_0: &#123;E_ground:.8f&#125; hbar*omega")
-print(f"Analytical Exact E_0:             0.50000000 hbar*omega")
-print(f"Absolute Numerical Error:         &#123;abs(E_ground - 0.5):.2e&#125;")</code></pre>
-                                    </div>
-                                    <div class="jupyter-output-container">
-                                        <div class="jupyter-prompt-out">Out [1]:</div>
-                                        <pre class="jupyter-output-content">Computed Ground State Energy E_0: 0.50000002 hbar*omega
-Analytical Exact E_0:             0.50000000 hbar*omega
-Absolute Numerical Error:         2.14e-08</pre>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Notebook 2 -->
-                            <div class="jupyter-notebook">
-                                <div class="notebook-header">
-                                    <div>
-                                        <h3 style="margin: 0; color: #28a745;">Tutorial 2: Symplectic Velocity-Verlet Integrator for Orbital Dynamics</h3>
-                                        <span style="font-size: 0.85em; color: #666;">Energy-Preserving Hamiltonian Integration</span>
-                                    </div>
-                                    <div>
-                                        <span class="notebook-badge">Python 3.11</span>
-                                        <span class="notebook-badge">Symplectic</span>
-                                    </div>
-                                </div>
-
-                                <div class="jupyter-markdown-cell">
-                                    <h4>Symplectic Geometric Properties</h4>
-                                    <p>Standard Runge-Kutta methods suffer from artificial secular energy dissipation over long integration intervals. A <strong>symplectic integrator</strong> preserves the phase-space volume (Poincaré invariants) and maintains the total Hamiltonian on an exact shadow trajectory:</p>
-                                    <p style="text-align: center; font-size: 1.1em;" set:html={"$$ \mathbf{r}(t + \Delta t) = \mathbf{r}(t) + \mathbf{v}(t)\Delta t + \frac{1}{2}\mathbf{a}(t)\Delta t^2 $$"} />
-                                    <p style="text-align: center; font-size: 1.1em;" set:html={"$$ \mathbf{v}(t + \Delta t) = \mathbf{v}(t) + \frac{1}{2}[\mathbf{a}(t) + \mathbf{a}(t + \Delta t)]\Delta t $$"} />
-                                </div>
-
-                                <div class="jupyter-cell">
-                                    <div class="jupyter-code-container">
-                                        <div class="jupyter-prompt-in">In [2]:</div>
-                                        <pre class="jupyter-code-content"><code>def velocity_verlet_step(r, v, dt, force_func):
-    # Half-step velocity update
-    a_curr = force_func(r)
-    v_half = v + 0.5 * a_curr * dt
-    # Full-step position update
-    r_next = r + v_half * dt
-    # Complete velocity update with new acceleration
-    a_next = force_func(r_next)
-    v_next = v_half + 0.5 * a_next * dt
-    return r_next, v_next
-
-# Simulation of Kepler Orbit (eccentricity e = 0.6)
-# Energy drift check over 100,000 steps demonstrates 0.0000000% secular dissipation!
-print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-7)")</code></pre>
-                                    </div>
-                                    <div class="jupyter-output-container">
-                                        <div class="jupyter-prompt-out">Out [2]:</div>
-                                        <pre class="jupyter-output-content">Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-7)</pre>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Integration Guide -->
-                            <div style="background: var(--container-bg, #fff); border: 2px dashed var(--accent-color, #007bff); border-radius: 8px; padding: 20px; margin-top: 30px;">
-                                <h3 style="margin-top: 0; color: #007bff;">📁 How to Add Your Own Jupyter (.ipynb) Notebooks</h3>
-                                <p>To integrate your personal Jupyter notebooks into this section:</p>
-                                <ol style="line-height: 1.8;">
-                                    <li><strong>Export as HTML:</strong> Run <code>jupyter nbconvert --to html your_notebook.ipynb</code> in your terminal.</li>
-                                    <li><strong>Place in public folder:</strong> Put the generated HTML in <code>public/notebooks/</code>.</li>
-                                    <li><strong>Direct embed:</strong> You can embed it via an iframe or copy-paste code and markdown cells using the <code>jupyter-cell</code> CSS template above!</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                    </main>
-                </div>
-            </section>
-
-<section id="genealogy" class="tab-content">
+            <section id="genealogy" class="tab-content">
                 <div class="school-layout-container" style="display: block; padding: 0;">
-                    
-                    <!-- Overlay Text -->
                     <div style="position: absolute; z-index: 10; padding: 20px; pointer-events: none;">
                         <h2 style="color: #fff; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.5);">The Physics Network</h2>
                         <p style="color: #aaa; margin-top: 5px;">Left-Click & Drag to Rotate | Scroll to Zoom | Click a Node to Fly</p>
                     </div>
-
-                    <!-- 3D WebGL Container -->
                     <div id="3d-graph" style="width: 100%; height: 800px; background-color: #000005; border-radius: 8px; overflow: hidden;"></div>
-
                 </div>
             </section>
 
-            <!-- Custom Sci-Fi Tooltip Styling -->
             <style>
                 .node-tooltip {
                     background: rgba(10, 20, 40, 0.85);
@@ -1671,20 +193,12 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
                     white-space: normal;
                 }
             </style>
-
         </div>
-        <!-- ====================================================================================================== -->
 
-
-        <!-- =============JAVA SCRIPTS================================================================================ -->
-
-        <!-- Load 3D Force Graph Library -->
         <script src="https://unpkg.com/3d-force-graph" is:inline></script>
 
         <script is:inline>
             document.addEventListener("DOMContentLoaded", function() {
-                
-                // 1. The Physics Data Network
                 const gData = {
                     nodes: [
                         { id: 'Sterman', name: 'George Sterman', group: 1, val: 5, role: 'PhD Advisor (Stony Brook)', desc: 'Pioneered perturbative Quantum Chromodynamics (QCD) and the theory of strong interactions.' },
@@ -1707,18 +221,16 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
                     ]
                 };
 
-                // 2. Initialize the 3D Universe
                 const elem = document.getElementById('3d-graph');
-                
+                if (!elem || typeof ForceGraph3D === 'undefined') return;
+
                 const Graph = ForceGraph3D()(elem)
                     .graphData(gData)
                     .nodeAutoColorBy('group')
-                    .nodeVal('val') // Size of the sphere
+                    .nodeVal('val')
                     .linkWidth(2)
                     .linkOpacity(0.5)
                     .linkColor(() => '#00d2ff')
-                    
-                    // The Sci-Fi Tooltip
                     .nodeLabel(node => `
                         <div class="node-tooltip">
                             <h3>${node.name}</h3>
@@ -1726,22 +238,16 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
                             <p>${node.desc}</p>
                         </div>
                     `)
-                    
-                    // The "Game-like" Camera Fly Animation on Click
                     .onNodeClick(node => {
-                        // Calculate a safe distance to stop the camera
                         const distance = 40;
-                        const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
-                        
-                        // Tell the camera where to fly, where to look, and how long to take (2000ms)
+                        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
                         Graph.cameraPosition(
-                            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, 
-                            node, 
-                            2000 
+                            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+                            node,
+                            2000
                         );
                     });
 
-                // Add a subtle rotation to the whole universe when idle
                 let angle = 0;
                 setInterval(() => {
                     Graph.cameraPosition({
@@ -1751,29 +257,26 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
                     angle += Math.PI / 1000;
                 }, 30);
 
-                // Fix chart rendering size when switching tabs
                 document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.addEventListener('click', () => { 
+                    btn.addEventListener('click', () => {
                         setTimeout(() => {
                             Graph.width(elem.clientWidth);
                             Graph.height(elem.clientHeight);
-                        }, 50); 
+                        }, 50);
                     });
                 });
             });
         </script>
 
-
         <script is:inline>
         function activateTabByName(sectionName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
 
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
             }
 
@@ -1785,7 +288,6 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
                     targetBtn.classList.add("active");
                 }
 
-                // If entering a tab with sub-sections, ensure an active sub-section is visible
                 var activeSub = targetContent.querySelector('.active-school-section');
                 if (!activeSub) {
                     var defaultSub = targetContent.querySelector('.school-note-section');
@@ -1808,7 +310,7 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
             if (!hash) return;
             var targetEl = document.getElementById(hash);
             if (!targetEl) return;
-            
+
             if (targetEl.classList.contains('tab-content')) {
                 activateTabByName(hash);
             } else if (targetEl.classList.contains('school-note-section')) {
@@ -1823,11 +325,9 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
         window.addEventListener('DOMContentLoaded', handleHashRouting);
         window.addEventListener('hashchange', handleHashRouting);
 
-        // Function specifically to handle nested sidebars
         function showSchoolSection(sectionId, updateHash = true) {
-            var i, sections;
-            sections = document.getElementsByClassName("school-note-section");
-            for (i = 0; i < sections.length; i++) {
+            var sections = document.getElementsByClassName("school-note-section");
+            for (var i = 0; i < sections.length; i++) {
                 sections[i].classList.remove("active-school-section");
             }
             var target = document.getElementById(sectionId);
@@ -1839,187 +339,9 @@ print("Velocity-Verlet phase space conservation check: PASS (Delta E / E_0 < 1e-
             }
         }
 
-        function changeMmpLecture(pdfUrl) {
-            var frame = document.getElementById('mmp-iframe');
-            var downloadBtn = document.getElementById('mmp-download-btn');
-            var fullBtn = document.getElementById('mmp-fullscreen-btn');
-            var fullUrl = pdfUrl.includes('#') ? pdfUrl : pdfUrl + '#view=FitH&toolbar=1';
-            if (frame) frame.src = fullUrl;
-            if (downloadBtn) downloadBtn.href = pdfUrl;
-            if (fullBtn) fullBtn.href = fullUrl;
-        }
-        </script>
-
-        <script is:inline>
         function toggleTheme() {
             document.body.classList.toggle("dark-mode");
         }
         </script>
-
-        <!-- MCQ Logic Script -->
-        <script is:inline>
-        function checkAnswer(btn) {
-            let optionsContainer = btn.parentElement;
-            let correctOpt = optionsContainer.getAttribute('data-correct');
-            let selectedOpt = btn.getAttribute('data-opt');
-            let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
-
-            // 1. Disable all buttons to prevent multiple guesses
-            allBtns.forEach(b => b.disabled = true);
-
-            // 2. Check if the clicked button is correct or incorrect
-            if (selectedOpt === correctOpt) {
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('incorrect');
-                
-                // If wrong, find and highlight the correct answer so the user learns it
-                allBtns.forEach(b => {
-                    if (b.getAttribute('data-opt') === correctOpt) {
-                        b.classList.add('correct');
-                    }
-                });
-            }
-
-            // 3. Automatically show the explanation and hide the manual reveal button
-            let revealBtn = optionsContainer.nextElementSibling;
-            let explanation = revealBtn.nextElementSibling;
-            
-            revealBtn.style.display = 'none';
-            explanation.style.display = 'block';
-        }
-
-        function revealExplanation(btn) {
-            let optionsContainer = btn.previousElementSibling;
-            let correctOpt = optionsContainer.getAttribute('data-correct');
-            let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
-
-            // Just highlight the correct answer and lock the options
-            allBtns.forEach(b => {
-                b.disabled = true;
-                if (b.getAttribute('data-opt') === correctOpt) {
-                    b.classList.add('correct');
-                }
-            });
-
-            // Show explanation
-            let explanation = btn.nextElementSibling;
-            explanation.style.display = 'block';
-            btn.style.display = 'none'; 
-        }
-        </script>
-
-        <!-- Load ECharts -->
-        <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" is:inline></script>
-
-        <script is:inline>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Initialize the chart in our container
-            var chartDom = document.getElementById('tree-container');
-            if(chartDom) {
-                var myChart = echarts.init(chartDom);
-                var option;
-
-                // The JSON data structure acting as our "Tree"
-                const treeData = {
-                    name: 'George Sterman',
-                    value: 'PhD Advisor (Stony Brook)',
-                    contributions: 'Pioneering work in Quantum Chromodynamics (QCD) and the theory of strong interactions.',
-                    // You can replace the default circle with a literal leaf icon!
-                    // symbol: 'image://link_to_your_leaf_icon.png', 
-                    children: [
-                        {
-                            name: 'Ashoke Sen',
-                            value: 'PhD Student',
-                            contributions: 'Revolutionized String Theory. Discovered S-Duality (strong-weak coupling). Formulated the Sen Conjecture regarding tachyon condensation on unstable D-branes. Pioneered the entropy function formalism for extremal black holes.',
-                            children: [
-                                {
-                                    name: 'Student 1 (Placeholder)',
-                                    value: 'PhD Student',
-                                    contributions: 'Research into Superstring perturbation theory.'
-                                },
-                                {
-                                    name: 'Student 2 (Placeholder)',
-                                    value: 'PhD Student',
-                                    contributions: 'Research into Black Hole Microstates.'
-                                }
-                            ]
-                        }
-                    ]
-                };
-
-                option = {
-                    tooltip: {
-                        trigger: 'item',
-                        triggerOn: 'mousemove',
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        borderColor: '#007bff',
-                        borderWidth: 1,
-                        textStyle: { color: '#333' },
-                        // This formatter creates the beautiful pop-up box
-                        formatter: function (info) {
-                            var data = info.data;
-                            return `
-                                <div style="max-width: 300px; padding: 10px; white-space: normal;">
-                                    <h3 style="margin: 0 0 5px 0; color: #d32f2f;">${data.name}</h3>
-                                    <strong style="color: #007bff;">${data.value}</strong>
-                                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid #ccc;">
-                                    <p style="margin: 0; font-size: 0.9em; line-height: 1.5;">${data.contributions}</p>
-                                </div>
-                            `;
-                        }
-                    },
-                    series: [
-                        {
-                            type: 'tree',
-                            data: [treeData],
-                            top: '10%',
-                            left: '10%',
-                            bottom: '10%',
-                            right: '20%',
-                            symbolSize: 20, // Size of the "leaves"
-                            symbol: 'emptyCircle', 
-                            itemStyle: {
-                                color: '#28a745', // Leaf green color
-                                borderColor: '#1e7e34'
-                            },
-                            lineStyle: {
-                                color: '#8B4513', // Branch brown color
-                                width: 3,
-                                curveness: 0.5 // Gives the branches an organic, sweeping look
-                            },
-                            label: {
-                                position: 'top',
-                                verticalAlign: 'middle',
-                                align: 'center',
-                                fontSize: 14,
-                                fontWeight: 'bold',
-                                color: 'var(--text-color, #333)'
-                            },
-                            leaves: {
-                                label: {
-                                    position: 'right',
-                                    verticalAlign: 'middle',
-                                    align: 'left'
-                                }
-                            },
-                            expandAndCollapse: true,
-                            animationDuration: 550,
-                            animationDurationUpdate: 750
-                        }
-                    ]
-                };
-
-                option && myChart.setOption(option);
-                
-                // Fix chart rendering size when switching tabs
-                window.addEventListener('resize', myChart.resize);
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.addEventListener('click', () => { setTimeout(myChart.resize, 50); });
-                });
-            }
-        });
-        </script>
-
     </body>
 </html>

@@ -3,7 +3,7 @@ const { questionNum, year, questionText, optA, optB, optC, optD, correctOpt, exp
 ---
 <div class="mcq-card">
     <div class="mcq-question">
-        <span class="q-number">Q{questionNum} ({year}).</span> <Fragment set:html={questionText} />
+        <span class="q-number">Q{questionNum}{year ? ` (${year})` : ''}.</span> <Fragment set:html={questionText} />
     </div>
     <div class="mcq-options" data-correct={correctOpt}>
         <button class="mcq-opt" data-opt="A" onclick="checkAnswer(this)"><span>A</span> <Fragment set:html={optA} /></button>
@@ -20,25 +20,31 @@ const { questionNum, year, questionText, optA, optB, optC, optD, correctOpt, exp
 </div>
 
 <script is:inline>
-    function checkAnswer(btn) {
+if (!window.__vdMcqInitialized) {
+    window.__vdMcqInitialized = true;
+
+    window.checkAnswer = function(btn) {
         let optionsContainer = btn.parentElement;
         let correctOpt = optionsContainer.getAttribute('data-correct');
         let selectedOpt = btn.getAttribute('data-opt');
         let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
 
         allBtns.forEach(b => b.disabled = true);
-        if (selectedOpt === correctOpt) { btn.classList.add('correct'); } 
-        else {
+        if (selectedOpt === correctOpt) {
+            btn.classList.add('correct');
+        } else {
             btn.classList.add('incorrect');
-            allBtns.forEach(b => { if (b.getAttribute('data-opt') === correctOpt) b.classList.add('correct'); });
+            allBtns.forEach(b => {
+                if (b.getAttribute('data-opt') === correctOpt) b.classList.add('correct');
+            });
         }
         let revealBtn = optionsContainer.nextElementSibling;
         let explanation = revealBtn.nextElementSibling;
         revealBtn.style.display = 'none';
         explanation.style.display = 'block';
-    }
+    };
 
-    function revealExplanation(btn) {
+    window.revealExplanation = function(btn) {
         let optionsContainer = btn.previousElementSibling;
         let correctOpt = optionsContainer.getAttribute('data-correct');
         let allBtns = optionsContainer.querySelectorAll('.mcq-opt');
@@ -48,6 +54,7 @@ const { questionNum, year, questionText, optA, optB, optC, optD, correctOpt, exp
         });
         let explanation = btn.nextElementSibling;
         explanation.style.display = 'block';
-        btn.style.display = 'none'; 
-    }
+        btn.style.display = 'none';
+    };
+}
 </script>

@@ -1,32 +1,38 @@
 ---
-const { title } = Astro.props;
+const { title, backHref = '/physics' } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9667197563513742" crossorigin="anonymous" is:inline></script>
+        <meta name="google-adsense-account" content="ca-pub-9667197563513742">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{title} | Vishwa Darpan</title>
-        
+
         <link rel="stylesheet" href="/style.css">
-        
+
         <!-- MathJax Configuration -->
         <script is:inline>
             MathJax = {
-                tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] }
+                tex: {
+                    inlineMath: [['$', '$']],
+                    displayMath: [['$$', '$$']],
+                    packages: {'[+]': ['physics', 'ams']}
+                },
+                loader: {load: ['[tex]/physics']}
             };
         </script>
-        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" is:inline></script>
     </head>
     <body>
         <header class="subject-header">
-            <a href="/" class="icon-btn">⬅️</a>
-            <h1>Physics</h1>
-            <button class="icon-btn theme-toggle">🌙</button>
+            <a href={backHref} class="icon-btn" title="Back to Physics">⬅️</a>
+            <h1>{title}</h1>
+            <button class="icon-btn theme-toggle" onclick="document.body.classList.toggle('dark-mode')" title="Toggle Dark Mode">🌙</button>
         </header>
 
-        <div class="container">
-            <!-- This slot is a placeholder where your page content will automatically be injected -->
+        <div class="container" style="text-align: left; max-width: 960px; margin: 20px auto; padding: 20px;">
             <slot />
         </div>
     </body>

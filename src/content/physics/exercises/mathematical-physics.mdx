@@ -1,0 +1,28 @@
+---
+title: "Mathematical Physics"
+tab: "exercises"
+sectionId: "exe-math"
+group: "TIFR GS Syllabus"
+order: 1
+---
+import McqCard from '../../../components/McqCard.astro';
+
+## Mathematical Physics - TIFR PYQs
+
+<McqCard
+  questionNum="1"
+  year="2013"
+  questionText={String.raw`The product $AB$ of two Hermitian matrices $A$ and $B$ is anti-Hermitian. It follows that:`}
+  optA={String.raw`$\{A, B\} = 0$`}
+  optB={String.raw`$[A, B] = 0$`}
+  optC={String.raw`$A^\dagger = B$`}
+  optD={String.raw`$A^\dagger = B^{-1}$`}
+  correctOpt="A"
+  explanation={String.raw`By definition, a matrix is Hermitian if it is equal to its own conjugate transpose. Thus, we are given $A^\dagger = A$ and $B^\dagger = B$.<br><br>
+We are also given that their product $AB$ is anti-Hermitian, which means taking its conjugate transpose yields the negative of the matrix: $(AB)^\dagger = -(AB)$.<br><br>
+Using the matrix property that $(AB)^\dagger = B^\dagger A^\dagger$, we substitute our knowns:<br>
+$$B^\dagger A^\dagger = -(AB)$$
+$$BA = -AB$$
+$$AB + BA = 0$$
+The expression $AB + BA$ is the definition of the anticommutator, denoted as $\{A, B\}$. Therefore, $\{A, B\} = 0$.`}
+/>

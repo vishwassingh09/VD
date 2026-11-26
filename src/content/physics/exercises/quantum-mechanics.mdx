@@ -1,0 +1,49 @@
+---
+title: "Quantum Mechanics"
+tab: "exercises"
+sectionId: "exe-qm"
+group: "TIFR GS Syllabus"
+order: 3
+---
+import McqCard from '../../../components/McqCard.astro';
+
+## Quantum Mechanics - TIFR PYQs
+
+<McqCard
+  questionNum="1"
+  year="2011"
+  questionText={String.raw`Two identical non-interacting particles, each of mass $m$ and spin $1/2$, are placed in a one-dimensional box of length $L$. In quantum mechanics, the lowest possible value of the total energy of these two particles is $\epsilon_0$. If, instead, four such particles are introduced into a similar one-dimensional box of length $2L$, then the lowest possible value of their total energy will be:`}
+  optA={String.raw`$2\epsilon_0$`}
+  optB={String.raw`$5\epsilon_0/4$`}
+  optC={String.raw`$3\epsilon_0/2$`}
+  optD={String.raw`$\epsilon_0$`}
+  correctOpt="B"
+  explanation={String.raw`The energy levels of a particle in a 1D box of length $L$ are $E_n = \frac{n^2 \pi^2 \hbar^2}{2mL^2}$.<br>
+Since the particles are spin-1/2 fermions (electrons), the Pauli exclusion principle dictates that at most two particles (spin up, spin down) can occupy each energy level.<br><br>
+For 2 particles in a box of length $L$, both can occupy the ground state ($n=1$).<br>
+$$\epsilon_0 = 2 \times E_1 = 2 \times \frac{\pi^2 \hbar^2}{2mL^2} = \frac{\pi^2 \hbar^2}{mL^2}$$
+Now, consider a box of length $2L$. The new energy levels are $E'_n = \frac{n^2 \pi^2 \hbar^2}{2m(2L)^2} = \frac{n^2}{8} \left( \frac{\pi^2 \hbar^2}{mL^2} \right) = \frac{n^2}{8}\epsilon_0$.<br><br>
+For 4 particles in this new box, two will occupy $n=1$, and two will occupy $n=2$.<br>
+$$E_{\text{total}} = 2(E'_1) + 2(E'_2) = 2\left(\frac{1}{8}\epsilon_0\right) + 2\left(\frac{4}{8}\epsilon_0\right)$$
+$$E_{\text{total}} = \frac{1}{4}\epsilon_0 + \epsilon_0 = \frac{5}{4}\epsilon_0$$`}
+/>
+
+<McqCard
+  questionNum="2"
+  year="2014"
+  questionText={String.raw`Consider the Hamiltonian $\hat{H} = f \vec{x} \cdot \vec{\sigma}$. Here $\vec{x}$ is the position vector, $f$ is a constant and $\vec{\sigma} = (\sigma_x, \sigma_y, \sigma_z)$, where $\sigma_x, \sigma_y, \sigma_z$ are the three Pauli matrices. The energy eigenvalues are:`}
+  optA={String.raw`$f(\sqrt{x^2+y^2} \pm z)$`}
+  optB={String.raw`$f(x \pm iy)$`}
+  optC={String.raw`$\pm f\sqrt{x^2+y^2+z^2}$`}
+  optD={String.raw`$\pm f(x+y+z)$`}
+  correctOpt="C"
+  explanation={String.raw`By expanding the dot product $\vec{x} \cdot \vec{\sigma}$, we multiply the position coordinates by their respective Pauli matrices:<br>
+$$H = f(x\sigma_x + y\sigma_y + z\sigma_z)$$
+$$H = f \left[ x\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} + y\begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} + z\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} \right]$$
+$$H = f \begin{pmatrix} z & x - iy \\ x + iy & -z \end{pmatrix}$$<br>
+To find the eigenvalues $\lambda$, we solve the characteristic equation $\det(H - \lambda I) = 0$:<br>
+$$(fz - \lambda)(-fz - \lambda) - f^2(x - iy)(x + iy) = 0$$
+$$-f^2z^2 + \lambda^2 - f^2(x^2 + y^2) = 0$$
+$$\lambda^2 = f^2(x^2 + y^2 + z^2)$$<br>
+Taking the square root gives $\lambda = \pm f\sqrt{x^2 + y^2 + z^2}$.`}
+/>

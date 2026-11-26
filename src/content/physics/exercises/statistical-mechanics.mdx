@@ -1,0 +1,27 @@
+---
+title: "Heat, Thermo & Stat Mech"
+tab: "exercises"
+sectionId: "exe-stat"
+group: "TIFR GS Syllabus"
+order: 4
+---
+import McqCard from '../../../components/McqCard.astro';
+
+## Heat & Statistical Mechanics - TIFR PYQs
+
+<McqCard
+  questionNum="1"
+  year="2012"
+  questionText={String.raw`Consider a sealed but thermally conducting container of total volume $V$, which is in equilibrium with a thermal bath at temperature $T$. The container is divided into two equal chambers by a thin but impermeable partition. One of these chambers contains an ideal gas, while the other half is a vacuum. If the partition is removed and the ideal gas is allowed to expand and fill the entire container, then the entropy per molecule of the system will increase by an amount:`}
+  optA={String.raw`$2k_B$`}
+  optB={String.raw`$k_B \ln(1/2)$`}
+  optC={String.raw`$k_B \ln 2$`}
+  optD={String.raw`$(k_B \ln 2)/2$`}
+  correctOpt="C"
+  explanation={String.raw`This represents a free expansion of an ideal gas. The initial volume occupied by the gas is $V_i = V/2$, and the final volume is $V_f = V$.<br>
+The change in entropy for an ideal gas expanding isothermally into a vacuum is given by:<br>
+$$\Delta S = n R \ln\left(\frac{V_f}{V_i}\right) = N k_B \ln\left(\frac{V}{V/2}\right) = N k_B \ln(2)$$
+where $N$ is the total number of molecules and $k_B$ is the Boltzmann constant.<br>
+The question asks for the entropy increase *per molecule*, so we divide by $N$:<br>
+$$\Delta s = \frac{\Delta S}{N} = k_B \ln 2$$`}
+/>

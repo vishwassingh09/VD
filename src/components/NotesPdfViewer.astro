@@ -1,0 +1,60 @@
+---
+interface Lecture {
+  label: string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  src?: string;
+  viewerTitle?: string;
+  lectures?: Lecture[];
+}
+
+const { title, src, viewerTitle, lectures = [] } = Astro.props;
+const hasLectures = lectures.length > 0;
+const initialSrc = hasLectures ? lectures[0].url : (src ?? '');
+const initialFrameSrc = `${initialSrc}#view=FitH&toolbar=1`;
+const initialFullSrc = `${initialSrc}#view=FitH`;
+---
+<div class="notes-pdf-box">
+    <div class="notes-toolbar" style={hasLectures ? "display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;" : undefined}>
+        {hasLectures ? (
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span style="font-weight: bold;">📄 Select Lecture:</span>
+                <select id="mmp-lecture-select" onchange="changeMmpLecture(this.value)" style="padding: 6px 12px; border-radius: 4px; border: 1px solid var(--border-color, #ccc); background: var(--bg-color, #fff); font-size: 0.9em; max-width: 330px;">
+                    {lectures.map((lec) => (
+                        <option value={lec.url}>{lec.label}</option>
+                    ))}
+                </select>
+            </div>
+        ) : (
+            <span style="font-weight: bold; margin-right: 15px;">📄 {title}</span>
+        )}
+        <div>
+            <a id={hasLectures ? "mmp-download-btn" : undefined} href={initialSrc} download class="btn-download" style="padding: 6px 14px; font-size: 0.9em;">📥 Download PDF</a>
+            <a id={hasLectures ? "mmp-fullscreen-btn" : undefined} href={initialFullSrc} target="_blank" class="btn-download" style="padding: 6px 14px; font-size: 0.9em; background: #555;">⛶ Open Full Window</a>
+        </div>
+    </div>
+    <div class="notes-iframe-wrapper">
+        <iframe id={hasLectures ? "mmp-iframe" : undefined} src={initialFrameSrc} title={viewerTitle ?? title}>
+            <p>Your browser does not support inline PDF viewing. <a href={initialSrc} target="_blank">Click here to view or download the PDF.</a></p>
+        </iframe>
+    </div>
+</div>
+
+{hasLectures && (
+<script is:inline>
+if (!window.changeMmpLecture) {
+    window.changeMmpLecture = function(pdfUrl) {
+        var frame = document.getElementById('mmp-iframe');
+        var downloadBtn = document.getElementById('mmp-download-btn');
+        var fullBtn = document.getElementById('mmp-fullscreen-btn');
+        var fullUrl = pdfUrl.includes('#') ? pdfUrl : pdfUrl + '#view=FitH&toolbar=1';
+        if (frame) frame.src = fullUrl;
+        if (downloadBtn) downloadBtn.href = pdfUrl;
+        if (fullBtn) fullBtn.href = pdfUrl.includes('#') ? pdfUrl : pdfUrl + '#view=FitH';
+    };
+}
+</script>
+)}
