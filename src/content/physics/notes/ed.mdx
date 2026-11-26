@@ -11,27 +11,40 @@ import EdDiagram from '../../../components/EdDiagram.astro';
 
 ## Electrodynamics (MSc Level)
 
-Based on my first reading of D.J. Griffiths (*Introduction to Electrodynamics*). Each topic below follows a **3-part format**:
+This is my first reading of D.J. Griffiths (*Introduction to Electrodynamics*).
 
-1. **Short Theory & Diagram** (distilled directly from my handwritten notes)
-2. **Practice Problem**
-3. **Two-Click Reveal**: click **Show Answer** first to check your attempt; if you still need help after multiple trials, click **Show Solution**.
+### Handwritten Notes (PDF)
+
+<NotesPdfViewer
+  title="Handwritten Notes: Electrodynamics"
+  src="/notes/electrodynamics.pdf"
+  viewerTitle="Electrodynamics Notes"
+/>
 
 ---
 
-### Topic 1: Coulomb's Law, Electric Field & Gauss's Law
+### Topic-Wise Revision & Practice (3-Part Format)
+
+Each section below pairs a **short theory summary + diagram** from my handwritten notes with a **Griffiths problem** using a **two-click check**:
+1. Try the problem on paper first.
+2. Click **Show Answer** to check your result without spoiling the derivation.
+3. If you still get stuck after multiple attempts, click **Show Solution**.
+
+---
+
+### 1. Coulomb's Law, Electric Field & Gauss's Law
 
 <div class="ed-theory-box">
 
 **Short Theory (Notes Ch. 2 — Electrostatics):**
 
-For a source charge $q_i$ at $\vec{r}_i'$ and a test charge $Q$ at field point $\vec{r}$, define the separation vector $\vec{\mathscr{r}}_i = \vec{r} - \vec{r}_i'$. By superposition:
+For source charges $\{(q_i, \vec{r}_i')\}$ and a test charge $Q$ at field point $\vec{r}$, the separation vector is $\vec{\mathscr{r}}_i = \vec{r} - \vec{r}_i'$. The electric field is:
 
 $$
 \vec{E}(\vec{r}) = \frac{1}{4\pi\epsilon_0}\sum_{i=1}^n \frac{q_i}{\mathscr{r}_i^2}\hat{\mathscr{r}}_i = \frac{1}{4\pi\epsilon_0}\int \frac{dq}{\mathscr{r}^2}\hat{\mathscr{r}}
 $$
 
-where $dq = \lambda\,dl'$ (line), $\sigma\,da'$ (surface), or $\rho\,d\tau'$ (volume). Using spherical symmetry and the Divergence Theorem ($\nabla\cdot(\hat{r}/r^2) = 4\pi\delta^3(\vec{r})$) gives **Gauss's Law** and the **Curl of $\vec{E}$**:
+where $dq = \lambda\,dl'$ (line), $\sigma\,da'$ (surface), or $\rho\,d\tau'$ (volume). Using spherical symmetry and $\nabla\cdot(\hat{r}/r^2) = 4\pi\delta^3(\vec{r})$ yields **Gauss's Law** and the **Curl of $\vec{E}$**:
 
 $$
 \oint_S \vec{E}\cdot d\vec{a} = \frac{Q_{\text{enc}}}{\epsilon_0}, \qquad \vec{\nabla}\cdot\vec{E} = \frac{\rho}{\epsilon_0}, \qquad \vec{\nabla}\times\vec{E} = 0
@@ -41,52 +54,46 @@ $$
 
 <EdDiagram
   name="coulomb-vectors"
-  caption="Source coordinates r⃗ᵢ′, field point r⃗, and separation vector 𝔯⃗ᵢ = r⃗ − r⃗ᵢ′ (from handwritten notes p. 1)."
+  caption="Source vector r'ᵢ, field point r, and separation vector r − r'ᵢ (from handwritten notes p. 1)."
 />
 
-<ProblemCard num="1" title="Electric Field on the Axis of a Charged Circular Loop" tag="Griffiths Ch. 2 · Continuous Charge">
+<ProblemCard num="2.5" title="Electric Field Above a Charged Circular Loop" tag="Griffiths Ch. 2 · Problem 2.5">
   <div slot="problem">
-    Find the electric field $\vec{E}$ at a point $P$ at distance $z$ directly above the center of a thin circular ring of radius $R$ carrying a uniform linear charge density $\lambda$.
+    Find the electric field a distance $z$ above the center of a circular loop of radius $r$ that carries a uniform line charge $\lambda$.
   </div>
 
   <div slot="answer">
     $$
-    \vec{E}(z) = \frac{1}{4\pi\epsilon_0}\frac{2\pi R\lambda\, z}{(R^2 + z^2)^{3/2}}\,\hat{z} = \frac{1}{4\pi\epsilon_0}\frac{q_{\text{tot}}\, z}{(R^2 + z^2)^{3/2}}\,\hat{z}
+    \vec{E}(z) = \frac{1}{4\pi\epsilon_0}\frac{2\pi r \lambda z}{(r^2 + z^2)^{3/2}}\,\hat{z}
     $$
   </div>
 
   <div slot="solution">
-    Take a line element $dl' = R\,d\phi'$ on the ring at $\vec{r}' = R\hat{s}'$, with field point $\vec{r} = z\hat{z}$. Then:
+    By symmetry, the horizontal components of the field from opposite line elements cancel, leaving only the $z$-component. For each infinitesimal segment $dl' = r\,d\phi'$:
 
     $$
-    \vec{\mathscr{r}} = \vec{r} - \vec{r}' = z\hat{z} - R\hat{s}', \qquad \mathscr{r} = \sqrt{R^2 + z^2}
+    dE_z = \frac{1}{4\pi\epsilon_0}\frac{\lambda\,dl'}{\mathscr{r}^2}\cos\theta, \qquad \mathscr{r} = \sqrt{r^2 + z^2}, \qquad \cos\theta = \frac{z}{\sqrt{r^2 + z^2}}
     $$
 
-    By azimuthal symmetry around the $z$-axis, all horizontal ($\hat{s}'$) components cancel when integrating $\phi'$ from $0$ to $2\pi$. Only the $\hat{z}$ component survives:
+    Since $\mathscr{r}$ and $\theta$ are constant around the entire loop ($\int dl' = 2\pi r$):
 
     $$
-    E_z = \frac{1}{4\pi\epsilon_0}\int_0^{2\pi} \frac{\lambda R\,d\phi'}{\mathscr{r}^2}\cos\theta, \qquad \cos\theta = \frac{z}{\sqrt{R^2 + z^2}}
+    E_z = \frac{1}{4\pi\epsilon_0}\frac{\lambda z}{(r^2 + z^2)^{3/2}}\int_0^{2\pi} r\,d\phi' = \frac{1}{4\pi\epsilon_0}\frac{2\pi r \lambda z}{(r^2 + z^2)^{3/2}}
     $$
 
-    Since $R$, $z$, and $\mathscr{r}$ are constant along the ring:
-
-    $$
-    \vec{E}(z) = \frac{\lambda R z}{4\pi\epsilon_0(R^2 + z^2)^{3/2}}\left(\int_0^{2\pi} d\phi'\right)\hat{z} = \frac{1}{4\pi\epsilon_0}\frac{2\pi R\lambda\, z}{(R^2 + z^2)^{3/2}}\,\hat{z}
-    $$
+    Therefore $\vec{E}(z) = \dfrac{1}{4\pi\epsilon_0}\dfrac{2\pi r \lambda z}{(r^2 + z^2)^{3/2}}\,\hat{z}$.
   </div>
 </ProblemCard>
 
 ---
 
-### Topic 2: Electric Potential & Electrostatic Boundary Conditions
+### 2. Electric Potential & Boundary Conditions
 
 <div class="ed-theory-box">
 
 **Short Theory (Notes Ch. 2 — Potential & Boundary Conditions):**
 
-Because $\vec{\nabla}\times\vec{E} = 0$, the line integral is path-independent and defines the scalar potential $V(\vec{r}) = -\int_{\mathcal{O}}^{\vec{r}} \vec{E}\cdot d\vec{l}$, so $\vec{E} = -\vec{\nabla}V$ and $\nabla^2 V = -\rho/\epsilon_0$ (Poisson's equation).
-
-Integrating $\vec{E}$ across a wafer-thin Gaussian pillbox ($\epsilon \to 0$) on a surface with charge density $\sigma$ yields the **boundary conditions**:
+Since $\vec{\nabla}\times\vec{E} = 0$, we define $V(\vec{r}) = -\int_{\mathcal{O}}^{\vec{r}} \vec{E}\cdot d\vec{l}$, so $\vec{E} = -\vec{\nabla}V$ and $\nabla^2 V = -\rho/\epsilon_0$ (Poisson's equation). Integrating across a wafer-thin Gaussian pillbox ($\epsilon \to 0$) on a sheet of surface charge $\sigma$ gives:
 
 $$
 E_{\text{above}}^\perp - E_{\text{below}}^\perp = \frac{\sigma}{\epsilon_0}, \qquad \vec{E}_{\text{above}}^\parallel = \vec{E}_{\text{below}}^\parallel
@@ -100,58 +107,55 @@ $$
 
 <EdDiagram
   name="gaussian-pillbox"
-  caption="Wafer-thin Gaussian pillbox (height ε → 0) straddling a surface charge density σ (from handwritten notes p. 3)."
+  caption="Wafer-thin Gaussian pillbox (ε → 0) across a surface charge density σ (from handwritten notes p. 3)."
 />
 
-<ProblemCard num="2" title="Potential & Surface Charge from Boundary Conditions" tag="Griffiths Ch. 2 · Boundary Conditions">
+<ProblemCard num="2.30" title="Cylindrical Shell Boundary Condition Check" tag="Griffiths Ch. 2 · Problem 2.30 (b)–(c)">
   <div slot="problem">
-    The electric potential in a region containing a flat sheet of charge at $z = 0$ is given by:
-
-    $$
-    V(z) = \begin{cases} V_0\,e^{-\kappa z}, & z > 0 \\ V_0\,(1 + \alpha z), & z < 0 \end{cases}
-    $$
-
-    where $V_0$, $\kappa$, and $\alpha$ are positive constants. Find the surface charge density $\sigma$ on the plane $z = 0$.
+    Use Gauss's law to find the electric field inside and outside a long hollow cylindrical tube of radius $R$ carrying a uniform surface charge $\sigma$.
+    1. Check that the field jump across the surface matches $\vec{E}_{\text{out}} - \vec{E}_{\text{in}} = \dfrac{\sigma}{\epsilon_0}\hat{s}$.
+    2. Using the potential $V(r) = -\dfrac{R\sigma}{\epsilon_0}\ln(r/R)$ outside ($r > R$) and $V = 0$ inside ($r < R$), verify that $V$ is continuous at $r = R$ and $\dfrac{\partial V_{\text{out}}}{\partial r} - \dfrac{\partial V_{\text{in}}}{\partial r} = -\dfrac{\sigma}{\epsilon_0}$.
   </div>
 
   <div slot="answer">
-    $$
-    \sigma = \epsilon_0 V_0 (\kappa + \alpha)
-    $$
+    $\vec{E}_{\text{in}} = \mathbf{0}$, $\vec{E}_{\text{out}} = \dfrac{\sigma R}{\epsilon_0 s}\hat{s}$, so at $s = R$, $\Delta\vec{E} = \dfrac{\sigma}{\epsilon_0}\hat{s}$ and $\Delta\left(\dfrac{\partial V}{\partial r}\right) = -\dfrac{\sigma}{\epsilon_0}$.
   </div>
 
   <div slot="solution">
-    First note that at $z = 0$, $V_{\text{above}}(0^+) = V_0 = V_{\text{below}}(0^-)$, so $V$ is continuous as required.
+    **1. Electric Field via Gauss's Law:** Choose a coaxial cylindrical Gaussian surface of radius $s$ and length $l$:
+    - **Outside ($s > R$):** $Q_{\text{enc}} = \sigma(2\pi R l)$, so:
+      $$
+      \oint \vec{E}\cdot d\vec{a} = E(2\pi s l) = \frac{\sigma(2\pi R l)}{\epsilon_0} \implies \vec{E}_{\text{out}} = \frac{\sigma R}{\epsilon_0 s}\,\hat{s}
+      $$
+      At the surface ($s = R$), $\vec{E}_{\text{out}} = \dfrac{\sigma}{\epsilon_0}\hat{s}$.
+    - **Inside ($s < R$):** $Q_{\text{enc}} = 0 \implies \vec{E}_{\text{in}} = \mathbf{0}$.
+    - **Jump:** $\Delta \vec{E} = \vec{E}_{\text{out}} - \vec{E}_{\text{in}} = \dfrac{\sigma}{\epsilon_0}\hat{s}$. ✓
 
-    With normal $\hat{n} = \hat{z}$, the normal derivatives are:
-
-    $$
-    \left.\frac{\partial V_{\text{above}}}{\partial z}\right|_{z=0^+} = -\kappa V_0, \qquad \left.\frac{\partial V_{\text{below}}}{\partial z}\right|_{z=0^-} = \alpha V_0
-    $$
-
-    Apply the potential boundary condition $\frac{\partial V_{\text{above}}}{\partial n} - \frac{\partial V_{\text{below}}}{\partial n} = -\frac{\sigma}{\epsilon_0}$:
-
-    $$
-    (-\kappa V_0) - (\alpha V_0) = -\frac{\sigma}{\epsilon_0} \implies \sigma = \epsilon_0 V_0 (\kappa + \alpha)
-    $$
+    **2. Potential & Normal Derivative Check:**
+    - At $r = R$: $V_{\text{out}}(R) = -\dfrac{R\sigma}{\epsilon_0}\ln(1) = 0 = V_{\text{in}}(R)$ (continuous). ✓
+    - Radial derivatives at $r = R$:
+      $$
+      \left.\frac{\partial V_{\text{out}}}{\partial r}\right|_{r=R} = -\frac{R\sigma}{\epsilon_0 r}\bigg|_{r=R} = -\frac{\sigma}{\epsilon_0}, \qquad \left.\frac{\partial V_{\text{in}}}{\partial r}\right|_{r=R} = 0
+      $$
+      Hence $\dfrac{\partial V_{\text{out}}}{\partial r} - \dfrac{\partial V_{\text{in}}}{\partial r} = -\dfrac{\sigma}{\epsilon_0}$. ✓
   </div>
 </ProblemCard>
 
 ---
 
-### Topic 3: Work & Energy in Electrostatics
+### 3. Work & Electrostatic Energy
 
 <div class="ed-theory-box">
 
 **Short Theory (Notes Ch. 2 — Electrostatic Energy):**
 
-Potential is the work per unit charge needed to assemble the system. For discrete and continuous charge distributions:
+Potential is the work per unit charge required to assemble a charge configuration:
 
 $$
-W = \frac{1}{2}\sum_{i=1}^n q_i V(\vec{r}_i) = \frac{1}{2}\int \rho V\,d\tau
+W = \frac{1}{2}\sum_{i=1}^n q_i V(\vec{r}_i) = \frac{1}{2}\int \rho V\,d\tau = \frac{\epsilon_0}{2}\left(\int_{\mathcal{V}} E^2\,d\tau + \oint_{\mathcal{S}} V\vec{E}\cdot d\vec{a}\right)
 $$
 
-Substituting $\rho = \epsilon_0 \vec{\nabla}\cdot\vec{E}$, integrating by parts, and letting the boundary surface go to infinity gives the field energy density over all space:
+Taking the volume $\mathcal{V}$ over all space lets the surface integral vanish:
 
 $$
 W = \frac{\epsilon_0}{2}\int_{\text{all space}} E^2\,d\tau
@@ -159,112 +163,103 @@ $$
 
 </div>
 
-<ProblemCard num="3" title="Total Electrostatic Energy of a Uniformly Charged Solid Sphere" tag="Griffiths Ch. 2 · Field Energy">
+<ProblemCard num="2.34" title="Energy of a Uniformly Charged Solid Sphere (Three Ways)" tag="Griffiths Ch. 2 · Problem 2.34">
   <div slot="problem">
-    A solid insulating sphere of radius $R$ carries a total charge $Q$ uniformly distributed throughout its volume. Compute the total electrostatic energy $W$ required to assemble it using $W = \frac{\epsilon_0}{2}\int_{\text{all space}} E^2\,d\tau$.
+    Find the energy stored in a uniformly charged solid sphere of radius $R$ and total charge $q$ using three different methods:
+    1. $W = \dfrac{1}{2}\int \rho V\,d\tau$, given $V(r) = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{2R}\left(3 - \dfrac{r^2}{R^2}\right)$ for $r \le R$.
+    2. $W = \dfrac{\epsilon_0}{2}\int_{\text{all space}} E^2\,d\tau$.
+    3. $W = \dfrac{\epsilon_0}{2}\left(\int_{\mathcal{V}} E^2\,d\tau + \oint_{\mathcal{S}} V\vec{E}\cdot d\vec{a}\right)$ using a spherical volume $\mathcal{V}$ of radius $a > R$, and check the limit $a \to \infty$.
   </div>
 
   <div slot="answer">
-    $$
-    W = \frac{3}{5}\,\frac{Q^2}{4\pi\epsilon_0 R}
-    $$
+    All three methods give $W = \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{3}{5}\dfrac{q^2}{R}\right)$. In part (c), the surface term $\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{2a} \to 0$ as $a \to \infty$.
   </div>
 
   <div slot="solution">
-    By Gauss's law, the electric field inside and outside the sphere is:
+    **Method (a):** With $\rho = \dfrac{q}{\frac{4}{3}\pi R^3}$ and $d\tau = 4\pi r^2\,dr$:
 
     $$
-    \vec{E}(r) = \begin{cases} \dfrac{Q r}{4\pi\epsilon_0 R^3}\,\hat{r}, & r < R \\[8pt] \dfrac{Q}{4\pi\epsilon_0 r^2}\,\hat{r}, & r > R \end{cases}
+    W = \frac{1}{2}\rho\frac{1}{4\pi\epsilon_0}\frac{q}{2R}\int_0^R \left(3 - \frac{r^2}{R^2}\right)4\pi r^2\,dr = \frac{q\rho}{4\epsilon_0 R}\left[r^3 - \frac{r^5}{5R^2}\right]_0^R = \frac{q\rho}{5\epsilon_0}R^2 = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
     $$
 
-    Split the all-space integral ($d\tau = 4\pi r^2\,dr$) into $0 \to R$ and $R \to \infty$:
+    **Method (b):** Using $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{R^3}r\hat{r}$ ($r < R$) and $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\hat{r}$ ($r > R$):
 
     $$
-    W = \frac{\epsilon_0}{2}\left[\int_0^R \left(\frac{Q r}{4\pi\epsilon_0 R^3}\right)^2 4\pi r^2\,dr + \int_R^\infty \left(\frac{Q}{4\pi\epsilon_0 r^2}\right)^2 4\pi r^2\,dr\right]
+    W = \frac{\epsilon_0}{2}\frac{q^2}{(4\pi\epsilon_0)^2}\left[\int_0^R \left(\frac{r}{R^3}\right)^2 4\pi r^2\,dr + \int_R^\infty \frac{1}{r^4}4\pi r^2\,dr\right] = \frac{1}{4\pi\epsilon_0}\frac{q^2}{2}\left(\frac{1}{5R} + \frac{1}{R}\right) = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
     $$
 
+    **Method (c):** For a sphere of radius $a > R$, where $V(a) = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{a}$ and $E(a) = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{a^2}$:
+
     $$
-    W = \frac{Q^2}{8\pi\epsilon_0}\left[\frac{1}{R^6}\int_0^R r^4\,dr + \int_R^\infty \frac{dr}{r^2}\right] = \frac{Q^2}{8\pi\epsilon_0}\left(\frac{1}{5R} + \frac{1}{R}\right) = \frac{3}{5}\frac{Q^2}{4\pi\epsilon_0 R}
+    W = \frac{\epsilon_0}{2}\left[\frac{q^2}{(4\pi\epsilon_0)^2}\frac{4\pi}{a} + \frac{q^2}{(4\pi\epsilon_0)^2}\frac{4\pi}{5R} + \frac{q^2}{(4\pi\epsilon_0)^2}4\pi\left(-\frac{1}{r}\right)_R^a\right] = \frac{1}{4\pi\epsilon_0}\frac{q^2}{2}\left(\frac{1}{a} + \frac{1}{5R} - \frac{1}{a} + \frac{1}{R}\right) = \frac{1}{4\pi\epsilon_0}\left(\frac{3}{5}\frac{q^2}{R}\right)
     $$
+
+    As $a \to \infty$, the surface integral $\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{2a} \to 0$ and the volume integral carries all the energy.
   </div>
 </ProblemCard>
 
 ---
 
-### Topic 4: Uniqueness Theorems & Method of Images
+### 4. Uniqueness Theorems & Method of Images
 
 <div class="ed-theory-box">
 
 **Short Theory (Notes Ch. 3 — Potentials & Uniqueness):**
 
-- **First Uniqueness Theorem:** In a volume $V$ with charge density $\rho$, the solution to Poisson's equation $\nabla^2 V = -\rho/\epsilon_0$ is uniquely determined if $V$ is specified on all boundary surfaces $S$.
-- **Second Uniqueness Theorem:** In a volume $V$ surrounded by conductors containing specified $\rho$ in the space between them, $\vec{E}$ is uniquely determined if the *total charge* $Q_i$ on each conductor is given.
-- **Method of Images:** If an auxiliary charge configuration outside the region of interest produces the *exact same boundary conditions* on $S$ and the same $\rho$ inside $V$, Uniqueness guarantees it gives the exact potential $V$ inside $V$.
+- **First Uniqueness Theorem:** In a volume $\mathcal{V}$ with charge density $\rho$, $V$ is uniquely determined if $V$ is specified on the boundary surface $\mathcal{S}$.
+- **Second Uniqueness Theorem:** In a volume $\mathcal{V}$ surrounded by conductors with $\rho$ specified between them, $\vec{E}$ is uniquely determined if the total charge $Q_i$ on each conductor is given.
+- **Method of Images:** Replace the conductor by image charges outside $\mathcal{V}$ that enforce the same boundary conditions on $\mathcal{S}$ — Uniqueness guarantees the exact potential inside $\mathcal{V}$.
 
 </div>
 
 <EdDiagram
   name="uniqueness-conductors"
-  caption="Second Uniqueness Theorem: Volume V containing charge density ρ and conductors carrying total charges Qₐ, Q_b, Q_c, Q_d (from notes p. 7)."
+  caption="Second Uniqueness Theorem: Volume V containing charge density ρ(r) and conductors Qₐ, Q_b, Q_c, Q_d (from notes p. 7)."
 />
 
 <EdDiagram
   name="method-of-images"
-  caption="Method of Images: Actual charge +q above grounded z = 0 plane (left) vs equivalent image configuration (right) (from notes p. 8)."
+  caption="Method of Images: +q above grounded z = 0 plane (left) vs equivalent image system +q, −q (right) (from notes p. 8)."
 />
 
-<ProblemCard num="4" title="Point Charge Above a Grounded Conducting Plane" tag="Griffiths Ch. 3 · Method of Images">
+<ProblemCard num="3.7" title="Force on +q Above a Grounded Plane with Multiple Charges" tag="Griffiths Ch. 3 · Problem 3.7">
   <div slot="problem">
-    A point charge $+q$ is held at distance $d$ above an infinite, grounded ($V = 0$) conducting plane at $z = 0$.
-    1. Find the induced surface charge density $\sigma(x, y)$ on the conducting plane.
-    2. Find the force on the charge $+q$.
+    Two point charges are located on the $z$-axis above an infinite grounded conducting $xy$-plane ($V = 0$ at $z = 0$): a charge $-2q$ at $z = d$, and a charge $+q$ at $z = 3d$. Find the net force $\vec{F}$ on the charge $+q$.
   </div>
 
   <div slot="answer">
-    1. $\sigma(x, y) = -\dfrac{qd}{2\pi (x^2 + y^2 + d^2)^{3/2}}$
-    2. $\vec{F} = -\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{(2d)^2}\,\hat{z}$ (attractive toward the plane)
+    $$
+    \vec{F} = -\frac{1}{4\pi\epsilon_0}\left(\frac{29 q^2}{72 d^2}\right)\hat{z}
+    $$
   </div>
 
   <div slot="solution">
-    Place an image charge $-q$ at $(0, 0, -d)$. For $z \ge 0$, the potential is:
+    To satisfy $V = 0$ on the entire $z = 0$ plane, place two image charges below the plane:
+    - $+2q$ at $z = -d$ (image of $-2q$ at $+d$)
+    - $-q$ at $z = -3d$ (image of $+q$ at $+3d$)
+
+    Now compute the force on $+q$ (located at $z = +3d$) due to the other three charges:
+    1. From $-2q$ at $z = +d$ (distance $2d$, downward): $-\dfrac{2q}{ (2d)^2 }\hat{z}$
+    2. From image $+2q$ at $z = -d$ (distance $4d$, upward): $+\dfrac{2q}{(4d)^2}\hat{z}$
+    3. From image $-q$ at $z = -3d$ (distance $6d$, downward): $-\dfrac{q}{(6d)^2}\hat{z}$
+
+    Summing all three contributions:
 
     $$
-    V(x, y, z) = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt{x^2 + y^2 + (z - d)^2}} - \frac{q}{\sqrt{x^2 + y^2 + (z + d)^2}}\right]
-    $$
-
-    At $z = 0$, $V = 0$, and $V \to 0$ as $r \to \infty$, matching the boundary conditions for $z \ge 0$.
-
-    **1. Induced surface charge:** Using $\sigma = -\epsilon_0 \left.\frac{\partial V}{\partial z}\right|_{z=0^+}$:
-
-    $$
-    \left.\frac{\partial V}{\partial z}\right|_{z=0^+} = \frac{q}{4\pi\epsilon_0}\left[\frac{d}{(x^2+y^2+d^2)^{3/2}} + \frac{d}{(x^2+y^2+d^2)^{3/2}}\right] = \frac{qd}{2\pi\epsilon_0(x^2+y^2+d^2)^{3/2}}
-    $$
-
-    Hence $\sigma(x,y) = -\dfrac{qd}{2\pi(x^2+y^2+d^2)^{3/2}}$. (Integrating over the entire $xy$-plane gives $Q_{\text{ind}} = -q$.)
-
-    **2. Force on $+q$:** Since the field at $(0,0,d)$ from the induced surface charges equals the field of the image charge $-q$ at $(0,0,-d)$ separated by distance $2d$:
-
-    $$
-    \vec{F} = -\frac{1}{4\pi\epsilon_0}\frac{q^2}{(2d)^2}\,\hat{z}
+    \vec{F} = \frac{q}{4\pi\epsilon_0}\left[\frac{-2q}{(2d)^2} + \frac{2q}{(4d)^2} + \frac{-q}{(6d)^2}\right]\hat{z} = \frac{q^2}{4\pi\epsilon_0 d^2}\left(-\frac{1}{2} + \frac{1}{8} - \frac{1}{36}\right)\hat{z} = -\frac{1}{4\pi\epsilon_0}\left(\frac{29 q^2}{72 d^2}\right)\hat{z}
     $$
   </div>
 </ProblemCard>
 
 ---
 
-### Topic 5: Separation of Variables (Cartesian)
+### 5. Separation of Variables (Cartesian)
 
 <div class="ed-theory-box">
 
 **Short Theory (Notes Ch. 3 — Separation of Variables):**
 
-To solve Laplace's equation $\frac{\partial^2 V}{\partial x^2} + \frac{\partial^2 V}{\partial y^2} = 0$ in a semi-infinite 2D slot ($y \in [0, a]$, $x \ge 0$) with $V(x,0) = V(x,a) = 0$, $V(\infty,y) \to 0$, and $V(0,y) = V_0(y)$, try $V(x,y) = X(x)Y(y)$:
-
-$$
-\frac{1}{X}\frac{d^2 X}{dx^2} + \frac{1}{Y}\frac{d^2 Y}{dy^2} = 0 \implies X'' = k^2 X, \quad Y'' = -k^2 Y
-$$
-
-Applying the boundary conditions gives $k = n\pi/a$ and the Fourier sine series solution:
+To solve Laplace's equation $\frac{\partial^2 V}{\partial x^2} + \frac{\partial^2 V}{\partial y^2} = 0$ in a 2D slot ($y \in [0, a]$, $x \ge 0$) with $V(x,0) = V(x,a) = 0$, $V(\infty,y) \to 0$, and $V(0,y) = V_0(y)$, separate variables $V(x,y) = X(x)Y(y)$:
 
 $$
 V(x, y) = \sum_{n=1}^\infty C_n\,e^{-n\pi x/a}\sin\!\left(\frac{n\pi y}{a}\right), \qquad C_n = \frac{2}{a}\int_0^a V_0(y)\sin\!\left(\frac{n\pi y}{a}\right)dy
@@ -274,96 +269,112 @@ $$
 
 <EdDiagram
   name="separation-slot"
-  caption="Semi-infinite 2D conducting slot with V = 0 on top/bottom plates and V₀(y) at x = 0 (from notes p. 10)."
+  caption="Semi-infinite 2D slot with grounded plates at y = 0, a and specified potential V₀(y) at x = 0 (from notes p. 10)."
 />
 
-<ProblemCard num="5" title="Potential in a 2D Slot with Constant End Potential" tag="Griffiths Ch. 3 · Separation of Variables">
+<ProblemCard num="3.15" title="Potential Inside a Finite Rectangular Pipe" tag="Griffiths Ch. 3 · Problem 3.15">
   <div slot="problem">
-    In the semi-infinite slot shown above, the end strip at $x = 0$ is held at a constant potential $V_0(y) = V_0$. Find the Fourier coefficients $C_n$ and write the series solution for $V(x, y)$.
+    A rectangular pipe, running parallel to the $z$-axis (from $-\infty$ to $+\infty$), has three grounded metal sides at $y = 0$, $y = a$, and $x = 0$. The fourth side, at $x = b$, is maintained at a specified potential $V_0(y)$.
+    1. Develop a general formula for $V(x, y)$ inside the pipe.
+    2. Find $V(x, y)$ explicitly for the case $V_0(y) = V_0$ (a constant).
   </div>
 
   <div slot="answer">
+    1. $V(x, y) = \displaystyle\sum_{n=1}^\infty C_n \sinh\!\left(\frac{n\pi x}{a}\right)\sin\!\left(\frac{n\pi y}{a}\right)$, where $C_n = \dfrac{2}{a\sinh(n\pi b/a)}\displaystyle\int_0^a V_0(y)\sin\!\left(\frac{n\pi y}{a}\right)dy$.
+    2. For $V_0(y) = V_0$:
     $$
-    V(x, y) = \frac{4V_0}{\pi} \sum_{n=1,3,5,\dots}^{\infty} \frac{1}{n}\,e^{-n\pi x/a}\sin\!\left(\frac{n\pi y}{a}\right)
+    V(x, y) = \frac{4V_0}{\pi} \sum_{n=1,3,5,\dots}^\infty \frac{\sinh(n\pi x/a)\sin(n\pi y/a)}{n\sinh(n\pi b/a)}
     $$
   </div>
 
   <div slot="solution">
-    Evaluate $C_n$ from Fourier orthogonality:
+    **1. General Formula:** Separation of variables gives $V(x, y) = (Ae^{kx} + Be^{-kx})(C\sin ky + D\cos ky)$.
+    - Condition (i) $V(x,0) = 0 \implies D = 0$.
+    - Condition (iii) $V(0,y) = 0 \implies B = -A$, so $Ae^{kx} - Ae^{-kx} = 2A\sinh(kx)$.
+    - Condition (ii) $V(x,a) = 0 \implies k = n\pi/a$ for $n = 1, 2, 3, \dots$
+
+    Combining into a general linear superposition (absorbing $2AC$ into $C_n$):
 
     $$
-    C_n = \frac{2}{a}\int_0^a V_0 \sin\!\left(\frac{n\pi y}{a}\right)dy = \frac{2V_0}{a}\left[-\frac{a}{n\pi}\cos\!\left(\frac{n\pi y}{a}\right)\right]_0^a = \frac{2V_0}{n\pi}\left[1 - (-1)^n\right]
+    V(x, y) = \sum_{n=1}^\infty C_n \sinh\!\left(\frac{n\pi x}{a}\right)\sin\!\left(\frac{n\pi y}{a}\right)
     $$
 
-    Thus $C_n = 0$ for even $n$, and $C_n = \frac{4V_0}{n\pi}$ for odd $n = 1, 3, 5, \dots$, giving:
+    Apply condition (iv) at $x = b$ and use Fourier sine orthogonality:
 
     $$
-    V(x, y) = \frac{4V_0}{\pi} \sum_{n=1,3,5,\dots}^{\infty} \frac{1}{n}\,e^{-n\pi x/a}\sin\!\left(\frac{n\pi y}{a}\right)
+    C_n \sinh\!\left(\frac{n\pi b}{a}\right) = \frac{2}{a}\int_0^a V_0(y)\sin\!\left(\frac{n\pi y}{a}\right)dy \implies C_n = \frac{2}{a\sinh(n\pi b/a)}\int_0^a V_0(y)\sin\!\left(\frac{n\pi y}{a}\right)dy
     $$
 
-    *(Closed form from notes p. 10: $V(x, y) = \frac{2V_0}{\pi}\tan^{-1}\!\left(\frac{\sin(\pi y/a)}{\sinh(\pi x/a)}\right)$.)*
+    **2. Constant $V_0(y) = V_0$:**
+
+    $$
+    C_n = \frac{2V_0}{a\sinh(n\pi b/a)}\int_0^a \sin\!\left(\frac{n\pi y}{a}\right)dy = \frac{2V_0}{a\sinh(n\pi b/a)} \times \begin{cases} 0, & n \text{ even} \\ \dfrac{2a}{n\pi}, & n \text{ odd} \end{cases}
+    $$
+
+    Substituting $C_n$ back yields:
+
+    $$
+    V(x, y) = \frac{4V_0}{\pi} \sum_{n=1,3,5,\dots}^\infty \frac{\sinh(n\pi x/a)\sin(n\pi y/a)}{n\sinh(n\pi b/a)}
+    $$
   </div>
 </ProblemCard>
 
 ---
 
-### Topic 6: Multipole Expansion
+### 6. Multipole Expansion
 
 <div class="ed-theory-box">
 
 **Short Theory (Notes Ch. 3 — Multipole Expansion):**
 
-For a localized charge distribution $\rho(\vec{r}')$, expand $\frac{1}{\mathscr{r}} = \frac{1}{\sqrt{r^2 + (r')^2 - 2rr'\cos\alpha}}$ in powers of $r'/r$ using Legendre polynomials $P_n(\cos\alpha)$:
+Expanding $\frac{1}{\mathscr{r}} = \frac{1}{\sqrt{r^2 + (r')^2 - 2rr'\cos\alpha}}$ in powers of $r'/r$ gives the systematic multipole series for any localized charge distribution:
 
 $$
 V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\sum_{n=0}^{\infty} \frac{1}{r^{n+1}} \int (r')^n P_n(\cos\alpha)\,\rho(\vec{r}')\,d\tau'
 $$
 
-- $n = 0$ (Monopole, $\sim 1/r$): $Q = \int \rho\,d\tau'$
-- $n = 1$ (Dipole, $\sim 1/r^2$): $\vec{p} = \int \vec{r}'\rho(\vec{r}')\,d\tau'$, giving $V_{\text{dip}} = \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2}$
-- $n = 2$ (Quadrupole, $\sim 1/r^3$)
+- $n = 0$ (Monopole $\sim 1/r$), $n = 1$ (Dipole $\sim 1/r^2$), $n = 2$ (Quadrupole $\sim 1/r^3$).
 
 </div>
 
 <EdDiagram
   name="multipole-geometry"
-  caption="Multipole expansion geometry: r⃗′, r⃗, separation 𝔯, and angle α between r⃗′ and r⃗ (from notes p. 14)."
+  caption="Multipole geometry: source point r', field point r, separation |r − r'|, and angle α (from notes p. 14)."
 />
 
-<ProblemCard num="6" title="Monopole and Dipole Terms of Two Opposite Charges" tag="Griffiths Ch. 3 · Multipole Expansion">
+<ProblemCard num="3.28" title="Multipole Expansion of a Uniformly Charged Ring" tag="Griffiths Ch. 3 · Problem 3.28">
   <div slot="problem">
-    A charge $+q$ is placed at $(0, 0, +a)$ and a charge $-q$ is placed at $(0, 0, -a)$. Find the monopole and dipole terms in the multipole expansion of $V(r, \theta)$ for $r \gg a$.
+    A circular ring in the $xy$-plane (radius $R$, centered at the origin) carries a uniform line charge $\lambda$. Find the first three terms ($n = 0, 1, 2$) in the multipole expansion for $V(r, \theta)$.
   </div>
 
   <div slot="answer">
-    Monopole term: $V_{\text{mono}} = 0$. Dipole moment: $\vec{p} = 2qa\,\hat{z}$, giving:
     $$
-    V_{\text{dip}}(r, \theta) = \frac{1}{4\pi\epsilon_0}\frac{2qa\cos\theta}{r^2}
+    V_0 = \frac{\lambda}{2\epsilon_0}\frac{R}{r}, \qquad V_1 = 0, \qquad V_2 = -\frac{\lambda}{8\epsilon_0}\frac{R^3}{r^3}(3\cos^2\theta - 1) = -\frac{\lambda}{4\epsilon_0}\frac{R^3}{r^3}P_2(\cos\theta)
     $$
   </div>
 
   <div slot="solution">
-    1. **Monopole ($n = 0$):** Total charge $Q_{\text{tot}} = (+q) + (-q) = 0$, so $V_{\text{mono}} = 0$.
-    2. **Dipole ($n = 1$):** Compute the dipole moment $\vec{p} = \sum q_i \vec{r}_i'$:
+    Set $\vec{r} = r\sin\theta\cos\phi\,\hat{x} + r\sin\theta\sin\phi\,\hat{y} + r\cos\theta\,\hat{z}$ and $\vec{r}' = R\cos\phi'\,\hat{x} + R\sin\phi'\,\hat{y}$, with $dq = \lambda R\,d\phi'$. Then:
 
     $$
-    \vec{p} = (+q)(+a\hat{z}) + (-q)(-a\hat{z}) = 2qa\,\hat{z}
+    \cos\alpha = \frac{\vec{r}\cdot\vec{r}'}{r R} = \sin\theta(\cos\phi\cos\phi' + \sin\phi\sin\phi')
     $$
 
-    Since $\hat{z}\cdot\hat{r} = \cos\theta$, the leading far-field potential is:
-
-    $$
-    V(r, \theta) \approx \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2} = \frac{1}{4\pi\epsilon_0}\frac{2qa\cos\theta}{r^2}
-    $$
+    - **$n = 0$ (Monopole):**
+      $$
+      \int \rho\,d\tau' = \lambda R\int_0^{2\pi} d\phi' = 2\pi R\lambda \implies V_0 = \frac{1}{4\pi\epsilon_0}\frac{2\pi R\lambda}{r} = \frac{\lambda}{2\epsilon_0}\frac{R}{r}
+      $$
+    - **$n = 1$ (Dipole):**
+      $$
+      \int r'\cos\alpha\,dq = \lambda R^2\sin\theta \int_0^{2\pi} (\cos\phi\cos\phi' + \sin\phi\sin\phi')\,d\phi' = 0 \implies V_1 = 0
+      $$
+    - **$n = 2$ (Quadrupole):** Using $P_2(\cos\alpha) = \frac{1}{2}(3\cos^2\alpha - 1)$ and $\int_0^{2\pi} \cos^2\phi'\,d\phi' = \int_0^{2\pi}\sin^2\phi'\,d\phi' = \pi$:
+      $$
+      \int (r')^2 P_2(\cos\alpha)\,dq = \frac{\lambda R^3}{2}\left[3\sin^2\theta(\pi\cos^2\phi + \pi\sin^2\phi) - 2\pi\right] = \frac{\pi\lambda R^3}{2}(3\sin^2\theta - 2) = -\pi\lambda R^3 P_2(\cos\theta)
+      $$
+      Hence:
+      $$
+      V_2 = \frac{1}{4\pi\epsilon_0}\frac{-\pi\lambda R^3 P_2(\cos\theta)}{r^3} = -\frac{\lambda}{4\epsilon_0}\frac{R^3}{r^3}P_2(\cos\theta) = -\frac{\lambda}{8\epsilon_0}\frac{R^3}{r^3}(3\cos^2\theta - 1)
+      $$
   </div>
 </ProblemCard>
-
----
-
-### Full Handwritten Notes PDF (All 53 Pages)
-
-<NotesPdfViewer
-  title="Handwritten Notes: Electrodynamics"
-  src="/notes/electrodynamics.pdf"
-  viewerTitle="Electrodynamics Notes"
-/>
