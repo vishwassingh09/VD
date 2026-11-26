@@ -716,7 +716,6 @@
                         <!-- Research Intro (Default View) -->
                         <div id="research-intro" class="school-note-section active-school-section">
                             <h2>Research Physics</h2>
-                            <p>Welcome to the research frontier. This section is dedicated to advanced topics, ongoing personal projects, and deep dives into the current boundaries of modern physics.</p>
                             <p><em>Select a topic from the sidebar to view the detailed research notes and simulations.</em></p>
                         </div>
 
@@ -1209,8 +1208,8 @@
                         
                         <!-- 0. Notes Overview -->
                         <div id="notes-intro" class="school-note-section active-school-section">
-                            <h2>MSc Physics Lecture Notes & Computational Labs</h2>
-                            <p>Welcome to the MSc Physics resource library. This repository contains complete handwritten course notes, mathematical derivations, formula summaries, and interactive numerical notebooks (Python/Jupyter) designed for postgraduate physics coursework and national competitive examinations (NET / GATE / JEST / TIFR).</p>
+                            <h2>Notes</h2>
+                            
                             
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0;">
                                 <div style="background: var(--container-bg, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
@@ -1219,7 +1218,7 @@
                                 </div>
                                 <div style="background: var(--container-bg, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                                     <h3 style="margin-top: 0; color: #007bff;">💻 Numerical Methods & Notebooks</h3>
-                                    <p>Computational algorithms formatted as <strong>IBM Quantum / Jupyter-style interactive notebooks</strong> with code blocks, mathematical explanations, and numerical outputs.</p>
+                                    <p>Computational algorithms formatted as <strong> Jupyter-style interactive notebooks</strong> with code blocks, mathematical explanations, and numerical outputs.</p>
                                 </div>
                             </div>
 
@@ -1231,7 +1230,7 @@
                         <!-- 1. Mathematical Methods in Physics (MMP) -->
                         <div id="notes-mmp" class="school-note-section">
                             <h2>Mathematical Methods in Physics (MMP)</h2>
-                            <p>Advanced mathematical frameworks for theoretical physics: Complex variables & contour integration, linear vector spaces, differential equations & special functions, Fourier & Laplace transforms, Green's functions, group theory, and tensor calculus.</p>
+                            <p>MMP Notes are divided lecture wise, select from drop down list.</p>
                             
                             <!-- PDF Reader Container with Lecture Picker -->
                             <div class="notes-pdf-box">
@@ -1287,25 +1286,13 @@
 
                             <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                            <h3>Key Mathematical Formulations</h3>
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #17a2b8; margin: 15px 0;">
-                                <h4>Cauchy's Residue Theorem</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\oint_C f(z) \\, dz = 2\\pi i \\sum_{k=1}^n \\operatorname{Res}(f, z_k) $$"} />
-                                <p>Essential for evaluating contour integrals and real improper integrals across the complex plane. Residue at a pole of order {"$m$"}:</p>
-                                <p style="text-align: center; font-size: 1.1em;" set:html={"$$ \\operatorname{Res}(f, z_0) = \\frac{1}{(m-1)!} \\lim_{z \\to z_0} \\frac{d^{m-1}}{dz^{m-1}} \\left[(z - z_0)^m f(z)\\right] $$"} />
-                            </div>
-
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #6c757d; margin: 15px 0;">
-                                <h4>Green's Function for Boundary Value Problems</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \\mathcal{L}_x [G(x, x')] = \\delta(x - x'), \\quad u(x) = \\int G(x, x') f(x') \\, dx' $$"} />
-                                <p>where {"$\\mathcal{L}_x$"} is a linear differential operator with boundary conditions satisfied by {"$G(x, x')$"}.</p>
-                            </div>
+                            
                         </div>
 
                         <!-- 2. Classical Mechanics -->
                         <div id="notes-cm" class="school-note-section">
                             <h2>Classical Mechanics (MSc Level)</h2>
-                            <p>Advanced formulation of classical dynamics: D'Alembert's principle, Euler-Lagrange equations, canonical transformations, Poisson brackets, and Hamilton-Jacobi theory.</p>
+                            <p>These were made using watching the legendary Bala Sir's NPTEL Lectures on Classical Mechanics</p>
                             
                             <!-- PDF Reader Container -->
                             <div class="notes-pdf-box">
@@ -1336,7 +1323,7 @@
                         <!-- 2. Quantum Mechanics -->
                         <div id="notes-qm" class="school-note-section">
                             <h2>Quantum Mechanics (MSc Level)</h2>
-                            <p>Hilbert spaces, Dirac bra-ket formalism, angular momentum algebra, perturbation theory (time-independent & time-dependent), WKB approximation, and scattering theory.</p>
+                            <p>Again these were made using Bala Sir's NPTEL Lectures on QM</p>
                             
                             <div class="notes-pdf-box">
                                 <div class="notes-toolbar">
@@ -1355,18 +1342,13 @@
 
                             <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                            <h3>Key Theoretical Highlights</h3>
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #007bff; margin: 15px 0;">
-                                <h4>General Uncertainty Relation</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \Delta A \, \Delta B \ge \frac{1}{2} |\langle [\hat{A}, \hat{B}] \rangle| $$"} />
-                                <p>For position and momentum {"$[\hat{x}, \hat{p}] = i\hbar$"}, reproducing Heisenberg's principle {"$\Delta x \Delta p \ge \frac{\hbar}{2}$"}.</p>
-                            </div>
+                            
                         </div>
 
                         <!-- 3. Statistical Mechanics -->
                         <div id="notes-sm" class="school-note-section">
                             <h2>Statistical Mechanics (MSc Level)</h2>
-                            <p>Microcanonical, Canonical, and Grand Canonical ensembles, partition functions, Bose-Einstein condensation, Fermi-Dirac gas, and phase transitions (Ising model).</p>
+                            <p>Within Bala Sir's Lecture on Classical Mechanics, there is section on Statistical Mechanics. Its super precise and to the point. Loved it. I had made these when i was trying out pen tab. Thats why such poor handwriting.</p>
                             
                             <div class="notes-pdf-box">
                                 <div class="notes-toolbar">
@@ -1385,18 +1367,13 @@
 
                             <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                            <h3>Key Theoretical Highlights</h3>
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #28a745; margin: 15px 0;">
-                                <h4>Grand Canonical Partition Function</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \mathcal{Z} = \sum_{N} e^{\beta \mu N} Z_N = \sum_{s} e^{-\beta(E_s - \mu N_s)} $$"} />
-                                <p>Thermodynamic potential connection: {"$\Phi = -k_B T \ln \mathcal{Z} = -P V$"}.</p>
-                            </div>
+                            
                         </div>
 
                         <!-- 4. Electrodynamics -->
                         <div id="notes-ed" class="school-note-section">
-                            <h2>Classical & Relativistic Electrodynamics (MSc Level)</h2>
-                            <p>Maxwell's equations, Gauge transformations (Coulomb & Lorenz gauges), Green's functions, radiation from accelerating charges (Liénard-Wiechert potentials), and covariant 4-vector formulation of EM fields.</p>
+                            <h2>Electrodynamics (MSc Level)</h2>
+                            <p>This is my first reading of D.J.Griffiths book which is my first proper introduction to electrodynamics.</p>
                             
                             <div class="notes-pdf-box">
                                 <div class="notes-toolbar">
@@ -1415,12 +1392,7 @@
 
                             <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                            <h3>Key Theoretical Highlights</h3>
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #6f42c1; margin: 15px 0;">
-                                <h4>Covariant Maxwell's Equations</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ \partial_\mu F^{\mu\nu} = \mu_0 J^\nu, \quad \partial_\mu \tilde{F}^{\mu\nu} = 0 $$"} />
-                                <p>where {"$F^{\mu\nu} = \partial^\mu A^\nu - \partial^\nu A^\mu$"} is the electromagnetic field strength tensor.</p>
-                            </div>
+                            
                         </div>
 
                         <!-- 6. Electronics & Experimental Techniques -->
@@ -1446,24 +1418,13 @@
 
                             <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--sidebar-border, #e2e8f0);">
 
-                            <h3>Key Theoretical Highlights</h3>
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #fd7e14; margin: 15px 0;">
-                                <h4>Operational Amplifier: Inverting Amplifier & Virtual Short</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ V_+ \\approx V_- \\quad (\\text{Virtual Short Concept}), \\quad V_{\\text{out}} = -\\frac{R_f}{R_{\\text{in}}} V_{\\text{in}} $$"} />
-                                <p>For non-inverting amplifier configuration: {"$V_{\\text{out}} = \\left(1 + \\frac{R_f}{R_1}\\right) V_{\\text{in}}$"} providing exceptionally high input impedance.</p>
-                            </div>
-
-                            <div style="background: var(--bg-color, #fff); padding: 15px 20px; border-left: 4px solid #20c997; margin: 15px 0;">
-                                <h4>Barkhausen Criterion for Sustained Oscillations</h4>
-                                <p style="text-align: center; font-size: 1.2em;" set:html={"$$ |A \\beta| = 1, \\quad \\angle A \\beta = 2n\\pi \\quad (n = 0, 1, 2, \\dots) $$"} />
-                                <p>The loop gain must be unity with zero phase shift (or an integer multiple of {"$360^\\circ$"}) across the feedback network.</p>
-                            </div>
+                            
                         </div>
 
                         <!-- 7. Solid State Physics -->
                         <div id="notes-ssp" class="school-note-section">
                             <h2>Solid State Physics (MSc Level)</h2>
-                            <p>Crystal structures, reciprocal lattice, Bloch theorem, Kronig-Penney model, nearly free electron approximation, tight-binding method, phonons, and BCS theory of superconductivity.</p>
+                            <p>These are notes i tried to make using the legendary book by Ashcroft and Mermin and some other texts.</p>
                             
                             <div class="notes-pdf-box">
                                 <div class="notes-toolbar">
@@ -1526,7 +1487,7 @@
                         <!-- 8. Numerical Methods (Jupyter / IBM Quantum Tutorial Style) -->
                         <div id="notes-num" class="school-note-section">
                             <h2>Numerical Methods & Computational Physics</h2>
-                            <p>Interactive computational tutorials modeled after <strong>IBM Quantum Learning / Jupyter Notebooks</strong>. Each tutorial integrates rigorous theoretical motivation, code implementations with standard scientific libraries (NumPy, SciPy, Matplotlib), and output visualizations.</p>
+                            <p>Under construction. Trying out stuff.</p>
                             
                             <!-- Notebook 1 -->
                             <div class="jupyter-notebook">
