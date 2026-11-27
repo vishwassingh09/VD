@@ -1,0 +1,1484 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch7-sec4" class="ed-sec-block">
+
+### Chapter 7 Review Problems (7.41 – 7.64)
+
+<div class="ed-theory-box">
+
+#### Chapter 7 Formula & Problem-Solving Checklist
+
+- **Ohm's Law & Steady Currents:** $\mathbf{J} = \sigma(\mathbf{E} + \mathbf{v}\times\mathbf{B})$, or $\mathbf{J} = \sigma\mathbf{E}$ ($\rho = 1/\sigma$) for stationary conductors. In a homogeneous ohmic medium with steady current ($\nabla\cdot\mathbf{J} = 0$), $\nabla\cdot\mathbf{E} = 0 \implies \nabla^2 V = 0$ and the resistance $R$ between two electrodes is related to their electrostatic capacitance $C$ by $R C = \epsilon_0 / \sigma$.
+- **Electromotive Force & Motional Emf:** $\mathcal{E} = \oint \mathbf{f}\cdot d\mathbf{l}$, where $\mathbf{f} = \mathbf{f}_{\text{source}} + \mathbf{v}\times\mathbf{B} + \mathbf{E}$. By the flux rule, the motional emf around a moving loop is $\mathcal{E} = -\frac{d\Phi}{dt}$, with $\Phi = \int \mathbf{B}\cdot d\mathbf{a}$.
+- **Faraday's Law:** A changing magnetic field induces an electric field satisfying
+
+$$
+\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \qquad \oint \mathbf{E} \cdot d\mathbf{l} = -\frac{d\Phi}{dt}.
+$$
+
+  In the Coulomb gauge ($\nabla\cdot\mathbf{A} = 0$), the purely Faraday-induced field is $\mathbf{E} = -\partial\mathbf{A}/\partial t$.
+- **Inductance & Magnetic Energy:** Mutual inductance $\Phi_2 = M I_1$ is given by the Neumann formula
+
+$$
+M = \frac{\mu_0}{4\pi} \oint \oint \frac{d\mathbf{l}_1 \cdot d\mathbf{l}_2}{|\mathbf{r}_1 - \mathbf{r}_2|},
+$$
+
+  and self-inductance satisfies $\Phi = L I$ with back emf $\mathcal{E} = -L\,dI/dt$. Stored magnetic energy is $W = \frac{1}{2} L I^2 = \frac{1}{2\mu_0}\int B^2\,d\tau$ (in linear magnetic media of permeability $\mu$, replace $\mu_0 \to \mu$).
+- **Ampère–Maxwell Law & Displacement Current:** Consistency with the continuity equation $\nabla\cdot\mathbf{J} = -\partial\rho/\partial t$ requires Maxwell's displacement current $\mathbf{J}_d = \epsilon_0\,\partial\mathbf{E}/\partial t$ ($I_d = \epsilon_0\,d\Phi_E/dt$):
+
+$$
+\nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \epsilon_0 \frac{\partial \mathbf{E}}{\partial t}.
+$$
+
+- **Maxwell's Equations (in vacuum and with magnetic monopoles):** Standard equations are $\nabla\cdot\mathbf{E} = \rho/\epsilon_0$, $\nabla\cdot\mathbf{B} = 0$, $\nabla\times\mathbf{E} = -\partial\mathbf{B}/\partial t$, and $\nabla\times\mathbf{B} = \mu_0\mathbf{J} + \mu_0\epsilon_0\,\partial\mathbf{E}/\partial t$. When magnetic charges $(\rho_m, \mathbf{J}_m)$ are included ($\nabla\cdot\mathbf{B} = \mu_0\rho_m$, $\nabla\times\mathbf{E} = -\mu_0\mathbf{J}_m - \partial\mathbf{B}/\partial t$), the theory is symmetric under duality rotations in $(\mathbf{E}, c\mathbf{B})$ space.
+
+</div>
+
+<ProblemCard num="7.41" title="Current Between Parallel Copper Pipes in a Weakly Conducting Medium" tag="Griffiths 7.41 · Steady Current & Images">
+<div slot="problem">
+
+Two long, straight copper pipes, each of radius $a$, are held a distance $2d$ apart. One is at potential $+V_0$, and the other is at $-V_0$. The space surrounding the pipes is filled with weakly conducting material of conductivity $\sigma$. Find the current per unit length that flows from one pipe to the other. *(Hint: Refer to Prob. 3.12.)*
+
+</div>
+<div slot="answer">
+
+$$
+i = \frac{4\pi\sigma V_0}{\ln\!\left(2\alpha^2 - 1 + 2\alpha\sqrt{\alpha^2 - 1}\right)} = \frac{2\pi\sigma V_0}{\cosh^{-1}(d/a)}, \qquad \text{where } \alpha \equiv \frac{d}{a}.
+$$
+
+</div>
+<div slot="solution">
+
+In a uniform conducting medium with steady current, $\nabla\cdot\mathbf{J} = 0 \implies \nabla\cdot\mathbf{E} = 0$, so the electrostatic potential $V$ satisfies Laplace's equation with the same boundary conditions as in electrostatics. Consider first the image problem of two parallel line charges $+\lambda$ at $y = +b$ and $-\lambda$ at $y = -b$ (along the $x$-axis). The combined potential is
+
+$$
+V(y, z) = \frac{\lambda}{2\pi\epsilon_0}\ln\!\left(\frac{s_-}{s_+}\right) = \frac{\lambda}{4\pi\epsilon_0}\ln\!\left[\frac{(y+b)^2 + z^2}{(y-b)^2 + z^2}\right].
+$$
+
+Setting $\mu \equiv e^{4\pi\epsilon_0 V/\lambda}$, the equipotential surface satisfies
+
+$$
+\mu(y^2 - 2yb + b^2 + z^2) = y^2 + 2yb + b^2 + z^2 \implies y^2 + z^2 + b^2 - 2yb\left(\frac{\mu+1}{\mu-1}\right) = 0.
+$$
+
+Completing the square gives a circular cylinder:
+
+$$
+\left(y - b\frac{\mu+1}{\mu-1}\right)^2 + z^2 = b^2\left[\left(\frac{\mu+1}{\mu-1}\right)^2 - 1\right] = \frac{4b^2\mu}{(\mu-1)^2}.
+$$
+
+For the pipe at $+V_0$ centered at $y_0 = d > 0$ with radius $a$, we require $\mu > 1$, $y_0 = b\frac{\mu+1}{\mu-1} = d$, and $a = \frac{2b\sqrt{\mu}}{\mu-1}$. Taking the ratio $\alpha \equiv d/a$:
+
+$$
+\alpha = \frac{\mu + 1}{2\sqrt{\mu}} \implies \mu^2 + (2 - 4\alpha^2)\mu + 1 = 0 \implies \mu = 2\alpha^2 - 1 \pm 2\alpha\sqrt{\alpha^2 - 1}.
+$$
+
+Since $\alpha > 1$ (non-overlapping pipes) and we require $\mu > 1$, we select the $+$ sign (note that the product of the two roots is $1$, so the $-$ root is less than $1$). Hence
+
+$$
+\lambda = \frac{4\pi\epsilon_0 V_0}{\ln\mu} = \frac{4\pi\epsilon_0 V_0}{\ln\!\left(2\alpha^2 - 1 + 2\alpha\sqrt{\alpha^2 - 1}\right)}.
+$$
+
+By symmetry, the pipe at $-V_0$ centered at $y = -d$ is automatically an equipotential of the same image pair. Using Gauss's law over a cylindrical surface of length $l$ enclosing the $+V_0$ pipe, the current leaving it is
+
+$$
+I = \int \mathbf{J}\cdot d\mathbf{a} = \sigma \int \mathbf{E}\cdot d\mathbf{a} = \frac{\sigma}{\epsilon_0} Q_{\text{enc}} = \frac{\sigma\lambda l}{\epsilon_0}.
+$$
+
+Thus, the current per unit length $i = I/l$ is
+
+$$
+i = \frac{\sigma\lambda}{\epsilon_0} = \frac{4\pi\sigma V_0}{\ln\!\left(2\alpha^2 - 1 + 2\alpha\sqrt{\alpha^2 - 1}\right)} = \frac{2\pi\sigma V_0}{\cosh^{-1}(d/a)}.
+$$
+
+*(Checking the limit $d \gg a$: $\alpha \gg 1$ gives $\ln(4\alpha^2) = 2\ln(2d/a)$, so $i \approx 2\pi\sigma V_0 / \ln(2d/a)$, which decreases with separation as expected.)*
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.42" title="Electrostatic Field and Surface Charge of a Cylindrical Resistive Sheet" tag="Griffiths 7.42 · Separation of Variables">
+<div slot="problem">
+
+Imagine an infinitely long cylindrical sheet of uniform resistivity and radius $a$. A slot (corresponding to a battery) is maintained at $\pm V_0/2$ at $\varphi = \pm \pi$, and a steady current flows over the surface so that, by Ohm's law,
+
+$$
+V(a, \varphi) = \frac{V_0 \varphi}{2\pi}, \qquad (-\pi < \varphi < +\pi).
+$$
+
+(a) Use separation of variables in cylindrical coordinates to determine $V(s, \varphi)$ inside and outside the cylinder.
+
+(b) Find the surface charge density $\sigma(\varphi)$ on the cylinder.
+
+</div>
+<div slot="answer">
+
+(a) $V_{\text{in}}(s, \varphi) = \dfrac{V_0}{\pi} \tan^{-1}\!\left(\dfrac{s\sin\varphi}{a + s\cos\varphi}\right)$ for $s < a$, and $V_{\text{out}}(s, \varphi) = \dfrac{V_0}{\pi} \tan^{-1}\!\left(\dfrac{a\sin\varphi}{s + a\cos\varphi}\right)$ for $s > a$.
+
+(b) $\sigma(\varphi) = \dfrac{\epsilon_0 V_0}{\pi a}\tan\!\left(\dfrac{\varphi}{2}\right)$.
+
+</div>
+<div slot="solution">
+
+**(a)** Since $V(s,\varphi)$ is independent of $z$ and odd in $\varphi$, the general solution to Laplace's equation in cylindrical coordinates (from Prob. 3.24) is
+
+$$
+V(s, \varphi) = \begin{cases} \displaystyle\sum_{k=1}^{\infty} s^k b_k \sin(k\varphi), & s < a, \\[8pt] \displaystyle\sum_{k=1}^{\infty} s^{-k} d_k \sin(k\varphi), & s > a. \end{cases}
+$$
+
+At $s = a$, matching $V(a,\varphi) = V_0\varphi/(2\pi)$ and multiplying by $\sin(k'\varphi)$ before integrating from $-\pi$ to $\pi$:
+
+$$
+\pi a^k b_k = \frac{V_0}{2\pi}\int_{-\pi}^{\pi} \varphi\sin(k\varphi)\,d\varphi = \frac{V_0}{2\pi}\left[-\frac{2\pi}{k}\cos(k\pi)\right] = \frac{V_0}{k}(-1)^{k+1}.
+$$
+
+Thus $b_k = \frac{V_0}{\pi k a^k}(-1)^{k+1}$ and similarly $d_k = \frac{V_0 a^k}{\pi k}(-1)^{k+1}$. Both series take the form
+
+$$
+V(s,\varphi) = \frac{V_0}{\pi} S(x,\varphi), \qquad S(x,\varphi) \equiv \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} x^k \sin(k\varphi),
+$$
+
+with $x = s/a$ for $s < a$ and $x = a/s$ for $s > a$. Using $e^{ik\varphi} = \cos(k\varphi) + i\sin(k\varphi)$ and $\ln(1+w) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} w^k$:
+
+$$
+S(x,\varphi) = \operatorname{Im}\!\left[\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}\left(x e^{i\varphi}\right)^k\right] = \operatorname{Im}\!\left[\ln\!\left(1 + x e^{i\varphi}\right)\right] = \arg\!\left(1 + x e^{i\varphi}\right).
+$$
+
+Since $\operatorname{Re}(1 + x e^{i\varphi}) = 1 + x\cos\varphi$ and $\operatorname{Im}(1 + x e^{i\varphi}) = x\sin\varphi$, we obtain
+
+$$
+S(x,\varphi) = \tan^{-1}\!\left(\frac{x\sin\varphi}{1 + x\cos\varphi}\right).
+$$
+
+Substituting $x = s/a$ and $x = a/s$ yields
+
+$$
+V_{\text{in}}(s, \varphi) = \frac{V_0}{\pi}\tan^{-1}\!\left(\frac{s\sin\varphi}{a + s\cos\varphi}\right) \quad (s < a), \qquad V_{\text{out}}(s, \varphi) = \frac{V_0}{\pi}\tan^{-1}\!\left(\frac{a\sin\varphi}{s + a\cos\varphi}\right) \quad (s > a).
+$$
+
+**(b)** From the electrostatic boundary condition $\sigma = \epsilon_0 (E_{\text{out},s} - E_{\text{in},s})$ at $s = a$:
+
+$$
+\sigma(\varphi) = \epsilon_0 \left(\left.\frac{\partial V_{\text{in}}}{\partial s}\right|_{s=a} - \left.\frac{\partial V_{\text{out}}}{\partial s}\right|_{s=a}\right).
+$$
+
+Differentiating each expression with respect to $s$:
+
+$$
+\frac{\partial V_{\text{in}}}{\partial s} = \frac{V_0}{\pi}\frac{a\sin\varphi}{s^2 + 2as\cos\varphi + a^2}, \qquad \frac{\partial V_{\text{out}}}{\partial s} = -\frac{V_0}{\pi}\frac{a\sin\varphi}{s^2 + 2as\cos\varphi + a^2}.
+$$
+
+Evaluating at $s = a$ gives $\left.\frac{\partial V_{\text{in}}}{\partial s}\right|_{s=a} = -\left.\frac{\partial V_{\text{out}}}{\partial s}\right|_{s=a} = \frac{V_0}{2\pi a}\frac{\sin\varphi}{1 + \cos\varphi}$. Therefore,
+
+$$
+\sigma(\varphi) = \frac{\epsilon_0 V_0}{\pi a}\frac{\sin\varphi}{1 + \cos\varphi} = \frac{\epsilon_0 V_0}{\pi a}\tan\!\left(\frac{\varphi}{2}\right).
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.43" title="Electric Field Outside a Current-Carrying Coaxial Wire (Merzbacher's Puzzle)" tag="Griffiths 7.43 · Laplace's Equation">
+<div slot="problem">
+
+A long straight wire of radius $a$ and resistivity $\rho$ carries a steady current $I$, with uniform interior electric field $\mathbf{E} = (I\rho/\pi a^2)\hat{\mathbf{z}}$. The current returns along a perfectly conducting grounded coaxial cylinder of radius $b$. In the region $a < s < b$, the potential $V(s, z)$ satisfies Laplace's equation with boundary conditions (i) $V(a, z) = -I\rho z/(\pi a^2)$ and (ii) $V(b, z) = 0$. Assuming $V(s, z) = z f(s)$:
+
+(a) Determine $f(s)$.
+
+(b) Find $\mathbf{E}(s, z)$ in the region $a < s < b$.
+
+(c) Calculate the surface charge density $\sigma(z)$ on the inner wire.
+
+</div>
+<div slot="answer">
+
+(a) $f(s) = -\dfrac{I\rho}{\pi a^2}\dfrac{\ln(s/b)}{\ln(a/b)}$.
+
+(b) $\mathbf{E}(s, z) = \dfrac{I\rho}{\pi a^2 \ln(a/b)}\left[\dfrac{z}{s}\hat{\mathbf{s}} + \ln\!\left(\dfrac{s}{b}\right)\hat{\mathbf{z}}\right]$.
+
+(c) $\sigma(z) = \dfrac{\epsilon_0 I\rho z}{\pi a^3 \ln(a/b)}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Substituting $V(s, z) = z f(s)$ into Laplace's equation in cylindrical coordinates:
+
+$$
+\nabla^2 V = \frac{1}{s}\frac{\partial}{\partial s}\left(s\frac{\partial(z f)}{\partial s}\right) + \frac{\partial^2(z f)}{\partial z^2} = \frac{z}{s}\frac{d}{ds}\left(s\frac{df}{ds}\right) = 0.
+$$
+
+Thus $s\frac{df}{ds} = A$ (a constant), which integrates to $f(s) = A\ln(s/s_0)$. Boundary condition (ii), $V(b,z) = 0$, requires $f(b) = 0 \implies s_0 = b$. Boundary condition (i) gives
+
+$$
+A z \ln\!\left(\frac{a}{b}\right) = -\frac{I\rho z}{\pi a^2} \implies A = -\frac{I\rho}{\pi a^2 \ln(a/b)}.
+$$
+
+Hence,
+
+$$
+f(s) = -\frac{I\rho}{\pi a^2}\frac{\ln(s/b)}{\ln(a/b)}, \qquad V(s, z) = -\frac{I\rho z}{\pi a^2}\frac{\ln(s/b)}{\ln(a/b)}.
+$$
+
+**(b)** Taking the negative gradient $\mathbf{E} = -\nabla V$ for $a < s < b$:
+
+$$
+\mathbf{E}(s, z) = -\frac{\partial V}{\partial s}\hat{\mathbf{s}} - \frac{\partial V}{\partial z}\hat{\mathbf{z}} = \frac{I\rho}{\pi a^2 \ln(a/b)}\left[\frac{z}{s}\hat{\mathbf{s}} + \ln\!\left(\frac{s}{b}\right)\hat{\mathbf{z}}\right].
+$$
+
+*(Note that at $s = a$, $E_z = I\rho/(\pi a^2)$, continuously matching the field inside the wire.)*
+
+**(c)** Inside the wire ($s < a$), the field is purely axial so $E_s(a^-) = 0$. Therefore, the surface charge density at $s = a$ is
+
+$$
+\sigma(z) = \epsilon_0 \left[E_s(a^+) - E_s(a^-)\right] = \frac{\epsilon_0 I\rho z}{\pi a^3 \ln(a/b)}.
+$$
+
+*(Note that since $a < b$, $\ln(a/b) < 0$, so $\sigma(z)$ is negative for $z > 0$ and positive for $z < 0$.)*
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.44" title="Perfect Conductors, Superconductors, and the Meissner Effect" tag="Griffiths 7.44 · Superconductivity">
+<div slot="problem">
+
+In a perfect conductor, the conductivity is infinite, so $\mathbf{E} = \mathbf{0}$ inside and any net charge resides on the surface.
+
+(a) Show that the magnetic field is constant ($\partial\mathbf{B}/\partial t = \mathbf{0}$) inside a perfect conductor.
+
+(b) Show that the magnetic flux through a perfectly conducting loop is constant.
+
+A superconductor is a perfect conductor with the additional property that the (constant) $\mathbf{B}$ inside is in fact zero (the Meissner effect).
+
+(c) Show that the current in a superconductor is confined to the surface.
+
+(d) Suppose a superconducting sphere of radius $a$ is cooled below its critical temperature $T_c$ while held in a uniform magnetic field $\mathbf{B}_0 = B_0\hat{\mathbf{z}}$. Find the induced surface current density $\mathbf{K}(\theta)$ as a function of the polar angle $\theta$.
+
+</div>
+<div slot="answer">
+
+(a) $\partial\mathbf{B}/\partial t = -\nabla\times\mathbf{E} = \mathbf{0}$.
+
+(b) $d\Phi/dt = -\oint \mathbf{E}\cdot d\mathbf{l} = 0$.
+
+(c) $\mathbf{J} = \frac{1}{\mu_0}\nabla\times\mathbf{B} - \epsilon_0\frac{\partial\mathbf{E}}{\partial t} = \mathbf{0}$ inside.
+
+(d) $\mathbf{K}(\theta) = -\dfrac{3B_0}{2\mu_0}\sin\theta\,\hat{\boldsymbol{\phi}}$.
+
+</div>
+<div slot="solution">
+
+**(a)** By Faraday's law, inside a perfect conductor where $\mathbf{E} = \mathbf{0}$,
+
+$$
+\frac{\partial\mathbf{B}}{\partial t} = -\nabla\times\mathbf{E} = \mathbf{0},
+$$
+
+so $\mathbf{B}(\mathbf{r})$ is independent of time.
+
+**(b)** By the integral form of Faraday's law applied to a closed path lying inside the perfectly conducting wire,
+
+$$
+\frac{d\Phi}{dt} = -\oint \mathbf{E}\cdot d\mathbf{l} = 0,
+$$
+
+because $\mathbf{E} = \mathbf{0}$ everywhere along the wire. Hence the magnetic flux $\Phi$ through the loop is constant.
+
+**(c)** Inside a superconductor, both $\mathbf{E} = \mathbf{0}$ and $\mathbf{B} = \mathbf{0}$. From the Ampère–Maxwell law,
+
+$$
+\mathbf{J} = \frac{1}{\mu_0}(\nabla\times\mathbf{B}) - \epsilon_0\frac{\partial\mathbf{E}}{\partial t} = \mathbf{0},
+$$
+
+so no volume current can flow in the interior; any current must reside entirely on the surface.
+
+**(d)** From Eq. (5.70), a spherical shell of radius $a$ carrying surface current $\mathbf{K} = \sigma\omega a\sin\theta\,\hat{\boldsymbol{\phi}}$ (such as a spinning charged shell) produces a uniform interior magnetic field
+
+$$
+\mathbf{B}_{\text{shell}} = \frac{2}{3}\mu_0(\sigma\omega a)\hat{\mathbf{z}}.
+$$
+
+To expel the applied field $\mathbf{B}_0 = B_0\hat{\mathbf{z}}$ from the interior of the sphere ($\mathbf{B}_{\text{tot}} = \mathbf{B}_0 + \mathbf{B}_{\text{shell}} = \mathbf{0}$), we require $\mathbf{B}_{\text{shell}} = -B_0\hat{\mathbf{z}}$, which fixes $\sigma\omega a = -\frac{3B_0}{2\mu_0}$. Substituting this into $\mathbf{K}$ gives
+
+$$
+\mathbf{K}(\theta) = -\frac{3B_0}{2\mu_0}\sin\theta\,\hat{\boldsymbol{\phi}}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.45" title="Magnetic Levitation Over a Superconducting Plane" tag="Griffiths 7.45 · Method of Images">
+<div slot="problem">
+
+Treat a magnet of mass $M$ as a perfect magnetic dipole $\mathbf{m} = m\hat{\mathbf{z}}$ at height $z$ above the origin, with a superconductor occupying the half-space $z \le 0$. Because of the Meissner effect, $\mathbf{B} = \mathbf{0}$ for $z \le 0$ and $B_z = 0$ just above $z = 0$. This boundary condition in $z > 0$ is met by placing an image dipole at $-z$.
+
+(a) Which way should the image dipole point ($+\hat{\mathbf{z}}$ or $-\hat{\mathbf{z}}$)?
+
+(b) Find the upward force on the magnet due to the induced surface currents, and determine the equilibrium floating height $h$. *(Hint: Refer to Prob. 6.3.)*
+
+(c) Using the boundary condition $\mathbf{B} = \mu_0(\mathbf{K}\times\hat{\mathbf{z}})$ at $z = 0$, show that the induced surface current density is $\mathbf{K} = -\dfrac{3mhr}{2\pi(r^2+h^2)^{5/2}}\hat{\boldsymbol{\phi}}$.
+
+</div>
+<div slot="answer">
+
+(a) $-\hat{\mathbf{z}}$ (pointing downward).
+
+(b) $F = \dfrac{3\mu_0 m^2}{2\pi (2z)^4}$; $h = \dfrac{1}{2}\left(\dfrac{3\mu_0 m^2}{2\pi M g}\right)^{1/4}$.
+
+(c) Proven via the dipole field of the real and image dipoles at $z = 0$.
+
+</div>
+<div slot="solution">
+
+**(a)** Just as two equal-sign electric monopoles at $\pm z$ produce $E_z = 0$ on the $xy$-plane, two opposing vertical magnetic dipoles (whose effective magnetic poles are mirrored symmetrically across $z = 0$) cancel $B_z$ at $z = 0$. Explicitly, for $\mathbf{m}_1 = +m\hat{\mathbf{z}}$ at $(0,0,+z)$ and $\mathbf{m}_2 = -m\hat{\mathbf{z}}$ at $(0,0,-z)$, at any point on $z=0$ both dipoles have the same distance $r_1$ and opposite signs of $z$-displacement, so $B_{1z} + B_{2z} = 0$. Thus, the image dipole must point in the **$-\hat{\mathbf{z}}$** direction.
+
+**(b)** From Prob. 6.3, the force between two opposing dipoles separated by $2z$ along their common axis is repulsive with magnitude
+
+$$
+F = \frac{3\mu_0 m^2}{2\pi (2z)^4}.
+$$
+
+Setting this upward force equal to the weight $Mg$ at $z = h$:
+
+$$
+\frac{3\mu_0 m^2}{2\pi (2h)^4} = Mg \implies h = \frac{1}{2}\left(\frac{3\mu_0 m^2}{2\pi M g}\right)^{1/4}.
+$$
+
+**(c)** At a point $(r, \phi, 0)$ on the $xy$-plane, let $\mathbf{r}_1 = r\hat{\mathbf{r}} - h\hat{\mathbf{z}}$ be the displacement from $\mathbf{m}_1$ and $\mathbf{r}_2 = r\hat{\mathbf{r}} + h\hat{\mathbf{z}}$ be the displacement from $\mathbf{m}_2$. Both have length $r_1 = \sqrt{r^2 + h^2}$. Letting $\theta$ be the angle from the vertical so that $\sin\theta = r/r_1$ and $\cos\theta = h/r_1$, we have $\hat{\mathbf{z}}\cdot\hat{\mathbf{r}}_1 = -\cos\theta$ and $\hat{\mathbf{z}}\cdot\hat{\mathbf{r}}_2 = +\cos\theta$. Using Eq. (5.89), the total field at $z = 0^+$ is
+
+$$
+\mathbf{B} = \frac{\mu_0}{4\pi r_1^3}\left\{\left[3(m\hat{\mathbf{z}}\cdot\hat{\mathbf{r}}_1)\hat{\mathbf{r}}_1 - m\hat{\mathbf{z}}\right] + \left[3(-m\hat{\mathbf{z}}\cdot\hat{\mathbf{r}}_2)\hat{\mathbf{r}}_2 + m\hat{\mathbf{z}}\right]\right\} = -\frac{3\mu_0 m}{4\pi r_1^3}\cos\theta\left(\hat{\mathbf{r}}_1 + \hat{\mathbf{r}}_2\right).
+$$
+
+Since $\hat{\mathbf{r}}_1 + \hat{\mathbf{r}}_2 = 2\sin\theta\,\hat{\mathbf{r}}$, this simplifies to
+
+$$
+\mathbf{B} = -\frac{3\mu_0 m}{2\pi r_1^3}\sin\theta\cos\theta\,\hat{\mathbf{r}} = -\frac{3\mu_0 m h r}{2\pi (r^2 + h^2)^{5/2}}\hat{\mathbf{r}}.
+$$
+
+From $\mathbf{B} = \mu_0(\mathbf{K}\times\hat{\mathbf{z}})$, taking the cross product with $\hat{\mathbf{z}}$ from the left and noting $\mathbf{K}\cdot\hat{\mathbf{z}} = 0$ gives
+
+$$
+\hat{\mathbf{z}}\times\mathbf{B} = \mu_0\hat{\mathbf{z}}\times(\mathbf{K}\times\hat{\mathbf{z}}) = \mu_0\left[\mathbf{K} - \hat{\mathbf{z}}(\mathbf{K}\cdot\hat{\mathbf{z}})\right] = \mu_0\mathbf{K}.
+$$
+
+Since $\hat{\mathbf{z}}\times\hat{\mathbf{r}} = \hat{\boldsymbol{\phi}}$, we obtain
+
+$$
+\mathbf{K} = \frac{1}{\mu_0}(\hat{\mathbf{z}}\times\mathbf{B}) = -\frac{3mhr}{2\pi(r^2 + h^2)^{5/2}}\hat{\boldsymbol{\phi}}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.46" title="Equilibrium Orientation of a Freely Rotating Levitating Dipole" tag="Griffiths 7.46 · Magnetic Torque & Force">
+<div slot="problem">
+
+If the magnetic dipole levitating above an infinite superconducting plane (Prob. 7.45) is free to rotate, what orientation will it adopt, and how high above the surface will it float?
+
+</div>
+<div slot="answer">
+
+The dipole aligns **parallel** to the superconducting surface ($\theta = \pi/2$), and floats at height
+
+$$
+h = \frac{1}{2}\left(\frac{3\mu_0 m^2}{4\pi M g}\right)^{1/4} = 2^{-1/4}\, h_{\perp}.
+$$
+
+</div>
+<div slot="solution">
+
+Suppose the dipole $\mathbf{m}_1$ at $(0,0,h)$ makes an angle $\theta$ with the $z$-axis:
+
+$$
+\mathbf{m}_1 = m(\sin\theta\,\hat{\mathbf{x}} + \cos\theta\,\hat{\mathbf{z}}).
+$$
+
+To satisfy $B_z = 0$ at $z = 0$, the vertical component flips sign while the horizontal component stays the same in the image dipole at $(0,0,-h)$:
+
+$$
+\mathbf{m}_2 = m(\sin\theta\,\hat{\mathbf{x}} - \cos\theta\,\hat{\mathbf{z}}).
+$$
+
+At $(0,0,h)$, a distance $2h$ above $\mathbf{m}_2$, the field produced by the image dipole is
+
+$$
+\mathbf{B}_2(0,0,h) = \frac{\mu_0}{4\pi (2h)^3}\left[3(\mathbf{m}_2\cdot\hat{\mathbf{z}})\hat{\mathbf{z}} - \mathbf{m}_2\right].
+$$
+
+The torque on $\mathbf{m}_1$ is $\mathbf{N} = \mathbf{m}_1\times\mathbf{B}_2$:
+
+$$
+\mathbf{N} = \frac{\mu_0}{4\pi (2h)^3}\left[3(\mathbf{m}_2\cdot\hat{\mathbf{z}})(\mathbf{m}_1\times\hat{\mathbf{z}}) - (\mathbf{m}_1\times\mathbf{m}_2)\right].
+$$
+
+Using $\mathbf{m}_2\cdot\hat{\mathbf{z}} = -m\cos\theta$, $\mathbf{m}_1\times\hat{\mathbf{z}} = -m\sin\theta\,\hat{\mathbf{y}}$, and $\mathbf{m}_1\times\mathbf{m}_2 = 2m^2\sin\theta\cos\theta\,\hat{\mathbf{y}}$:
+
+$$
+\mathbf{N} = \frac{\mu_0 m^2}{4\pi (2h)^3}\left(3\sin\theta\cos\theta - 2\sin\theta\cos\theta\right)\hat{\mathbf{y}} = \frac{\mu_0 m^2}{4\pi (2h)^3}\sin\theta\cos\theta\,\hat{\mathbf{y}}.
+$$
+
+Equilibrium occurs where $\mathbf{N} = \mathbf{0}$, i.e., $\theta = 0, \pi/2, \pi$. Since increasing $\theta$ corresponds to rotation in the $+\hat{\mathbf{y}}$ direction, $N_y > 0$ for $0 < \theta < \pi/2$ and $N_y < 0$ for $\pi/2 < \theta < \pi$. Thus $\theta = 0$ and $\theta = \pi$ are unstable, and the stable orientation is $\theta = \pi/2$ (parallel to the superconducting plane).
+
+In this orientation, $\mathbf{m}_1 = \mathbf{m}_2 = m\hat{\mathbf{x}}$, so at $(0,0,z)$ the image field is $\mathbf{B}_2(0,0,z) = -\frac{\mu_0 m}{4\pi(h+z)^3}\hat{\mathbf{x}}$, and the force on $\mathbf{m}_1$ is
+
+$$
+\mathbf{F} = \left.\nabla(\mathbf{m}_1\cdot\mathbf{B}_2)\right|_{z=h} = \left.\frac{\partial}{\partial z}\left[-\frac{\mu_0 m^2}{4\pi(h+z)^3}\right]\right|_{z=h}\hat{\mathbf{z}} = \frac{3\mu_0 m^2}{4\pi (2h)^4}\hat{\mathbf{z}}.
+$$
+
+Balancing this upward force with $Mg$ gives
+
+$$
+\frac{3\mu_0 m^2}{4\pi (2h)^4} = Mg \implies h = \frac{1}{2}\left(\frac{3\mu_0 m^2}{4\pi M g}\right)^{1/4},
+$$
+
+which is $2^{-1/4} \approx 0.841$ times the floating height found in Prob. 7.45(b).
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.47" title="Motional Emf in a Rotating Conducting Spherical Shell" tag="Griffiths 7.47 · Motional Emf">
+<div slot="problem">
+
+A perfectly conducting spherical shell of radius $a$ rotates about the $z$-axis with angular velocity $\omega$, in a uniform magnetic field $\mathbf{B} = B_0\hat{\mathbf{z}}$. Calculate the emf developed between the "north pole" and the equator.
+
+</div>
+<div slot="answer">
+
+$$
+\mathcal{E} = \frac{1}{2} B_0 \omega a^2.
+$$
+
+</div>
+<div slot="solution">
+
+At polar angle $\theta$ on the spherical shell, a point moves with velocity $\mathbf{v} = \omega a \sin\theta\,\hat{\boldsymbol{\phi}}$. The magnetic force per unit charge is
+
+$$
+\mathbf{f} = \mathbf{v}\times\mathbf{B} = \omega a B_0 \sin\theta\,(\hat{\boldsymbol{\phi}}\times\hat{\mathbf{z}}) = \omega a B_0 \sin\theta\,\hat{\mathbf{s}}.
+$$
+
+Integrating along a meridian from the north pole ($\theta = 0$) to the equator ($\theta = \pi/2$), where $d\mathbf{l} = a\,d\theta\,\hat{\boldsymbol{\theta}}$ and $\hat{\mathbf{s}}\cdot\hat{\boldsymbol{\theta}} = \cos\theta$:
+
+$$
+\mathcal{E} = \int_0^{\pi/2} \mathbf{f}\cdot d\mathbf{l} = \omega a^2 B_0 \int_0^{\pi/2} \sin\theta\cos\theta\,d\theta = \omega a^2 B_0 \left[\frac{\sin^2\theta}{2}\right]_0^{\pi/2} = \frac{1}{2} B_0 \omega a^2.
+$$
+
+*(This matches the emf between center and rim of a solid rotating disk of radius $a$ from Ex. 7.4.)*
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.48" title="Transit Time of a Falling Circular Ring Leaving a Magnetic Field" tag="Griffiths 7.48 · Faraday's Law & Terminal Velocity">
+<div slot="problem">
+
+Refer to Prob. 7.11 (and use the result of Prob. 5.42): How long does it take a falling circular ring (radius $a$, mass $m$, resistance $R$) to cross the bottom edge of a uniform magnetic field $\mathbf{B}$, moving at its (changing) terminal velocity?
+
+</div>
+<div slot="answer">
+
+$$
+t = \frac{16 B^2 a^3}{3 mgR}.
+$$
+
+</div>
+<div slot="solution">
+
+Let $y$ measure the vertical position of the ring's center relative to the bottom boundary of the magnetic field ($-a \le y \le a$). At position $y$, the chord of the ring lying along the field boundary has width $l = 2\sqrt{a^2 - y^2}$. As the ring falls at speed $v = dy/dt$ (taking $y$ downward, or $|dy/dt|$), the rate of change of magnetic flux through the ring is
+
+$$
+\mathcal{E} = \left|\frac{d\Phi}{dt}\right| = B l v = 2 B v \sqrt{a^2 - y^2},
+$$
+
+which drives a current
+
+$$
+I = \frac{\mathcal{E}}{R} = \frac{2Bv\sqrt{a^2 - y^2}}{R}.
+$$
+
+By symmetry, the horizontal components of the magnetic force on the submerged portion of the ring cancel, and the net upward magnetic force equals that on an equivalent straight wire of length $l$ spanning the boundary:
+
+$$
+F_{\text{mag}} = I B l = \left(\frac{2Bv\sqrt{a^2 - y^2}}{R}\right) B \left(2\sqrt{a^2 - y^2}\right) = \frac{4B^2 v (a^2 - y^2)}{R}.
+$$
+
+At the instantaneous terminal velocity, $F_{\text{mag}} = mg$, so
+
+$$
+v(y) = \frac{mgR}{4B^2 (a^2 - y^2)}.
+$$
+
+Integrating $dt = dy / v(y)$ over the full crossing $-a \le y \le a$:
+
+$$
+t = \int_{-a}^{a} \frac{dy}{v(y)} = \frac{4B^2}{mgR}\int_{-a}^{a} (a^2 - y^2)\,dy = \frac{4B^2}{mgR}\left[a^2 y - \frac{y^3}{3}\right]_{-a}^{a} = \frac{16 B^2 a^3}{3 mgR}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.49" title="Faraday Field from Vector Potential and Spinning Charged Sphere" tag="Griffiths 7.49 · Vector Potential & Faraday's Law">
+<div slot="problem">
+
+(a) Referring to Prob. 5.52(a) and Eq. 7.18, show that $\mathbf{E} = -\partial\mathbf{A}/\partial t$ for Faraday-induced electric fields. Check this result by taking the divergence and curl of both sides.
+
+(b) A spherical shell of radius $R$ carries a uniform surface charge $\sigma$. It spins about a fixed axis at an angular velocity $\omega(t)$ that changes slowly with time. Find the electric field inside and outside the sphere. *(Hint: Refer to Ex. 5.11.)*
+
+</div>
+<div slot="answer">
+
+(a) Shown from the Biot-Savart-like integral for $\mathbf{A}$ in the Coulomb gauge; $\nabla\cdot\mathbf{E} = 0$ and $\nabla\times\mathbf{E} = -\partial\mathbf{B}/\partial t$.
+
+(b) With $\dot{\omega} \equiv d\omega/dt$,
+
+$$
+\mathbf{E}(r,\theta,\phi,t) = \begin{cases} -\dfrac{\mu_0 R \sigma \dot{\omega}}{3}\, r\sin\theta\,\hat{\boldsymbol{\phi}}, & r < R, \\[8pt] \dfrac{\sigma R^2}{\epsilon_0 r^2}\hat{\mathbf{r}} - \dfrac{\mu_0 R^4 \sigma \dot{\omega}}{3 r^2}\sin\theta\,\hat{\boldsymbol{\phi}}, & r > R. \end{cases}
+$$
+
+</div>
+<div slot="solution">
+
+**(a)** In the Coulomb gauge ($\nabla\cdot\mathbf{A} = 0$), Prob. 5.52(a) establishes the Biot-Savart-like representation for the vector potential:
+
+$$
+\mathbf{A}(\mathbf{r}, t) = \frac{1}{4\pi}\int \frac{\mathbf{B}(\mathbf{r}', t)\times(\mathbf{r} - \mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau'.
+$$
+
+Taking $-\partial/\partial t$ of both sides and comparing with Eq. (7.18),
+
+$$
+-\frac{\partial\mathbf{A}}{\partial t} = -\frac{1}{4\pi}\int \frac{(\partial\mathbf{B}/\partial t)\times(\mathbf{r} - \mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau' = \mathbf{E}.
+$$
+
+Checking the divergence and curl of $\mathbf{E} = -\partial\mathbf{A}/\partial t$:
+
+$$
+\nabla\cdot\mathbf{E} = -\frac{\partial}{\partial t}(\nabla\cdot\mathbf{A}) = 0, \qquad \nabla\times\mathbf{E} = -\frac{\partial}{\partial t}(\nabla\times\mathbf{A}) = -\frac{\partial\mathbf{B}}{\partial t},
+$$
+
+which recovers both equations for a purely Faraday-induced electric field.
+
+**(b)** The total electric field is the sum of the electrostatic Coulomb field and the quasistatic Faraday field $\mathbf{E}_{\text{F}} = -\partial\mathbf{A}/\partial t$. Since $Q = 4\pi R^2 \sigma$, the Coulomb field is $\mathbf{0}$ for $r < R$ and $\frac{Q}{4\pi\epsilon_0 r^2}\hat{\mathbf{r}} = \frac{\sigma R^2}{\epsilon_0 r^2}\hat{\mathbf{r}}$ for $r > R$.
+
+From Ex. 5.11 (Eq. 5.69), the quasistatic vector potential of the spinning spherical shell is
+
+$$
+\mathbf{A}(r,\theta,t) = \begin{cases} \dfrac{\mu_0 R \sigma \omega(t)}{3}\, r\sin\theta\,\hat{\boldsymbol{\phi}}, & r < R, \\[8pt] \dfrac{\mu_0 R^4 \sigma \omega(t)}{3 r^2}\sin\theta\,\hat{\boldsymbol{\phi}}, & r > R. \end{cases}
+$$
+
+Differentiating $-\mathbf{A}$ with respect to $t$ (with $\dot{\omega} \equiv d\omega/dt$) and adding the Coulomb field gives
+
+$$
+\mathbf{E}(r,\theta,\phi,t) = \begin{cases} -\dfrac{\mu_0 R \sigma \dot{\omega}}{3}\, r\sin\theta\,\hat{\boldsymbol{\phi}}, & r < R, \\[8pt] \dfrac{\sigma R^2}{\epsilon_0 r^2}\hat{\mathbf{r}} - \dfrac{\mu_0 R^4 \sigma \dot{\omega}}{3 r^2}\sin\theta\,\hat{\boldsymbol{\phi}}, & r > R. \end{cases}
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.50" title="The Betatron Condition for Constant Orbit Radius" tag="Griffiths 7.50 · Faraday Acceleration">
+<div slot="problem">
+
+Electrons undergoing cyclotron motion can be sped up by increasing the magnetic field; the accompanying induced electric field imparts tangential acceleration (the principle of the betatron). Show that to keep the orbit radius $R$ constant during this nonrelativistic process, the magnet must be designed so that the average field $B_{\text{avg}}$ over the area of the orbit is twice the field $B(R)$ at the circumference. Assume the electrons start from rest in zero field and that the apparatus is axially symmetric.
+
+</div>
+<div slot="answer">
+
+$B_{\text{avg}} = 2 B(R)$, derived by combining the cyclotron relation $q B(R) R = mv$ with Faraday's law $2\pi R E(R) = d\Phi/dt$.
+
+</div>
+<div slot="solution">
+
+In circular cyclotron motion of radius $R$, Eq. (5.3) gives (taking magnitudes)
+
+$$
+q B(R) R = m v.
+$$
+
+If $R$ remains constant as $B$ increases, differentiating with respect to $t$ yields
+
+$$
+q R \frac{dB(R)}{dt} = m \frac{dv}{dt} = F_{\text{tan}} = q E(R) \implies E(R) = R \frac{dB(R)}{dt}.
+$$
+
+By axial symmetry and Faraday's law applied around the circular orbit of radius $R$, the magnitude of the induced tangential electric field satisfies
+
+$$
+\oint \mathbf{E}\cdot d\mathbf{l} = 2\pi R E(R) = \frac{d\Phi}{dt} \implies E(R) = \frac{1}{2\pi R}\frac{d\Phi}{dt}.
+$$
+
+Equating the two expressions for $E(R)$ gives
+
+$$
+R \frac{dB(R)}{dt} = \frac{1}{2\pi R}\frac{d\Phi}{dt} \implies \frac{dB(R)}{dt} = \frac{1}{2\pi R^2}\frac{d\Phi}{dt}.
+$$
+
+Integrating from $t = 0$, when both $B(R) = 0$ and $\Phi = 0$, we find
+
+$$
+B(R) = \frac{1}{2}\left(\frac{\Phi}{\pi R^2}\right) = \frac{1}{2} B_{\text{avg}} \implies B_{\text{avg}} = 2 B(R).
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.51" title="Quasistatic Electric Field of a Moving Current-Carrying Wire" tag="Griffiths 7.51 · Faraday's Law">
+<div slot="problem">
+
+An infinite wire carrying a constant current $I$ in the $\hat{\mathbf{z}}$ direction is moving in the $y$ direction at a constant speed $v$. Find the electric field, in the quasistatic approximation, at the instant the wire coincides with the $z$-axis.
+
+</div>
+<div slot="answer">
+
+$$
+\mathbf{E}(s, \phi) = -\frac{\mu_0 I v}{2\pi s}\sin\phi\,\hat{\mathbf{z}}.
+$$
+
+</div>
+<div slot="solution">
+
+At time $t$, the wire passes through $(0, vt, 0)$, so the quasistatic magnetic field at $(x,y,z)$ is obtained by shifting $y \to y - vt$ in the Cartesian form of $\mathbf{B} = \frac{\mu_0 I}{2\pi s}\hat{\boldsymbol{\phi}}$:
+
+$$
+\mathbf{B}(x,y,t) = \frac{\mu_0 I}{2\pi}\frac{-(y - vt)\hat{\mathbf{x}} + x\hat{\mathbf{y}}}{x^2 + (y - vt)^2}.
+$$
+
+Differentiating with respect to $t$ and evaluating at $t = 0$:
+
+$$
+\left.\frac{\partial\mathbf{B}}{\partial t}\right|_{t=0} = \frac{\mu_0 I}{2\pi}\left[\frac{v\hat{\mathbf{x}}}{x^2 + y^2} - \frac{(-y\hat{\mathbf{x}} + x\hat{\mathbf{y}})(-2vy)}{(x^2 + y^2)^2}\right] = \frac{\mu_0 I v}{2\pi}\frac{(x^2 - y^2)\hat{\mathbf{x}} + 2xy\hat{\mathbf{y}}}{(x^2 + y^2)^2}.
+$$
+
+By Faraday's law, $\nabla\times\mathbf{E} = -\partial\mathbf{B}/\partial t$. Writing $x = s\cos\phi$ and $y = s\sin\phi$, and expressing $\hat{\mathbf{x}}, \hat{\mathbf{y}}$ in cylindrical unit vectors,
+
+$$
+\nabla\times\mathbf{E} = -\frac{\mu_0 I v}{2\pi s^2}\left(\cos\phi\,\hat{\mathbf{s}} + \sin\phi\,\hat{\boldsymbol{\phi}}\right).
+$$
+
+Since there is no free charge, $\nabla\cdot\mathbf{E} = 0$, and $\mathbf{E}\to\mathbf{0}$ as $s\to\infty$. In cylindrical coordinates (assuming $z$-independence):
+
+$$
+(\nabla\times\mathbf{E})_s = \frac{1}{s}\frac{\partial E_z}{\partial\phi} = -\frac{\mu_0 I v}{2\pi s^2}\cos\phi, \qquad (\nabla\times\mathbf{E})_\phi = -\frac{\partial E_z}{\partial s} = -\frac{\mu_0 I v}{2\pi s^2}\sin\phi,
+$$
+
+while $\nabla\cdot\mathbf{E} = 0$ and $(\nabla\times\mathbf{E})_z = 0$ are satisfied identically by $E_s = E_\phi = 0$. Integrating the $E_z$ equations yields
+
+$$
+\mathbf{E}(s, \phi) = -\frac{\mu_0 I v}{2\pi s}\sin\phi\,\hat{\mathbf{z}}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.52" title="Orbital Radius Invariance in Classical Diamagnetism" tag="Griffiths 7.52 · Faraday Induction & Diamagnetism">
+<div slot="problem">
+
+An atomic electron (charge magnitude $q$) circles about a nucleus (charge magnitude $Q$) in an orbit of radius $r$, held by Coulomb attraction. Now a small magnetic field $dB$ is slowly turned on, perpendicular to the plane of the orbit. Show that the increase in kinetic energy $dT$ imparted by the induced electric field is just right to sustain circular motion at the same radius $r$.
+
+</div>
+<div slot="answer">
+
+Comparing the dynamical change $dT = \frac{1}{2}qvr\,dB - \frac{qQ}{8\pi\epsilon_0 r^2}\,dr$ with the work done by the induced electric field $dT_{\text{ind}} = \frac{1}{2}qvr\,dB$ gives $dr = 0$.
+
+</div>
+<div slot="solution">
+
+Before the magnetic field is applied, the centripetal force is purely electrostatic:
+
+$$
+\frac{mv^2}{r} = \frac{1}{4\pi\epsilon_0}\frac{qQ}{r^2} \implies T = \frac{1}{2}mv^2 = \frac{1}{2}\frac{1}{4\pi\epsilon_0}\frac{qQ}{r}.
+$$
+
+After the small field $B = dB$ is turned on (oriented so the magnetic force points radially inward; if reversed, both the Lorentz force and induced electric field flip sign), let the new radius and speed be $r_1 = r + dr$ and $v_1 = v + dv$:
+
+$$
+\frac{mv_1^2}{r_1} = \frac{1}{4\pi\epsilon_0}\frac{qQ}{r_1^2} + q v_1 B \implies T_1 = \frac{1}{2}mv_1^2 = \frac{1}{2}\frac{1}{4\pi\epsilon_0}\frac{qQ}{r_1} + \frac{1}{2} q v_1 r_1 B.
+$$
+
+Expanding $r_1^{-1} \approx r^{-1}(1 - dr/r)$ to first order in $dr$ and $dB$:
+
+$$
+T_1 \approx \frac{1}{2}\frac{1}{4\pi\epsilon_0}\frac{qQ}{r}\left(1 - \frac{dr}{r}\right) + \frac{1}{2}qvr\,dB \implies dT = T_1 - T = \frac{1}{2}qvr\,dB - \frac{1}{2}\frac{1}{4\pi\epsilon_0}\frac{qQ}{r^2}\,dr.
+$$
+
+Meanwhile, as the magnetic field ramps up, Faraday's law produces an induced tangential electric field $E = \frac{r}{2}\frac{dB}{dt}$ (Ex. 7.7), which accelerates the electron:
+
+$$
+m\frac{dv}{dt} = qE = \frac{qr}{2}\frac{dB}{dt} \implies m\,dv = \frac{qr}{2}\,dB.
+$$
+
+The resulting increase in kinetic energy is therefore
+
+$$
+dT = d\!\left(\frac{1}{2}mv^2\right) = mv\,dv = \frac{1}{2}qvr\,dB.
+$$
+
+Equating this to the first expression for $dT$ forces $dr = 0$, showing that the orbital radius remains unchanged to first order.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.53" title="Non-Conservative Fields and Disagreeing Voltmeters Around a Solenoid" tag="Griffiths 7.53 · Faraday's Law in Circuits">
+<div slot="problem">
+
+The current in a long solenoid is increasing linearly with time, so the magnetic flux is proportional to $t$: $\Phi = \alpha t$. Two ideal voltmeters are connected to diametrically opposite points $A$ and $B$ on a loop surrounding the solenoid, together with two resistors $R_1$ (on the right) and $R_2$ (on the left). Assuming each voltmeter registers $-\int_a^b \mathbf{E}\cdot d\mathbf{l}$ through the meter, what is the reading on each voltmeter?
+
+</div>
+<div slot="answer">
+
+$$
+V_1 = \frac{\alpha R_1}{R_1 + R_2}, \qquad V_2 = -\frac{\alpha R_2}{R_1 + R_2}.
+$$
+
+*(Note that $V_1 \ne V_2$, even though both meters are connected to the same two points $A$ and $B$!)*
+
+</div>
+<div slot="solution">
+
+The total emf induced around the central loop containing $R_1$ and $R_2$ is
+
+$$
+\mathcal{E} = \left|\frac{d\Phi}{dt}\right| = \alpha.
+$$
+
+This drives a steady current around the loop of magnitude
+
+$$
+I = \frac{\alpha}{R_1 + R_2}.
+$$
+
+Because the magnetic flux of the solenoid is confined to the interior of the $(R_1, R_2)$ loop, **no magnetic flux** passes through the auxiliary loop formed by voltmeter $V_1$ and resistor $R_1$, nor through the loop formed by voltmeter $V_2$ and resistor $R_2$. Consequently, $\oint \mathbf{E}\cdot d\mathbf{l} = 0$ around each meter–resistor loop.
+
+With the induced current flowing from terminal $b$ (at $B$) to terminal $a$ (at $A$) through $R_1$ and from $a$ to $b$ through $R_2$ (for $\mathbf{B}$ directed out of the page, giving clockwise current):
+
+- Around the right loop ($a \xrightarrow{V_1} b \xrightarrow{R_1} a$), $\int_a^b \mathbf{E}\cdot d\mathbf{l}\big|_{V_1} + \int_b^a \mathbf{E}\cdot d\mathbf{l}\big|_{R_1} = 0$, so
+
+$$
+V_1 = -\int_a^b \mathbf{E}\cdot d\mathbf{l}\Big|_{V_1} = \int_b^a \mathbf{E}\cdot d\mathbf{l}\Big|_{R_1} = I R_1 = \frac{\alpha R_1}{R_1 + R_2}.
+$$
+
+- Around the left loop ($a \xrightarrow{V_2} b \xrightarrow{R_2} a$), current flows from $a$ to $b$ through $R_2$, so $\int_b^a \mathbf{E}\cdot d\mathbf{l}\big|_{R_2} = -I R_2$, giving
+
+$$
+V_2 = -\int_a^b \mathbf{E}\cdot d\mathbf{l}\Big|_{V_2} = \int_b^a \mathbf{E}\cdot d\mathbf{l}\Big|_{R_2} = -I R_2 = -\frac{\alpha R_2}{R_1 + R_2}.
+$$
+
+Because $\mathbf{E}$ is non-conservative ($\nabla\times\mathbf{E} \ne \mathbf{0}$ inside the solenoid), the path integral between $A$ and $B$ depends on which side of the solenoid the path passes, so $V_1 \ne V_2$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.54" title="Voltmeter Reading Across a Circular Loop in a Changing Magnetic Field" tag="Griffiths 7.54 · Faraday's Law">
+<div slot="problem">
+
+A circular wire loop of radius $r$ and resistance $R$ encloses a region of uniform magnetic field $\mathbf{B}$ perpendicular to its plane, increasing linearly with time ($B = \alpha t$). An ideal voltmeter (infinite internal resistance) is connected across a straight chord between two points $P$ and $Q$ separated by $90^\circ$ along the circumference.
+
+(a) What is the current in the loop?
+
+(b) What does the voltmeter read?
+
+</div>
+<div slot="answer">
+
+(a) $I = \dfrac{\pi\alpha r^2}{R}$.
+
+(b) $V = \dfrac{\alpha r^2}{2}$.
+
+</div>
+<div slot="solution">
+
+**(a)** The magnetic flux through the circular loop is $\Phi = \pi r^2 B = \pi \alpha r^2 t$, so the induced emf is $\mathcal{E} = d\Phi/dt = \pi \alpha r^2$, and the current in the loop is
+
+$$
+I = \frac{\mathcal{E}}{R} = \frac{\pi \alpha r^2}{R}.
+$$
+
+**(b)** *Method 1 (Direct integration of $\mathbf{E}$):* By cylindrical symmetry inside the field region, Faraday's law on a circle of radius $s \le r$ gives $2\pi s E = \pi s^2 \alpha \implies \mathbf{E} = \frac{\alpha s}{2}\hat{\boldsymbol{\phi}}$ (for $\mathbf{B}$ out of the page, $\mathbf{E}$ is clockwise: $\frac{\alpha}{2}(y\hat{\mathbf{x}} - x\hat{\mathbf{y}})$). Place the chord $PQ$ horizontally at height $y = r/\sqrt{2}$, running from $x = -r/\sqrt{2}$ to $x = +r/\sqrt{2}$ (length $r\sqrt{2}$). Along this chord, $d\mathbf{l} = dx\,\hat{\mathbf{x}}$, so the voltmeter reads
+
+$$
+V = \int_P^Q \mathbf{E}\cdot d\mathbf{l} = \frac{\alpha}{2}\int_{-r/\sqrt{2}}^{r/\sqrt{2}} \frac{r}{\sqrt{2}}\,dx = \frac{\alpha r}{2\sqrt{2}}\left(r\sqrt{2}\right) = \frac{\alpha r^2}{2}.
+$$
+
+*(Note: $P$ is at the higher potential if $\mathbf{B}$ is out of the page.)*
+
+*Method 2 (Faraday's law on a sub-loop):* Consider the closed loop formed by the upper $1/4$-circle arc (resistance $R_2 = R/4$) and the chord $PQ$. Its enclosed area is $A_2 = \frac{1}{4}\pi r^2 - \frac{1}{2}r^2 = \frac{r^2}{4}(\pi - 2)$, so the induced emf around this sub-loop is $\alpha A_2$. Since $\oint \mathbf{E}\cdot d\mathbf{l} = I R_2 - V$ (or $V = I R_2 - \alpha A_2$ depending on orientation, matching the net line integral around the sub-loop):
+
+$$
+V = I R_2 - \alpha A_2 = \left(\frac{\pi\alpha r^2}{R}\right)\left(\frac{R}{4}\right) - \alpha\frac{r^2}{4}(\pi - 2) = \frac{\alpha r^2}{4}(\pi - \pi + 2) = \frac{\alpha r^2}{2}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.55" title="Simple Harmonic Motion of a Perfectly Conducting Loop in a Magnetic Field" tag="Griffiths 7.55 · Self-Inductance & Motional Emf">
+<div slot="problem">
+
+In the discussion of motional emf (Sect. 7.1.3), a rectangular wire loop of width $h$ and mass $m$ moves into or out of a uniform magnetic field $\mathbf{B}$. Suppose the wire is made of perfectly conducting material ($R = 0$), so that the induced current is limited only by the self-inductance $L$ of the loop. Show that in this regime the loop executes simple harmonic motion, and find its angular frequency $\omega$.
+
+</div>
+<div slot="answer">
+
+$$
+\frac{d^2 v}{dt^2} = -\omega^2 v, \qquad \omega = \frac{B h}{\sqrt{m L}}.
+$$
+
+</div>
+<div slot="solution">
+
+When the loop moves with velocity $v$ perpendicular to the boundary of the magnetic field, the motional emf $\mathcal{E}_{\text{mot}} = v B h$ must be balanced solely by the self-inductance back emf (since $R = 0$):
+
+$$
+v B h = L \frac{dI}{dt}.
+$$
+
+Meanwhile, the magnetic force on the current-carrying segment inside the field opposes the motion (by Lenz's law):
+
+$$
+F = -I h B = m \frac{dv}{dt}.
+$$
+
+Differentiating the equation of motion with respect to $t$ and substituting $dI/dt = v B h / L$:
+
+$$
+m \frac{d^2 v}{dt^2} = -h B \frac{dI}{dt} = -h B \left(\frac{v B h}{L}\right) \implies \frac{d^2 v}{dt^2} = -\left(\frac{B^2 h^2}{m L}\right) v.
+$$
+
+Integrating once (or writing $v = dx/dt$) shows that the displacement $x$ and velocity $v$ satisfy the simple harmonic oscillator equation with angular frequency
+
+$$
+\omega = \frac{B h}{\sqrt{m L}}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.56" title="Mutual Inductance of Coaxial Circular Loops via Neumann's Formula" tag="Griffiths 7.56 · Neumann Formula">
+<div slot="problem">
+
+(a) Use the Neumann formula (Eq. 7.23) to calculate the mutual inductance $M$ of two coaxial circular loops of radii $a$ and $b$ separated by a distance $z$ (Fig. 7.37), assuming $a$ is very small ($a \ll b$, $a \ll z$). Compare your answer to Prob. 7.22.
+
+(b) For the general case (not assuming $a$ is small), show that
+
+$$
+M = \frac{\mu_0 \pi \beta}{2} \sqrt{ab\beta} \left(1 + \frac{15}{8}\beta^2 + \cdots\right), \qquad \text{where } \beta \equiv \frac{ab}{z^2 + a^2 + b^2}.
+$$
+
+</div>
+<div slot="answer">
+
+(a) $M \approx \dfrac{\mu_0 \pi a^2 b^2}{2(b^2 + z^2)^{3/2}}$, matching Prob. 7.22.
+
+(b) Derived by expanding $(1 - 2\beta\cos u)^{-1/2}$ in powers of $\beta$ and integrating term by term.
+
+</div>
+<div slot="solution">
+
+Parametrize points on the upper loop (radius $a$, at height $z$) and lower loop (radius $b$, at $z = 0$) as
+
+$$
+\mathbf{r}_2 = (a\cos\phi_2,\, a\sin\phi_2,\, z), \qquad \mathbf{r}_1 = (b\cos\phi_1,\, b\sin\phi_1,\, 0).
+$$
+
+The squared separation is
+
+$$
+|\mathbf{r}_2 - \mathbf{r}_1|^2 = a^2 + b^2 + z^2 - 2ab\cos(\phi_2 - \phi_1) = (a^2 + b^2 + z^2)\left[1 - 2\beta\cos(\phi_2 - \phi_1)\right],
+$$
+
+where $\beta \equiv \frac{ab}{z^2 + a^2 + b^2}$, and note that $\sqrt{a^2 + b^2 + z^2} = \sqrt{ab/\beta}$. The line elements are $d\mathbf{l}_1 = b\,d\phi_1(-\sin\phi_1\,\hat{\mathbf{x}} + \cos\phi_1\,\hat{\mathbf{y}})$ and $d\mathbf{l}_2 = a\,d\phi_2(-\sin\phi_2\,\hat{\mathbf{x}} + \cos\phi_2\,\hat{\mathbf{y}})$, so
+
+$$
+d\mathbf{l}_1 \cdot d\mathbf{l}_2 = ab\cos(\phi_2 - \phi_1)\,d\phi_1\,d\phi_2.
+$$
+
+Substituting into the Neumann formula:
+
+$$
+M = \frac{\mu_0}{4\pi}\oint\oint \frac{d\mathbf{l}_1\cdot d\mathbf{l}_2}{|\mathbf{r}_2 - \mathbf{r}_1|} = \frac{\mu_0 ab}{4\pi\sqrt{ab/\beta}}\int_0^{2\pi}\int_0^{2\pi} \frac{\cos(\phi_2 - \phi_1)}{\sqrt{1 - 2\beta\cos(\phi_2 - \phi_1)}}\,d\phi_2\,d\phi_1.
+$$
+
+Letting $u \equiv \phi_2 - \phi_1$ for fixed $\phi_1$ (the integral over a full $2\pi$ period is independent of $\phi_1$), the $\phi_1$ integral yields $2\pi$, leaving
+
+$$
+M = \frac{\mu_0}{2}\sqrt{ab\beta}\int_0^{2\pi} \frac{\cos u}{\sqrt{1 - 2\beta\cos u}}\,du.
+$$
+
+**(a)** For $a \ll b, z$, we have $\beta \ll 1$, so $(1 - 2\beta\cos u)^{-1/2} \approx 1 + \beta\cos u$:
+
+$$
+\int_0^{2\pi}\frac{\cos u}{\sqrt{1 - 2\beta\cos u}}\,du \approx \int_0^{2\pi} (\cos u + \beta\cos^2 u)\,du = \pi\beta.
+$$
+
+Since $\beta \approx \frac{ab}{b^2 + z^2}$ for $a \ll b, z$, we obtain
+
+$$
+M \approx \frac{\mu_0 \pi}{2}\sqrt{ab}\,\beta^{3/2} \approx \frac{\mu_0 \pi a^2 b^2}{2(b^2 + z^2)^{3/2}},
+$$
+
+which agrees exactly with Prob. 7.22.
+
+**(b)** More generally, using the binomial expansion $(1 + \epsilon)^{-1/2} = 1 - \frac{1}{2}\epsilon + \frac{3}{8}\epsilon^2 - \frac{5}{16}\epsilon^3 + \cdots$ with $\epsilon = -2\beta\cos u$:
+
+$$
+\frac{1}{\sqrt{1 - 2\beta\cos u}} = 1 + \beta\cos u + \frac{3}{2}\beta^2\cos^2 u + \frac{5}{2}\beta^3\cos^3 u + \cdots.
+$$
+
+Multiplying by $\cos u$ and integrating from $0$ to $2\pi$ (all odd powers of $\cos u$ integrate to $0$, while $\int_0^{2\pi}\cos^2 u\,du = \pi$ and $\int_0^{2\pi}\cos^4 u\,du = \frac{3\pi}{4}$):
+
+$$
+M = \frac{\mu_0}{2}\sqrt{ab\beta}\left[\beta(\pi) + \frac{5}{2}\beta^3\left(\frac{3\pi}{4}\right) + \cdots\right] = \frac{\mu_0 \pi \beta}{2}\sqrt{ab\beta}\left(1 + \frac{15}{8}\beta^2 + \cdots\right).
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.57" title="Ideal Transformer Voltage Ratio" tag="Griffiths 7.57 · Mutual Inductance & Transformers">
+<div slot="problem">
+
+Two coils are wrapped around a cylindrical form in such a way that the same flux passes through every turn of both coils. The primary coil has $N_1$ turns and the secondary has $N_2$. If the current $I$ in the primary is changing, show that the emf in the secondary satisfies $\mathcal{E}_2 / \mathcal{E}_1 = N_2 / N_1$, where $\mathcal{E}_1$ is the back emf of the primary.
+
+</div>
+<div slot="answer">
+
+$$
+\frac{\mathcal{E}_2}{\mathcal{E}_1} = \frac{N_2}{N_1}.
+$$
+
+</div>
+<div slot="solution">
+
+Let $\Phi(t)$ be the magnetic flux passing through a single turn of either coil. Then the total flux linkage through the primary ($N_1$ turns) and secondary ($N_2$ turns) is
+
+$$
+\Phi_1 = N_1 \Phi, \qquad \Phi_2 = N_2 \Phi.
+$$
+
+By Faraday's law, the induced emfs are
+
+$$
+\mathcal{E}_1 = -\frac{d\Phi_1}{dt} = -N_1\frac{d\Phi}{dt}, \qquad \mathcal{E}_2 = -\frac{d\Phi_2}{dt} = -N_2\frac{d\Phi}{dt}.
+$$
+
+Dividing the two expressions eliminates $d\Phi/dt$ and yields
+
+$$
+\frac{\mathcal{E}_2}{\mathcal{E}_1} = \frac{N_2}{N_1}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.58" title="Power Conservation in an Ideal AC Transformer" tag="Griffiths 7.58 · Transformers & Energy Conservation">
+<div slot="problem">
+
+Consider an ideal transformer (Prob. 7.57) with primary self-inductance $L_1$, secondary self-inductance $L_2$, and mutual inductance $M$.
+
+(a) Show that if the same flux passes through all turns of both coils, then $M^2 = L_1 L_2$.
+
+(b) Suppose the primary is driven with AC voltage $V_{\text{in}} = V_1\cos(\omega t)$ and the secondary is connected to a resistor $R$. Show that the currents $I_1(t)$ and $I_2(t)$ satisfy
+
+$$
+L_1\frac{dI_1}{dt} + M\frac{dI_2}{dt} = V_1\cos(\omega t), \qquad L_2\frac{dI_2}{dt} + M\frac{dI_1}{dt} = -I_2 R.
+$$
+
+(c) Using (a), solve these equations for $I_1(t)$ and $I_2(t)$ (assuming $I_1$ has no DC component).
+
+(d) Show that $|V_{\text{out}} / V_{\text{in}}| = N_2 / N_1$, where $V_{\text{out}} = I_2 R$.
+
+(e) Calculate the input power $P_{\text{in}} = V_{\text{in}} I_1$ and output power $P_{\text{out}} = V_{\text{out}} I_2$, and show that their cycle averages are equal.
+
+</div>
+<div slot="answer">
+
+(a) $M^2 = L_1 L_2$.
+
+(b) Follows from Faraday's law and Kirchhoff's loop rule in each circuit.
+
+(c) $I_2(t) = -\dfrac{L_2 V_1}{M R}\cos(\omega t)$, and $I_1(t) = \dfrac{V_1}{L_1 \omega}\sin(\omega t) + \dfrac{L_2 V_1}{L_1 R}\cos(\omega t)$.
+
+(d) $|V_{\text{out}} / V_{\text{in}}| = L_2 / M = N_2 / N_1$.
+
+(e) $\langle P_{\text{in}} \rangle = \langle P_{\text{out}} \rangle = \dfrac{L_2 V_1^2}{2 L_1 R}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Let $\Phi$ be the flux through a single turn when currents $I_1, I_2$ flow in the two coils. Then
+
+$$
+\Phi_1 = L_1 I_1 + M I_2 = N_1 \Phi, \qquad \Phi_2 = L_2 I_2 + M I_1 = N_2 \Phi \implies \Phi = I_1 \frac{L_1}{N_1} + I_2 \frac{M}{N_1} = I_2 \frac{L_2}{N_2} + I_1 \frac{M}{N_2}.
+$$
+
+Setting $I_2 = 0$ gives $\frac{L_1}{N_1} = \frac{M}{N_2}$; setting $I_1 = 0$ gives $\frac{M}{N_1} = \frac{L_2}{N_2}$. Dividing these two relations yields
+
+$$
+\frac{L_1}{M} = \frac{M}{L_2} \implies M^2 = L_1 L_2, \qquad \text{and} \qquad \frac{L_2}{M} = \frac{M}{L_1} = \frac{N_2}{N_1}.
+$$
+
+**(b)** In the primary circuit, the applied voltage balances the back emf $\mathcal{E}_1 = -d\Phi_1/dt$:
+
+$$
+V_1\cos(\omega t) = -\mathcal{E}_1 = L_1\frac{dI_1}{dt} + M\frac{dI_2}{dt}.
+$$
+
+In the secondary circuit, the induced emf $\mathcal{E}_2 = -d\Phi_2/dt$ drives current $I_2$ through $R$:
+
+$$
+I_2 R = \mathcal{E}_2 = -L_2\frac{dI_2}{dt} - M\frac{dI_1}{dt} \implies L_2\frac{dI_2}{dt} + M\frac{dI_1}{dt} = -I_2 R.
+$$
+
+**(c)** Multiply the first equation by $L_2$ and substitute $L_2\frac{dI_2}{dt} = -I_2 R - M\frac{dI_1}{dt}$:
+
+$$
+\left(L_1 L_2 - M^2\right)\frac{dI_1}{dt} - M R I_2 = L_2 V_1\cos(\omega t).
+$$
+
+Because $M^2 = L_1 L_2$, the $dI_1/dt$ term vanishes identically, giving
+
+$$
+I_2(t) = -\frac{L_2 V_1}{M R}\cos(\omega t).
+$$
+
+Substituting $dI_2/dt = \frac{L_2 V_1 \omega}{M R}\sin(\omega t)$ back into the primary equation:
+
+$$
+L_1\frac{dI_1}{dt} + \frac{L_2 V_1 \omega}{R}\sin(\omega t) = V_1\cos(\omega t) \implies \frac{dI_1}{dt} = \frac{V_1}{L_1}\cos(\omega t) - \frac{L_2 V_1 \omega}{L_1 R}\sin(\omega t).
+$$
+
+Integrating with zero DC constant gives
+
+$$
+I_1(t) = \frac{V_1}{L_1 \omega}\sin(\omega t) + \frac{L_2 V_1}{L_1 R}\cos(\omega t).
+$$
+
+**(d)** Since $V_{\text{out}} = I_2 R = -\frac{L_2}{M} V_1\cos(\omega t) = -\frac{N_2}{N_1} V_{\text{in}}$ (where the minus sign reflects the chosen sign convention for $I_2$), the voltage amplitude ratio is
+
+$$
+\left|\frac{V_{\text{out}}}{V_{\text{in}}}\right| = \frac{L_2}{M} = \frac{N_2}{N_1}.
+$$
+
+**(e)** Computing the instantaneous powers:
+
+$$
+P_{\text{in}} = V_{\text{in}} I_1 = \frac{V_1^2}{L_1 \omega}\sin(\omega t)\cos(\omega t) + \frac{L_2 V_1^2}{L_1 R}\cos^2(\omega t),
+$$
+
+$$
+P_{\text{out}} = V_{\text{out}} I_2 = I_2^2 R = \frac{L_2^2 V_1^2}{M^2 R}\cos^2(\omega t).
+$$
+
+Over a full cycle, $\langle \sin(\omega t)\cos(\omega t) \rangle = 0$ and $\langle \cos^2(\omega t) \rangle = \frac{1}{2}$. Using $M^2 = L_1 L_2$, we find
+
+$$
+\langle P_{\text{in}} \rangle = \frac{L_2 V_1^2}{2 L_1 R}, \qquad \langle P_{\text{out}} \rangle = \frac{L_2^2 V_1^2}{2 M^2 R} = \frac{L_2^2 V_1^2}{2 (L_1 L_2) R} = \frac{L_2 V_1^2}{2 L_1 R} = \langle P_{\text{in}} \rangle.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.59" title="Exact Maxwell Solution for a Wire with Linearly Varying Charge and Current" tag="Griffiths 7.59 · Continuity & Maxwell's Equations">
+<div slot="problem">
+
+An infinite wire along the $z$-axis carries a time-independent current $I(z)$ and a $z$-independent line charge density $\lambda(t)$.
+
+(a) By examining the charge flowing into a segment $dz$ in time $dt$, show that $d\lambda/dt = -dI/dz$. Stipulating $\lambda(0) = 0$ and $I(0) = 0$, show that $\lambda(t) = kt$ and $I(z) = -kz$ for some constant $k$.
+
+(b) Show that the quasistatic fields $\mathbf{E} = \frac{\lambda(t)}{2\pi\epsilon_0 s}\hat{\mathbf{s}}$ and $\mathbf{B} = \frac{\mu_0 I(z)}{2\pi s}\hat{\boldsymbol{\phi}}$ are in fact the exact fields, by confirming that all four of Maxwell's equations are satisfied both in differential form (for $s > 0$) and in integral form (for Gaussian cylinders and Amperian loops straddling the axis).
+
+</div>
+<div slot="answer">
+
+(a) $\lambda(t) = kt$, $I(z) = -kz$.
+
+(b) All four Maxwell equations are satisfied identically in both differential and integral form (with $\nabla\times\mathbf{B} = \mu_0\epsilon_0\,\partial\mathbf{E}/\partial t = \frac{\mu_0 k}{2\pi s}\hat{\mathbf{s}}$ for $s > 0$).
+
+</div>
+<div slot="solution">
+
+**(a)** The net charge entering the segment $[z, z+dz]$ in time $dt$ equals the increase in charge on that segment:
+
+$$
+dq = \left[I(z) - I(z + dz)\right] dt = -\frac{dI}{dz}\,dz\,dt = \left[\lambda(t + dt) - \lambda(t)\right] dz = \frac{d\lambda}{dt}\,dt\,dz \implies \frac{d\lambda}{dt} = -\frac{dI}{dz}.
+$$
+
+Because the left-hand side depends only on $t$ and the right-hand side depends only on $z$, both must equal a constant $k$. Integrating with $\lambda(0) = 0$ and $I(0) = 0$ yields
+
+$$
+\lambda(t) = kt, \qquad I(z) = -kz.
+$$
+
+**(b)** The quasistatic fields are
+
+$$
+\mathbf{E}(s,t) = \frac{kt}{2\pi\epsilon_0 s}\hat{\mathbf{s}}, \qquad \mathbf{B}(s,z) = -\frac{\mu_0 k z}{2\pi s}\hat{\boldsymbol{\phi}}.
+$$
+
+*Differential form ($s > 0$, where $\rho = 0$ and $\mathbf{J} = \mathbf{0}$):*
+
+$$
+\nabla\cdot\mathbf{E} = \frac{1}{s}\frac{\partial}{\partial s}\left(s\frac{kt}{2\pi\epsilon_0 s}\right) = 0, \qquad \nabla\cdot\mathbf{B} = \frac{1}{s}\frac{\partial}{\partial\phi}\left(-\frac{\mu_0 kz}{2\pi s}\right) = 0,
+$$
+
+$$
+\nabla\times\mathbf{E} = \mathbf{0} = -\frac{\partial\mathbf{B}}{\partial t},
+$$
+
+$$
+\nabla\times\mathbf{B} = -\frac{\partial B_\phi}{\partial z}\hat{\mathbf{s}} + \frac{1}{s}\frac{\partial(s B_\phi)}{\partial s}\hat{\mathbf{z}} = \frac{\mu_0 k}{2\pi s}\hat{\mathbf{s}} = \mu_0\epsilon_0\frac{\partial}{\partial t}\left(\frac{kt}{2\pi\epsilon_0 s}\hat{\mathbf{s}}\right) = \mu_0\epsilon_0\frac{\partial\mathbf{E}}{\partial t}.
+$$
+
+*Integral form:* For a Gaussian cylinder of radius $s$ and height $dz$ centered on the $z$-axis,
+
+$$
+\oint \mathbf{E}\cdot d\mathbf{a} = \frac{kt}{2\pi\epsilon_0 s}(2\pi s\,dz) = \frac{kt\,dz}{\epsilon_0} = \frac{Q_{\text{enc}}}{\epsilon_0}, \qquad \oint \mathbf{B}\cdot d\mathbf{a} = 0.
+$$
+
+For a circular Amperian loop of radius $s$ in the horizontal plane at height $z$ (through which both $\int\mathbf{B}\cdot d\mathbf{a} = 0$ and $\int\mathbf{E}\cdot d\mathbf{a} = 0$ because $\mathbf{B}$ is azimuthal and $\mathbf{E}$ is radial):
+
+$$
+\oint \mathbf{E}\cdot d\mathbf{l} = 0 = -\frac{d}{dt}\int\mathbf{B}\cdot d\mathbf{a},
+$$
+
+$$
+\oint \mathbf{B}\cdot d\mathbf{l} = -\frac{\mu_0 kz}{2\pi s}(2\pi s) = -\mu_0 kz = \mu_0 I(z) = \mu_0 I_{\text{enc}} + \mu_0\epsilon_0\frac{d}{dt}\int\mathbf{E}\cdot d\mathbf{a}.
+$$
+
+All four Maxwell equations are satisfied exactly.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.60" title="Biot–Savart Law and Displacement Current for Time-Independent J" tag="Griffiths 7.60 · Biot-Savart & Displacement Current">
+<div slot="problem">
+
+Suppose $\mathbf{J}(\mathbf{r})$ is constant in time, while $\rho(\mathbf{r}, t)$ varies with time.
+
+(a) Using the continuity equation, show that $\rho(\mathbf{r}, t) = \rho(\mathbf{r}, 0) + \dot{\rho}(\mathbf{r}, 0) t$, where $\dot{\rho}(\mathbf{r}, 0)$ is the time derivative of $\rho$ at $t = 0$.
+
+(b) Show that the Biot–Savart law $\mathbf{B}(\mathbf{r}) = \frac{\mu_0}{4\pi}\int \frac{\mathbf{J}(\mathbf{r}')\times(\mathbf{r} - \mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau'$ (together with Coulomb's law for $\mathbf{E}$) satisfies Ampère's law with Maxwell's displacement current term.
+
+</div>
+<div slot="answer">
+
+(a) Integrating $\partial\rho/\partial t = -\nabla\cdot\mathbf{J}$ with time-independent $\mathbf{J}$ gives $\rho(\mathbf{r}, t) = \rho(\mathbf{r}, 0) + \dot{\rho}(\mathbf{r}, 0)t$.
+
+(b) Integration by parts in the curl of the Biot–Savart integral produces the displacement current term $\mu_0\epsilon_0\,\partial\mathbf{E}/\partial t$.
+
+</div>
+<div slot="solution">
+
+**(a)** The continuity equation states $\frac{\partial\rho}{\partial t} = -\nabla\cdot\mathbf{J}$. Because $\mathbf{J}(\mathbf{r})$ is independent of $t$, $-\nabla\cdot\mathbf{J}$ is constant in time at each point $\mathbf{r}$, and equals $\dot{\rho}(\mathbf{r}, 0)$. Integrating with respect to $t$ yields
+
+$$
+\rho(\mathbf{r}, t) = \rho(\mathbf{r}, 0) - (\nabla\cdot\mathbf{J})t = \rho(\mathbf{r}, 0) + \dot{\rho}(\mathbf{r}, 0)t.
+$$
+
+**(b)** With Coulomb's law $\mathbf{E}(\mathbf{r},t) = \frac{1}{4\pi\epsilon_0}\int \frac{\rho(\mathbf{r}', t)(\mathbf{r} - \mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau'$, we already have $\nabla\cdot\mathbf{E} = \rho/\epsilon_0$ and $\nabla\times\mathbf{E} = \mathbf{0} = -\partial\mathbf{B}/\partial t$ (since $\mathbf{B}$ is static), as well as $\nabla\cdot\mathbf{B} = 0$ from Biot–Savart.
+
+To verify the Ampère–Maxwell law, repeat the derivation of $\nabla\times\mathbf{B}$ from Sect. 5.3.2 (Eqs. 5.51–5.54), where $\nabla\cdot\mathbf{J} = 0$ has *not* yet been assumed:
+
+$$
+\nabla\times\mathbf{B} = \mu_0 \mathbf{J} + \frac{\mu_0}{4\pi}\int (\mathbf{J}(\mathbf{r}')\cdot\nabla')\left(\frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\right) d\tau'.
+$$
+
+Integrating each Cartesian component by parts over all space (assuming localized currents so the boundary surface integral vanishes) gives
+
+$$
+\int (\mathbf{J}\cdot\nabla')\left(\frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\right) d\tau' = -\int \left(\nabla'\cdot\mathbf{J}\right)\frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau' = \int \dot{\rho}(\mathbf{r}', t)\frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau'.
+$$
+
+Substituting this back into $\nabla\times\mathbf{B}$:
+
+$$
+\nabla\times\mathbf{B} = \mu_0 \mathbf{J} + \mu_0\epsilon_0 \frac{\partial}{\partial t}\left(\frac{1}{4\pi\epsilon_0}\int \frac{\rho(\mathbf{r}', t)(\mathbf{r} - \mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|^3}\,d\tau'\right) = \mu_0 \mathbf{J} + \mu_0\epsilon_0 \frac{\partial\mathbf{E}}{\partial t}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.61" title="Magnetic Field of a Steady Current via Displacement Current in a Moving Gap" tag="Griffiths 7.61 · Displacement Current">
+<div slot="problem">
+
+Picture a steady current $I = \lambda v$ along the $z$-axis as a uniform line charge $\lambda$ moving at speed $v$, with a tiny gap of length $\epsilon$ whose leading edge reaches the origin at $t = 0$. For $0 < t < \epsilon/v$, no real current passes through a circular Amperian loop of radius $a$ in the $xy$-plane.
+
+(a) Use Coulomb's law to calculate $E_z(s, t)$ in the $xy$-plane due to the "missing" charge segment of density $-\lambda$ extending from $z_1 = vt - \epsilon$ to $z_2 = vt$.
+
+(b) Determine the electric flux $\Phi_E$ of this field through the circle of radius $a$ in the $xy$-plane.
+
+(c) Find the displacement current $I_d = \epsilon_0\,d\Phi_E/dt$ through this circle, and show that $I_d \to I$ as $\epsilon \to 0$.
+
+</div>
+<div slot="answer">
+
+(a) $E_z(s,t) = \dfrac{\lambda}{4\pi\epsilon_0}\left[\dfrac{1}{\sqrt{(vt-\epsilon)^2 + s^2}} - \dfrac{1}{\sqrt{(vt)^2 + s^2}}\right]$.
+
+(b) $\Phi_E(t) = \dfrac{\lambda}{2\epsilon_0}\left[\sqrt{(vt-\epsilon)^2 + a^2} - \sqrt{(vt)^2 + a^2} + 2vt - \epsilon\right]$ (for $0 < t < \epsilon/v$).
+
+(c) $I_d = \dfrac{\lambda}{2}\left[\dfrac{v(vt-\epsilon)}{\sqrt{(vt-\epsilon)^2 + a^2}} - \dfrac{v(vt)}{\sqrt{(vt)^2 + a^2}} + 2v\right] \xrightarrow{\epsilon\to 0} \lambda v = I$.
+
+</div>
+<div slot="solution">
+
+**(a)** By superposition, the infinite line charge $+\lambda$ (which produces zero $E_z$ in the $xy$-plane) plus a segment of density $-\lambda$ from $z_1 = vt - \epsilon$ to $z_2 = vt$ yields the field of the wire with the gap. For an element $dz$ of charge $-\lambda\,dz$ at $(0,0,z)$, the $z$-component of its field at $(s,0,0)$ is
+
+$$
+dE_z = \frac{1}{4\pi\epsilon_0}\frac{(-\lambda)\,dz}{z^2 + s^2}\left(-\frac{z}{\sqrt{z^2 + s^2}}\right) = \frac{\lambda}{4\pi\epsilon_0}\frac{z\,dz}{(z^2 + s^2)^{3/2}}.
+$$
+
+Integrating from $z_1 = vt - \epsilon$ to $z_2 = vt$:
+
+$$
+E_z(s,t) = \frac{\lambda}{4\pi\epsilon_0}\left[-\frac{1}{\sqrt{z^2 + s^2}}\right]_{vt-\epsilon}^{vt} = \frac{\lambda}{4\pi\epsilon_0}\left[\frac{1}{\sqrt{(vt-\epsilon)^2 + s^2}} - \frac{1}{\sqrt{(vt)^2 + s^2}}\right].
+$$
+
+**(b)** Integrating $E_z$ over the disk of radius $a$ in the $xy$-plane:
+
+$$
+\Phi_E(t) = \int_0^a E_z(s,t)\,2\pi s\,ds = \frac{\lambda}{2\epsilon_0}\left[\sqrt{(vt-\epsilon)^2 + s^2} - \sqrt{(vt)^2 + s^2}\right]_0^a.
+$$
+
+For $0 < t < \epsilon/v$, we have $vt > 0$ and $vt - \epsilon < 0$, so at $s = 0$, $\sqrt{(vt-\epsilon)^2} = \epsilon - vt$ and $\sqrt{(vt)^2} = vt$. Thus
+
+$$
+\Phi_E(t) = \frac{\lambda}{2\epsilon_0}\left[\sqrt{(vt-\epsilon)^2 + a^2} - \sqrt{(vt)^2 + a^2} - (\epsilon - vt) + vt\right] = \frac{\lambda}{2\epsilon_0}\left[\sqrt{(vt-\epsilon)^2 + a^2} - \sqrt{(vt)^2 + a^2} + 2vt - \epsilon\right].
+$$
+
+**(c)** Differentiating $\Phi_E(t)$ with respect to $t$ gives the displacement current:
+
+$$
+I_d = \epsilon_0\frac{d\Phi_E}{dt} = \frac{\lambda}{2}\left[\frac{v(vt - \epsilon)}{\sqrt{(vt - \epsilon)^2 + a^2}} - \frac{v(vt)}{\sqrt{(vt)^2 + a^2}} + 2v\right].
+$$
+
+As the gap width $\epsilon \to 0$, we also have $vt < \epsilon \to 0$, so the first two fractions vanish and
+
+$$
+\lim_{\epsilon\to 0} I_d = \frac{\lambda}{2}(2v) = \lambda v = I.
+$$
+
+Thus, in the infinitesimal-gap limit, the displacement current completely accounts for the magnetic field around the wire.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.62" title="Parallel-Ribbon Transmission Line: Capacitance, Inductance, and Wave Speed" tag="Griffiths 7.62 · Transmission Lines">
+<div slot="problem">
+
+A transmission line is constructed from two thin metal "ribbons" of width $w$, separated by a very small distance $h \ll w$. Current travels uniformly down one strip and back along the other.
+
+(a) Find the capacitance per unit length, $C$.
+
+(b) Find the inductance per unit length, $L$.
+
+(c) Compute the product $LC$ numerically and the propagation speed $v = 1/\sqrt{LC}$.
+
+(d) If the strips are separated by a nonconducting linear medium of permittivity $\epsilon$ and permeability $\mu$, find $LC$ and $v$.
+
+</div>
+<div slot="answer">
+
+(a) $C = \dfrac{\epsilon_0 w}{h}$.
+
+(b) $L = \dfrac{\mu_0 h}{w}$.
+
+(c) $LC = \mu_0\epsilon_0 \approx 1.113 \times 10^{-17}\text{ s}^2/\text{m}^2$, and $v = 1/\sqrt{LC} = c \approx 2.998 \times 10^8\text{ m/s}$.
+
+(d) $LC = \epsilon\mu$, and $v = 1/\sqrt{\epsilon\mu}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Neglecting fringing fields since $h \ll w$, a section of length $l$ forms a parallel-plate capacitor of plate area $A = wl$:
+
+$$
+E = \frac{\sigma}{\epsilon_0} = \frac{Q}{\epsilon_0 w l}, \qquad V = Eh = \frac{Qh}{\epsilon_0 w l} \implies C_{\text{tot}} = \frac{Q}{V} = \frac{\epsilon_0 w l}{h}.
+$$
+
+The capacitance per unit length is therefore
+
+$$
+C = \frac{C_{\text{tot}}}{l} = \frac{\epsilon_0 w}{h}.
+$$
+
+**(b)** With surface current $K = I/w$ flowing in opposite directions on the two wide ribbons, the magnetic field between them is uniform, $B = \mu_0 K = \mu_0 I / w$, and zero outside. The magnetic flux through a rectangular cross section of height $h$ and length $l$ between the ribbons is
+
+$$
+\Phi = B h l = \frac{\mu_0 h l}{w} I \implies L_{\text{tot}} = \frac{\Phi}{I} = \frac{\mu_0 h l}{w}.
+$$
+
+The inductance per unit length is therefore
+
+$$
+L = \frac{L_{\text{tot}}}{l} = \frac{\mu_0 h}{w}.
+$$
+
+**(c)** Multiplying $L$ and $C$, the geometric factors $w$ and $h$ cancel:
+
+$$
+LC = \left(\frac{\mu_0 h}{w}\right)\left(\frac{\epsilon_0 w}{h}\right) = \mu_0\epsilon_0 = (4\pi \times 10^{-7}\text{ N/A}^2)(8.854 \times 10^{-12}\text{ C}^2/(\text{N}\cdot\text{m}^2)) \approx 1.113 \times 10^{-17}\text{ s}^2/\text{m}^2.
+$$
+
+The propagation speed is
+
+$$
+v = \frac{1}{\sqrt{LC}} = \frac{1}{\sqrt{\mu_0\epsilon_0}} = c \approx 2.998 \times 10^8\text{ m/s}.
+$$
+
+**(d)** In a linear medium of permittivity $\epsilon$ and permeability $\mu$, we have $E = D/\epsilon = \sigma/\epsilon$ (replacing $\epsilon_0 \to \epsilon$) and $B = \mu H = \mu K$ (replacing $\mu_0 \to \mu$). Thus $C = \epsilon w / h$ and $L = \mu h / w$, giving
+
+$$
+LC = \epsilon\mu, \qquad v = \frac{1}{\sqrt{\epsilon\mu}}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.63" title="Alfvén's Theorem: Flux Freezing in a Perfectly Conducting Fluid" tag="Griffiths 7.63 · Magnetohydrodynamics">
+<div slot="problem">
+
+Prove Alfvén's theorem: in a perfectly conducting fluid, the magnetic flux through any closed loop moving with the fluid is constant in time.
+
+(a) Use Ohm's law $\mathbf{J} = \sigma(\mathbf{E} + \mathbf{v}\times\mathbf{B})$ together with Faraday's law to prove that if $\sigma = \infty$ and $\mathbf{J}$ is finite, then $\partial\mathbf{B}/\partial t = \nabla\times(\mathbf{v}\times\mathbf{B})$.
+
+(b) Let $S$ be a surface bounded by the loop $P$ at time $t$, and $S'$ a surface bounded by $P'$ at $t + dt$, joined by the ribbon $R$. Using $\nabla\cdot\mathbf{B} = 0$ and the method of Sect. 7.1.3, show that
+
+$$
+\frac{d\Phi}{dt} = \int_S \left[\frac{\partial\mathbf{B}}{\partial t} - \nabla\times(\mathbf{v}\times\mathbf{B})\right]\cdot d\mathbf{a},
+$$
+
+and conclude from (a) that $d\Phi/dt = 0$.
+
+</div>
+<div slot="answer">
+
+(a) $\sigma = \infty$ with finite $\mathbf{J} \implies \mathbf{E} = -\mathbf{v}\times\mathbf{B} \implies \partial\mathbf{B}/\partial t = -\nabla\times\mathbf{E} = \nabla\times(\mathbf{v}\times\mathbf{B})$.
+
+(b) Combining $\nabla\cdot\mathbf{B} = 0$ on the closed surface $S \cup S' \cup R$ with Stokes' theorem yields $d\Phi/dt = 0$.
+
+</div>
+<div slot="solution">
+
+**(a)** From Ohm's law $\mathbf{J} = \sigma(\mathbf{E} + \mathbf{v}\times\mathbf{B})$, if $\sigma = \infty$ while $\mathbf{J}$ remains finite, we must have
+
+$$
+\mathbf{E} + \mathbf{v}\times\mathbf{B} = \mathbf{0} \implies \mathbf{E} = -\mathbf{v}\times\mathbf{B}.
+$$
+
+Taking the curl of both sides and applying Faraday's law $\nabla\times\mathbf{E} = -\partial\mathbf{B}/\partial t$ gives
+
+$$
+\frac{\partial\mathbf{B}}{\partial t} = -\nabla\times\mathbf{E} = \nabla\times(\mathbf{v}\times\mathbf{B}).
+$$
+
+**(b)** At time $t + dt$, apply $\oint \mathbf{B}\cdot d\mathbf{a} = 0$ (from $\nabla\cdot\mathbf{B} = 0$) to the closed surface formed by $S'$, the ribbon $R$, and $S$ (accounting for the reversal of the outward normal on $S$ relative to the flux direction of $S$ and $S'$):
+
+$$
+\int_{S'} \mathbf{B}(t+dt)\cdot d\mathbf{a} + \int_R \mathbf{B}(t+dt)\cdot d\mathbf{a} - \int_S \mathbf{B}(t+dt)\cdot d\mathbf{a} = 0.
+$$
+
+Solving for $\int_{S'} \mathbf{B}(t+dt)\cdot d\mathbf{a}$, the change in flux $d\Phi = \int_{S'} \mathbf{B}(t+dt)\cdot d\mathbf{a} - \int_S \mathbf{B}(t)\cdot d\mathbf{a}$ is
+
+$$
+d\Phi = \int_S \left[\mathbf{B}(t+dt) - \mathbf{B}(t)\right]\cdot d\mathbf{a} - \int_R \mathbf{B}(t+dt)\cdot d\mathbf{a}.
+$$
+
+To first order in $dt$, $\mathbf{B}(t+dt) - \mathbf{B}(t) = (\partial\mathbf{B}/\partial t)\,dt$, and on the ribbon $R$ the outward area element is $d\mathbf{a} = d\mathbf{l}\times(\mathbf{v}\,dt)$, where we may replace $\mathbf{B}(t+dt)$ by $\mathbf{B}(t)$ to first order:
+
+$$
+-\int_R \mathbf{B}(t+dt)\cdot d\mathbf{a} = -dt \oint_P \mathbf{B}\cdot(d\mathbf{l}\times\mathbf{v}) = dt \oint_P (\mathbf{B}\times\mathbf{v})\cdot d\mathbf{l} = -dt \oint_P (\mathbf{v}\times\mathbf{B})\cdot d\mathbf{l}.
+$$
+
+Applying Stokes' theorem to the closed loop $P$ bounding $S$:
+
+$$
+d\Phi = dt \int_S \frac{\partial\mathbf{B}}{\partial t}\cdot d\mathbf{a} - dt \int_S \nabla\times(\mathbf{v}\times\mathbf{B})\cdot d\mathbf{a} \implies \frac{d\Phi}{dt} = \int_S \left[\frac{\partial\mathbf{B}}{\partial t} - \nabla\times(\mathbf{v}\times\mathbf{B})\right]\cdot d\mathbf{a}.
+$$
+
+By part (a), the integrand is identically zero, so $d\Phi/dt = 0$ and the magnetic flux through the moving loop is conserved.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="7.64" title="Duality Symmetry of Maxwell's Equations and the Generalized Force Law" tag="Griffiths 7.64 · Electromagnetic Duality">
+<div slot="problem">
+
+(a) Show that Maxwell's equations with magnetic charge (Eq. 7.44) are invariant under the duality transformation
+
+$$
+\begin{aligned}
+\mathbf{E}' &= \mathbf{E}\cos\alpha + c\mathbf{B}\sin\alpha, & c\mathbf{B}' &= c\mathbf{B}\cos\alpha - \mathbf{E}\sin\alpha, \\
+c q_e' &= c q_e\cos\alpha + q_m\sin\alpha, & q_m' &= q_m\cos\alpha - c q_e\sin\alpha,
+\end{aligned}
+$$
+
+where $c \equiv 1/\sqrt{\epsilon_0\mu_0}$, $\alpha$ is an arbitrary angle, and charge and current densities $(\rho_e, \rho_m, \mathbf{J}_e, \mathbf{J}_m)$ transform in the same way as $(q_e, q_m)$.
+
+(b) Show that the generalized Lorentz force law $\mathbf{F} = q_e(\mathbf{E} + \mathbf{v}\times\mathbf{B}) + q_m\left(\mathbf{B} - \frac{1}{c^2}\mathbf{v}\times\mathbf{E}\right)$ is also invariant under the duality transformation.
+
+</div>
+<div slot="answer">
+
+(a) All four Maxwell equations in primed variables take the exact same form as in unprimed variables, using $c^2 \epsilon_0 \mu_0 = 1$.
+
+(b) Expanding $\mathbf{F}'$ and simplifying with $\cos^2\alpha + \sin^2\alpha = 1$ gives $\mathbf{F}' = \mathbf{F}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Using $c^2 = 1/(\epsilon_0\mu_0)$ (so $c\epsilon_0\mu_0 = 1/c$) and substituting Eq. (7.44) into the primed fields:
+
+1. *Electric Gauss's law:*
+
+$$
+\nabla\cdot\mathbf{E}' = (\nabla\cdot\mathbf{E})\cos\alpha + c(\nabla\cdot\mathbf{B})\sin\alpha = \frac{1}{\epsilon_0}\rho_e\cos\alpha + c\mu_0\rho_m\sin\alpha = \frac{1}{\epsilon_0}\left(\rho_e\cos\alpha + \frac{1}{c}\rho_m\sin\alpha\right) = \frac{1}{\epsilon_0}\rho_e'.
+$$
+
+2. *Magnetic Gauss's law:*
+
+$$
+\nabla\cdot\mathbf{B}' = (\nabla\cdot\mathbf{B})\cos\alpha - \frac{1}{c}(\nabla\cdot\mathbf{E})\sin\alpha = \mu_0\rho_m\cos\alpha - \frac{1}{c\epsilon_0}\rho_e\sin\alpha = \mu_0\left(\rho_m\cos\alpha - c\rho_e\sin\alpha\right) = \mu_0\rho_m'.
+$$
+
+3. *Faraday's law:*
+
+$$
+\begin{aligned}
+\nabla\times\mathbf{E}' &= (\nabla\times\mathbf{E})\cos\alpha + c(\nabla\times\mathbf{B})\sin\alpha \\
+&= \left(-\mu_0\mathbf{J}_m - \frac{\partial\mathbf{B}}{\partial t}\right)\cos\alpha + c\left(\mu_0\mathbf{J}_e + \mu_0\epsilon_0\frac{\partial\mathbf{E}}{\partial t}\right)\sin\alpha \\
+&= -\mu_0\left(\mathbf{J}_m\cos\alpha - c\mathbf{J}_e\sin\alpha\right) - \frac{\partial}{\partial t}\left(\mathbf{B}\cos\alpha - \frac{1}{c}\mathbf{E}\sin\alpha\right) = -\mu_0\mathbf{J}_m' - \frac{\partial\mathbf{B}'}{\partial t}.
+\end{aligned}
+$$
+
+4. *Ampère–Maxwell law:*
+
+$$
+\begin{aligned}
+\nabla\times\mathbf{B}' &= (\nabla\times\mathbf{B})\cos\alpha - \frac{1}{c}(\nabla\times\mathbf{E})\sin\alpha \\
+&= \left(\mu_0\mathbf{J}_e + \mu_0\epsilon_0\frac{\partial\mathbf{E}}{\partial t}\right)\cos\alpha - \frac{1}{c}\left(-\mu_0\mathbf{J}_m - \frac{\partial\mathbf{B}}{\partial t}\right)\sin\alpha \\
+&= \mu_0\left(\mathbf{J}_e\cos\alpha + \frac{1}{c}\mathbf{J}_m\sin\alpha\right) + \mu_0\epsilon_0\frac{\partial}{\partial t}\left(\mathbf{E}\cos\alpha + c\mathbf{B}\sin\alpha\right) = \mu_0\mathbf{J}_e' + \mu_0\epsilon_0\frac{\partial\mathbf{E}'}{\partial t}.
+\end{aligned}
+$$
+
+**(b)** Expanding the transformed force $\mathbf{F}' = q_e'(\mathbf{E}' + \mathbf{v}\times\mathbf{B}') + q_m'\left(\mathbf{B}' - \frac{1}{c^2}\mathbf{v}\times\mathbf{E}'\right)$:
+
+$$
+\begin{aligned}
+\mathbf{F}' &= \left(q_e\cos\alpha + \frac{1}{c}q_m\sin\alpha\right)\left[\mathbf{E}\cos\alpha + c\mathbf{B}\sin\alpha + \mathbf{v}\times\left(\mathbf{B}\cos\alpha - \frac{1}{c}\mathbf{E}\sin\alpha\right)\right] \\
+&\quad + \left(q_m\cos\alpha - c q_e\sin\alpha\right)\left[\mathbf{B}\cos\alpha - \frac{1}{c}\mathbf{E}\sin\alpha - \frac{1}{c^2}\mathbf{v}\times\left(\mathbf{E}\cos\alpha + c\mathbf{B}\sin\alpha\right)\right].
+\end{aligned}
+$$
+
+Collecting terms proportional to $q_e$ and $q_m$:
+
+- Coefficient of $q_e$:
+  - Electric/magnetic terms: $\mathbf{E}(\cos^2\alpha + \sin^2\alpha) + c\mathbf{B}(\sin\alpha\cos\alpha - \sin\alpha\cos\alpha) = \mathbf{E}$.
+  - $\mathbf{v}\times(\cdots)$ terms: $\mathbf{v}\times\left[\mathbf{B}(\cos^2\alpha + \sin^2\alpha) + \frac{1}{c}\mathbf{E}(-\sin\alpha\cos\alpha + \sin\alpha\cos\alpha)\right] = \mathbf{v}\times\mathbf{B}$.
+- Coefficient of $q_m$:
+  - Electric/magnetic terms: $\mathbf{B}(\sin^2\alpha + \cos^2\alpha) + \frac{1}{c}\mathbf{E}(\sin\alpha\cos\alpha - \sin\alpha\cos\alpha) = \mathbf{B}$.
+  - $\mathbf{v}\times(\cdots)$ terms: $\mathbf{v}\times\left[-\frac{1}{c^2}\mathbf{E}(\sin^2\alpha + \cos^2\alpha) + \frac{1}{c}\mathbf{B}(\sin\alpha\cos\alpha - \sin\alpha\cos\alpha)\right] = -\frac{1}{c^2}\mathbf{v}\times\mathbf{E}$.
+
+Therefore,
+
+$$
+\mathbf{F}' = q_e(\mathbf{E} + \mathbf{v}\times\mathbf{B}) + q_m\left(\mathbf{B} - \frac{1}{c^2}\mathbf{v}\times\mathbf{E}\right) = \mathbf{F}.
+$$
+
+</div>
+</ProblemCard>
+
+</section>

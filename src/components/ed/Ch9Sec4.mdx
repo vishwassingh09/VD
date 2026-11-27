@@ -1,0 +1,595 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch9-sec4" class="ed-sec-block">
+
+### 9.4 Absorption and Dispersion
+
+<div class="ed-theory-box">
+
+#### Core Theory & Key Formulas
+
+**1. Electromagnetic Waves in Conductors**
+In a linear ohmic medium ($\mathbf{J}_f = \sigma \mathbf{E}$), free charge dissipates exponentially with relaxation time $\tau \equiv \epsilon/\sigma$: $\rho_f(t) = e^{-(\sigma/\epsilon)t}\rho_f(0)$. Once $\rho_f = 0$, Maxwell's equations yield the damped wave equations:
+
+$$
+\nabla^2 \mathbf{E} = \mu\epsilon \frac{\partial^2 \mathbf{E}}{\partial t^2} + \mu\sigma \frac{\partial \mathbf{E}}{\partial t}, \qquad \nabla^2 \mathbf{B} = \mu\epsilon \frac{\partial^2 \mathbf{B}}{\partial t^2} + \mu\sigma \frac{\partial \mathbf{B}}{\partial t}
+$$
+
+Attenuated plane-wave solutions take the form $\tilde{\mathbf{E}}(z,t) = \tilde{\mathbf{E}}_0 e^{-\kappa z} e^{i(kz - \omega t)}$ with complex wave number $\tilde{k} = k + i\kappa$, where $\tilde{k}^2 = \mu\epsilon\omega^2 + i\mu\sigma\omega$:
+
+$$
+k = \omega\sqrt{\frac{\epsilon\mu}{2}}\left[\sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2} + 1\right]^{1/2}, \qquad \kappa = \omega\sqrt{\frac{\epsilon\mu}{2}}\left[\sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2} - 1\right]^{1/2}
+$$
+
+- **Skin depth & wave properties:** $d \equiv 1/\kappa$, wavelength $\lambda = 2\pi/k$, speed $v = \omega/k$, and index of refraction $n = ck/\omega$.
+- **Phase lag & amplitude ratio:** Writing $\tilde{k} = K e^{i\phi}$ with $K = \sqrt{k^2 + \kappa^2}$, the real fields are $\mathbf{E} = E_0 e^{-\kappa z}\cos(kz - \omega t + \delta_E)\,\hat{\mathbf{x}}$ and $\mathbf{B} = B_0 e^{-\kappa z}\cos(kz - \omega t + \delta_E + \phi)\,\hat{\mathbf{y}}$, where $\mathbf{B}$ lags $\mathbf{E}$ by $\phi = \tan^{-1}(\kappa/k)$ and
+
+$$
+\frac{B_0}{E_0} = \frac{K}{\omega} = \sqrt{\epsilon\mu\sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2}}
+$$
+
+**2. Reflection at a Conducting Surface (Normal Incidence)**
+For a wave incident from a nonconductor (medium 1) onto a conductor (medium 2) at $z = 0$:
+
+$$
+\tilde{E}_{0R} = \left(\frac{1 - \tilde{\beta}}{1 + \tilde{\beta}}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0T} = \left(\frac{2}{1 + \tilde{\beta}}\right)\tilde{E}_{0I}, \qquad \tilde{\beta} \equiv \frac{\mu_1 v_1}{\mu_2 \omega}\tilde{k}_2
+$$
+
+The reflection coefficient is $R = \left|(1 - \tilde{\beta})/(1 + \tilde{\beta})\right|^2$. For a perfect conductor ($\sigma \to \infty$), $\tilde{\beta} \to \infty$ and $R = 1$ with a $180^\circ$ phase shift.
+
+**3. Dispersion in Dielectrics (Lorentz Oscillator Model)**
+Modeling bound electrons ($f_j$ per molecule with natural frequency $\omega_j$ and damping $\gamma_j$, and $N$ molecules per unit volume) as damped driven harmonic oscillators gives the complex dielectric constant $\tilde{\epsilon}_r = 1 + \frac{N q^2}{m\epsilon_0}\sum_j \frac{f_j}{\omega_j^2 - \omega^2 - i\gamma_j\omega}$. For dilute gases ($\tilde{k} = \sqrt{\tilde{\epsilon}\mu_0}\,\omega = k + i\kappa$):
+
+$$
+n = \frac{ck}{\omega} \approx 1 + \frac{N q^2}{2m\epsilon_0}\sum_j \frac{f_j(\omega_j^2 - \omega^2)}{(\omega_j^2 - \omega^2)^2 + \gamma_j^2\omega^2}, \qquad \alpha = 2\kappa \approx \frac{N q^2 \omega^2}{m\epsilon_0 c}\sum_j \frac{f_j\gamma_j}{(\omega_j^2 - \omega^2)^2 + \gamma_j^2\omega^2}
+$$
+
+A wave packet travels at the **group velocity** $v_g = d\omega/dk$, whereas individual crests move at the **phase velocity** $v = \omega/k$. Away from resonances ($\omega \ll \omega_j$, negligible damping), dispersion obeys **Cauchy's formula**: $n = 1 + A(1 + B/\lambda^2)$.
+
+</div>
+
+<ProblemCard num="9.19" title="Relaxation Time, Skin Depth, and Wavelength in Conductors" tag="Griffiths 9.19 · Waves in Conductors">
+
+<div slot="problem">
+
+(a) Suppose you imbedded some free charge in a piece of glass. About how long would it take for the charge to flow to the surface?
+
+(b) Silver is an excellent conductor, but it's expensive. Suppose you were designing a microwave experiment to operate at a frequency of $10^{10}\text{ Hz}$. How thick would you make the silver coatings?
+
+(c) Find the wavelength and propagation speed in copper for radio waves at $1\text{ MHz}$. Compare the corresponding values in air (or vacuum).
+
+</div>
+
+<div slot="answer">
+
+(a) $\tau \approx 20\text{ s}$ (order-of-magnitude estimate, as glass resistivity varies widely).
+
+(b) Skin depth $d \approx 6.4 \times 10^{-7}\text{ m} = 6.4 \times 10^{-4}\text{ mm}$; a coating of about $0.001\text{ mm}$ ($1\ \mu\text{m}$) is sufficient.
+
+(c) In copper: $\lambda \approx 4 \times 10^{-4}\text{ m} = 0.4\text{ mm}$ and $v \approx 400\text{ m/s}$. In vacuum (or air): $\lambda_{\text{vac}} = 300\text{ m}$ and $v_{\text{vac}} = 3 \times 10^8\text{ m/s}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** From the continuity equation and Ohm's law (Eq. 9.120), free charge dissipates with characteristic relaxation time $\tau = \epsilon/\sigma$. Using $\epsilon = \epsilon_0 \epsilon_r$ with $\epsilon_r \approx n^2$ and $n \approx 1.5$ for glass:
+
+$$
+\epsilon \approx (1.5)^2 (8.85 \times 10^{-12}\text{ C}^2/\text{N}\cdot\text{m}^2) \approx 2 \times 10^{-11}\text{ C}^2/(\text{N}\cdot\text{m}^2)
+$$
+
+From Table 7.1, the conductivity of glass is $\sigma = 1/\rho \approx 10^{-12}\ (\Omega\cdot\text{m})^{-1}$, giving
+
+$$
+\tau = \frac{\epsilon}{\sigma} \approx \frac{2 \times 10^{-11}}{10^{-12}} = 20\text{ s}
+$$
+
+*(Note: Because the resistivity of glass varies greatly by composition, this estimate can easily differ by a factor of $100$ in either direction.)*
+
+**(b)** For silver (Table 7.1), $\rho = 1.59 \times 10^{-8}\ \Omega\cdot\text{m}$, so $\sigma = 1/\rho = 6.25 \times 10^7\ (\Omega\cdot\text{m})^{-1}$. With $\epsilon \approx \epsilon_0$ and $\omega = 2\pi \nu = 2\pi \times 10^{10}\text{ rad/s}$:
+
+$$
+\omega\epsilon \approx (2\pi \times 10^{10})(8.85 \times 10^{-12}) \approx 0.56\ (\Omega\cdot\text{m})^{-1}
+$$
+
+Since $\sigma \gg \omega\epsilon$, silver is a very good conductor at $10^{10}\text{ Hz}$. In this limit, $\kappa \approx \sqrt{\omega\sigma\mu_0/2}$, so the skin depth is
+
+$$
+d = \frac{1}{\kappa} \approx \sqrt{\frac{2}{\omega\sigma\mu_0}} = \sqrt{\frac{2}{(2\pi \times 10^{10})(6.25 \times 10^7)(4\pi \times 10^{-7})}} = 6.4 \times 10^{-7}\text{ m} = 6.4 \times 10^{-4}\text{ mm}
+$$
+
+Plating silver to a thickness of about $0.001\text{ mm}$ ($1\ \mu\text{m}$) is plenty; the fields decay rapidly beyond one skin depth.
+
+**(c)** For copper (Table 7.1), $\rho = 1.68 \times 10^{-8}\ \Omega\cdot\text{m}$, so $\sigma = 1/(1.68 \times 10^{-8}) \approx 6 \times 10^7\ (\Omega\cdot\text{m})^{-1}$. At $\nu = 1\text{ MHz}$, $\omega\epsilon_0 = (2\pi \times 10^6)(8.85 \times 10^{-12}) \approx 6 \times 10^{-5}\ (\Omega\cdot\text{m})^{-1}$. Again $\sigma \gg \omega\epsilon$, so $k \approx \sqrt{\omega\sigma\mu_0/2}$, and the wavelength in copper is
+
+$$
+\lambda = \frac{2\pi}{k} \approx 2\pi\sqrt{\frac{2}{\omega\sigma\mu_0}} = 2\pi\sqrt{\frac{2}{(2\pi \times 10^6)(6 \times 10^7)(4\pi \times 10^{-7})}} \approx 4 \times 10^{-4}\text{ m} = 0.4\text{ mm}
+$$
+
+The propagation speed in copper is
+
+$$
+v = \frac{\omega}{k} = \lambda\nu \approx (4 \times 10^{-4}\text{ m})(10^6\text{ Hz}) = 400\text{ m/s}
+$$
+
+In vacuum (or air), by contrast:
+
+$$
+\lambda_{\text{vac}} = \frac{c}{\nu} = \frac{3 \times 10^8\text{ m/s}}{10^6\text{ Hz}} = 300\text{ m}, \qquad v_{\text{vac}} = c = 3 \times 10^8\text{ m/s}
+$$
+
+*(Because the skin depth in a good conductor is comparable to $\lambda/2\pi$, the wave attenuates completely over a single wavelength, making "wavelength" and "propagation speed" somewhat formal concepts here.)*
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.20" title="Poor vs. Good Conductors: Skin Depth and Phase Lag" tag="Griffiths 9.20 · Conducting Limits">
+
+<div slot="problem">
+
+(a) Show that the skin depth in a poor conductor ($\sigma \ll \omega\epsilon$) is $(2/\sigma)\sqrt{\epsilon/\mu}$ (independent of frequency). Find the skin depth (in meters) for (pure) water. (Use the static values of $\epsilon$, $\mu$, and $\sigma$; your answers will be valid, then, only at relatively low frequencies.)
+
+(b) Show that the skin depth in a good conductor ($\sigma \gg \omega\epsilon$) is $\lambda/2\pi$ (where $\lambda$ is the wavelength in the conductor). Find the skin depth (in nanometers) for a typical metal ($\sigma \approx 10^7\ (\Omega\cdot\text{m})^{-1}$) in the visible range ($\omega \approx 10^{15}\text{ s}^{-1}$), assuming $\epsilon \approx \epsilon_0$ and $\mu \approx \mu_0$. Why are metals opaque?
+
+(c) Show that in a good conductor the magnetic field lags the electric field by $45^\circ$, and find the ratio of their amplitudes. For a numerical example, use the "typical metal" in part (b).
+
+</div>
+
+<div slot="answer">
+
+(a) $d \approx \frac{2}{\sigma}\sqrt{\frac{\epsilon}{\mu}}$; for pure water, $d \approx 1.19 \times 10^4\text{ m}$.
+
+(b) $d \approx \frac{\lambda}{2\pi}$; for a typical metal in visible light, $d \approx 13\text{ nm}$. Metals are opaque because electromagnetic waves attenuate within a few nanometers of the surface.
+
+(c) Phase lag $\phi \approx 45^\circ$; amplitude ratio $\frac{B_0}{E_0} \approx \sqrt{\frac{\sigma\mu}{\omega}} \approx 10^{-7}\text{ s/m}$ (compared with $1/c \approx 3.3 \times 10^{-9}\text{ s/m}$ in vacuum).
+
+</div>
+
+<div slot="solution">
+
+**(a)** In a poor conductor, $\sigma/(\epsilon\omega) \ll 1$. Expanding the inner square root in Eq. 9.126 via $\sqrt{1 + \delta} \approx 1 + \frac{1}{2}\delta$:
+
+$$
+\kappa \approx \omega\sqrt{\frac{\epsilon\mu}{2}}\left[1 + \frac{1}{2}\left(\frac{\sigma}{\epsilon\omega}\right)^2 - 1\right]^{1/2} = \omega\sqrt{\frac{\epsilon\mu}{2}}\left(\frac{1}{\sqrt{2}}\frac{\sigma}{\epsilon\omega}\right) = \frac{\sigma}{2}\sqrt{\frac{\mu}{\epsilon}}
+$$
+
+Hence the skin depth is
+
+$$
+d = \frac{1}{\kappa} \approx \frac{2}{\sigma}\sqrt{\frac{\epsilon}{\mu}}
+$$
+
+For pure water, using Tables 4.2, 6.1, and 7.1: $\epsilon = \epsilon_r\epsilon_0 = 80.1\,\epsilon_0$, $\mu = \mu_0(1 + \chi_m) = \mu_0(1 - 9.0 \times 10^{-6}) \approx \mu_0$, and $\sigma = 1/\rho = 1/(2.5 \times 10^5)\ (\Omega\cdot\text{m})^{-1}$. Substituting these values:
+
+$$
+d = 2(2.5 \times 10^5)\sqrt{\frac{(80.1)(8.85 \times 10^{-12})}{4\pi \times 10^{-7}}} = 1.19 \times 10^4\text{ m}
+$$
+
+**(b)** In a good conductor, $(\sigma/\epsilon\omega)^2 \gg 1$, so the $(\sigma/\epsilon\omega)^2$ term dominates in Eq. 9.126 and the $\pm 1$ is negligible:
+
+$$
+k \approx \kappa \approx \omega\sqrt{\frac{\epsilon\mu}{2}\frac{\sigma}{\epsilon\omega}} = \sqrt{\frac{\omega\sigma\mu}{2}}
+$$
+
+Therefore, from Eqs. 9.128 and 9.129:
+
+$$
+\lambda = \frac{2\pi}{k} \approx \frac{2\pi}{\kappa} = 2\pi d \implies d \approx \frac{\lambda}{2\pi}
+$$
+
+For a typical metal ($\sigma \approx 10^7\ (\Omega\cdot\text{m})^{-1}$, $\mu \approx \mu_0$) at $\omega \approx 10^{15}\text{ s}^{-1}$:
+
+$$
+\kappa \approx \sqrt{\frac{(10^{15})(10^7)(4\pi \times 10^{-7})}{2}} \approx 8 \times 10^7\text{ m}^{-1} \implies d = \frac{1}{\kappa} \approx \frac{1}{8 \times 10^7\text{ m}^{-1}} \approx 1.3 \times 10^{-8}\text{ m} = 13\text{ nm}
+$$
+
+Because visible light penetrates only about $13\text{ nm}$ (a few dozen atomic layers) before decaying away, metals are opaque.
+
+**(c)** Since $k \approx \kappa$ in a good conductor, Eq. 9.134 gives the phase lag of $\mathbf{B}$ behind $\mathbf{E}$:
+
+$$
+\phi = \tan^{-1}\left(\frac{\kappa}{k}\right) \approx \tan^{-1}(1) = 45^\circ
+$$
+
+From Eq. 9.137, taking $\sigma/(\epsilon\omega) \gg 1$:
+
+$$
+\frac{B_0}{E_0} = \sqrt{\epsilon\mu\sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2}} \approx \sqrt{\epsilon\mu\left(\frac{\sigma}{\epsilon\omega}\right)} = \sqrt{\frac{\sigma\mu}{\omega}}
+$$
+
+For the typical metal in part (b):
+
+$$
+\frac{B_0}{E_0} \approx \sqrt{\frac{(10^7)(4\pi \times 10^{-7})}{10^{15}}} \approx 1.1 \times 10^{-7}\text{ s/m} \approx 10^{-7}\text{ s/m}
+$$
+
+In vacuum, $B_0/E_0 = 1/c \approx 3.3 \times 10^{-9}\text{ s/m}$, so the magnetic field amplitude is comparatively about $30$ to $100$ times larger (relative to $E_0$) inside a metal.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.21" title="Energy Density and Intensity in a Conductor" tag="Griffiths 9.21 · Energy & Poynting Vector">
+
+<div slot="problem">
+
+(a) Calculate the (time-averaged) energy density of an electromagnetic plane wave in a conducting medium (Eq. 9.138). Show that the magnetic contribution always dominates. [Answer: $(k^2/2\mu\omega^2)E_0^2 e^{-2\kappa z}$]
+
+(b) Show that the intensity is $(k/2\mu\omega)E_0^2 e^{-2\kappa z}$.
+
+</div>
+
+<div slot="answer">
+
+(a) $\langle u \rangle = \frac{k^2}{2\mu\omega^2} E_0^2 e^{-2\kappa z}$, with $\frac{\langle u_{\text{mag}} \rangle}{\langle u_{\text{elec}} \rangle} = \sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2} > 1$.
+
+(b) $I = \frac{k}{2\mu\omega} E_0^2 e^{-2\kappa z}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** Using the real fields in Eq. 9.138, the instantaneous energy density is
+
+$$
+u = \frac{1}{2}\left(\epsilon E^2 + \frac{1}{\mu}B^2\right) = \frac{1}{2}e^{-2\kappa z}\left[\epsilon E_0^2 \cos^2(kz - \omega t + \delta_E) + \frac{1}{\mu}B_0^2 \cos^2(kz - \omega t + \delta_E + \phi)\right]
+$$
+
+Averaging over a full cycle ($\langle \cos^2 \rangle = 1/2$) and substituting $B_0^2 = E_0^2\,\epsilon\mu\sqrt{1 + (\sigma/\epsilon\omega)^2}$ from Eq. 9.137:
+
+$$
+\langle u \rangle = \frac{1}{4}e^{-2\kappa z}\left(\epsilon E_0^2 + \frac{1}{\mu}B_0^2\right) = \frac{1}{4}e^{-2\kappa z}\epsilon E_0^2\left[1 + \sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2}\right]
+$$
+
+From Eq. 9.126, $1 + \sqrt{1 + (\sigma/\epsilon\omega)^2} = \frac{2k^2}{\epsilon\mu\omega^2}$, which simplifies $\langle u \rangle$ to
+
+$$
+\langle u \rangle = \frac{1}{4}e^{-2\kappa z}\epsilon E_0^2\left(\frac{2k^2}{\epsilon\mu\omega^2}\right) = \frac{k^2}{2\mu\omega^2}E_0^2 e^{-2\kappa z}
+$$
+
+Comparing the magnetic and electric energy densities:
+
+$$
+\frac{\langle u_{\text{mag}} \rangle}{\langle u_{\text{elec}} \rangle} = \frac{B_0^2/\mu}{\epsilon E_0^2} = \sqrt{1 + \left(\frac{\sigma}{\epsilon\omega}\right)^2} > 1
+$$
+
+for any nonzero conductivity $\sigma > 0$, so the magnetic contribution always dominates.
+
+**(b)** The Poynting vector is
+
+$$
+\mathbf{S} = \frac{1}{\mu}(\mathbf{E} \times \mathbf{B}) = \frac{1}{\mu}E_0 B_0 e^{-2\kappa z}\cos(kz - \omega t + \delta_E)\cos(kz - \omega t + \delta_E + \phi)\,\hat{\mathbf{z}}
+$$
+
+Using the cycle average $\frac{1}{2\pi}\int_0^{2\pi}\cos\theta\cos(\theta + \phi)\,d\theta = \frac{1}{2}\cos\phi$:
+
+$$
+\langle \mathbf{S} \rangle = \frac{1}{2\mu}E_0 B_0 e^{-2\kappa z}\cos\phi\,\hat{\mathbf{z}}
+$$
+
+From Eqs. 9.133–9.137, $B_0 = \frac{K}{\omega}E_0$ and $K\cos\phi = \operatorname{Re}(\tilde{k}) = k$. Therefore, the intensity $I = |\langle \mathbf{S} \rangle|$ is
+
+$$
+I = \frac{1}{2\mu}E_0^2 e^{-2\kappa z}\left(\frac{K\cos\phi}{\omega}\right) = \frac{k}{2\mu\omega}E_0^2 e^{-2\kappa z}
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.22" title="Reflection at an Air-to-Silver Interface" tag="Griffiths 9.22 · Conducting Reflection">
+
+<div slot="problem">
+
+Calculate the reflection coefficient for light at an air-to-silver interface ($\mu_1 = \mu_2 = \mu_0$, $\epsilon_1 = \epsilon_0$, $\sigma = 6 \times 10^7\ (\Omega\cdot\text{m})^{-1}$), at optical frequencies ($\omega = 4 \times 10^{15}\text{ s}^{-1}$).
+
+</div>
+
+<div slot="answer">
+
+$R \approx 0.93$ ($93\%$ of the incident light is reflected).
+
+</div>
+
+<div slot="solution">
+
+From Eq. 9.147, the reflection coefficient at normal incidence is
+
+$$
+R = \left|\frac{\tilde{E}_{0R}}{\tilde{E}_{0I}}\right|^2 = \left|\frac{1 - \tilde{\beta}}{1 + \tilde{\beta}}\right|^2 = \left(\frac{1 - \tilde{\beta}}{1 + \tilde{\beta}}\right)\left(\frac{1 - \tilde{\beta}^*}{1 + \tilde{\beta}^*}\right)
+$$
+
+where $\tilde{\beta} = \frac{\mu_1 v_1}{\mu_2 \omega}(k_2 + i\kappa_2)$. Since $\omega\epsilon_2 \sim 10^4 \ll \sigma = 6 \times 10^7\ (\Omega\cdot\text{m})^{-1}$, silver is a good conductor at optical frequencies, so Eq. 9.126 reduces to $k_2 \approx \kappa_2 \approx \sqrt{\omega\sigma\mu_2/2}$. Thus
+
+$$
+\tilde{\beta} \approx \frac{\mu_1 v_1}{\mu_2 \omega}\sqrt{\frac{\omega\sigma\mu_2}{2}}(1 + i) = \mu_1 v_1\sqrt{\frac{\sigma}{2\mu_2 \omega}}(1 + i) = \gamma(1 + i)
+$$
+
+where we define the real dimensionless parameter $\gamma \equiv \mu_1 v_1\sqrt{\sigma/(2\mu_2 \omega)}$. With $\mu_1 = \mu_2 = \mu_0$ and $v_1 = c$:
+
+$$
+\gamma = c\sqrt{\frac{\sigma\mu_0}{2\omega}} = (3 \times 10^8)\sqrt{\frac{(6 \times 10^7)(4\pi \times 10^{-7})}{2(4 \times 10^{15})}} \approx 29
+$$
+
+Substituting $\tilde{\beta} = \gamma(1 + i)$ into the expression for $R$:
+
+$$
+R = \left(\frac{1 - \gamma - i\gamma}{1 + \gamma + i\gamma}\right)\left(\frac{1 - \gamma + i\gamma}{1 + \gamma - i\gamma}\right) = \frac{(1 - \gamma)^2 + \gamma^2}{(1 + \gamma)^2 + \gamma^2} = \frac{(-28)^2 + 29^2}{30^2 + 29^2} = \frac{1625}{1741} \approx 0.93
+$$
+
+Roughly $93\%$ of the optical intensity is reflected.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.23" title="Phase Velocity vs. Group Velocity" tag="Griffiths 9.23 · Dispersion Relations">
+
+<div slot="problem">
+
+(a) Shallow water is nondispersive; waves travel at a speed that is proportional to the square root of the depth. In deep water, however, the waves can't "feel" all the way down to the bottom—they behave as though the depth were proportional to $\lambda$. (Actually, the distinction between "shallow" and "deep" itself depends on the wavelength: If the depth is less than $\lambda$, the water is "shallow"; if it is substantially greater than $\lambda$, the water is "deep.") Show that the wave velocity of deep water waves is twice the group velocity.
+
+(b) In quantum mechanics, a free particle of mass $m$ traveling in the $x$ direction is described by the wave function
+
+$$
+\Psi(x, t) = A e^{i(px - Et)/\hbar}
+$$
+
+where $p$ is the momentum, and $E = p^2/2m$ is the kinetic energy. Calculate the group velocity and the wave velocity. Which one corresponds to the classical speed of the particle? Note that the wave velocity is half the group velocity.
+
+</div>
+
+<div slot="answer">
+
+(a) $v_g = \frac{1}{2}v$, so $v = 2v_g$.
+
+(b) $v = \frac{p}{2m}$ and $v_g = \frac{p}{m} = 2v$. The group velocity $v_g$ corresponds to the classical speed of the particle.
+
+</div>
+
+<div slot="solution">
+
+**(a)** For deep water waves, the phase (wave) velocity is proportional to $\sqrt{\lambda}$, so $v = \alpha\sqrt{\lambda}$ for some constant $\alpha$. Using $\lambda = 2\pi/k$ and $v = \omega/k$, we obtain the dispersion relation $\omega(k)$:
+
+$$
+\omega = kv = \alpha k\sqrt{\frac{2\pi}{k}} = \alpha\sqrt{2\pi}\,k^{1/2}
+$$
+
+The group velocity (Eq. 9.150) is then
+
+$$
+v_g = \frac{d\omega}{dk} = \frac{1}{2}\alpha\sqrt{2\pi}\,k^{-1/2} = \frac{1}{2}\alpha\sqrt{\frac{2\pi}{k}} = \frac{1}{2}\alpha\sqrt{\lambda} = \frac{1}{2}v
+$$
+
+Therefore, $v = 2v_g$.
+
+**(b)** Comparing $\Psi(x, t) = A e^{i(px - Et)/\hbar}$ with the standard plane-wave phase $e^{i(kx - \omega t)}$, we identify
+
+$$
+k = \frac{p}{\hbar}, \qquad \omega = \frac{E}{\hbar} = \frac{p^2}{2m\hbar} = \frac{\hbar k^2}{2m}
+$$
+
+The wave (phase) velocity is
+
+$$
+v = \frac{\omega}{k} = \frac{\hbar k}{2m} = \frac{p}{2m}
+$$
+
+and the group velocity is
+
+$$
+v_g = \frac{d\omega}{dk} = \frac{\hbar k}{m} = \frac{p}{m}
+$$
+
+Thus $v = \frac{1}{2}v_g$. Since the classical momentum is $p = m v_{\text{classical}}$, the **group velocity** $v_g = p/m$ corresponds to the classical speed of the particle.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.24" title="Classical Atomic Dispersion and Cauchy's Formula for Hydrogen" tag="Griffiths 9.24 · Cauchy's Formula">
+
+<div slot="problem">
+
+If you take the model in Ex. 4.1 at face value, what natural frequency do you get? Put in the actual numbers. Where, in the electromagnetic spectrum, does this lie, assuming the radius of the atom is $0.5\text{ \AA}$? Find the coefficients of refraction and dispersion, and compare them with the measured values for hydrogen at $0^\circ\text{C}$ and atmospheric pressure: $A = 1.36 \times 10^{-4}$, $B = 7.7 \times 10^{-15}\text{ m}^2$.
+
+</div>
+
+<div slot="answer">
+
+$\omega_0 \approx 4.5 \times 10^{16}\text{ rad/s}$ ($\nu_0 \approx 7.16 \times 10^{15}\text{ Hz}$, in the ultraviolet); $A \approx 4.2 \times 10^{-5}$ (about $1/3$ of the measured $1.36 \times 10^{-4}$) and $B \approx 1.8 \times 10^{-15}\text{ m}^2$ (about $1/4$ of the measured $7.7 \times 10^{-15}\text{ m}^2$).
+
+</div>
+
+<div slot="solution">
+
+In Example 4.1, a uniform spherical electron cloud of radius $a$ displaced by $x$ from the nucleus experiences an electric field $E = \frac{1}{4\pi\epsilon_0}\frac{qx}{a^3}$, giving a linear restoring force
+
+$$
+F = qE = \frac{1}{4\pi\epsilon_0}\frac{q^2}{a^3}x = k_{\text{spring}} x = m\omega_0^2 x
+$$
+
+Solving for the natural angular frequency $\omega_0$ with $q = 1.6 \times 10^{-19}\text{ C}$, $m = 9.11 \times 10^{-31}\text{ kg}$, and $a = 0.5\text{ \AA} = 0.5 \times 10^{-10}\text{ m}$:
+
+$$
+\omega_0 = \sqrt{\frac{q^2}{4\pi\epsilon_0 m a^3}} = \sqrt{\frac{(1.6 \times 10^{-19})^2}{4\pi(8.85 \times 10^{-12})(9.11 \times 10^{-31})(0.5 \times 10^{-10})^3}} \approx 4.5 \times 10^{16}\text{ rad/s}
+$$
+
+The corresponding frequency is
+
+$$
+\nu_0 = \frac{\omega_0}{2\pi} \approx 7.16 \times 10^{15}\text{ Hz}
+$$
+
+which lies in the **ultraviolet** region of the electromagnetic spectrum ($\lambda_0 = c/\nu_0 \approx 42\text{ nm}$).
+
+Comparing Eqs. 9.173 and 9.174 for a single resonance frequency $\omega_0$ with $\omega = 2\pi c/\lambda$:
+
+$$
+n = 1 + \frac{N q^2 f}{2m\epsilon_0 \omega_0^2}\left[1 + \left(\frac{2\pi c}{\omega_0}\right)^2 \frac{1}{\lambda^2}\right] \implies A = \frac{N q^2 f}{2m\epsilon_0 \omega_0^2}, \qquad B = \left(\frac{2\pi c}{\omega_0}\right)^2
+$$
+
+For $\text{H}_2$ gas at STP ($0^\circ\text{C}$, $1\text{ atm}$), $1\text{ mole}$ occupies $22.4\text{ liters} = 22.4 \times 10^{-3}\text{ m}^3$, so the molecular number density is
+
+$$
+N = \frac{6.02 \times 10^{23}}{22.4 \times 10^{-3}\text{ m}^3} = 2.69 \times 10^{25}\text{ m}^{-3}
+$$
+
+and there are $f = 2$ electrons per $\text{H}_2$ molecule. Plugging in the numbers:
+
+$$
+A = \frac{(2.69 \times 10^{25})(1.6 \times 10^{-19})^2(2)}{2(9.11 \times 10^{-31})(8.85 \times 10^{-12})(4.5 \times 10^{16})^2} \approx 4.2 \times 10^{-5}
+$$
+
+which is about $1/3$ of the measured value $1.36 \times 10^{-4}$, and
+
+$$
+B = \left(\frac{2\pi \times 3 \times 10^8}{4.5 \times 10^{16}}\right)^2 \approx 1.8 \times 10^{-15}\text{ m}^2
+$$
+
+which is about $1/4$ of the measured value $7.7 \times 10^{-15}\text{ m}^2$. Even this crude classical model captures the right order of magnitude for both constants.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.25" title="Width of the Anomalous Dispersion Region" tag="Griffiths 9.25 · Anomalous Dispersion">
+
+<div slot="problem">
+
+Find the width of the anomalous dispersion region for the case of a single resonance at frequency $\omega_0$. Assume $\gamma \ll \omega_0$. Show that the index of refraction assumes its maximum and minimum values at points where the absorption coefficient is at half-maximum.
+
+</div>
+
+<div slot="answer">
+
+The anomalous dispersion region spans from $\omega_1 \approx \omega_0 - \gamma/2$ to $\omega_2 \approx \omega_0 + \gamma/2$, giving a width $\Delta\omega = \omega_2 - \omega_1 = \gamma$; at both $\omega_1$ and $\omega_2$, $\alpha \approx \frac{1}{2}\alpha_{\max}$.
+
+</div>
+
+<div slot="solution">
+
+From Eq. 9.170 for a single resonance at $\omega_0$ (with $f_1 = 1$), the index of refraction is
+
+$$
+n(\omega) = 1 + \frac{N q^2}{2m\epsilon_0}\frac{\omega_0^2 - \omega^2}{D}, \qquad D \equiv (\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2
+$$
+
+The anomalous dispersion region lies between the maximum and minimum of $n(\omega)$, where $dn/d\omega = 0$:
+
+$$
+\frac{dn}{d\omega} = \frac{N q^2}{2m\epsilon_0}\frac{-2\omega D - (\omega_0^2 - \omega^2)\left[2(\omega_0^2 - \omega^2)(-2\omega) + 2\gamma^2\omega\right]}{D^2} = 0
+$$
+
+Dividing out $2\omega$ and expanding $D$:
+
+$$
+(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2 = 2(\omega_0^2 - \omega^2)^2 - \gamma^2(\omega_0^2 - \omega^2) \implies (\omega_0^2 - \omega^2)^2 = \gamma^2\omega_0^2
+$$
+
+Thus $\omega_0^2 - \omega^2 = \pm \gamma\omega_0$, or $\omega^2 = \omega_0^2 \mp \gamma\omega_0$. Since $\gamma \ll \omega_0$, we expand the square root:
+
+$$
+\omega = \omega_0\sqrt{1 \mp \frac{\gamma}{\omega_0}} \approx \omega_0\left(1 \mp \frac{\gamma}{2\omega_0}\right) = \omega_0 \mp \frac{\gamma}{2}
+$$
+
+So $n$ reaches its maximum at $\omega_1 = \omega_0 - \gamma/2$ and its minimum at $\omega_2 = \omega_0 + \gamma/2$, giving the width of the anomalous dispersion region:
+
+$$
+\Delta\omega = \omega_2 - \omega_1 = \gamma
+$$
+
+Next, from Eq. 9.171, the absorption coefficient is
+
+$$
+\alpha(\omega) = \frac{N q^2 \omega^2 \gamma}{m\epsilon_0 c\left[(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2\right]}
+$$
+
+At the resonance $\omega = \omega_0$, $\alpha$ achieves its maximum value $\alpha_{\max} = \frac{N q^2}{m\epsilon_0 c\gamma}$. At $\omega_1$ and $\omega_2$, where $(\omega_0^2 - \omega^2)^2 = \gamma^2\omega_0^2$ and $\omega^2 = \omega_0^2 \mp \gamma\omega_0$:
+
+$$
+\alpha(\omega_{1,2}) = \frac{N q^2}{m\epsilon_0 c}\frac{\omega^2\gamma}{\gamma^2\omega_0^2 + \gamma^2\omega^2} = \left(\frac{\omega^2}{\omega^2 + \omega_0^2}\right)\alpha_{\max}
+$$
+
+Because $\gamma \ll \omega_0$:
+
+$$
+\frac{\omega^2}{\omega^2 + \omega_0^2} = \frac{\omega_0^2 \mp \gamma\omega_0}{2\omega_0^2 \mp \gamma\omega_0} = \frac{1}{2}\frac{1 \mp \gamma/\omega_0}{1 \mp \gamma/(2\omega_0)} \approx \frac{1}{2}\left(1 \mp \frac{\gamma}{\omega_0}\right)\left(1 \pm \frac{\gamma}{2\omega_0}\right) \approx \frac{1}{2}\left(1 \mp \frac{\gamma}{2\omega_0}\right) \approx \frac{1}{2}
+$$
+
+Therefore, $\alpha \approx \frac{1}{2}\alpha_{\max}$ at both $\omega_1$ and $\omega_2$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.26" title="Superluminal Group Velocity Near Resonance" tag="Griffiths 9.26 · Group Velocity">
+
+<div slot="problem">
+
+Starting with Eq. 9.170, calculate the group velocity, assuming there is only one resonance, at $\omega_0$. Use a computer to graph $y \equiv v_g/c$ as a function of $x \equiv (\omega/\omega_0)^2$, from $x = 0$ to $2$, (a) for $\gamma = 0$, and (b) for $\gamma = (0.1)\omega_0$. Let $(N q^2)/(2m\epsilon_0\omega_0^2) = 0.003$. Note that the group velocity can exceed $c$.
+
+</div>
+
+<div slot="answer">
+
+$$
+\frac{v_g}{c} = \left\{1 + a\omega_0^2(\omega_0^2 + \omega^2)\frac{(\omega_0^2 - \omega^2)^2 - \gamma^2\omega^2}{\left[(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2\right]^2}\right\}^{-1}, \qquad a \equiv \frac{N q^2}{2m\epsilon_0 \omega_0^2}
+$$
+
+(a) For $\gamma = 0$: $y = \left[1 + 0.003\frac{1 + x}{(1 - x)^2}\right]^{-1}$ (dips to $0$ at $x = 1$, always less than $1$).
+
+(b) For $\gamma = 0.1\,\omega_0$: $y = \left\{1 + 0.003(1 + x)\frac{(1 - x)^2 - 0.01x}{\left[(1 - x)^2 + 0.01x\right]^2}\right\}^{-1}$ (exceeds $1$ near $x = 1$, peaking at $y = 2.5$ when $x = 1$).
+
+</div>
+
+<div slot="solution">
+
+Let $a \equiv \frac{N q^2}{2m\epsilon_0 \omega_0^2}$. From Eq. 9.170 for a single resonance at $\omega_0$:
+
+$$
+\frac{ck}{\omega} = 1 + \frac{a\omega_0^2(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2} \implies ck = \omega + \frac{a\omega_0^2(\omega_0^2\omega - \omega^3)}{(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2}
+$$
+
+Using $v_g = d\omega/dk$, we differentiate $ck$ with respect to $\omega$ to find $c/v_g = c(dk/d\omega)$:
+
+$$
+\frac{c}{v_g} = 1 + a\omega_0^2\frac{(\omega_0^2 - 3\omega^2)\left[(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2\right] - \omega(\omega_0^2 - \omega^2)\left[2(\omega_0^2 - \omega^2)(-2\omega) + 2\gamma^2\omega\right]}{\left[(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2\right]^2}
+$$
+
+Grouping terms in the numerator by powers of $(\omega_0^2 - \omega^2)$ and $\gamma^2\omega^2$:
+
+$$
+\text{Numerator} = (\omega_0^2 - \omega^2)^2(\omega_0^2 - 3\omega^2 + 4\omega^2) + \gamma^2\omega^2\left[(\omega_0^2 - 3\omega^2) - 2(\omega_0^2 - \omega^2)\right] = (\omega_0^2 + \omega^2)\left[(\omega_0^2 - \omega^2)^2 - \gamma^2\omega^2\right]
+$$
+
+Inverting $c/v_g$ yields the group velocity:
+
+$$
+v_g = c\left\{1 + a\omega_0^2(\omega_0^2 + \omega^2)\frac{(\omega_0^2 - \omega^2)^2 - \gamma^2\omega^2}{\left[(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2\right]^2}\right\}^{-1}
+$$
+
+Now write $y \equiv v_g/c$ in terms of $x \equiv (\omega/\omega_0)^2$ with $a = 0.003$:
+
+**(a)** For $\gamma = 0$:
+
+$$
+y = \left[1 + 0.003\,\frac{1 + x}{(1 - x)^2}\right]^{-1}
+$$
+
+On $0 \le x \le 2$, $y(0) \approx 0.997$, drops steeply to $y(1) = 0$ at the resonance, and recovers toward $1$ for $x > 1$ (staying below $1$ everywhere).
+
+**(b)** For $\gamma = (0.1)\omega_0$, so $(\gamma/\omega_0)^2 = 0.01$:
+
+$$
+y = \left\{1 + 0.003(1 + x)\frac{(1 - x)^2 - 0.01x}{\left[(1 - x)^2 + 0.01x\right]^2}\right\}^{-1}
+$$
+
+Near $x = 1$, the numerator $(1 - x)^2 - 0.01x$ turns negative, making the denominator less than $1$ and pushing $y = v_g/c$ above $1$. In particular, at $x = 1$, $y(1) = \left[1 + 0.003(2)(-0.01)/(0.01)^2\right]^{-1} = (1 - 0.6)^{-1} = 2.5$, so $v_g = 2.5c$. *(This does not violate special relativity: in the region of anomalous dispersion, strong absorption and pulse reshaping mean $v_g$ no longer represents the velocity of energy or signal transmission.)*
+
+</div>
+
+</ProblemCard>
+
+</section>

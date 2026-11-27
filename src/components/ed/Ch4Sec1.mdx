@@ -1,0 +1,444 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch4-sec1" class="ed-sec-block">
+
+### 4.1 Polarization
+
+<div class="ed-theory-box">
+
+**1. Dielectrics vs. Conductors:**
+Whereas conductors possess an effectively unlimited supply of free charges able to roam macroscopically through the material, **dielectrics** (insulators) have all charges bound to specific atoms or molecules ("on a tight leash"). Under an external electric field $\vec{E}$, these bound charges undergo only microscopic displacements via two principal mechanisms:
+- **Stretching (Induced Dipoles):** In nonpolar atoms or molecules, $\vec{E}$ pushes the positive nucleus in the direction of $\vec{E}$ and pulls the negative electron cloud in the opposite direction until their mutual electrostatic attraction balances the external force.
+- **Rotation (Alignment of Polar Molecules):** Molecules with built-in permanent dipole moments (such as $\text{H}_2\text{O}$, bent at $105^\circ$ with $p = 6.1 \times 10^{-30}\,\text{C}\cdot\text{m}$) experience a torque tending to align them parallel to $\vec{E}$, competing against random thermal motion.
+
+**2. Induced Dipoles & Polarizability:**
+For fields much weaker than internal atomic fields, the induced dipole moment is proportional to the applied field:
+
+$$
+\vec{p} = \alpha \vec{E}
+$$
+
+where $\alpha$ is the **atomic polarizability** (SI units: $\text{C}^2\cdot\text{m}/\text{N}$; commonly tabulated as $\alpha/4\pi\epsilon_0$ in units of $10^{-30}\,\text{m}^3$).
+- **Uniform-Sphere Atom Model (Ex. 4.1):** Modelling the electron cloud as a uniform sphere of charge $-q$ and radius $a$ shifted by $d$ relative to a point nucleus $+q$, equilibrium gives $E = E_e = \dfrac{qd}{4\pi\epsilon_0 a^3}$, so $p = qd = (4\pi\epsilon_0 a^3)E$:
+
+$$
+\alpha = 4\pi\epsilon_0 a^3 = 3\epsilon_0 v \qquad \left(v = \frac{4}{3}\pi a^3\right)
+$$
+
+- **Anisotropic Molecules & the Polarizability Tensor:** Asymmetric molecules polarize more readily along certain directions (e.g., $\text{CO}_2$ has $\alpha_\parallel = 4.5 \times 10^{-40}$ vs. $\alpha_\perp = 2 \times 10^{-40}\,\text{C}^2\cdot\text{m}/\text{N}$, giving $\vec{p} = \alpha_\perp \vec{E}_\perp + \alpha_\parallel \vec{E}_\parallel$). In general, $\vec{p}$ need not be parallel to $\vec{E}$ and satisfies the tensor relation:
+
+$$
+p_i = \sum_{j=x,y,z} \alpha_{ij} E_j \quad \Longleftrightarrow \quad \begin{pmatrix} p_x \\ p_y \\ p_z \end{pmatrix} = \begin{pmatrix} \alpha_{xx} & \alpha_{xy} & \alpha_{xz} \\ \alpha_{yx} & \alpha_{yy} & \alpha_{yz} \\ \alpha_{zx} & \alpha_{zy} & \alpha_{zz} \end{pmatrix} \begin{pmatrix} E_x \\ E_y \\ E_z \end{pmatrix}
+$$
+
+It is always possible to choose **principal axes** in which all off-diagonal components vanish, leaving three principal polarizabilities $\alpha_{xx}, \alpha_{yy}, \alpha_{zz}$.
+
+**3. Torque, Force, and Energy of a Dipole in an Electric Field:**
+Consider a physical dipole $\vec{p} = q\vec{d}$ (pointing from $-q$ to $+q$).
+- **Torque:** In a uniform field, $\vec{F}_+ + \vec{F}_- = \mathbf{0}$, while the torque about the center is:
+
+$$
+\vec{N} = \vec{p} \times \vec{E}
+$$
+
+For an infinitesimal ("perfect") dipole, $\vec{N} = \vec{p} \times \vec{E}$ gives the torque about its center even in a nonuniform field; about any other reference point (with $\vec{r}$ from the reference point to the dipole), $\vec{N} = (\vec{p} \times \vec{E}) + (\vec{r} \times \vec{F})$.
+- **Force in a Nonuniform Field:** Expanding $\Delta\vec{E} = \vec{E}(\vec{r}+\vec{d}) - \vec{E}(\vec{r}) \approx (\vec{d}\cdot\vec{\nabla})\vec{E}$ to first order in $\vec{d}$:
+
+$$
+\vec{F} = q\,\Delta\vec{E} = (\vec{p}\cdot\vec{\nabla})\vec{E}
+$$
+
+*Crucial caveat (Griffiths Footnote 2):* Stick with $(\vec{p}\cdot\vec{\nabla})\vec{E}$ rather than writing $\vec{\nabla}(\vec{p}\cdot\vec{E})$. The latter holds only when $\vec{p}$ is spatially constant; in polarized media $\vec{P}(\vec{r})$ varies with position and must not be differentiated in the force density.
+- **Interaction Energy:** For a permanent ideal dipole in an external field $\vec{E}$:
+
+$$
+U = -\vec{p}\cdot\vec{E}
+$$
+
+**4. Macroscopic Polarization $\vec{P}$:**
+Both induced stretching and field-aligned permanent dipoles yield a macroscopic density of aligned dipoles, quantified by the **polarization** vector (SI units: $\text{C}/\text{m}^2$):
+
+$$
+\vec{P} \equiv \text{electric dipole moment per unit volume}
+$$
+
+</div>
+
+<ProblemCard num="4.1" title="Atomic Displacement and Ionization of Hydrogen" tag="Griffiths 4.1 · Induced Dipoles">
+  <div slot="problem">
+    A hydrogen atom (with the Bohr radius of half an angstrom, $R = 0.5 \times 10^{-10}\,\text{m}$) is situated between two metal plates $1\,\text{mm}$ apart, which are connected to opposite terminals of a $500\,\text{V}$ battery. What fraction of the atomic radius does the separation distance $d$ amount to, roughly? Estimate the voltage you would need with this apparatus to ionize the atom. (Use Table 4.1: $\alpha/4\pi\epsilon_0 = 0.667 \times 10^{-30}\,\text{m}^3$ for $\text{H}$.)
+  </div>
+
+  <div slot="answer">
+    $d/R \approx 4.6 \times 10^{-6}$ (with $d \approx 2.3 \times 10^{-16}\,\text{m}$); ionizing voltage $V_{\text{ion}} \approx 1.1 \times 10^8\,\text{V} \sim 10^8\,\text{V}$.
+  </div>
+
+  <div slot="solution">
+    The uniform electric field between the plates separated by $x = 1\,\text{mm} = 10^{-3}\,\text{m}$ is:
+
+    $$
+    E = \frac{V}{x} = \frac{500\,\text{V}}{10^{-3}\,\text{m}} = 5 \times 10^5\,\text{V/m}
+    $$
+
+    From Table 4.1, for atomic hydrogen $\alpha/(4\pi\epsilon_0) = 0.667 \times 10^{-30}\,\text{m}^3$ ($0.66 \times 10^{-30}\,\text{m}^3$ in the solution manual), so:
+
+    $$
+    \alpha = 4\pi\epsilon_0 (0.667 \times 10^{-30}\,\text{m}^3) = 4\pi(8.854 \times 10^{-12})(0.667 \times 10^{-30}) \approx 7.42 \times 10^{-41}\,\text{C}^2\cdot\text{m/N}
+    $$
+
+    (With $0.66 \times 10^{-30}$, $\alpha \approx 7.34 \times 10^{-41}\,\text{C}^2\cdot\text{m/N}$.) Since $p = \alpha E = ed$, the displacement $d$ between the proton and the center of the electron cloud is:
+
+    $$
+    d = \frac{\alpha E}{e} = \frac{(7.42 \times 10^{-41})(5 \times 10^5)}{1.602 \times 10^{-19}} \approx 2.32 \times 10^{-16}\,\text{m}
+    $$
+
+    As a fraction of the Bohr radius $R = 0.5 \times 10^{-10}\,\text{m}$:
+
+    $$
+    \frac{d}{R} = \frac{2.32 \times 10^{-16}}{0.5 \times 10^{-10}} \approx 4.6 \times 10^{-6}
+    $$
+
+    Notice how tiny this displacement is—even on an atomic scale, it is smaller than the proton radius! To ionize the atom, we roughly require $d \sim R$:
+
+    $$
+    R = \frac{\alpha E_{\text{ion}}}{e} = \frac{\alpha V_{\text{ion}}}{ex} \implies V_{\text{ion}} = \frac{Rex}{\alpha} = \frac{(0.5 \times 10^{-10})(1.602 \times 10^{-19})(10^{-3})}{7.42 \times 10^{-41}} \approx 1.08 \times 10^8\,\text{V} \sim 10^8\,\text{V}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.2" title="Polarizability of the Quantum Ground-State Hydrogen Atom" tag="Griffiths 4.2 · Induced Dipoles">
+  <div slot="problem">
+    According to quantum mechanics, the electron cloud for a hydrogen atom in the ground state has a charge density
+
+    $$
+    \rho(r) = \frac{q}{\pi a^3} e^{-2r/a}
+    $$
+
+    where $q$ is the charge of the electron and $a$ is the Bohr radius. Find the atomic polarizability of such an atom. (Hint: First calculate the electric field of the electron cloud, $E_e(r)$; then expand the exponential, assuming $r \ll a$.)
+  </div>
+
+  <div slot="answer">
+    $$
+    \alpha = 3\pi\epsilon_0 a^3
+    $$
+  </div>
+
+  <div slot="solution">
+    By spherical symmetry, Gauss's law gives the magnitude of the electric field produced by the electron cloud at radius $r$:
+
+    $$
+    \oint \vec{E}_e\cdot d\vec{a} = \frac{1}{\epsilon_0}Q_{\text{enc}}(r) \implies E_e(r) = \frac{1}{4\pi\epsilon_0 r^2}Q_{\text{enc}}(r)
+    $$
+
+    Working with the magnitude $q > 0$ of the electron charge, the enclosed cloud charge within radius $r$ is:
+
+    $$
+    Q_{\text{enc}}(r) = \int_0^r \rho(r')\,4\pi r'^2\,dr' = \frac{4q}{a^3}\int_0^r r'^2 e^{-2r'/a}\,dr'
+    $$
+
+    Integrating by parts twice using $\int r'^2 e^{-2r'/a}\,dr' = -\frac{a}{2}e^{-2r'/a}\left(r'^2 + ar' + \frac{a^2}{2}\right)$:
+
+    $$
+    Q_{\text{enc}}(r) = \frac{4q}{a^3}\left[-\frac{a}{2}e^{-2r'/a}\left(r'^2 + ar' + \frac{a^2}{2}\right)\right]_0^r = q\left[1 - e^{-2r/a}\left(1 + \frac{2r}{a} + \frac{2r^2}{a^2}\right)\right]
+    $$
+
+    (Check: as $r \to \infty$, $Q_{\text{enc}}(r) \to q$.) Thus the internal field of the cloud at distance $d$ from its center is:
+
+    $$
+    E_e(d) = \frac{q}{4\pi\epsilon_0 d^2}\left[1 - e^{-2d/a}\left(1 + \frac{2d}{a} + \frac{2d^2}{a^2}\right)\right]
+    $$
+
+    In an external field $E$, the proton shifts to equilibrium at $r = d \ll a$ where $E_e(d) = E$. Expanding $e^{-2x}$ in powers of $x \equiv d/a$:
+
+    $$
+    e^{-2x} = 1 - 2x + 2x^2 - \frac{4}{3}x^3 + \cdots
+    $$
+
+    Multiplying out $(1 + 2x + 2x^2)$:
+
+    $$
+    e^{-2x}(1 + 2x + 2x^2) = \left(1 - 2x + 2x^2 - \frac{4}{3}x^3 + \cdots\right)(1 + 2x + 2x^2) = 1 - \frac{4}{3}x^3 + \mathcal{O}(x^4)
+    $$
+
+    Hence $1 - e^{-2d/a}(1 + 2d/a + 2d^2/a^2) = \dfrac{4}{3}\left(\dfrac{d}{a}\right)^3 + \cdots$, giving to leading order:
+
+    $$
+    E = \frac{q}{4\pi\epsilon_0 d^2}\left(\frac{4}{3}\frac{d^3}{a^3}\right) = \frac{qd}{3\pi\epsilon_0 a^3} = \frac{p}{3\pi\epsilon_0 a^3}
+    $$
+
+    Comparing with $p = \alpha E$, we find:
+
+    $$
+    \alpha = 3\pi\epsilon_0 a^3
+    $$
+
+    (Note: This rigid-shift model gives $\alpha/4\pi\epsilon_0 = \frac{3}{4}a^3 \approx 0.09 \times 10^{-30}\,\text{m}^3$, compared with the experimental $0.667 \times 10^{-30}\,\text{m}^3$; the true second-order quantum perturbation also distorts the orbital shape, giving $\alpha = \frac{9}{2}(4\pi\epsilon_0 a^3)$.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.3" title="Nonlinear Polarizability from a Linearly Varying Cloud Density" tag="Griffiths 4.3 · Polarizability Law">
+  <div slot="problem">
+    According to Eq. 4.1 ($\vec{p} = \alpha\vec{E}$), the induced dipole moment of an atom is proportional to the external field. This is a "rule of thumb," not a fundamental law, and it is easy to concoct exceptions—in theory. Suppose, for example, the charge density of the electron cloud were proportional to the distance from the center, $\rho(r) = Ar$, out to a radius $R$. To what power of $E$ would $p$ be proportional in that case? Find the condition on $\rho(r)$ such that Eq. 4.1 will hold in the weak-field limit.
+  </div>
+
+  <div slot="answer">
+    $p \propto E^{1/2}$ (specifically $p = 2e\sqrt{\epsilon_0 E / A}$); Eq. 4.1 holds in the weak-field limit if and only if $\rho(0)$ is finite and nonzero ($\rho(0) \neq 0, \infty$).
+  </div>
+
+  <div slot="solution">
+    For $\rho(r) = Ar$ ($r \le R$), Gauss's law gives the electric field of the electron cloud at radius $r$:
+
+    $$
+    E_e(r)(4\pi r^2) = \frac{1}{\epsilon_0}\int_0^r A r'\,(4\pi r'^2\,dr') = \frac{\pi A r^4}{\epsilon_0} \implies E_e(r) = \frac{A r^2}{4\epsilon_0}
+    $$
+
+    When the nucleus is displaced off-center by $d$, equilibrium requires the internal field to balance the external field $E$:
+
+    $$
+    \frac{A d^2}{4\epsilon_0} = E \implies d = \sqrt{\frac{4\epsilon_0 E}{A}} = 2\sqrt{\frac{\epsilon_0}{A}}\,E^{1/2}
+    $$
+
+    Therefore the induced dipole moment is:
+
+    $$
+    p = ed = 2e\sqrt{\frac{\epsilon_0}{A}}\,E^{1/2} \propto E^{1/2}
+    $$
+
+    For the linear relation $p = \alpha E$ to hold in the weak-field limit ($d \to 0$), we require $E_e(r) \propto r$ at small $r$. By Gauss's law, $E_e(r) \propto r \iff Q_{\text{enc}}(r) = \int_0^r 4\pi r'^2 \rho(r')\,dr' \propto r^3$ as $r \to 0$. Differentiating with respect to $r$, this occurs if and only if $\rho(r)$ approaches a finite, nonzero constant at the origin:
+
+    $$
+    \rho(0) \neq 0 \quad \text{and} \quad \rho(0) \neq \infty
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.4" title="Force Between a Point Charge and a Neutral Polarizable Atom" tag="Griffiths 4.4 · Induced Dipole Interaction">
+  <div slot="problem">
+    A point charge $q$ is situated a large distance $r$ from a neutral atom of polarizability $\alpha$. Find the force of attraction between them.
+  </div>
+
+  <div slot="answer">
+    $$
+    F = 2\alpha\left(\frac{q}{4\pi\epsilon_0}\right)^2\frac{1}{r^5} \qquad \text{(attractive)}
+    $$
+  </div>
+
+  <div slot="solution">
+    Place $q$ at the origin and the neutral atom at position $\vec{r} = r\hat{r}$. The field of $q$ at the atom is:
+
+    $$
+    \vec{E}_q = \frac{1}{4\pi\epsilon_0}\frac{q}{r^2}\hat{r}
+    $$
+
+    This induces a dipole moment in the atom:
+
+    $$
+    \vec{p} = \alpha \vec{E}_q = \frac{\alpha q}{4\pi\epsilon_0 r^2}\hat{r}
+    $$
+
+    Now find the field $\vec{E}_{\text{dip}}$ produced by this induced dipole back at the location of $q$. Relative to $\vec{p}$ (which points along $+\hat{r}$, away from $q$), $q$ sits directly behind the dipole at $\theta = \pi$ and distance $r$ (with the unit vector from atom to $q$ being $-\hat{r}$). Using Eq. 3.103 at $\theta = \pi$:
+
+    $$
+    \vec{E}_{\text{dip}} = \frac{1}{4\pi\epsilon_0}\frac{p}{r^3}\left[2\cos\pi\,(-\hat{r})\right] = \frac{1}{4\pi\epsilon_0}\frac{2p}{r^3}\hat{r} = \frac{1}{4\pi\epsilon_0}\frac{2}{r^3}\left(\frac{\alpha q}{4\pi\epsilon_0 r^2}\right)\hat{r}
+    $$
+
+    pointing from $q$ toward the atom. The force on $q$ due to this field is $\vec{F} = q\vec{E}_{\text{dip}}$:
+
+    $$
+    \vec{F} = 2\alpha\left(\frac{q}{4\pi\epsilon_0}\right)^2\frac{1}{r^5}\hat{r}
+    $$
+
+    which has magnitude $2\alpha\left(\dfrac{q}{4\pi\epsilon_0}\right)^2\dfrac{1}{r^5}$ and is always **attractive** regardless of the sign of $q$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.5" title="Torques Between Two Perpendicular Dipoles" tag="Griffiths 4.5 · Torque on Dipoles">
+  <div slot="problem">
+    Two perfect dipoles $\vec{p}_1$ and $\vec{p}_2$ are separated by a distance $r$ (Fig. 4.6), where $\vec{p}_1$ points upward ($+\hat{z}$), and $\vec{p}_2$ sits a distance $r$ to the right of $\vec{p}_1$ (along $+\hat{y}$) and points to the right ($+\hat{y}$). What is the torque on $\vec{p}_1$ due to $\vec{p}_2$? What is the torque on $\vec{p}_2$ due to $\vec{p}_1$? (In each case, find the torque on the dipole about its own center. If it bothers you that the answers are not equal and opposite, see Prob. 4.29.)
+  </div>
+
+  <div slot="answer">
+    $\vec{N}_2 = \dfrac{p_1 p_2}{4\pi\epsilon_0 r^3}\,(-\hat{x})$ (into the page); $\vec{N}_1 = \dfrac{2p_1 p_2}{4\pi\epsilon_0 r^3}\,(-\hat{x})$ (into the page).
+  </div>
+
+  <div slot="solution">
+    Recall the electric field of a dipole $\vec{p}$ in spherical coordinates centered on $\vec{p}$ with polar axis along $\vec{p}$ (Eq. 3.103):
+
+    $$
+    \vec{E} = \frac{p}{4\pi\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)
+    $$
+
+    1. **Torque on $\vec{p}_2$ due to $\vec{p}_1$:**
+       With $\vec{p}_1 = p_1\hat{z}$ at the origin and $\vec{p}_2 = p_2\hat{y}$ at $r\hat{y}$, $\vec{p}_2$ lies on the equatorial plane of $\vec{p}_1$ ($\theta = \pi/2$, where $\hat{\theta} = -\hat{z}$ points downward):
+
+       $$
+       \vec{E}_1 = \frac{p_1}{4\pi\epsilon_0 r^3}\hat{\theta} = -\frac{p_1}{4\pi\epsilon_0 r^3}\hat{z} \qquad (\text{points down})
+       $$
+
+       Since $\vec{p}_2$ and $\vec{E}_1$ are perpendicular ($\sin 90^\circ = 1$), and $\hat{y}\times(-\hat{z}) = -\hat{x}$:
+
+       $$
+       \vec{N}_2 = \vec{p}_2 \times \vec{E}_1 = \frac{p_1 p_2}{4\pi\epsilon_0 r^3}\,(-\hat{x}) \qquad (\text{points into the page})
+       $$
+
+    2. **Torque on $\vec{p}_1$ due to $\vec{p}_2$:**
+       Relative to $\vec{p}_2 = p_2\hat{y}$, the dipole $\vec{p}_1$ lies along the axis behind $\vec{p}_2$ at $\theta = \pi$ (with radial unit vector from $\vec{p}_2$ to $\vec{p}_1$ given by $\hat{r}_{\text{from }2} = -\hat{y}$). From Eq. 3.103 at $\theta = \pi$:
+
+       $$
+       \vec{E}_2 = \frac{p_2}{4\pi\epsilon_0 r^3}(-2\hat{r}_{\text{from }2}) = \frac{2p_2}{4\pi\epsilon_0 r^3}\hat{y} \qquad (\text{points to the right})
+       $$
+
+       Since $\vec{p}_1 = p_1\hat{z}$ and $\hat{z}\times\hat{y} = -\hat{x}$:
+
+       $$
+       \vec{N}_1 = \vec{p}_1 \times \vec{E}_2 = \frac{2p_1 p_2}{4\pi\epsilon_0 r^3}\,(-\hat{x}) \qquad (\text{points into the page})
+       $$
+
+    (They are not equal and opposite because each torque is computed about its own center rather than about a common pivot; see Prob. 4.29 for the full reconciliation.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.6" title="Dipole Above an Infinite Grounded Conducting Plane" tag="Griffiths 4.6 · Method of Images">
+  <div slot="problem">
+    A (perfect) dipole $\vec{p}$ is situated a distance $z$ above an infinite grounded conducting plane (Fig. 4.7). The dipole makes an angle $\theta$ with the upward perpendicular to the plane ($+z$ axis). Find the torque on $\vec{p}$. If the dipole is free to rotate, in what orientation will it come to rest?
+  </div>
+
+  <div slot="answer">
+    $\vec{N} = \dfrac{p^2\sin 2\theta}{4\pi\epsilon_0 (16 z^3)}$ (out of the page); the dipole comes to rest perpendicular to the plane, pointing either straight up ($\theta = 0$) or straight down ($\theta = \pi$).
+  </div>
+
+  <div slot="solution">
+    By the method of images, reflecting the positive and negative charges of the physical dipole across $z = 0$ and reversing their signs produces an image dipole $\vec{p}_i$ at $(0, 0, -z)$ whose vertical component is parallel to $p_z$ and whose horizontal component is opposite to $p_y$: if $\vec{p}$ tilts at angle $\theta$ to the right of $+z$, then $\vec{p}_i$ tilts at angle $\theta$ to the left of $+z$.
+
+    Place the origin of spherical coordinates at $\vec{p}_i$ with polar axis along $\vec{p}_i$. Then the real dipole $\vec{p}$ lies a distance $2z$ away along $+z$, which is at polar angle $\theta$ from $\vec{p}_i$, with local spherical unit vectors $\hat{r} = \hat{z}$ (up) and $\hat{\theta} = \hat{y}$ (right). In this basis:
+
+    $$
+    \vec{E}_i = \frac{p}{4\pi\epsilon_0 (2z)^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right), \qquad \vec{p} = p\cos\theta\,\hat{r} + p\sin\theta\,\hat{\theta}
+    $$
+
+    Taking the cross product (noting $\hat{r}\times\hat{\theta} = \hat{\phi}$ points into the page):
+
+    $$
+    \vec{N} = \vec{p}\times\vec{E}_i = \frac{p^2}{4\pi\epsilon_0 (2z)^3}\left(\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)\times\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)
+    $$
+
+    $$
+    = \frac{p^2}{4\pi\epsilon_0 (2z)^3}\left[\cos\theta\sin\theta\,\hat{\phi} + 2\sin\theta\cos\theta\,(-\hat{\phi})\right] = \frac{p^2\sin\theta\cos\theta}{4\pi\epsilon_0 (2z)^3}\,(-\hat{\phi})
+    $$
+
+    Using $\sin\theta\cos\theta = \frac{1}{2}\sin 2\theta$:
+
+    $$
+    \vec{N} = \frac{p^2\sin 2\theta}{4\pi\epsilon_0 (16 z^3)} \qquad (\text{out of the page})
+    $$
+
+    For $0 < \theta < \pi/2$, $\vec{N}$ rotates $\vec{p}$ counterclockwise toward $\theta = 0$; for $\pi/2 < \theta < \pi$, $\sin 2\theta < 0$, so $\vec{N}$ rotates $\vec{p}$ clockwise toward $\theta = \pi$. Thus the stable equilibrium orientations are **perpendicular** to the conducting plane: either straight up ($\uparrow$) or straight down ($\downarrow$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.7" title="Potential Energy of an Ideal Dipole in an Electric Field" tag="Griffiths 4.7 · Dipole Energy">
+  <div slot="problem">
+    Show that the energy of an ideal dipole $\vec{p}$ in an electric field $\vec{E}$ is given by
+
+    $$
+    U = -\vec{p}\cdot\vec{E}
+    $$
+  </div>
+
+  <div slot="answer">
+    $U = -\vec{p}\cdot\vec{E}$.
+  </div>
+
+  <div slot="solution">
+    With the reference potential set to zero at infinity, the electrostatic work needed to bring a point charge $Q$ to position $\vec{r}$ is $W = QV(\vec{r})$. For a physical dipole with $-q$ at $\vec{r}$ and $+q$ at $\vec{r}+\vec{d}$:
+
+    $$
+    U = qV(\vec{r}+\vec{d}) - qV(\vec{r}) = q\left[V(\vec{r}+\vec{d}) - V(\vec{r})\right] = q\left(-\int_{\vec{r}}^{\vec{r}+\vec{d}} \vec{E}\cdot d\vec{l}\right)
+    $$
+
+    For an ideal dipole ($\vec{d} \to \mathbf{0}$ with $\vec{p} = q\vec{d}$ held fixed), the integral reduces to $\vec{E}\cdot\vec{d}$:
+
+    $$
+    U = -q\vec{E}\cdot\vec{d} = -\vec{p}\cdot\vec{E}
+    $$
+
+    (If infinity cannot be chosen as the reference point, bringing both charges from the same reference point $\vec{r}_0$ or equipotential surface gives $U = q[V(\vec{r}+\vec{d})-V(\vec{r}_0)] - q[V(\vec{r})-V(\vec{r}_0)] = q[V(\vec{r}+\vec{d})-V(\vec{r})]$, yielding the exact same result.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.8" title="Dipole–Dipole Interaction Energy" tag="Griffiths 4.8 · Dipole Energy">
+  <div slot="problem">
+    Show that the interaction energy of two dipoles $\vec{p}_1$ and $\vec{p}_2$ separated by a displacement $\vec{r}$ is
+
+    $$
+    U = \frac{1}{4\pi\epsilon_0 r^3}\left[\vec{p}_1\cdot\vec{p}_2 - 3(\vec{p}_1\cdot\hat{r})(\vec{p}_2\cdot\hat{r})\right]
+    $$
+
+    (Hint: Use Prob. 4.7 and Eq. 3.104.)
+  </div>
+
+  <div slot="answer">
+    $U = \dfrac{1}{4\pi\epsilon_0 r^3}\left[\vec{p}_1\cdot\vec{p}_2 - 3(\vec{p}_1\cdot\hat{r})(\vec{p}_2\cdot\hat{r})\right]$.
+  </div>
+
+  <div slot="solution">
+    By Prob. 4.7, the energy of dipole $\vec{p}_1$ in the electric field $\vec{E}_2$ of dipole $\vec{p}_2$ is $U = -\vec{p}_1\cdot\vec{E}_2$. Substituting the coordinate-free dipole field (Eq. 3.104),
+
+    $$
+    \vec{E}_2 = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}_2\cdot\hat{r})\hat{r} - \vec{p}_2\right]
+    $$
+
+    we obtain:
+
+    $$
+    U = -\vec{p}_1\cdot\frac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}_2\cdot\hat{r})\hat{r} - \vec{p}_2\right] = \frac{1}{4\pi\epsilon_0 r^3}\left[\vec{p}_1\cdot\vec{p}_2 - 3(\vec{p}_1\cdot\hat{r})(\vec{p}_2\cdot\hat{r})\right]
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="4.9" title="Force Between a Point Charge and a Dipole" tag="Griffiths 4.9 · Force on a Dipole">
+  <div slot="problem">
+    A dipole $\vec{p}$ is a distance $r$ from a point charge $q$, and oriented so that $\vec{p}$ makes an angle $\theta$ with the vector $\vec{r}$ from $q$ to $\vec{p}$.
+    1. What is the force on $\vec{p}$?
+    2. What is the force on $q$?
+  </div>
+
+  <div slot="answer">
+    1. $\vec{F}_p = \dfrac{q}{4\pi\epsilon_0 r^3}\left[\vec{p} - 3(\vec{p}\cdot\hat{r})\hat{r}\right]$.
+    2. $\vec{F}_q = \dfrac{q}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right]$.
+  </div>
+
+  <div slot="solution">
+    1. Place $q$ at the origin, so $\vec{E} = \dfrac{q}{4\pi\epsilon_0 r^2}\hat{r} = \dfrac{q}{4\pi\epsilon_0}\dfrac{x\hat{x} + y\hat{y} + z\hat{z}}{(x^2 + y^2 + z^2)^{3/2}}$. Using $\vec{F}_p = (\vec{p}\cdot\vec{\nabla})\vec{E}$ (Eq. 4.5), the $x$-component is:
+
+       $$
+       F_{p,x} = \left(p_x\frac{\partial}{\partial x} + p_y\frac{\partial}{\partial y} + p_z\frac{\partial}{\partial z}\right)\frac{q}{4\pi\epsilon_0}\frac{x}{(x^2+y^2+z^2)^{3/2}}
+       $$
+
+       $$
+       = \frac{q}{4\pi\epsilon_0}\left\{p_x\left[\frac{1}{r^3} - \frac{3}{2}\frac{x(2x)}{r^5}\right] + p_y\left[-\frac{3}{2}\frac{x(2y)}{r^5}\right] + p_z\left[-\frac{3}{2}\frac{x(2z)}{r^5}\right]\right\} = \frac{q}{4\pi\epsilon_0}\left[\frac{p_x}{r^3} - \frac{3x(\vec{p}\cdot\vec{r})}{r^5}\right]
+       $$
+
+       Combining all three Cartesian components gives:
+
+       $$
+       \vec{F}_p = \frac{q}{4\pi\epsilon_0 r^3}\left[\vec{p} - 3(\vec{p}\cdot\hat{r})\hat{r}\right]
+       $$
+
+    2. Since $\vec{r}$ points from $q$ to $\vec{p}$, the unit vector from $\vec{p}$ to $q$ is $-\hat{r}$. By Eq. 3.104, the electric field of $\vec{p}$ at $q$ is:
+
+       $$
+       \vec{E} = \frac{1}{4\pi\epsilon_0 r^3}\left\{3\left[\vec{p}\cdot(-\hat{r})\right](-\hat{r}) - \vec{p}\right\} = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right]
+       $$
+
+       Multiplying by $q$, the force on $q$ is:
+
+       $$
+       \vec{F}_q = q\vec{E} = \frac{q}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right] = -\vec{F}_p
+       $$
+
+       consistent with Newton's third law.
+  </div>
+</ProblemCard>
+
+</section>

@@ -1,0 +1,505 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch9-sec1" class="ed-sec-block">
+
+### 9.1 Waves in One Dimension
+
+<div class="ed-theory-box">
+
+**Core Theory — The 1D Wave Equation, Sinusoidal Waves, Boundaries &amp; Polarization:**
+
+- **Wave Kinematics &amp; Newton's Second Law on a String:** A disturbance propagating in the $+z$ direction with fixed shape at constant speed $v$ satisfies $f(z, t) = f(z - vt, 0) = g(z - vt)$. For a taut string under tension $T$ and linear mass density $\mu$, the net transverse force on a segment $\Delta z$ (for small slopes $\sin\theta \approx \tan\theta = \partial f/\partial z$) is $F = T\,\Delta(\partial f/\partial z) \approx T(\partial^2 f/\partial z^2)\Delta z = \mu\,\Delta z\,(\partial^2 f/\partial t^2)$. This yields the **classical 1D wave equation**:
+
+$$
+\frac{\partial^2 f}{\partial z^2} = \frac{1}{v^2}\frac{\partial^2 f}{\partial t^2}, \qquad v = \sqrt{\frac{T}{\mu}}
+$$
+
+- **d'Alembert General Solution:** Because the wave equation is linear and depends on $v^2$, the most general solution is a superposition of right-moving and left-moving waves of arbitrary differentiable shapes:
+
+$$
+f(z, t) = g(z - vt) + h(z + vt)
+$$
+
+- **Sinusoidal Waves &amp; Complex Notation:** A monochromatic sinusoidal wave traveling in the $+z$ direction is $f(z, t) = A\cos(kz - \omega t + \delta)$, with amplitude $A > 0$, wavenumber $k = 2\pi/\lambda$, angular frequency $\omega = 2\pi\nu = kv$, period $T = 2\pi/\omega$, and phase constant $\delta$ (central maximum delayed by $\delta/k$). A left-moving wave of the same delay convention is $A\cos(kz + \omega t - \delta) = A\cos(-kz - \omega t + \delta)$ (simply flip $k \to -k$). Using Euler's formula, we work with the **complex wave function**:
+
+$$
+\tilde{f}(z, t) = \tilde{A}e^{i(kz - \omega t)}, \qquad \tilde{A} \equiv Ae^{i\delta}, \qquad f(z, t) = \operatorname{Re}[\tilde{f}(z, t)]
+$$
+
+  Any linear wave can be expanded as a Fourier integral over sinusoidal modes (allowing $k \in (-\infty, \infty)$ with $\omega = |k|v > 0$):
+
+$$
+\tilde{f}(z, t) = \int_{-\infty}^{\infty} \tilde{A}(k)\,e^{i(kz - \omega t)}\,dk
+$$
+
+- **Boundary Conditions, Reflection &amp; Transmission:** When two strings of densities $\mu_1, \mu_2$ (speeds $v_1, v_2$ under equal tension $T$) are joined at $z = 0$ by a massless knot, continuity of displacement and transverse slope requires:
+
+$$
+\tilde{f}(0^-, t) = \tilde{f}(0^+, t), \qquad \left.\frac{\partial\tilde{f}}{\partial z}\right|_{0^-} = \left.\frac{\partial\tilde{f}}{\partial z}\right|_{0^+}
+$$
+
+  (If the knot has finite mass $m$, the slope jump supplies the net force: $T\big[\partial f/\partial z|_{0^+} - \partial f/\partial z|_{0^-}\big] = m\,\partial^2 f/\partial t^2|_{0}$.) For an incident sinusoidal wave $\tilde{A}_I e^{i(k_1 z - \omega t)}$ ($z < 0$) producing reflected $\tilde{A}_R e^{i(-k_1 z - \omega t)}$ ($z < 0$) and transmitted $\tilde{A}_T e^{i(k_2 z - \omega t)}$ ($z > 0$) waves at common frequency $\omega$ ($k_1 v_1 = k_2 v_2 = \omega$), the massless-knot boundary conditions give:
+
+$$
+\tilde{A}_R = \frac{k_1 - k_2}{k_1 + k_2}\tilde{A}_I = \frac{v_2 - v_1}{v_2 + v_1}\tilde{A}_I, \qquad \tilde{A}_T = \frac{2k_1}{k_1 + k_2}\tilde{A}_I = \frac{2v_2}{v_2 + v_1}\tilde{A}_I
+$$
+
+  Thus the transmitted wave is always in phase ($\delta_T = \delta_I$). If the second string is lighter ($\mu_2 < \mu_1 \implies v_2 > v_1$), the reflected wave is in phase ($\delta_R = \delta_I$); if heavier ($\mu_2 > \mu_1 \implies v_2 < v_1$), the reflected wave is inverted ($\delta_R = \delta_I - \pi$, $180^\circ$ phase shift). For a fixed end ($v_2 \to 0$), $A_R = A_I$ with $180^\circ$ phase flip and $A_T = 0$.
+
+- **Polarization of Transverse Waves:** Unlike longitudinal compression waves, transverse waves have two independent orthogonal directions perpendicular to $\hat{z}$. Linear (plane) polarization along unit vector $\hat{n} = \cos\theta\,\hat{x} + \sin\theta\,\hat{y}$ ($\hat{n}\cdot\hat{z} = 0$) is $\tilde{\vec{f}}(z, t) = \tilde{A}e^{i(kz - \omega t)}\hat{n}$. Superposing orthogonal components with a phase difference produces elliptical or circular polarization.
+
+</div>
+
+<ProblemCard num="9.1" title="Testing Solutions of the 1D Wave Equation" tag="Griffiths 9.1 · Wave Equation">
+  <div slot="problem">
+    By explicit differentiation, check that the functions $f_1$, $f_2$, and $f_3$ in the text satisfy the wave equation:
+
+    $$
+    f_1(z, t) = Ae^{-b(z-vt)^2}, \qquad f_2(z, t) = A\sin[b(z-vt)], \qquad f_3(z, t) = \frac{A}{b(z-vt)^2 + 1}
+    $$
+
+    Show that $f_4$ and $f_5$ do not:
+
+    $$
+    f_4(z, t) = Ae^{-b(bz^2 + vt)}, \qquad f_5(z, t) = A\sin(bz)\cos(bvt)^3
+    $$
+  </div>
+
+  <div slot="answer">
+    $f_1, f_2, f_3$ satisfy $\dfrac{\partial^2 f}{\partial t^2} = v^2 \dfrac{\partial^2 f}{\partial z^2}$; $f_4$ and $f_5$ do not.
+  </div>
+
+  <div slot="solution">
+    We test the wave equation in the form $\dfrac{\partial^2 f}{\partial t^2} = v^2 \dfrac{\partial^2 f}{\partial z^2}$ for each function:
+
+    1. **For $f_1(z, t) = Ae^{-b(z-vt)^2}$:**
+
+       $$
+       \frac{\partial f_1}{\partial z} = -2Ab(z-vt)e^{-b(z-vt)^2}, \qquad \frac{\partial^2 f_1}{\partial z^2} = 2Ab\left[-e^{-b(z-vt)^2} + 2b(z-vt)^2 e^{-b(z-vt)^2}\right]
+       $$
+
+       $$
+       \frac{\partial f_1}{\partial t} = 2Abv(z-vt)e^{-b(z-vt)^2}, \qquad \frac{\partial^2 f_1}{\partial t^2} = 2Abv\left[-ve^{-b(z-vt)^2} + 2bv(z-vt)^2 e^{-b(z-vt)^2}\right] = v^2\frac{\partial^2 f_1}{\partial z^2}
+       $$
+
+       Hence $f_1$ satisfies the wave equation.
+
+    2. **For $f_2(z, t) = A\sin[b(z-vt)]$:**
+
+       $$
+       \frac{\partial f_2}{\partial z} = Ab\cos[b(z-vt)], \qquad \frac{\partial^2 f_2}{\partial z^2} = -Ab^2\sin[b(z-vt)]
+       $$
+
+       $$
+       \frac{\partial f_2}{\partial t} = -Abv\cos[b(z-vt)], \qquad \frac{\partial^2 f_2}{\partial t^2} = -Ab^2 v^2\sin[b(z-vt)] = v^2\frac{\partial^2 f_2}{\partial z^2}
+       $$
+
+       Hence $f_2$ satisfies the wave equation.
+
+    3. **For $f_3(z, t) = \dfrac{A}{b(z-vt)^2 + 1}$:**
+
+       $$
+       \frac{\partial f_3}{\partial z} = -\frac{2Ab(z-vt)}{[b(z-vt)^2 + 1]^2}, \qquad \frac{\partial^2 f_3}{\partial z^2} = -\frac{2Ab}{[b(z-vt)^2 + 1]^2} + \frac{8Ab^2(z-vt)^2}{[b(z-vt)^2 + 1]^3}
+       $$
+
+       $$
+       \frac{\partial f_3}{\partial t} = \frac{2Abv(z-vt)}{[b(z-vt)^2 + 1]^2}, \qquad \frac{\partial^2 f_3}{\partial t^2} = -\frac{2Abv^2}{[b(z-vt)^2 + 1]^2} + \frac{8Ab^2 v^2(z-vt)^2}{[b(z-vt)^2 + 1]^3} = v^2\frac{\partial^2 f_3}{\partial z^2}
+       $$
+
+       Hence $f_3$ satisfies the wave equation.
+
+    4. **For $f_4(z, t) = Ae^{-b(bz^2 + vt)}$:**
+
+       $$
+       \frac{\partial f_4}{\partial z} = -2Ab^2 z e^{-b(bz^2+vt)}, \qquad \frac{\partial^2 f_4}{\partial z^2} = 2Ab^2\left[-e^{-b(bz^2+vt)} + 2b^2 z^2 e^{-b(bz^2+vt)}\right]
+       $$
+
+       $$
+       \frac{\partial f_4}{\partial t} = -Abv e^{-b(bz^2+vt)}, \qquad \frac{\partial^2 f_4}{\partial t^2} = Ab^2 v^2 e^{-b(bz^2+vt)} \neq v^2\frac{\partial^2 f_4}{\partial z^2}
+       $$
+
+       So $f_4$ does **not** satisfy the wave equation.
+
+    5. **For $f_5(z, t) = A\sin(bz)\cos(bvt)^3$** (meaning $\cos[(bvt)^3]$):
+
+       $$
+       \frac{\partial f_5}{\partial z} = Ab\cos(bz)\cos(bvt)^3, \qquad \frac{\partial^2 f_5}{\partial z^2} = -Ab^2\sin(bz)\cos(bvt)^3
+       $$
+
+       $$
+       \frac{\partial f_5}{\partial t} = -3Ab^3 v^3 t^2 \sin(bz)\sin(bvt)^3
+       $$
+
+       $$
+       \frac{\partial^2 f_5}{\partial t^2} = -6Ab^3 v^3 t \sin(bz)\sin(bvt)^3 - 9Ab^6 v^6 t^4 \sin(bz)\cos(bvt)^3 \neq v^2\frac{\partial^2 f_5}{\partial z^2}
+       $$
+
+       So $f_5$ does **not** satisfy the wave equation. (Even if $\cos(bvt)^3$ were read as $\cos^3(bvt)$, $\partial^2 f_5/\partial t^2 \neq v^2\partial^2 f_5/\partial z^2$.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="9.2" title="Standing Wave as Sum of Traveling Waves" tag="Griffiths 9.2 · Standing Waves">
+  <div slot="problem">
+    Show that the standing wave $f(z, t) = A\sin(kz)\cos(kvt)$ satisfies the wave equation, and express it as the sum of a wave traveling to the left and a wave traveling to the right (Eq. 9.6).
+  </div>
+
+  <div slot="answer">
+    $$
+    f(z, t) = \frac{A}{2}\sin[k(z - vt)] + \frac{A}{2}\sin[k(z + vt)]
+    $$
+  </div>
+
+  <div slot="solution">
+    Differentiating $f(z, t) = A\sin(kz)\cos(kvt)$ with respect to $z$ and $t$:
+
+    $$
+    \frac{\partial f}{\partial z} = Ak\cos(kz)\cos(kvt), \qquad \frac{\partial^2 f}{\partial z^2} = -Ak^2\sin(kz)\cos(kvt)
+    $$
+
+    $$
+    \frac{\partial f}{\partial t} = -Akv\sin(kz)\sin(kvt), \qquad \frac{\partial^2 f}{\partial t^2} = -Ak^2 v^2\sin(kz)\cos(kvt) = v^2\frac{\partial^2 f}{\partial z^2}
+    $$
+
+    Thus $f(z, t)$ satisfies the 1D wave equation. Using the trigonometric identity $\sin\alpha\cos\beta = \frac{1}{2}[\sin(\alpha+\beta) + \sin(\alpha-\beta)]$ with $\alpha = kz$ and $\beta = kvt$:
+
+    $$
+    f(z, t) = \frac{A}{2}\left\{\sin[k(z + vt)] + \sin[k(z - vt)]\right\}
+    $$
+
+    This has the exact d'Alembert form $g(z - vt) + h(z + vt)$ with right-moving wave $g(z - vt) = \frac{A}{2}\sin[k(z - vt)]$ and left-moving wave $h(z + vt) = \frac{A}{2}\sin[k(z + vt)]$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="9.3" title="Superposition of Sinusoidal Waves in Complex Notation" tag="Griffiths 9.3 · Complex Notation">
+  <div slot="problem">
+    Use Eq. 9.19 ($A_3 e^{i\delta_3} = A_1 e^{i\delta_1} + A_2 e^{i\delta_2}$) to determine $A_3$ and $\delta_3$ in terms of $A_1$, $A_2$, $\delta_1$, and $\delta_2$.
+  </div>
+
+  <div slot="answer">
+    $$
+    A_3 = \sqrt{A_1^2 + A_2^2 + 2A_1 A_2 \cos(\delta_1 - \delta_2)}, \qquad \delta_3 = \tan^{-1}\!\left(\frac{A_1\sin\delta_1 + A_2\sin\delta_2}{A_1\cos\delta_1 + A_2\cos\delta_2}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    Take the modulus squared of $A_3 e^{i\delta_3} = A_1 e^{i\delta_1} + A_2 e^{i\delta_2}$ by multiplying by its complex conjugate:
+
+    $$
+    A_3^2 = (A_3 e^{i\delta_3})(A_3 e^{-i\delta_3}) = \left(A_1 e^{i\delta_1} + A_2 e^{i\delta_2}\right)\left(A_1 e^{-i\delta_1} + A_2 e^{-i\delta_2}\right)
+    $$
+
+    $$
+    A_3^2 = A_1^2 + A_2^2 + A_1 A_2\left(e^{i(\delta_1 - \delta_2)} + e^{-i(\delta_1 - \delta_2)}\right) = A_1^2 + A_2^2 + 2A_1 A_2\cos(\delta_1 - \delta_2)
+    $$
+
+    Taking the positive square root gives $A_3 = \sqrt{A_1^2 + A_2^2 + 2A_1 A_2\cos(\delta_1 - \delta_2)}$.
+
+    To find $\delta_3$, equate real and imaginary parts of $A_3(\cos\delta_3 + i\sin\delta_3) = (A_1\cos\delta_1 + A_2\cos\delta_2) + i(A_1\sin\delta_1 + A_2\sin\delta_2)$:
+
+    $$
+    \tan\delta_3 = \frac{A_3\sin\delta_3}{A_3\cos\delta_3} = \frac{A_1\sin\delta_1 + A_2\sin\delta_2}{A_1\cos\delta_1 + A_2\cos\delta_2} \implies \delta_3 = \tan^{-1}\!\left(\frac{A_1\sin\delta_1 + A_2\sin\delta_2}{A_1\cos\delta_1 + A_2\cos\delta_2}\right)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="9.4" title="General Fourier Solution by Separation of Variables" tag="Griffiths 9.4 · Separation of Variables">
+  <div slot="problem">
+    Obtain Eq. 9.20,
+
+    $$
+    \tilde{f}(z, t) = \int_{-\infty}^{\infty} \tilde{A}(k) e^{i(kz - \omega t)}\,dk,
+    $$
+
+    directly from the wave equation, by separation of variables.
+  </div>
+
+  <div slot="answer">
+    Separating $\frac{\partial^2 f}{\partial z^2} = \frac{1}{v^2}\frac{\partial^2 f}{\partial t^2}$ with $f(z, t) = Z(z)T(t)$ and separation constant $-k^2$ ($k \in \mathbb{R}$), summing over $k \ge 0$, extending $k$ to $(-\infty, \infty)$ with $\omega = |k|v > 0$, and taking the real part reduces the four-branch sum to $\tilde{f}(z, t) = \int_{-\infty}^{\infty} \tilde{A}(k) e^{i(kz - \omega t)}\,dk$.
+  </div>
+
+  <div slot="solution">
+    Start from the wave equation $\dfrac{\partial^2 f}{\partial z^2} = \dfrac{1}{v^2}\dfrac{\partial^2 f}{\partial t^2}$ and try a separable ansatz $f(z, t) = Z(z)T(t)$. Dividing through by $Z(z)T(t)$ gives:
+
+    $$
+    \frac{1}{Z}\frac{d^2 Z}{dz^2} = \frac{1}{v^2 T}\frac{d^2 T}{dt^2}
+    $$
+
+    Since the left side depends only on $z$ and the right side only on $t$, both must equal a constant, which we call $-k^2$:
+
+    $$
+    \frac{d^2 Z}{dz^2} = -k^2 Z \implies Z(z) = Ae^{ikz} + Be^{-ikz}, \qquad \frac{d^2 T}{dt^2} = -(kv)^2 T \implies T(t) = Ce^{ikvt} + De^{-ikvt}
+    $$
+
+    (Note that $k$ must be real so that $Z$ and $T$ remain bounded as $z, t \to \pm\infty$; without loss of generality we initially take $k \ge 0$.) Multiplying $Z(z)T(t)$ yields four exponential terms:
+
+    $$
+    f(z, t) = A_1 e^{i(kz + kvt)} + A_2 e^{i(kz - kvt)} + A_3 e^{i(-kz + kvt)} + A_4 e^{i(-kz - kvt)}
+    $$
+
+    Taking a continuous linear superposition over $k \in [0, \infty)$ with $\omega \equiv kv$:
+
+    $$
+    f(z, t) = \int_0^\infty \left[A_1(k)e^{i(kz + \omega t)} + A_2(k)e^{i(kz - \omega t)} + A_3(k)e^{i(-kz + \omega t)} + A_4(k)e^{i(-kz - \omega t)}\right] dk
+    $$
+
+    If we allow $k$ to run over negative values as well (keeping $\omega \equiv |k|v > 0$), the third term combines with the first and the fourth with the second:
+
+    $$
+    f(z, t) = \int_{-\infty}^{\infty} \left[A_1(k)e^{i(kz + \omega t)} + A_2(k)e^{i(kz - \omega t)}\right] dk
+    $$
+
+    Because physically we only take the real part $f_{\text{phys}} = \operatorname{Re}(f)$, we only need one of these two integrals, since each already includes waves traveling in both directions! Specifically:
+
+    $$
+    \operatorname{Re}(f) = \int_{-\infty}^{\infty} \left[\operatorname{Re}(A_1)\cos(kz + \omega t) - \operatorname{Im}(A_1)\sin(kz + \omega t) + \operatorname{Re}(A_2)\cos(kz - \omega t) - \operatorname{Im}(A_2)\sin(kz - \omega t)\right] dk
+    $$
+
+    Using $\cos(kz + \omega t) = \cos(-kz - \omega t)$ and $\sin(kz + \omega t) = -\sin(-kz - \omega t)$, the $A_1$ terms at $+k$ combine with the $A_2$ terms at $-k$ (which are already in the negative-$k$ half of the integral). Thus the most general physical wave can be represented as $\operatorname{Re}[\tilde{f}(z, t)]$, where:
+
+    $$
+    \tilde{f}(z, t) = \int_{-\infty}^{\infty} \tilde{A}(k)e^{i(kz - \omega t)}\,dk
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="9.5" title="Reflection and Transmission of an Arbitrary Wave Pulse" tag="Griffiths 9.5 · Boundary Conditions">
+  <div slot="problem">
+    Suppose you send an incident wave of specified shape, $g_I(z - v_1 t)$, down string number 1. It gives rise to a reflected wave, $h_R(z + v_1 t)$, and a transmitted wave, $g_T(z - v_2 t)$. By imposing the boundary conditions (Eqs. 9.26 and 9.27), find $h_R$ and $g_T$.
+  </div>
+
+  <div slot="answer">
+    $$
+    h_R(u) = \left(\frac{v_2 - v_1}{v_1 + v_2}\right)g_I(-u) + \kappa', \qquad g_T(u) = \left(\frac{2v_2}{v_1 + v_2}\right)g_I\!\left(\frac{v_1}{v_2}u\right) + \kappa'
+    $$
+    (where $\kappa'$ is an arbitrary constant offset, zero for localized pulses).
+  </div>
+
+  <div slot="solution">
+    Continuity of displacement at $z = 0$ (Eq. 9.26) requires:
+
+    $$
+    g_I(-v_1 t) + h_R(v_1 t) = g_T(-v_2 t)
+    $$
+
+    For a function $F(z \mp vt)$ of a single argument $u = z \mp vt$, the chain rule gives $\dfrac{\partial F}{\partial z} = \mp \dfrac{1}{v}\dfrac{\partial F}{\partial t}$:
+
+    $$
+    \frac{\partial g_I}{\partial z} = -\frac{1}{v_1}\frac{\partial g_I}{\partial t}, \qquad \frac{\partial h_R}{\partial z} = +\frac{1}{v_1}\frac{\partial h_R}{\partial t}, \qquad \frac{\partial g_T}{\partial z} = -\frac{1}{v_2}\frac{\partial g_T}{\partial t}
+    $$
+
+    Continuity of slope at $z = 0$ (Eq. 9.27) therefore gives:
+
+    $$
+    -\frac{1}{v_1}\frac{\partial g_I(-v_1 t)}{\partial t} + \frac{1}{v_1}\frac{\partial h_R(v_1 t)}{\partial t} = -\frac{1}{v_2}\frac{\partial g_T(-v_2 t)}{\partial t}
+    $$
+
+    Integrating with respect to $t$ and multiplying by $-v_1$ introduces an integration constant $\kappa$:
+
+    $$
+    g_I(-v_1 t) - h_R(v_1 t) = \frac{v_1}{v_2}g_T(-v_2 t) + \kappa
+    $$
+
+    Adding the displacement continuity equation eliminates $h_R$:
+
+    $$
+    2g_I(-v_1 t) = \left(1 + \frac{v_1}{v_2}\right)g_T(-v_2 t) + \kappa \implies g_T(-v_2 t) = \left(\frac{2v_2}{v_1 + v_2}\right)g_I(-v_1 t) + \kappa', \quad \kappa' \equiv -\kappa\frac{v_2}{v_1 + v_2}
+    $$
+
+    Since $g_T(u)$ is a function of a single variable $u = z - v_2 t$, evaluating at $z = 0$ means $u = -v_2 t \implies -v_1 t = (v_1/v_2)u$. Hence for all $u$:
+
+    $$
+    g_T(u) = \left(\frac{2v_2}{v_1 + v_2}\right)g_I\!\left(\frac{v_1}{v_2}u\right) + \kappa'
+    $$
+
+    Similarly, multiplying $g_I + h_R = g_T$ by $v_1/v_2$ and subtracting $g_I - h_R = (v_1/v_2)g_T + \kappa$:
+
+    $$
+    \left(1 - \frac{v_1}{v_2}\right)g_I(-v_1 t) - \left(1 + \frac{v_1}{v_2}\right)h_R(v_1 t) = \kappa \implies h_R(v_1 t) = \left(\frac{v_2 - v_1}{v_1 + v_2}\right)g_I(-v_1 t) + \kappa'
+    $$
+
+    Writing $u = z + v_1 t$ (so at $z = 0$, $v_1 t = u$ and $-v_1 t = -u$):
+
+    $$
+    h_R(u) = \left(\frac{v_2 - v_1}{v_1 + v_2}\right)g_I(-u) + \kappa'
+    $$
+
+    Notice the reflected pulse is reversed spatially ($-u$, i.e. its leading edge stays in front as it travels left), and the transmitted pulse is stretched/compressed by $v_2/v_1$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="9.6" title="Strings Joined by a Massive Knot" tag="Griffiths 9.6 · Massive Knot BC">
+  <div slot="problem">
+    1. Formulate an appropriate boundary condition, to replace Eq. 9.27, for the case of two strings under tension $T$ joined by a knot of mass $m$.
+    2. Find the amplitude and phase of the reflected and transmitted waves for the case where the knot has a mass $m$ and the second string is massless.
+  </div>
+
+  <div slot="answer">
+    1. $T\left(\left.\dfrac{\partial f}{\partial z}\right|_{0^+} - \left.\dfrac{\partial f}{\partial z}\right|_{0^-}\right) = m\left.\dfrac{\partial^2 f}{\partial t^2}\right|_{0}$.
+    2. With $\beta \equiv \dfrac{m\omega^2}{k_1 T} = \dfrac{m k_1}{\mu_1}$:
+       $$
+       A_R = A_I, \quad \delta_R = \delta_I + \tan^{-1}\!\left(\frac{2\beta}{1 - \beta^2}\right); \qquad A_T = \frac{2}{\sqrt{1 + \beta^2}}A_I, \quad \delta_T = \delta_I + \tan^{-1}(\beta)
+       $$
+  </div>
+
+  <div slot="solution">
+    1. **Boundary condition at a knot of mass $m$:** Applying Newton's second law $F_z^{\text{trans}} = m a$ to the knot at $z = 0$ in the small-angle approximation ($\sin\theta \approx \tan\theta = \partial f/\partial z$):
+
+       $$
+       T\sin\theta_+ - T\sin\theta_- = ma \implies T\left(\left.\frac{\partial f}{\partial z}\right|_{0^+} - \left.\frac{\partial f}{\partial z}\right|_{0^-}\right) = m\left.\frac{\partial^2 f}{\partial t^2}\right|_{0}
+       $$
+
+    2. **Amplitudes and phases when string 2 is massless:** Substituting Eq. 9.25 into continuity of displacement $\tilde{f}(0^-, t) = \tilde{f}(0^+, t)$ and the massive-knot condition gives:
+
+       $$
+       \tilde{A}_I + \tilde{A}_R = \tilde{A}_T, \qquad T\left[ik_2\tilde{A}_T - ik_1(\tilde{A}_I - \tilde{A}_R)\right] = m(-\omega^2\tilde{A}_T)
+       $$
+
+       Rearranging the second equation:
+
+       $$
+       k_1(\tilde{A}_I - \tilde{A}_R) = \left(k_2 - \frac{im\omega^2}{T}\right)\tilde{A}_T
+       $$
+
+       Multiply $\tilde{A}_I + \tilde{A}_R = \tilde{A}_T$ by $k_1$ and add to eliminate $\tilde{A}_R$:
+
+       $$
+       2k_1\tilde{A}_I = \left(k_1 + k_2 - \frac{im\omega^2}{T}\right)\tilde{A}_T \implies \tilde{A}_T = \left(\frac{2k_1}{k_1 + k_2 - im\omega^2/T}\right)\tilde{A}_I
+       $$
+
+       $$
+       \tilde{A}_R = \tilde{A}_T - \tilde{A}_I = \left(\frac{k_1 - k_2 + im\omega^2/T}{k_1 + k_2 - im\omega^2/T}\right)\tilde{A}_I
+       $$
+
+       If string 2 is massless ($\mu_2 \to 0$), then $v_2 = \sqrt{T/\mu_2} \to \infty$, so $k_2 = \omega/v_2 \to 0$. Defining the dimensionless parameter $\beta \equiv \dfrac{m\omega^2}{k_1 T} = \dfrac{m(k_1 v_1)^2}{k_1 T} = \dfrac{mk_1}{\mu_1}$:
+
+       $$
+       \tilde{A}_T = \left(\frac{2}{1 - i\beta}\right)\tilde{A}_I, \qquad \tilde{A}_R = \left(\frac{1 + i\beta}{1 - i\beta}\right)\tilde{A}_I
+       $$
+
+       Write $\dfrac{1 + i\beta}{1 - i\beta} = A e^{i\phi}$. Its modulus squared is $\dfrac{1 + i\beta}{1 - i\beta}\cdot\dfrac{1 - i\beta}{1 + i\beta} = 1 \implies A = 1$, and:
+
+       $$
+       e^{i\phi} = \frac{(1 + i\beta)^2}{1 + \beta^2} = \frac{1 - \beta^2 + 2i\beta}{1 + \beta^2} \implies \tan\phi = \frac{2\beta}{1 - \beta^2}
+       $$
+
+       Since $A_R e^{i\delta_R} = e^{i\phi} A_I e^{i\delta_I}$, we get:
+
+       $$
+       A_R = A_I, \qquad \delta_R = \delta_I + \tan^{-1}\!\left(\frac{2\beta}{1 - \beta^2}\right)
+       $$
+
+       (Physically, a massless second string carries no energy, so 100% of the incident energy reflects!) For the transmitted wave, write $\dfrac{2}{1 - i\beta} = B e^{i\theta}$:
+
+       $$
+       B^2 = \left(\frac{2}{1 - i\beta}\right)\left(\frac{2}{1 + i\beta}\right) = \frac{4}{1 + \beta^2} \implies B = \frac{2}{\sqrt{1 + \beta^2}}
+       $$
+
+       $$
+       B e^{i\theta} = \frac{2(1 + i\beta)}{1 + \beta^2} \implies \tan\theta = \beta
+       $$
+
+       Hence:
+
+       $$
+       A_T = \frac{2}{\sqrt{1 + \beta^2}}A_I, \qquad \delta_T = \delta_I + \tan^{-1}(\beta)
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="9.7" title="Damped String in a Viscous Medium" tag="Griffiths 9.7 · Attenuation">
+  <div slot="problem">
+    Suppose string 2 is embedded in a viscous medium (such as molasses), which imposes a drag force proportional to its (transverse) speed:
+
+    $$
+    F_{\text{drag}} = -\gamma\frac{\partial f}{\partial t}\,\Delta z
+    $$
+
+    1. Derive the modified wave equation describing the motion of the string.
+    2. Solve this equation, assuming the string vibrates at the incident frequency $\omega$. That is, look for solutions of the form $\tilde{f}(z, t) = e^{-i\omega t}\tilde{F}(z)$.
+    3. Show that the waves are attenuated (that is, their amplitude decreases with increasing $z$). Find the characteristic penetration distance, at which the amplitude is $1/e$ of its original value, in terms of $\gamma$, $T$, $\mu$, and $\omega$.
+    4. If a wave of amplitude $A_I$, phase $\delta_I = 0$, and frequency $\omega$ is incident from the left (string 1), find the reflected wave's amplitude and phase.
+  </div>
+
+  <div slot="answer">
+    1. $T\dfrac{\partial^2 f}{\partial z^2} = \mu\dfrac{\partial^2 f}{\partial t^2} + \gamma\dfrac{\partial f}{\partial t}$.
+    2. $\tilde{f}(z, t) = \tilde{A}e^{-\kappa z}e^{i(kz - \omega t)}$, with $k = \omega\sqrt{\dfrac{\mu}{2T}\left[1 + \sqrt{1 + (\gamma/\mu\omega)^2}\right]}$ and $\kappa = \dfrac{\gamma\omega}{2kT} = \dfrac{\gamma}{\sqrt{2T\mu}}\left[1 + \sqrt{1 + (\gamma/\mu\omega)^2}\right]^{-1/2}$.
+    3. $z_{\text{pen}} = \dfrac{1}{\kappa} = \dfrac{\sqrt{2T\mu}}{\gamma}\sqrt{1 + \sqrt{1 + (\gamma/\mu\omega)^2}}$.
+    4. $A_R = \sqrt{\dfrac{(k_1 - k)^2 + \kappa^2}{(k_1 + k)^2 + \kappa^2}}\,A_I$, $\quad\delta_R = \tan^{-1}\!\left(\dfrac{-2k_1\kappa}{k_1^2 - k^2 - \kappa^2}\right)$, where $k_1 = \omega\sqrt{\mu_1/T}$.
+  </div>
+
+  <div slot="solution">
+    1. **Modified wave equation:** Including the drag force in Newton's second law for a segment $\Delta z$:
+
+       $$
+       F_{\text{net}} = T\frac{\partial^2 f}{\partial z^2}\Delta z - \gamma\frac{\partial f}{\partial t}\Delta z = \mu\,\Delta z\,\frac{\partial^2 f}{\partial t^2} \implies T\frac{\partial^2 f}{\partial z^2} = \mu\frac{\partial^2 f}{\partial t^2} + \gamma\frac{\partial f}{\partial t}
+       $$
+
+    2. **Monochromatic solution:** Substituting $\tilde{f}(z, t) = \tilde{F}(z)e^{-i\omega t}$ into the modified wave equation:
+
+       $$
+       T e^{-i\omega t}\frac{d^2\tilde{F}}{dz^2} = \mu(-\omega^2)\tilde{F}e^{-i\omega t} + \gamma(-i\omega)\tilde{F}e^{-i\omega t} \implies \frac{d^2\tilde{F}}{dz^2} = -\tilde{k}^2\tilde{F}, \qquad \tilde{k}^2 \equiv \frac{\omega}{T}(\mu\omega + i\gamma)
+       $$
+
+       The general solution is $\tilde{F}(z) = \tilde{A}e^{i\tilde{k}z} + \tilde{B}e^{-i\tilde{k}z}$. Writing $\tilde{k} = k + i\kappa$ with real $k, \kappa$:
+
+       $$
+       \tilde{k}^2 = (k^2 - \kappa^2) + 2ik\kappa = \frac{\mu\omega^2}{T} + i\frac{\gamma\omega}{T}
+       $$
+
+       Equating real and imaginary parts gives $2k\kappa = \dfrac{\gamma\omega}{T} \implies \kappa = \dfrac{\gamma\omega}{2kT}$, and:
+
+       $$
+       k^2 - \left(\frac{\gamma\omega}{2kT}\right)^2 = \frac{\mu\omega^2}{T} \implies k^4 - \left(\frac{\mu\omega^2}{T}\right)k^2 - \left(\frac{\gamma\omega}{2T}\right)^2 = 0
+       $$
+
+       Solving the quadratic for $k^2$:
+
+       $$
+       k^2 = \frac{1}{2}\left[\frac{\mu\omega^2}{T} \pm \sqrt{\left(\frac{\mu\omega^2}{T}\right)^2 + 4\left(\frac{\gamma\omega}{2T}\right)^2}\right] = \frac{\mu\omega^2}{2T}\left[1 \pm \sqrt{1 + \left(\frac{\gamma}{\mu\omega}\right)^2}\right]
+       $$
+
+       Since $k$ is real, $k^2 > 0$, forcing the $+$ sign (choosing $k > 0$ for propagation in $+z$):
+
+       $$
+       k = \omega\sqrt{\frac{\mu}{2T}\left[1 + \sqrt{1 + \left(\frac{\gamma}{\mu\omega}\right)^2}\right]}, \qquad \kappa = \frac{\gamma\omega}{2kT} = \frac{\gamma}{\sqrt{2T\mu}}\left[1 + \sqrt{1 + \left(\frac{\gamma}{\mu\omega}\right)^2}\right]^{-1/2}
+       $$
+
+       Thus $\tilde{F}(z) = \tilde{A}e^{-\kappa z}e^{ikz} + \tilde{B}e^{\kappa z}e^{-ikz}$. Rejecting the unphysical exponentially growing $e^{+\kappa z}$ term ($\tilde{B} = 0$) for a wave propagating in $+z$ gives:
+
+       $$
+       \tilde{f}(z, t) = \tilde{A}e^{-\kappa z}e^{i(kz - \omega t)}
+       $$
+
+    3. **Attenuation &amp; penetration depth:** Since $\kappa > 0$, the real amplitude decays exponentially as $e^{-\kappa z}$. It falls to $1/e$ of its initial value at the characteristic penetration distance:
+
+       $$
+       z = \frac{1}{\kappa} = \frac{\sqrt{2T\mu}}{\gamma}\sqrt{1 + \sqrt{1 + \left(\frac{\gamma}{\mu\omega}\right)^2}}
+       $$
+
+    4. **Reflection from string 1:** Replacing $k_2$ by the complex wavenumber $\tilde{k} = k + i\kappa$ in Eq. 9.29 (with $\tilde{A}_I = A_I$ since $\delta_I = 0$):
+
+       $$
+       \tilde{A}_R = \left(\frac{k_1 - k - i\kappa}{k_1 + k + i\kappa}\right)A_I
+       $$
+
+       Computing the amplitude squared $|\tilde{A}_R|^2$:
+
+       $$
+       \left(\frac{A_R}{A_I}\right)^2 = \left(\frac{k_1 - k - i\kappa}{k_1 + k + i\kappa}\right)\left(\frac{k_1 - k + i\kappa}{k_1 + k - i\kappa}\right) = \frac{(k_1 - k)^2 + \kappa^2}{(k_1 + k)^2 + \kappa^2} \implies A_R = \sqrt{\frac{(k_1 - k)^2 + \kappa^2}{(k_1 + k)^2 + \kappa^2}}\,A_I
+       $$
+
+       where $k_1 = \omega/v_1 = \omega\sqrt{\mu_1/T}$. To find the phase $\delta_R$, rationalize the denominator:
+
+       $$
+       \frac{k_1 - k - i\kappa}{k_1 + k + i\kappa} = \frac{(k_1 - k - i\kappa)(k_1 + k - i\kappa)}{(k_1 + k)^2 + \kappa^2} = \frac{(k_1^2 - k^2 - \kappa^2) - 2i\kappa k_1}{(k_1 + k)^2 + \kappa^2}
+       $$
+
+       Reading off $\operatorname{Im}/\operatorname{Re}$ gives the reflected phase:
+
+       $$
+       \delta_R = \tan^{-1}\!\left(\frac{-2k_1\kappa}{k_1^2 - k^2 - \kappa^2}\right)
+       $$
+  </div>
+</ProblemCard>
+
+</section>

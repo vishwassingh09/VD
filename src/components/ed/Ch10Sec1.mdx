@@ -1,0 +1,452 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch10-sec1" class="ed-sec-block">
+
+### 10.1 The Potential Formulation
+
+<div class="ed-theory-box">
+
+**Core Theory: Potentials, Gauge Freedom, &amp; Dynamics (Griffiths §10.1)**
+
+1. **Scalar and Vector Potentials:**
+   Maxwell's equations in vacuum are:
+
+   $$
+   \text{(i) }\vec{\nabla}\cdot\vec{E} = \frac{\rho}{\epsilon_0}, \qquad \text{(ii) }\vec{\nabla}\cdot\vec{B} = 0, \qquad \text{(iii) }\vec{\nabla}\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}, \qquad \text{(iv) }\vec{\nabla}\times\vec{B} = \mu_0\vec{J} + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t}
+   $$
+
+   Because $\vec{\nabla}\cdot\vec{B} = 0$ still holds in electrodynamics, we can write $\vec{B}$ as the curl of a vector potential $\vec{A}$. Substituting this into Faraday's law gives $\vec{\nabla}\times(\vec{E} + \partial\vec{A}/\partial t) = \mathbf{0}$, so $\vec{E} + \partial\vec{A}/\partial t$ is the gradient of a scalar potential $-V$:
+
+   $$
+   \vec{B} = \vec{\nabla}\times\vec{A}, \qquad \vec{E} = -\vec{\nabla}V - \frac{\partial\vec{A}}{\partial t}
+   $$
+
+   These definitions automatically satisfy the two homogeneous Maxwell equations (ii) and (iii), reducing the six field components $(\vec{E},\vec{B})$ to four potential components $(V,\vec{A})$. Substituting them into the inhomogeneous equations (i) and (iv) yields the coupled potential equations:
+
+   $$
+   \nabla^2 V + \frac{\partial}{\partial t}(\vec{\nabla}\cdot\vec{A}) = -\frac{\rho}{\epsilon_0}, \qquad \left(\nabla^2\vec{A} - \mu_0\epsilon_0\frac{\partial^2\vec{A}}{\partial t^2}\right) - \vec{\nabla}\!\left(\vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\frac{\partial V}{\partial t}\right) = -\mu_0\vec{J}
+   $$
+
+2. **Gauge Transformations:**
+   The potentials $(V,\vec{A})$ are not uniquely determined by $(\vec{E},\vec{B})$. If $\vec{A}' = \vec{A} + \vec{\alpha}$ gives the same $\vec{B}$, then $\vec{\nabla}\times\vec{\alpha} = \mathbf{0} \implies \vec{\alpha} = \vec{\nabla}\lambda$ for some scalar gauge function $\lambda(\vec{r},t)$. Requiring $\vec{E}$ to remain unchanged then forces $\vec{\nabla}(V' - V + \partial\lambda/\partial t) = \mathbf{0}$, and any purely time-dependent integration function $k(t)$ can be absorbed into $\lambda$ by adding $\int_0^t k(t')\,dt'$:
+
+   $$
+   \vec{A}' = \vec{A} + \vec{\nabla}\lambda, \qquad V' = V - \frac{\partial\lambda}{\partial t}
+   $$
+
+   Any scalar function $\lambda(\vec{r},t)$ leaves $\vec{E}$ and $\vec{B}$ invariant; this freedom allows us to adjust $\vec{\nabla}\cdot\vec{A}$ to simplify the wave equations.
+
+3. **Coulomb Gauge vs. Lorenz Gauge:**
+   - **Coulomb Gauge ($\vec{\nabla}\cdot\vec{A} = 0$):**
+     Gauss's law simplifies to Poisson's equation $\nabla^2 V = -\rho/\epsilon_0$, whose solution (with $V\to 0$ at infinity) is instantaneous:
+
+     $$
+     V(\vec{r},t) = \frac{1}{4\pi\epsilon_0}\int \frac{\rho(\vec{r}',t)}{\mathscr{r}}\,d\tau'
+     $$
+
+     *Physical subtlety (causality):* Although $V(\vec{r},t)$ responds instantaneously to changes in $\rho(\vec{r}',t)$ at arbitrary distance, $V$ itself is not a measurable physical quantity. The physical electric field $\vec{E} = -\vec{\nabla}V - \partial\vec{A}/\partial t$ remains strictly causal because the acausal instantaneous part of $-\vec{\nabla}V$ is cancelled by an equal and opposite non-local piece in $-\partial\vec{A}/\partial t$. Meanwhile, $\vec{A}$ satisfies $\nabla^2\vec{A} - \mu_0\epsilon_0\frac{\partial^2\vec{A}}{\partial t^2} = -\mu_0\vec{J} + \mu_0\epsilon_0\vec{\nabla}\frac{\partial V}{\partial t}$, which is generally difficult to solve.
+   - **Lorenz Gauge ($\vec{\nabla}\cdot\vec{A} = -\mu_0\epsilon_0\dfrac{\partial V}{\partial t} = -\dfrac{1}{c^2}\dfrac{\partial V}{\partial t}$):**
+     Named after Ludvig Lorenz, this manifestly Lorentz-covariant gauge choice eliminates the cross-coupling term and treats $V$ and $\vec{A}$ on an equal footing via the d'Alembertian operator $\Box^2 \equiv \nabla^2 - \mu_0\epsilon_0\frac{\partial^2}{\partial t^2} = \nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2}$:
+
+     $$
+     \Box^2 V = -\frac{\rho}{\epsilon_0}, \qquad \Box^2\vec{A} = -\mu_0\vec{J}
+     $$
+
+     These are four decoupled inhomogeneous wave equations driven directly by the local sources $\rho$ and $\vec{J}$.
+
+4. **Lorentz Force Law in Potential Form:**
+   Using the convective (total) derivative along the particle's trajectory $\vec{r}(t)$ with velocity $\vec{v}$, $\dfrac{d\vec{A}}{dt} = \dfrac{\partial\vec{A}}{\partial t} + (\vec{v}\cdot\vec{\nabla})\vec{A}$, and product rule $\vec{\nabla}(\vec{v}\cdot\vec{A}) = \vec{v}\times(\vec{\nabla}\times\vec{A}) + (\vec{v}\cdot\vec{\nabla})\vec{A}$, the Lorentz force law and energy balance take the canonical forms:
+
+   $$
+   \frac{d}{dt}(\vec{p} + q\vec{A}) = -\vec{\nabla}\left[q(V - \vec{v}\cdot\vec{A})\right], \qquad \frac{d}{dt}(T + qV) = \frac{\partial}{\partial t}\left[q(V - \vec{v}\cdot\vec{A})\right]
+   $$
+
+   Here $\vec{p}_{\text{can}} = \vec{p} + q\vec{A}$ is the canonical momentum (casting $q\vec{A}$ as "potential momentum" per unit charge, analogous to potential energy $qV$), and $U_{\text{vel}} = q(V - \vec{v}\cdot\vec{A})$ is the velocity-dependent potential.
+
+</div>
+
+<ProblemCard num="10.1" title="Symmetrical Form of Maxwell's Equations in Potentials" tag="Griffiths 10.1 · Potential Formulation">
+  <div slot="problem">
+    Show that the differential equations for $V$ and $\vec{A}$ (Eqs. 10.4 and 10.5) can be written in the more symmetrical form
+
+    $$
+    \Box^2 V + \frac{\partial L}{\partial t} = -\frac{1}{\epsilon_0}\rho, \qquad \Box^2\vec{A} - \vec{\nabla}L = -\mu_0\vec{J},
+    $$
+
+    where
+
+    $$
+    \Box^2 \equiv \nabla^2 - \mu_0\epsilon_0\frac{\partial^2}{\partial t^2} \quad\text{and}\quad L \equiv \vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\frac{\partial V}{\partial t}.
+    $$
+  </div>
+
+  <div slot="answer">
+    Direct substitution of $\Box^2$ and $L$ reproduces $\nabla^2 V + \dfrac{\partial}{\partial t}(\vec{\nabla}\cdot\vec{A}) = -\dfrac{\rho}{\epsilon_0}$ and $\nabla^2\vec{A} - \mu_0\epsilon_0\dfrac{\partial^2\vec{A}}{\partial t^2} - \vec{\nabla}\!\left(\vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\dfrac{\partial V}{\partial t}\right) = -\mu_0\vec{J}$.
+  </div>
+
+  <div slot="solution">
+    Substitute the definitions $\Box^2 = \nabla^2 - \mu_0\epsilon_0\dfrac{\partial^2}{\partial t^2}$ and $L = \vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\dfrac{\partial V}{\partial t}$ directly into the two equations.
+
+    For the scalar potential equation:
+
+    $$
+    \Box^2 V + \frac{\partial L}{\partial t} = \left(\nabla^2 V - \mu_0\epsilon_0\frac{\partial^2 V}{\partial t^2}\right) + \frac{\partial}{\partial t}(\vec{\nabla}\cdot\vec{A}) + \mu_0\epsilon_0\frac{\partial^2 V}{\partial t^2} = \nabla^2 V + \frac{\partial}{\partial t}(\vec{\nabla}\cdot\vec{A}) = -\frac{1}{\epsilon_0}\rho \quad\checkmark
+    $$
+
+    For the vector potential equation:
+
+    $$
+    \Box^2\vec{A} - \vec{\nabla}L = \nabla^2\vec{A} - \mu_0\epsilon_0\frac{\partial^2\vec{A}}{\partial t^2} - \vec{\nabla}\!\left(\vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\frac{\partial V}{\partial t}\right) = -\mu_0\vec{J} \quad\checkmark
+    $$
+
+    In the Lorenz gauge ($L = 0$), these immediately decouple into $\Box^2 V = -\rho/\epsilon_0$ and $\Box^2\vec{A} = -\mu_0\vec{J}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.2" title="Energy Conservation for a Propagating Current Sheet" tag="Griffiths 10.2 · Poynting's Theorem">
+  <div slot="problem">
+    For the configuration in Ex. 10.1—where $V = 0$ and $\vec{A} = \frac{\mu_0 k}{4c}(ct - |x|)^2\,\hat{z}$ for $|x| < ct$ (and $\mathbf{0}$ for $|x| > ct$)—consider a rectangular box of length $l$ (along $z$), width $w$ (along $y$), and height $h$ (along $x$), situated a distance $d$ above the $yz$ plane (spanning $d \le x \le d+h$).
+    1. Find the energy in the box at time $t_1 = d/c$, and at $t_2 = (d + h)/c$.
+    2. Find the Poynting vector, and determine the energy per unit time flowing into the box during the interval $t_1 < t < t_2$.
+    3. Integrate the result in (2) from $t_1$ to $t_2$, and confirm that the increase in energy (part 1) equals the net influx.
+  </div>
+
+  <div slot="answer">
+    1. $W(t_1) = 0$; $W(t_2) = \dfrac{\epsilon_0\mu_0^2 k^2 l w h^3}{12}$.
+    2. $\vec{S}(x,t) = \pm\dfrac{\mu_0 k^2}{4c}(ct - |x|)^2\,\hat{x}$ (plus for $x > 0$, minus for $x < 0$, and $\mathbf{0}$ for $|x| > ct$); $P = \dfrac{dW}{dt} = \dfrac{\mu_0 k^2 l w}{4c}(ct - d)^2$.
+    3. $\displaystyle\int_{t_1}^{t_2} P\,dt = \dfrac{\mu_0 k^2 l w h^3}{12c^2} = W(t_2)$.
+  </div>
+
+  <div slot="solution">
+    From Ex. 10.1, the fields for $|x| < ct$ are:
+
+    $$
+    \vec{E} = -\frac{\partial\vec{A}}{\partial t} = -\frac{\mu_0 k}{2}(ct - |x|)\,\hat{z}, \qquad \vec{B} = \vec{\nabla}\times\vec{A} = \pm\frac{\mu_0 k}{2c}(ct - |x|)\,\hat{y} \quad (+ \text{ for } x > 0,\ - \text{ for } x < 0),
+    $$
+
+    and $\vec{E} = \vec{B} = \mathbf{0}$ for $|x| > ct$.
+
+    1. The electromagnetic energy in the box is $W = \dfrac{1}{2}\displaystyle\int \left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right) d\tau$.
+       At $t_1 = d/c$, every point in the box has $x \ge d = ct_1$, so $\vec{E} = \mathbf{0}$ and $\vec{B} = \mathbf{0}$ everywhere in the box, giving $W(t_1) = 0$.
+
+       At $t_2 = (d + h)/c$, we have $ct_2 = d + h$, so the wavefront has just reached the top face $x = d + h$. Throughout the box ($d \le x \le d+h$), $B^2 = E^2/c^2$, so using $1/(\mu_0 c^2) = \epsilon_0$:
+
+       $$
+       \epsilon_0 E^2 + \frac{1}{\mu_0}B^2 = \epsilon_0 E^2 + \frac{1}{\mu_0}\left(\frac{E^2}{c^2}\right) = 2\epsilon_0 E^2
+       $$
+
+       Integrating over the cross-sectional area $lw$ and height $x \in [d, d+h]$:
+
+       $$
+       W(t_2) = \frac{1}{2}(2\epsilon_0)\frac{\mu_0^2 k^2}{4}\,(lw)\int_d^{d+h} (d + h - x)^2\,dx = \frac{\epsilon_0\mu_0^2 k^2 lw}{4}\left[-\frac{(d+h-x)^3}{3}\right]_d^{d+h} = \frac{\epsilon_0\mu_0^2 k^2 l w h^3}{12}
+       $$
+
+    2. For $|x| < ct$, the Poynting vector is:
+
+       $$
+       \vec{S}(x,t) = \frac{1}{\mu_0}(\vec{E}\times\vec{B}) = \frac{1}{\mu_0 c}E^2\left[-\hat{z}\times(\pm\hat{y})\right] = \pm\frac{1}{\mu_0 c}E^2\,\hat{x} = \pm\frac{\mu_0 k^2}{4c}(ct - |x|)^2\,\hat{x}
+       $$
+
+       (plus sign for $x > 0$, as inside our box; $\vec{S} = \mathbf{0}$ for $|x| > ct$). During $t_1 < t < t_2$, the wavefront is at $x = ct < d+h$, so $\vec{S}(d+h,t) = \mathbf{0}$ and no energy exits the top face. Energy enters only through the bottom face at $x = d$ (area $lw$, inward normal $+\hat{x}$):
+
+       $$
+       \frac{dW}{dt} = P = \int_{\text{bottom}} \vec{S}(d,t)\cdot d\vec{a} = \frac{\mu_0 k^2 l w}{4c}(ct - d)^2
+       $$
+
+    3. Integrating the power from $t_1 = d/c$ to $t_2 = (d+h)/c$:
+
+       $$
+       \int_{t_1}^{t_2} P\,dt = \frac{\mu_0 k^2 l w}{4c}\int_{d/c}^{(d+h)/c} (ct - d)^2\,dt = \frac{\mu_0 k^2 l w}{4c}\left[\frac{(ct - d)^3}{3c}\right]_{d/c}^{(d+h)/c} = \frac{\mu_0 k^2 l w h^3}{12c^2}
+       $$
+
+       Since $1/c^2 = \mu_0\epsilon_0$, this equals $\dfrac{\epsilon_0\mu_0^2 k^2 l w h^3}{12} = W(t_2) - W(t_1)$. $\checkmark$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.3" title="Gauge Transformation of an Unusual Point-Charge Potential" tag="Griffiths 10.3 · Gauge Transformations">
+  <div slot="problem">
+    1. Find the fields, and the charge and current distributions, corresponding to
+
+       $$
+       V(\vec{r}, t) = 0, \qquad \vec{A}(\vec{r}, t) = -\frac{1}{4\pi\epsilon_0}\frac{qt}{r^2}\,\hat{r}.
+       $$
+
+    2. Use the gauge function $\lambda = -\dfrac{1}{4\pi\epsilon_0}\dfrac{qt}{r}$ to transform the potentials, and comment on the result.
+  </div>
+
+  <div slot="answer">
+    1. $\vec{E} = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r^2}\,\hat{r}$, $\vec{B} = \mathbf{0}$, $\rho(\vec{r}, t) = q\delta^3(\vec{r})$, $\vec{J} = \mathbf{0}$.
+    2. $V' = \dfrac{1}{4\pi\epsilon_0}\dfrac{q}{r}$, $\vec{A}' = \mathbf{0}$; this gauge function transforms the unusual potentials into the standard electrostatic potentials of a stationary point charge at the origin.
+  </div>
+
+  <div slot="solution">
+    1. Computing the fields from $V$ and $\vec{A}$:
+
+       $$
+       \vec{E} = -\vec{\nabla}V - \frac{\partial\vec{A}}{\partial t} = \mathbf{0} - \left(-\frac{1}{4\pi\epsilon_0}\frac{q}{r^2}\,\hat{r}\right) = \frac{1}{4\pi\epsilon_0}\frac{q}{r^2}\,\hat{r}
+       $$
+
+       Since $\vec{A}$ is purely radial and depends only on $r$ and $t$, its curl vanishes: $\vec{B} = \vec{\nabla}\times\vec{A} = \mathbf{0}$.
+       Using Maxwell's equations to find the sources:
+
+       $$
+       \rho = \epsilon_0(\vec{\nabla}\cdot\vec{E}) = \frac{q}{4\pi}\vec{\nabla}\cdot\left(\frac{\hat{r}}{r^2}\right) = \frac{q}{4\pi}\left[4\pi\delta^3(\vec{r})\right] = q\delta^3(\vec{r})
+       $$
+
+       $$
+       \vec{J} = \frac{1}{\mu_0}\left(\vec{\nabla}\times\vec{B} - \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t}\right) = \mathbf{0}
+       $$
+
+       This is an unconventional, time-dependent gauge representation of a stationary point charge $q$ at the origin (whereas $V = \frac{1}{4\pi\epsilon_0}\frac{q}{r}, \vec{A} = \mathbf{0}$ is the customary choice).
+
+    2. Applying the gauge transformation with $\lambda = -\dfrac{1}{4\pi\epsilon_0}\dfrac{qt}{r}$:
+
+       $$
+       V' = V - \frac{\partial\lambda}{\partial t} = 0 - \left(-\frac{1}{4\pi\epsilon_0}\frac{q}{r}\right) = \frac{1}{4\pi\epsilon_0}\frac{q}{r}
+       $$
+
+       $$
+       \vec{A}' = \vec{A} + \vec{\nabla}\lambda = -\frac{1}{4\pi\epsilon_0}\frac{qt}{r^2}\,\hat{r} - \frac{qt}{4\pi\epsilon_0}\vec{\nabla}\!\left(\frac{1}{r}\right) = -\frac{1}{4\pi\epsilon_0}\frac{qt}{r^2}\,\hat{r} + \frac{1}{4\pi\epsilon_0}\frac{qt}{r^2}\,\hat{r} = \mathbf{0}
+       $$
+
+       Thus $\lambda$ transforms the "funny" $(V=0, \vec{A}\neq\mathbf{0})$ potentials into the standard potentials of a stationary point charge.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.4" title="Plane Wave Potentials & Dispersion Relation" tag="Griffiths 10.4 · Maxwell's Equations">
+  <div slot="problem">
+    Suppose $V = 0$ and $\vec{A} = A_0\sin(kx - \omega t)\,\hat{y}$, where $A_0$, $\omega$, and $k$ are constants. Find $\vec{E}$ and $\vec{B}$, and check that they satisfy Maxwell's equations in vacuum. What condition must you impose on $\omega$ and $k$?
+  </div>
+
+  <div slot="answer">
+    $\vec{E} = A_0\omega\cos(kx - \omega t)\,\hat{y}$, $\vec{B} = A_0 k\cos(kx - \omega t)\,\hat{z}$; they satisfy Maxwell's equations in vacuum provided $\omega = ck$ (or more generally $\omega^2 = c^2 k^2$, so $\omega = \pm ck$).
+  </div>
+
+  <div slot="solution">
+    Calculating the fields from the potentials:
+
+    $$
+    \vec{E} = -\vec{\nabla}V - \frac{\partial\vec{A}}{\partial t} = -\frac{\partial}{\partial t}\left[A_0\sin(kx - \omega t)\,\hat{y}\right] = A_0\omega\cos(kx - \omega t)\,\hat{y}
+    $$
+
+    $$
+    \vec{B} = \vec{\nabla}\times\vec{A} = \frac{\partial A_y}{\partial x}\,\hat{z} = A_0 k\cos(kx - \omega t)\,\hat{z}
+    $$
+
+    Now check all four Maxwell equations in vacuum ($\rho = 0, \vec{J} = \mathbf{0}$):
+    - **Gauss's law (E):** $\vec{\nabla}\cdot\vec{E} = \dfrac{\partial E_y}{\partial y} = 0$. $\checkmark$
+    - **Gauss's law (B):** $\vec{\nabla}\cdot\vec{B} = \dfrac{\partial B_z}{\partial z} = 0$. $\checkmark$
+    - **Faraday's law:**
+
+      $$
+      \vec{\nabla}\times\vec{E} = \frac{\partial E_y}{\partial x}\,\hat{z} = -A_0\omega k\sin(kx - \omega t)\,\hat{z}, \qquad -\frac{\partial\vec{B}}{\partial t} = -\frac{\partial}{\partial t}\left[A_0 k\cos(kx - \omega t)\,\hat{z}\right] = -A_0\omega k\sin(kx - \omega t)\,\hat{z}
+      $$
+
+      So $\vec{\nabla}\times\vec{E} = -\partial\vec{B}/\partial t$ holds identically. $\checkmark$
+    - **Ampère–Maxwell law:**
+
+      $$
+      \vec{\nabla}\times\vec{B} = -\frac{\partial B_z}{\partial x}\,\hat{y} = A_0 k^2\sin(kx - \omega t)\,\hat{y}, \qquad \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t} = \mu_0\epsilon_0 A_0\omega^2\sin(kx - \omega t)\,\hat{y}
+      $$
+
+      Equality $\vec{\nabla}\times\vec{B} = \mu_0\epsilon_0\,\partial\vec{E}/\partial t$ holds provided $k^2 = \mu_0\epsilon_0\omega^2$, or, since $c^2 = 1/(\mu_0\epsilon_0)$, $\omega = ck$ (or $\omega = \pm ck$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.5" title="Classifying Potentials in Coulomb and Lorenz Gauges" tag="Griffiths 10.5 · Gauge Conditions">
+  <div slot="problem">
+    Which of the potentials in Ex. 10.1, Prob. 10.3, and Prob. 10.4 are in the Coulomb gauge? Which are in the Lorenz gauge? (Notice that these gauges are not mutually exclusive.)
+  </div>
+
+  <div slot="answer">
+    - **Ex. 10.1:** Both Coulomb and Lorenz.
+    - **Prob. 10.3:** Neither Coulomb nor Lorenz.
+    - **Prob. 10.4:** Both Coulomb and Lorenz.
+  </div>
+
+  <div slot="solution">
+    Recall the gauge conditions: Coulomb requires $\vec{\nabla}\cdot\vec{A} = 0$; Lorenz requires $\vec{\nabla}\cdot\vec{A} = -\mu_0\epsilon_0\dfrac{\partial V}{\partial t}$.
+
+    - **Ex. 10.1:** Here $V = 0$ and $\vec{A} = A_z(x,t)\,\hat{z}$. Since $A_z$ is independent of $z$, $\vec{\nabla}\cdot\vec{A} = \partial A_z/\partial z = 0$, and $\partial V/\partial t = 0$. Both conditions ($0 = 0$) are satisfied: **both Coulomb and Lorenz**.
+    - **Prob. 10.3:** Here $V = 0 \implies \partial V/\partial t = 0$, while
+
+      $$
+      \vec{\nabla}\cdot\vec{A} = -\frac{qt}{4\pi\epsilon_0}\vec{\nabla}\cdot\left(\frac{\hat{r}}{r^2}\right) = -\frac{qt}{\epsilon_0}\delta^3(\vec{r}) \neq 0
+      $$
+
+      Because $\vec{\nabla}\cdot\vec{A} \neq 0$ (at the origin) and $-\mu_0\epsilon_0\,\partial V/\partial t = 0$, it is in **neither** gauge.
+    - **Prob. 10.4:** Here $V = 0 \implies \partial V/\partial t = 0$, and $\vec{A} = A_0\sin(kx - \omega t)\,\hat{y}$ depends only on $x$ and $t$, so $\vec{\nabla}\cdot\vec{A} = \partial A_y/\partial y = 0$. Thus it satisfies **both Coulomb and Lorenz** gauges.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.6" title="Existence of the Lorenz, Temporal, and Zero-Vector Gauges" tag="Griffiths 10.6 · Gauge Freedom">
+  <div slot="problem">
+    In Chapter 5, it was shown that it is always possible to pick a vector potential whose divergence is zero (the Coulomb gauge). Show that it is always possible to choose $\vec{\nabla}\cdot\vec{A} = -\mu_0\epsilon_0(\partial V/\partial t)$, as required for the Lorenz gauge, assuming you know how to solve the inhomogeneous wave equation ($\Box^2 V = -\rho/\epsilon_0$, $\Box^2\vec{A} = -\mu_0\vec{J}$). Is it always possible to pick $V = 0$? How about $\vec{A} = \mathbf{0}$?
+  </div>
+
+  <div slot="answer">
+    Yes, the Lorenz gauge is always achievable by solving $\Box^2\lambda = -\left(\vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\dfrac{\partial V}{\partial t}\right)$. Yes, it is always possible to set $V' = 0$ (via $\lambda = \displaystyle\int_0^t V(\vec{r}, t')\,dt'$). No, it is not generally possible to set $\vec{A}' = \mathbf{0}$, because that would force $\vec{B} = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    Suppose we start with arbitrary potentials $(V,\vec{A})$ that do not satisfy the Lorenz condition, and define the known function
+
+    $$
+    f(\vec{r},t) \equiv \vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\frac{\partial V}{\partial t}
+    $$
+
+    We perform a gauge transformation $V' = V - \partial\lambda/\partial t$, $\vec{A}' = \vec{A} + \vec{\nabla}\lambda$, and require $(V',\vec{A}')$ to satisfy the Lorenz condition:
+
+    $$
+    \vec{\nabla}\cdot\vec{A}' + \mu_0\epsilon_0\frac{\partial V'}{\partial t} = \left(\vec{\nabla}\cdot\vec{A} + \mu_0\epsilon_0\frac{\partial V}{\partial t}\right) + \left(\nabla^2\lambda - \mu_0\epsilon_0\frac{\partial^2\lambda}{\partial t^2}\right) = f + \Box^2\lambda = 0
+    $$
+
+    This vanishes provided we choose $\lambda(\vec{r},t)$ to be a solution of the inhomogeneous wave equation $\Box^2\lambda = -f$, which by hypothesis (and in fact) we know how to solve.
+
+    - **Can we always pick $V' = 0$ (temporal/Weyl gauge)?** **Yes.** We need $\partial\lambda/\partial t = V$, which is always satisfied by
+
+      $$
+      \lambda(\vec{r},t) = \int_0^t V(\vec{r}, t')\,dt'
+      $$
+
+    - **Can we always pick $\vec{A}' = \mathbf{0}$?** **No.** Setting $\vec{A}' = \mathbf{0}$ would force $\vec{B} = \vec{\nabla}\times\vec{A}' = \mathbf{0}$, which cannot hold when a magnetic field is present. Equivalently, finding $\lambda$ such that $\vec{A} + \vec{\nabla}\lambda = \mathbf{0}$ requires expressing $\vec{A} = -\vec{\nabla}\lambda$, which is impossible unless $\vec{\nabla}\times\vec{A} = \vec{B} = \mathbf{0}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.7" title="Time-Dependent Point Charge in the Coulomb Gauge" tag="Griffiths 10.7 · Coulomb Gauge">
+  <div slot="problem">
+    A time-dependent point charge $q(t)$ at the origin, $\rho(\vec{r},t) = q(t)\delta^3(\vec{r})$, is fed by a current $\vec{J}(\vec{r},t) = -\dfrac{1}{4\pi}\dfrac{\dot{q}}{r^2}\,\hat{r}$, where $\dot{q} \equiv dq/dt$.
+    1. Check that charge is conserved, by confirming that the continuity equation is obeyed.
+    2. Find the scalar and vector potentials in the Coulomb gauge. If you get stuck, try working on (3) first.
+    3. Find the fields, and check that they satisfy all of Maxwell's equations.
+  </div>
+
+  <div slot="answer">
+    1. $\vec{\nabla}\cdot\vec{J} = -\dot{q}\delta^3(\vec{r}) = -\partial\rho/\partial t$.
+    2. $V(\vec{r},t) = \dfrac{1}{4\pi\epsilon_0}\dfrac{q(t)}{r}$, $\vec{A}(\vec{r},t) = \mathbf{0}$.
+    3. $\vec{E}(\vec{r},t) = \dfrac{1}{4\pi\epsilon_0}\dfrac{q(t)}{r^2}\,\hat{r}$, $\vec{B}(\vec{r},t) = \mathbf{0}$; all four Maxwell equations hold (with displacement current exactly canceling conduction current).
+  </div>
+
+  <div slot="solution">
+    1. Taking the divergence of $\vec{J}$ and using $\vec{\nabla}\cdot(\hat{r}/r^2) = 4\pi\delta^3(\vec{r})$:
+
+       $$
+       \vec{\nabla}\cdot\vec{J} = -\frac{\dot{q}}{4\pi}\vec{\nabla}\cdot\left(\frac{\hat{r}}{r^2}\right) = -\dot{q}\delta^3(\vec{r}) = -\frac{\partial}{\partial t}\left[q(t)\delta^3(\vec{r})\right] = -\frac{\partial\rho}{\partial t} \quad\checkmark
+       $$
+
+    2. In the Coulomb gauge, the scalar potential is given instantaneously by Eq. 10.10:
+
+       $$
+       V(\vec{r},t) = \frac{1}{4\pi\epsilon_0}\int \frac{q(t)\delta^3(\vec{r}')}{\mathscr{r}}\,d\tau' = \frac{1}{4\pi\epsilon_0}\frac{q(t)}{r}
+       $$
+
+       By spherical symmetry, $\vec{B}$ has no preferred tangential or axial direction, and $\vec{\nabla}\cdot\vec{B} = 0$ forbids a radial field, so $\vec{B} = \mathbf{0}$. Thus $\vec{\nabla}\times\vec{A} = \mathbf{0}$, $\vec{\nabla}\cdot\vec{A} = 0$ (Coulomb gauge), and $\vec{A} \to \mathbf{0}$ at infinity, which uniquely implies $\vec{A} = \mathbf{0}$. (Equivalently, in Eq. 10.11, $-\mu_0\vec{J} + \mu_0\epsilon_0\vec{\nabla}\frac{\partial V}{\partial t} = \frac{\mu_0\dot{q}}{4\pi r^2}\hat{r} - \frac{\mu_0\dot{q}}{4\pi r^2}\hat{r} = \mathbf{0}$, so $\Box^2\vec{A} = \mathbf{0} \implies \vec{A} = \mathbf{0}$.)
+
+    3. From the potentials:
+
+       $$
+       \vec{E} = -\vec{\nabla}V - \frac{\partial\vec{A}}{\partial t} = \frac{1}{4\pi\epsilon_0}\frac{q(t)}{r^2}\,\hat{r}, \qquad \vec{B} = \vec{\nabla}\times\vec{A} = \mathbf{0}
+       $$
+
+       Checking Maxwell's equations:
+       - $\vec{\nabla}\cdot\vec{E} = \dfrac{q(t)}{4\pi\epsilon_0}\left[4\pi\delta^3(\vec{r})\right] = \dfrac{q(t)\delta^3(\vec{r})}{\epsilon_0} = \dfrac{\rho}{\epsilon_0}$. $\checkmark$
+       - $\vec{\nabla}\cdot\vec{B} = 0$. $\checkmark$
+       - $\vec{\nabla}\times\vec{E} = \mathbf{0} = -\dfrac{\partial\vec{B}}{\partial t}$. $\checkmark$
+       - $\vec{\nabla}\times\vec{B} = \mathbf{0}$, and
+
+         $$
+         \mu_0\vec{J} + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t} = -\frac{\mu_0\dot{q}}{4\pi r^2}\,\hat{r} + \mu_0\epsilon_0\frac{\dot{q}}{4\pi\epsilon_0 r^2}\,\hat{r} = \mathbf{0} \quad\checkmark
+         $$
+
+       Physically, a spherically symmetric radial current feeds the point charge at the origin from infinity, and the displacement current everywhere cancels the conduction current so that $\vec{B} = \mathbf{0}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.8" title="Lorentz Force in Potential Form for Uniform Magnetic Field" tag="Griffiths 10.8 · Canonical Momentum">
+  <div slot="problem">
+    The vector potential for a uniform magnetostatic field is $\vec{A} = -\frac{1}{2}(\vec{r}\times\vec{B})$ (Prob. 5.25). Show that $\dfrac{d\vec{A}}{dt} = -\frac{1}{2}(\vec{v}\times\vec{B})$ in this case, and confirm that Eq. 10.20,
+
+    $$
+    \frac{d}{dt}(\vec{p} + q\vec{A}) = -\vec{\nabla}[q(V - \vec{v}\cdot\vec{A})],
+    $$
+
+    yields the correct equation of motion.
+  </div>
+
+  <div slot="answer">
+    $\dfrac{d\vec{A}}{dt} = -\dfrac{1}{2}(\vec{v}\times\vec{B})$, and Eq. 10.20 reduces to $\dfrac{d\vec{p}}{dt} = q(\vec{v}\times\vec{B})$.
+  </div>
+
+  <div slot="solution">
+    Since $\vec{A}$ is independent of $t$ and $\vec{B}$ is constant (independent of $\vec{r}$), Eq. 10.19 gives:
+
+    $$
+    \frac{d\vec{A}}{dt} = \frac{\partial\vec{A}}{\partial t} + (\vec{v}\cdot\vec{\nabla})\vec{A} = -\frac{1}{2}(\vec{v}\cdot\vec{\nabla})(\vec{r}\times\vec{B})
+    $$
+
+    Expanding $\vec{r}\times\vec{B} = (yB_z - zB_y)\,\hat{x} + (zB_x - xB_z)\,\hat{y} + (xB_y - yB_x)\,\hat{z}$ and applying $(\vec{v}\cdot\vec{\nabla}) = v_x\partial_x + v_y\partial_y + v_z\partial_z$:
+
+    $$
+    \begin{aligned}
+    \frac{d\vec{A}}{dt} &= -\frac{1}{2}\left[v_x(-B_z\,\hat{y} + B_y\,\hat{z}) + v_y(B_z\,\hat{x} - B_x\,\hat{z}) + v_z(-B_y\,\hat{x} + B_x\,\hat{y})\right] \\
+    &= -\frac{1}{2}\left[(v_y B_z - v_z B_y)\,\hat{x} + (v_z B_x - v_x B_z)\,\hat{y} + (v_x B_y - v_y B_x)\,\hat{z}\right] = -\frac{1}{2}(\vec{v}\times\vec{B}) \quad\checkmark
+    \end{aligned}
+    $$
+
+    Now substitute $V = 0$ and $d\vec{A}/dt = -\frac{1}{2}(\vec{v}\times\vec{B})$ into Eq. 10.20:
+
+    $$
+    \frac{d\vec{p}}{dt} - \frac{q}{2}(\vec{v}\times\vec{B}) = q\vec{\nabla}(\vec{v}\cdot\vec{A}) = -\frac{q}{2}\vec{\nabla}\left[\vec{v}\cdot(\vec{r}\times\vec{B})\right] = -\frac{q}{2}\vec{\nabla}\left[\vec{r}\cdot(\vec{B}\times\vec{v})\right]
+    $$
+
+    For any position-independent vector $\vec{c}$, $\vec{\nabla}(\vec{r}\cdot\vec{c}) = c_x\,\hat{x} + c_y\,\hat{y} + c_z\,\hat{z} = \vec{c}$. Here $\vec{c} = \vec{B}\times\vec{v} = -(\vec{v}\times\vec{B})$, so:
+
+    $$
+    \frac{d\vec{p}}{dt} = \frac{q}{2}(\vec{v}\times\vec{B}) - \frac{q}{2}(\vec{B}\times\vec{v}) = \frac{q}{2}(\vec{v}\times\vec{B}) + \frac{q}{2}(\vec{v}\times\vec{B}) = q(\vec{v}\times\vec{B}) \quad\checkmark
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="10.9" title="Rate of Change of Particle Energy in Potentials" tag="Griffiths 10.9 · Energy Balance">
+  <div slot="problem">
+    Derive Eq. 10.23:
+
+    $$
+    \frac{d}{dt}(T + qV) = \frac{\partial}{\partial t}\left[q(V - \vec{v}\cdot\vec{A})\right].
+    $$
+
+    *(Hint: Start by dotting $\vec{v}$ into Eq. 10.17, $\vec{F} = q\left[-\vec{\nabla}V - \partial\vec{A}/\partial t + \vec{v}\times(\vec{\nabla}\times\vec{A})\right]$.)*
+  </div>
+
+  <div slot="answer">
+    Dotting $\vec{v}$ into the Lorentz force gives $\dfrac{dT}{dt} = \vec{v}\cdot\vec{F} = -q\left[(\vec{v}\cdot\vec{\nabla})V + \vec{v}\cdot\dfrac{\partial\vec{A}}{\partial t}\right]$, which combines with $\dfrac{dV}{dt} = \dfrac{\partial V}{\partial t} + (\vec{v}\cdot\vec{\nabla})V$ to yield $\dfrac{d}{dt}(T+qV) = \dfrac{\partial}{\partial t}[q(V-\vec{v}\cdot\vec{A})]$.
+  </div>
+
+  <div slot="solution">
+    With $T = \frac{1}{2}mv^2$, differentiating $T + qV$ along the particle's path gives:
+
+    $$
+    \frac{d}{dt}(T + qV) = m\vec{v}\cdot\frac{d\vec{v}}{dt} + q\frac{dV}{dt} = \vec{v}\cdot\vec{F} + q\left[\frac{\partial V}{\partial t} + (\vec{v}\cdot\vec{\nabla})V\right]
+    $$
+
+    Next, dot $\vec{v}$ into Eq. 10.17. Since $\vec{v}\cdot[\vec{v}\times(\vec{\nabla}\times\vec{A})] = 0$:
+
+    $$
+    \vec{v}\cdot\vec{F} = q\vec{v}\cdot\left[-\vec{\nabla}V - \frac{\partial\vec{A}}{\partial t} + \vec{v}\times(\vec{\nabla}\times\vec{A})\right] = -q\left[(\vec{v}\cdot\vec{\nabla})V + \vec{v}\cdot\frac{\partial\vec{A}}{\partial t}\right]
+    $$
+
+    Adding the two terms cancels the $(\vec{v}\cdot\vec{\nabla})V$ convective pieces:
+
+    $$
+    \frac{d}{dt}(T + qV) = -q\left[(\vec{v}\cdot\vec{\nabla})V + \vec{v}\cdot\frac{\partial\vec{A}}{\partial t}\right] + q\left[\frac{\partial V}{\partial t} + (\vec{v}\cdot\vec{\nabla})V\right] = q\left(\frac{\partial V}{\partial t} - \vec{v}\cdot\frac{\partial\vec{A}}{\partial t}\right)
+    $$
+
+    Because $\partial/\partial t$ acts only on the fields $V$ and $\vec{A}$ (not on $\vec{v}$), we obtain:
+
+    $$
+    \frac{d}{dt}(T + qV) = \frac{\partial}{\partial t}\left[q(V - \vec{v}\cdot\vec{A})\right] \quad\checkmark
+    $$
+  </div>
+</ProblemCard>
+
+</section>

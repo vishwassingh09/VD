@@ -1,0 +1,284 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch3-sec1" class="ed-sec-block">
+
+### 3.1 Laplace's Equation & Uniqueness Theorems
+
+<div class="ed-theory-box">
+
+**Core Theory (Griffiths §3.1 — Harmonic Functions, Mean-Value Property & Uniqueness):**
+
+- **Poisson's and Laplace's Equations:** Combining $\nabla \cdot \vec{E} = \rho/\epsilon_0$ with $\vec{E} = -\nabla V$ yields **Poisson's equation**, which in charge-free regions ($\rho = 0$) reduces to **Laplace's equation**:
+
+$$
+\nabla^2 V = -\frac{\rho}{\epsilon_0} \quad\text{(Poisson)}, \qquad \nabla^2 V = 0 \quad\text{(Laplace)}
+$$
+
+  In Cartesian coordinates, $\dfrac{\partial^2 V}{\partial x^2} + \dfrac{\partial^2 V}{\partial y^2} + \dfrac{\partial^2 V}{\partial z^2} = 0$. Solutions to Laplace's equation are called **harmonic functions**.
+
+- **Mean-Value Property (Averaging Instruction):**
+  - *1D:* $V''(x) = 0 \implies V(x) = mx + b$, so $V(x) = \frac{1}{2}[V(x+a) + V(x-a)]$.
+  - *2D:* On any circle of radius $R$ in a charge-free region, $V(x,y) = \dfrac{1}{2\pi R}\oint_{\text{circle}} V\,dl$ (analogous to a stretched rubber membrane or soap film, and the basis of the numerical *relaxation method*).
+  - *3D:* On any spherical surface of radius $R$ centered at $\vec{r}$ enclosing no charge,
+
+$$
+V(\vec{r}) = \frac{1}{4\pi R^2}\oint_{\text{sphere}} V\,da
+$$
+
+  *(Proved via Coulomb's law in §3.1.4, and directly from $\nabla^2 V = 0$ in Prob. 3.37.)*
+
+- **No Local Extrema & Earnshaw's Theorem:** Because $V(\vec{r})$ equals its average over every surrounding sphere inside a charge-free region, $V$ cannot possess any local maxima or minima in the interior; all extreme values must occur on the boundaries. Consequently, **Earnshaw's theorem** states that a charged particle cannot be held in a stable equilibrium by electrostatic forces alone (stable equilibrium requires a local minimum of $U = qV$, which cannot occur in charge-free space).
+
+- **First Uniqueness Theorem (& Poisson Corollary):** The solution to Laplace's equation in a volume $\mathcal{V}$ is uniquely determined if $V$ is specified on the boundary surface $\mathcal{S}$ (including any interior "island" surfaces and an outer boundary at infinity). More generally (Corollary), if $\rho$ is specified throughout $\mathcal{V}$ and $V$ is specified on $\mathcal{S}$, the solution to Poisson's equation is unique.
+  - *Proof:* If $V_1$ and $V_2$ satisfy $\nabla^2 V = -\rho/\epsilon_0$ in $\mathcal{V}$ and match on $\mathcal{S}$, their difference $V_3 \equiv V_1 - V_2$ obeys $\nabla^2 V_3 = 0$ in $\mathcal{V}$ with $V_3 = 0$ on $\mathcal{S}$. Since Laplace's equation permits no interior extrema, $\max(V_3) = \min(V_3) = 0 \implies V_3 = 0 \implies V_1 = V_2$.
+  - *License to your imagination:* Any function satisfying Poisson's or Laplace's equation in $\mathcal{V}$ and matching the boundary values on $\mathcal{S}$ is *the* unique solution, regardless of how it was found. (In particular, inside an empty conducting cavity held at constant $V_0$, $V = V_0$ everywhere and $\vec{E} = \mathbf{0}$.)
+
+- **Second Uniqueness Theorem:** In a volume $\mathcal{V}$ surrounded by conductors and containing a specified charge density $\rho$, the electric field $\vec{E}$ is uniquely determined if the **total charge $Q_i$ on each conductor** is given (rather than its potential).
+  - *Proof:* Let $\vec{E}_3 = \vec{E}_1 - \vec{E}_2$. Then $\nabla \cdot \vec{E}_3 = 0$ in $\mathcal{V}$ and $\oint_{i\text{th}} \vec{E}_3 \cdot d\vec{a} = 0$ on each conductor (and on the outer boundary). Since each conductor is an equipotential for both configurations, $V_3 = V_1 - V_2$ is constant on each surface (not necessarily zero). Using $\nabla \cdot (V_3 \vec{E}_3) = V_3(\nabla \cdot \vec{E}_3) + \vec{E}_3 \cdot \nabla V_3 = -(E_3)^2$ and the divergence theorem:
+
+$$
+\int_{\mathcal{V}} (E_3)^2\,d\tau = -\oint_{\mathcal{S}} V_3\vec{E}_3 \cdot d\vec{a} = -\sum_i V_{3,i}\oint_i \vec{E}_3 \cdot d\vec{a} = 0 \implies \vec{E}_3 = \mathbf{0} \implies \vec{E}_1 = \vec{E}_2
+$$
+
+- **Mixed Boundary Conditions (Prob. 3.5):** Even without conductors, $\vec{E}$ is uniquely determined if $\rho$ is given in $\mathcal{V}$ and *either* $V$ (Dirichlet) *or* $\partial V/\partial n$ (Neumann) is specified on each boundary surface.
+
+</div>
+
+<EdDiagram
+  name="uniqueness-conductors"
+  caption="Second Uniqueness Theorem: Volume V containing charge density ρ(r⃗) and conductors Qₐ, Q_b, Q_c, Q_d (from notes p. 7)."
+/>
+
+<ProblemCard num="3.1" title="Average Potential Over a Sphere Enclosing Charge" tag="Griffiths 3.1 · Mean-Value Theorem">
+  <div slot="problem">
+    Find the average potential over a spherical surface of radius $R$ due to a point charge $q$ located inside (at distance $z < R$ from the center). (In this case, of course, Laplace's equation does not hold within the sphere.) Show that, in general,
+
+    $$
+    V_{\text{ave}} = V_{\text{center}} + \frac{Q_{\text{enc}}}{4\pi\epsilon_0 R},
+    $$
+
+    where $V_{\text{center}}$ is the potential at the center due to all the external charges, and $Q_{\text{enc}}$ is the total enclosed charge.
+  </div>
+
+  <div slot="answer">
+    $$
+    V_{\text{ave}} = \frac{1}{4\pi\epsilon_0}\frac{q}{R} \quad\text{(single interior charge)}, \qquad V_{\text{ave}} = V_{\text{center}} + \frac{Q_{\text{enc}}}{4\pi\epsilon_0 R} \quad\text{(general)}
+    $$
+  </div>
+
+  <div slot="solution">
+    Center the sphere of radius $R$ at the origin and place the interior point charge $q$ on the $z$-axis at $(0, 0, z)$ with $z < R$. On the spherical surface, the distance from $q$ to a surface patch $da = R^2\sin\theta\,d\theta\,d\phi$ is $\mathscr{r} = \sqrt{z^2 + R^2 - 2zR\cos\theta}$. Integrating as in §3.1.4:
+
+    $$
+    V_{\text{ave}} = \frac{1}{4\pi R^2}\frac{q}{4\pi\epsilon_0}\int_0^{2\pi}\int_0^\pi \frac{R^2\sin\theta\,d\theta\,d\phi}{\sqrt{z^2 + R^2 - 2zR\cos\theta}} = \frac{q}{4\pi\epsilon_0}\frac{1}{2zR}\left[\sqrt{z^2 + R^2 - 2zR\cos\theta}\right]_0^\pi
+    $$
+
+    Because $z < R$, the lower limit $\theta = 0$ gives $\sqrt{z^2 + R^2 - 2zR} = |R - z| = R - z$ (instead of $z - R$ as in the exterior case), while $\theta = \pi$ gives $R + z$. Therefore:
+
+    $$
+    V_{\text{ave}} = \frac{q}{4\pi\epsilon_0}\frac{1}{2zR}\big[(z + R) - (R - z)\big] = \frac{q}{4\pi\epsilon_0}\frac{2z}{2zR} = \frac{1}{4\pi\epsilon_0}\frac{q}{R}
+    $$
+
+    Notice this result is independent of $z$ for any $z < R$. By the superposition principle:
+    1. Every charge *inside* the sphere contributes $\dfrac{1}{4\pi\epsilon_0}\dfrac{q_i}{R}$, summing to $\dfrac{Q_{\text{enc}}}{4\pi\epsilon_0 R}$.
+    2. Every charge *outside* the sphere contributes its potential at the center (§3.1.4), summing to $V_{\text{center}}$.
+
+    Adding both contributions yields:
+
+    $$
+    V_{\text{ave}} = V_{\text{center}} + \frac{Q_{\text{enc}}}{4\pi\epsilon_0 R}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.2" title="Earnshaw's Theorem and the Cubical Electrostatic Bottle" tag="Griffiths 3.2 · Earnshaw's Theorem">
+  <div slot="problem">
+    In one sentence, justify Earnshaw's Theorem: A charged particle cannot be held in a stable equilibrium by electrostatic forces alone. As an example, consider the cubical arrangement of fixed charges ($q$ at each of the $8$ corners of a cube). It looks, offhand, as though a positive charge at the center would be suspended in midair, since it is repelled away from each corner. Where is the leak in this "electrostatic bottle"?
+  </div>
+
+  <div slot="answer">
+    A stable equilibrium requires a local minimum in the potential energy $U = qV$, which is impossible because Laplace's equation permits no local minima of $V$ in charge-free space; the cubical bottle leaks through the center of each face (the center is a saddle point).
+  </div>
+
+  <div slot="solution">
+    1. **Justification of Earnshaw's Theorem:** A stable equilibrium is a point of local minimum in potential energy $U = qV$, which is impossible because Laplace's equation ($\nabla^2 V = 0$) allows no local minima (or maxima) for $V$ in a charge-free region.
+    2. **Where the bottle leaks:** What looks like a potential minimum at the center of the cube is in fact a **saddle point**. Along the directions toward the corners the potential increases, but along the axes passing through the **center of each of the six faces** the potential decreases away from the center—so the electrostatic bottle "leaks" through the center of each face.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.3" title="Radial Solutions to Laplace's Equation in Spherical & Cylindrical Coordinates" tag="Griffiths 3.3 · Laplace's Equation">
+  <div slot="problem">
+    Find the general solution to Laplace's equation in spherical coordinates, for the case where $V$ depends only on $r$. Do the same for cylindrical coordinates, assuming $V$ depends only on $s$.
+  </div>
+
+  <div slot="answer">
+    Spherical: $V(r) = -\dfrac{c}{r} + k$. Cylindrical: $V(s) = c\ln s + k$.
+  </div>
+
+  <div slot="solution">
+    1. **Spherical coordinates ($V$ depends only on $r$):** Laplace's equation reads
+
+       $$
+       \nabla^2 V = \frac{1}{r^2}\frac{d}{dr}\!\left(r^2\frac{dV}{dr}\right) = 0 \implies r^2\frac{dV}{dr} = c \quad\text{(constant)}
+       $$
+
+       $$
+       \frac{dV}{dr} = \frac{c}{r^2} \implies V(r) = -\frac{c}{r} + k
+       $$
+
+       *(Example: potential outside a uniformly charged sphere or point charge.)*
+
+    2. **Cylindrical coordinates ($V$ depends only on $s$):** Laplace's equation reads
+
+       $$
+       \nabla^2 V = \frac{1}{s}\frac{d}{ds}\!\left(s\frac{dV}{ds}\right) = 0 \implies s\frac{dV}{ds} = c \quad\text{(constant)}
+       $$
+
+       $$
+       \frac{dV}{ds} = \frac{c}{s} \implies V(s) = c\ln s + k
+       $$
+
+       *(Example: potential of a long straight charged wire.)*
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.4" title="Average Electric Field Over a Spherical Surface" tag="Griffiths 3.4 · Mean-Value Theorem for E">
+  <div slot="problem">
+    1. Show that the average electric field over a spherical surface, due to charges outside the sphere, is the same as the field at the center.
+    2. What is the average due to charges inside the sphere?
+  </div>
+
+  <div slot="answer">
+    1. $\vec{E}_{\text{ave}} = \vec{E}_{\text{center}}$ (for a single exterior charge at $+z$: $\vec{E}_{\text{ave}} = -\dfrac{1}{4\pi\epsilon_0}\dfrac{q}{z^2}\hat{z}$).
+    2. $\vec{E}_{\text{ave}} = \mathbf{0}$ for charges inside the sphere.
+  </div>
+
+  <div slot="solution">
+    Center the sphere of radius $R$ at the origin and place a single point charge $q$ on the $z$-axis at $(0, 0, z)$ (Griffiths Fig. 3.3). Let $\alpha$ be the angle between the separation vector $\vec{\mathscr{r}}$ (from $q$ to a surface patch $da$) and the $-\hat{z}$ direction. By azimuthal symmetry, all transverse components cancel and $\vec{E}_{\text{ave}}$ points along $-\hat{z}$:
+
+    $$
+    \vec{E}_{\text{ave}} = \frac{1}{4\pi R^2}\oint \vec{E}\,da = \left(\frac{1}{4\pi R^2}\frac{q}{4\pi\epsilon_0}\int \frac{1}{\mathscr{r}^2}\cos\alpha\,da\right)(-\hat{z})
+    $$
+
+    By the law of cosines on the triangle with sides $z$, $R$, and $\mathscr{r}$:
+
+    $$
+    R^2 = z^2 + \mathscr{r}^2 - 2\mathscr{r}z\cos\alpha \implies \cos\alpha = \frac{z^2 + \mathscr{r}^2 - R^2}{2\mathscr{r}z}
+    $$
+
+    Also $\mathscr{r}^2 = R^2 + z^2 - 2Rz\cos\theta$, so $z^2 + \mathscr{r}^2 - R^2 = 2z^2 - 2Rz\cos\theta = 2z(z - R\cos\theta)$, giving:
+
+    $$
+    \frac{\cos\alpha}{\mathscr{r}^2} = \frac{z^2 + \mathscr{r}^2 - R^2}{2z\mathscr{r}^3} = \frac{z - R\cos\theta}{(R^2 + z^2 - 2Rz\cos\theta)^{3/2}}
+    $$
+
+    Integrating over $da = R^2\sin\theta\,d\theta\,d\phi$ and substituting $u \equiv \cos\theta$:
+
+    $$
+    \vec{E}_{\text{ave}} = -\frac{q\,\hat{z}}{16\pi^2\epsilon_0 R^2}\int_0^{2\pi}\!\int_0^\pi \frac{z - R\cos\theta}{(R^2 + z^2 - 2Rz\cos\theta)^{3/2}}R^2\sin\theta\,d\theta\,d\phi = -\frac{q\,\hat{z}}{8\pi\epsilon_0}\int_{-1}^{1} \frac{z - Ru}{(R^2 + z^2 - 2Rzu)^{3/2}}\,du
+    $$
+
+    Integrating by parts (or splitting $z - Ru = \frac{1}{2z}[(R^2 + z^2 - 2Rzu) + (z^2 - R^2)]$) evaluates the $u$-integral $I$:
+
+    $$
+    I = \left[\frac{1}{R\sqrt{R^2 + z^2 - 2Rzu}} - \frac{1}{2Rz^2}\left(\sqrt{R^2 + z^2 - 2Rzu} + \frac{R^2 + z^2}{\sqrt{R^2 + z^2 - 2Rzu}}\right)\right]_{-1}^{1}
+    $$
+
+    $$
+    I = \frac{1}{R}\left(\frac{1}{|z - R|} - \frac{1}{z + R}\right) - \frac{1}{2Rz^2}\left[|z - R| - (z + R) + (R^2 + z^2)\left(\frac{1}{|z - R|} - \frac{1}{z + R}\right)\right]
+    $$
+
+    1. **If $z > R$ (charge outside):** Then $|z - R| = z - R$, so $\frac{1}{z - R} - \frac{1}{z + R} = \frac{2R}{z^2 - R^2}$ and $(z - R) - (z + R) = -2R$:
+
+       $$
+       I = \frac{1}{R}\left(\frac{2R}{z^2 - R^2}\right) - \frac{1}{2Rz^2}\left[-2R + (R^2 + z^2)\frac{2R}{z^2 - R^2}\right] = \frac{2}{z^2 - R^2} - \frac{1}{z^2}\left(\frac{2R^2}{z^2 - R^2}\right) = \frac{2}{z^2}
+       $$
+
+       Thus $\vec{E}_{\text{ave}} = -\dfrac{q\,\hat{z}}{8\pi\epsilon_0}\left(\dfrac{2}{z^2}\right) = -\dfrac{1}{4\pi\epsilon_0}\dfrac{q}{z^2}\hat{z}$, which is identical to the field at the center. By superposition, $\vec{E}_{\text{ave}} = \vec{E}_{\text{center}}$ for any collection of charges outside the sphere.
+
+    2. **If $z < R$ (charge inside):** Then $|z - R| = R - z$, so $\frac{1}{R - z} - \frac{1}{z + R} = \frac{2z}{R^2 - z^2}$ and $(R - z) - (z + R) = -2z$:
+
+       $$
+       I = \frac{1}{R}\left(\frac{2z}{R^2 - z^2}\right) - \frac{1}{2Rz^2}\left[-2z + (R^2 + z^2)\frac{2z}{R^2 - z^2}\right] = \frac{2z}{R(R^2 - z^2)} - \frac{1}{Rz}\left(\frac{2z^2}{R^2 - z^2}\right) = 0
+       $$
+
+       Hence $\vec{E}_{\text{ave}} = \mathbf{0}$, and by superposition this holds for any collection of charges inside the sphere.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.5" title="Uniqueness with Mixed Dirichlet & Neumann Boundary Conditions" tag="Griffiths 3.5 · Uniqueness">
+  <div slot="problem">
+    Prove that the field is uniquely determined when the charge density $\rho$ is given and either $V$ or the normal derivative $\partial V/\partial n$ is specified on each boundary surface. Do not assume the boundaries are conductors, or that $V$ is constant over any given surface.
+  </div>
+
+  <div slot="answer">
+    For $V_3 = V_1 - V_2$ and $\vec{E}_3 = \vec{E}_1 - \vec{E}_2$, $\int_{\mathcal{V}} (E_3)^2\,d\tau = -\oint_{\mathcal{S}} V_3\vec{E}_3\cdot d\vec{a} = 0$ because on each boundary piece either $V_3 = 0$ or $E_{3\perp} = -\partial V_3/\partial n = 0$; hence $\vec{E}_3 = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    Suppose two solutions $(V_1, \vec{E}_1)$ and $(V_2, \vec{E}_2)$ satisfy $\nabla\cdot\vec{E} = \rho/\epsilon_0$ in $\mathcal{V}$ and the given boundary conditions on $\mathcal{S}$. Form the difference $V_3 \equiv V_1 - V_2$ and $\vec{E}_3 \equiv \vec{E}_1 - \vec{E}_2 = -\nabla V_3$.
+
+    In $\mathcal{V}$, $\nabla\cdot\vec{E}_3 = \frac{\rho}{\epsilon_0} - \frac{\rho}{\epsilon_0} = 0$. Using product rule 5 and the divergence theorem just as in the proof of the Second Uniqueness Theorem:
+
+    $$
+    \oint_{\mathcal{S}} V_3\vec{E}_3\cdot d\vec{a} = \int_{\mathcal{V}} \nabla\cdot(V_3\vec{E}_3)\,d\tau = \int_{\mathcal{V}} \big[V_3(\nabla\cdot\vec{E}_3) + \vec{E}_3\cdot(\nabla V_3)\big]\,d\tau = -\int_{\mathcal{V}} (E_3)^2\,d\tau
+    $$
+
+    On each boundary surface in $\mathcal{S}$, either:
+    - $V$ is specified, in which case $V_1 = V_2 \implies V_3 = 0$, or
+    - $\dfrac{\partial V}{\partial n}$ is specified, in which case $E_{3\perp} = \vec{E}_3\cdot\hat{n} = -\dfrac{\partial V_3}{\partial n} = 0$.
+
+    In both cases the surface integrand $V_3\vec{E}_3\cdot d\vec{a}$ vanishes identically over all of $\mathcal{S}$. Therefore:
+
+    $$
+    \int_{\mathcal{V}} (E_3)^2\,d\tau = 0
+    $$
+
+    Since $(E_3)^2 \ge 0$ everywhere, $\vec{E}_3 = \mathbf{0}$ throughout $\mathcal{V}$, so $\vec{E}_1 = \vec{E}_2$. $\blacksquare$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.6" title="Second Uniqueness Theorem via Green's Identity" tag="Griffiths 3.6 · Green's Identity">
+  <div slot="problem">
+    A more elegant proof of the second uniqueness theorem uses Green's identity (Prob. 1.61c),
+
+    $$
+    \int_{\mathcal{V}} \left(T\nabla^2 U + \nabla T\cdot\nabla U\right)\,d\tau = \oint_{\mathcal{S}} \left(T\nabla U\right)\cdot d\vec{a},
+    $$
+
+    with $T = U = V_3$. Supply the details.
+  </div>
+
+  <div slot="answer">
+    With $T = U = V_3$, $\nabla^2 V_3 = 0$ and $\nabla V_3 = -\vec{E}_3$ give $\int_{\mathcal{V}} E_3^2\,d\tau = -\oint_{\mathcal{S}} V_3\vec{E}_3\cdot d\vec{a} = 0 \implies \vec{E}_3 = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    Set $T = U = V_3 \equiv V_1 - V_2$ in Green's identity:
+
+    $$
+    \int_{\mathcal{V}} \left(V_3\nabla^2 V_3 + \nabla V_3\cdot\nabla V_3\right)\,d\tau = \oint_{\mathcal{S}} V_3\nabla V_3\cdot d\vec{a}
+    $$
+
+    Inside the volume $\mathcal{V}$ between the conductors, both $V_1$ and $V_2$ obey Poisson's equation with the same charge density $\rho$, so:
+
+    $$
+    \nabla^2 V_3 = \nabla^2 V_1 - \nabla^2 V_2 = -\frac{\rho}{\epsilon_0} + \frac{\rho}{\epsilon_0} = 0
+    $$
+
+    Also $\nabla V_3 = -\vec{E}_3$, so $\nabla V_3\cdot\nabla V_3 = E_3^2$. Green's identity therefore reduces to:
+
+    $$
+    \int_{\mathcal{V}} E_3^2\,d\tau = -\oint_{\mathcal{S}} V_3\vec{E}_3\cdot d\vec{a}
+    $$
+
+    The boundary $\mathcal{S}$ consists of the conductor surfaces and the outer boundary. Because each conductor is an equipotential, $V_3$ is constant over each conductor surface $i$ (and zero at infinity, or constant if the outer boundary is a conductor), so $V_{3,i}$ factors out of each surface integral. By Gauss's law, since both fields correspond to the same total charge $Q_i$ on each conductor, $\oint_i \vec{E}_3\cdot d\vec{a} = 0$. Hence:
+
+    $$
+    \int_{\mathcal{V}} E_3^2\,d\tau = -\sum_i V_{3,i}\oint_i \vec{E}_3\cdot d\vec{a} = 0 \implies \vec{E}_3 = \mathbf{0} \implies \vec{E}_1 = \vec{E}_2
+    $$
+  </div>
+</ProblemCard>
+
+</section>

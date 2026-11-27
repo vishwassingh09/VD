@@ -1,0 +1,423 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec5" class="ed-sec-block">
+
+### 1.5 The Dirac Delta Function
+
+<div class="ed-theory-box">
+
+#### 1.5.1 The Divergence of $\hat{\mathbf{r}}/r^2$
+
+Consider the radial vector field $\mathbf{v}(\mathbf{r}) = \frac{\hat{\mathbf{r}}}{r^2}$. In spherical coordinates, direct differentiation away from the origin ($r \neq 0$) gives
+
+$$
+\nabla \cdot \mathbf{v} = \frac{1}{r^2} \frac{\partial}{\partial r}\left(r^2 \cdot \frac{1}{r^2}\right) = \frac{1}{r^2}\frac{\partial}{\partial r}(1) = 0 \qquad (r \neq 0).
+$$
+
+However, applying the divergence theorem to a sphere of radius $R$ centered at the origin yields a nonzero flux independent of $R$:
+
+$$
+\oint_S \mathbf{v} \cdot d\mathbf{a} = \int_0^{2\pi} \int_0^\pi \frac{\hat{\mathbf{r}}}{R^2} \cdot \left(R^2 \sin\theta\, d\theta\, d\phi\, \hat{\mathbf{r}}\right) = \int_0^{2\pi} d\phi \int_0^\pi \sin\theta\, d\theta = 4\pi.
+$$
+
+The apparent paradox arises because $\mathbf{v}$ blows up at $r = 0$, where dividing by $r^2$ in the coordinate formula for $\nabla \cdot \mathbf{v}$ is invalid. For the divergence theorem $\int_V (\nabla \cdot \mathbf{v})\,d\tau = \oint_S \mathbf{v} \cdot d\mathbf{a} = 4\pi$ to hold for spheres of arbitrarily small radius $R$, $\nabla \cdot (\hat{\mathbf{r}}/r^2)$ must vanish everywhere except at $r = 0$, yet integrate to $4\pi$ over any volume containing the origin.
+
+#### 1.5.2 The One-Dimensional Dirac Delta Function
+
+The Dirac delta $\delta(x)$ is a generalized function (distribution), heuristically pictured as an infinitely tall, infinitesimally narrow spike of unit area (the distributional limit of unit-area sequences such as rectangles $R_n(x)$ of height $n$ and width $1/n$, or triangles $T_n(x)$ of height $n$ and base $2/n$):
+
+$$
+\delta(x - a) = \begin{cases} 0, & x \neq a, \\ \infty, & x = a, \end{cases} \qquad \int_{-\infty}^{\infty} \delta(x - a)\,dx = 1,
+$$
+
+with dimensions $[\delta(x)] = [x]^{-1}$. Its defining action is the **sifting property** on any continuous test function $f(x)$:
+
+$$
+f(x)\,\delta(x - a) = f(a)\,\delta(x - a), \qquad \int_{x_1}^{x_2} f(x)\,\delta(x - a)\,dx = \begin{cases} f(a), & a \in (x_1, x_2), \\ 0, & a \notin [x_1, x_2]. \end{cases}
+$$
+
+Two distributional expressions $D_1(x)$ and $D_2(x)$ are equal if and only if $\int_{-\infty}^{\infty} f(x) D_1(x)\,dx = \int_{-\infty}^{\infty} f(x) D_2(x)\,dx$ for all test functions $f(x)$. Important operational identities follow from this criterion:
+
+- **Scaling and parity** (for any nonzero constant $k$):
+
+$$
+\delta(kx) = \frac{1}{|k|}\,\delta(x), \qquad \delta(-x) = \delta(x), \qquad \delta\big(k(x - a)\big) = \frac{1}{|k|}\,\delta(x - a).
+$$
+
+- **Distributional derivative and Heaviside step function**: Integrating by parts against a smooth test function yields $\int_{-\infty}^\infty f(x)\,\delta'(x)\,dx = -f'(0)$, so $x\,\delta'(x) = -\delta(x)$. For the step function $\theta(x)$ ($\theta(x) = 1$ for $x > 0$ and $0$ for $x \le 0$), $d\theta/dx = \delta(x)$.
+
+#### 1.5.3 The Three-Dimensional Dirac Delta Function and $\nabla^2(1/r)$
+
+In three dimensions, the Dirac delta distribution is the Cartesian product
+
+$$
+\delta^3(\mathbf{r}) = \delta(x)\,\delta(y)\,\delta(z), \qquad \int_{\text{all space}} \delta^3(\mathbf{r})\,d\tau = 1,
+$$
+
+with the 3D sifting property for a volume $V$:
+
+$$
+\int_V f(\mathbf{r})\,\delta^3(\mathbf{r} - \mathbf{a})\,d\tau = \begin{cases} f(\mathbf{a}), & \mathbf{a} \in V, \\ 0, & \mathbf{a} \notin \overline{V}. \end{cases}
+$$
+
+The properties of $\nabla \cdot (\hat{\mathbf{r}}/r^2)$ from §1.5.1 identify it directly with the 3D delta function. Writing $\boldsymbol{\mathfrak{r}} \equiv \mathbf{r} - \mathbf{r}'$ for the separation vector (with derivatives taken with respect to $\mathbf{r}$ at fixed $\mathbf{r}'$):
+
+$$
+\nabla \cdot \left(\frac{\hat{\mathbf{r}}}{r^2}\right) = 4\pi\,\delta^3(\mathbf{r}), \qquad \nabla \cdot \left(\frac{\hat{\boldsymbol{\mathfrak{r}}}}{\mathfrak{r}^2}\right) = 4\pi\,\delta^3(\boldsymbol{\mathfrak{r}}).
+$$
+
+Since $\nabla(1/r) = -\hat{\mathbf{r}}/r^2$, taking the divergence yields the fundamental Poisson point-source identity:
+
+$$
+\nabla^2 \left(\frac{1}{r}\right) = -4\pi\,\delta^3(\mathbf{r}), \qquad \nabla^2 \left(\frac{1}{\mathfrak{r}}\right) = -4\pi\,\delta^3(\boldsymbol{\mathfrak{r}}).
+$$
+
+</div>
+
+<ProblemCard num="1.44" title="One-Dimensional Delta Integrals I" tag="Griffiths 1.44 · Dirac Delta Sifting">
+  <div slot="problem">
+
+Evaluate the following integrals:
+
+**(a)** $\displaystyle \int_2^6 (3x^2 - 2x - 1)\,\delta(x - 3)\,dx$.
+
+**(b)** $\displaystyle \int_0^5 \cos x\,\delta(x - \pi)\,dx$.
+
+**(c)** $\displaystyle \int_0^3 x^3\,\delta(x + 1)\,dx$.
+
+**(d)** $\displaystyle \int_{-\infty}^{\infty} \ln(x + 3)\,\delta(x + 2)\,dx$.
+
+  </div>
+  <div slot="answer">
+
+**(a)** $20$ &nbsp;|&nbsp; **(b)** $-1$ &nbsp;|&nbsp; **(c)** $0$ &nbsp;|&nbsp; **(d)** $0$
+
+  </div>
+  <div slot="solution">
+
+We use the sifting property $\int_a^b f(x)\,\delta(x - x_0)\,dx = f(x_0)$ if $x_0 \in (a, b)$, and $0$ if $x_0 \notin [a, b]$.
+
+**(a)** The spike is at $x_0 = 3$, which lies inside $(2, 6)$:
+
+$$
+\int_2^6 (3x^2 - 2x - 1)\,\delta(x - 3)\,dx = 3(3^2) - 2(3) - 1 = 27 - 6 - 1 = 20.
+$$
+
+**(b)** The spike is at $x_0 = \pi \approx 3.1416$, which lies inside $(0, 5)$:
+
+$$
+\int_0^5 \cos x\,\delta(x - \pi)\,dx = \cos\pi = -1.
+$$
+
+**(c)** The spike is at $x_0 = -1$, which lies outside the integration interval $[0, 3]$:
+
+$$
+\int_0^3 x^3\,\delta(x + 1)\,dx = 0.
+$$
+
+**(d)** The spike is at $x_0 = -2$, which lies inside $(-\infty, \infty)$, and $f(x) = \ln(x + 3)$ is smooth at $x = -2$:
+
+$$
+\int_{-\infty}^{\infty} \ln(x + 3)\,\delta(x + 2)\,dx = \ln(-2 + 3) = \ln 1 = 0.
+$$
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.45" title="One-Dimensional Delta Integrals II (Scaling)" tag="Griffiths 1.45 · Delta Scaling">
+  <div slot="problem">
+
+Evaluate the following integrals:
+
+**(a)** $\displaystyle \int_{-2}^2 (2x + 3)\,\delta(3x)\,dx$.
+
+**(b)** $\displaystyle \int_0^2 (x^3 + 3x + 2)\,\delta(1 - x)\,dx$.
+
+**(c)** $\displaystyle \int_{-1}^1 9x^2\,\delta(3x + 1)\,dx$.
+
+**(d)** $\displaystyle \int_{-\infty}^a \delta(x - b)\,dx$.
+
+  </div>
+  <div slot="answer">
+
+**(a)** $1$ &nbsp;|&nbsp; **(b)** $6$ &nbsp;|&nbsp; **(c)** $\dfrac{1}{3}$ &nbsp;|&nbsp; **(d)** $1$ if $a > b$, and $0$ if $a < b$
+
+  </div>
+  <div slot="solution">
+
+We apply the scaling identity $\delta(k(x - x_0)) = \frac{1}{|k|}\delta(x - x_0)$ from Eq. (1.94).
+
+**(a)** With $k = 3$, $\delta(3x) = \frac{1}{3}\delta(x)$. Since $0 \in (-2, 2)$:
+
+$$
+\int_{-2}^2 (2x + 3)\,\delta(3x)\,dx = \int_{-2}^2 (2x + 3)\,\frac{1}{3}\delta(x)\,dx = \frac{1}{3}\big(2(0) + 3\big) = 1.
+$$
+
+**(b)** Using $\delta(1 - x) = \delta(-(x - 1)) = \delta(x - 1)$, and noting $1 \in (0, 2)$:
+
+$$
+\int_0^2 (x^3 + 3x + 2)\,\delta(1 - x)\,dx = \int_0^2 (x^3 + 3x + 2)\,\delta(x - 1)\,dx = 1^3 + 3(1) + 2 = 6.
+$$
+
+**(c)** Factoring the argument gives $\delta(3x + 1) = \delta\big(3(x + \frac{1}{3})\big) = \frac{1}{3}\delta(x + \frac{1}{3})$. Since $-\frac{1}{3} \in (-1, 1)$:
+
+$$
+\int_{-1}^1 9x^2\,\delta(3x + 1)\,dx = \int_{-1}^1 9x^2\,\frac{1}{3}\delta\left(x + \frac{1}{3}\right) dx = 3\left(-\frac{1}{3}\right)^2 = \frac{1}{3}.
+$$
+
+**(d)** The spike lies at $x = b$. If $a > b$, then $b \in (-\infty, a)$ is inside the domain of integration, so the integral equals $1$. If $a < b$, then $b \notin (-\infty, a]$, so the integral equals $0$.
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.46" title="Derivative of the Delta and Step Functions" tag="Griffiths 1.46 · Distributions">
+  <div slot="problem">
+
+**(a)** Show that
+
+$$
+x \frac{d}{dx}\big(\delta(x)\big) = -\delta(x).
+$$
+
+*[Hint: Use integration by parts.]*
+
+**(b)** Let $\theta(x)$ be the step function:
+
+$$
+\theta(x) \equiv \begin{cases} 1, & \text{if } x > 0, \\ 0, & \text{if } x \le 0. \end{cases}
+$$
+
+Show that $\dfrac{d\theta}{dx} = \delta(x)$.
+
+  </div>
+  <div slot="answer">
+
+Both distributional identities are established by integrating against an arbitrary differentiable test function $f(x)$ over an interval containing $x = 0$ (e.g., $[-1, 1]$) and integrating by parts.
+
+  </div>
+  <div slot="solution">
+
+By the distributional equality criterion (Eq. 1.93), two delta-function expressions are equal if they yield the same result when multiplied by an arbitrary smooth test function $f(x)$ and integrated over an interval enclosing the origin (say $[-1, 1]$).
+
+**(a)** Integrate the left-hand side against $f(x)$ over $[-1, 1]$ using integration by parts:
+
+$$
+\int_{-1}^1 f(x)\left[x \frac{d}{dx}\big(\delta(x)\big)\right] dx = \Big[x f(x)\,\delta(x)\Big]_{-1}^1 - \int_{-1}^1 \frac{d}{dx}\big(x f(x)\big)\,\delta(x)\,dx.
+$$
+
+The boundary term vanishes because $\delta(\pm 1) = 0$. Expanding the derivative via the product rule, $\frac{d}{dx}(x f(x)) = x\frac{df}{dx} + f(x)$, we obtain
+
+$$
+\int_{-1}^1 f(x)\left[x \frac{d}{dx}\big(\delta(x)\big)\right] dx = -\int_{-1}^1 \left(x\frac{df}{dx} + f(x)\right)\delta(x)\,dx = -\left(0 \cdot \frac{df}{dx}\Big|_{x=0} + f(0)\right) = -f(0).
+$$
+
+On the other hand,
+
+$$
+\int_{-1}^1 f(x)\big(-\delta(x)\big)\,dx = -f(0).
+$$
+
+Since the two integrals agree for every test function $f(x)$, it follows that
+
+$$
+x \frac{d}{dx}\big(\delta(x)\big) = -\delta(x).
+$$
+
+**(b)** Integrate $\frac{d\theta}{dx}$ against a smooth test function $f(x)$ over $[-1, 1]$ and integrate by parts:
+
+$$
+\int_{-1}^1 f(x)\,\frac{d\theta}{dx}\,dx = \Big[f(x)\,\theta(x)\Big]_{-1}^1 - \int_{-1}^1 \frac{df}{dx}\,\theta(x)\,dx.
+$$
+
+Using $\theta(1) = 1$ and $\theta(-1) = 0$, the boundary term is $f(1) - 0 = f(1)$. Since $\theta(x) = 0$ for $x \le 0$ and $\theta(x) = 1$ for $x > 0$, the remaining integral collapses to $[0, 1]$:
+
+$$
+\int_{-1}^1 \frac{df}{dx}\,\theta(x)\,dx = \int_0^1 \frac{df}{dx}\,dx = f(1) - f(0).
+$$
+
+Combining both pieces gives
+
+$$
+\int_{-1}^1 f(x)\,\frac{d\theta}{dx}\,dx = f(1) - \big(f(1) - f(0)\big) = f(0) = \int_{-1}^1 f(x)\,\delta(x)\,dx.
+$$
+
+Because this holds for all test functions $f(x)$, we conclude that $\dfrac{d\theta}{dx} = \delta(x)$.
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.47" title="Charge Densities Using Delta Functions" tag="Griffiths 1.47 · Charge Density">
+  <div slot="problem">
+
+**(a)** Write an expression for the volume charge density $\rho(\mathbf{r})$ of a point charge $q$ at $\mathbf{r}'$. Make sure that the volume integral of $\rho$ equals $q$.
+
+**(b)** What is the volume charge density of an electric dipole, consisting of a point charge $-q$ at the origin and a point charge $+q$ at $\mathbf{a}$?
+
+**(c)** What is the volume charge density (in spherical coordinates) of a uniform, infinitesimally thin spherical shell of radius $R$ and total charge $Q$, centered at the origin? *[Beware: the integral over all space must equal $Q$.]*
+
+  </div>
+  <div slot="answer">
+
+**(a)** $\rho(\mathbf{r}) = q\,\delta^3(\mathbf{r} - \mathbf{r}')$
+
+**(b)** $\rho(\mathbf{r}) = q\,\delta^3(\mathbf{r} - \mathbf{a}) - q\,\delta^3(\mathbf{r})$
+
+**(c)** $\rho(\mathbf{r}) = \dfrac{Q}{4\pi R^2}\,\delta(r - R)$
+
+  </div>
+  <div slot="solution">
+
+**(a)** A point charge $q$ located at $\mathbf{r}'$ has zero charge density everywhere except at $\mathbf{r} = \mathbf{r}'$:
+
+$$
+\rho(\mathbf{r}) = q\,\delta^3(\mathbf{r} - \mathbf{r}').
+$$
+
+Checking the normalization over all space:
+
+$$
+\int_{\text{all space}} \rho(\mathbf{r})\,d\tau = q \int_{\text{all space}} \delta^3(\mathbf{r} - \mathbf{r}')\,d\tau = q.
+$$
+
+**(b)** By linear superposition of a charge $-q$ at $\mathbf{0}$ and a charge $+q$ at $\mathbf{a}$:
+
+$$
+\rho(\mathbf{r}) = q\,\delta^3(\mathbf{r} - \mathbf{a}) - q\,\delta^3(\mathbf{r}).
+$$
+
+**(c)** By spherical symmetry, the charge is confined uniformly to the surface $r = R$, so the volume charge density must have the form $\rho(\mathbf{r}) = A\,\delta(r - R)$ for some constant $A$. Requiring the volume integral over all space to equal $Q$ gives
+
+$$
+Q = \int_{\text{all space}} \rho(\mathbf{r})\,d\tau = \int_0^{2\pi} d\phi \int_0^\pi \sin\theta\,d\theta \int_0^\infty A\,\delta(r - R)\,r^2\,dr = 4\pi A \int_0^\infty r^2\,\delta(r - R)\,dr = 4\pi R^2 A.
+$$
+
+Solving for $A$ yields $A = \frac{Q}{4\pi R^2}$ (the uniform surface charge density $\sigma$), so
+
+$$
+\rho(\mathbf{r}) = \frac{Q}{4\pi R^2}\,\delta(r - R).
+$$
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.48" title="Three-Dimensional Delta Integrals" tag="Griffiths 1.48 · 3D Delta Function">
+  <div slot="problem">
+
+Evaluate the following integrals:
+
+**(a)** $\displaystyle \int (r^2 + \mathbf{r} \cdot \mathbf{a} + a^2)\,\delta^3(\mathbf{r} - \mathbf{a})\,d\tau$, where $\mathbf{a}$ is a fixed vector, $a$ is its magnitude, and the integral is over all space.
+
+**(b)** $\displaystyle \int_V |\mathbf{r} - \mathbf{b}|^2\,\delta^3(5\mathbf{r})\,d\tau$, where $V$ is a cube of side $2$, centered on the origin, and $\mathbf{b} = 4\hat{\mathbf{y}} + 3\hat{\mathbf{z}}$.
+
+**(c)** $\displaystyle \int_V \big[r^4 + r^2(\mathbf{r} \cdot \mathbf{c}) + c^4\big]\,\delta^3(\mathbf{r} - \mathbf{c})\,d\tau$, where $V$ is a sphere of radius $6$ about the origin, $\mathbf{c} = 5\hat{\mathbf{x}} + 3\hat{\mathbf{y}} + 2\hat{\mathbf{z}}$, and $c$ is its magnitude.
+
+**(d)** $\displaystyle \int_V \mathbf{r} \cdot (\mathbf{d} - \mathbf{r})\,\delta^3(\mathbf{e} - \mathbf{r})\,d\tau$, where $\mathbf{d} = (1, 2, 3)$, $\mathbf{e} = (3, 2, 1)$, and $V$ is a sphere of radius $1.5$ centered at $(2, 2, 2)$.
+
+  </div>
+  <div slot="answer">
+
+**(a)** $3a^2$ &nbsp;|&nbsp; **(b)** $\dfrac{1}{5}$ &nbsp;|&nbsp; **(c)** $0$ &nbsp;|&nbsp; **(d)** $-4$
+
+  </div>
+  <div slot="solution">
+
+**(a)** Because the integration is over all space, $\mathbf{r} = \mathbf{a}$ lies inside the domain, and $r^2 = |\mathbf{a}|^2 = a^2$:
+
+$$
+\int_{\text{all space}} (r^2 + \mathbf{r} \cdot \mathbf{a} + a^2)\,\delta^3(\mathbf{r} - \mathbf{a})\,d\tau = a^2 + \mathbf{a} \cdot \mathbf{a} + a^2 = 3a^2.
+$$
+
+**(b)** Applying the 1D scaling rule to each Cartesian factor gives
+
+$$
+\delta^3(5\mathbf{r}) = \delta(5x)\,\delta(5y)\,\delta(5z) = \frac{1}{5}\delta(x)\,\frac{1}{5}\delta(y)\,\frac{1}{5}\delta(z) = \frac{1}{125}\,\delta^3(\mathbf{r}).
+$$
+
+The origin $\mathbf{r} = \mathbf{0}$ lies inside the cube $[-1, 1]^3$ of side $2$, so the integral evaluates to
+
+$$
+\int_V |\mathbf{r} - \mathbf{b}|^2\,\frac{1}{125}\,\delta^3(\mathbf{r})\,d\tau = \frac{|\mathbf{b}|^2}{125} = \frac{4^2 + 3^2}{125} = \frac{25}{125} = \frac{1}{5}.
+$$
+
+**(c)** Check whether the spike at $\mathbf{r} = \mathbf{c}$ lies inside the sphere $V$ of radius $R = 6$:
+
+$$
+c^2 = 5^2 + 3^2 + 2^2 = 25 + 9 + 4 = 38 > 36 = 6^2.
+$$
+
+Since $c > 6$, the point $\mathbf{c}$ lies outside $V$, and therefore the integral is $0$.
+
+**(d)** Check whether the spike at $\mathbf{r} = \mathbf{e} = (3, 2, 1)$ lies inside the sphere $V$ of radius $1.5$ centered at $\mathbf{r}_0 = (2, 2, 2)$:
+
+$$
+|\mathbf{e} - \mathbf{r}_0|^2 = |1\hat{\mathbf{x}} + 0\hat{\mathbf{y}} - 1\hat{\mathbf{z}}|^2 = 1 + 0 + 1 = 2 < (1.5)^2 = 2.25.
+$$
+
+Thus $\mathbf{e}$ lies inside $V$. Since $\delta^3(\mathbf{e} - \mathbf{r}) = \delta^3(\mathbf{r} - \mathbf{e})$, evaluating the integrand at $\mathbf{r} = \mathbf{e}$ gives
+
+$$
+\mathbf{e} \cdot (\mathbf{d} - \mathbf{e}) = (3, 2, 1) \cdot (1 - 3,\, 2 - 2,\, 3 - 1) = (3, 2, 1) \cdot (-2, 0, 2) = -6 + 0 + 2 = -4.
+$$
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.49" title="Divergence Identity via Delta Function vs. Integration by Parts" tag="Griffiths 1.49 · Vector Calculus & Delta">
+  <div slot="problem">
+
+Evaluate the integral
+
+$$
+J = \int_V e^{-r}\,\nabla \cdot \left(\frac{\hat{\mathbf{r}}}{r^2}\right) d\tau
+$$
+
+(where $V$ is a sphere of radius $R$, centered at the origin) by two different methods, as in Ex. 1.16.
+
+  </div>
+  <div slot="answer">
+
+$J = 4\pi$
+
+  </div>
+  <div slot="solution">
+
+**Method 1 (Using the Dirac delta function):**
+
+By Eq. (1.99), $\nabla \cdot \left(\frac{\hat{\mathbf{r}}}{r^2}\right) = 4\pi\,\delta^3(\mathbf{r})$. Since the origin $\mathbf{r} = \mathbf{0}$ lies inside the sphere $V$ of radius $R > 0$,
+
+$$
+J = \int_V e^{-r}\,4\pi\,\delta^3(\mathbf{r})\,d\tau = 4\pi e^{0} = 4\pi.
+$$
+
+**Method 2 (Integration by parts):**
+
+Using the vector-calculus integration by parts identity (Eq. 1.59), $\int_V f(\nabla \cdot \mathbf{A})\,d\tau = -\int_V \mathbf{A} \cdot (\nabla f)\,d\tau + \oint_S f\,\mathbf{A} \cdot d\mathbf{a}$, with $f = e^{-r}$ and $\mathbf{A} = \frac{\hat{\mathbf{r}}}{r^2}$:
+
+$$
+J = -\int_V \frac{\hat{\mathbf{r}}}{r^2} \cdot \nabla(e^{-r})\,d\tau + \oint_S e^{-r}\,\frac{\hat{\mathbf{r}}}{r^2} \cdot d\mathbf{a}.
+$$
+
+Since $e^{-r}$ depends only on $r$, its gradient is $\nabla(e^{-r}) = \frac{\partial}{\partial r}(e^{-r})\,\hat{\mathbf{r}} = -e^{-r}\,\hat{\mathbf{r}}$. Using $d\tau = r^2\sin\theta\,dr\,d\theta\,d\phi$, the volume integral becomes
+
+$$
+-\int_V \frac{\hat{\mathbf{r}}}{r^2} \cdot \left(-e^{-r}\hat{\mathbf{r}}\right) d\tau = \int_0^{2\pi} d\phi \int_0^\pi \sin\theta\,d\theta \int_0^R \frac{e^{-r}}{r^2}\,r^2\,dr = 4\pi \int_0^R e^{-r}\,dr = 4\pi\left(1 - e^{-R}\right).
+$$
+
+On the spherical boundary $S$ at $r = R$, $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$, so the surface integral evaluates to
+
+$$
+\oint_S e^{-r}\,\frac{\hat{\mathbf{r}}}{r^2} \cdot d\mathbf{a} = e^{-R} \int_0^{2\pi} d\phi \int_0^\pi \frac{\hat{\mathbf{r}}}{R^2} \cdot \left(R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}\right) = 4\pi e^{-R}.
+$$
+
+Combining the volume and surface terms yields
+
+$$
+J = 4\pi\left(1 - e^{-R}\right) + 4\pi e^{-R} = 4\pi,
+$$
+
+in agreement with Method 1.
+
+  </div>
+</ProblemCard>
+
+</section>

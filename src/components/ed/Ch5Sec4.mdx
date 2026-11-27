@@ -1,0 +1,1041 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch5-sec4" class="ed-sec-block">
+
+### 5.4 Magnetic Vector Potential
+
+<div class="ed-theory-box">
+
+**1. Vector Potential and Gauge Freedom (§5.4.1):** Because magnetostatic fields are solenoidal ($\nabla\cdot\vec{B} = 0$), Helmholtz's theorem / Poincaré's lemma guarantees the existence of a **magnetic vector potential** $\vec{A}(\vec{r})$ such that
+
+$$
+\vec{B} = \nabla \times \vec{A}.
+$$
+
+This representation automatically satisfies $\nabla\cdot\vec{B} = \nabla\cdot(\nabla\times\vec{A}) = 0$. Substituting into Ampère's law yields
+
+$$
+\nabla \times (\nabla \times \vec{A}) = \nabla(\nabla\cdot\vec{A}) - \nabla^2\vec{A} = \mu_0\vec{J}.
+$$
+
+Because $\nabla\times(\nabla\lambda) = \vec{0}$ for any smooth scalar field $\lambda(\vec{r})$, $\vec{A}$ is defined only up to a **gauge transformation** $\vec{A} \to \vec{A} + \nabla\lambda$. Choosing $\lambda$ to satisfy $\nabla^2\lambda = -\nabla\cdot\vec{A}_0$ (a scalar Poisson equation) enforces the **Coulomb (transverse) gauge**,
+
+$$
+\nabla\cdot\vec{A} = 0,
+$$
+
+which reduces Ampère's law to the vector Poisson equation $\nabla^2\vec{A} = -\mu_0\vec{J}$ (three decoupled scalar Poisson equations in Cartesian coordinates). For localized currents vanishing sufficiently fast at infinity, the unique decaying solution is
+
+$$
+\vec{A}(\vec{r}) = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}')}{|\vec{r}-\vec{r}'|}\,d\tau',
+$$
+
+with line- and surface-current counterparts $\vec{A}(\vec{r}) = \frac{\mu_0 I}{4\pi}\int \frac{d\vec{l}'}{|\vec{r}-\vec{r}'|}$ and $\vec{A}(\vec{r}) = \frac{\mu_0}{4\pi}\int \frac{\vec{K}(\vec{r}')}{|\vec{r}-\vec{r}'|}\,da'$. When currents extend to infinity, $\vec{A}$ may often be obtained from symmetry via Stokes's theorem, $\oint \vec{A}\cdot d\vec{l} = \int \vec{B}\cdot d\vec{a} = \Phi_B$, or by direct integration of $\nabla\times\vec{A} = \vec{B}$. A **magnetic scalar potential** ($\vec{B}=-\nabla U$) can be defined only locally within simply connected, current-free domains ($\nabla\times\vec{B}=\vec{0}$).
+
+**2. Magnetostatic Boundary Conditions (§5.4.2):** Across a surface carrying surface current $\vec{K}$ with unit normal $\hat{n}$ pointing from "below" to "above," integral forms of $\nabla\cdot\vec{B}=0$ and Ampère's law give
+
+$$
+B_{\text{above}}^{\perp} = B_{\text{below}}^{\perp}, \qquad \vec{B}_{\text{above}} - \vec{B}_{\text{below}} = \mu_0(\vec{K} \times \hat{n}),
+$$
+
+so the normal component of $\vec{B}$ is continuous while the tangential component perpendicular to $\vec{K}$ jumps by $\mu_0 K$. In the Coulomb gauge ($\nabla\cdot\vec{A}=0$), the vector potential itself is continuous across any boundary, whereas its normal derivative inherits the discontinuity of $\vec{B}$:
+
+$$
+\vec{A}_{\text{above}} = \vec{A}_{\text{below}}, \qquad \frac{\partial\vec{A}_{\text{above}}}{\partial n} - \frac{\partial\vec{A}_{\text{below}}}{\partial n} = -\mu_0\vec{K}.
+$$
+
+**3. Multipole Expansion and Magnetic Dipole (§5.4.3):** For a localized steady current loop at distance $r \gg r'$ (with $\alpha$ the angle between $\vec{r}$ and $\vec{r}'$), expanding $|\vec{r}-\vec{r}'|^{-1} = \sum_{n=0}^{\infty}\frac{(r')^n}{r^{n+1}}P_n(\cos\alpha)$ gives
+
+$$
+\vec{A}(\vec{r}) = \frac{\mu_0 I}{4\pi}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\oint (r')^n P_n(\cos\alpha)\,d\vec{l}'.
+$$
+
+The $n=0$ (**monopole**) term vanishes identically because $\oint d\vec{l}' = \vec{0}$ (and for volume currents $\int \vec{J}\,d\tau' = \vec{0}$ in magnetostatics), reflecting the absence of magnetic monopoles. The leading $n=1$ (**dipole**) term is
+
+$$
+\vec{A}_{\text{dip}}(\vec{r}) = \frac{\mu_0}{4\pi}\frac{\vec{m}\times\hat{r}}{r^2}, \qquad \vec{m} \equiv I\int d\vec{a} = \frac{1}{2}\int (\vec{r}'\times\vec{J})\,d\tau',
+$$
+
+where $\vec{m}$ is the origin-independent **magnetic dipole moment**. Taking $\vec{B}_{\text{dip}} = \nabla\times\vec{A}_{\text{dip}}$ yields the pure dipole magnetic field:
+
+$$
+\vec{B}_{\text{dip}}(\vec{r}) = \frac{\mu_0 m}{4\pi r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right) = \frac{\mu_0}{4\pi r^3}\left[3(\vec{m}\cdot\hat{r})\hat{r} - \vec{m}\right].
+$$
+
+</div>
+
+<ProblemCard num="5.21" title="Consistency of Maxwell's Equations &amp; Ampère's Law" tag="Griffiths 5.21 · Consistency">
+
+<div slot="problem">
+
+Is Ampère's law consistent with the general rule that divergence-of-curl is always zero? Show that Ampère's law cannot be valid, in general, outside magnetostatics. Is there any such "defect" in the other three Maxwell equations?
+
+</div>
+
+<div slot="answer">
+
+- In magnetostatics ($\nabla\cdot\vec{J} = 0$), $\nabla\cdot(\nabla\times\vec{B}) = \mu_0\nabla\cdot\vec{J} = 0$, which is consistent.
+- Outside magnetostatics, $\nabla\cdot\vec{J} = -\partial\rho/\partial t \neq 0$ whenever charge density varies in time, so $\nabla\cdot(\nabla\times\vec{B}) = -\mu_0\partial\rho/\partial t \neq 0$, violating the vector identity $\nabla\cdot(\nabla\times\vec{B}) \equiv 0$.
+- The other three magnetostatic/electrostatic Maxwell equations have no such defect.
+
+</div>
+
+<div slot="solution">
+
+1. **Divergence of Ampère's law:** Taking the divergence of $\nabla\times\vec{B} = \mu_0\vec{J}$ and invoking the continuity equation $\nabla\cdot\vec{J} = -\partial\rho/\partial t$ gives
+
+$$
+\nabla\cdot(\nabla\times\vec{B}) = \mu_0\nabla\cdot\vec{J} = -\mu_0\frac{\partial\rho}{\partial t}.
+$$
+
+Since the divergence of any curl is identically zero, $\nabla\cdot(\nabla\times\vec{B}) \equiv 0$, Ampère's law is consistent only when $\partial\rho/\partial t = 0$ (i.e., steady currents / magnetostatics). Whenever charge accumulates or depletes anywhere ($\partial\rho/\partial t \neq 0$), steady-state Ampère's law breaks down mathematically (which Maxwell later repaired by adding the displacement current $\mu_0\epsilon_0\partial\vec{E}/\partial t$).
+
+2. **Check of the remaining three Maxwell equations:**
+- **Electrostatic curl equation ($\nabla\times\vec{E} = \vec{0}$):** Taking the divergence yields $\nabla\cdot(\nabla\times\vec{E}) = 0$, which is satisfied. (Even in full electrodynamics, $\nabla\times\vec{E} = -\partial\vec{B}/\partial t$ has divergence $-\partial(\nabla\cdot\vec{B})/\partial t = 0$, remaining consistent.)
+- **Divergence equations ($\nabla\cdot\vec{E} = \rho/\epsilon_0$ and $\nabla\cdot\vec{B} = 0$):** Neither equation equates a curl to a source; the other vanishing second-derivative identity is $\nabla\times(\nabla f) \equiv \vec{0}$, which places no algebraic consistency constraint on the divergence of $\vec{E}$ or $\vec{B}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.22" title="Maxwell's Equations and Force Law with Magnetic Monopoles" tag="Griffiths 5.22 · Magnetic Monopoles">
+
+<div slot="problem">
+
+Suppose there did exist magnetic monopoles. How would you modify Maxwell's equations and the force law to accommodate them? If you think there are several plausible options, list them, and suggest how you might decide experimentally which one is right.
+
+</div>
+
+<div slot="answer">
+
+In the magnetostatic/electrostatic regime with magnetic charge density $\rho_m$ and magnetic current density $\vec{J}_m$ (satisfying $\nabla\cdot\vec{J}_m = -\partial\rho_m/\partial t$):
+
+$$
+\nabla\cdot\vec{B} = \alpha_0\rho_m, \qquad \nabla\times\vec{E} = -\beta_0\vec{J}_m \quad (\text{with } \beta_0 = \alpha_0),
+$$
+
+while Gauss's law and Ampère's law remain unchanged at this stage. The Lorentz force law becomes
+
+$$
+\vec{F} = q_e\left[\vec{E} + (\vec{v}\times\vec{B})\right] + q_m\left[\vec{B} - \frac{1}{c^2}(\vec{v}\times\vec{E})\right],
+$$
+
+where $c^2 = 1/(\epsilon_0\mu_0)$. Experimentally, $\alpha_0$ is determined by defining a unit magnetic charge and measuring the inverse-square force between two monopoles, and the sign and $1/c^2$ coefficient in the $\vec{v}\times\vec{E}$ term are tested by measuring the deflection of moving monopoles in an electric field.
+
+</div>
+
+<div slot="solution">
+
+1. **Modification of Maxwell's equations:** By duality with electric charge density $\rho_e$ and electric current density $\vec{J}_e$, introducing magnetic charge density $\rho_m$ and magnetic current density $\vec{J}_m$ modifies the two homogeneous equations:
+
+$$
+\nabla\cdot\vec{B} = \alpha_0\rho_m, \qquad \nabla\times\vec{E} = -\beta_0\vec{J}_m \quad (\text{or } -\frac{\partial\vec{B}}{\partial t} - \beta_0\vec{J}_m \text{ dynamically}),
+$$
+
+while $\nabla\cdot\vec{E} = \rho_e/\epsilon_0$ and $\nabla\times\vec{B} = \mu_0\vec{J}_e$ (with $+\mu_0\epsilon_0\partial\vec{E}/\partial t$ dynamically) remain unaltered. Taking the divergence of Faraday's law in dynamic form gives
+
+$$
+0 = \nabla\cdot(\nabla\times\vec{E}) = -\frac{\partial}{\partial t}(\nabla\cdot\vec{B}) - \beta_0\nabla\cdot\vec{J}_m = -\alpha_0\frac{\partial\rho_m}{\partial t} + \beta_0\frac{\partial\rho_m}{\partial t},
+$$
+
+requiring $\beta_0 = \alpha_0$ if magnetic charge is conserved ($\nabla\cdot\vec{J}_m = -\partial\rho_m/\partial t$). Plausible unit conventions for $\alpha_0$ include $\alpha_0 = \mu_0$ (preserving the units of $\vec{B}$ with $q_m$ in $\mathrm{A\cdot m}$, or $\alpha_0 = 1/\epsilon_0$ if $\vec{B}$ and $\vec{E}/c$ are placed on equal footing, or $\alpha_0 = 1$).
+
+2. **Modification of the Lorentz force law:** A naive guess $q_m[\vec{B} + \vec{v}\times\vec{E}]$ fails dimensionally because $\vec{E}$ has the same units as $v\vec{B}$. Dividing $\vec{v}\times\vec{E}$ by $c^2 = 1/(\epsilon_0\mu_0)$ restores dimensional consistency:
+
+$$
+\vec{F} = q_e\left[\vec{E} + (\vec{v}\times\vec{B})\right] + q_m\left[\vec{B} \pm \frac{1}{c^2}(\vec{v}\times\vec{E})\right].
+$$
+
+(Electromagnetic duality and energy/Lenz's law consistency fix the minus sign: $\vec{F}_m = q_m[\vec{B} - (\vec{v}\times\vec{E})/c^2]$.)
+
+3. **Experimental determination:**
+- To fix $\alpha_0$: choose an operational definition of a unit magnetic charge $q_m$, and measure the static force between two monopoles separated by distance $r$, $\vec{F} = \frac{\alpha_0 q_{m1}q_{m2}}{4\pi r^2}\hat{r}$.
+- To fix the sign and coupling in $\nabla\times\vec{E}$ and the $\vec{v}\times\vec{E}$ force: pass a beam of monopoles with known velocity $\vec{v}$ through a known electric field $\vec{E}$ and measure the direction and magnitude of the transverse deflection (or measure the electric circulation induced by a steady magnetic current).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.23" title="Vector Potential of a Finite Straight Wire" tag="Griffiths 5.23 · Biot-Savart &amp; Vector Potential">
+
+<div slot="problem">
+
+Find the magnetic vector potential of a finite segment of straight wire carrying a current $I$. (Put the wire on the $z$ axis, from $z_1$ to $z_2$, and use the line-current formula for $\vec{A}$.) Check that your answer is consistent with the Biot-Savart result for a finite straight wire.
+
+</div>
+
+<div slot="answer">
+
+At cylindrical coordinates $(s, \phi, z)$:
+
+$$
+\vec{A}(s, z) = \frac{\mu_0 I}{4\pi}\ln\left[\frac{(z_2 - z) + \sqrt{(z_2 - z)^2 + s^2}}{(z_1 - z) + \sqrt{(z_1 - z)^2 + s^2}}\right]\hat{z},
+$$
+
+which gives $\vec{B} = \nabla\times\vec{A} = \frac{\mu_0 I}{4\pi s}(\sin\theta_2 - \sin\theta_1)\hat{\phi}$, matching the Biot-Savart formula.
+
+</div>
+
+<div slot="solution">
+
+1. **Direct integration for $\vec{A}$:** Place the wire on the $z$ axis from $z' = z_1$ to $z' = z_2$, so $d\vec{l}' = dz'\,\hat{z}$. At a field point $(s,\phi,z)$, the separation distance is $|\vec{r}-\vec{r}'| = \sqrt{s^2 + (z-z')^2}$. Thus
+
+$$
+\vec{A}(s,z) = \frac{\mu_0 I}{4\pi}\hat{z}\int_{z_1}^{z_2}\frac{dz'}{\sqrt{(z'-z)^2 + s^2}}.
+$$
+
+Substituting $u = z' - z$ and using $\int \frac{du}{\sqrt{u^2+s^2}} = \ln(u + \sqrt{u^2+s^2})$, we obtain
+
+$$
+\vec{A}(s,z) = \frac{\mu_0 I}{4\pi}\left[\ln\left(u + \sqrt{u^2+s^2}\right)\right]_{z_1 - z}^{z_2 - z}\hat{z} = \frac{\mu_0 I}{4\pi}\ln\left[\frac{(z_2 - z) + \sqrt{(z_2 - z)^2 + s^2}}{(z_1 - z) + \sqrt{(z_1 - z)^2 + s^2}}\right]\hat{z}.
+$$
+
+(In the $z=0$ plane, this reduces to $\frac{\mu_0 I}{4\pi}\ln\left[\frac{z_2+\sqrt{z_2^2+s^2}}{z_1+\sqrt{z_1^2+s^2}}\right]\hat{z}$.)
+
+2. **Consistency check with $\vec{B} = \nabla\times\vec{A}$:** Since $\vec{A} = A_z(s,z)\hat{z}$, its curl in cylindrical coordinates is $\vec{B} = -\frac{\partial A_z}{\partial s}\hat{\phi}$. Note that
+
+$$
+\frac{\partial}{\partial s}\ln\left(u + \sqrt{u^2+s^2}\right) = \frac{1}{u+\sqrt{u^2+s^2}}\cdot\frac{s}{\sqrt{u^2+s^2}} = \frac{\sqrt{u^2+s^2}-u}{s\sqrt{u^2+s^2}} = \frac{1}{s}\left(1 - \frac{u}{\sqrt{u^2+s^2}}\right).
+$$
+
+Applying this to the upper and lower limits ($u_2 = z_2-z$, $u_1 = z_1-z$) gives
+
+$$
+\vec{B} = -\frac{\partial A_z}{\partial s}\hat{\phi} = \frac{\mu_0 I}{4\pi s}\left[\frac{z_2 - z}{\sqrt{(z_2 - z)^2 + s^2}} - \frac{z_1 - z}{\sqrt{(z_1 - z)^2 + s^2}}\right]\hat{\phi}.
+$$
+
+With $\sin\theta_2 = \frac{z_2 - z}{\sqrt{(z_2 - z)^2 + s^2}}$ and $\sin\theta_1 = \frac{z_1 - z}{\sqrt{(z_1 - z)^2 + s^2}}$ (angles measured from the perpendicular to the wire at the field point), we recover
+
+$$
+\vec{B} = \frac{\mu_0 I}{4\pi s}(\sin\theta_2 - \sin\theta_1)\hat{\phi},
+$$
+
+which is exact agreement with Griffiths Eq. (5.37).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.24" title="Current Density from a Cylindrical Vector Potential" tag="Griffiths 5.24 · Inverse Curl">
+
+<div slot="problem">
+
+What current density would produce the vector potential $\vec{A} = k\,\hat{\phi}$ (where $k$ is a constant), in cylindrical coordinates?
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{J} = \frac{k}{\mu_0 s^2}\,\hat{\phi}.
+$$
+
+</div>
+
+<div slot="solution">
+
+1. **Compute the magnetic field:** In cylindrical coordinates, $\vec{A} = A_\phi(s)\hat{\phi}$ with $A_\phi = k$ (and $\nabla\cdot\vec{A} = \frac{1}{s}\frac{\partial k}{\partial\phi} = 0$). Taking the curl:
+
+$$
+\vec{B} = \nabla\times\vec{A} = \frac{1}{s}\frac{\partial}{\partial s}(s A_\phi)\,\hat{z} = \frac{1}{s}\frac{\partial}{\partial s}(ks)\,\hat{z} = \frac{k}{s}\,\hat{z} \quad (s \gt 0).
+$$
+
+(Note that $\oint \vec{B}\cdot d\vec{l} = 0$ on any loop in the $xy$ plane and $\int_0^s B_z\,2\pi s'\,ds' = 2\pi k s = \oint \vec{A}\cdot d\vec{l}$, so there is no hidden line-current singularity on the $z$ axis.)
+
+2. **Recover the current density from Ampère's law:** Using $\nabla\times\vec{B} = \mu_0\vec{J}$:
+
+$$
+\vec{J} = \frac{1}{\mu_0}(\nabla\times\vec{B}) = \frac{1}{\mu_0}\left(-\frac{\partial B_z}{\partial s}\right)\hat{\phi} = -\frac{1}{\mu_0}\frac{\partial}{\partial s}\left(\frac{k}{s}\right)\hat{\phi} = \frac{k}{\mu_0 s^2}\,\hat{\phi}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.25" title="Vector Potential of a Uniform Magnetic Field" tag="Griffiths 5.25 · Gauge Freedom">
+
+<div slot="problem">
+
+If $\vec{B}$ is uniform, show that $\vec{A}(\vec{r}) = -\frac{1}{2}(\vec{r}\times\vec{B})$ works. That is, check that $\nabla\cdot\vec{A} = 0$ and $\nabla\times\vec{A} = \vec{B}$. Is this result unique, or are there other functions with the same divergence and curl?
+
+</div>
+
+<div slot="answer">
+
+Both $\nabla\cdot\vec{A} = 0$ and $\nabla\times\vec{A} = \vec{B}$ hold for constant $\vec{B}$. The result is **not unique**: adding $\nabla\lambda$ for any harmonic function ($\nabla^2\lambda = 0$)—for instance, shifting from the symmetric gauge to the Landau gauges $\vec{A} = -B_0 y\hat{x}$ or $B_0 x\hat{y}$ when $\vec{B} = B_0\hat{z}$—preserves both $\nabla\cdot\vec{A} = 0$ and $\nabla\times\vec{A} = \vec{B}$ (because the boundary condition at infinity is not $\vec{A}\to\vec{0}$).
+
+</div>
+
+<div slot="solution">
+
+1. **Verify the divergence:** Using the product rule $\nabla\cdot(\vec{r}\times\vec{B}) = \vec{B}\cdot(\nabla\times\vec{r}) - \vec{r}\cdot(\nabla\times\vec{B})$:
+
+$$
+\nabla\cdot\vec{A} = -\frac{1}{2}\left[\vec{B}\cdot(\nabla\times\vec{r}) - \vec{r}\cdot(\nabla\times\vec{B})\right] = 0,
+$$
+
+since $\nabla\times\vec{r} = \vec{0}$ and $\nabla\times\vec{B} = \vec{0}$ for uniform $\vec{B}$.
+
+2. **Verify the curl:** Using the vector identity $\nabla\times(\vec{r}\times\vec{B}) = (\vec{B}\cdot\nabla)\vec{r} - (\vec{r}\cdot\nabla)\vec{B} + \vec{r}(\nabla\cdot\vec{B}) - \vec{B}(\nabla\cdot\vec{r})$:
+- Since $\vec{B}$ is constant, $(\vec{r}\cdot\nabla)\vec{B} = \vec{0}$ and $\nabla\cdot\vec{B} = 0$.
+- $\nabla\cdot\vec{r} = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial z}{\partial z} = 3$.
+- $(\vec{B}\cdot\nabla)\vec{r} = \left(B_x\frac{\partial}{\partial x} + B_y\frac{\partial}{\partial y} + B_z\frac{\partial}{\partial z}\right)(x\hat{x}+y\hat{y}+z\hat{z}) = B_x\hat{x} + B_y\hat{y} + B_z\hat{z} = \vec{B}$.
+
+Hence
+
+$$
+\nabla\times\vec{A} = -\frac{1}{2}\left(\vec{B} - 3\vec{B}\right) = \vec{B}.
+$$
+
+3. **Uniqueness:** The vector potential is **not unique**, even after imposing the Coulomb gauge $\nabla\cdot\vec{A}=0$. Any $\vec{A}' = \vec{A} + \nabla\lambda$ with $\nabla^2\lambda = 0$ has the same curl and remains divergenceless. (Because a uniform $\vec{B}$ does not vanish at infinity, the uniqueness theorem requiring $\vec{A}\to\vec{0}$ at infinity does not apply.) For example, if $\vec{B} = B_0\hat{z}$, then $\vec{A}_{\text{sym}} = \frac{1}{2}B_0(-y\hat{x}+x\hat{y})$, whereas $\vec{A}_1 = -B_0 y\hat{x}$ and $\vec{A}_2 = B_0 x\hat{y}$ also satisfy $\nabla\cdot\vec{A}=0$ and $\nabla\times\vec{A}=\vec{B}$, differing by $\nabla\left(\pm\frac{1}{2}B_0 xy\right)$ where $\nabla^2(xy)=0$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.26" title="Vector Potential Inside and Outside a Straight Wire" tag="Griffiths 5.26 · Infinite Wire">
+
+<div slot="problem">
+
+(a) By whatever means you can think of (short of looking it up), find the vector potential a distance $s$ from an infinite straight wire carrying a current $I$. Check that $\nabla\cdot\vec{A} = 0$ and $\nabla\times\vec{A} = \vec{B}$.
+
+(b) Find the magnetic potential inside the wire, if it has radius $R$ and the current is uniformly distributed.
+
+</div>
+
+<div slot="answer">
+
+(a) $\vec{A}(s) = -\dfrac{\mu_0 I}{2\pi}\ln\left(\dfrac{s}{a}\right)\hat{z}$ (for an arbitrary positive reference length $a$).
+
+(b) Requiring continuity at $s = R$ (taking $a = b = R$):
+
+$$
+\vec{A}(s) = \begin{cases} -\dfrac{\mu_0 I}{4\pi R^2}(s^2 - R^2)\,\hat{z} = \dfrac{\mu_0 I}{4\pi}\left(1 - \dfrac{s^2}{R^2}\right)\hat{z}, & s \le R, \\ -\dfrac{\mu_0 I}{2\pi}\ln\left(\dfrac{s}{R}\right)\hat{z}, & s \ge R. \end{cases}
+$$
+
+</div>
+
+<div slot="solution">
+
+**Part (a):** By translational and azimuthal symmetry, $\vec{A}$ points parallel (or antiparallel) to the current $\vec{I} = I\hat{z}$ and depends only on the cylindrical radius $s$: $\vec{A} = A_z(s)\hat{z}$. Its curl must equal the field of an infinite wire, $\vec{B} = \frac{\mu_0 I}{2\pi s}\hat{\phi}$:
+
+$$
+\nabla\times\vec{A} = -\frac{\partial A_z}{\partial s}\,\hat{\phi} = \frac{\mu_0 I}{2\pi s}\,\hat{\phi} \implies \frac{dA_z}{ds} = -\frac{\mu_0 I}{2\pi s}.
+$$
+
+Integrating gives
+
+$$
+\vec{A}(s) = -\frac{\mu_0 I}{2\pi}\ln\left(\frac{s}{a}\right)\hat{z},
+$$
+
+where $a \gt 0$ is an arbitrary constant with dimensions of length.
+
+*Checks:*
+- $\nabla\cdot\vec{A} = \dfrac{\partial A_z}{\partial z} = 0$.
+- $\nabla\times\vec{A} = -\dfrac{\partial}{\partial s}\left[-\dfrac{\mu_0 I}{2\pi}\ln\left(\dfrac{s}{a}\right)\right]\hat{\phi} = \dfrac{\mu_0 I}{2\pi s}\,\hat{\phi} = \vec{B}$.
+
+**Part (b):** Inside a wire of radius $R$ carrying uniform current density $J = I/(\pi R^2)$, Ampère's law gives
+
+$$
+B(2\pi s) = \mu_0 I_{\text{enc}} = \mu_0\frac{I}{\pi R^2}(\pi s^2) \implies \vec{B}(s) = \frac{\mu_0 I s}{2\pi R^2}\,\hat{\phi} \quad (s \le R).
+$$
+
+Again setting $\vec{A} = A_z(s)\hat{z}$:
+
+$$
+-\frac{dA_z}{ds} = \frac{\mu_0 I s}{2\pi R^2} \implies A_z(s) = -\frac{\mu_0 I}{4\pi R^2}(s^2 - b^2),
+$$
+
+for an integration constant $b$. Continuity of $\vec{A}$ across $s = R$ requires
+
+$$
+-\frac{\mu_0 I}{4\pi R^2}(R^2 - b^2) = -\frac{\mu_0 I}{2\pi}\ln\left(\frac{R}{a}\right) \implies 2\ln\left(\frac{R}{a}\right) = 1 - \frac{b^2}{R^2}.
+$$
+
+Choosing $a = b = R$ makes $\vec{A}(R) = \vec{0}$ and satisfies continuity (as well as continuity of $\partial\vec{A}/\partial s$, since there is no surface current):
+
+$$
+\vec{A}(s) = \begin{cases} \dfrac{\mu_0 I}{4\pi}\left(1 - \dfrac{s^2}{R^2}\right)\hat{z}, & s \le R, \\ -\dfrac{\mu_0 I}{2\pi}\ln\left(\dfrac{s}{R}\right)\hat{z}, & s \ge R. \end{cases}
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.27" title="Vector Potential of an Infinite Surface Current Sheet" tag="Griffiths 5.27 · Surface Current">
+
+<div slot="problem">
+
+Find the vector potential above and below the plane surface current $\vec{K} = K\hat{x}$ in the $xy$ plane (Griffiths Ex. 5.8).
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{A}(z) = -\frac{\mu_0 K}{2}|z|\,\hat{x} \quad (\text{plus any constant vector}).
+$$
+
+</div>
+
+<div slot="solution">
+
+From Example 5.8, the magnetic field of an infinite sheet $\vec{K} = K\hat{x}$ in the $z=0$ plane is
+
+$$
+\vec{B}(z) = \begin{cases} -\dfrac{\mu_0 K}{2}\hat{y}, & z \gt 0, \\ +\dfrac{\mu_0 K}{2}\hat{y}, & z \lt 0. \end{cases}
+$$
+
+By symmetry, $\vec{A}$ is parallel/antiparallel to $\vec{K}$ and depends only on $z$: $\vec{A} = A_x(z)\hat{x}$ (which automatically satisfies $\nabla\cdot\vec{A} = \partial A_x/\partial x = 0$). Taking the curl:
+
+$$
+\nabla\times\vec{A} = \frac{\partial A_x}{\partial z}\,\hat{y} = \begin{cases} -\dfrac{\mu_0 K}{2}\hat{y}, & z \gt 0, \\ +\dfrac{\mu_0 K}{2}\hat{y}, & z \lt 0. \end{cases}
+$$
+
+Integrating with respect to $z$ and requiring $\vec{A}$ to be continuous at $z=0$ gives
+
+$$
+\vec{A}(z) = -\frac{\mu_0 K}{2}|z|\,\hat{x}
+$$
+
+(up to an arbitrary additive constant vector). Notice that $\partial\vec{A}/\partial z|_{0^+} - \partial\vec{A}/\partial z|_{0^-} = -\frac{\mu_0 K}{2}\hat{x} - \frac{\mu_0 K}{2}\hat{x} = -\mu_0\vec{K}$, confirming the boundary condition Eq. (5.78).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.28" title="Verification of the Vector Potential Integral Formula" tag="Griffiths 5.28 · Vector Calculus">
+
+<div slot="problem">
+
+Check that the integral formula $\vec{A}(\vec{r}) = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}')}{|\vec{r}-\vec{r}'|}\,d\tau'$ (for localized currents) is consistent with:
+
+(a) the Coulomb gauge $\nabla\cdot\vec{A} = 0$;
+
+(b) the Biot-Savart law $\vec{B} = \nabla\times\vec{A} = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}')\times(\vec{r}-\vec{r}')}{|\vec{r}-\vec{r}'|^3}\,d\tau'$;
+
+(c) the vector Poisson equation $\nabla^2\vec{A} = -\mu_0\vec{J}$.
+
+</div>
+
+<div slot="answer">
+
+All three identities follow by differentiating $\frac{1}{|\vec{r}-\vec{r}'|}$ with respect to the field point $\vec{r}$ inside the integral, using $\nabla\left(\frac{1}{|\vec{r}-\vec{r}'|}\right) = -\nabla'\left(\frac{1}{|\vec{r}-\vec{r}'|}\right) = -\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}$, $\nabla'\cdot\vec{J} = 0$, and $\nabla^2\left(\frac{1}{|\vec{r}-\vec{r}'|}\right) = -4\pi\delta^3(\vec{r}-\vec{r}')$.
+
+</div>
+
+<div slot="solution">
+
+Let $\vec{\mathcal{R}} = \vec{r} - \vec{r}'$ and $\mathcal{R} = |\vec{r} - \vec{r}'|$. Derivatives $\nabla$ act on $\vec{r}$, whereas $\vec{J}(\vec{r}')$ depends only on $\vec{r}'$.
+
+**(a) Divergence:** Using $\nabla\cdot(f\vec{v}) = f(\nabla\cdot\vec{v}) + \vec{v}\cdot(\nabla f)$ with $\nabla\cdot\vec{J}(\vec{r}') = 0$,
+
+$$
+\nabla\cdot\vec{A} = \frac{\mu_0}{4\pi}\int \vec{J}(\vec{r}')\cdot\nabla\left(\frac{1}{\mathcal{R}}\right)d\tau' = -\frac{\mu_0}{4\pi}\int \vec{J}(\vec{r}')\cdot\nabla'\left(\frac{1}{\mathcal{R}}\right)d\tau'.
+$$
+
+In magnetostatics $\nabla'\cdot\vec{J} = 0$, so $\vec{J}\cdot\nabla'(1/\mathcal{R}) = \nabla'\cdot(\vec{J}/\mathcal{R}) - (\nabla'\cdot\vec{J})/\mathcal{R} = \nabla'\cdot(\vec{J}/\mathcal{R})$. Applying the divergence theorem over a volume $\mathcal{V}$ enclosing all currents,
+
+$$
+\nabla\cdot\vec{A} = -\frac{\mu_0}{4\pi}\int_{\mathcal{V}} \nabla'\cdot\left(\frac{\vec{J}}{\mathcal{R}}\right)d\tau' = -\frac{\mu_0}{4\pi}\oint_{\partial\mathcal{V}} \frac{\vec{J}(\vec{r}')}{\mathcal{R}}\cdot d\vec{a}' = 0,
+$$
+
+because $\vec{J} = \vec{0}$ on the bounding surface $\partial\mathcal{V}$.
+
+**(b) Curl:** Using $\nabla\times(f\vec{v}) = f(\nabla\times\vec{v}) - \vec{v}\times(\nabla f)$ with $\nabla\times\vec{J}(\vec{r}') = \vec{0}$ and $\nabla(1/\mathcal{R}) = -\hat{\mathcal{R}}/\mathcal{R}^2$:
+
+$$
+\nabla\times\vec{A} = \frac{\mu_0}{4\pi}\int \left[-\vec{J}(\vec{r}')\times\nabla\left(\frac{1}{\mathcal{R}}\right)\right]d\tau' = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}')\times\hat{\mathcal{R}}}{\mathcal{R}^2}\,d\tau' = \vec{B}(\vec{r}).
+$$
+
+**(c) Laplacian:** Using $\nabla^2(1/\mathcal{R}) = -4\pi\delta^3(\vec{r}-\vec{r}')$:
+
+$$
+\nabla^2\vec{A} = \frac{\mu_0}{4\pi}\int \vec{J}(\vec{r}')\,\nabla^2\left(\frac{1}{\mathcal{R}}\right)d\tau' = \frac{\mu_0}{4\pi}\int \vec{J}(\vec{r}')\left[-4\pi\delta^3(\vec{r}-\vec{r}')\right]d\tau' = -\mu_0\vec{J}(\vec{r}).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.29" title="Multivaluedness of the Magnetic Scalar Potential" tag="Griffiths 5.29 · Scalar Potential">
+
+<div slot="problem">
+
+Suppose you want to define a magnetic scalar potential $U$ ($\vec{B} = -\nabla U$) in the vicinity of a current-carrying wire. First of all, you must stay away from the wire itself (there $\nabla\times\vec{B} \neq \vec{0}$); but that's not enough. Show, by applying Ampère's law to a path that starts at $a$ and circles the wire, returning to $b$ (the same physical point), that the scalar potential cannot be single-valued (that is, $U(a) \neq U(b)$). As an example, find the scalar potential for an infinite straight wire.
+
+</div>
+
+<div slot="answer">
+
+Integrating along a closed loop from $a$ back to $b$ circling current $I$ gives $U(a) - U(b) = \mu_0 I \neq 0$, proving $U$ is multivalued. For an infinite straight wire along the $z$ axis,
+
+$$
+U(s,\phi,z) = -\frac{\mu_0 I}{2\pi}\phi,
+$$
+
+which jumps by $-\mu_0 I$ whenever $\phi \to \phi + 2\pi$ unless restricted to a simply connected domain (e.g., $0 \lt \phi \lt 2\pi$).
+
+</div>
+
+<div slot="solution">
+
+1. **General proof of multivaluedness:** Suppose $\vec{B} = -\nabla U$ in the current-free region outside a wire carrying current $I$. Consider a path $\mathcal{C}$ starting at $a$, encircling the wire once in the right-handed sense relative to $I$, and ending at $b$ (coincident with $a$). By Ampère's law and the fundamental theorem for gradients:
+
+$$
+\mu_0 I = \oint_{\mathcal{C}} \vec{B}\cdot d\vec{l} = -\int_{a}^{b} \nabla U\cdot d\vec{l} = U(a) - U(b).
+$$
+
+Since $I \neq 0$, we have $U(b) = U(a) - \mu_0 I \neq U(a)$, even though $a$ and $b$ represent the same point in space. Hence $U$ cannot be single-valued on the multiply connected exterior domain $\mathbb{R}^3 \setminus \{\text{wire}\}$.
+
+2. **Infinite straight wire example:** Outside an infinite wire along the $z$ axis, $\vec{B} = \frac{\mu_0 I}{2\pi s}\,\hat{\phi}$. Since $\nabla\phi = \frac{1}{s}\hat{\phi}$ in cylindrical coordinates,
+
+$$
+U(s,\phi,z) = -\frac{\mu_0 I}{2\pi}\phi \implies -\nabla U = \frac{\mu_0 I}{2\pi s}\,\hat{\phi} = \vec{B}.
+$$
+
+Each time $\phi$ increases by $2\pi$, $U$ decreases by $\mu_0 I$; it is single-valued only if we introduce a branch cut (e.g., restricting to the simply connected domain $0 \lt \phi \lt 2\pi$).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.30" title="Magnetic Field Inside a Uniformly Charged Spinning Solid Sphere" tag="Griffiths 5.30 · Superposition">
+
+<div slot="problem">
+
+Use the results of Griffiths Ex. 5.11 (for a spinning spherical shell) to find the magnetic field inside a solid sphere, of uniform charge density $\rho$ and radius $R$, that is rotating at a constant angular velocity $\vec{\omega}$.
+
+</div>
+
+<div slot="answer">
+
+Inside the solid sphere ($r \le R$, with $\vec{\omega} = \omega\hat{z}$):
+
+$$
+\vec{A}(r,\theta,\phi) = \mu_0\omega\rho\,r\sin\theta\left(\frac{R^2}{6} - \frac{r^2}{10}\right)\hat{\phi},
+$$
+
+$$
+\vec{B}(r,\theta,\phi) = \mu_0\omega\rho\left[\left(\frac{R^2}{3} - \frac{r^2}{5}\right)\cos\theta\,\hat{r} - \left(\frac{R^2}{3} - \frac{2r^2}{5}\right)\sin\theta\,\hat{\theta}\right].
+$$
+
+</div>
+
+<div slot="solution">
+
+1. **Build $\vec{A}$ by superposing concentric spherical shells:** From Example 5.11, a spherical shell of radius $\bar{r}$ and surface charge $\sigma$ spinning with $\vec{\omega} = \omega\hat{z}$ produces
+
+$$
+\vec{A}_{\text{shell}}(r,\theta,\phi) = \begin{cases} \dfrac{\mu_0\bar{r}\omega\sigma}{3}r\sin\theta\,\hat{\phi}, & r \le \bar{r}, \\ \dfrac{\mu_0\bar{r}^4\omega\sigma}{3r^2}\sin\theta\,\hat{\phi}, & r \ge \bar{r}. \end{cases}
+$$
+
+Decompose the solid sphere into shells of radius $\bar{r}\in[0,R]$, thickness $d\bar{r}$, and effective surface charge $\sigma = \rho\,d\bar{r}$. At an interior point $r \le R$, shells with $\bar{r} \lt r$ contribute via the exterior formula, while shells with $\bar{r} \gt r$ contribute via the interior formula:
+
+$$
+\vec{A}(r,\theta,\phi) = \frac{\mu_0\omega\rho\sin\theta}{3}\left[\frac{1}{r^2}\int_0^r \bar{r}^4\,d\bar{r} + r\int_r^R \bar{r}\,d\bar{r}\right]\hat{\phi} = \frac{\mu_0\omega\rho\sin\theta}{3}\left[\frac{r^3}{5} + r\frac{R^2-r^2}{2}\right]\hat{\phi}.
+$$
+
+Simplifying gives
+
+$$
+\vec{A}(r,\theta,\phi) = \mu_0\omega\rho\,r\sin\theta\left(\frac{R^2}{6} - \frac{r^2}{10}\right)\hat{\phi}.
+$$
+
+2. **Compute $\vec{B} = \nabla\times\vec{A}$ in spherical coordinates:** Since $\vec{A} = A_\phi(r,\theta)\hat{\phi}$,
+
+$$
+B_r = \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}(\sin\theta\,A_\phi) = \frac{\mu_0\omega\rho}{r\sin\theta}\left(\frac{R^2}{6} - \frac{r^2}{10}\right)r\frac{\partial(\sin^2\theta)}{\partial\theta} = \mu_0\omega\rho\left(\frac{R^2}{3} - \frac{r^2}{5}\right)\cos\theta,
+$$
+
+$$
+B_\theta = -\frac{1}{r}\frac{\partial}{\partial r}(r A_\phi) = -\frac{\mu_0\omega\rho\sin\theta}{r}\frac{\partial}{\partial r}\left(\frac{R^2}{6}r^2 - \frac{1}{10}r^4\right) = -\mu_0\omega\rho\left(\frac{R^2}{3} - \frac{2r^2}{5}\right)\sin\theta.
+$$
+
+Thus
+
+$$
+\vec{B}(r,\theta,\phi) = \mu_0\omega\rho\left[\left(\frac{R^2}{3} - \frac{r^2}{5}\right)\cos\theta\,\hat{r} - \left(\frac{R^2}{3} - \frac{2r^2}{5}\right)\sin\theta\,\hat{\theta}\right].
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.31" title="Explicit Construction of a Vector Potential (Poincaré's Lemma)" tag="Griffiths 5.31 · Vector Calculus">
+
+<div slot="problem">
+
+(a) Complete the proof that any divergenceless vector field $\vec{F}$ can be written as the curl of a vector potential $\vec{A}$ by finding $A_x, A_y, A_z$ satisfying (i) $\partial A_z/\partial y - \partial A_y/\partial z = F_x$; (ii) $\partial A_x/\partial z - \partial A_z/\partial x = F_y$; and (iii) $\partial A_y/\partial x - \partial A_x/\partial y = F_z$. Pick $A_x = 0$, solve (ii) and (iii) for $A_y$ and $A_z$, and use $\nabla\cdot\vec{F} = 0$ in (i) to obtain
+
+$$
+A_y = \int_0^x F_z(x',y,z)\,dx', \qquad A_z = \int_0^y F_x(0,y',z)\,dy' - \int_0^x F_y(x',y,z)\,dx'.
+$$
+
+(b) By direct differentiation, check that $\nabla\times\vec{A} = \vec{F}$. Is $\vec{A}$ divergenceless?
+
+(c) As an example, let $\vec{F} = y\hat{x} + z\hat{y} + x\hat{z}$. Calculate $\vec{A}$ and confirm $\nabla\times\vec{A} = \vec{F}$.
+
+</div>
+
+<div slot="answer">
+
+(a) Derived from $\partial A_z/\partial x = -F_y$, $\partial A_y/\partial x = F_z$, and $\nabla\cdot\vec{F}=0$.
+
+(b) Direct differentiation yields $\nabla\times\vec{A} = \vec{F}$; $\vec{A}$ is **not** divergenceless in general ($\nabla\cdot\vec{A} \neq 0$).
+
+(c) $\vec{A} = \dfrac{x^2}{2}\hat{y} + \left(\dfrac{y^2}{2} - xz\right)\hat{z}$, and $\nabla\times\vec{A} = y\hat{x} + z\hat{y} + x\hat{z} = \vec{F}$.
+
+</div>
+
+<div slot="solution">
+
+**Part (a):** Setting $A_x = 0$, equations (ii) and (iii) become $\partial A_z/\partial x = -F_y$ and $\partial A_y/\partial x = F_z$. Integrating from $0$ to $x$:
+
+$$
+A_y(x,y,z) = \int_0^x F_z(x',y,z)\,dx' + C_2(y,z), \qquad A_z(x,y,z) = -\int_0^x F_y(x',y,z)\,dx' + C_1(y,z).
+$$
+
+Substituting into (i) gives
+
+$$
+-\int_0^x \frac{\partial F_y(x',y,z)}{\partial y}\,dx' + \frac{\partial C_1}{\partial y} - \int_0^x \frac{\partial F_z(x',y,z)}{\partial z}\,dx' - \frac{\partial C_2}{\partial z} = F_x(x,y,z).
+$$
+
+Because $\nabla\cdot\vec{F} = 0$, we have $-\frac{\partial F_y}{\partial y} - \frac{\partial F_z}{\partial z} = \frac{\partial F_x}{\partial x'}$, so the integrals collapse to $\int_0^x \frac{\partial F_x}{\partial x'}\,dx' = F_x(x,y,z) - F_x(0,y,z)$. Hence
+
+$$
+\frac{\partial C_1}{\partial y} - \frac{\partial C_2}{\partial z} = F_x(0,y,z).
+$$
+
+Choosing $C_2(y,z) = 0$ and $C_1(y,z) = \int_0^y F_x(0,y',z)\,dy'$ yields
+
+$$
+A_x = 0, \qquad A_y = \int_0^x F_z(x',y,z)\,dx', \qquad A_z = \int_0^y F_x(0,y',z)\,dy' - \int_0^x F_y(x',y,z)\,dx'.
+$$
+
+**Part (b):** Computing the curl directly:
+- $(\nabla\times\vec{A})_y = -\frac{\partial A_z}{\partial x} = F_y(x,y,z)$,
+- $(\nabla\times\vec{A})_z = \frac{\partial A_y}{\partial x} = F_z(x,y,z)$,
+- $(\nabla\times\vec{A})_x = \frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z} = F_x(0,y,z) - \int_0^x \left(\frac{\partial F_y}{\partial y} + \frac{\partial F_z}{\partial z}\right)dx' = F_x(0,y,z) + \int_0^x \frac{\partial F_x}{\partial x'}\,dx' = F_x(x,y,z)$.
+
+Thus $\nabla\times\vec{A} = \vec{F}$. Meanwhile,
+
+$$
+\nabla\cdot\vec{A} = \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z} = \int_0^x \frac{\partial F_z(x',y,z)}{\partial y}\,dx' + \int_0^y \frac{\partial F_x(0,y',z)}{\partial z}\,dy' - \int_0^x \frac{\partial F_y(x',y,z)}{\partial z}\,dx' \neq 0
+$$
+
+in general (though a gauge transformation $\vec{A} \to \vec{A} + \nabla\lambda$ can always make it divergenceless).
+
+**Part (c):** For $\vec{F} = y\hat{x} + z\hat{y} + x\hat{z}$ (note $\nabla\cdot\vec{F}=0$):
+
+$$
+A_x = 0, \qquad A_y = \int_0^x x'\,dx' = \frac{x^2}{2}, \qquad A_z = \int_0^y y'\,dy' - \int_0^x z\,dx' = \frac{y^2}{2} - xz.
+$$
+
+So $\vec{A} = \frac{x^2}{2}\hat{y} + \left(\frac{y^2}{2} - xz\right)\hat{z}$. Checking the curl:
+
+$$
+\nabla\times\vec{A} = \left(\frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z}\right)\hat{x} + \left(-\frac{\partial A_z}{\partial x}\right)\hat{y} + \left(\frac{\partial A_y}{\partial x}\right)\hat{z} = y\hat{x} + z\hat{y} + x\hat{z} = \vec{F}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.32" title="Checking Magnetostatic Boundary Conditions" tag="Griffiths 5.32 · Boundary Conditions">
+
+<div slot="problem">
+
+(a) Check the magnetic field boundary condition $\vec{B}_{\text{above}} - \vec{B}_{\text{below}} = \mu_0(\vec{K}\times\hat{n})$ for the infinite solenoid (Griffiths Ex. 5.9).
+
+(b) Check the vector potential boundary conditions $\vec{A}_{\text{above}} = \vec{A}_{\text{below}}$ and $\partial\vec{A}_{\text{above}}/\partial n - \partial\vec{A}_{\text{below}}/\partial n = -\mu_0\vec{K}$ for the spinning spherical shell (Griffiths Ex. 5.11).
+
+</div>
+
+<div slot="answer">
+
+(a) At $s = R$, $\vec{B}_{\text{above}} - \vec{B}_{\text{below}} = -\mu_0 n I\hat{z} = \mu_0(n I\hat{\phi} \times \hat{s}) = \mu_0(\vec{K}\times\hat{n})$.
+
+(b) At $r = R$, $\vec{A}_{\text{above}} = \vec{A}_{\text{below}} = \frac{1}{3}\mu_0 R^2\omega\sigma\sin\theta\,\hat{\phi}$, and $\left.\frac{\partial\vec{A}_{\text{above}}}{\partial r}\right|_{R^+} - \left.\frac{\partial\vec{A}_{\text{below}}}{\partial r}\right|_{R^-} = -\mu_0 R\omega\sigma\sin\theta\,\hat{\phi} = -\mu_0\vec{K}$.
+
+</div>
+
+<div slot="solution">
+
+**Part (a):** For the infinite solenoid of radius $R$, $n$ turns per unit length, and current $I$, the surface current is $\vec{K} = nI\hat{\phi}$ and the outward unit normal is $\hat{n} = \hat{s}$. From Example 5.9, $\vec{B}_{\text{above}} = \vec{0}$ ($s \gt R$) and $\vec{B}_{\text{below}} = \mu_0 nI\hat{z}$ ($s \lt R$). Thus:
+
+$$
+\vec{B}_{\text{above}} - \vec{B}_{\text{below}} = -\mu_0 nI\hat{z}, \qquad \mu_0(\vec{K}\times\hat{n}) = \mu_0(nI\hat{\phi}\times\hat{s}) = -\mu_0 nI\hat{z},
+$$
+
+confirming $\vec{B}_{\text{above}} - \vec{B}_{\text{below}} = \mu_0(\vec{K}\times\hat{n})$.
+
+**Part (b):** For the spinning spherical shell of radius $R$ ($\vec{\omega} = \omega\hat{z}$, outward normal $\hat{n} = \hat{r}$), Eq. (5.69) gives
+
+$$
+\vec{A}_{\text{below}}(r,\theta,\phi) = \frac{\mu_0 R\omega\sigma}{3}r\sin\theta\,\hat{\phi} \quad (r \le R), \qquad \vec{A}_{\text{above}}(r,\theta,\phi) = \frac{\mu_0 R^4\omega\sigma}{3r^2}\sin\theta\,\hat{\phi} \quad (r \ge R).
+$$
+
+At $r = R$, both reduce to $\frac{\mu_0 R^2\omega\sigma}{3}\sin\theta\,\hat{\phi}$, so $\vec{A}_{\text{above}} = \vec{A}_{\text{below}}$. Taking normal derivatives ($\partial/\partial n = \partial/\partial r$):
+
+$$
+\left.\frac{\partial\vec{A}_{\text{above}}}{\partial r}\right|_{r=R^+} = -\frac{2\mu_0 R\omega\sigma}{3}\sin\theta\,\hat{\phi}, \qquad \left.\frac{\partial\vec{A}_{\text{below}}}{\partial r}\right|_{r=R^-} = +\frac{\mu_0 R\omega\sigma}{3}\sin\theta\,\hat{\phi}.
+$$
+
+Subtracting gives
+
+$$
+\left.\frac{\partial\vec{A}_{\text{above}}}{\partial r}\right|_{r=R^+} - \left.\frac{\partial\vec{A}_{\text{below}}}{\partial r}\right|_{r=R^-} = -\mu_0 R\omega\sigma\sin\theta\,\hat{\phi}.
+$$
+
+Since $\vec{K} = \sigma\vec{v} = \sigma(\vec{\omega}\times\vec{r})|_{r=R} = \sigma\omega R\sin\theta\,\hat{\phi}$, the right side is $-\mu_0\vec{K}$, confirming the boundary condition.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.33" title="Proof of the Normal-Derivative Jump of A" tag="Griffiths 5.33 · Boundary Conditions">
+
+<div slot="problem">
+
+Prove the boundary condition $\frac{\partial\vec{A}_{\text{above}}}{\partial n} - \frac{\partial\vec{A}_{\text{below}}}{\partial n} = -\mu_0\vec{K}$, using the Coulomb gauge condition $\nabla\cdot\vec{A} = 0$, $\vec{B}_{\text{above}} - \vec{B}_{\text{below}} = \mu_0(\vec{K}\times\hat{n})$, and continuity $\vec{A}_{\text{above}} = \vec{A}_{\text{below}}$. (Set up local Cartesian coordinates with $z$ perpendicular to the surface and $x$ parallel to $\vec{K}$.)
+
+</div>
+
+<div slot="answer">
+
+Because tangential derivatives $\partial\vec{A}/\partial x$ and $\partial\vec{A}/\partial y$ are continuous across $z=0$, $\nabla\cdot\vec{A}=0$ forces $\partial A_z/\partial z$ to be continuous, while $\vec{B}_{\text{above}}-\vec{B}_{\text{below}} = -\mu_0 K\hat{y}$ yields $\Delta(\partial A_y/\partial z) = 0$ and $\Delta(\partial A_x/\partial z) = -\mu_0 K$, combining into $\Delta(\partial\vec{A}/\partial n) = -\mu_0\vec{K}$.
+
+</div>
+
+<div slot="solution">
+
+Choose local Cartesian coordinates at a point on the boundary ($z = 0$) such that $\hat{n} = \hat{z}$ and $\vec{K} = K\hat{x}$.
+
+1. **Continuity of tangential derivatives and $\partial A_z/\partial z$:** Because $\vec{A}_{\text{above}}(x,y,0) = \vec{A}_{\text{below}}(x,y,0)$ at every point on the surface $z = 0$, all tangential derivatives $\partial\vec{A}/\partial x$ and $\partial\vec{A}/\partial y$ are continuous across the surface. From the Coulomb gauge condition,
+
+$$
+\frac{\partial A_z}{\partial z} = -\left(\frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y}\right),
+$$
+
+it immediately follows that the normal derivative of $A_z$ is continuous:
+
+$$
+\frac{\partial A_{z,\text{above}}}{\partial z} - \frac{\partial A_{z,\text{below}}}{\partial z} = 0.
+$$
+
+2. **Tangential components via $\vec{B} = \nabla\times\vec{A}$:** With $\vec{K} = K\hat{x}$ and $\hat{n} = \hat{z}$, the field jump is $\vec{B}_{\text{above}} - \vec{B}_{\text{below}} = \mu_0(K\hat{x}\times\hat{z}) = -\mu_0 K\hat{y}$. Writing the $x$ and $y$ components of $\vec{B} = \nabla\times\vec{A}$:
+
+$$
+B_x = \frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z}, \qquad B_y = \frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x}.
+$$
+
+Since $\partial A_z/\partial y$ and $\partial A_z/\partial x$ are continuous across $z=0$, taking the discontinuity across the boundary gives
+
+$$
+0 = B_{x,\text{above}} - B_{x,\text{below}} = -\left(\frac{\partial A_{y,\text{above}}}{\partial z} - \frac{\partial A_{y,\text{below}}}{\partial z}\right),
+$$
+
+$$
+-\mu_0 K = B_{y,\text{above}} - B_{y,\text{below}} = \frac{\partial A_{x,\text{above}}}{\partial z} - \frac{\partial A_{x,\text{below}}}{\partial z}.
+$$
+
+Combining all three components ($x$, $y$, and $z$) with $\partial/\partial z = \partial/\partial n$ yields
+
+$$
+\frac{\partial\vec{A}_{\text{above}}}{\partial n} - \frac{\partial\vec{A}_{\text{below}}}{\partial n} = -\mu_0 K\hat{x} = -\mu_0\vec{K}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.34" title="Coordinate-Free Magnetic Dipole Field" tag="Griffiths 5.34 · Dipole Field">
+
+<div slot="problem">
+
+Show that the magnetic field of a pure dipole can be written in coordinate-free form:
+
+$$
+\vec{B}_{\text{dip}}(\vec{r}) = \frac{\mu_0}{4\pi r^3}\left[3(\vec{m}\cdot\hat{r})\hat{r} - \vec{m}\right].
+$$
+
+</div>
+
+<div slot="answer">
+
+Expanding $\vec{m} = m\hat{z} = m\cos\theta\,\hat{r} - m\sin\theta\,\hat{\theta}$ turns $3(\vec{m}\cdot\hat{r})\hat{r} - \vec{m}$ directly into $m(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta})$, matching $\vec{B}_{\text{dip}} = \frac{\mu_0 m}{4\pi r^3}(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta})$.
+
+</div>
+
+<div slot="solution">
+
+Align the $z$ axis with $\vec{m} = m\hat{z}$. In spherical coordinates $(r,\theta,\phi)$, the unit vector $\hat{z}$ decomposes as $\hat{z} = \cos\theta\,\hat{r} - \sin\theta\,\hat{\theta}$, so
+
+$$
+\vec{m} = m\cos\theta\,\hat{r} - m\sin\theta\,\hat{\theta}, \qquad \vec{m}\cdot\hat{r} = m\cos\theta.
+$$
+
+Substituting into the coordinate-free expression gives
+
+$$
+\frac{\mu_0}{4\pi r^3}\left[3(\vec{m}\cdot\hat{r})\hat{r} - \vec{m}\right] = \frac{\mu_0}{4\pi r^3}\left[3m\cos\theta\,\hat{r} - \left(m\cos\theta\,\hat{r} - m\sin\theta\,\hat{\theta}\right)\right] = \frac{\mu_0 m}{4\pi r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right),
+$$
+
+which agrees with the spherical-coordinate dipole field Eq. (5.88). Because both sides are coordinate-independent vector expressions, the identity holds for arbitrary orientation of $\vec{m}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.35" title="Dipole Moment and Far Field of a Circular Loop" tag="Griffiths 5.35 · Magnetic Dipole">
+
+<div slot="problem">
+
+A circular loop of wire, with radius $R$, lies in the $xy$ plane (centered at the origin) and carries a current $I$ running counterclockwise as viewed from the positive $z$ axis.
+
+(a) What is its magnetic dipole moment?
+
+(b) What is the (approximate) magnetic field at points far from the origin?
+
+(c) Show that, for points on the $z$ axis, your answer is consistent with the exact field (Griffiths Ex. 5.6), when $|z| \gg R$.
+
+</div>
+
+<div slot="answer">
+
+(a) $\vec{m} = \pi I R^2\,\hat{z}$.
+
+(b) $\vec{B}(\vec{r}) \approx \dfrac{\mu_0 I R^2}{4r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)$.
+
+(c) For $r = |z| \gg R$ on the $z$ axis, $\vec{B} \approx \dfrac{\mu_0 I R^2}{2|z|^3}\,\hat{z}$, matching the exact on-axis field $\vec{B}_{\text{exact}} = \dfrac{\mu_0 I R^2}{2(R^2+z^2)^{3/2}}\,\hat{z}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** By the right-hand rule for a counterclockwise current in the $xy$ plane, $\vec{a} = \pi R^2\hat{z}$, so the magnetic dipole moment is
+
+$$
+\vec{m} = I\vec{a} = \pi I R^2\,\hat{z}.
+$$
+
+**(b)** At distances $r \gg R$, the dipole term dominates:
+
+$$
+\vec{B}(\vec{r}) \approx \frac{\mu_0 m}{4\pi r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right) = \frac{\mu_0 I R^2}{4r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right).
+$$
+
+**(c)** On the positive $z$ axis ($z \gt 0$), $\theta = 0$, $r = z$, and $\hat{r} = \hat{z}$, giving
+
+$$
+\vec{B}(0,0,z) \approx \frac{\mu_0 I R^2}{4 z^3}(2\hat{z}) = \frac{\mu_0 I R^2}{2 z^3}\,\hat{z}.
+$$
+
+On the negative $z$ axis ($z \lt 0$), $\theta = \pi$, $r = |z|$, $\cos\pi = -1$, and $\hat{r} = -\hat{z}$, so $2\cos\pi\,\hat{r} = +2\hat{z}$ and $\vec{B} \approx \frac{\mu_0 I R^2}{2|z|^3}\hat{z}$. Meanwhile, the exact field on the $z$ axis from Example 5.6 is
+
+$$
+\vec{B}_{\text{exact}}(0,0,z) = \frac{\mu_0 I}{2}\frac{R^2}{(R^2 + z^2)^{3/2}}\,\hat{z} \xrightarrow{|z| \gg R} \frac{\mu_0 I R^2}{2|z|^3}\,\hat{z},
+$$
+
+confirming complete agreement.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.36" title="On-Axis Field of a Square Loop and Its Dipole Limit" tag="Griffiths 5.36 · Magnetic Dipole">
+
+<div slot="problem">
+
+Find the exact magnetic field a distance $z$ above the center of a square loop of side $w$, carrying a current $I$. Verify that it reduces to the field of a dipole, with the appropriate dipole moment, when $z \gg w$.
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{B}(z) = \frac{\mu_0 I w^2}{2\pi\left(z^2 + \frac{w^2}{4}\right)\sqrt{z^2 + \frac{w^2}{2}}}\,\hat{z} \xrightarrow{z \gg w} \frac{\mu_0 I w^2}{2\pi z^3}\,\hat{z} = \frac{\mu_0 m}{2\pi z^3}\,\hat{z}.
+$$
+
+</div>
+
+<div slot="solution">
+
+1. **Exact field from four finite segments:** Place the square loop in the $xy$ plane centered at the origin with sides at $x = \pm w/2$ and $y = \pm w/2$, carrying counterclockwise current $I$. For one side (say $x = w/2$, $y \in [-w/2, w/2]$), the perpendicular distance from the side to the field point $(0,0,z)$ is
+
+$$
+s = \sqrt{z^2 + \frac{w^2}{4}}.
+$$
+
+The endpoints subtend angles $\theta_2 = -\theta_1$ satisfying
+
+$$
+\sin\theta_2 = -\sin\theta_1 = \frac{w/2}{\sqrt{s^2 + (w/2)^2}} = \frac{w/2}{\sqrt{z^2 + w^2/2}}.
+$$
+
+By the Biot-Savart formula for a finite segment, the magnitude of the field from one side is
+
+$$
+B_1 = \frac{\mu_0 I}{4\pi s}(\sin\theta_2 - \sin\theta_1) = \frac{\mu_0 I}{4\pi\sqrt{z^2 + w^2/4}}\cdot\frac{w}{\sqrt{z^2 + w^2/2}}.
+$$
+
+By symmetry, the horizontal components from opposite sides cancel, while the $z$ component of each side is $B_{1z} = B_1\sin\alpha$ where $\sin\alpha = \frac{w/2}{s} = \frac{w/2}{\sqrt{z^2+w^2/4}}$. Summing over all four sides ($4 B_{1z}$):
+
+$$
+\vec{B}(z) = 4\cdot\frac{\mu_0 I w}{4\pi\sqrt{z^2 + w^2/4}\sqrt{z^2 + w^2/2}}\cdot\frac{w/2}{\sqrt{z^2 + w^2/4}}\,\hat{z} = \frac{\mu_0 I w^2}{2\pi\left(z^2 + \frac{w^2}{4}\right)\sqrt{z^2 + \frac{w^2}{2}}}\,\hat{z}.
+$$
+
+2. **Far-field dipole limit:** For $z \gg w$, $z^2 + w^2/4 \approx z^2$ and $\sqrt{z^2 + w^2/2} \approx z$ (for $z \gt 0$), so
+
+$$
+\vec{B}(z) \approx \frac{\mu_0 I w^2}{2\pi z^3}\,\hat{z}.
+$$
+
+Since the dipole moment of the square loop is $\vec{m} = I w^2\hat{z}$, the pure dipole formula $\vec{B}_{\text{dip}} = \frac{\mu_0 m}{2\pi z^3}\hat{z}$ on the $z$ axis matches identically.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.37" title="Dipole Moments of a Spinning Disk and Spinning Spherical Shell" tag="Griffiths 5.37 · Magnetic Dipole">
+
+<div slot="problem">
+
+(a) A phonograph record of radius $R$, carrying a uniform surface charge $\sigma$, is rotating at constant angular velocity $\omega$. Find its magnetic dipole moment.
+
+(b) Find the magnetic dipole moment of the spinning spherical shell in Griffiths Ex. 5.11. Show that for points $r \gt R$ the potential is that of a perfect dipole.
+
+</div>
+
+<div slot="answer">
+
+(a) $m = \dfrac{\pi}{4}\sigma\omega R^4$ (along $\vec{\omega}$).
+
+(b) $\vec{m} = \dfrac{4\pi}{3}\sigma R^4\vec{\omega}$; substituting into $\vec{A}_{\text{dip}} = \dfrac{\mu_0 m\sin\theta}{4\pi r^2}\hat{\phi}$ yields $\dfrac{\mu_0 R^4\omega\sigma\sin\theta}{3r^2}\hat{\phi}$, identical to the exact exterior potential for $r \gt R$.
+
+</div>
+
+<div slot="solution">
+
+**(a) Spinning charged disk:** Partition the disk (with $\vec{\omega} = \omega\hat{z}$) into concentric rings of radius $r$ and width $dr$. Each ring carries charge $dq = \sigma(2\pi r\,dr)$, completing one revolution in period $T = 2\pi/\omega$, so its effective current is
+
+$$
+dI = \frac{dq}{T} = \sigma\omega r\,dr.
+$$
+
+The area enclosed by the ring is $\pi r^2$, so $dm = \pi r^2\,dI = \pi\sigma\omega r^3\,dr$. Integrating from $0$ to $R$:
+
+$$
+\vec{m} = \pi\sigma\omega\hat{z}\int_0^R r^3\,dr = \frac{\pi}{4}\sigma\omega R^4\,\hat{z} = \frac{\pi}{4}\sigma R^4\vec{\omega}.
+$$
+
+**(b) Spinning spherical shell:** Slice the shell of radius $R$ ($\vec{\omega} = \omega\hat{z}$) into rings at polar angle $\theta$ of angular width $d\theta$. Each ring has radius $R\sin\theta$, circumference $2\pi R\sin\theta$, and width $R\,d\theta$, so $dq = \sigma(2\pi R^2\sin\theta\,d\theta)$ and
+
+$$
+dI = \frac{dq}{2\pi/\omega} = \sigma\omega R^2\sin\theta\,d\theta.
+$$
+
+With enclosed area $\pi(R\sin\theta)^2$, the ring's dipole moment is $dm = \pi R^2\sin^2\theta\,dI = \pi\sigma\omega R^4\sin^3\theta\,d\theta$. Integrating over $\theta \in [0,\pi]$ (using $\int_0^\pi \sin^3\theta\,d\theta = \frac{4}{3}$):
+
+$$
+\vec{m} = \pi\sigma\omega R^4\hat{z}\int_0^\pi \sin^3\theta\,d\theta = \frac{4\pi}{3}\sigma\omega R^4\,\hat{z} = \frac{4\pi}{3}\sigma R^4\vec{\omega}.
+$$
+
+Inserting $m = \frac{4\pi}{3}\sigma\omega R^4$ into the dipole vector potential yields
+
+$$
+\vec{A}_{\text{dip}}(\vec{r}) = \frac{\mu_0 m\sin\theta}{4\pi r^2}\,\hat{\phi} = \frac{\mu_0 R^4\omega\sigma\sin\theta}{3r^2}\,\hat{\phi},
+$$
+
+which coincides identically with the exact exterior vector potential found in Example 5.11 for $r \gt R$. Thus the spinning spherical shell produces a pure dipole field outside, with all higher multipole moments vanishing.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.38" title="Multipole Expansion for a Volume Current Distribution" tag="Griffiths 5.38 · Multipole Expansion">
+
+<div slot="problem">
+
+For a localized volume current $\vec{J}$:
+
+(a) Write down the multipole expansion for $\vec{A}(\vec{r})$, analogous to the line-current expansion.
+
+(b) Write down the monopole potential, and prove that it vanishes.
+
+(c) Using $\int d\vec{a} = \frac{1}{2}\oint (\vec{r}\times d\vec{l})$ and $\vec{m} = I\int d\vec{a}$, show that the magnetic dipole moment of a volume current can be written
+
+$$
+\vec{m} = \frac{1}{2}\int (\vec{r}\times\vec{J})\,d\tau.
+$$
+
+</div>
+
+<div slot="answer">
+
+(a) $\vec{A}(\vec{r}) = \dfrac{\mu_0}{4\pi}\sum_{n=0}^{\infty}\dfrac{1}{r^{n+1}}\int (r')^n P_n(\cos\alpha)\vec{J}(\vec{r}')\,d\tau'$.
+
+(b) $\vec{A}_{\text{mon}}(\vec{r}) = \dfrac{\mu_0}{4\pi r}\int \vec{J}(\vec{r}')\,d\tau' = \vec{0}$ because $\int \vec{J}\,d\tau' = d\vec{p}/dt = \vec{0}$ in magnetostatics.
+
+(c) Substituting $I\,d\vec{l}' \to \vec{J}\,d\tau'$ in $\vec{m} = \frac{1}{2}I\oint (\vec{r}'\times d\vec{l}')$ (or directly transforming the $n=1$ dipole integral using $\nabla'\cdot\vec{J} = 0$) gives $\vec{m} = \frac{1}{2}\int (\vec{r}'\times\vec{J})\,d\tau'$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** Replacing $I\,d\vec{l}' \to \vec{J}(\vec{r}')\,d\tau'$ in the line-current multipole expansion gives
+
+$$
+\vec{A}(\vec{r}) = \frac{\mu_0}{4\pi}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\int (r')^n P_n(\cos\alpha)\vec{J}(\vec{r}')\,d\tau',
+$$
+
+where $\alpha$ is the angle between $\vec{r}$ and $\vec{r}'$.
+
+**(b)** Setting $n = 0$ ($P_0 = 1$) gives the monopole term:
+
+$$
+\vec{A}_{\text{mon}}(\vec{r}) = \frac{\mu_0}{4\pi r}\int \vec{J}(\vec{r}')\,d\tau'.
+$$
+
+For a localized steady current ($\nabla'\cdot\vec{J} = 0$ and $\vec{J} = \vec{0}$ on a enclosing surface $\partial\mathcal{V}$), note that for each Cartesian coordinate $x'_i$:
+
+$$
+\nabla'\cdot(x'_i\vec{J}) = (\nabla' x'_i)\cdot\vec{J} + x'_i(\nabla'\cdot\vec{J}) = J_i.
+$$
+
+By the divergence theorem,
+
+$$
+\int_{\mathcal{V}} J_i\,d\tau' = \int_{\mathcal{V}} \nabla'\cdot(x'_i\vec{J})\,d\tau' = \oint_{\partial\mathcal{V}} x'_i\vec{J}\cdot d\vec{a}' = 0
+$$
+
+(equivalently, $\int\vec{J}\,d\tau' = d\vec{p}/dt = \vec{0}$ in magnetostatics). Therefore $\vec{A}_{\text{mon}}(\vec{r}) = \vec{0}$.
+
+**(c)** For a closed current loop, Eq. (1.107) gives the vector area $\vec{a} = \int d\vec{a}' = \frac{1}{2}\oint (\vec{r}'\times d\vec{l}')$, so
+
+$$
+\vec{m} = I\int d\vec{a}' = \frac{1}{2}\oint \left(\vec{r}'\times I\,d\vec{l}'\right).
+$$
+
+Promoting the line current element $I\,d\vec{l}'$ to a volume current element $\vec{J}(\vec{r}')\,d\tau'$ directly yields
+
+$$
+\vec{m} = \frac{1}{2}\int (\vec{r}'\times\vec{J})\,d\tau'.
+$$
+
+*(Direct check from the $n=1$ term):* Using $\nabla'\cdot\vec{J}=0$ and $\nabla'\cdot[(\hat{r}\cdot\vec{r}')x'_i\vec{J}] = (\hat{r}\cdot\vec{J})x'_i + (\hat{r}\cdot\vec{r}')J_i$, integrating over a volume enclosing all currents gives $\int (\hat{r}\cdot\vec{r}')\vec{J}\,d\tau' = -\int (\hat{r}\cdot\vec{J})\vec{r}'\,d\tau'$. Averaging the two forms produces
+
+$$
+\int (\hat{r}\cdot\vec{r}')\vec{J}\,d\tau' = \frac{1}{2}\int \left[(\hat{r}\cdot\vec{r}')\vec{J} - (\hat{r}\cdot\vec{J})\vec{r}'\right]d\tau' = \frac{1}{2}\int (\vec{r}'\times\vec{J})\times\hat{r}\,d\tau',
+$$
+
+so $\vec{A}_{\text{dip}}(\vec{r}) = \frac{\mu_0}{4\pi}\frac{\vec{m}\times\hat{r}}{r^2}$ with $\vec{m} = \frac{1}{2}\int (\vec{r}'\times\vec{J})\,d\tau'$.
+
+</div>
+
+</ProblemCard>
+
+</section>

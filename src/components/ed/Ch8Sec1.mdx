@@ -1,0 +1,247 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch8-sec1" class="ed-sec-block">
+
+### 8.1 Charge and Energy
+
+<div class="ed-theory-box">
+
+**1. The Continuity Equation (Local Conservation of Charge):** Global conservation states that the total charge of the universe is constant, whereas *local* conservation requires that any change in the charge $Q(t) = \int_V \rho(\vec{r}, t)\,d\tau$ enclosed within an arbitrary fixed volume $V$ must equal the net current flowing inward across its bounding surface $S = \partial V$:
+
+$$
+\frac{dQ}{dt} = -\oint_S \vec{J}\cdot d\vec{a}
+$$
+
+Applying the divergence theorem to the surface integral and bringing the time derivative inside the volume integral gives $\int_V \frac{\partial\rho}{\partial t}\,d\tau = -\int_V (\nabla\cdot\vec{J})\,d\tau$ for every volume $V$, yielding the differential **continuity equation**:
+
+$$
+\frac{\partial \rho}{\partial t} = -\nabla\cdot\vec{J}
+$$
+
+This law is not an independent postulate; taking the divergence of the Ampère-Maxwell law and substituting Gauss's law derives it directly from Maxwell's equations, where it acts as the sole consistency constraint on admissible sources $(\rho, \vec{J})$.
+
+**2. Poynting's Theorem (Work-Energy Relation in Electrodynamics):** By the Lorentz force law $\vec{F} = q(\vec{E} + \vec{v}\times\vec{B})$, the magnetic force is perpendicular to $\vec{v}$ and performs zero mechanical work. Accounting for all charge species via $\vec{J} = \sum_i \rho_i \vec{v}_i$, the rate at which the electromagnetic field does work on charges within $V$ is:
+
+$$
+\frac{dW}{dt} = \int_V (\vec{E}\cdot\vec{J})\,d\tau
+$$
+
+Eliminating $\vec{J}$ via the Ampère-Maxwell law $\nabla\times\vec{B} = \mu_0\vec{J} + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t}$, invoking the product rule $\nabla\cdot(\vec{E}\times\vec{B}) = \vec{B}\cdot(\nabla\times\vec{E}) - \vec{E}\cdot(\nabla\times\vec{B})$, and substituting Faraday's law $\nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}$, the power density becomes:
+
+$$
+\vec{E}\cdot\vec{J} = -\frac{\partial u}{\partial t} - \nabla\cdot\vec{S}
+$$
+
+where the **electromagnetic energy density** $u$ and the **Poynting vector** (energy flux density) $\vec{S}$ are defined by:
+
+$$
+u = \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0} B^2\right), \qquad \vec{S} \equiv \frac{1}{\mu_0}(\vec{E}\times\vec{B})
+$$
+
+Integrating over $V$ and applying the divergence theorem yields **Poynting's theorem**:
+
+$$
+\frac{dW}{dt} = -\frac{d}{dt}\int_V u\,d\tau - \oint_S \vec{S}\cdot d\vec{a}
+$$
+
+Thus, the mechanical power delivered to the charges equals the rate of decrease of stored field energy minus the net electromagnetic power radiated or transported out across the boundary $S$. In regions where no work is done on matter ($dW/dt = 0$, such as empty space), Poynting's theorem reduces to the local energy continuity equation $\frac{\partial u}{\partial t} = -\nabla\cdot\vec{S}$.
+
+</div>
+
+<ProblemCard num="8.1" title="Power Transported Down Coaxial and Parallel-Plate Cables" tag="Griffiths 8.1 · Poynting Vector · Transmission Lines">
+
+<div slot="problem">
+
+Calculate the power (energy per unit time) transported down the cables of Ex. 7.13 and Prob. 7.62, assuming the two conductors are held at potential difference $V$, and carry current $I$ (down one and back up the other).
+
+</div>
+
+<div slot="answer">
+
+In both geometries, the power transported down the cable is:
+
+$$
+P = IV
+$$
+
+</div>
+
+<div slot="solution">
+
+**1. Coaxial Cable (Example 7.13):**
+
+Consider a long coaxial cable with inner conductor radius $a$ and outer cylindrical shell radius $b$ ($b > a$). Suppose the inner conductor carries uniform linear charge density $+\lambda$ and steady current $I$ in the $+\hat{z}$ direction, while the outer conductor carries $-\lambda$ and return current $-I\hat{z}$.
+
+In the annular region $a < s < b$ between the conductors, Gauss's law and Ampère's law give the electric and magnetic fields:
+
+$$
+\vec{E} = \frac{\lambda}{2\pi\epsilon_0 s}\,\hat{s}, \qquad \vec{B} = \frac{\mu_0 I}{2\pi s}\,\hat{\phi}
+$$
+
+The Poynting vector in the gap is directed axially down the cable ($\hat{s}\times\hat{\phi} = \hat{z}$):
+
+$$
+\vec{S} = \frac{1}{\mu_0}(\vec{E}\times\vec{B}) = \frac{1}{\mu_0}\left(\frac{\lambda}{2\pi\epsilon_0 s}\right)\left(\frac{\mu_0 I}{2\pi s}\right)\hat{z} = \frac{\lambda I}{4\pi^2\epsilon_0 s^2}\,\hat{z}
+$$
+
+Integrating $\vec{S}$ over the annular cross-sectional area between $s = a$ and $s = b$ (with $d\vec{a} = 2\pi s\,ds\,\hat{z}$) gives the total power transported down the cable:
+
+$$
+P = \int \vec{S}\cdot d\vec{a} = \int_a^b \frac{\lambda I}{4\pi^2\epsilon_0 s^2}\,(2\pi s\,ds) = \frac{\lambda I}{2\pi\epsilon_0}\int_a^b \frac{ds}{s} = \frac{\lambda I}{2\pi\epsilon_0}\ln\!\left(\frac{b}{a}\right)
+$$
+
+The potential difference between the inner and outer conductors is:
+
+$$
+V = \int_a^b \vec{E}\cdot d\vec{l} = \frac{\lambda}{2\pi\epsilon_0}\int_a^b \frac{ds}{s} = \frac{\lambda}{2\pi\epsilon_0}\ln\!\left(\frac{b}{a}\right)
+$$
+
+Substituting $V$ into the expression for $P$ yields:
+
+$$
+P = IV
+$$
+
+**2. Parallel-Plate Transmission Line (Problem 7.62):**
+
+Consider two long parallel conducting strips of width $w$ separated by distance $h$ ($h \ll w$, neglecting fringing fields). Let the bottom plate ($z = 0$) carry surface charge density $+\sigma$ and surface current $\vec{K} = +\frac{I}{w}\hat{y}$, and the top plate ($z = h$) carry $-\sigma$ and return current $-\frac{I}{w}\hat{y}$.
+
+Inside the gap $0 < z < h$, the uniform electric and magnetic fields are:
+
+$$
+\vec{E} = \frac{\sigma}{\epsilon_0}\,\hat{z}, \qquad \vec{B} = \mu_0 K\,\hat{x} = \frac{\mu_0 I}{w}\,\hat{x}
+$$
+
+Since $\hat{z}\times\hat{x} = \hat{y}$, the Poynting vector points along the transmission line in the $+\hat{y}$ direction:
+
+$$
+\vec{S} = \frac{1}{\mu_0}(\vec{E}\times\vec{B}) = \frac{1}{\mu_0}\left(\frac{\sigma}{\epsilon_0}\right)\left(\frac{\mu_0 I}{w}\right)\hat{y} = \frac{\sigma I}{\epsilon_0 w}\,\hat{y}
+$$
+
+Integrating over the cross-sectional area $A = wh$ of the gap (with $d\vec{a} = dx\,dz\,\hat{y}$) gives:
+
+$$
+P = \int \vec{S}\cdot d\vec{a} = S(wh) = \left(\frac{\sigma I}{\epsilon_0 w}\right)wh = \frac{\sigma h}{\epsilon_0} I
+$$
+
+Because the potential difference between the plates is $V = \int_0^h \vec{E}\cdot d\vec{l} = \frac{\sigma h}{\epsilon_0}$, we again obtain:
+
+$$
+P = IV
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.2" title="Energy Flow and Poynting's Theorem in a Charging Capacitor" tag="Griffiths 8.2 · Poynting's Theorem · Displacement Current">
+
+<div slot="problem">
+
+Consider the charging capacitor in Prob. 7.34.
+
+(a) Find the electric and magnetic fields in the gap, as functions of the distance $s$ from the axis and the time $t$. (Assume the charge is zero at $t = 0$.)
+
+(b) Find the energy density $u_{\text{em}}$ and the Poynting vector $\vec{S}$ in the gap. Note especially the direction of $\vec{S}$. Check that Eq. 8.12 is satisfied.
+
+(c) Determine the total energy in the gap, as a function of time. Calculate the total power flowing into the gap, by integrating the Poynting vector over the appropriate surface. Check that the power input is equal to the rate of increase of energy in the gap (Eq. 8.9—in this case $W = 0$, because there is no charge in the gap). [If you're worried about the fringing fields, do it for a volume of radius $b < a$ well inside the gap.]
+
+</div>
+
+<div slot="answer">
+
+**(a)** For a circular parallel-plate capacitor of radius $a$ and separation $w$ charged by steady current $I$:
+
+$$
+\vec{E}(t) = \frac{It}{\pi\epsilon_0 a^2}\,\hat{z}, \qquad \vec{B}(s, t) = \frac{\mu_0 I s}{2\pi a^2}\,\hat{\phi}
+$$
+
+**(b)** With $c^2 = 1/(\mu_0\epsilon_0)$:
+
+$$
+u_{\text{em}}(s, t) = \frac{\mu_0 I^2}{2\pi^2 a^4}\left[(ct)^2 + \left(\frac{s}{2}\right)^2\right], \qquad \vec{S}(s, t) = -\frac{I^2 t}{2\pi^2\epsilon_0 a^4}\,s\,\hat{s}
+$$
+
+Here $\vec{S}$ points **radially inward** ($-\hat{s}$), and $\frac{\partial u_{\text{em}}}{\partial t} = \frac{I^2 t}{\pi^2\epsilon_0 a^4} = -\nabla\cdot\vec{S}$.
+
+**(c)** Inside a coaxial cylindrical volume of radius $b \le a$ and height $w$:
+
+$$
+U_{\text{em}}(t) = \frac{\mu_0 w I^2 b^2}{2\pi a^4}\left[(ct)^2 + \frac{b^2}{8}\right], \qquad P_{\text{in}} = \frac{I^2 w t b^2}{\pi\epsilon_0 a^4} = \frac{dU_{\text{em}}}{dt}
+$$
+
+Setting $b = a$ gives the total stored energy $U_{\text{em, total}}(t) = \frac{\mu_0 w I^2}{2\pi a^2}\left[(ct)^2 + \frac{a^2}{8}\right]$ and total input power $P_{\text{in, total}} = \frac{I^2 w t}{\pi\epsilon_0 a^2}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** In Problem 7.34, a circular parallel-plate capacitor of plate radius $a$ and plate separation $w$ (with $w \ll a$, neglecting fringing fields) is charged by a steady current $I$ along the $+\hat{z}$ axis. Since $Q(0) = 0$, the charge on the bottom plate at time $t$ is $Q(t) = It$, giving uniform surface charge density $\sigma(t) = \frac{It}{\pi a^2}$ and a uniform electric field in the gap:
+
+$$
+\vec{E}(t) = \frac{\sigma(t)}{\epsilon_0}\,\hat{z} = \frac{It}{\pi\epsilon_0 a^2}\,\hat{z}
+$$
+
+Although there is no conduction current inside the gap, the changing electric field produces a displacement current $\vec{J}_d = \epsilon_0 \frac{\partial\vec{E}}{\partial t} = \frac{I}{\pi a^2}\,\hat{z}$. Applying the Ampère-Maxwell law to a circular Amperian loop of radius $s \le a$ coaxial with the plates and using the right-hand rule around $+\hat{z}$:
+
+$$
+\oint \vec{B}\cdot d\vec{l} = B(2\pi s) = \mu_0 \epsilon_0 \frac{\partial E}{\partial t}(\pi s^2) = \mu_0 \epsilon_0 \left(\frac{I}{\pi\epsilon_0 a^2}\right)\pi s^2 \implies \vec{B}(s, t) = \frac{\mu_0 I s}{2\pi a^2}\,\hat{\phi}
+$$
+
+**(b)** Using $c^2 = 1/(\mu_0\epsilon_0)$ (so $1/\epsilon_0 = \mu_0 c^2$), the electromagnetic energy density in the gap is:
+
+$$
+u_{\text{em}} = \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right) = \frac{1}{2}\left[\epsilon_0\left(\frac{It}{\pi\epsilon_0 a^2}\right)^2 + \frac{1}{\mu_0}\left(\frac{\mu_0 I s}{2\pi a^2}\right)^2\right] = \frac{\mu_0 I^2}{2\pi^2 a^4}\left[(ct)^2 + \left(\frac{s}{2}\right)^2\right]
+$$
+
+Since $\hat{z}\times\hat{\phi} = -\hat{s}$, the Poynting vector is:
+
+$$
+\vec{S} = \frac{1}{\mu_0}(\vec{E}\times\vec{B}) = \frac{1}{\mu_0}\left(\frac{It}{\pi\epsilon_0 a^2}\right)\left(\frac{\mu_0 I s}{2\pi a^2}\right)(\hat{z}\times\hat{\phi}) = -\frac{I^2 t}{2\pi^2\epsilon_0 a^4}\,s\,\hat{s}
+$$
+
+For $t > 0$, $\vec{S}$ points **radially inward** ($-\hat{s}$), showing that energy enters the capacitor through its cylindrical sides from the surrounding fields rather than straight through the plates.
+
+To verify the local continuity equation (Eq. 8.12), differentiate $u_{\text{em}}$ with respect to $t$:
+
+$$
+\frac{\partial u_{\text{em}}}{\partial t} = \frac{\mu_0 I^2}{2\pi^2 a^4}(2c^2 t) = \frac{I^2 t}{\pi^2\epsilon_0 a^4}
+$$
+
+In cylindrical coordinates, $\nabla\cdot(s\,\hat{s}) = \frac{1}{s}\frac{\partial}{\partial s}(s^2) = 2$, so the divergence of $\vec{S}$ is:
+
+$$
+\nabla\cdot\vec{S} = -\frac{I^2 t}{2\pi^2\epsilon_0 a^4}\,\nabla\cdot(s\,\hat{s}) = -\frac{I^2 t}{\pi^2\epsilon_0 a^4} = -\frac{\partial u_{\text{em}}}{\partial t}
+$$
+
+Hence $\frac{\partial u_{\text{em}}}{\partial t} = -\nabla\cdot\vec{S}$ holds identically everywhere inside the gap.
+
+**(c)** Consider a coaxial cylindrical volume of radius $b \le a$ and height $w$ inside the gap. Integrating $u_{\text{em}}$ over this volume ($d\tau = 2\pi w s\,ds$):
+
+$$
+U_{\text{em}}(t) = \int_0^b u_{\text{em}}\,(2\pi w s\,ds) = \frac{\mu_0 w I^2}{\pi a^4}\int_0^b \left[(ct)^2 s + \frac{s^3}{4}\right]ds = \frac{\mu_0 w I^2}{\pi a^4}\left[\frac{(ct)^2 b^2}{2} + \frac{b^4}{16}\right] = \frac{\mu_0 w I^2 b^2}{2\pi a^4}\left[(ct)^2 + \frac{b^2}{8}\right]
+$$
+
+Because $\vec{S}$ is purely radial, no flux crosses the top or bottom faces (normals $\pm\hat{z}$). All energy enters through the curved cylindrical wall at $s = b$, where the outward normal area element is $d\vec{a} = b\,d\phi\,dz\,\hat{s}$. Thus, the total power flowing *into* the volume is:
+
+$$
+P_{\text{in}} = -\oint \vec{S}\cdot d\vec{a} = -\left(-\frac{I^2 t}{2\pi^2\epsilon_0 a^4}\,b\,\hat{s}\right)\cdot(2\pi b w\,\hat{s}) = \frac{I^2 w t b^2}{\pi\epsilon_0 a^4}
+$$
+
+Comparing this with the time derivative of the stored energy:
+
+$$
+\frac{dU_{\text{em}}}{dt} = \frac{\mu_0 w I^2 b^2}{2\pi a^4}(2c^2 t) = \frac{\mu_0 c^2 w I^2 t b^2}{\pi a^4} = \frac{I^2 w t b^2}{\pi\epsilon_0 a^4} = P_{\text{in}}
+$$
+
+Thus $\frac{dU_{\text{em}}}{dt} = -\oint \vec{S}\cdot d\vec{a}$ in full agreement with Poynting's theorem (Eq. 8.9) for $W = 0$. Setting $b = a$ gives the total stored energy and total power entering the entire capacitor gap:
+
+$$
+U_{\text{em, total}}(t) = \frac{\mu_0 w I^2}{2\pi a^2}\left[(ct)^2 + \frac{a^2}{8}\right], \qquad P_{\text{in, total}} = \frac{I^2 w t}{\pi\epsilon_0 a^2} = \frac{dU_{\text{em, total}}}{dt}
+$$
+
+</div>
+
+</ProblemCard>
+
+</section>

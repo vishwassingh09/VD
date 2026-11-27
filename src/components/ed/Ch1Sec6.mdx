@@ -1,0 +1,358 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec6" class="ed-sec-block">
+
+### 1.6 The Theory of Vector Fields
+
+<div class="ed-theory-box">
+
+#### 1.6.1 The Helmholtz Theorem
+
+In electrodynamics, the physical laws governing $\mathbf{E}$ and $\mathbf{B}$ are expressed locally through their divergence and curl:
+
+$$
+\nabla \cdot \mathbf{F} = D(\mathbf{r}), \qquad \nabla \times \mathbf{F} = \mathbf{C}(\mathbf{r}),
+$$
+
+where consistency demands $\nabla \cdot \mathbf{C} = 0$ everywhere because the divergence of any curl vanishes identically ($\nabla \cdot (\nabla \times \mathbf{F}) = 0$).
+
+Specifying $D$ and $\mathbf{C}$ alone does not determine $\mathbf{F}$ uniquely, because one may always add a harmonic vector field satisfying $\nabla \cdot \mathbf{F}_0 = 0$ and $\nabla \times \mathbf{F}_0 = \mathbf{0}$ everywhere (for example, $\mathbf{F}_0 = yz\,\hat{x} + zx\,\hat{y} + xy\,\hat{z}$ or $\mathbf{F}_0 = \sin x \cosh y\,\hat{x} - \cos x \sinh y\,\hat{y}$). Uniqueness requires boundary conditions—typically that $\mathbf{F}(\mathbf{r}) \to \mathbf{0}$ as $r \to \infty$ (or symmetry constraints for idealized infinite charge/current distributions).
+
+**Helmholtz Theorem:** If the divergence $D(\mathbf{r})$ and curl $\mathbf{C}(\mathbf{r})$ (with $\nabla \cdot \mathbf{C} = 0$) of a vector field $\mathbf{F}(\mathbf{r})$ are specified throughout space, and both $\mathbf{F}$ and its sources vanish sufficiently rapidly at infinity, then $\mathbf{F}$ is uniquely determined and admits the **Helmholtz decomposition** into an irrotational (longitudinal) part and a solenoidal (transverse) part:
+
+$$
+\mathbf{F} = -\nabla V + \nabla \times \mathbf{A}.
+$$
+
+#### 1.6.2 Scalar and Vector Potentials
+
+Two fundamental equivalence theorems follow (on simply connected domains in $\mathbb{R}^3$):
+
+**Theorem 1 (Curl-less / Irrotational Fields).** The following four conditions are equivalent:
+1. $\nabla \times \mathbf{F} = \mathbf{0}$ everywhere.
+2. $\int_{\mathbf{a}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l}$ is independent of the path joining $\mathbf{a}$ and $\mathbf{b}$.
+3. $\oint \mathbf{F} \cdot d\mathbf{l} = 0$ for every closed loop.
+4. $\mathbf{F}$ is the gradient of a scalar potential: $\mathbf{F} = -\nabla V$ (unique up to an additive constant, $V \to V + c$).
+
+**Theorem 2 (Divergence-less / Solenoidal Fields).** The following four conditions are equivalent:
+1. $\nabla \cdot \mathbf{F} = 0$ everywhere.
+2. $\int \mathbf{F} \cdot d\mathbf{a}$ is independent of the surface spanning a given boundary curve.
+3. $\oint \mathbf{F} \cdot d\mathbf{a} = 0$ for every closed surface.
+4. $\mathbf{F}$ is the curl of a vector potential: $\mathbf{F} = \nabla \times \mathbf{A}$ (unique up to the gradient of an arbitrary scalar field, $\mathbf{A} \to \mathbf{A} + \nabla \lambda$).
+
+</div>
+
+<ProblemCard num="1.50" title="Scalar and Vector Potentials" tag="Griffiths 1.50 · Potentials">
+  <div slot="problem">
+
+(a) Let $\mathbf{F}_1 = x^2\hat{z}$ and $\mathbf{F}_2 = x\hat{x} + y\hat{y} + z\hat{z}$. Calculate the divergence and curl of $\mathbf{F}_1$ and $\mathbf{F}_2$. Which one can be written as the gradient of a scalar? Find a scalar potential that does the job. Which one can be written as the curl of a vector? Find a suitable vector potential.
+
+(b) Show that $\mathbf{F}_3 = yz\,\hat{x} + zx\,\hat{y} + xy\,\hat{z}$ can be written both as the gradient of a scalar and as the curl of a vector. Find scalar and vector potentials for this function.
+
+  </div>
+  <div slot="answer">
+
+(a) $\nabla \cdot \mathbf{F}_1 = 0$, $\nabla \times \mathbf{F}_1 = -2x\hat{y}$, so $\mathbf{F}_1 = \nabla \times \mathbf{A}_1$ with $\mathbf{A}_1 = \frac{1}{3}x^3\hat{y}$. $\nabla \cdot \mathbf{F}_2 = 3$, $\nabla \times \mathbf{F}_2 = \mathbf{0}$, so $\mathbf{F}_2 = \nabla U_2$ with $U_2 = \frac{1}{2}(x^2 + y^2 + z^2)$ (or $\mathbf{F}_2 = -\nabla V_2$ with $V_2 = -U_2$).
+
+(b) $\nabla \cdot \mathbf{F}_3 = 0$ and $\nabla \times \mathbf{F}_3 = \mathbf{0}$. Scalar potential: $U_3 = xyz$ ($\mathbf{F}_3 = \nabla U_3$, or $V_3 = -xyz$). Vector potential: $\mathbf{A}_3 = \frac{1}{4}\bigl[x(z^2 - y^2)\hat{x} + y(x^2 - z^2)\hat{y} + z(y^2 - x^2)\hat{z}\bigr]$. (Neither potential is unique.)
+
+  </div>
+  <div slot="solution">
+
+**(a)** Compute the divergence and curl of $\mathbf{F}_1 = x^2\hat{z}$:
+
+$$
+\nabla \cdot \mathbf{F}_1 = \frac{\partial}{\partial x}(0) + \frac{\partial}{\partial y}(0) + \frac{\partial}{\partial z}(x^2) = 0,
+$$
+
+$$
+\nabla \times \mathbf{F}_1 = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ 0 & 0 & x^2 \end{vmatrix} = -2x\,\hat{y}.
+$$
+
+Compute the divergence and curl of $\mathbf{F}_2 = x\hat{x} + y\hat{y} + z\hat{z}$:
+
+$$
+\nabla \cdot \mathbf{F}_2 = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial z}{\partial z} = 3,
+$$
+
+$$
+\nabla \times \mathbf{F}_2 = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ x & y & z \end{vmatrix} = \mathbf{0}.
+$$
+
+Since $\nabla \times \mathbf{F}_2 = \mathbf{0}$, $\mathbf{F}_2$ can be written as the gradient of a scalar. Writing $\mathbf{F}_2 = \nabla U_2$, integrating $\partial_x U_2 = x$, $\partial_y U_2 = y$, $\partial_z U_2 = z$ gives
+
+$$
+U_2 = \frac{1}{2}(x^2 + y^2 + z^2)
+$$
+
+(or $V_2 = -\frac{1}{2}(x^2 + y^2 + z^2)$ under the convention $\mathbf{F}_2 = -\nabla V_2$).
+
+Since $\nabla \cdot \mathbf{F}_1 = 0$, $\mathbf{F}_1$ can be written as the curl of a vector potential $\mathbf{A}_1$ ($\mathbf{F}_1 = \nabla \times \mathbf{A}_1$), which requires
+
+$$
+\frac{\partial A_{1z}}{\partial y} - \frac{\partial A_{1y}}{\partial z} = 0, \qquad \frac{\partial A_{1x}}{\partial z} - \frac{\partial A_{1z}}{\partial x} = 0, \qquad \frac{\partial A_{1y}}{\partial x} - \frac{\partial A_{1x}}{\partial y} = x^2.
+$$
+
+Choosing $A_{1x} = A_{1z} = 0$ leaves $\partial A_{1y}/\partial x = x^2$, so $A_{1y} = \frac{1}{3}x^3$ works:
+
+$$
+\mathbf{A}_1 = \frac{1}{3}x^3\,\hat{y}.
+$$
+
+**(b)** For $\mathbf{F}_3 = yz\,\hat{x} + zx\,\hat{y} + xy\,\hat{z}$:
+
+$$
+\nabla \cdot \mathbf{F}_3 = \frac{\partial(yz)}{\partial x} + \frac{\partial(zx)}{\partial y} + \frac{\partial(xy)}{\partial z} = 0,
+$$
+
+$$
+\nabla \times \mathbf{F}_3 = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ yz & zx & xy \end{vmatrix} = \hat{x}(x - x) + \hat{y}(y - y) + \hat{z}(z - z) = \mathbf{0}.
+$$
+
+Because both $\nabla \cdot \mathbf{F}_3 = 0$ and $\nabla \times \mathbf{F}_3 = \mathbf{0}$, $\mathbf{F}_3$ admits both a scalar potential and a vector potential.
+
+For the scalar potential ($\mathbf{F}_3 = \nabla U_3$):
+
+$$
+U_3 = xyz
+$$
+
+(or $V_3 = -xyz$ if $\mathbf{F}_3 = -\nabla V_3$).
+
+For the vector potential ($\mathbf{F}_3 = \nabla \times \mathbf{A}_3$):
+
+$$
+\frac{\partial A_{3z}}{\partial y} - \frac{\partial A_{3y}}{\partial z} = yz, \qquad \frac{\partial A_{3x}}{\partial z} - \frac{\partial A_{3z}}{\partial x} = xz, \qquad \frac{\partial A_{3y}}{\partial x} - \frac{\partial A_{3x}}{\partial y} = xy.
+$$
+
+Splitting each component symmetrically between the two derivatives suggests
+
+$$
+A_{3z} = \frac{1}{4}y^2 z + f(x,z), \qquad A_{3y} = -\frac{1}{4}y z^2 + g(x,y),
+$$
+
+$$
+A_{3x} = \frac{1}{4}z^2 x + h(x,y), \qquad A_{3z} = -\frac{1}{4}z x^2 + j(y,z),
+$$
+
+$$
+A_{3y} = \frac{1}{4}x^2 y + k(y,z), \qquad A_{3x} = -\frac{1}{4}x y^2 + l(x,z).
+$$
+
+Matching the undetermined functions yields a symmetric vector potential:
+
+$$
+\mathbf{A}_3 = \frac{1}{4}\left[x(z^2 - y^2)\hat{x} + y(x^2 - z^2)\hat{y} + z(y^2 - x^2)\hat{z}\right].
+$$
+
+(Again, neither potential is unique: any constant may be added to $U_3$, and any gradient $\nabla \lambda$ may be added to $\mathbf{A}_3$.)
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.51" title="Equivalences for Irrotational Fields" tag="Griffiths 1.51 · Theorem 1">
+  <div slot="problem">
+
+For Theorem 1, show that (d) $\Rightarrow$ (a), (a) $\Rightarrow$ (c), (c) $\Rightarrow$ (b), (b) $\Rightarrow$ (c), and (c) $\Rightarrow$ (a).
+
+  </div>
+  <div slot="answer">
+
+Each implication follows from the identity $\nabla \times (\nabla V) = \mathbf{0}$, Stokes' theorem, and splitting closed loops into two open paths between common endpoints $\mathbf{a}$ and $\mathbf{b}$.
+
+  </div>
+  <div slot="solution">
+
+- **(d) $\Rightarrow$ (a):** If $\mathbf{F} = -\nabla V$, then
+
+$$
+\nabla \times \mathbf{F} = \nabla \times (-\nabla V) = \mathbf{0},
+$$
+
+since the curl of any gradient is identically zero.
+
+- **(a) $\Rightarrow$ (c):** If $\nabla \times \mathbf{F} = \mathbf{0}$ everywhere, then for any closed loop $\mathcal{P}$ bounding a surface $\mathcal{S}$, Stokes' theorem gives
+
+$$
+\oint_{\mathcal{P}} \mathbf{F} \cdot d\mathbf{l} = \int_{\mathcal{S}} (\nabla \times \mathbf{F}) \cdot d\mathbf{a} = 0.
+$$
+
+- **(c) $\Rightarrow$ (b):** Consider two arbitrary paths $\mathrm{I}$ and $\mathrm{II}$ from $\mathbf{a}$ to $\mathbf{b}$. Traversing path $\mathrm{I}$ from $\mathbf{a}$ to $\mathbf{b}$ and returning along path $\mathrm{II}$ from $\mathbf{b}$ to $\mathbf{a}$ forms a closed loop, so by (c),
+
+$$
+\int_{\mathbf{a},\,\mathrm{I}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l} - \int_{\mathbf{a},\,\mathrm{II}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l} = \int_{\mathbf{a},\,\mathrm{I}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l} + \int_{\mathbf{b},\,\mathrm{II}}^{\mathbf{a}} \mathbf{F} \cdot d\mathbf{l} = \oint \mathbf{F} \cdot d\mathbf{l} = 0.
+$$
+
+Hence
+
+$$
+\int_{\mathbf{a},\,\mathrm{I}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l} = \int_{\mathbf{a},\,\mathrm{II}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l}.
+$$
+
+- **(b) $\Rightarrow$ (c):** Take any closed loop and pick two points $\mathbf{a}$ and $\mathbf{b}$ on it, dividing the loop into paths $\mathrm{I}$ and $\mathrm{II}$ from $\mathbf{a}$ to $\mathbf{b}$. Using the same identity in reverse, path independence gives
+
+$$
+\oint \mathbf{F} \cdot d\mathbf{l} = \int_{\mathbf{a},\,\mathrm{I}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l} - \int_{\mathbf{a},\,\mathrm{II}}^{\mathbf{b}} \mathbf{F} \cdot d\mathbf{l} = 0.
+$$
+
+- **(c) $\Rightarrow$ (a):** By Stokes' theorem, for every surface $\mathcal{S}$ bounded by $\mathcal{P} = \partial \mathcal{S}$,
+
+$$
+\int_{\mathcal{S}} (\nabla \times \mathbf{F}) \cdot d\mathbf{a} = \oint_{\mathcal{P}} \mathbf{F} \cdot d\mathbf{l} = 0.
+$$
+
+Because this holds for an arbitrary small surface patch of any orientation at any point, the integrand must vanish everywhere: $\nabla \times \mathbf{F} = \mathbf{0}$.
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.52" title="Equivalences for Solenoidal Fields" tag="Griffiths 1.52 · Theorem 2">
+  <div slot="problem">
+
+For Theorem 2, show that (d) $\Rightarrow$ (a), (a) $\Rightarrow$ (c), (c) $\Rightarrow$ (b), (b) $\Rightarrow$ (c), and (c) $\Rightarrow$ (a).
+
+  </div>
+  <div slot="answer">
+
+Each implication follows from the identity $\nabla \cdot (\nabla \times \mathbf{A}) = 0$, the divergence theorem, and joining two open surfaces with a common boundary loop into a single closed surface.
+
+  </div>
+  <div slot="solution">
+
+- **(d) $\Rightarrow$ (a):** If $\mathbf{F} = \nabla \times \mathbf{A}$, then
+
+$$
+\nabla \cdot \mathbf{F} = \nabla \cdot (\nabla \times \mathbf{A}) = 0,
+$$
+
+since the divergence of any curl is identically zero.
+
+- **(a) $\Rightarrow$ (c):** If $\nabla \cdot \mathbf{F} = 0$ everywhere, then for any closed surface $\mathcal{S}$ enclosing a volume $\mathcal{V}$, the divergence theorem gives
+
+$$
+\oint_{\mathcal{S}} \mathbf{F} \cdot d\mathbf{a} = \int_{\mathcal{V}} (\nabla \cdot \mathbf{F}) \, d\tau = 0.
+$$
+
+- **(c) $\Rightarrow$ (b):** Consider two surfaces $\mathrm{I}$ and $\mathrm{II}$ sharing the same boundary curve $\mathcal{P}$, each oriented by the right-hand rule relative to $\mathcal{P}$. Together they enclose a volume, with $d\mathbf{a}$ pointing outward on one surface (say $\mathrm{I}$) and inward on the other ($\mathrm{II}$). Reversing the orientation on $\mathrm{II}$ gives the outward normal for the closed surface $\mathcal{S} = \mathrm{I} \cup (-\mathrm{II})$, so by (c),
+
+$$
+\int_{\mathrm{I}} \mathbf{F} \cdot d\mathbf{a} - \int_{\mathrm{II}} \mathbf{F} \cdot d\mathbf{a} = \oint_{\mathcal{S}} \mathbf{F} \cdot d\mathbf{a} = 0,
+$$
+
+and therefore
+
+$$
+\int_{\mathrm{I}} \mathbf{F} \cdot d\mathbf{a} = \int_{\mathrm{II}} \mathbf{F} \cdot d\mathbf{a}.
+$$
+
+- **(b) $\Rightarrow$ (c):** Slice any closed surface $\mathcal{S}$ along a closed curve $\mathcal{P}$ into two caps $\mathrm{I}$ and $\mathrm{II}$ sharing boundary $\mathcal{P}$. Applying the same relation in reverse with surface independence gives
+
+$$
+\oint_{\mathcal{S}} \mathbf{F} \cdot d\mathbf{a} = \int_{\mathrm{I}} \mathbf{F} \cdot d\mathbf{a} - \int_{\mathrm{II}} \mathbf{F} \cdot d\mathbf{a} = 0.
+$$
+
+- **(c) $\Rightarrow$ (a):** By the divergence theorem, for every volume $\mathcal{V}$ with boundary $\mathcal{S} = \partial \mathcal{V}$,
+
+$$
+\int_{\mathcal{V}} (\nabla \cdot \mathbf{F}) \, d\tau = \oint_{\mathcal{S}} \mathbf{F} \cdot d\mathbf{a} = 0.
+$$
+
+Because this holds for an arbitrary small volume around any point, $\nabla \cdot \mathbf{F} = 0$ everywhere.
+
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.53" title="Potentials for Problem 1.15 Vector Fields" tag="Griffiths 1.53 · Potentials">
+  <div slot="problem">
+
+(a) Which of the vectors in Problem 1.15 can be expressed as the gradient of a scalar? Find a scalar function that does the job.
+
+(b) Which can be expressed as the curl of a vector? Find such a vector.
+
+  </div>
+  <div slot="answer">
+
+(a) $\mathbf{v}_c = y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}$ is curl-free and equals $\nabla t$ for $t = xy^2 + yz^2$ (up to an additive constant).
+
+(b) $\mathbf{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$ is divergence-free and equals $\nabla \times \mathbf{W}$ for $\mathbf{W} = -x^2 z\,\hat{y} - \frac{3}{2}x^2 z^2\,\hat{z}$ (not unique; any $\nabla \lambda$ may be added).
+
+  </div>
+  <div slot="solution">
+
+From Problem 1.15 and Problem 1.18, among the three vector fields $\mathbf{v}_a, \mathbf{v}_b, \mathbf{v}_c$:
+- $\nabla \cdot \mathbf{v}_a = 0$, while $\nabla \times \mathbf{v}_a \neq \mathbf{0}$;
+- $\nabla \times \mathbf{v}_c = \mathbf{0}$, while $\nabla \cdot \mathbf{v}_c \neq 0$;
+- $\mathbf{v}_b$ has neither zero divergence nor zero curl.
+
+Hence $\mathbf{v}_c$ can be written as the gradient of a scalar, and $\mathbf{v}_a$ can be written as the curl of a vector.
+
+**(a)** For $\mathbf{v}_c = y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}$, we seek $t(x,y,z)$ such that $\mathbf{v}_c = \nabla t$:
+
+$$
+\text{(1)}\;\frac{\partial t}{\partial x} = y^2, \qquad \text{(2)}\;\frac{\partial t}{\partial y} = 2xy + z^2, \qquad \text{(3)}\;\frac{\partial t}{\partial z} = 2yz.
+$$
+
+Integrating (1) gives $t = xy^2 + f(y,z)$. Substituting into (3) gives
+
+$$
+\frac{\partial f}{\partial z} = 2yz \implies f(y,z) = yz^2 + g(y),
+$$
+
+so $t = xy^2 + yz^2 + g(y)$. Differentiating with respect to $y$ and comparing with (2):
+
+$$
+\frac{\partial t}{\partial y} = 2xy + z^2 + \frac{dg}{dy} = 2xy + z^2 \implies \frac{dg}{dy} = 0.
+$$
+
+Choosing $g = 0$ gives
+
+$$
+t = xy^2 + yz^2
+$$
+
+(or $V = -(xy^2 + yz^2)$ if using $\mathbf{v}_c = -\nabla V$).
+
+**(b)** For $\mathbf{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$, we seek $\mathbf{W}$ such that $\nabla \times \mathbf{W} = \mathbf{v}_a$:
+
+$$
+\frac{\partial W_z}{\partial y} - \frac{\partial W_y}{\partial z} = x^2, \qquad \frac{\partial W_x}{\partial z} - \frac{\partial W_z}{\partial x} = 3xz^2, \qquad \frac{\partial W_y}{\partial x} - \frac{\partial W_x}{\partial y} = -2xz.
+$$
+
+Exploiting the gauge freedom $\mathbf{W} \to \mathbf{W} + \nabla \lambda$, choose the gauge $W_x = 0$. The second and third equations become
+
+$$
+\frac{\partial W_z}{\partial x} = -3xz^2 \implies W_z = -\frac{3}{2}x^2 z^2 + f(y,z),
+$$
+
+$$
+\frac{\partial W_y}{\partial x} = -2xz \implies W_y = -x^2 z + g(y,z).
+$$
+
+Substituting these into the first equation yields
+
+$$
+\frac{\partial W_z}{\partial y} - \frac{\partial W_y}{\partial z} = \frac{\partial f}{\partial y} + x^2 - \frac{\partial g}{\partial z} = x^2 \implies \frac{\partial f}{\partial y} - \frac{\partial g}{\partial z} = 0.
+$$
+
+Taking $f = g = 0$ gives
+
+$$
+\mathbf{W} = -x^2 z\,\hat{y} - \frac{3}{2}x^2 z^2\,\hat{z}.
+$$
+
+**Check:**
+
+$$
+\nabla \times \mathbf{W} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ 0 & -x^2 z & -\frac{3}{2}x^2 z^2 \end{vmatrix} = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z} = \mathbf{v}_a.
+$$
+
+Because any gradient $\nabla \lambda$ can be added to $\mathbf{W}$ without changing $\nabla \times \mathbf{W}$, this vector potential is not unique. Other valid choices include:
+
+$$
+\mathbf{W} = xz^3\hat{x} - x^2 z\,\hat{y}, \qquad \mathbf{W} = (2xyz + xz^3)\hat{x} + x^2 y\,\hat{z}, \qquad \mathbf{W} = xyz\,\hat{x} - \frac{1}{2}x^2 z\,\hat{y} + \frac{1}{2}x^2(y - 3z^2)\hat{z}.
+$$
+
+  </div>
+</ProblemCard>
+
+</section>

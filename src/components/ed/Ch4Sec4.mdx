@@ -1,0 +1,824 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch4-sec4" class="ed-sec-block">
+
+### 4.4 Linear Dielectrics
+
+<div class="ed-theory-box">
+
+#### 4.4.1 Susceptibility, Permittivity, and Dielectric Constant
+
+In an isotropic **linear dielectric** (below dielectric breakdown or saturation), the induced macroscopic polarization $\vec{P}$ is directly proportional to the *total* macroscopic electric field $\vec{E}$:
+
+$$
+\vec{P} = \epsilon_0 \chi_e \vec{E}
+$$
+
+where $\chi_e$ is the dimensionless **electric susceptibility**. (For anisotropic crystals, $\chi_e$ generalizes to the rank-2 susceptibility tensor $\chi_{e,ij}$ via $P_i = \epsilon_0 \sum_j \chi_{e,ij} E_j$.) Substituting this constitutive relation into $\vec{D} = \epsilon_0 \vec{E} + \vec{P}$ yields
+
+$$
+\vec{D} = \epsilon_0(1 + \chi_e)\vec{E} = \epsilon \vec{E}
+$$
+
+where the **permittivity** $\epsilon$ and dimensionless **relative permittivity (dielectric constant)** $\epsilon_r$ are defined by
+
+$$
+\epsilon \equiv \epsilon_0 (1 + \chi_e), \qquad \epsilon_r \equiv \frac{\epsilon}{\epsilon_0} = 1 + \chi_e
+$$
+
+Taking the curl gives $\nabla \times \vec{D} = \nabla \times \vec{P} = -\epsilon_0 \vec{E} \times \nabla \chi_e$. Consequently, at interfaces where $\chi_e$ jumps discontinuously, $\nabla \times \vec{D} \neq \vec{0}$ and $\vec{D}$ is not determined solely by the free charge $\rho_f$—unless planar, cylindrical, or spherical symmetry forces $\nabla \times \vec{P} = \vec{0}$, or a **homogeneous** linear dielectric fills all space where $\vec{E} \neq \vec{0}$, in which case $\vec{D} = \epsilon_0 \vec{E}_{\text{vac}}$ and $\vec{E} = \vec{E}_{\text{vac}}/\epsilon_r$.
+
+#### 4.4.2 Boundary Value Problems with Linear Dielectrics
+
+Inside a homogeneous isotropic linear dielectric, the bound volume charge density is strictly proportional to the free charge density:
+
+$$
+\rho_b = -\nabla \cdot \vec{P} = -\nabla \cdot \left(\frac{\epsilon_0 \chi_e}{\epsilon}\vec{D}\right) = -\frac{\chi_e}{1 + \chi_e}\rho_f
+$$
+
+Wherever $\rho_f = 0$, the total volume charge density vanishes ($\rho_{\text{tot}} = \rho_f + \rho_b = 0$) and the electrostatic potential satisfies Laplace's equation $\nabla^2 V = 0$. Across an interface between two linear media (with normal $\hat{n}$ pointing from "below" to "above"), the boundary conditions formulated solely in terms of $V$ and the free surface charge $\sigma_f$ are
+
+$$
+V_{\text{above}} = V_{\text{below}}, \qquad \epsilon_{\text{above}}\frac{\partial V_{\text{above}}}{\partial n} - \epsilon_{\text{below}}\frac{\partial V_{\text{below}}}{\partial n} = -\sigma_f
+$$
+
+(equivalently $D_{\text{above}}^\perp - D_{\text{below}}^\perp = \sigma_f$ and $\vec{E}_{\text{above}}^\parallel = \vec{E}_{\text{below}}^\parallel$). All standard Chapter 3 techniques—separation of variables, spherical/cylindrical harmonics, and the method of images—apply directly.
+
+#### 4.4.3 Electrostatic Energy in Linear Dielectrics
+
+When an infinitesimal free charge $\delta \rho_f$ is brought in with the dielectric geometry held fixed, the work done on the free charge is $\delta W = \int (\delta\rho_f) V\,d\tau = \int \vec{E}\cdot \delta\vec{D}\,d\tau$ (after integrating by parts using $\nabla\cdot \delta\vec{D} = \delta\rho_f$ and $\vec{E} = -\nabla V$). For a **linear** dielectric ($\vec{D} = \epsilon\vec{E}$), $\vec{E}\cdot\delta\vec{D} = \frac{1}{2}\delta(\vec{D}\cdot\vec{E})$, so integrating from zero field gives the total stored energy:
+
+$$
+W = \frac{1}{2}\int \vec{D}\cdot\vec{E}\,d\tau = \frac{1}{2}\int \epsilon E^2\,d\tau
+$$
+
+Unlike $W_{\text{vac}} = \frac{\epsilon_0}{2}\int E^2\,d\tau$ (which tracks only the macroscopic electrostatic energy of fixed total charge), $W = \frac{1}{2}\int \vec{D}\cdot\vec{E}\,d\tau$ includes the internal mechanical ("spring") energy stored in polarizing the molecules as external agents assemble the free charges. This formula fails for nonlinear, dissipative, or frozen-in (electret) media.
+
+#### 4.4.4 Forces on Dielectrics
+
+Because bound charge accumulates near opposite free charge, a dielectric is drawn into regions of stronger electric field (e.g., into a capacitor via its nonuniform fringing field). Virtual work bypasses explicit calculation of the fringing fields. If the dielectric shifts by $dx$ at **constant free charge $Q$**, $W = \frac{Q^2}{2C}$ and the electrical force is
+
+$$
+F_x = -\left.\frac{\partial W}{\partial x}\right|_Q = \frac{Q^2}{2C^2}\frac{dC}{dx} = \frac{1}{2}V^2\frac{dC}{dx}
+$$
+
+If instead the system is held at **constant potential $V$** by a battery, energy balance includes the work $V\,dQ$ supplied by the battery, $dW = -F_x\,dx + V\,dQ$, yielding the identical physical force:
+
+$$
+F_x = -\left.\frac{\partial W}{\partial x}\right|_V + V\frac{dQ}{dx} = -\frac{1}{2}V^2\frac{dC}{dx} + V^2\frac{dC}{dx} = +\frac{1}{2}V^2\frac{dC}{dx}
+$$
+
+</div>
+
+<ProblemCard num="4.18" title="Two Dielectric Slabs in a Parallel-Plate Capacitor" tag="Griffiths 4.18 · Displacement, Bound Charge & Consistency Check">
+<div slot="problem">
+
+The space between the plates of a parallel-plate capacitor is filled with two slabs of linear dielectric material. Each slab has thickness $a$, so the total distance between the plates is $2a$. Slab 1 (top) has dielectric constant $\epsilon_{r1} = 2$, and Slab 2 (bottom) has dielectric constant $\epsilon_{r2} = 1.5$. The free charge density on the top plate is $+\sigma$ and on the bottom plate is $-\sigma$.
+
+(a) Find the electric displacement $\vec{D}$ in each slab.
+
+(b) Find the electric field $\vec{E}$ in each slab.
+
+(c) Find the polarization $\vec{P}$ in each slab.
+
+(d) Find the potential difference between the plates.
+
+(e) Find the location and amount of all bound charge.
+
+(f) Now that you know all the charge (free and bound), recalculate the field in each slab, and confirm your answer to (b).
+
+</div>
+<div slot="answer">
+
+Let $\hat{n}$ denote the unit vector pointing downward (from the $+\sigma$ plate toward the $-\sigma$ plate).
+
+(a) $\vec{D}_1 = \vec{D}_2 = \sigma\,\hat{n}$.
+
+(b) $\vec{E}_1 = \dfrac{\sigma}{2\epsilon_0}\,\hat{n}$, $\vec{E}_2 = \dfrac{2\sigma}{3\epsilon_0}\,\hat{n}$.
+
+(c) $\vec{P}_1 = \dfrac{\sigma}{2}\,\hat{n}$, $\vec{P}_2 = \dfrac{\sigma}{3}\,\hat{n}$.
+
+(d) $V = \dfrac{7\sigma a}{6\epsilon_0}$.
+
+(e) $\rho_b = 0$ everywhere; $\sigma_b = -\dfrac{\sigma}{2}$ (top of Slab 1), $+\dfrac{\sigma}{2}$ (bottom of Slab 1), $-\dfrac{\sigma}{3}$ (top of Slab 2), $+\dfrac{\sigma}{3}$ (bottom of Slab 2). Net bound surface charge at the interface is $+\dfrac{\sigma}{6}$.
+
+(f) Summing the infinite-sheet fields of free and bound layers gives $E_1 = \dfrac{\sigma}{2\epsilon_0}$ and $E_2 = \dfrac{2\sigma}{3\epsilon_0}$ downward, matching (b).
+
+</div>
+<div slot="solution">
+
+Let $\hat{n}$ be the unit vector pointing downward from the top plate ($+\sigma$) to the bottom plate ($-\sigma$).
+
+**(a) Electric displacement:** Because the system has planar symmetry, $\nabla \times \vec{P} = \vec{0}$ and $\vec{D}$ is purely vertical. Apply Gauss's law $\oint \vec{D} \cdot d\vec{a} = Q_{f,\text{enc}}$ to a Gaussian pillbox of cross-sectional area $A$ whose top face lies inside the upper conducting plate (where $\vec{D} = \vec{0}$) and whose bottom face lies inside either Slab 1 or Slab 2:
+
+$$
+D A = \sigma A \implies \vec{D}_1 = \vec{D}_2 = \sigma\,\hat{n}
+$$
+
+**(b) Electric field:** Using $\vec{E} = \vec{D}/\epsilon = \vec{D}/(\epsilon_0 \epsilon_r)$ with $\epsilon_{r1} = 2$ and $\epsilon_{r2} = 3/2$:
+
+$$
+\vec{E}_1 = \frac{\sigma}{2\epsilon_0}\,\hat{n}, \qquad \vec{E}_2 = \frac{\sigma}{(3/2)\epsilon_0}\,\hat{n} = \frac{2\sigma}{3\epsilon_0}\,\hat{n}
+$$
+
+**(c) Polarization:** Using $\vec{P} = \epsilon_0 \chi_e \vec{E} = \epsilon_0(\epsilon_r - 1)\vec{E} = \left(1 - \frac{1}{\epsilon_r}\right)\vec{D}$:
+
+$$
+\vec{P}_1 = \left(1 - \frac{1}{2}\right)\sigma\,\hat{n} = \frac{\sigma}{2}\,\hat{n}, \qquad \vec{P}_2 = \left(1 - \frac{2}{3}\right)\sigma\,\hat{n} = \frac{\sigma}{3}\,\hat{n}
+$$
+
+**(d) Potential difference:** Integrating $\vec{E}$ from the bottom plate to the top plate:
+
+$$
+V = E_1 a + E_2 a = \left(\frac{1}{2} + \frac{2}{3}\right)\frac{\sigma a}{\epsilon_0} = \frac{7\sigma a}{6\epsilon_0}
+$$
+
+**(e) Bound charges:** Since $\vec{P}$ is uniform within each slab, the volume bound charge density vanishes: $\rho_b = -\nabla \cdot \vec{P} = 0$. The surface bound charge density on each face is $\sigma_b = \vec{P} \cdot \hat{n}_{\text{out}}$, where $\hat{n}_{\text{out}}$ is the outward normal from that slab ($-\hat{n}$ on top faces, $+\hat{n}$ on bottom faces):
+
+$$
+\sigma_{b,1,\text{top}} = -\frac{\sigma}{2}, \qquad \sigma_{b,1,\text{bot}} = +\frac{\sigma}{2}, \qquad \sigma_{b,2,\text{top}} = -\frac{\sigma}{3}, \qquad \sigma_{b,2,\text{bot}} = +\frac{\sigma}{3}
+$$
+
+(At the interface between Slabs 1 and 2, the combined bound charge density is $+\sigma/2 - \sigma/3 = +\sigma/6$.)
+
+**(f) Direct field recalculation:** An infinite sheet of surface charge $\sigma_{\text{sheet}}$ produces an electric field $\sigma_{\text{sheet}}/(2\epsilon_0)$ pointing away from the sheet.
+
+- **In Slab 1:** Total surface charge above Slab 1 is $\sigma - \frac{\sigma}{2} = +\frac{\sigma}{2}$; total surface charge below Slab 1 is $\left(+\frac{\sigma}{2} - \frac{\sigma}{3}\right) + \left(+\frac{\sigma}{3} - \sigma\right) = -\frac{\sigma}{2}$. Therefore,
+
+$$
+\vec{E}_1 = \frac{+\sigma/2}{2\epsilon_0}\,\hat{n} - \frac{-\sigma/2}{2\epsilon_0}\,\hat{n} = \frac{\sigma}{2\epsilon_0}\,\hat{n}
+$$
+
+- **In Slab 2:** Total surface charge above Slab 2 is $\sigma - \frac{\sigma}{2} + \frac{\sigma}{2} - \frac{\sigma}{3} = +\frac{2\sigma}{3}$; total surface charge below Slab 2 is $+\frac{\sigma}{3} - \sigma = -\frac{2\sigma}{3}$. Therefore,
+
+$$
+\vec{E}_2 = \frac{+2\sigma/3}{2\epsilon_0}\,\hat{n} - \frac{-2\sigma/3}{2\epsilon_0}\,\hat{n} = \frac{2\sigma}{3\epsilon_0}\,\hat{n}
+$$
+
+Both results match part (b) exactly.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.19" title="Half-Filled Parallel-Plate Capacitor (Series vs. Parallel)" tag="Griffiths 4.19 · Capacitance & Boundary Fields">
+<div slot="problem">
+
+Suppose you have enough linear dielectric material, of dielectric constant $\epsilon_r$, to half-fill a parallel-plate capacitor of plate area $A$ and separation $d$.
+
+(a) By what fraction is the capacitance increased when the dielectric fills the lower half of the gap across the full area $A$ (configuration a)?
+
+(b) By what fraction is the capacitance increased when the dielectric fills the left half of the area $A/2$ across the full gap $d$ (configuration b)?
+
+For a given potential difference $V$ between the plates, find $\vec{E}$, $\vec{D}$, and $\vec{P}$ in each region, and the free and bound charge densities on all surfaces, for both cases.
+
+</div>
+<div slot="answer">
+
+With vacuum capacitance $C_0 = \dfrac{\epsilon_0 A}{d}$ and $\hat{x}$ pointing downward from the higher-potential top plate to the lower-potential bottom plate:
+
+(a) $C_a = \dfrac{2\epsilon_r}{1+\epsilon_r} C_0$, so the fractional increase is $\dfrac{C_a - C_0}{C_0} = \dfrac{\epsilon_r - 1}{\epsilon_r + 1}$.
+
+- Air: $\vec{E} = \dfrac{2\epsilon_r V}{(\epsilon_r + 1)d}\hat{x}$, $\vec{D} = \dfrac{2\epsilon_r \epsilon_0 V}{(\epsilon_r + 1)d}\hat{x}$, $\vec{P} = \vec{0}$.
+- Dielectric: $\vec{E} = \dfrac{2V}{(\epsilon_r + 1)d}\hat{x}$, $\vec{D} = \dfrac{2\epsilon_r \epsilon_0 V}{(\epsilon_r + 1)d}\hat{x}$, $\vec{P} = \dfrac{2(\epsilon_r - 1)\epsilon_0 V}{(\epsilon_r + 1)d}\hat{x}$.
+- Free charge: $\sigma_f = \pm\dfrac{2\epsilon_r \epsilon_0 V}{(\epsilon_r + 1)d}$ (top/bottom plates). Bound charge on dielectric: $\sigma_b = \mp\dfrac{2(\epsilon_r - 1)\epsilon_0 V}{(\epsilon_r + 1)d}$ (top/bottom faces).
+
+(b) $C_b = \dfrac{1+\epsilon_r}{2} C_0$, so the fractional increase is $\dfrac{C_b - C_0}{C_0} = \dfrac{\epsilon_r - 1}{2}$.
+
+- Air: $\vec{E} = \dfrac{V}{d}\hat{x}$, $\vec{D} = \dfrac{\epsilon_0 V}{d}\hat{x}$, $\vec{P} = \vec{0}$.
+- Dielectric: $\vec{E} = \dfrac{V}{d}\hat{x}$, $\vec{D} = \dfrac{\epsilon_r \epsilon_0 V}{d}\hat{x}$, $\vec{P} = \dfrac{(\epsilon_r - 1)\epsilon_0 V}{d}\hat{x}$.
+- Free charge on top plate: $\sigma_{f,\text{left}} = \dfrac{\epsilon_r \epsilon_0 V}{d}$, $\sigma_{f,\text{right}} = \dfrac{\epsilon_0 V}{d}$ (opposite signs on bottom plate). Bound charge on dielectric: $\sigma_b = \mp\dfrac{(\epsilon_r - 1)\epsilon_0 V}{d}$ (top/bottom faces).
+
+</div>
+<div slot="solution">
+
+Let the top plate be at potential $V$, the bottom plate be grounded ($0$), and the unit vector $\hat{x}$ point downward from top to bottom. Without any dielectric, $C_0 = \epsilon_0 A / d$.
+
+**(a) Configuration (a) — Series arrangement (air thickness $d/2$, dielectric thickness $d/2$):**
+
+Let the top and bottom plates carry uniform free charge densities $+\sigma_f$ and $-\sigma_f$, with total charge $Q = \sigma_f A$. By planar symmetry, $\vec{D} = \sigma_f \hat{x}$ in both regions. Thus
+
+$$
+E_{\text{air}} = \frac{\sigma_f}{\epsilon_0}, \qquad E_{\text{diel}} = \frac{\sigma_f}{\epsilon_0 \epsilon_r}
+$$
+
+The potential difference is
+
+$$
+V = E_{\text{air}}\frac{d}{2} + E_{\text{diel}}\frac{d}{2} = \frac{\sigma_f d}{2\epsilon_0}\left(1 + \frac{1}{\epsilon_r}\right) = \frac{Q d}{2\epsilon_0 A}\frac{\epsilon_r + 1}{\epsilon_r}
+$$
+
+Hence the capacitance and fractional increase are
+
+$$
+C_a = \frac{Q}{V} = \frac{\epsilon_0 A}{d}\left(\frac{2\epsilon_r}{1+\epsilon_r}\right) = \frac{2\epsilon_r}{1+\epsilon_r} C_0, \qquad \frac{C_a - C_0}{C_0} = \frac{2\epsilon_r}{1+\epsilon_r} - 1 = \frac{\epsilon_r - 1}{\epsilon_r + 1}
+$$
+
+Solving for $\sigma_f$ in terms of $V$ gives $\sigma_f = \frac{2\epsilon_r \epsilon_0 V}{(\epsilon_r + 1)d}$ on the top plate ($-\sigma_f$ on the bottom plate). Therefore:
+
+- **In air:**
+
+$$
+\vec{D}_{\text{air}} = \frac{2\epsilon_r \epsilon_0 V}{(\epsilon_r + 1)d}\hat{x}, \qquad \vec{E}_{\text{air}} = \frac{2\epsilon_r V}{(\epsilon_r + 1)d}\hat{x}, \qquad \vec{P}_{\text{air}} = \vec{0}
+$$
+
+- **In dielectric:**
+
+$$
+\vec{D}_{\text{diel}} = \frac{2\epsilon_r \epsilon_0 V}{(\epsilon_r + 1)d}\hat{x}, \qquad \vec{E}_{\text{diel}} = \frac{2V}{(\epsilon_r + 1)d}\hat{x}, \qquad \vec{P}_{\text{diel}} = \epsilon_0(\epsilon_r - 1)\vec{E}_{\text{diel}} = \frac{2(\epsilon_r - 1)\epsilon_0 V}{(\epsilon_r + 1)d}\hat{x}
+$$
+
+Since $\vec{P}_{\text{diel}}$ is uniform, $\rho_b = 0$. On the top face of the dielectric ($\hat{n}_{\text{out}} = -\hat{x}$) and bottom face ($\hat{n}_{\text{out}} = +\hat{x}$), the bound surface charges are
+
+$$
+\sigma_{b,\text{top}} = -\frac{2(\epsilon_r - 1)\epsilon_0 V}{(\epsilon_r + 1)d}, \qquad \sigma_{b,\text{bot}} = +\frac{2(\epsilon_r - 1)\epsilon_0 V}{(\epsilon_r + 1)d}
+$$
+
+**(b) Configuration (b) — Parallel arrangement (left area $A/2$ dielectric, right area $A/2$ air):**
+
+Neglecting edge fringing at the central boundary, the electric field is uniform and identical in both halves because each spans the same potential difference $V$ over distance $d$:
+
+$$
+\vec{E}_{\text{air}} = \vec{E}_{\text{diel}} = \frac{V}{d}\hat{x}
+$$
+
+Using $\vec{D} = \epsilon \vec{E}$ and $\vec{P} = \epsilon_0(\epsilon_r - 1)\vec{E}$:
+
+- **In air (right half):**
+
+$$
+\vec{D}_{\text{air}} = \frac{\epsilon_0 V}{d}\hat{x}, \qquad \vec{P}_{\text{air}} = \vec{0}
+$$
+
+- **In dielectric (left half):**
+
+$$
+\vec{D}_{\text{diel}} = \frac{\epsilon_r \epsilon_0 V}{d}\hat{x}, \qquad \vec{P}_{\text{diel}} = \frac{(\epsilon_r - 1)\epsilon_0 V}{d}\hat{x}
+$$
+
+The free charge densities on the top plate are determined by $D^\perp$:
+
+$$
+\sigma_{f,\text{left}} = \frac{\epsilon_r \epsilon_0 V}{d}, \qquad \sigma_{f,\text{right}} = \frac{\epsilon_0 V}{d}
+$$
+
+with opposite signs on the bottom plate. The bound charge densities on the dielectric are $\rho_b = 0$ inside, and on its top/bottom faces:
+
+$$
+\sigma_{b,\text{top}} = -\frac{(\epsilon_r - 1)\epsilon_0 V}{d}, \qquad \sigma_{b,\text{bot}} = +\frac{(\epsilon_r - 1)\epsilon_0 V}{d}
+$$
+
+(There is zero bound charge on the vertical interface since $\vec{P}_{\text{diel}}$ is parallel to it.) The total free charge on the top plate is
+
+$$
+Q = \frac{A}{2}\left(\sigma_{f,\text{left}} + \sigma_{f,\text{right}}\right) = \frac{\epsilon_0 A V}{2d}(1 + \epsilon_r)
+$$
+
+so the capacitance and fractional increase are
+
+$$
+C_b = \frac{Q}{V} = \frac{\epsilon_0 A}{d}\left(\frac{1+\epsilon_r}{2}\right) = \frac{1+\epsilon_r}{2} C_0, \qquad \frac{C_b - C_0}{C_0} = \frac{\epsilon_r - 1}{2}
+$$
+
+(Note that $C_b - C_a = C_0\frac{(\epsilon_r - 1)^2}{2(\epsilon_r + 1)} > 0$ for $\epsilon_r > 1$, so the parallel configuration always achieves a larger capacitance.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.20" title="Potential of a Uniformly Charged Linear Dielectric Sphere" tag="Griffiths 4.20 · Spherical Symmetry & Gauss's Law for D">
+<div slot="problem">
+
+A sphere of linear dielectric material has embedded in it a uniform free charge density $\rho$. Find the potential at the center of the sphere (relative to infinity), if its radius is $R$ and the dielectric constant is $\epsilon_r$.
+
+</div>
+<div slot="answer">
+
+$$
+V(0) = \frac{\rho R^2}{3\epsilon_0}\left(1 + \frac{1}{2\epsilon_r}\right)
+$$
+
+</div>
+<div slot="solution">
+
+Because the free charge distribution and dielectric medium are spherically symmetric, we can determine $\vec{D}(r)$ directly from Gauss's law, $\oint \vec{D} \cdot d\vec{a} = Q_{f,\text{enc}}$, using concentric spherical Gaussian surfaces of radius $r$:
+
+- **Inside the sphere ($r < R$):**
+
+$$
+D(4\pi r^2) = \rho\left(\frac{4}{3}\pi r^3\right) \implies \vec{D} = \frac{\rho r}{3}\hat{r} \implies \vec{E} = \frac{\vec{D}}{\epsilon_0 \epsilon_r} = \frac{\rho r}{3\epsilon_0 \epsilon_r}\hat{r}
+$$
+
+- **Outside the sphere ($r > R$):**
+
+$$
+D(4\pi r^2) = \rho\left(\frac{4}{3}\pi R^3\right) \implies \vec{D} = \frac{\rho R^3}{3r^2}\hat{r} \implies \vec{E} = \frac{\vec{D}}{\epsilon_0} = \frac{\rho R^3}{3\epsilon_0 r^2}\hat{r}
+$$
+
+Integrating $\vec{E}$ from infinity to the center gives the potential $V(0)$:
+
+$$
+V(0) = -\int_\infty^0 \vec{E}\cdot d\vec{l} = \int_0^R \frac{\rho r}{3\epsilon_0 \epsilon_r}\,dr + \int_R^\infty \frac{\rho R^3}{3\epsilon_0 r^2}\,dr
+$$
+
+$$
+V(0) = \frac{\rho R^2}{6\epsilon_0 \epsilon_r} + \frac{\rho R^2}{3\epsilon_0} = \frac{\rho R^2}{3\epsilon_0}\left(1 + \frac{1}{2\epsilon_r}\right)
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.21" title="Coaxial Cable Partially Filled with Dielectric" tag="Griffiths 4.21 · Cylindrical Symmetry & Capacitance per Unit Length">
+<div slot="problem">
+
+A certain coaxial cable consists of a copper wire of radius $a$, surrounded by a concentric copper tube of inner radius $c$. The space between is partially filled (from radius $b$ out to $c$, with $a < b < c$) with linear dielectric material of dielectric constant $\epsilon_r$. Find the capacitance per unit length of this cable.
+
+</div>
+<div slot="answer">
+
+$$
+\frac{C}{\ell} = \frac{2\pi\epsilon_0}{\ln(b/a) + \dfrac{1}{\epsilon_r}\ln(c/b)}
+$$
+
+</div>
+<div slot="solution">
+
+Place a free charge $Q$ on a length $\ell$ of the inner copper wire (so the linear free charge density is $\lambda = Q/\ell$). By cylindrical symmetry, applying Gauss's law $\oint \vec{D}\cdot d\vec{a} = Q_{f,\text{enc}}$ to a coaxial cylinder of radius $s$ ($a < s < c$) and length $\ell$ yields
+
+$$
+D(2\pi s \ell) = Q \implies \vec{D} = \frac{Q}{2\pi s \ell}\hat{s}
+$$
+
+The electric field in the vacuum gap and the dielectric jacket is therefore
+
+$$
+\vec{E} = \begin{cases} \dfrac{Q}{2\pi\epsilon_0 s \ell}\hat{s}, & a < s < b \\ \dfrac{Q}{2\pi\epsilon_0 \epsilon_r s \ell}\hat{s}, & b < s < c \end{cases}
+$$
+
+The potential difference between the inner wire and outer tube is
+
+$$
+V = -\int_c^a \vec{E}\cdot d\vec{l} = \int_a^b \frac{Q}{2\pi\epsilon_0 s \ell}\,ds + \int_b^c \frac{Q}{2\pi\epsilon_0 \epsilon_r s \ell}\,ds = \frac{Q}{2\pi\epsilon_0 \ell}\left[\ln\left(\frac{b}{a}\right) + \frac{1}{\epsilon_r}\ln\left(\frac{c}{b}\right)\right]
+$$
+
+Hence the capacitance per unit length is
+
+$$
+\frac{C}{\ell} = \frac{Q}{V\ell} = \frac{2\pi\epsilon_0}{\ln(b/a) + \dfrac{1}{\epsilon_r}\ln(c/b)}
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.22" title="Dielectric Cylinder in a Uniform Electric Field" tag="Griffiths 4.22 · 2D Laplace Equation & Cylindrical Harmonics">
+<div slot="problem">
+
+A very long cylinder of linear dielectric material is placed in an otherwise uniform electric field $\vec{E}_0$. Find the resulting field within the cylinder. (The radius is $a$, the susceptibility is $\chi_e$, and the axis is perpendicular to $\vec{E}_0$.)
+
+</div>
+<div slot="answer">
+
+$$
+\vec{E}_{\text{in}} = \frac{1}{1 + \chi_e/2}\vec{E}_0 = \frac{2}{\epsilon_r + 1}\vec{E}_0
+$$
+
+</div>
+<div slot="solution">
+
+Align the cylinder axis along $\hat{z}$ and take the external field along $\hat{x}$, so $\vec{E}_0 = E_0 \hat{x}$. Because there is no free charge inside or on the cylinder ($\rho_f = 0$, $\sigma_f = 0$), the potential satisfies the 2D Laplace equation $\nabla^2 V(s,\phi) = 0$ both inside ($s < a$) and outside ($s > a$), subject to the boundary conditions:
+
+1. $V_{\text{in}}(a,\phi) = V_{\text{out}}(a,\phi)$,
+2. $\epsilon \left.\dfrac{\partial V_{\text{in}}}{\partial s}\right|_{s=a} = \epsilon_0 \left.\dfrac{\partial V_{\text{out}}}{\partial s}\right|_{s=a}$ (equivalently $\epsilon_r \left.\dfrac{\partial V_{\text{in}}}{\partial s}\right|_{s=a} = \left.\dfrac{\partial V_{\text{out}}}{\partial s}\right|_{s=a}$),
+3. $V_{\text{out}}(s,\phi) \to -E_0 s \cos\phi$ for $s \gg a$.
+
+Setting the reference potential $V = 0$ on the $yz$-plane ($\phi = \pm \pi/2$), and discarding $\ln s$ terms (which diverge at the origin inside and correspond to nonzero net free charge outside), the general cylindrical harmonic expansions are
+
+$$
+V_{\text{in}}(s,\phi) = \sum_{k=1}^\infty s^k \left(a_k \cos k\phi + b_k \sin k\phi\right)
+$$
+
+$$
+V_{\text{out}}(s,\phi) = -E_0 s \cos\phi + \sum_{k=1}^\infty s^{-k} \left(c_k \cos k\phi + d_k \sin k\phi\right)
+$$
+
+Applying boundary condition (1) at $s = a$:
+
+$$
+\sum_{k=1}^\infty a^k (a_k \cos k\phi + b_k \sin k\phi) = -E_0 a \cos\phi + \sum_{k=1}^\infty a^{-k} (c_k \cos k\phi + d_k \sin k\phi)
+$$
+
+Applying boundary condition (2) at $s = a$:
+
+$$
+\epsilon_r \sum_{k=1}^\infty k a^{k-1} (a_k \cos k\phi + b_k \sin k\phi) = -E_0 \cos\phi - \sum_{k=1}^\infty k a^{-k-1} (c_k \cos k\phi + d_k \sin k\phi)
+$$
+
+By the linear independence (orthogonality) of $\cos k\phi$ and $\sin k\phi$ on $[0,2\pi]$, all coefficients vanish except $a_1$ and $c_1$. For $k = 1$:
+
+$$
+a a_1 = -E_0 a + a^{-1} c_1 \implies c_1 = a^2(a_1 + E_0)
+$$
+
+$$
+\epsilon_r a_1 = -E_0 - a^{-2} c_1 \implies c_1 = -a^2(\epsilon_r a_1 + E_0)
+$$
+
+Equating these two expressions for $c_1$ yields
+
+$$
+a_1 + E_0 = -\epsilon_r a_1 - E_0 \implies (\epsilon_r + 1)a_1 = -2E_0 \implies a_1 = -\frac{2}{\epsilon_r + 1}E_0 = -\frac{E_0}{1 + \chi_e/2}
+$$
+
+Thus the interior potential is linear in $x = s\cos\phi$:
+
+$$
+V_{\text{in}}(s,\phi) = -\frac{E_0}{1 + \chi_e/2} s\cos\phi = -\frac{E_0}{1 + \chi_e/2} x
+$$
+
+and the electric field inside the cylinder is uniform:
+
+$$
+\vec{E}_{\text{in}} = -\nabla V_{\text{in}} = \frac{1}{1 + \chi_e/2}\vec{E}_0 = \frac{2}{\epsilon_r + 1}\vec{E}_0
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.23" title="Dielectric Sphere in a Uniform Field via Successive Approximations" tag="Griffiths 4.23 · Iterative Polarization Series">
+<div slot="problem">
+
+Find the field inside a sphere of linear dielectric material in an otherwise uniform electric field $\vec{E}_0$ (Example 4.7) by the method of successive approximations: First pretend the field inside is just $\vec{E}_0$, and use $\vec{P} = \epsilon_0 \chi_e \vec{E}$ to write down the resulting polarization $\vec{P}_0$. This polarization generates a field of its own, $\vec{E}_1$, which in turn modifies the polarization by an amount $\vec{P}_1$, which further changes the field by an amount $\vec{E}_2$, and so on. The resulting field is $\vec{E}_0 + \vec{E}_1 + \vec{E}_2 + \cdots$. Sum the series, and compare your answer with Eq. 4.49.
+
+</div>
+<div slot="answer">
+
+$$
+\vec{E} = \sum_{n=0}^\infty \left(-\frac{\chi_e}{3}\right)^n \vec{E}_0 = \frac{1}{1 + \chi_e/3}\vec{E}_0 = \frac{3}{\epsilon_r + 2}\vec{E}_0
+$$
+
+which matches Eq. 4.49.
+
+</div>
+<div slot="solution">
+
+From Example 4.2, a sphere carrying a uniform polarization $\vec{P}$ produces an exactly uniform electric field in its interior given by
+
+$$
+\vec{E}_{\text{self}} = -\frac{1}{3\epsilon_0}\vec{P}
+$$
+
+Starting with the zeroth-order field $\vec{E}_0$ inside the sphere, the induced polarization is
+
+$$
+\vec{P}_0 = \epsilon_0 \chi_e \vec{E}_0
+$$
+
+This uniform polarization generates a first-order depolarization field:
+
+$$
+\vec{E}_1 = -\frac{1}{3\epsilon_0}\vec{P}_0 = -\frac{\chi_e}{3}\vec{E}_0
+$$
+
+The field $\vec{E}_1$ induces an additional uniform polarization $\vec{P}_1 = \epsilon_0 \chi_e \vec{E}_1 = -\epsilon_0\frac{\chi_e^2}{3}\vec{E}_0$, which in turn generates
+
+$$
+\vec{E}_2 = -\frac{1}{3\epsilon_0}\vec{P}_1 = \left(-\frac{\chi_e}{3}\right)^2 \vec{E}_0
+$$
+
+By induction, the $n$-th correction to the interior electric field is $\vec{E}_n = \left(-\frac{\chi_e}{3}\right)^n \vec{E}_0$. Summing the geometric series (convergent for $\chi_e < 3$, and analytically valid for all $\chi_e \ge 0$):
+
+$$
+\vec{E} = \sum_{n=0}^\infty \vec{E}_n = \left[\sum_{n=0}^\infty \left(-\frac{\chi_e}{3}\right)^n\right]\vec{E}_0 = \frac{1}{1 + \chi_e/3}\vec{E}_0
+$$
+
+Since $\epsilon_r = 1 + \chi_e$, we have $1 + \chi_e/3 = (\epsilon_r + 2)/3$, giving
+
+$$
+\vec{E} = \frac{3}{\epsilon_r + 2}\vec{E}_0
+$$
+
+in exact agreement with Eq. 4.49.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.24" title="Coated Conducting Sphere in a Uniform Electric Field" tag="Griffiths 4.24 · Multi-Region Spherical Harmonics">
+<div slot="problem">
+
+An uncharged conducting sphere of radius $a$ is coated with a thick insulating shell (dielectric constant $\epsilon_r$) out to radius $b$. This object is now placed in an otherwise uniform electric field $\vec{E}_0$. Find the electric field in the insulator.
+
+</div>
+<div slot="answer">
+
+With $\vec{E}_0 = E_0 \hat{z}$ and $a < r < b$:
+
+$$
+\vec{E}(r,\theta) = \frac{3E_0}{2\left[1 - (a/b)^3\right] + \epsilon_r\left[1 + 2(a/b)^3\right]}\left[\left(1 + \frac{2a^3}{r^3}\right)\cos\theta\,\hat{r} - \left(1 - \frac{a^3}{r^3}\right)\sin\theta\,\hat{\theta}\right]
+$$
+
+</div>
+<div slot="solution">
+
+Choose the $z$-axis along $\vec{E}_0 = E_0 \hat{z}$ and set the potential of the conducting sphere ($r \le a$) to $V_{\text{in}} = 0$. Since there is no free charge in the insulator ($a < r < b$) or exterior ($r > b$), the potential satisfies $\nabla^2 V = 0$ in both regions, with azimuthal symmetry:
+
+$$
+V_{\text{med}}(r,\theta) = \sum_{l=0}^\infty \left(A_l r^l + \frac{\bar{B}_l}{r^{l+1}}\right)P_l(\cos\theta) \qquad (a < r < b)
+$$
+
+$$
+V_{\text{out}}(r,\theta) = -E_0 r \cos\theta + \sum_{l=0}^\infty \frac{B_l}{r^{l+1}} P_l(\cos\theta) \qquad (r > b)
+$$
+
+(Note that $B_0 = 0$ since the total free charge on the conductor is zero.) The boundary conditions are:
+
+1. $V_{\text{med}}(a,\theta) = 0$,
+2. $V_{\text{med}}(b,\theta) = V_{\text{out}}(b,\theta)$,
+3. $\epsilon_r \left.\dfrac{\partial V_{\text{med}}}{\partial r}\right|_{r=b} = \left.\dfrac{\partial V_{\text{out}}}{\partial r}\right|_{r=b}$.
+
+From condition (1) and orthogonality of $P_l(\cos\theta)$:
+
+$$
+A_l a^l + \frac{\bar{B}_l}{a^{l+1}} = 0 \implies \bar{B}_l = -a^{2l+1} A_l \quad \text{for all } l \ge 0
+$$
+
+Substituting $\bar{B}_l = -a^{2l+1} A_l$ into conditions (2) and (3) at $r = b$:
+
+- For $l = 0$: since $B_0 = 0$, condition (3) gives $-\epsilon_r \bar{B}_0 / b^2 = 0 \implies \bar{B}_0 = A_0 = 0$.
+- For $l \ge 2$: condition (2) gives $B_l = A_l(b^{2l+1} - a^{2l+1})$, while condition (3) gives
+
+$$
+\epsilon_r \left[l A_l b^{l-1} + (l+1)\frac{a^{2l+1} A_l}{b^{l+2}}\right] = -(l+1)\frac{B_l}{b^{l+2}} \implies B_l = -\frac{\epsilon_r}{l+1}A_l\left[l b^{2l+1} + (l+1)a^{2l+1}\right]
+$$
+
+Since $b > a$ and $\epsilon_r > 0$, $b^{2l+1} - a^{2l+1} > 0$ whereas $-\frac{\epsilon_r}{l+1}[lb^{2l+1} + (l+1)a^{2l+1}] < 0$, forcing $A_l = \bar{B}_l = B_l = 0$ for all $l \neq 1$.
+
+- For $l = 1$ (remembering $P_1(\cos\theta) = \cos\theta$):
+  - Condition (2): $-E_0 b + \dfrac{B_1}{b^2} = A_1 b - \dfrac{a^3 A_1}{b^2} \implies B_1 - E_0 b^3 = A_1(b^3 - a^3)$.
+  - Condition (3): $\epsilon_r\left(A_1 + \dfrac{2a^3 A_1}{b^3}\right) = -E_0 - \dfrac{2B_1}{b^3} \implies -2B_1 - E_0 b^3 = \epsilon_r A_1(b^3 + 2a^3)$.
+
+Eliminating $B_1$ by adding twice the first equation to the second:
+
+$$
+-3 E_0 b^3 = A_1\left[2(b^3 - a^3) + \epsilon_r(b^3 + 2a^3)\right]
+$$
+
+$$
+A_1 = -\frac{3E_0}{2\left[1 - (a/b)^3\right] + \epsilon_r\left[1 + 2(a/b)^3\right]}
+$$
+
+Thus, inside the dielectric shell ($a < r < b$):
+
+$$
+V_{\text{med}}(r,\theta) = A_1\left(r - \frac{a^3}{r^2}\right)\cos\theta = -\frac{3E_0}{2\left[1 - (a/b)^3\right] + \epsilon_r\left[1 + 2(a/b)^3\right]}\left(r - \frac{a^3}{r^2}\right)\cos\theta
+$$
+
+Taking the negative gradient $\vec{E} = -\frac{\partial V_{\text{med}}}{\partial r}\hat{r} - \frac{1}{r}\frac{\partial V_{\text{med}}}{\partial \theta}\hat{\theta}$ yields
+
+$$
+\vec{E}(r,\theta) = \frac{3E_0}{2\left[1 - (a/b)^3\right] + \epsilon_r\left[1 + 2(a/b)^3\right]}\left[\left(1 + \frac{2a^3}{r^3}\right)\cos\theta\,\hat{r} - \left(1 - \frac{a^3}{r^3}\right)\sin\theta\,\hat{\theta}\right]
+$$
+
+(As $a \to 0$, this reduces to $\frac{3}{\epsilon_r+2}\vec{E}_0$; as $\epsilon_r \to 1$, it recovers the field outside an uncharged conducting sphere in $\vec{E}_0$.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.25" title="Point Charge Above an Interface Between Two Linear Dielectrics" tag="Griffiths 4.25 · Method of Images & Bound Surface Charge">
+<div slot="problem">
+
+Suppose the region above the $xy$-plane ($z > 0$) in Example 4.8 is also filled with linear dielectric, of susceptibility $\chi_e'$ (while the region $z < 0$ has susceptibility $\chi_e$). A free point charge $q$ is situated at $(0, 0, d)$ ($d > 0$). Find the potential everywhere.
+
+</div>
+<div slot="answer">
+
+With $\epsilon_r = 1 + \chi_e$ and $\epsilon_r' = 1 + \chi_e'$:
+
+$$
+V(x,y,z) = \begin{cases} \dfrac{1}{4\pi\epsilon_0 \epsilon_r'}\left[\dfrac{q}{\sqrt{x^2 + y^2 + (z - d)^2}} + \left(\dfrac{\epsilon_r' - \epsilon_r}{\epsilon_r' + \epsilon_r}\right)\dfrac{q}{\sqrt{x^2 + y^2 + (z + d)^2}}\right], & z > 0 \\[12pt] \dfrac{1}{4\pi\epsilon_0}\dfrac{2q}{\epsilon_r' + \epsilon_r}\dfrac{1}{\sqrt{x^2 + y^2 + (z - d)^2}}, & z < 0 \end{cases}
+$$
+
+</div>
+<div slot="solution">
+
+We identify all four charge contributions: (i) the free point charge $q$ at $(0,0,d)$, (ii) the polarization bound charge $q_p$ clustering immediately around $q$ in the upper dielectric, (iii) the bound surface charge $\sigma_b$ on the top face ($z = 0^-$) of the lower dielectric, and (iv) the bound surface charge $\sigma_b'$ on the bottom face ($z = 0^+$) of the upper dielectric.
+
+By Eq. 4.39, $q_p = -\frac{\chi_e'}{1+\chi_e'}q$, so the net effective point charge at $(0,0,d)$ is
+
+$$
+q_t = q + q_p = \frac{q}{1 + \chi_e'} = \frac{q}{\epsilon_r'}
+$$
+
+Let $r = \sqrt{x^2 + y^2}$ be the cylindrical radius on the $z = 0$ plane. The $z$-component of the electric field at $z = 0$ due to $q_t$ is $-\frac{1}{4\pi\epsilon_0}\frac{(q/\epsilon_r')d}{(r^2+d^2)^{3/2}}$, while the planar bound sheet $\sigma_t = \sigma_b + \sigma_b'$ contributes $-\frac{\sigma_b + \sigma_b'}{2\epsilon_0}$ at $z = 0^-$ and $+\frac{\sigma_b + \sigma_b'}{2\epsilon_0}$ at $z = 0^+$. Using $\sigma_b = \vec{P}(0^-)\cdot\hat{z} = \epsilon_0 \chi_e E_z(0^-)$ and $\sigma_b' = \vec{P}(0^+)\cdot(-\hat{z}) = -\epsilon_0 \chi_e' E_z(0^+)$:
+
+$$
+\sigma_b = \epsilon_0 \chi_e \left[-\frac{1}{4\pi\epsilon_0}\frac{(q/\epsilon_r')d}{(r^2+d^2)^{3/2}} - \frac{\sigma_b + \sigma_b'}{2\epsilon_0}\right]
+$$
+
+$$
+\sigma_b' = -\epsilon_0 \chi_e' \left[-\frac{1}{4\pi\epsilon_0}\frac{(q/\epsilon_r')d}{(r^2+d^2)^{3/2}} + \frac{\sigma_b + \sigma_b'}{2\epsilon_0}\right]
+$$
+
+Dividing the first equation by $\chi_e$ and the second by $\chi_e'$, then subtracting eliminates $\frac{\sigma_b + \sigma_b'}{2}$:
+
+$$
+\frac{\sigma_b}{\chi_e} - \frac{\sigma_b'}{\chi_e'} = -\frac{qd/\epsilon_r'}{2\pi(r^2+d^2)^{3/2}} \implies \sigma_b' = \chi_e'\left[\frac{\sigma_b}{\chi_e} + \frac{qd/\epsilon_r'}{2\pi(r^2+d^2)^{3/2}}\right]
+$$
+
+Substituting $\sigma_b'$ back into the first equation and using $1 + \chi_e' = \epsilon_r'$ and $1 + (\chi_e + \chi_e')/2 = (\epsilon_r + \epsilon_r')/2$:
+
+$$
+\sigma_b \left(\frac{\epsilon_r + \epsilon_r'}{2\chi_e}\right) = -\frac{qd}{4\pi(r^2+d^2)^{3/2}} \implies \sigma_b = -\frac{\chi_e}{\epsilon_r + \epsilon_r'}\frac{qd}{2\pi(r^2+d^2)^{3/2}}
+$$
+
+and therefore
+
+$$
+\sigma_b' = \frac{\chi_e' \epsilon_r}{\epsilon_r'(\epsilon_r + \epsilon_r')}\frac{qd}{2\pi(r^2+d^2)^{3/2}}
+$$
+
+The net bound surface charge density at $z = 0$ is
+
+$$
+\sigma_t = \sigma_b + \sigma_b' = \frac{\chi_e'\epsilon_r - \chi_e \epsilon_r'}{\epsilon_r'(\epsilon_r + \epsilon_r')}\frac{qd}{2\pi(r^2+d^2)^{3/2}} = \frac{\epsilon_r' - \epsilon_r}{\epsilon_r'(\epsilon_r + \epsilon_r')}\frac{qd}{2\pi(r^2+d^2)^{3/2}}
+$$
+
+Integrating over the entire $xy$-plane ($\int_0^\infty \frac{d\,2\pi r\,dr}{(r^2+d^2)^{3/2}} = 2\pi$) gives the total surface bound charge:
+
+$$
+q_{\text{surf}} = \frac{\epsilon_r' - \epsilon_r}{\epsilon_r'(\epsilon_r + \epsilon_r')}q
+$$
+
+Now invoke the method of images:
+
+- **For $z > 0$:** Replace the lower dielectric ($z < 0$) by an image charge $q_{\text{surf}}$ at $(0,0,-d)$, acting alongside $q_t = q/\epsilon_r'$ at $(0,0,d)$:
+
+$$
+V(x,y,z) = \frac{1}{4\pi\epsilon_0 \epsilon_r'}\left[\frac{q}{\sqrt{x^2 + y^2 + (z - d)^2}} + \left(\frac{\epsilon_r' - \epsilon_r}{\epsilon_r' + \epsilon_r}\right)\frac{q}{\sqrt{x^2 + y^2 + (z + d)^2}}\right] \qquad (z > 0)
+$$
+
+- **For $z < 0$:** Account for the entire charge in $z \ge 0$ by placing $q_t + q_{\text{surf}} = \frac{2q}{\epsilon_r' + \epsilon_r}$ at $(0,0,d)$:
+
+$$
+V(x,y,z) = \frac{1}{4\pi\epsilon_0}\frac{2q}{\epsilon_r' + \epsilon_r}\frac{1}{\sqrt{x^2 + y^2 + (z - d)^2}} \qquad (z < 0)
+$$
+
+Direct differentiation confirms that $V$ is continuous at $z = 0$, satisfies $\epsilon_r' \left.\frac{\partial V}{\partial z}\right|_{0^+} = \epsilon_r \left.\frac{\partial V}{\partial z}\right|_{0^-}$, and solves Poisson's equation in both half-spaces, so by uniqueness it is the exact potential everywhere.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.26" title="Energy of a Charged Conductor with a Dielectric Shell" tag="Griffiths 4.26 · Electrostatic Energy in Linear Media">
+<div slot="problem">
+
+A spherical conductor of radius $a$ carries a free charge $Q$. It is surrounded by linear dielectric material of susceptibility $\chi_e$, out to radius $b$. Find the energy of this configuration using $W = \frac{1}{2}\int \vec{D}\cdot\vec{E}\,d\tau$ (Eq. 4.58).
+
+</div>
+<div slot="answer">
+
+$$
+W = \frac{Q^2}{8\pi\epsilon_0(1+\chi_e)}\left(\frac{1}{a} + \frac{\chi_e}{b}\right)
+$$
+
+</div>
+<div slot="solution">
+
+From Example 4.5, spherical symmetry gives the displacement $\vec{D}$ and electric field $\vec{E}$ everywhere (with $\epsilon = \epsilon_0(1+\chi_e)$):
+
+$$
+\vec{D}(r) = \begin{cases} \vec{0}, & r < a \\ \dfrac{Q}{4\pi r^2}\hat{r}, & r > a \end{cases}, \qquad \vec{E}(r) = \begin{cases} \vec{0}, & r < a \\ \dfrac{Q}{4\pi\epsilon r^2}\hat{r}, & a < r < b \\ \dfrac{Q}{4\pi\epsilon_0 r^2}\hat{r}, & r > b \end{cases}
+$$
+
+Applying Eq. 4.58, $W = \frac{1}{2}\int \vec{D}\cdot\vec{E}\,d\tau$:
+
+$$
+W = \frac{1}{2}\frac{Q^2}{(4\pi)^2}\left[\frac{1}{\epsilon}\int_a^b \frac{1}{r^4}(4\pi r^2\,dr) + \frac{1}{\epsilon_0}\int_b^\infty \frac{1}{r^4}(4\pi r^2\,dr)\right]
+$$
+
+$$
+W = \frac{Q^2}{8\pi}\left[\frac{1}{\epsilon}\left(\frac{1}{a} - \frac{1}{b}\right) + \frac{1}{\epsilon_0 b}\right] = \frac{Q^2}{8\pi\epsilon_0(1+\chi_e)}\left[\frac{1}{a} - \frac{1}{b} + \frac{1+\chi_e}{b}\right]
+$$
+
+$$
+W = \frac{Q^2}{8\pi\epsilon_0(1+\chi_e)}\left(\frac{1}{a} + \frac{\chi_e}{b}\right)
+$$
+
+(As a check, notice that $W = \frac{1}{2}Q V(0)$ using the result of Example 4.5.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.27" title="Energy of a Uniformly Polarized Sphere (Electret)" tag="Griffiths 4.27 · Comparison of Energy Formulas">
+<div slot="problem">
+
+Calculate $W$, using both $W = \frac{\epsilon_0}{2}\int E^2\,d\tau$ (Eq. 4.55) and $W = \frac{1}{2}\int \vec{D}\cdot\vec{E}\,d\tau$ (Eq. 4.58), for a sphere of radius $R$ with frozen-in uniform polarization $\vec{P}$ (Example 4.2). Comment on the discrepancy. Which (if either) is the "true" energy of the system?
+
+</div>
+<div slot="answer">
+
+- From Eq. 4.55: $W = \dfrac{2\pi R^3 P^2}{9\epsilon_0}$.
+- From Eq. 4.58: $W = 0$.
+- **Discrepancy:** Eq. 4.58 measures work done on *free* charges in a *linear* dielectric ($\vec{D} = \epsilon\vec{E}$); here there are no free charges and the frozen-in electret is nonlinear. Eq. 4.55 gives the true macroscopic *electrostatic* energy of the bound charge distribution, though it omits the internal mechanical/chemical work required to freeze the dipoles in place.
+
+</div>
+<div slot="solution">
+
+From Example 4.2 and Eq. 3.103 (aligning $\vec{P} = P\hat{z}$), the electric field of a uniformly polarized sphere of radius $R$ is
+
+$$
+\vec{E} = \begin{cases} -\dfrac{1}{3\epsilon_0}P\hat{z}, & r < R \\[8pt] \dfrac{R^3 P}{3\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right), & r > R \end{cases}
+$$
+
+**1. Using Eq. 4.55 ($W = \frac{\epsilon_0}{2}\int E^2\,d\tau$):**
+
+Inside the sphere ($r < R$):
+
+$$
+W_{r<R} = \frac{\epsilon_0}{2}\left(\frac{P}{3\epsilon_0}\right)^2 \left(\frac{4}{3}\pi R^3\right) = \frac{2\pi R^3 P^2}{27\epsilon_0}
+$$
+
+Outside the sphere ($r > R$):
+
+$$
+W_{r>R} = \frac{\epsilon_0}{2}\left(\frac{R^3 P}{3\epsilon_0}\right)^2 \int_0^{2\pi} d\phi \int_0^\pi (4\cos^2\theta + \sin^2\theta)\sin\theta\,d\theta \int_R^\infty \frac{r^2\,dr}{r^6}
+$$
+
+Since $4\cos^2\theta + \sin^2\theta = 1 + 3\cos^2\theta$, the angular integral is $\int_0^\pi (1 + 3\cos^2\theta)\sin\theta\,d\theta = \left[-\cos\theta - \cos^3\theta\right]_0^\pi = 4$, and the radial integral is $\frac{1}{3R^3}$. Thus
+
+$$
+W_{r>R} = \frac{\pi R^6 P^2}{9\epsilon_0} \cdot 4 \cdot \frac{1}{3R^3} = \frac{4\pi R^3 P^2}{27\epsilon_0}
+$$
+
+Summing the two regions gives
+
+$$
+W_{(4.55)} = \frac{2\pi R^3 P^2}{27\epsilon_0} + \frac{4\pi R^3 P^2}{27\epsilon_0} = \frac{2\pi R^3 P^2}{9\epsilon_0}
+$$
+
+**2. Using Eq. 4.58 ($W = \frac{1}{2}\int \vec{D}\cdot\vec{E}\,d\tau$):**
+
+For $r > R$, $\vec{P} = \vec{0}$ so $\vec{D} = \epsilon_0 \vec{E}$, giving the same exterior contribution $W'_{r>R} = \frac{4\pi R^3 P^2}{27\epsilon_0}$. Inside ($r < R$),
+
+$$
+\vec{D} = \epsilon_0 \vec{E} + \vec{P} = -\frac{1}{3}\vec{P} + \vec{P} = \frac{2}{3}\vec{P} = -2\epsilon_0 \vec{E}
+$$
+
+Hence $\frac{1}{2}\vec{D}\cdot\vec{E} = -\epsilon_0 E^2 = -2\left(\frac{\epsilon_0}{2} E^2\right)$, so the interior contribution is
+
+$$
+W'_{r<R} = -2\left(\frac{2\pi R^3 P^2}{27\epsilon_0}\right) = -\frac{4\pi R^3 P^2}{27\epsilon_0}
+$$
+
+Adding the two regions gives
+
+$$
+W_{(4.58)} = -\frac{4\pi R^3 P^2}{27\epsilon_0} + \frac{4\pi R^3 P^2}{27\epsilon_0} = 0
+$$
+
+**Physical interpretation:** Eq. 4.58 calculates the work done on *free* charges when assembling a *linear* dielectric ($\vec{D} = \epsilon\vec{E}$). Here, $\rho_f = 0$ everywhere and a permanently polarized electret is not a linear medium, so Eq. 4.58 yields $0$ and cannot represent the assembly work. Conversely, Eq. 4.55 gives the true macroscopic *electrostatic* energy of the bound charge configuration, though it excludes whatever non-electrostatic / mechanical work was required to stretch and freeze the molecular dipoles (which depends on how the electret was manufactured).
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.28" title="Dielectric Oil Rising in a Coaxial Capacitor" tag="Griffiths 4.28 · Forces on Dielectrics via Virtual Work">
+<div slot="problem">
+
+Two long coaxial cylindrical metal tubes (inner radius $a$, outer radius $b$) stand vertically in a tank of dielectric oil (susceptibility $\chi_e$, mass density $\rho$). The inner tube is maintained at potential $V$, and the outer tube is grounded. To what height $h$ does the oil rise in the space between the tubes?
+
+</div>
+<div slot="answer">
+
+$$
+h = \frac{\epsilon_0 \chi_e V^2}{\rho (b^2 - a^2) g \ln(b/a)}
+$$
+
+</div>
+<div slot="solution">
+
+Let the total length of the coaxial tubes above the reservoir level be $\ell$ (with $0 < h < \ell$). The capacitor consists of two sections in parallel at the same potential difference $V$: an oil-filled lower section of length $h$ (permittivity $\epsilon = \epsilon_0 \epsilon_r = \epsilon_0(1+\chi_e)$) and an air-filled upper section of length $\ell - h$ (permittivity $\epsilon_0$).
+
+In a coaxial cylinder of length $L$ and uniform permittivity $\epsilon'$, Gauss's law gives $D = \frac{Q}{2\pi s L}$, $E = \frac{Q}{2\pi \epsilon' s L}$, and $V = \frac{Q}{2\pi \epsilon' L}\ln(b/a)$, so its capacitance is $\frac{2\pi\epsilon' L}{\ln(b/a)}$. Adding the two parallel sections:
+
+$$
+C(h) = C_{\text{air}} + C_{\text{oil}} = \frac{2\pi\epsilon_0 (\ell - h)}{\ln(b/a)} + \frac{2\pi\epsilon_0 \epsilon_r h}{\ln(b/a)} = \frac{2\pi\epsilon_0}{\ln(b/a)}\left(\ell + \chi_e h\right)
+$$
+
+By Eq. 4.64 (and Eq. 4.67, which gives the same force at constant potential $V$), the upward electrical force pulling the oil into the gap is
+
+$$
+F_{\text{elec}} = \frac{1}{2}V^2 \frac{dC}{dh} = \frac{1}{2}V^2 \frac{2\pi\epsilon_0 \chi_e}{\ln(b/a)} = \frac{\pi \epsilon_0 \chi_e V^2}{\ln(b/a)}
+$$
+
+At equilibrium, this balances the downward gravitational weight of the raised column of oil of volume $\pi(b^2 - a^2)h$:
+
+$$
+F_{\text{grav}} = m g = \rho \pi (b^2 - a^2) h g
+$$
+
+Setting $F_{\text{elec}} = F_{\text{grav}}$ and solving for $h$:
+
+$$
+\rho \pi (b^2 - a^2) g h = \frac{\pi \epsilon_0 \chi_e V^2}{\ln(b/a)} \implies h = \frac{\epsilon_0 \chi_e V^2}{\rho (b^2 - a^2) g \ln(b/a)}
+$$
+
+</div>
+</ProblemCard>
+
+</section>

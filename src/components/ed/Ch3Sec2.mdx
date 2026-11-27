@@ -1,0 +1,335 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch3-sec2" class="ed-sec-block">
+
+### 3.2 The Method of Images
+
+<div class="ed-theory-box">
+
+**Core Theory (Griffiths §3.2 — Image Charges, Induced Surface Charge, Force & Energy):**
+
+- **Principle of the Method of Images:** Suppose we want the potential $V$ in a region $\mathcal{V}$ bounded by one or more conductors held at fixed potentials (usually $V = 0$). Instead of guessing the unknown induced surface charge $\sigma$ on the conductors, we **replace the conductors by fictitious "image" charges** placed strictly **outside $\mathcal{V}$** (so $\rho$ inside $\mathcal{V}$ is unchanged) such that the resulting total potential satisfies the required boundary conditions on the conductor surfaces. By the **First Uniqueness Theorem**, the potential in $\mathcal{V}$ is uniquely determined and therefore exact. *(Warning: Never place an image charge inside the physical region $\mathcal{V}$, as that alters Poisson's equation $\nabla^2 V = -\rho/\epsilon_0$ in $\mathcal{V}$.)*
+
+- **Classic Problem — Point Charge $q$ at $(0,0,d)$ Above a Grounded Plane ($z = 0$):**
+  - Place an image charge $-q$ at $(0,0,-d)$. For $z \ge 0$:
+
+$$
+V(x,y,z) = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt{x^2 + y^2 + (z - d)^2}} - \frac{q}{\sqrt{x^2 + y^2 + (z + d)^2}}\right]
+$$
+
+  - **Induced surface charge density** on the plane ($z = 0$, outward normal $\hat{n} = \hat{z}$):
+
+$$
+\sigma(x,y) = -\epsilon_0\left.\frac{\partial V}{\partial z}\right|_{z=0} = \frac{-qd}{2\pi(x^2 + y^2 + d^2)^{3/2}}, \qquad Q_{\text{ind}} = \int \sigma\,da = -q
+$$
+
+  - **Force vs. Energy (Crucial Factor of $1/2$):** The force on $q$ is identical to that in the two-charge analog problem:
+
+$$
+\vec{F} = -\frac{1}{4\pi\epsilon_0}\frac{q^2}{(2d)^2}\,\hat{z}
+$$
+
+    However, the electrostatic **energy** of the charge-and-conductor system is **half** that of the two-charge analog:
+
+$$
+W_{\text{conductor}} = -\frac{1}{4\pi\epsilon_0}\frac{q^2}{4d} = \frac{1}{2}W_{\text{2-charge}}
+$$
+
+    *Two equivalent explanations:* (1) Field energy $\frac{\epsilon_0}{2}\int E^2\,d\tau$ exists only in the upper half-space $z > 0$ (zero inside the conductor $z < 0$), which by symmetry holds half the energy of the two-charge field; (2) When bringing $q$ from $\infty$ to $d$, mechanical work is done only on $q$, while the induced charge flows onto the grounded ($V = 0$) conductor at zero work cost.
+
+- **Grounded Conducting Sphere (Radius $R$, Charge $q$ at Distance $a > R$):**
+  - Place a single image charge $q'$ inside the sphere along the line joining the center to $q$, at distance $b$ from the center:
+
+$$
+q' = -\frac{R}{a}q, \qquad b = \frac{R^2}{a} < R
+$$
+
+  - Outside the sphere ($r \ge R$), $V(\vec{r}) = \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{q}{\mathscr{r}} + \dfrac{q'}{\mathscr{r}'}\right)$ vanishes identically on $r = R$ (Apollonius's theorem).
+  - **Extensions (Prob. 3.9):** To maintain the sphere at a nonzero potential $V_0$ or a specified total charge $Q$, add a *second* image charge $q''$ at the **center** of the sphere ($q'' = 4\pi\epsilon_0 V_0 R$ for fixed $V_0$, or $q'' = Q - q'$ for fixed total charge $Q$).
+
+</div>
+
+<EdDiagram
+  name="method-of-images"
+  caption="Method of Images: +q above grounded z = 0 plane (left) vs equivalent image system +q, −q (right) (from notes p. 8)."
+/>
+
+<ProblemCard num="3.7" title="Force on +q Above a Grounded Plane with Multiple Charges" tag="Griffiths 3.7 · Plane Images">
+  <div slot="problem">
+    Two point charges are located on the $z$-axis above an infinite grounded conducting $xy$-plane ($V = 0$ at $z = 0$): a charge $-2q$ at $z = d$, and a charge $+q$ at $z = 3d$. Find the force on the charge $+q$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{F} = -\frac{1}{4\pi\epsilon_0}\left(\frac{29 q^2}{72 d^2}\right)\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    By superposition, place image charges in the lower half-space ($z < 0$) to enforce $V = 0$ on $z = 0$:
+    - $+2q$ at $z = -d$ (image of $-2q$ at $z = +d$),
+    - $-q$ at $z = -3d$ (image of $+q$ at $z = +3d$).
+
+    The force on the real charge $+q$ at $z = 3d$ is the sum of the Coulomb forces from the real charge $-2q$ (distance $2d$) and the two image charges $+2q$ (distance $4d$) and $-q$ (distance $6d$):
+
+    $$
+    \vec{F} = \frac{q}{4\pi\epsilon_0}\left[\frac{-2q}{(2d)^2} + \frac{+2q}{(4d)^2} + \frac{-q}{(6d)^2}\right]\hat{z} = \frac{q^2}{4\pi\epsilon_0 d^2}\left(-\frac{1}{2} + \frac{1}{8} - \frac{1}{36}\right)\hat{z}
+    $$
+
+    Finding a common denominator ($72$):
+
+    $$
+    -\frac{1}{2} + \frac{1}{8} - \frac{1}{36} = \frac{-36 + 9 - 2}{72} = -\frac{29}{72} \implies \vec{F} = -\frac{1}{4\pi\epsilon_0}\left(\frac{29 q^2}{72 d^2}\right)\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.8" title="Point Charge Outside a Grounded Conducting Sphere" tag="Griffiths 3.8 · Spherical Images">
+  <div slot="problem">
+    1. Using the law of cosines, show that Eq. (3.17) for a point charge $q$ at distance $a > R$ from the center of a grounded conducting sphere of radius $R$ can be written as
+
+       $$
+       V(r,\theta) = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt{r^2 + a^2 - 2ra\cos\theta}} - \frac{q}{\sqrt{R^2 + (ra/R)^2 - 2ra\cos\theta}}\right],
+       $$
+
+       where $r$ and $\theta$ are the usual spherical polar coordinates, with the $z$-axis along the line through $q$. In this form, it is obvious that $V = 0$ on the sphere, $r = R$.
+    2. Find the induced surface charge $\sigma(\theta)$ on the sphere, as a function of $\theta$. Integrate this to get the total induced charge. (What should it be?)
+    3. Calculate the energy of this configuration.
+  </div>
+
+  <div slot="answer">
+    1. Derived via $q' = -\dfrac{R}{a}q$ and $b = \dfrac{R^2}{a}$.
+    2. $\sigma(\theta) = \dfrac{q}{4\pi R}(R^2 - a^2)(R^2 + a^2 - 2Ra\cos\theta)^{-3/2}$; total induced charge $q_{\text{ind}} = -\dfrac{qR}{a} = q'$.
+    3. $W = -\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2 R}{2(a^2 - R^2)}$.
+  </div>
+
+  <div slot="solution">
+    1. **Potential via Law of Cosines:** From Griffiths Fig. 3.13, $\mathscr{r} = \sqrt{r^2 + a^2 - 2ra\cos\theta}$ and $\mathscr{r}' = \sqrt{r^2 + b^2 - 2rb\cos\theta}$. Substituting $q' = -\frac{R}{a}q$ and $b = \frac{R^2}{a}$ into the image term:
+
+       $$
+       \frac{q'}{\mathscr{r}'} = -\frac{R}{a}\frac{q}{\sqrt{r^2 + \frac{R^4}{a^2} - \frac{2rR^2}{a}\cos\theta}} = -\frac{q}{\frac{a}{R}\sqrt{r^2 + \frac{R^4}{a^2} - \frac{2rR^2}{a}\cos\theta}} = -\frac{q}{\sqrt{\left(\frac{ra}{R}\right)^2 + R^2 - 2ra\cos\theta}}
+       $$
+
+       Hence for $r \ge R$:
+
+       $$
+       V(r,\theta) = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt{r^2 + a^2 - 2ra\cos\theta}} - \frac{q}{\sqrt{R^2 + (ra/R)^2 - 2ra\cos\theta}}\right]
+       $$
+
+       Setting $r = R$ makes both denominators equal to $\sqrt{R^2 + a^2 - 2Ra\cos\theta}$, so $V(R,\theta) = 0$ manifestly.
+
+    2. **Induced Surface Charge Density & Total Induced Charge:** Using $\sigma(\theta) = -\epsilon_0 \left.\dfrac{\partial V}{\partial r}\right|_{r=R}$:
+
+       $$
+       \sigma(\theta) = -\frac{q}{4\pi}\left[-\frac{1}{2}(r^2 + a^2 - 2ra\cos\theta)^{-3/2}(2r - 2a\cos\theta) + \frac{1}{2}\big(R^2 + (ra/R)^2 - 2ra\cos\theta\big)^{-3/2}\left(\frac{2ra^2}{R^2} - 2a\cos\theta\right)\right]_{r=R}
+       $$
+
+       Evaluating at $r = R$, both square-root factors become $(R^2 + a^2 - 2Ra\cos\theta)^{-3/2}$:
+
+       $$
+       \sigma(\theta) = \frac{q}{4\pi}(R^2 + a^2 - 2Ra\cos\theta)^{-3/2}\left[(R - a\cos\theta) - \left(\frac{a^2}{R} - a\cos\theta\right)\right] = \frac{q}{4\pi R}\frac{R^2 - a^2}{(R^2 + a^2 - 2Ra\cos\theta)^{3/2}}
+       $$
+
+       (Negative since $a > R$, as expected for $q > 0$.) Integrating over the sphere ($da = R^2\sin\theta\,d\theta\,d\phi$):
+
+       $$
+       q_{\text{ind}} = \frac{q(R^2 - a^2)}{4\pi R}(2\pi R^2)\int_0^\pi (R^2 + a^2 - 2Ra\cos\theta)^{-3/2}\sin\theta\,d\theta = \frac{qR(R^2 - a^2)}{2}\left[-\frac{1}{Ra}(R^2 + a^2 - 2Ra\cos\theta)^{-1/2}\right]_0^\pi
+       $$
+
+       Since $a > R$, at $\theta = 0$ we have $\sqrt{R^2 + a^2 - 2Ra} = a - R$, and at $\theta = \pi$ we have $a + R$:
+
+       $$
+       q_{\text{ind}} = \frac{q(a^2 - R^2)}{2a}\left[\frac{1}{a + R} - \frac{1}{a - R}\right] = \frac{q(a^2 - R^2)}{2a}\left[\frac{-2R}{a^2 - R^2}\right] = -\frac{qR}{a} = q'
+       $$
+
+       *(As required by Gauss's law / the image equivalence, the total induced charge equals the image charge $q'$.)*
+
+    3. **Energy:** Using the force on $q$ from Eq. (3.18), $\vec{F}(r') = -\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2 R r'}{(r'^2 - R^2)^2}\hat{r}$, the work done by an external agent ($\vec{F}_{\text{ext}} = -\vec{F}$) to bring $q$ from $\infty$ to $a$ (while the sphere remains grounded at $V = 0$, so moving induced charge costs zero work) is:
+
+       $$
+       W = \int_\infty^a \vec{F}_{\text{ext}}\cdot d\vec{l} = \frac{q^2 R}{4\pi\epsilon_0}\int_\infty^a \frac{r'\,dr'}{(r'^2 - R^2)^2} = \frac{q^2 R}{4\pi\epsilon_0}\left[-\frac{1}{2(r'^2 - R^2)}\right]_\infty^a = -\frac{1}{4\pi\epsilon_0}\frac{q^2 R}{2(a^2 - R^2)}
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.9" title="Conducting Sphere at Potential V₀ & Neutral Conducting Sphere" tag="Griffiths 3.9 · Non-Zero Potential Sphere">
+  <div slot="problem">
+    In Ex. 3.2 we assumed that the conducting sphere was grounded ($V = 0$). But with the addition of a second image charge, the same basic model will handle the case of a sphere at any potential $V_0$ (relative, of course, to infinity). What charge should you use, and where should you put it? Find the force of attraction between a point charge $q$ and a neutral conducting sphere.
+  </div>
+
+  <div slot="answer">
+    Place a second image charge $q'' = 4\pi\epsilon_0 V_0 R$ at the **center** of the sphere. For a neutral sphere ($q' + q'' = 0$), the force of attraction is:
+
+    $$
+    F = \frac{1}{4\pi\epsilon_0}\frac{q^2 R^3(2a^2 - R^2)}{a^3(a^2 - R^2)^2}
+    $$
+  </div>
+
+  <div slot="solution">
+    1. **Second Image Charge for Potential $V_0$:** Place a second image charge $q''$ at the **center of the sphere**. Because $q''$ is spherically symmetric about the center, it creates a constant potential $\dfrac{1}{4\pi\epsilon_0}\dfrac{q''}{R}$ on the surface $r = R$. Since $q + q'$ already produces $V = 0$ on $r = R$, the sphere remains an equipotential at $V_0 = \dfrac{q''}{4\pi\epsilon_0 R}$. Thus:
+
+       $$
+       q'' = 4\pi\epsilon_0 V_0 R \quad\text{at the center of the sphere.}
+       $$
+
+    2. **Force on $q$ from a Neutral Sphere:** For an isolated neutral conducting sphere, the total induced charge (which by Gauss's law equals the total image charge inside) must be zero: $q' + q'' = 0 \implies q'' = -q' = +\dfrac{R}{a}q$. The force on $q$ due to the two image charges ($q''$ at distance $a$, $q'$ at distance $a - b = a - R^2/a$) is:
+
+       $$
+       \vec{F} = \frac{q}{4\pi\epsilon_0}\left[\frac{q''}{a^2} + \frac{q'}{(a - b)^2}\right]\hat{r} = \frac{qq'}{4\pi\epsilon_0}\left[-\frac{1}{a^2} + \frac{1}{(a - b)^2}\right]\hat{r}
+       $$
+
+       Combining the fractions over $a^2(a - b)^2$ and substituting $b = R^2/a$, $q' = -Rq/a$:
+
+       $$
+       -\frac{1}{a^2} + \frac{1}{(a - b)^2} = \frac{-(a - b)^2 + a^2}{a^2(a - b)^2} = \frac{b(2a - b)}{a^2(a - b)^2} = \frac{(R^2/a)(2a - R^2/a)}{a^2(a - R^2/a)^2} = \frac{R^2(2a^2 - R^2)}{a^2(a^2 - R^2)^2}
+       $$
+
+       Multiplying by $\dfrac{qq'}{4\pi\epsilon_0} = -\dfrac{q^2 R}{4\pi\epsilon_0 a}$:
+
+       $$
+       \vec{F} = -\frac{1}{4\pi\epsilon_0}\frac{q^2 R^3(2a^2 - R^2)}{a^3(a^2 - R^2)^2}\,\hat{r}
+       $$
+
+       Dropping the minus sign (which indicates attraction toward the sphere), the magnitude of the attractive force is $\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2 R^3(2a^2 - R^2)}{a^3(a^2 - R^2)^2}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.10" title="Line Charge Above a Grounded Conducting Plane" tag="Griffiths 3.10 · Line Charge Images">
+  <div slot="problem">
+    A uniform line charge $\lambda$ is placed on an infinite straight wire, a distance $d$ above a grounded conducting plane. (Let's say the wire runs parallel to the $x$-axis and directly above it, and the conducting plane is the $xy$-plane.)
+    1. Find the potential in the region above the plane. *(Hint: Refer to Prob. 2.52.)*
+    2. Find the charge density $\sigma$ induced on the conducting plane.
+  </div>
+
+  <div slot="answer">
+    1. $V(y,z) = \dfrac{\lambda}{4\pi\epsilon_0}\ln\!\left[\dfrac{y^2 + (z + d)^2}{y^2 + (z - d)^2}\right]$ (for $z \ge 0$).
+    2. $\sigma(y) = -\dfrac{\lambda d}{\pi(y^2 + d^2)}$.
+  </div>
+
+  <div slot="solution">
+    1. **Potential Above the Plane:** Replace the grounded $xy$-plane ($z = 0$) by an infinite image line charge $-\lambda$ parallel to the $x$-axis at $y = 0, z = -d$. From Prob. 2.52, the potential of two parallel line charges $+\lambda$ (at distance $s_+$) and $-\lambda$ (at distance $s_-$) is:
+
+       $$
+       V(y,z) = \frac{\lambda}{2\pi\epsilon_0}\ln\!\left(\frac{s_-}{s_+}\right) = \frac{\lambda}{4\pi\epsilon_0}\ln\!\left(\frac{s_-^2}{s_+^2}\right)
+       $$
+
+       With $s_+^2 = y^2 + (z - d)^2$ and $s_-^2 = y^2 + (z + d)^2$:
+
+       $$
+       V(y,z) = \frac{\lambda}{4\pi\epsilon_0}\ln\!\left[\frac{y^2 + (z + d)^2}{y^2 + (z - d)^2}\right] \qquad (z \ge 0)
+       $$
+
+       At $z = 0$, the argument of the logarithm is $1$, so $V(y,0) = 0$, satisfying the grounded boundary condition.
+
+    2. **Induced Surface Charge Density:** Using $\sigma = -\epsilon_0\left.\dfrac{\partial V}{\partial z}\right|_{z=0}$:
+
+       $$
+       \sigma(y) = -\epsilon_0\frac{\lambda}{4\pi\epsilon_0}\left[\frac{2(z + d)}{y^2 + (z + d)^2} - \frac{2(z - d)}{y^2 + (z - d)^2}\right]_{z=0} = -\frac{\lambda}{4\pi}\left[\frac{2d}{y^2 + d^2} - \frac{-2d}{y^2 + d^2}\right] = -\frac{\lambda d}{\pi(y^2 + d^2)}
+       $$
+
+       *Check:* The total induced charge on a strip of length $l$ along $x$ (integrating $y$ from $-\infty$ to $+\infty$) is:
+
+       $$
+       q_{\text{ind}} = l\int_{-\infty}^{\infty} \sigma(y)\,dy = -\frac{l\lambda d}{\pi}\left[\frac{1}{d}\tan^{-1}\!\left(\frac{y}{d}\right)\right]_{-\infty}^{\infty} = -\frac{l\lambda}{\pi}\left(\frac{\pi}{2} - \left(-\frac{\pi}{2}\right)\right) = -\lambda l \implies \lambda_{\text{ind}} = -\lambda \;\checkmark
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.11" title="Point Charge Between Two Perpendicular Grounded Planes" tag="Griffiths 3.11 · Corner Images">
+  <div slot="problem">
+    Two semi-infinite grounded conducting planes meet at right angles ($x = 0$ for $y \ge 0$, and $y = 0$ for $x \ge 0$). In the region between them ($x > 0, y > 0$), there is a point charge $q$ situated at $(a, b, 0)$. Set up the image configuration, and calculate the potential in this region. What charges do you need, and where should they be located? What is the force on $q$? How much work did it take to bring $q$ in from infinity? Suppose the planes met at some angle other than $90^\circ$; would you still be able to solve the problem by the method of images? If not, for what particular angles does the method work?
+  </div>
+
+  <div slot="answer">
+    - **Image charges:** $-q$ at $(-a, b, 0)$, $-q$ at $(a, -b, 0)$, and $+q$ at $(-a, -b, 0)$.
+    - **Potential ($x > 0, y > 0$):**
+      $$V(x,y,z) = \frac{q}{4\pi\epsilon_0}\left[\frac{1}{\sqrt{(x-a)^2+(y-b)^2+z^2}} + \frac{1}{\sqrt{(x+a)^2+(y+b)^2+z^2}} - \frac{1}{\sqrt{(x+a)^2+(y-b)^2+z^2}} - \frac{1}{\sqrt{(x-a)^2+(y+b)^2+z^2}}\right]$$
+    - **Force:** $\vec{F} = \dfrac{q^2}{16\pi\epsilon_0}\left[\left(\dfrac{a}{(a^2+b^2)^{3/2}} - \dfrac{1}{a^2}\right)\hat{x} + \left(\dfrac{b}{(a^2+b^2)^{3/2}} - \dfrac{1}{b^2}\right)\hat{y}\right]$.
+    - **Work:** $W = \dfrac{q^2}{16\pi\epsilon_0}\left(\dfrac{1}{\sqrt{a^2+b^2}} - \dfrac{1}{a} - \dfrac{1}{b}\right)$.
+    - **Allowed angles:** Works iff the opening angle $\theta = 180^\circ / n$ for integer $n \ge 1$ (i.e., $180^\circ, 90^\circ, 60^\circ, 45^\circ, \dots$).
+  </div>
+
+  <div slot="solution">
+    1. **Image Configuration & Potential:** To make $y = 0$ an equipotential ($V = 0$), reflect $q$ at $(a, b, 0)$ across the $xz$-plane to get $-q$ at $(a, -b, 0)$. To make $x = 0$ an equipotential, reflect $q$ across the $yz$-plane to get $-q$ at $(-a, b, 0)$. However, each of these two negative images ruins $V = 0$ on the *other* plane; reflecting either one gives a third image charge $+q$ at $(-a, -b, 0)$, which simultaneously balances both planes! All three image charges lie outside the first quadrant ($x > 0, y > 0$). Thus for $x \ge 0, y \ge 0$:
+
+       $$
+       V(x,y,z) = \frac{q}{4\pi\epsilon_0}\left[\frac{1}{\sqrt{(x-a)^2+(y-b)^2+z^2}} + \frac{1}{\sqrt{(x+a)^2+(y+b)^2+z^2}} - \frac{1}{\sqrt{(x+a)^2+(y-b)^2+z^2}} - \frac{1}{\sqrt{(x-a)^2+(y+b)^2+z^2}}\right]
+       $$
+
+       Setting $x = 0$ or $y = 0$ makes terms cancel in pairs, giving $V = 0$ on both planes.
+
+    2. **Force on $q$:** Summing the Coulomb forces from the three image charges at $(a, b, 0)$:
+       - $-q$ at $(-a, b, 0)$ attracts in $-\hat{x}$ with separation $2a$: $-\dfrac{q^2}{4\pi\epsilon_0 (2a)^2}\hat{x}$,
+       - $-q$ at $(a, -b, 0)$ attracts in $-\hat{y}$ with separation $2b$: $-\dfrac{q^2}{4\pi\epsilon_0 (2b)^2}\hat{y}$,
+       - $+q$ at $(-a, -b, 0)$ repels along $\dfrac{a\hat{x} + b\hat{y}}{\sqrt{a^2+b^2}}$ with separation $2\sqrt{a^2+b^2}$: $+\dfrac{q^2}{4\pi\epsilon_0 \big(2\sqrt{a^2+b^2}\big)^2}\dfrac{a\hat{x} + b\hat{y}}{\sqrt{a^2+b^2}}$.
+
+       Combining components:
+
+       $$
+       \vec{F} = \frac{q^2}{16\pi\epsilon_0}\left[\left(\frac{a}{(a^2 + b^2)^{3/2}} - \frac{1}{a^2}\right)\hat{x} + \left(\frac{b}{(a^2 + b^2)^{3/2}} - \frac{1}{b^2}\right)\hat{y}\right]
+       $$
+
+    3. **Work Required:** In the $4$-charge analog system, the interaction energy of $q$ with the other three charges is $U_1 = \dfrac{q^2}{4\pi\epsilon_0}\left(\dfrac{1}{2\sqrt{a^2+b^2}} - \dfrac{1}{2a} - \dfrac{1}{2b}\right)$, and the total energy of all four charges is $\frac{1}{2}(4U_1) = 2U_1$. Because the real field is nonzero in only **one** of the four symmetric quadrants, its total field energy (equal to the work $W$ needed to bring $q$ from infinity) is $\frac{1}{4}$ of the $4$-charge energy:
+
+       $$
+       W = \frac{1}{4}(2U_1) = \frac{1}{2}U_1 = \frac{q^2}{16\pi\epsilon_0}\left(\frac{1}{\sqrt{a^2 + b^2}} - \frac{1}{a} - \frac{1}{b}\right)
+       $$
+
+       *(One gets the exact same result by integrating $-\vec{F}\cdot d\vec{l}$ along a straight radial path $(ta, tb, 0)$ from $t = \infty$ to $t = 1$.)*
+
+    4. **Other Angles:** For an opening angle $\theta$, the method of images works **if and only if $\theta$ is an integer divisor of $180^\circ$** ($\theta = 180^\circ/n$: $180^\circ, 90^\circ, 60^\circ, 45^\circ, \dots$), requiring $2n - 1$ image charges distributed symmetrically on a circle around the vertex. For any other angle, successive reflections across the two planes eventually land an image charge **inside** the physical wedge region, which is forbidden because it alters $\rho$ inside the region of interest.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.12" title="Two Parallel Opposite-Potential Copper Pipes" tag="Griffiths 3.12 · Cylindrical Images">
+  <div slot="problem">
+    Two long, straight copper pipes, each of radius $R$, are held a distance $2d$ apart (centered at $x = \pm d$). One is at potential $+V_0$, the other at $-V_0$. Find the potential everywhere. *(Hint: Exploit the result of Prob. 2.52.)*
+  </div>
+
+  <div slot="answer">
+    Outside both pipes:
+
+    $$
+    V(x,y) = \frac{V_0}{2\cosh^{-1}(d/R)}\ln\!\left[\frac{(x + \sqrt{d^2 - R^2})^2 + y^2}{(x - \sqrt{d^2 - R^2})^2 + y^2}\right]
+    $$
+
+    (with $V = +V_0$ inside the right pipe and $V = -V_0$ inside the left pipe).
+  </div>
+
+  <div slot="solution">
+    From Prob. 2.52 (replacing $y$ with $x$ and $y_0$ with $d$), two parallel infinite line charges $+\lambda$ at $x = +a$ and $-\lambda$ at $x = -a$ produce the potential:
+
+    $$
+    V(x,y) = \frac{\lambda}{4\pi\epsilon_0}\ln\!\left[\frac{(x + a)^2 + y^2}{(x - a)^2 + y^2}\right]
+    $$
+
+    Its equipotential surfaces $V = \pm V_0$ are circular cylinders of radius $R$ centered at $x = \pm d$ (with the image line charges at $x = \pm a$ located *inside* the pipes, where we don't need the harmonic field), satisfying:
+
+    $$
+    d = a\coth\!\left(\frac{2\pi\epsilon_0 V_0}{\lambda}\right), \qquad R = a\,\operatorname{csch}\!\left(\frac{2\pi\epsilon_0 V_0}{\lambda}\right)
+    $$
+
+    Using $\coth^2 u - \operatorname{csch}^2 u = 1$ gives $d^2 - R^2 = a^2$, so the image line locations are:
+
+    $$
+    a = \sqrt{d^2 - R^2}
+    $$
+
+    Dividing $d$ by $R$ eliminates $a$:
+
+    $$
+    \frac{d}{R} = \cosh\!\left(\frac{2\pi\epsilon_0 V_0}{\lambda}\right) \implies \lambda = \frac{2\pi\epsilon_0 V_0}{\cosh^{-1}(d/R)}
+    $$
+
+    Substituting $a$ and $\lambda$ back into $V(x,y)$ yields the unique potential in the exterior region outside both pipes:
+
+    $$
+    V(x,y) = \frac{V_0}{2\cosh^{-1}(d/R)}\ln\!\left[\frac{(x + \sqrt{d^2 - R^2})^2 + y^2}{(x - \sqrt{d^2 - R^2})^2 + y^2}\right]
+    $$
+
+    *(Inside the conducting pipes, the potential is simply constant: $V = +V_0$ for $(x - d)^2 + y^2 \le R^2$, and $V = -V_0$ for $(x + d)^2 + y^2 \le R^2$.)*
+  </div>
+</ProblemCard>
+
+</section>

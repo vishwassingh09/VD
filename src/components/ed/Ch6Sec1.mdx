@@ -1,0 +1,324 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch6-sec1" class="ed-sec-block">
+
+### 6.1 Magnetization
+
+<div class="ed-theory-box">
+
+**6.1.1 Diamagnets, Paramagnets, and Ferromagnets:**
+
+- All magnetic phenomena arise from electric charges in motion—at the atomic scale, electrons orbiting nuclei and spinning on their axes act as microscopic current loops (magnetic dipoles). Ordinarily, random atomic orientations cause these moments to cancel macroscopically. When an external magnetic field $\vec{B}$ is applied, the medium becomes magnetically polarized (*magnetized*):
+  - **Paramagnets:** Acquire a magnetization $\vec{M}$ **parallel** to $\vec{B}$ (weakly attracted into stronger magnetic fields). Occurs primarily in atoms or molecules with an odd number of electrons (unpaired electron spins, since the Pauli exclusion principle pairs spins oppositely in filled shells). Spin alignment competes with random thermal agitation.
+  - **Diamagnets:** Acquire a magnetization $\vec{M}$ **antiparallel** to $\vec{B}$ (weakly repelled from stronger magnetic fields). Caused by the field-induced alteration of orbital electron speeds; it is universal to all atoms, though typically much weaker than paramagnetism and therefore observable mainly when all electron spins are paired.
+  - **Ferromagnets:** (e.g., iron, nickel, cobalt) Retain a permanent magnetization even after the external field is removed; $\vec{M}$ depends on the entire magnetic *history* of the object rather than solely on the instantaneous field.
+
+**6.1.2 Torques and Forces on Magnetic Dipoles:**
+
+- **Torque:** A current loop of magnetic dipole moment $\vec{m} = I\vec{a}$ in a uniform magnetic field $\vec{B}$ (or an infinitesimal perfect dipole in an arbitrary field) experiences a torque:
+
+$$
+\vec{N} = \vec{m} \times \vec{B}
+$$
+
+  Like $\vec{N} = \vec{p} \times \vec{E}$ in electrostatics, this torque tends to align $\vec{m}$ parallel to $\vec{B}$ (the mechanism of paramagnetism).
+- **Force:** In a uniform field, the net force on any closed current loop vanishes ($\vec{F} = I \oint d\vec{l} \times \vec{B} = I \left(\oint d\vec{l}\right) \times \vec{B} = \mathbf{0}$). In a nonuniform field, a circular wire ring of radius $R$ carrying current $I$ in an axially symmetric fringing field tilted at angle $\theta$ from the radial plane experiences a force $F = 2\pi I R B \cos\theta$, and in general an infinitesimal magnetic dipole $\vec{m}$ experiences:
+
+$$
+\vec{F} = \vec{\nabla}(\vec{m} \cdot \vec{B})
+$$
+
+  Notice that $\vec{\nabla}(\vec{m}\cdot\vec{B}) \neq (\vec{m}\cdot\vec{\nabla})\vec{B}$ in general, because $\vec{\nabla}\times\vec{B} = \mu_0\vec{J}$ need not vanish!
+- **Ampère vs. Gilbert Models:** Early physicists modeled magnetic dipoles as separated north and south magnetic monopoles ("Gilbert model"). While this often yields the same exterior dipole field, torque on a stationary dipole, and force in current-free regions (via $\vec{p}\to\vec{m}$, $1/\epsilon_0 \to \mu_0$, $\vec{E}\to\vec{B}$), it fails for close-up features (such as contact terms and fields inside magnetized matter) because real magnetic dipoles are tiny current loops (**Ampère model**), and magnetic monopoles do not exist.
+
+**6.1.3 Effect of a Magnetic Field on Atomic Orbits (Classical Diamagnetism):**
+
+- Consider a classical electron ($-e$, mass $m_e$) in a circular orbit of radius $R$ and speed $v$ with period $T = 2\pi R/v$, yielding an orbital dipole moment $\vec{m} = -\frac{1}{2}evR\,\hat{z}$.
+- Turning on a perpendicular field $\vec{B} = B\hat{z}$ adds the Lorentz force $-e(\vec{v}\times\vec{B})$ to the Coulomb centripetal force (the induced electric field during turn-on accelerates or decelerates the electron while keeping $R$ fixed):
+
+$$
+\frac{1}{4\pi\epsilon_0}\frac{e^2}{R^2} + e\bar{v}B = m_e\frac{\bar{v}^2}{R} \implies \Delta v = \bar{v} - v \approx \frac{eRB}{2m_e}
+$$
+
+- The resulting change in orbital dipole moment is always **antiparallel** to $\vec{B}$ regardless of orbital sense:
+
+$$
+\Delta\vec{m} = -\frac{e^2 R^2}{4m_e}\vec{B}
+$$
+
+  Although a full treatment of diamagnetism requires quantum mechanics, this model captures the essential empirical fact that induced orbital moments oppose $\vec{B}$.
+
+**6.1.4 Magnetization $\vec{M}$:**
+
+- Regardless of its microscopic origin (paramagnetic, diamagnetic, or ferromagnetic), the macroscopic magnetic state of matter is described by the **magnetization** vector:
+
+$$
+\vec{M} \equiv \text{magnetic dipole moment per unit volume}
+$$
+
+  analogous to electric polarization $\vec{P}$. In a nonuniform field, paramagnets ($\vec{M} \parallel \vec{B}$) are drawn into stronger field regions, while diamagnets ($\vec{M} \parallel -\vec{B}$) are pushed toward weaker field regions. Typical paramagnetic and diamagnetic forces are $10^4\text{–}10^5$ times weaker than ferromagnetic forces.
+
+</div>
+
+<ProblemCard num="6.1" title="Torque Between a Circular Loop and a Square Loop" tag="Griffiths 6.1 · Dipole Torque">
+  <div slot="problem">
+    Calculate the torque exerted on a square loop of side $b$ carrying current $I$ (centered at distance $r$ along the $y$-axis, lying in the $xz$-plane so its dipole moment points in the $+\hat{y}$ direction), due to a circular loop of radius $a$ carrying current $I$ (centered at the origin in the $xy$-plane with dipole moment in the $+\hat{z}$ direction). Assume $r$ is much larger than $a$ or $b$. If the square loop is free to rotate, what will its equilibrium orientation be?
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{N} = -\frac{\mu_0 (abI)^2}{4 r^3}\,\hat{x}
+    $$
+
+    Equilibrium orientation: downward ($-\hat{z}$).
+  </div>
+
+  <div slot="solution">
+    Since $r \gg a, b$, both loops act as magnetic dipoles:
+
+    $$
+    \vec{m}_1 = \pi a^2 I\,\hat{z}, \qquad \vec{m}_2 = b^2 I\,\hat{y}
+    $$
+
+    At the location of the square loop ($\vec{r} = r\hat{y}$, so $\hat{r} = \hat{y}$), the magnetic field produced by the circular loop is:
+
+    $$
+    \vec{B}_1 = \frac{\mu_0}{4\pi r^3}\left[3(\vec{m}_1 \cdot \hat{r})\hat{r} - \vec{m}_1\right]
+    $$
+
+    Since $\vec{m}_1 \cdot \hat{y} = 0$, this simplifies to:
+
+    $$
+    \vec{B}_1 = -\frac{\mu_0 m_1}{4\pi r^3}\,\hat{z}
+    $$
+
+    The torque on the square loop is therefore:
+
+    $$
+    \vec{N} = \vec{m}_2 \times \vec{B}_1 = -\frac{\mu_0 m_1 m_2}{4\pi r^3}(\hat{y} \times \hat{z}) = -\frac{\mu_0 m_1 m_2}{4\pi r^3}\,\hat{x}
+    $$
+
+    Substituting $m_1 = \pi a^2 I$ and $m_2 = b^2 I$:
+
+    $$
+    \vec{N} = -\frac{\mu_0 (\pi a^2 I)(b^2 I)}{4\pi r^3}\,\hat{x} = -\frac{\mu_0 (abI)^2}{4 r^3}\,\hat{x}
+    $$
+
+    Because the torque tends to align $\vec{m}_2$ parallel to $\vec{B}_1$, the equilibrium orientation of $\vec{m}_2$ is **downward** (along $-\hat{z}$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="6.2" title="Torque on an Arbitrary Steady Current Loop in a Uniform Field" tag="Griffiths 6.2 · General Proof">
+  <div slot="problem">
+    Starting from the Lorentz force law in the form $\vec{F} = I \oint (d\vec{l} \times \vec{B})$, show that the torque on any steady current distribution (not just a square loop) in a uniform field $\vec{B}$ is $\vec{m} \times \vec{B}$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{N} = I(\vec{B} \times \vec{a}) = \vec{m} \times \vec{B} \quad (\text{where } \vec{m} = I\vec{a})
+    $$
+  </div>
+
+  <div slot="solution">
+    The infinitesimal force on a line element $d\vec{l}$ at position $\vec{r}$ is $d\vec{F} = I\,d\vec{l} \times \vec{B}$, so the infinitesimal torque about the origin is:
+
+    $$
+    d\vec{N} = \vec{r} \times d\vec{F} = I\,\vec{r} \times (d\vec{l} \times \vec{B})
+    $$
+
+    By the Jacobi identity for cross products, $\vec{r} \times (d\vec{l} \times \vec{B}) + d\vec{l} \times (\vec{B} \times \vec{r}) + \vec{B} \times (\vec{r} \times d\vec{l}) = \mathbf{0}$. Furthermore, because $\vec{B}$ is uniform and $d\vec{r} = d\vec{l}$ along the loop:
+
+    $$
+    d\left[\vec{r} \times (\vec{r} \times \vec{B})\right] = d\vec{r} \times (\vec{r} \times \vec{B}) + \vec{r} \times (d\vec{r} \times \vec{B}) = -d\vec{l} \times (\vec{B} \times \vec{r}) + \vec{r} \times (d\vec{l} \times \vec{B})
+    $$
+
+    Thus $d\vec{l} \times (\vec{B} \times \vec{r}) = \vec{r} \times (d\vec{l} \times \vec{B}) - d[\vec{r} \times (\vec{r} \times \vec{B})]$. Substituting into the Jacobi identity gives:
+
+    $$
+    2\,\vec{r} \times (d\vec{l} \times \vec{B}) = d\left[\vec{r} \times (\vec{r} \times \vec{B})\right] - \vec{B} \times (\vec{r} \times d\vec{l})
+    $$
+
+    Integrating around the closed current loop:
+
+    $$
+    \vec{N} = \frac{1}{2}I\left\{\oint d\left[\vec{r} \times (\vec{r} \times \vec{B})\right] - \vec{B} \times \oint (\vec{r} \times d\vec{l})\right\}
+    $$
+
+    The first integral of an exact differential around a closed loop vanishes ($\oint d(\cdots) = \mathbf{0}$), and the vector area of the loop is $\vec{a} = \frac{1}{2}\oint (\vec{r} \times d\vec{l})$, so $\oint (\vec{r} \times d\vec{l}) = 2\vec{a}$. Therefore:
+
+    $$
+    \vec{N} = -\frac{1}{2}I(\vec{B} \times 2\vec{a}) = I(\vec{a} \times \vec{B}) = \vec{m} \times \vec{B}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="6.3" title="Force Between Two Coaxial Aligned Magnetic Dipoles" tag="Griffiths 6.3 · Dipole-Dipole Force">
+  <div slot="problem">
+    Find the force of attraction between two magnetic dipoles, $\vec{m}_1$ and $\vec{m}_2$, oriented parallel to the $z$-axis (with $\vec{m}_2$ directly above $\vec{m}_1$ along the $z$-axis), a distance $r$ apart:
+    1. using $F = 2\pi I R B \cos\theta_{\text{tilt}}$ (where $B \cos\theta_{\text{tilt}}$ is the horizontal radial component of $\vec{B}$ at the loop), and
+    2. using $\vec{F} = \vec{\nabla}(\vec{m} \cdot \vec{B})$.
+  </div>
+
+  <div slot="answer">
+    1. $F = \dfrac{3\mu_0 m_1 m_2}{2\pi r^4}$ (attractive, toward $\vec{m}_1$, i.e., in the $-\hat{z}$ direction).
+    2. $\vec{F} = -\dfrac{3\mu_0 m_1 m_2}{2\pi r^4}\,\hat{z}$ (attractive).
+  </div>
+
+  <div slot="solution">
+    1. Model $\vec{m}_2$ as a small horizontal circular current loop of radius $R \ll r$ carrying current $I$ (so $m_2 = I\pi R^2$) centered on the $z$-axis above $\vec{m}_1 = m_1\hat{z}$. Let $\alpha$ be the polar angle from the $z$-axis to a point on the ring (distance $r_{\text{wire}} = \sqrt{z^2 + R^2} \approx r$ from $\vec{m}_1$), and let $\hat{s}$ be the outward cylindrical radial direction. Since $\vec{m}_1 \cdot \hat{s} = 0$ and $\hat{r}_{\text{wire}} \cdot \hat{s} = \sin\alpha$, the radial component of $\vec{B}_1$ at the wire (which equals $B \cos\theta_{\text{tilt}}$ in Eq. 6.2) is:
+
+    $$
+    B_s = \vec{B}_1 \cdot \hat{s} = \frac{\mu_0}{4\pi r_{\text{wire}}^3}\left[3(\vec{m}_1 \cdot \hat{r}_{\text{wire}})(\hat{r}_{\text{wire}} \cdot \hat{s}) - (\vec{m}_1 \cdot \hat{s})\right] = \frac{\mu_0}{4\pi r_{\text{wire}}^3}(3m_1\sin\alpha\cos\alpha)
+    $$
+
+    By Eq. 6.2, the downward attractive force on the loop is:
+
+    $$
+    F = 2\pi I R B_s = 2\pi I R \left(\frac{\mu_0}{4\pi r_{\text{wire}}^3} 3m_1\sin\alpha\cos\alpha\right)
+    $$
+
+    Using $\sin\alpha = R/r_{\text{wire}}$ and $\cos\alpha = \sqrt{r_{\text{wire}}^2 - R^2}/r_{\text{wire}}$, together with $I\pi R^2 = m_2$:
+
+    $$
+    F = \frac{3\mu_0 m_1 (I\pi R^2)}{2\pi} \frac{\sqrt{r_{\text{wire}}^2 - R^2}}{r_{\text{wire}}^5} = \frac{3\mu_0 m_1 m_2}{2\pi}\frac{\sqrt{r_{\text{wire}}^2 - R^2}}{r_{\text{wire}}^5}
+    $$
+
+    For an ideal dipole ($R \ll r$, so $r_{\text{wire}} \to r$ and $\sqrt{r_{\text{wire}}^2 - R^2} \to r$):
+
+    $$
+    F = \frac{3\mu_0 m_1 m_2}{2\pi r^4} \quad (\text{attractive, } -\hat{z})
+    $$
+
+    2. Using $\vec{F} = \vec{\nabla}(\vec{m}_2 \cdot \vec{B}_1)$, along the $z$-axis ($\theta = 0$) the field of $\vec{m}_1$ is $\vec{B}_1(z) = \dfrac{\mu_0}{4\pi z^3}[3(m_1\hat{z}\cdot\hat{z})\hat{z} - m_1\hat{z}] = \dfrac{\mu_0 m_1}{2\pi z^3}\hat{z}$. Thus:
+
+    $$
+    \vec{F} = \hat{z}\frac{d}{dz}\left(\frac{\mu_0 m_1 m_2}{2\pi z^3}\right) = -\frac{3\mu_0 m_1 m_2}{2\pi z^4}\,\hat{z}
+    $$
+
+    At $z = r$, the attractive force has magnitude $\dfrac{3\mu_0 m_1 m_2}{2\pi r^4}$ directed toward $\vec{m}_1$ ($-\hat{z}$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="6.4" title="Derivation of the Dipole Force Formula F = ∇(m · B)" tag="Griffiths 6.4 · Taylor Expansion">
+  <div slot="problem">
+    Derive $\vec{F} = \vec{\nabla}(\vec{m} \cdot \vec{B})$. Assume the dipole is an infinitesimal square loop of side $\epsilon$ lying in the $yz$-plane (so $\vec{m} = I\epsilon^2\hat{x}$) with one corner at the origin, and calculate $\vec{F} = I \oint (d\vec{l} \times \vec{B})$ along each of the four sides by expanding $\vec{B}$ in a Taylor series.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{F} = \vec{\nabla}(\vec{m} \cdot \vec{B})
+    $$
+  </div>
+
+  <div slot="solution">
+    With the current $I$ circulating from $(0,0,0) \to (0,\epsilon,0) \to (0,\epsilon,\epsilon) \to (0,0,\epsilon) \to (0,0,0)$, the dipole moment is $\vec{m} = I\epsilon^2\hat{x}$. Summing the Lorentz force $\vec{F} = I \int d\vec{l} \times \vec{B}$ over the four sides:
+
+    $$
+    \begin{aligned}
+    \vec{F} &= I\left\{\int_0^\epsilon (dy\,\hat{y})\times\vec{B}(0,y,0) + \int_0^\epsilon (dz\,\hat{z})\times\vec{B}(0,\epsilon,z) - \int_0^\epsilon (dy\,\hat{y})\times\vec{B}(0,y,\epsilon) - \int_0^\epsilon (dz\,\hat{z})\times\vec{B}(0,0,z)\right\} \\
+    &= I\left\{\int_0^\epsilon (dz\,\hat{z})\times\left[\vec{B}(0,\epsilon,z) - \vec{B}(0,0,z)\right] - \int_0^\epsilon (dy\,\hat{y})\times\left[\vec{B}(0,y,\epsilon) - \vec{B}(0,y,0)\right]\right\}
+    \end{aligned}
+    $$
+
+    Expanding to first order in $\epsilon$ about $(0,0,0)$:
+
+    $$
+    \vec{B}(0,\epsilon,z) - \vec{B}(0,0,z) \approx \epsilon \left.\frac{\partial \vec{B}}{\partial y}\right|_{(0,0,0)}, \qquad \vec{B}(0,y,\epsilon) - \vec{B}(0,y,0) \approx \epsilon \left.\frac{\partial \vec{B}}{\partial z}\right|_{(0,0,0)}
+    $$
+
+    Performing the remaining integrals ($\int_0^\epsilon dz = \epsilon$, $\int_0^\epsilon dy = \epsilon$) yields:
+
+    $$
+    \vec{F} = I\epsilon^2 \left(\hat{z} \times \frac{\partial \vec{B}}{\partial y} - \hat{y} \times \frac{\partial \vec{B}}{\partial z}\right) = m\left[\left(-\frac{\partial B_y}{\partial y}\hat{x} + \frac{\partial B_x}{\partial y}\hat{y}\right) - \left(\frac{\partial B_z}{\partial z}\hat{x} - \frac{\partial B_x}{\partial z}\hat{z}\right)\right]
+    $$
+
+    Grouping components:
+
+    $$
+    \vec{F} = m\left[-\left(\frac{\partial B_y}{\partial y} + \frac{\partial B_z}{\partial z}\right)\hat{x} + \frac{\partial B_x}{\partial y}\hat{y} + \frac{\partial B_x}{\partial z}\hat{z}\right]
+    $$
+
+    Since $\vec{\nabla} \cdot \vec{B} = \dfrac{\partial B_x}{\partial x} + \dfrac{\partial B_y}{\partial y} + \dfrac{\partial B_z}{\partial z} = 0$, we have $-\left(\dfrac{\partial B_y}{\partial y} + \dfrac{\partial B_z}{\partial z}\right) = \dfrac{\partial B_x}{\partial x}$. Therefore:
+
+    $$
+    \vec{F} = m\left(\frac{\partial B_x}{\partial x}\hat{x} + \frac{\partial B_x}{\partial y}\hat{y} + \frac{\partial B_x}{\partial z}\hat{z}\right) = m\vec{\nabla} B_x = \vec{\nabla}(m B_x) = \vec{\nabla}(\vec{m} \cdot \vec{B})
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="6.5" title="Dipole Force in a Current-Carrying Slab: ∇(m·B) vs (m·∇)B" tag="Griffiths 6.5 · Force Forms">
+  <div slot="problem">
+    A uniform current density $\vec{J} = J_0\hat{z}$ fills a slab straddling the $yz$-plane, from $x = -a$ to $x = +a$. A magnetic dipole $\vec{m} = m_0\hat{x}$ is situated at the origin.
+    1. Find the force on the dipole, using $\vec{F} = \vec{\nabla}(\vec{m} \cdot \vec{B})$.
+    2. Do the same for a dipole pointing in the $y$-direction: $\vec{m} = m_0\hat{y}$.
+    3. In the electrostatic case, the expressions $\vec{F} = \vec{\nabla}(\vec{p} \cdot \vec{E})$ and $\vec{F} = (\vec{p} \cdot \vec{\nabla})\vec{E}$ are equivalent (prove it), but this is not the case for the magnetic analogs (explain why). As an example, calculate $(\vec{m} \cdot \vec{\nabla})\vec{B}$ for the configurations in (1) and (2).
+  </div>
+
+  <div slot="answer">
+    1. $\vec{F} = \mathbf{0}$.
+    2. $\vec{F} = m_0 \mu_0 J_0\,\hat{x}$.
+    3. $\vec{\nabla}(\vec{p}\cdot\vec{E}) = (\vec{p}\cdot\vec{\nabla})\vec{E}$ because $\vec{\nabla}\times\vec{E} = \mathbf{0}$, whereas $\vec{\nabla}\times\vec{B} = \mu_0\vec{J} \neq \mathbf{0}$ gives $\vec{\nabla}(\vec{m}\cdot\vec{B}) = (\vec{m}\cdot\vec{\nabla})\vec{B} + \mu_0(\vec{m}\times\vec{J})$. Specifically, $(\vec{m}\cdot\vec{\nabla})\vec{B}_a = m_0\mu_0 J_0\,\hat{y}$ and $(\vec{m}\cdot\vec{\nabla})\vec{B}_b = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    From Problem 5.15, the magnetic field inside the slab ($-a \le x \le a$) with $\vec{J} = J_0\hat{z}$ is:
+
+    $$
+    \vec{B}(x) = \mu_0 J_0 x\,\hat{y}
+    $$
+
+    1. For $\vec{m} = m_0\hat{x}$, $\vec{m} \cdot \vec{B} = m_0\hat{x} \cdot (\mu_0 J_0 x\,\hat{y}) = 0$, so:
+
+    $$
+    \vec{F} = \vec{\nabla}(\vec{m} \cdot \vec{B}) = \mathbf{0}
+    $$
+
+    2. For $\vec{m} = m_0\hat{y}$, $\vec{m} \cdot \vec{B} = m_0 \mu_0 J_0 x$, so:
+
+    $$
+    \vec{F} = \vec{\nabla}(m_0 \mu_0 J_0 x) = m_0 \mu_0 J_0\,\hat{x}
+    $$
+
+    3. Using the vector identity $\vec{\nabla}(\vec{A}\cdot\vec{C}) = \vec{A}\times(\vec{\nabla}\times\vec{C}) + \vec{C}\times(\vec{\nabla}\times\vec{A}) + (\vec{A}\cdot\vec{\nabla})\vec{C} + (\vec{C}\cdot\vec{\nabla})\vec{A}$ for a constant dipole vector $\vec{p}$:
+
+    $$
+    \vec{\nabla}(\vec{p}\cdot\vec{E}) = \vec{p}\times(\vec{\nabla}\times\vec{E}) + \vec{E}\times(\vec{\nabla}\times\vec{p}) + (\vec{p}\cdot\vec{\nabla})\vec{E} + (\vec{E}\cdot\vec{\nabla})\vec{p}
+    $$
+
+    Because $\vec{p}$ is independent of $(x,y,z)$, the second and fourth terms vanish; because $\vec{\nabla}\times\vec{E} = \mathbf{0}$ in electrostatics, the first term also vanishes. Hence $\vec{\nabla}(\vec{p}\cdot\vec{E}) = (\vec{p}\cdot\vec{\nabla})\vec{E}$.
+
+    In magnetostatics, however, $\vec{\nabla}\times\vec{B} = \mu_0\vec{J}$ need not vanish at the dipole's location, so:
+
+    $$
+    \vec{\nabla}(\vec{m}\cdot\vec{B}) = (\vec{m}\cdot\vec{\nabla})\vec{B} + \vec{m}\times(\vec{\nabla}\times\vec{B}) = (\vec{m}\cdot\vec{\nabla})\vec{B} + \mu_0(\vec{m}\times\vec{J})
+    $$
+
+    Evaluating $(\vec{m}\cdot\vec{\nabla})\vec{B}$ for parts (1) and (2):
+
+    $$
+    (\vec{m}\cdot\vec{\nabla})\vec{B}_a = m_0\frac{\partial}{\partial x}(\mu_0 J_0 x\,\hat{y}) = m_0\mu_0 J_0\,\hat{y}, \qquad (\vec{m}\cdot\vec{\nabla})\vec{B}_b = m_0\frac{\partial}{\partial y}(\mu_0 J_0 x\,\hat{y}) = \mathbf{0}
+    $$
+
+    Adding $\mu_0(\vec{m}\times\vec{J})$ gives $\mathbf{0}$ in (1) and $m_0\mu_0 J_0\,\hat{x}$ in (2), confirming the identity.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="6.6" title="Predicting Paramagnets vs. Diamagnets from Electron Count" tag="Griffiths 6.6 · Qualitative Classification">
+  <div slot="problem">
+    Of the following materials, which would you expect to be paramagnetic and which diamagnetic: aluminum, copper, copper chloride ($\text{CuCl}_2$), carbon, lead, nitrogen ($\text{N}_2$), salt ($\text{NaCl}$), sodium, sulfur, water? (Actually, copper is slightly diamagnetic; otherwise they're all what you'd expect.)
+  </div>
+
+  <div slot="answer">
+    - **Paramagnetic (odd number of electrons):** Aluminum ($13$), copper ($29$, though actually weakly diamagnetic in bulk metal), copper chloride ($\text{CuCl}_2$: $29 + 2\times 17 = 63$), sodium ($11$).
+    - **Diamagnetic (even number of electrons):** Carbon ($6$), lead ($82$), nitrogen ($\text{N}_2$: $2\times 7 = 14$), salt ($\text{NaCl}$: $11 + 17 = 28$), sulfur ($16$), water ($\text{H}_2\text{O}$: $2\times 1 + 8 = 10$).
+  </div>
+
+  <div slot="solution">
+    By the Pauli exclusion principle, electrons in atoms or molecules with an **even** number of electrons tend to pair up with opposing spins, canceling spin paramagnetism and leaving only the universal (weaker) **diamagnetic** response. Species with an **odd** total number of electrons possess at least one unpaired electron spin, leading to **paramagnetism**:
+
+    - **Odd electron count (expected paramagnetic):** Aluminum ($Z = 13$), copper ($Z = 29$, actually weakly diamagnetic in bulk metal), $\text{CuCl}_2$ ($29 + 34 = 63$), sodium ($Z = 11$).
+    - **Even electron count (expected diamagnetic):** Carbon ($Z = 6$), lead ($Z = 82$), $\text{N}_2$ ($7 + 7 = 14$), $\text{NaCl}$ ($11 + 17 = 28$), sulfur ($Z = 16$), $\text{H}_2\text{O}$ ($1 + 1 + 8 = 10$).
+  </div>
+</ProblemCard>
+
+</section>

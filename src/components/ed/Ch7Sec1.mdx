@@ -1,0 +1,538 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch7-sec1" class="ed-sec-block">
+
+### 7.1 Electromotive Force
+
+<div class="ed-theory-box">
+
+**1. Ohm's Law and Steady-State Conduction:**
+
+- **Microscopic Force–Current Relation:** To sustain a current, charges must be pushed. In most ohmic materials, the volume current density $\vec{J}$ is proportional to the total force per unit charge $\vec{f}$ acting on the mobile carriers:
+
+$$
+\vec{J} = \sigma \vec{f}
+$$
+
+  where $\sigma$ is the **conductivity** and $\rho = 1/\sigma$ is the **resistivity** (not to be confused with charge density). For electromagnetic driving forces,
+
+$$
+\vec{J} = \sigma(\vec{E} + \vec{v} \times \vec{B})
+$$
+
+  When carrier drift speeds $v$ are small (as in ordinary wires, unlike plasmas), the magnetic term is negligible and we recover **Ohm's law**:
+
+$$
+\vec{J} = \sigma \vec{E}
+$$
+
+- **Conductors vs. Electrostatics:** In electrostatics ($\vec{J} = \mathbf{0}$), $\vec{E} = \mathbf{0}$ inside a conductor. When current flows in a *perfect* conductor ($\sigma \to \infty$), $\vec{E} = \vec{J}/\sigma \to \mathbf{0}$ still holds, so connecting wires in circuits are accurately treated as equipotentials, while resistors are made from poorly conducting materials where $\vec{E} \neq \mathbf{0}$.
+- **Macroscopic Resistance and Steady-State Laplace's Equation:** Integrating across an electrode geometry of fixed shape yields the circuit form $V = IR$, where the resistance $R$ depends only on geometry and $\sigma$ (for a uniform cylinder of area $A$ and length $L$, $R = L/(\sigma A)$). For **steady currents** ($\vec{\nabla}\cdot\vec{J} = 0$) in a **homogeneous** medium (uniform $\sigma$):
+
+$$
+\vec{\nabla}\cdot\vec{E} = \frac{1}{\sigma}\vec{\nabla}\cdot\vec{J} = 0 \implies \rho_{\text{charge}} = 0, \qquad \nabla^2 V = 0
+$$
+
+  Thus all unbalanced charge resides on the surface of the conductor (creating the boundary field that guides the current uniformly along bends), and all uniqueness/Laplace techniques of Chapter 3 apply directly inside ohmic media.
+- **Drude Physical Picture & Joule Heating:** Why does a constant $\vec{E}$ produce a constant drift speed rather than runaway acceleration? Carriers accelerate briefly between frequent thermal collisions (mean free path $\lambda$, collision time $\tau \approx \lambda/v_{\text{thermal}}$), resetting their drift momentum on each impact: $\vec{J} = \left(\frac{nf\lambda q^2}{2mv_{\text{thermal}}}\right)\vec{E}$. The work done by the electric field is dissipated as heat at the **Joule heating** rate:
+
+$$
+P = VI = I^2 R
+$$
+
+**2. Electromotive Force (emf):**
+
+- **Two Forces in a Circuit:** If a battery only pushes charges inside itself, why does the same steady current flow everywhere around a closed circuit? During the brief transient when the switch closes, any current mismatch causes charge to pile up at bends and junctions, producing an electrostatic field that opposes excess inflow and aids deficient outflow until $\vec{\nabla}\cdot\vec{J} = 0$ everywhere. Thus the total driving force per unit charge is
+
+$$
+\vec{f} = \vec{f}_s + \vec{E}
+$$
+
+  where $\vec{f}_s$ is the localized source force (chemical, thermal, photoelectric, mechanical, etc.) and $\vec{E}$ is the conservative electrostatic field ($\oint \vec{E}\cdot d\vec{l} = 0$).
+- **Definition of emf:** The **electromotive force** $\mathcal{E}$ around a closed circuit is the line integral of $\vec{f}$ at a given instant:
+
+$$
+\mathcal{E} \equiv \oint \vec{f}\cdot d\vec{l} = \oint \vec{f}_s\cdot d\vec{l}
+$$
+
+  (In units of volts, $\mathcal{E}$ is work per unit charge, not a mechanical force.) Inside an *ideal* (zero internal resistance, $\sigma = \infty$) battery, $\vec{f} = \vec{f}_s + \vec{E} = \mathbf{0} \implies \vec{E} = -\vec{f}_s$, so the terminal potential difference is $V = -\int_a^b \vec{E}\cdot d\vec{l} = \mathcal{E}$. A real battery with internal resistance $r$ delivers terminal voltage $V = \mathcal{E} - Ir$.
+
+**3. Motional emf and the Flux Rule:**
+
+- **Motional emf:** When a conductor moves at velocity $\vec{v}$ through a magnetic field $\vec{B}$, charges inside experience the magnetic force per unit charge $\vec{f}_{\text{mag}} = \vec{v}\times\vec{B}$. For a loop of width $h$ pulled at speed $v$ out of a uniform field $B$ (perpendicular to the loop), $\mathcal{E} = \oint \vec{f}_{\text{mag}}\cdot d\vec{l} = vBh$.
+- **Who Does the Work?** Magnetic forces *never* do work. In the pulled loop, current carriers acquire a drift speed $u$ along the wire, so $\vec{f}_{\text{mag}}$ acquires a backward component $uB$ opposing the motion. The external agent pulling the loop exerts $\vec{f}_{\text{pull}} = uB$ forward. Integrated along the *true diagonal trajectory* of a charge (rather than the instantaneous "snapshot" path along the wire used to define $\mathcal{E}$), the work per unit charge done by the pulling agent equals $\mathcal{E} = vBh$.
+- **Magnetic Flux & the Flux Rule:** Defining the magnetic flux through a surface $S$ bounded by the loop as
+
+$$
+\Phi \equiv \int_S \vec{B}\cdot d\vec{a}
+$$
+
+  (independent of the choice of $S$ since $\vec{\nabla}\cdot\vec{B} = 0$), a loop moving/deforming in time $dt$ sweeps out a ribbon of area $d\vec{a} = (\vec{v}\times d\vec{l})\,dt$. Because $\vec{B}\cdot(\vec{v}\times d\vec{l}) = -(\vec{v}\times\vec{B})\cdot d\vec{l}$ and carrier drift $\vec{u}\parallel d\vec{l}$ drops out of $\vec{u}\times d\vec{l} = \mathbf{0}$, one obtains the **flux rule for motional emf**:
+
+$$
+\mathcal{E} = -\frac{d\Phi}{dt}
+$$
+
+  Sign consistency follows the **right-hand rule**: curl your right fingers in the positive integration sense of $d\vec{l}$ around the loop, and your thumb fixes the positive direction of $d\vec{a}$.
+- **Crucial Caveat:** The flux rule applies strictly to a single continuous filamentary wire loop (even if stretched or distorted). It fails or becomes ambiguous for switches/re-routed paths or extended conductors where current spreads out (e.g., the **Faraday disk** dynamo, $\mathcal{E} = \frac{1}{2}\omega B a^2$, and **eddy currents** in bulk conductors); in those cases, return directly to $\vec{f}_{\text{mag}} = \vec{v}\times\vec{B}$.
+
+</div>
+
+<ProblemCard num="7.1" title="Resistance Between Concentric Spherical Shells and Submerged Spheres" tag="Griffiths 7.1 · Ohm's Law & Resistance">
+  <div slot="problem">
+    Two concentric metal spherical shells, of radius $a$ and $b$, respectively, are separated by weakly conducting material of conductivity $\sigma$.
+
+    1. If they are maintained at a potential difference $V$, what current flows from one to the other?
+    2. What is the resistance between the shells?
+    3. Notice that if $b \gg a$ the outer radius ($b$) is irrelevant. How do you account for that? Exploit this observation to determine the current flowing between two metal spheres, each of radius $a$, immersed deep in the sea and held quite far apart, if the potential difference between them is $V$. (This arrangement can be used to measure the conductivity of sea water.)
+  </div>
+
+  <div slot="answer">
+    1. $I = \dfrac{4\pi\sigma V}{\frac{1}{a} - \frac{1}{b}}$
+    2. $R = \dfrac{1}{4\pi\sigma}\left(\dfrac{1}{a} - \dfrac{1}{b}\right)$
+    3. When $b \gg a$, nearly all the resistance is concentrated right around the small inner sphere where the cross-sectional area $4\pi r^2$ is smallest. For two widely separated spheres of radius $a$ in sea water, $I = 2\pi \sigma a V$.
+  </div>
+
+  <div slot="solution">
+    1. Let $Q$ be the charge on the inner shell ($r = a$). By spherical symmetry and Gauss's law, the electric field in the region $a < r < b$ is
+
+       $$
+       \vec{E} = \frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}\,\hat{r}
+       $$
+
+       The potential difference between the inner and outer shells is
+
+       $$
+       V = V_a - V_b = -\int_b^a \vec{E}\cdot d\vec{l} = \frac{Q}{4\pi\epsilon_0}\int_a^b \frac{dr}{r^2} = \frac{Q}{4\pi\epsilon_0}\left(\frac{1}{a} - \frac{1}{b}\right)
+       $$
+
+       Using Ohm's law $\vec{J} = \sigma \vec{E}$ and integrating over any concentric spherical surface enclosing the inner shell, the total current is
+
+       $$
+       I = \oint \vec{J}\cdot d\vec{a} = \sigma \oint \vec{E}\cdot d\vec{a} = \frac{\sigma Q}{\epsilon_0} = \frac{4\pi\sigma V}{\frac{1}{a} - \frac{1}{b}}
+       $$
+
+    2. From $R = V/I$, the resistance between the shells is
+
+       $$
+       R = \frac{V}{I} = \frac{1}{4\pi\sigma}\left(\frac{1}{a} - \frac{1}{b}\right)
+       $$
+
+    3. When $b \gg a$, $1/b \to 0$ and $R \approx \dfrac{1}{4\pi\sigma a}$. Physically, the current spreads out radially over spherical shells of area $4\pi r^2$; successive shells at larger radii have rapidly increasing cross-sectional area and therefore contribute negligibly to the total resistance, which is dominated by the immediate neighborhood of the sphere of radius $a$.
+
+       For two metal spheres of radius $a$ held far apart in the sea, the current leaves the first sphere radially (encountering resistance $R_1 \approx \frac{1}{4\pi\sigma a}$ near it), spreads through the vast ocean with negligible resistance, and converges radially onto the second sphere (encountering an identical resistance $R_2 \approx \frac{1}{4\pi\sigma a}$ near it). These two resistances are in series:
+
+       $$
+       R_{\text{total}} = R_1 + R_2 = \frac{1}{4\pi\sigma a} + \frac{1}{4\pi\sigma a} = \frac{1}{2\pi\sigma a}
+       $$
+
+       Hence the current flowing between them is
+
+       $$
+       I = \frac{V}{R_{\text{total}}} = 2\pi\sigma a V
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.2" title="Discharging and Charging an RC Circuit: Energy Balance" tag="Griffiths 7.2 · RC Circuits & Joule Heating">
+  <div slot="problem">
+    A capacitor $C$ has been charged up to potential $V_0$; at time $t = 0$, it is connected to a resistor $R$, and begins to discharge.
+
+    1. Determine the charge on the capacitor as a function of time, $Q(t)$. What is the current through the resistor, $I(t)$?
+    2. What was the original energy stored in the capacitor? By integrating $P = I^2 R$, confirm that the heat delivered to the resistor is equal to the energy lost by the capacitor.
+
+    Now imagine charging up the capacitor, by connecting it (and the resistor) to a battery of voltage $V_0$, at time $t = 0$.
+
+    3. Again, determine $Q(t)$ and $I(t)$.
+    4. Find the total energy output of the battery ($\int V_0 I\,dt$). Determine the heat delivered to the resistor. What is the final energy stored in the capacitor? What fraction of the work done by the battery shows up as energy in the capacitor? (Notice that the answer is independent of $R$!)
+  </div>
+
+  <div slot="answer">
+    1. $Q(t) = CV_0 e^{-t/(RC)}$, $\quad I(t) = \dfrac{V_0}{R}e^{-t/(RC)}$
+    2. $W_0 = \dfrac{1}{2}CV_0^2$; total Joule heat $W_{\text{heat}} = \dfrac{1}{2}CV_0^2 = W_0$
+    3. $Q(t) = CV_0\left(1 - e^{-t/(RC)}\right)$, $\quad I(t) = \dfrac{V_0}{R}e^{-t/(RC)}$
+    4. Battery output $W_{\text{batt}} = CV_0^2$; heat in resistor $W_{\text{heat}} = \dfrac{1}{2}CV_0^2$; final capacitor energy $W_C = \dfrac{1}{2}CV_0^2$; fraction stored in capacitor is $\dfrac{1}{2}$ (independent of $R$).
+  </div>
+
+  <div slot="solution">
+    1. During discharge, the capacitor voltage equals the resistor voltage, $V = Q/C = IR$. Since positive current $I$ reduces the charge on the positive plate, $I = -dQ/dt$:
+
+       $$
+       \frac{dQ}{dt} = -I = -\frac{1}{RC}Q \implies Q(t) = Q_0 e^{-t/(RC)}
+       $$
+
+       With $Q_0 = Q(0) = CV_0$, we get
+
+       $$
+       Q(t) = CV_0 e^{-t/(RC)}, \qquad I(t) = -\frac{dQ}{dt} = \frac{V_0}{R}e^{-t/(RC)}
+       $$
+
+    2. The initial energy stored in the capacitor (Eq. 2.55) is $W_0 = \frac{1}{2}CV_0^2$. Integrating the Joule heating power $P = I^2 R$ from $t = 0$ to $\infty$:
+
+       $$
+       W_{\text{heat}} = \int_0^\infty I^2 R\,dt = \frac{V_0^2}{R}\int_0^\infty e^{-2t/(RC)}\,dt = \frac{V_0^2}{R}\left[-\frac{RC}{2}e^{-2t/(RC)}\right]_0^\infty = \frac{1}{2}CV_0^2
+       $$
+
+       This equals $W_0$, confirming energy conservation.
+
+    3. During charging, Kirchhoff's loop rule gives $V_0 = \dfrac{Q}{C} + IR$. Here positive current increases $Q$, so $I = +dQ/dt$:
+
+       $$
+       \frac{dQ}{dt} = \frac{1}{RC}(CV_0 - Q) \implies \frac{dQ}{Q - CV_0} = -\frac{dt}{RC}
+       $$
+
+       Integrating gives $\ln|Q - CV_0| = -t/(RC) + \text{const}$, or $Q(t) = CV_0 + k e^{-t/(RC)}$. Since $Q(0) = 0$, $k = -CV_0$, so
+
+       $$
+       Q(t) = CV_0\left(1 - e^{-t/(RC)}\right), \qquad I(t) = \frac{dQ}{dt} = \frac{V_0}{R}e^{-t/(RC)}
+       $$
+
+    4. The total energy delivered by the battery is
+
+       $$
+       W_{\text{batt}} = \int_0^\infty V_0 I(t)\,dt = \frac{V_0^2}{R}\int_0^\infty e^{-t/(RC)}\,dt = \frac{V_0^2}{R}(RC) = CV_0^2
+       $$
+
+       Because $I(t)$ is identical to part (1), the heat dissipated in the resistor is again $W_{\text{heat}} = \frac{1}{2}CV_0^2$. The final energy stored in the capacitor is $W_C = \frac{1}{2}CV_0^2$. Thus exactly half ($1/2$) of the work done by the battery ends up stored in the capacitor, and the other half is lost as heat in the resistor—completely independent of $R$ (even as $R \to 0$, where radiation or wire resistance dissipates the same half).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.3" title="Universal Relation Between Resistance, Capacitance, and Leakage Time Constant" tag="Griffiths 7.3 · Resistance & Capacitance">
+  <div slot="problem">
+    1. Two metal objects are embedded in weakly conducting material of conductivity $\sigma$. Show that the resistance between them is related to the capacitance of the arrangement by
+
+       $$
+       R = \frac{\epsilon_0}{\sigma C}
+       $$
+
+    2. Suppose you connected a battery between 1 and 2, and charged them up to a potential difference $V_0$. If you then disconnect the battery, the charge will gradually leak off. Show that $V(t) = V_0 e^{-t/\tau}$, and find the time constant, $\tau$, in terms of $\epsilon_0$ and $\sigma$.
+  </div>
+
+  <div slot="answer">
+    1. $R = \dfrac{\epsilon_0}{\sigma C}$ (proof via Gauss's law and Ohm's law).
+    2. $V(t) = V_0 e^{-t/\tau}$ with $\tau = \dfrac{\epsilon_0}{\sigma}$ (independent of geometry).
+  </div>
+
+  <div slot="solution">
+    1. Let $Q$ be the charge on conductor 1 when the potential difference is $V = V_1 - V_2$. Integrating the current density $\vec{J} = \sigma\vec{E}$ over any closed surface $S$ surrounding conductor 1 (and excluding conductor 2) and applying Gauss's law:
+
+       $$
+       I = \oint_S \vec{J}\cdot d\vec{a} = \sigma \oint_S \vec{E}\cdot d\vec{a} = \frac{\sigma Q}{\epsilon_0}
+       $$
+
+       Substituting $Q = CV$ and $V = IR$ yields
+
+       $$
+       I = \frac{\sigma C V}{\epsilon_0} = \frac{\sigma C I R}{\epsilon_0} \implies R = \frac{\epsilon_0}{\sigma C}
+       $$
+
+    2. After the battery is disconnected, charge leaks from conductor 1 to conductor 2 at rate $dQ/dt = -I$. Using $I = V/R$ and $Q = CV$:
+
+       $$
+       C\frac{dV}{dt} = \frac{dQ}{dt} = -I = -\frac{V}{R} \implies \frac{dV}{dt} = -\frac{1}{RC}V
+       $$
+
+       Integrating with $V(0) = V_0$ gives $V(t) = V_0 e^{-t/\tau}$, where the relaxation time constant is
+
+       $$
+       \tau = RC = \left(\frac{\epsilon_0}{\sigma C}\right)C = \frac{\epsilon_0}{\sigma}
+       $$
+
+       Remarkably, $\tau$ depends solely on the material properties $\epsilon_0$ and $\sigma$, and not at all on the size or shape of the electrodes.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.4" title="Coaxial Cylinders with Nonuniform Conductivity" tag="Griffiths 7.4 · Inhomogeneous Ohm's Law">
+  <div slot="problem">
+    Suppose the conductivity of the material separating the cylinders in Ex. 7.2 (inner radius $a$, outer radius $b$, length $L$) is not uniform; specifically, $\sigma(s) = k/s$, for some constant $k$. Find the resistance between the cylinders. (Hint: Because $\sigma$ is a function of position, $\vec{\nabla}\cdot\vec{E} = 0$ does not hold, the charge density is not zero in the resistive medium, and $E$ does not go like $1/s$. But we do know that for steady currents $I$ is the same across each cylindrical surface. Take it from there.)
+  </div>
+
+  <div slot="answer">
+    $$
+    R = \frac{b - a}{2\pi k L}
+    $$
+  </div>
+
+  <div slot="solution">
+    By cylindrical symmetry, the steady radial current $I$ crossing any coaxial cylindrical surface of radius $s$ ($a < s < b$) and length $L$ is constant and uniform over that surface:
+
+    $$
+    I = J(s)(2\pi s L) \implies J(s) = \frac{I}{2\pi s L}
+    $$
+
+    Using Ohm's law $\vec{E} = \vec{J}/\sigma$ with $\sigma(s) = k/s$, the electric field in the medium is uniform in magnitude:
+
+    $$
+    \vec{E}(s) = \frac{J(s)}{\sigma(s)}\,\hat{s} = \frac{I/(2\pi s L)}{k/s}\,\hat{s} = \frac{I}{2\pi k L}\,\hat{s}
+    $$
+
+    The potential difference between the inner and outer cylinders is therefore
+
+    $$
+    V = -\int_b^a \vec{E}\cdot d\vec{l} = \int_a^b \frac{I}{2\pi k L}\,ds = \frac{I(b - a)}{2\pi k L}
+    $$
+
+    Thus the resistance is
+
+    $$
+    R = \frac{V}{I} = \frac{b - a}{2\pi k L}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.5" title="Maximum Power Transfer Theorem" tag="Griffiths 7.5 · Internal Resistance">
+  <div slot="problem">
+    A battery of emf $\mathcal{E}$ and internal resistance $r$ is hooked up to a variable "load" resistance, $R$. If you want to deliver the maximum possible power to the load, what resistance $R$ should you choose? (You can't change $\mathcal{E}$ and $r$, of course.)
+  </div>
+
+  <div slot="answer">
+    $R = r$
+  </div>
+
+  <div slot="solution">
+    The total resistance in the single-loop circuit is $r + R$, so the current is
+
+    $$
+    I = \frac{\mathcal{E}}{r + R}
+    $$
+
+    The power delivered to the load resistor $R$ is
+
+    $$
+    P(R) = I^2 R = \frac{\mathcal{E}^2 R}{(r + R)^2}
+    $$
+
+    To maximize $P(R)$ with respect to $R$, differentiate and set $dP/dR = 0$:
+
+    $$
+    \frac{dP}{dR} = \mathcal{E}^2\left[\frac{1}{(r + R)^2} - \frac{2R}{(r + R)^3}\right] = \mathcal{E}^2\frac{r - R}{(r + R)^3} = 0 \implies R = r
+    $$
+
+    Since $dP/dR > 0$ for $R < r$ and $dP/dR < 0$ for $R > r$, $R = r$ is the unique global maximum, delivering $P_{\max} = \mathcal{E}^2/(4r)$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.6" title="Rectangular Loop Partly Inside a Parallel-Plate Capacitor" tag="Griffiths 7.6 · Electrostatic Field & Fringing">
+  <div slot="problem">
+    A rectangular loop of wire is situated so that one end (height $h$) is between the plates of a parallel-plate capacitor, oriented parallel to the field $\vec{E}$. The other end is way outside, where the field is essentially zero. What is the emf in this loop? If the total resistance is $R$, what current flows? Explain. (Warning: This is a trick question, so be careful; if you have invented a perpetual motion machine, there's probably something wrong with it.)
+  </div>
+
+  <div slot="answer">
+    $\mathcal{E} = 0$, and $I = 0$. The fringing field at the edges of the capacitor cancels the contribution from the segment inside the plates, as required by $\oint \vec{E}\cdot d\vec{l} = 0$.
+  </div>
+
+  <div slot="solution">
+    An electrostatic field is always conservative, so its closed-loop line integral vanishes identically:
+
+    $$
+    \mathcal{E} = \oint \vec{E}\cdot d\vec{l} = 0
+    $$
+
+    Therefore, **no current flows** ($I = \mathcal{E}/R = 0$).
+
+    Why does the naive estimate $\mathcal{E} \approx (\sigma/\epsilon_0)h$ fail? In an unphysical idealized model where $\vec{E} = (\sigma/\epsilon_0)\hat{z}$ inside and $\vec{E} = \mathbf{0}$ abruptly outside, $\vec{\nabla}\times\vec{E}$ would be nonzero at the edges—impossible in electrostatics. In reality, a finite capacitor always has a **fringing field** outside the plates whose line integral along the horizontal arms of the loop exactly cancels the $+(\sigma/\epsilon_0)h$ contribution from the vertical segment inside the plates. (Equivalently, $\vec{E} = -\vec{\nabla}V$ guarantees that the potential difference between the upper and lower wires is identical along both paths.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.7" title="Metal Bar Sliding on Rails in a Uniform Magnetic Field" tag="Griffiths 7.7 · Motional emf">
+  <div slot="problem">
+    A metal bar of mass $m$ slides frictionlessly on two parallel conducting rails a distance $l$ apart. A resistor $R$ is connected across the rails, and a uniform magnetic field $\vec{B}$, pointing into the page, fills the entire region.
+
+    1. If the bar moves to the right at speed $v$, what is the current in the resistor? In what direction does it flow?
+    2. What is the magnetic force on the bar? In what direction?
+    3. If the bar starts out with speed $v_0$ at time $t = 0$, and is left to slide, what is its speed at a later time $t$?
+    4. The initial kinetic energy of the bar was, of course, $\frac{1}{2}mv_0^2$. Check that the energy delivered to the resistor is exactly $\frac{1}{2}mv_0^2$.
+  </div>
+
+  <div slot="answer">
+    1. $I = \dfrac{Blv}{R}$, downward through the resistor (counterclockwise around the loop).
+    2. $F = \dfrac{B^2 l^2 v}{R}$, to the left (opposing the motion).
+    3. $v(t) = v_0 \exp\!\left(-\dfrac{B^2 l^2}{mR}t\right)$
+    4. $W_R = \int_0^\infty I^2 R\,dt = \dfrac{1}{2}mv_0^2$
+  </div>
+
+  <div slot="solution">
+    1. If the bar is at distance $x$ from the resistor, the flux through the loop is $\Phi = Blx$. By the flux rule, the magnitude of the motional emf is
+
+       $$
+       \mathcal{E} = \left|\frac{d\Phi}{dt}\right| = Bl\frac{dx}{dt} = Blv
+       $$
+
+       Thus the current is
+
+       $$
+       I = \frac{\mathcal{E}}{R} = \frac{Blv}{R}
+       $$
+
+       With $\vec{v}$ to the right and $\vec{B}$ into the page, $\vec{f}_{\text{mag}} = \vec{v}\times\vec{B}$ points **upward** along the bar, driving current **counterclockwise** around the loop and therefore **downward** through the resistor.
+
+    2. The bar carries upward current $I$ over length $l$ in field $\vec{B}$ into the page, so the magnetic force $\vec{F} = I(\vec{l}\times\vec{B})$ points **to the left** with magnitude
+
+       $$
+       F = IlB = \left(\frac{Blv}{R}\right)lB = \frac{B^2 l^2 v}{R}
+       $$
+
+    3. By Newton's second law, $m\dfrac{dv}{dt} = -F = -\dfrac{B^2 l^2}{R}v$. Defining $\alpha \equiv \dfrac{B^2 l^2}{mR}$:
+
+       $$
+       \frac{dv}{v} = -\alpha\,dt \implies v(t) = v_0 e^{-\alpha t} = v_0 \exp\!\left(-\frac{B^2 l^2}{mR}t\right)
+       $$
+
+    4. The instantaneous power dissipated in the resistor is
+
+       $$
+       P(t) = I^2 R = \left(\frac{Blv}{R}\right)^2 R = \frac{B^2 l^2 v_0^2}{R}e^{-2\alpha t} = \alpha m v_0^2 e^{-2\alpha t}
+       $$
+
+       Integrating over $t \in [0, \infty)$:
+
+       $$
+       W_R = \int_0^\infty P(t)\,dt = \alpha m v_0^2 \int_0^\infty e^{-2\alpha t}\,dt = \alpha m v_0^2\left(\frac{1}{2\alpha}\right) = \frac{1}{2}mv_0^2
+       $$
+
+       All of the bar's initial kinetic energy is converted into Joule heat in the resistor.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.8" title="Square Loop Moving Near a Long Straight Wire" tag="Griffiths 7.8 · Motional emf & Flux Rule">
+  <div slot="problem">
+    A square loop of wire (side $a$) lies on a table, a distance $s$ from a very long straight wire, which carries a current $I$ (with the wire running left-to-right and the loop above it, so $\vec{B}$ points out of the page at the loop).
+
+    1. Find the flux of $\vec{B}$ through the loop.
+    2. If someone now pulls the loop directly away from the wire, at speed $v$, what emf is generated? In what direction (clockwise or counterclockwise) does the current flow?
+    3. What if the loop is pulled to the right at speed $v$?
+  </div>
+
+  <div slot="answer">
+    1. $\Phi = \dfrac{\mu_0 I a}{2\pi}\ln\!\left(\dfrac{s+a}{s}\right)$
+    2. $\mathcal{E} = \dfrac{\mu_0 I a^2 v}{2\pi s(s + a)}$, counterclockwise.
+    3. $\mathcal{E} = 0$
+  </div>
+
+  <div slot="solution">
+    1. The magnetic field of the long straight wire at distance $s'$ is $B(s') = \dfrac{\mu_0 I}{2\pi s'}$, pointing out of the page at the loop. Choosing $d\vec{a}$ out of the page (so counterclockwise integration around the loop is positive):
+
+       $$
+       \Phi = \int \vec{B}\cdot d\vec{a} = \int_s^{s+a} \frac{\mu_0 I}{2\pi s'}\,a\,ds' = \frac{\mu_0 I a}{2\pi}\ln\!\left(\frac{s + a}{s}\right)
+       $$
+
+    2. Pulling the loop directly away from the wire increases $s$ at rate $ds/dt = v$. By the flux rule:
+
+       $$
+       \mathcal{E} = -\frac{d\Phi}{dt} = -\frac{\mu_0 I a}{2\pi}\frac{d}{dt}\left[\ln(s+a) - \ln s\right] = -\frac{\mu_0 I a}{2\pi}\left(\frac{1}{s+a} - \frac{1}{s}\right)\frac{ds}{dt} = \frac{\mu_0 I a^2 v}{2\pi s(s+a)}
+       $$
+
+       Since $\mathcal{E} > 0$ with $d\vec{a}$ out of the page, the current flows **counterclockwise**. Checking directly with $\vec{f}_{\text{mag}} = \vec{v}\times\vec{B}$: with $\vec{v}$ upward and $\vec{B}$ out of the page, $\vec{v}\times\vec{B}$ points to the right along both horizontal segments; because $B$ is stronger on the near side than on the far side, the net circulation is **counterclockwise**.
+
+    3. When pulled to the right (parallel to the wire), $s$ does not change, so the flux $\Phi$ is constant in time and $\mathcal{E} = -d\Phi/dt = 0$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.9" title="Surface Independence of Magnetic Flux" tag="Griffiths 7.9 · Divergence of B">
+  <div slot="problem">
+    An infinite number of different surfaces can be fit to a given boundary line, and yet, in defining the magnetic flux through a loop, $\Phi = \int \vec{B}\cdot d\vec{a}$, we never specified the particular surface to be used. Justify this apparent oversight.
+  </div>
+
+  <div slot="answer">
+    Because $\vec{\nabla}\cdot\vec{B} = 0$ everywhere, Gauss's theorem applied to the closed surface formed by any two surfaces $S_1$ and $S_2$ sharing the same boundary guarantees $\int_{S_1} \vec{B}\cdot d\vec{a} = \int_{S_2} \vec{B}\cdot d\vec{a}$.
+  </div>
+
+  <div slot="solution">
+    Consider any two surfaces $S_1$ and $S_2$ sharing the same closed boundary loop $\mathcal{C}$, with their normals oriented consistently with $\mathcal{C}$ by the right-hand rule. Taken together (reversing the normal on $S_2$), $S_1$ and $S_2$ form a closed surface enclosing a volume $V$. By the divergence theorem and $\vec{\nabla}\cdot\vec{B} = 0$:
+
+    $$
+    \int_{S_1}\vec{B}\cdot d\vec{a} - \int_{S_2}\vec{B}\cdot d\vec{a} = \oint_{S_1 \cup S_2}\vec{B}\cdot d\vec{a} = \int_V (\vec{\nabla}\cdot\vec{B})\,d\tau = 0
+    $$
+
+    Therefore, $\int_{S_1}\vec{B}\cdot d\vec{a} = \int_{S_2}\vec{B}\cdot d\vec{a}$ for every surface bounded by the loop, so $\Phi$ depends only on the boundary curve.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.10" title="Rotating Square Loop Alternating Current Generator" tag="Griffiths 7.10 · AC Generator">
+  <div slot="problem">
+    A square loop (side $a$) is mounted on a vertical shaft and rotated at angular velocity $\omega$. A uniform magnetic field $\vec{B}$ points to the right. Find the emf $\mathcal{E}(t)$ for this alternating current generator.
+  </div>
+
+  <div slot="answer">
+    $$
+    \mathcal{E}(t) = B\omega a^2 \sin(\omega t)
+    $$
+  </div>
+
+  <div slot="solution">
+    Let $\theta = \omega t$ be the angle between the normal $\hat{n}$ to the loop (of area $a^2$) and the magnetic field $\vec{B}$. The magnetic flux through the loop at time $t$ is
+
+    $$
+    \Phi(t) = \vec{B}\cdot\vec{a} = B a^2 \cos\theta = B a^2 \cos(\omega t)
+    $$
+
+    Applying the flux rule:
+
+    $$
+    \mathcal{E}(t) = -\frac{d\Phi}{dt} = -B a^2\frac{d}{dt}\cos(\omega t) = B\omega a^2 \sin(\omega t)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="7.11" title="Falling Aluminum Square Loop in a Magnetic Field" tag="Griffiths 7.11 · Magnetic Braking & Terminal Velocity">
+  <div slot="problem">
+    A square loop is cut out of a thick sheet of aluminum. It is then placed so that the top portion is in a uniform magnetic field $\vec{B}$ (pointing into the page), and is allowed to fall under gravity. If the magnetic field is $1\text{ T}$ (a pretty standard laboratory field), find the terminal velocity of the loop (in $\text{m/s}$). Find the velocity of the loop as a function of time. How long does it take (in seconds) to reach, say, $90\%$ of the terminal velocity? What would happen if you cut a tiny slit in the ring, breaking the circuit? (Note: The dimensions of the loop cancel out; determine the actual numbers, in the units indicated.)
+  </div>
+
+  <div slot="answer">
+    - Terminal velocity: $v_t = \dfrac{mgR}{B^2 l^2} = \dfrac{16g\eta\rho}{B^2} \approx 1.2\text{ cm/s} = 0.012\text{ m/s}$
+    - Velocity: $v(t) = v_t\left(1 - e^{-gt/v_t}\right)$
+    - Time to $90\%$ of $v_t$: $t_{90\%} = \dfrac{v_t}{g}\ln 10 \approx 2.8\text{ ms} = 2.8\times 10^{-3}\text{ s}$
+    - With a slit: no current can flow, so the loop falls freely with acceleration $g$.
+  </div>
+
+  <div slot="solution">
+    Let $l$ be the side length of the square loop and $A$ the cross-sectional area of the frame. As the top horizontal segment moves downward at speed $v$ inside the uniform field $\vec{B}$ (while the bottom segment is outside the field), the motional emf is $\mathcal{E} = Blv$, producing a current $I = Blv/R$.
+
+    The upward magnetic force on the top segment is $F_{\text{mag}} = IlB = \dfrac{B^2 l^2}{R}v$, opposing the downward weight $mg$. Newton's second law gives
+
+    $$
+    m\frac{dv}{dt} = mg - \frac{B^2 l^2}{R}v \implies \frac{dv}{dt} = g - \alpha v, \qquad \alpha \equiv \frac{B^2 l^2}{mR}
+    $$
+
+    At terminal velocity ($dv/dt = 0$):
+
+    $$
+    v_t = \frac{g}{\alpha} = \frac{mgR}{B^2 l^2}
+    $$
+
+    Integrating $\dfrac{dv}{g - \alpha v} = dt$ with $v(0) = 0$:
+
+    $$
+    -\frac{1}{\alpha}\ln\!\left(\frac{g - \alpha v}{g}\right) = t \implies v(t) = \frac{g}{\alpha}\left(1 - e^{-\alpha t}\right) = v_t\left(1 - e^{-gt/v_t}\right)
+    $$
+
+    For $v(t_{90\%}) = 0.9\,v_t$, we need $1 - e^{-\alpha t_{90\%}} = 0.9 \implies e^{-\alpha t_{90\%}} = 0.1$:
+
+    $$
+    t_{90\%} = \frac{\ln 10}{\alpha} = \frac{v_t}{g}\ln 10
+    $$
+
+    Now express $m$ and $R$ in terms of the loop geometry: the total length of the square is $4l$, so $m = 4\eta A l$ (where $\eta$ is the mass density of aluminum) and $R = 4l\rho/A$ (where $\rho = 1/\sigma$ is the electrical resistivity of aluminum). Both $A$ and $l$ cancel cleanly:
+
+    $$
+    v_t = \frac{(4\eta A l)g(4l\rho/A)}{B^2 l^2} = \frac{16 g \eta \rho}{B^2}
+    $$
+
+    Using the Solution Manual values $\rho = 2.8\times 10^{-8}\,\Omega\cdot\text{m}$, $\eta = 2.7\times 10^3\text{ kg/m}^3$, $g = 9.8\text{ m/s}^2$, and $B = 1\text{ T}$:
+
+    $$
+    v_t = \frac{16(9.8)(2.7\times 10^3)(2.8\times 10^{-8})}{1^2} \approx 1.2\times 10^{-2}\text{ m/s}\;(1.2\text{ cm/s})
+    $$
+
+    (Using $\rho = 2.65\times 10^{-8}\,\Omega\cdot\text{m}$ from Table 7.1 gives $0.0112\text{ m/s}$.) And the time to reach $90\%$ of $v_t$ is
+
+    $$
+    t_{90\%} = \frac{1.2\times 10^{-2}}{9.8}\ln(10) \approx 2.8\times 10^{-3}\text{ s}\;(2.8\text{ ms})
+    $$
+
+    If a tiny slit is cut in the loop, the circuit is broken ($R \to \infty$), no current can flow ($I = 0$), and the loop falls freely under gravity with acceleration $g$.
+  </div>
+</ProblemCard>
+
+</section>

@@ -1,0 +1,428 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec3" class="ed-sec-block">
+
+### 1.3 Integral Calculus
+
+<div class="ed-theory-box">
+
+**1.3.1 Line, Surface, and Volume Integrals**
+
+In vector calculus and electrodynamics, three classes of multidimensional integrals arise:
+
+- **Line (path) integral** of a vector field $\mathbf{v}$ along an oriented curve $\mathcal{P}$ from $\mathbf{a}$ to $\mathbf{b}$:
+
+$$
+\int_{\mathbf{a}}^{\mathbf{b}} \mathbf{v} \cdot d\mathbf{l}, \qquad \text{and for a closed loop } (\mathbf{b} = \mathbf{a}): \quad \oint \mathbf{v} \cdot d\mathbf{l}
+$$
+
+where $d\mathbf{l} = dx\,\hat{\mathbf{x}} + dy\,\hat{\mathbf{y}} + dz\,\hat{\mathbf{z}}$. Physically, $\int \mathbf{F} \cdot d\mathbf{l}$ represents mechanical work; when path-independent, $\mathbf{v}$ is conservative.
+
+- **Surface (flux) integral** of $\mathbf{v}$ over an oriented surface $\mathcal{S}$:
+
+$$
+\int_{\mathcal{S}} \mathbf{v} \cdot d\mathbf{a}, \qquad \text{and for a closed surface}: \quad \oint_{\mathcal{S}} \mathbf{v} \cdot d\mathbf{a}
+$$
+
+where $d\mathbf{a} = da\,\hat{\mathbf{n}}$ is the infinitesimal area vector normal to $\mathcal{S}$. By convention, the outward normal is positive for closed surfaces.
+
+- **Volume integral** of a scalar field $T$ or vector field $\mathbf{v}$ over a region $\mathcal{V}$ with volume element $d\tau$ ($= dx\,dy\,dz$ in Cartesian coordinates):
+
+$$
+\int_{\mathcal{V}} T \, d\tau, \qquad \int_{\mathcal{V}} \mathbf{v} \, d\tau = \hat{\mathbf{x}} \int_{\mathcal{V}} v_x \, d\tau + \hat{\mathbf{y}} \int_{\mathcal{V}} v_y \, d\tau + \hat{\mathbf{z}} \int_{\mathcal{V}} v_z \, d\tau
+$$
+
+Because Cartesian unit vectors are spatially constant, they pull outside the integral; curvilinear unit vectors generally do not.
+
+**1.3.2–1.3.3 The Fundamental Theorem for Gradients**
+
+Extending the 1D fundamental theorem $\int_a^b (df/dx)\,dx = f(b) - f(a)$, each of the three vector derivatives obeys an integral identity relating an integral over a domain to values on its boundary $\partial$:
+
+$$
+\int_{\mathbf{a}}^{\mathbf{b}} (\nabla T) \cdot d\mathbf{l} = T(\mathbf{b}) - T(\mathbf{a})
+$$
+
+*Corollaries:* (1) Line integrals of gradients are **path-independent** (depending solely on endpoints); (2) Around any closed loop, $\oint (\nabla T) \cdot d\mathbf{l} = 0$.
+
+**1.3.4 The Fundamental Theorem for Divergences (Gauss's / Green's Theorem)**
+
+For a volume $\mathcal{V}$ bounded by a closed surface $\mathcal{S} = \partial\mathcal{V}$ with outward normal:
+
+$$
+\int_{\mathcal{V}} (\nabla \cdot \mathbf{v}) \, d\tau = \oint_{\mathcal{S}} \mathbf{v} \cdot d\mathbf{a}
+$$
+
+The integrated source density (divergence) inside $\mathcal{V}$ equals the net outward flux through $\mathcal{S}$.
+
+**1.3.5 The Fundamental Theorem for Curls (Stokes' Theorem)**
+
+For an open surface $\mathcal{S}$ bounded by a closed perimeter $\mathcal{P} = \partial\mathcal{S}$ whose traversal direction and surface normal $d\mathbf{a}$ are linked by the right-hand rule:
+
+$$
+\int_{\mathcal{S}} (\nabla \times \mathbf{v}) \cdot d\mathbf{a} = \oint_{\mathcal{P}} \mathbf{v} \cdot d\mathbf{l}
+$$
+
+*Corollaries:* (1) The flux of $\nabla \times \mathbf{v}$ depends only on the boundary $\mathcal{P}$, not on the choice of spanning surface $\mathcal{S}$; (2) For any closed surface ($\partial\mathcal{S} = \emptyset$), $\oint_{\mathcal{S}} (\nabla \times \mathbf{v}) \cdot d\mathbf{a} = 0$.
+
+**1.3.6 Integration by Parts in Vector Calculus**
+
+Combining product rules with the fundamental theorems transfers differential operators between factors at the cost of a sign and a boundary integral. From $\nabla \cdot (f\mathbf{A}) = f(\nabla \cdot \mathbf{A}) + \mathbf{A} \cdot (\nabla f)$ and the divergence theorem:
+
+$$
+\int_{\mathcal{V}} f(\nabla \cdot \mathbf{A}) \, d\tau = -\int_{\mathcal{V}} \mathbf{A} \cdot (\nabla f) \, d\tau + \oint_{\mathcal{S}} f\mathbf{A} \cdot d\mathbf{a}
+$$
+
+Analogous identities hold for $\nabla \times (f\mathbf{A})$ via Stokes' theorem and for $\nabla \cdot (\mathbf{A} \times \mathbf{B})$ via the divergence theorem; when fields decay sufficiently rapidly at infinity, boundary terms vanish.
+
+</div>
+
+<ProblemCard num="1.29" title="Line Integrals Along Three Paths" tag="Griffiths 1.29 · Line Integral">
+  <div slot="problem">
+    Calculate the line integral of the function $\mathbf{v} = x^2\,\hat{\mathbf{x}} + 2yz\,\hat{\mathbf{y}} + y^2\,\hat{\mathbf{z}}$ from the origin to the point $(1,1,1)$ by three different routes:
+    (a) $(0,0,0) \to (1,0,0) \to (1,1,0) \to (1,1,1)$.
+    (b) $(0,0,0) \to (0,0,1) \to (0,1,1) \to (1,1,1)$.
+    (c) The direct straight line.
+    (d) What is the line integral around the closed loop that goes out along path (a) and back along path (b)?
+  </div>
+  <div slot="answer">
+    (a) $\dfrac{4}{3}$ &nbsp;|&nbsp; (b) $\dfrac{4}{3}$ &nbsp;|&nbsp; (c) $\dfrac{4}{3}$ &nbsp;|&nbsp; (d) $0$
+  </div>
+  <div slot="solution">
+    With $d\mathbf{l} = dx\,\hat{\mathbf{x}} + dy\,\hat{\mathbf{y}} + dz\,\hat{\mathbf{z}}$, we have $\mathbf{v} \cdot d\mathbf{l} = x^2\,dx + 2yz\,dy + y^2\,dz$.
+
+    **(a)** Break the path into three Cartesian segments:
+    - $(0,0,0) \to (1,0,0)$: $x: 0 \to 1$, $y = z = 0$, $d\mathbf{l} = dx\,\hat{\mathbf{x}}$. Then $\mathbf{v} \cdot d\mathbf{l} = x^2\,dx$, so
+
+    $$
+    \int_0^1 x^2 \, dx = \left.\frac{x^3}{3}\right|_0^1 = \frac{1}{3}
+    $$
+
+    - $(1,0,0) \to (1,1,0)$: $x = 1$, $y: 0 \to 1$, $z = 0$, $d\mathbf{l} = dy\,\hat{\mathbf{y}}$. Then $\mathbf{v} \cdot d\mathbf{l} = 2yz\,dy = 0$, giving $0$.
+    - $(1,1,0) \to (1,1,1)$: $x = y = 1$, $z: 0 \to 1$, $d\mathbf{l} = dz\,\hat{\mathbf{z}}$. Then $\mathbf{v} \cdot d\mathbf{l} = y^2\,dz = dz$, so
+
+    $$
+    \int_0^1 dz = \left.z\right|_0^1 = 1
+    $$
+
+    Summing the three segments gives $\int \mathbf{v} \cdot d\mathbf{l} = \frac{1}{3} + 0 + 1 = \frac{4}{3}$.
+
+    **(b)** Break the second path into three segments:
+    - $(0,0,0) \to (0,0,1)$: $x = y = 0$, $z: 0 \to 1$, $d\mathbf{l} = dz\,\hat{\mathbf{z}}$. Then $\mathbf{v} \cdot d\mathbf{l} = y^2\,dz = 0$, giving $0$.
+    - $(0,0,1) \to (0,1,1)$: $x = 0$, $y: 0 \to 1$, $z = 1$, $d\mathbf{l} = dy\,\hat{\mathbf{y}}$. Then $\mathbf{v} \cdot d\mathbf{l} = 2yz\,dy = 2y\,dy$, so
+
+    $$
+    \int_0^1 2y \, dy = \left.y^2\right|_0^1 = 1
+    $$
+
+    - $(0,1,1) \to (1,1,1)$: $x: 0 \to 1$, $y = z = 1$, $d\mathbf{l} = dx\,\hat{\mathbf{x}}$. Then $\mathbf{v} \cdot d\mathbf{l} = x^2\,dx$, giving $\frac{1}{3}$.
+
+    Summing the three segments gives $\int \mathbf{v} \cdot d\mathbf{l} = 0 + 1 + \frac{1}{3} = \frac{4}{3}$.
+
+    **(c)** Along the straight line from $(0,0,0)$ to $(1,1,1)$, $x = y = z$ with $0 \le x \le 1$, so $dx = dy = dz$:
+
+    $$
+    \mathbf{v} \cdot d\mathbf{l} = x^2\,dx + 2x^2\,dx + x^2\,dx = 4x^2\,dx \implies \int_0^1 4x^2 \, dx = \left.\frac{4x^3}{3}\right|_0^1 = \frac{4}{3}
+    $$
+
+    *(Note: $\mathbf{v} = \nabla\left(\frac{1}{3}x^3 + y^2 z\right)$ is a pure gradient, so its line integral is path-independent.)*
+
+    **(d)** Going out along (a) and returning backward along (b) reverses the sign of path (b):
+
+    $$
+    \oint \mathbf{v} \cdot d\mathbf{l} = \frac{4}{3} - \frac{4}{3} = 0
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.30" title="Surface Integral and Closed-Box Flux" tag="Griffiths 1.30 · Surface Integral">
+  <div slot="problem">
+    Calculate the surface integral of the function in Ex. 1.7, $\mathbf{v} = 2xz\,\hat{\mathbf{x}} + (x + 2)\,\hat{\mathbf{y}} + y(z^2 - 3)\,\hat{\mathbf{z}}$, over the bottom of the cubical box of side $2$ ($0 \le x, y, z \le 2$). For consistency, let "upward" be the positive direction. Does the surface integral depend only on the boundary line for this function? What is the total flux over the closed surface of the box (including the bottom)? *[Note: For the closed surface, the positive direction is "outward," and hence "down," for the bottom face.]*
+  </div>
+  <div slot="answer">
+    Bottom flux (upward normal): $-12$ &nbsp;|&nbsp; Boundary-only? No &nbsp;|&nbsp; Total closed-surface outward flux: $32$
+  </div>
+  <div slot="solution">
+    On the bottom face of the cube, $z = 0$ and $0 \le x, y \le 2$. Taking "upward" as the positive normal gives $d\mathbf{a} = dx\,dy\,\hat{\mathbf{z}}$, so
+
+    $$
+    \mathbf{v} \cdot d\mathbf{a} = y(z^2 - 3)\,dx\,dy = -3y\,dx\,dy
+    $$
+
+    Integrating over the bottom face yields
+
+    $$
+    \int_{\text{bottom}} \mathbf{v} \cdot d\mathbf{a} = -3 \int_0^2 dx \int_0^2 y \, dy = -3 \left(\left.x\right|_0^2\right) \left(\left.\frac{y^2}{2}\right|_0^2\right) = -3(2)(2) = -12
+    $$
+
+    In Ex. 1.7, integrating over the other five faces (which share the exact same square boundary in the $xy$-plane with the same upward/outward orientation) gave $20$. Since $-12 \neq 20$, the surface integral **does not** depend only on the boundary line.
+
+    For the **closed** surface of the box, the positive normal is outward, which is downward ($d\mathbf{a} = -dx\,dy\,\hat{\mathbf{z}}$) on the bottom face. This reverses the sign of the bottom contribution to $+12$, giving a total outward flux of
+
+    $$
+    \oint_{\text{cube}} \mathbf{v} \cdot d\mathbf{a} = 20 + 12 = 32
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.31" title="Volume Integral Over a Tetrahedron" tag="Griffiths 1.31 · Volume Integral">
+  <div slot="problem">
+    Calculate the volume integral of the function $T = z^2$ over the tetrahedron with corners at $(0,0,0)$, $(1,0,0)$, $(0,1,0)$, and $(0,0,1)$.
+  </div>
+  <div slot="answer">
+    $\dfrac{1}{60}$
+  </div>
+  <div slot="solution">
+    The tetrahedron lies in the first octant ($x, y, z \ge 0$) bounded above by the sloping plane $x + y + z = 1$. Saving $z$ for last, the integration limits are:
+    - For fixed $(y, z)$, $x$ runs from $0$ to $1 - y - z$;
+    - For fixed $z$, $y$ runs from $0$ to $1 - z$;
+    - Finally, $z$ runs from $0$ to $1$.
+
+    Evaluating the nested integral:
+
+    $$
+    \int_{\mathcal{V}} T \, d\tau = \int_0^1 z^2 \left[ \int_0^{1-z} \left( \int_0^{1-y-z} dx \right) dy \right] dz = \int_0^1 z^2 \left[ \int_0^{1-z} (1 - y - z)\,dy \right] dz
+    $$
+
+    Evaluating the $y$-integral first:
+
+    $$
+    \int_0^{1-z} \left[(1 - z) - y\right] dy = \left[ (1 - z)y - \frac{y^2}{2} \right]_0^{1-z} = (1 - z)^2 - \frac{(1 - z)^2}{2} = \frac{(1 - z)^2}{2} = \frac{1}{2} - z + \frac{z^2}{2}
+    $$
+
+    Substituting back into the $z$-integral:
+
+    $$
+    \int_{\mathcal{V}} T \, d\tau = \int_0^1 z^2 \left(\frac{1}{2} - z + \frac{z^2}{2}\right) dz = \int_0^1 \left(\frac{z^2}{2} - z^3 + \frac{z^4}{2}\right) dz = \left[\frac{z^3}{6} - \frac{z^4}{4} + \frac{z^5}{10}\right]_0^1 = \frac{1}{6} - \frac{1}{4} + \frac{1}{10} = \frac{1}{60}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.32" title="Testing the Fundamental Theorem for Gradients" tag="Griffiths 1.32 · Gradient Theorem">
+  <div slot="problem">
+    Check the fundamental theorem for gradients, using $T = x^2 + 4xy + 2yz^3$, the points $\mathbf{a} = (0,0,0)$, $\mathbf{b} = (1,1,1)$, and three paths:
+    (a) $(0,0,0) \to (1,0,0) \to (1,1,0) \to (1,1,1)$;
+    (b) $(0,0,0) \to (0,0,1) \to (0,1,1) \to (1,1,1)$;
+    (c) the parabolic path $z = x^2$; $y = x$.
+  </div>
+  <div slot="answer">
+    $T(\mathbf{b}) - T(\mathbf{a}) = 7$, matching $\int_{\mathbf{a}}^{\mathbf{b}} (\nabla T) \cdot d\mathbf{l} = 7$ along all three paths.
+  </div>
+  <div slot="solution">
+    First evaluate the boundary difference:
+
+    $$
+    T(\mathbf{b}) - T(\mathbf{a}) = T(1,1,1) - T(0,0,0) = (1 + 4 + 2) - 0 = 7
+    $$
+
+    Next, compute the gradient and differential increment:
+
+    $$
+    \nabla T = (2x + 4y)\,\hat{\mathbf{x}} + (4x + 2z^3)\,\hat{\mathbf{y}} + (6yz^2)\,\hat{\mathbf{z}}
+    $$
+
+    $$
+    \nabla T \cdot d\mathbf{l} = (2x + 4y)\,dx + (4x + 2z^3)\,dy + 6yz^2\,dz
+    $$
+
+    **(a)** Segment by segment:
+    - Segment 1 ($x: 0 \to 1$, $y = z = 0$, $dy = dz = 0$): $\int_0^1 2x\,dx = \left.x^2\right|_0^1 = 1$.
+    - Segment 2 ($y: 0 \to 1$, $x = 1, z = 0$, $dx = dz = 0$): $\int_0^1 4\,dy = \left.4y\right|_0^1 = 4$.
+    - Segment 3 ($z: 0 \to 1$, $x = y = 1$, $dx = dy = 0$): $\int_0^1 6z^2\,dz = \left.2z^3\right|_0^1 = 2$.
+
+    Total along path (a): $\int_{\mathbf{a}}^{\mathbf{b}} \nabla T \cdot d\mathbf{l} = 1 + 4 + 2 = 7$. $\checkmark$
+
+    **(b)** Segment by segment:
+    - Segment 1 ($z: 0 \to 1$, $x = y = 0$, $dx = dy = 0$): $\int_0^1 0\,dz = 0$.
+    - Segment 2 ($y: 0 \to 1$, $x = 0, z = 1$, $dx = dz = 0$): $\int_0^1 2\,dy = \left.2y\right|_0^1 = 2$.
+    - Segment 3 ($x: 0 \to 1$, $y = z = 1$, $dy = dz = 0$): $\int_0^1 (2x + 4)\,dx = \left.(x^2 + 4x)\right|_0^1 = 5$.
+
+    Total along path (b): $\int_{\mathbf{a}}^{\mathbf{b}} \nabla T \cdot d\mathbf{l} = 0 + 2 + 5 = 7$. $\checkmark$
+
+    **(c)** Along $y = x$ and $z = x^2$ ($x: 0 \to 1$), we have $dy = dx$ and $dz = 2x\,dx$:
+
+    $$
+    \nabla T \cdot d\mathbf{l} = (2x + 4x)\,dx + (4x + 2x^6)\,dx + 6x(x^4)(2x\,dx) = (10x + 14x^6)\,dx
+    $$
+
+    $$
+    \int_{\mathbf{a}}^{\mathbf{b}} \nabla T \cdot d\mathbf{l} = \int_0^1 (10x + 14x^6)\,dx = \left.(5x^2 + 2x^7)\right|_0^1 = 5 + 2 = 7 \quad \checkmark
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.33" title="Testing the Divergence Theorem on a Cube" tag="Griffiths 1.33 · Divergence Theorem">
+  <div slot="problem">
+    Test the divergence theorem for the function $\mathbf{v} = (xy)\,\hat{\mathbf{x}} + (2yz)\,\hat{\mathbf{y}} + (3zx)\,\hat{\mathbf{z}}$. Take as your volume the cube in the first octant with one corner at the origin and sides of length $2$ ($0 \le x, y, z \le 2$).
+  </div>
+  <div slot="answer">
+    Both sides equal $48$: $\int_{\mathcal{V}} (\nabla \cdot \mathbf{v})\,d\tau = \oint_{\mathcal{S}} \mathbf{v} \cdot d\mathbf{a} = 48$.
+  </div>
+  <div slot="solution">
+    **Left-hand side (volume integral):** First compute the divergence:
+
+    $$
+    \nabla \cdot \mathbf{v} = \frac{\partial (xy)}{\partial x} + \frac{\partial (2yz)}{\partial y} + \frac{\partial (3zx)}{\partial z} = y + 2z + 3x
+    $$
+
+    Integrating over the cube $0 \le x, y, z \le 2$:
+
+    $$
+    \int_{\mathcal{V}} (\nabla \cdot \mathbf{v})\,d\tau = \int_0^2 \int_0^2 \left[\int_0^2 (y + 2z + 3x)\,dx\right] dy\,dz
+    $$
+
+    Performing the integrals sequentially:
+    - $x$-integral: $\left[(y + 2z)x + \frac{3}{2}x^2\right]_0^2 = 2(y + 2z) + 6 = 2y + 4z + 6$.
+    - $y$-integral: $\int_0^2 (2y + 4z + 6)\,dy = \left[y^2 + (4z + 6)y\right]_0^2 = 4 + 2(4z + 6) = 8z + 16$.
+    - $z$-integral: $\int_0^2 (8z + 16)\,dz = \left[4z^2 + 16z\right]_0^2 = 16 + 32 = 48$.
+
+    **Right-hand side (surface integral):** Evaluate the outward flux across the six faces of the cube:
+    - **(i)** $x = 2$, $d\mathbf{a} = dy\,dz\,\hat{\mathbf{x}}$: $\mathbf{v} \cdot d\mathbf{a} = 2y\,dy\,dz \implies \int_0^2 \int_0^2 2y\,dy\,dz = 2\left.y^2\right|_0^2 = 8$.
+    - **(ii)** $x = 0$, $d\mathbf{a} = -dy\,dz\,\hat{\mathbf{x}}$: $\mathbf{v} \cdot d\mathbf{a} = 0 \implies 0$.
+    - **(iii)** $y = 2$, $d\mathbf{a} = dx\,dz\,\hat{\mathbf{y}}$: $\mathbf{v} \cdot d\mathbf{a} = 4z\,dx\,dz \implies \int_0^2 \int_0^2 4z\,dx\,dz = 2\left.2z^2\right|_0^2 = 16$.
+    - **(iv)** $y = 0$, $d\mathbf{a} = -dx\,dz\,\hat{\mathbf{y}}$: $\mathbf{v} \cdot d\mathbf{a} = 0 \implies 0$.
+    - **(v)** $z = 2$, $d\mathbf{a} = dx\,dy\,\hat{\mathbf{z}}$: $\mathbf{v} \cdot d\mathbf{a} = 6x\,dx\,dy \implies \int_0^2 \int_0^2 6x\,dx\,dy = 2\left.3x^2\right|_0^2 = 24$.
+    - **(vi)** $z = 0$, $d\mathbf{a} = -dx\,dy\,\hat{\mathbf{z}}$: $\mathbf{v} \cdot d\mathbf{a} = 0 \implies 0$.
+
+    Summing over all six faces:
+
+    $$
+    \oint_{\mathcal{S}} \mathbf{v} \cdot d\mathbf{a} = 8 + 0 + 16 + 0 + 24 + 0 = 48 \quad \checkmark
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.34" title="Testing Stokes' Theorem on a Triangle" tag="Griffiths 1.34 · Stokes' Theorem">
+  <div slot="problem">
+    Test Stokes' theorem for the function $\mathbf{v} = (xy)\,\hat{\mathbf{x}} + (2yz)\,\hat{\mathbf{y}} + (3zx)\,\hat{\mathbf{z}}$, using the triangular area in the $yz$-plane ($x = 0$) with vertices at $(0,0,0)$, $(0,2,0)$, and $(0,0,2)$.
+  </div>
+  <div slot="answer">
+    Both sides equal $-\dfrac{8}{3}$ (for $d\mathbf{a} = dy\,dz\,\hat{\mathbf{x}}$ and a counterclockwise boundary loop).
+  </div>
+  <div slot="solution">
+    **Left-hand side (surface integral of curl):** First compute $\nabla \times \mathbf{v}$:
+
+    $$
+    \nabla \times \mathbf{v} = (0 - 2y)\,\hat{\mathbf{x}} + (0 - 3z)\,\hat{\mathbf{y}} + (0 - x)\,\hat{\mathbf{z}} = -2y\,\hat{\mathbf{x}} - 3z\,\hat{\mathbf{y}} - x\,\hat{\mathbf{z}}
+    $$
+
+    Taking $d\mathbf{a} = dy\,dz\,\hat{\mathbf{x}}$ commits us by the right-hand rule to a counterclockwise boundary path in the $yz$-plane (viewed from $+x$). On the triangle $x = 0$, $0 \le y \le 2 - z$, $0 \le z \le 2$:
+
+    $$
+    (\nabla \times \mathbf{v}) \cdot d\mathbf{a} = -2y\,dy\,dz
+    $$
+
+    $$
+    \int_{\mathcal{S}} (\nabla \times \mathbf{v}) \cdot d\mathbf{a} = \int_0^2 \left[\int_0^{2-z} (-2y)\,dy\right] dz = \int_0^2 \left(-y^2\right)\Big|_0^{2-z} dz = -\int_0^2 (2 - z)^2\,dz
+    $$
+
+    $$
+    = -\int_0^2 (4 - 4z + z^2)\,dz = -\left.\left(4z - 2z^2 + \frac{z^3}{3}\right)\right|_0^2 = -\left(8 - 8 + \frac{8}{3}\right) = -\frac{8}{3}
+    $$
+
+    **Right-hand side (closed line integral):** Here $\mathbf{v} \cdot d\mathbf{l} = xy\,dx + 2yz\,dy + 3zx\,dz$. Traverse the triangular perimeter counterclockwise: $(0,0,0) \to (0,2,0) \to (0,0,2) \to (0,0,0)$.
+    - **Segment (1)** $(0,0,0) \to (0,2,0)$: $x = z = 0$, $dx = dz = 0$, $y: 0 \to 2$. Then $\mathbf{v} \cdot d\mathbf{l} = 0$, giving $0$.
+    - **Segment (2)** $(0,2,0) \to (0,0,2)$: $x = 0$, $z = 2 - y$, $dx = 0$, $y: 2 \to 0$. Then $\mathbf{v} \cdot d\mathbf{l} = 2yz\,dy = 2y(2 - y)\,dy$, so
+
+    $$
+    \int_2^0 2y(2 - y)\,dy = -\int_0^2 (4y - 2y^2)\,dy = -\left.\left(2y^2 - \frac{2}{3}y^3\right)\right|_0^2 = -\left(8 - \frac{16}{3}\right) = -\frac{8}{3}
+    $$
+
+    - **Segment (3)** $(0,0,2) \to (0,0,0)$: $x = y = 0$, $dx = dy = 0$, $z: 2 \to 0$. Then $\mathbf{v} \cdot d\mathbf{l} = 0$, giving $0$.
+
+    Summing around the loop gives $\oint_{\mathcal{P}} \mathbf{v} \cdot d\mathbf{l} = 0 - \frac{8}{3} + 0 = -\frac{8}{3}$, in agreement with Stokes' theorem. $\checkmark$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.35" title="Surface Independence of Curl Flux (Stokes' Corollary 1)" tag="Griffiths 1.35 · Stokes' Theorem">
+  <div slot="problem">
+    Check Corollary 1 of Stokes' theorem by using the same function $\mathbf{v} = (2xz + 3y^2)\,\hat{\mathbf{y}} + (4yz^2)\,\hat{\mathbf{z}}$ and boundary line as in Ex. 1.11 (the unit square in the $yz$-plane, $x = 0$, $0 \le y, z \le 1$, oriented counterclockwise), but integrating over the five other faces of the unit cube ($0 \le x, y, z \le 1$). The back of the cube ($x = 0$) is open.
+  </div>
+  <div slot="answer">
+    $\int_{\mathcal{S}} (\nabla \times \mathbf{v}) \cdot d\mathbf{a} = \dfrac{4}{3}$, matching Ex. 1.11.
+  </div>
+  <div slot="solution">
+    From Ex. 1.11, the curl is $\nabla \times \mathbf{v} = (4z^2 - 2x)\,\hat{\mathbf{x}} + 2z\,\hat{\mathbf{z}}$, and the counterclockwise boundary line integral around the square at $x = 0$ is $\frac{4}{3}$.
+
+    Deforming the open $x = 0$ square (whose normal points in $+\hat{\mathbf{x}}$ by the right-hand rule) continuously outward into $x > 0$ yields the five remaining faces of the unit cube with **outward** normals:
+    - **(i)** Front face ($x = 1$, $d\mathbf{a} = dy\,dz\,\hat{\mathbf{x}}$; $y, z: 0 \to 1$): $(\nabla \times \mathbf{v}) \cdot d\mathbf{a} = (4z^2 - 2)\,dy\,dz$, so
+
+    $$
+    \int_0^1 \int_0^1 (4z^2 - 2)\,dy\,dz = \left.\left(\frac{4}{3}z^3 - 2z\right)\right|_0^1 = \frac{4}{3} - 2 = -\frac{2}{3}
+    $$
+
+    - **(ii)** Bottom face ($z = 0$, $d\mathbf{a} = -dx\,dy\,\hat{\mathbf{z}}$): $(\nabla \times \mathbf{v}) \cdot d\mathbf{a} = -2z\,dx\,dy = 0 \implies 0$.
+    - **(iii)** Right face ($y = 1$, $d\mathbf{a} = dx\,dz\,\hat{\mathbf{y}}$): $(\nabla \times \mathbf{v})_y = 0 \implies 0$.
+    - **(iv)** Left face ($y = 0$, $d\mathbf{a} = -dx\,dz\,\hat{\mathbf{y}}$): $(\nabla \times \mathbf{v})_y = 0 \implies 0$.
+    - **(v)** Top face ($z = 1$, $d\mathbf{a} = dx\,dy\,\hat{\mathbf{z}}$; $x, y: 0 \to 1$): $(\nabla \times \mathbf{v}) \cdot d\mathbf{a} = 2\,dx\,dy$, so
+
+    $$
+    \int_0^1 \int_0^1 2\,dx\,dy = 2
+    $$
+
+    Summing over all five faces gives
+
+    $$
+    \int_{\mathcal{S}} (\nabla \times \mathbf{v}) \cdot d\mathbf{a} = -\frac{2}{3} + 0 + 0 + 0 + 2 = \frac{4}{3} \quad \checkmark
+    $$
+
+    confirming that the flux of $\nabla \times \mathbf{v}$ depends only on the boundary curve $\mathcal{P}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.36" title="Vector Integration by Parts Identities" tag="Griffiths 1.36 · Integration by Parts">
+  <div slot="problem">
+    (a) Show that
+
+    $$
+    \int_{\mathcal{S}} f(\nabla \times \mathbf{A}) \cdot d\mathbf{a} = \int_{\mathcal{S}} [\mathbf{A} \times (\nabla f)] \cdot d\mathbf{a} + \oint_{\mathcal{P}} f\mathbf{A} \cdot d\mathbf{l}
+    $$
+
+    (b) Show that
+
+    $$
+    \int_{\mathcal{V}} \mathbf{B} \cdot (\nabla \times \mathbf{A}) \, d\tau = \int_{\mathcal{V}} \mathbf{A} \cdot (\nabla \times \mathbf{B}) \, d\tau + \oint_{\mathcal{S}} (\mathbf{A} \times \mathbf{B}) \cdot d\mathbf{a}
+    $$
+  </div>
+  <div slot="answer">
+    Follows directly from the product rules for $\nabla \times (f\mathbf{A})$ with Stokes' theorem in (a), and $\nabla \cdot (\mathbf{A} \times \mathbf{B})$ with the divergence theorem in (b).
+  </div>
+  <div slot="solution">
+    **(a)** Start from the product rule for the curl of a scalar times a vector:
+
+    $$
+    \nabla \times (f\mathbf{A}) = f(\nabla \times \mathbf{A}) - \mathbf{A} \times (\nabla f)
+    $$
+
+    Rearranging for $f(\nabla \times \mathbf{A})$ and integrating over the open surface $\mathcal{S}$ bounded by the closed curve $\mathcal{P}$:
+
+    $$
+    \int_{\mathcal{S}} f(\nabla \times \mathbf{A}) \cdot d\mathbf{a} = \int_{\mathcal{S}} [\nabla \times (f\mathbf{A})] \cdot d\mathbf{a} + \int_{\mathcal{S}} [\mathbf{A} \times (\nabla f)] \cdot d\mathbf{a}
+    $$
+
+    Applying Stokes' theorem to the first integral on the right-hand side yields
+
+    $$
+    \int_{\mathcal{S}} f(\nabla \times \mathbf{A}) \cdot d\mathbf{a} = \int_{\mathcal{S}} [\mathbf{A} \times (\nabla f)] \cdot d\mathbf{a} + \oint_{\mathcal{P}} f\mathbf{A} \cdot d\mathbf{l} \quad \blacksquare
+    $$
+
+    **(b)** Start from the product rule for the divergence of a cross product:
+
+    $$
+    \nabla \cdot (\mathbf{A} \times \mathbf{B}) = \mathbf{B} \cdot (\nabla \times \mathbf{A}) - \mathbf{A} \cdot (\nabla \times \mathbf{B})
+    $$
+
+    Rearranging for $\mathbf{B} \cdot (\nabla \times \mathbf{A})$ and integrating over the volume $\mathcal{V}$ bounded by the closed surface $\mathcal{S}$:
+
+    $$
+    \int_{\mathcal{V}} \mathbf{B} \cdot (\nabla \times \mathbf{A}) \, d\tau = \int_{\mathcal{V}} \nabla \cdot (\mathbf{A} \times \mathbf{B}) \, d\tau + \int_{\mathcal{V}} \mathbf{A} \cdot (\nabla \times \mathbf{B}) \, d\tau
+    $$
+
+    Applying the divergence theorem to the first integral on the right-hand side yields
+
+    $$
+    \int_{\mathcal{V}} \mathbf{B} \cdot (\nabla \times \mathbf{A}) \, d\tau = \int_{\mathcal{V}} \mathbf{A} \cdot (\nabla \times \mathbf{B}) \, d\tau + \oint_{\mathcal{S}} (\mathbf{A} \times \mathbf{B}) \cdot d\mathbf{a} \quad \blacksquare
+    $$
+  </div>
+</ProblemCard>
+
+</section>

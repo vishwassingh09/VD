@@ -1,0 +1,705 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec7" class="ed-sec-block">
+
+### Chapter 1 Review Problems (1.54 – 1.64)
+
+<div class="ed-theory-box">
+
+**Chapter 1 Formula & Problem-Solving Checklist**
+
+1. **Fundamental Integral Theorems:**
+   - **Gradient theorem:** $\int_{\mathbf{a}}^{\mathbf{b}} (\nabla T)\cdot d\mathbf{l} = T(\mathbf{b}) - T(\mathbf{a})$ (closed loop $\oint \nabla T \cdot d\mathbf{l} = 0 \iff \nabla\times(\nabla T) = \mathbf{0}$).
+   - **Divergence theorem:** $\int_{\mathcal{V}} (\nabla\cdot\mathbf{v})\,d\tau = \oint_{\mathcal{S}} \mathbf{v}\cdot d\mathbf{a}$.
+   - **Stokes' theorem:** $\int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \oint_{\mathcal{P}} \mathbf{v}\cdot d\mathbf{l}$ (closed surface $\oint (\nabla\times\mathbf{v})\cdot d\mathbf{a} = 0 \iff \nabla\cdot(\nabla\times\mathbf{v}) = 0$).
+2. **Spherical Coordinates $(r,\theta,\phi)$:**
+   - Line element: $d\mathbf{l} = dr\,\hat{\mathbf{r}} + r\,d\theta\,\hat{\boldsymbol{\theta}} + r\sin\theta\,d\phi\,\hat{\boldsymbol{\phi}}$.
+   - Volume element: $d\tau = r^2\sin\theta\,dr\,d\theta\,d\phi$.
+   - Divergence: $\nabla\cdot\mathbf{v} = \frac{1}{r^2}\frac{\partial}{\partial r}(r^2 v_r) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}(\sin\theta\,v_\theta) + \frac{1}{r\sin\theta}\frac{\partial v_\phi}{\partial\phi}$.
+   - Curl: $\nabla\times\mathbf{v} = \frac{1}{r\sin\theta}\left[\frac{\partial}{\partial\theta}(\sin\theta\,v_\phi) - \frac{\partial v_\theta}{\partial\phi}\right]\hat{\mathbf{r}} + \frac{1}{r}\left[\frac{1}{\sin\theta}\frac{\partial v_r}{\partial\phi} - \frac{\partial}{\partial r}(r v_\phi)\right]\hat{\boldsymbol{\theta}} + \frac{1}{r}\left[\frac{\partial}{\partial r}(r v_\theta) - \frac{\partial v_r}{\partial\theta}\right]\hat{\boldsymbol{\phi}}$.
+3. **Key Corollary Identities & Delta Functions:**
+   - Constant-vector substitutions ($\mathbf{v} = \mathbf{c}T$, $\mathbf{v}\times\mathbf{c}$) convert scalar/vector surface and loop integrals into volume/surface forms (Prob. 1.61).
+   - Singular radial fields: $\nabla\cdot(\hat{\mathbf{r}}/r^2) = 4\pi\delta^3(\mathbf{r})$ and $\nabla^2(1/r) = -4\pi\delta^3(\mathbf{r})$, whereas $\nabla\cdot(r^n\hat{\mathbf{r}}) = (n+2)r^{n-1}$ for $n > -2$.
+
+</div>
+
+<ProblemCard num="1.54" title="Checking the Divergence Theorem in a Spherical Octant" tag="Griffiths 1.54 · Divergence Theorem">
+  <div slot="problem">
+    Check the divergence theorem for the function
+
+    $$
+    \mathbf{v} = r^2\cos\theta\,\hat{\mathbf{r}} + r^2\cos\phi\,\hat{\boldsymbol{\theta}} - r^2\cos\theta\sin\phi\,\hat{\boldsymbol{\phi}},
+    $$
+
+    using as your volume one octant of the sphere of radius $R$ ($0 \le r \le R$, $0 \le \theta \le \pi/2$, $0 \le \phi \le \pi/2$; Fig. 1.48). Make sure you include the entire surface.
+  </div>
+
+  <div slot="answer">
+    Both the volume integral of $\nabla\cdot\mathbf{v}$ and the total closed-surface flux $\oint \mathbf{v}\cdot d\mathbf{a}$ evaluate to
+
+    $$
+    \frac{\pi R^4}{4}.
+    $$
+  </div>
+
+  <div slot="solution">
+    **1. Volume integral (LHS):**
+
+    Compute the divergence in spherical coordinates:
+
+    $$
+    \begin{aligned}
+    \nabla\cdot\mathbf{v} &= \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^4\cos\theta\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\,r^2\cos\phi\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}\left(-r^2\cos\theta\sin\phi\right) \\
+    &= 4r\cos\theta + \frac{r\cos\theta\cos\phi}{\sin\theta} - \frac{r\cos\theta\cos\phi}{\sin\theta} = 4r\cos\theta.
+    \end{aligned}
+    $$
+
+    Integrating over the first octant ($0 \le r \le R$, $0 \le \theta \le \pi/2$, $0 \le \phi \le \pi/2$):
+
+    $$
+    \int_{\mathcal{V}} (\nabla\cdot\mathbf{v})\,d\tau = \int_0^R 4r^3\,dr \int_0^{\pi/2} \cos\theta\sin\theta\,d\theta \int_0^{\pi/2} d\phi = 4\left(\frac{R^4}{4}\right)\left(\frac{1}{2}\right)\left(\frac{\pi}{2}\right) = \frac{\pi R^4}{4}.
+    $$
+
+    **2. Surface integral (RHS):**
+
+    The closed boundary of the octant consists of four faces, each with outward normal $d\mathbf{a}$:
+
+    - **Curved spherical cap ($r = R$):** $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$, so $\mathbf{v}\cdot d\mathbf{a} = R^4\cos\theta\sin\theta\,d\theta\,d\phi$:
+
+    $$
+    \int_{\text{curved}} \mathbf{v}\cdot d\mathbf{a} = R^4 \int_0^{\pi/2}\cos\theta\sin\theta\,d\theta \int_0^{\pi/2} d\phi = R^4\left(\frac{1}{2}\right)\left(\frac{\pi}{2}\right) = \frac{\pi R^4}{4}.
+    $$
+
+    - **Left face ($\phi = 0$, in the $xz$-plane):** $d\mathbf{a} = -r\,dr\,d\theta\,\hat{\boldsymbol{\phi}}$. Since $\sin(0) = 0$, $\mathbf{v}\cdot d\mathbf{a} = r^3\cos\theta\sin(0)\,dr\,d\theta = 0$, giving $0$.
+
+    - **Back face ($\phi = \pi/2$, in the $yz$-plane):** $d\mathbf{a} = r\,dr\,d\theta\,\hat{\boldsymbol{\phi}}$, so $\mathbf{v}\cdot d\mathbf{a} = -r^3\cos\theta\sin(\pi/2)\,dr\,d\theta = -r^3\cos\theta\,dr\,d\theta$:
+
+    $$
+    \int_{\text{back}} \mathbf{v}\cdot d\mathbf{a} = -\int_0^R r^3\,dr \int_0^{\pi/2} \cos\theta\,d\theta = -\frac{R^4}{4}(1) = -\frac{R^4}{4}.
+    $$
+
+    - **Bottom face ($\theta = \pi/2$, in the $xy$-plane):** $d\mathbf{a} = r\sin(\pi/2)\,dr\,d\phi\,\hat{\boldsymbol{\theta}} = r\,dr\,d\phi\,\hat{\boldsymbol{\theta}}$, so $\mathbf{v}\cdot d\mathbf{a} = r^3\cos\phi\,dr\,d\phi$:
+
+    $$
+    \int_{\text{bottom}} \mathbf{v}\cdot d\mathbf{a} = \int_0^R r^3\,dr \int_0^{\pi/2} \cos\phi\,d\phi = \frac{R^4}{4}(1) = \frac{R^4}{4}.
+    $$
+
+    Summing all four contributions:
+
+    $$
+    \oint_{\mathcal{S}} \mathbf{v}\cdot d\mathbf{a} = \frac{\pi R^4}{4} + 0 - \frac{R^4}{4} + \frac{R^4}{4} = \frac{\pi R^4}{4},
+    $$
+
+    confirming the divergence theorem.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.55" title="Checking Stokes' Theorem on a Circle" tag="Griffiths 1.55 · Stokes' Theorem">
+  <div slot="problem">
+    Check Stokes' theorem using the function $\mathbf{v} = ay\,\hat{\mathbf{x}} + bx\,\hat{\mathbf{y}}$ ($a$ and $b$ are constants) and the circular path of radius $R$, centered at the origin in the $xy$-plane.
+  </div>
+
+  <div slot="answer">
+    Both the surface integral of $\nabla\times\mathbf{v}$ and the closed line integral $\oint \mathbf{v}\cdot d\mathbf{l}$ equal
+
+    $$
+    \pi R^2(b - a).
+    $$
+  </div>
+
+  <div slot="solution">
+    **1. Surface integral (LHS):**
+
+    Take the flat disk of radius $R$ in the $xy$-plane with upward area element $d\mathbf{a} = dx\,dy\,\hat{\mathbf{z}}$ (matching counterclockwise traversal of the circle). Computing the curl:
+
+    $$
+    \nabla\times\mathbf{v} = \begin{vmatrix} \hat{\mathbf{x}} & \hat{\mathbf{y}} & \hat{\mathbf{z}} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ ay & bx & 0 \end{vmatrix} = (b - a)\,\hat{\mathbf{z}}.
+    $$
+
+    Integrating over the disk of area $\pi R^2$:
+
+    $$
+    \int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} = (b - a)\int_{\mathcal{S}} da = \pi R^2(b - a).
+    $$
+
+    **2. Line integral (RHS):**
+
+    Along the circle $x^2 + y^2 = R^2$, we have $2x\,dx + 2y\,dy = 0 \implies dy = -(x/y)\,dx$, so
+
+    $$
+    \mathbf{v}\cdot d\mathbf{l} = ay\,dx + bx\,dy = \left(ay - \frac{bx^2}{y}\right)dx = \frac{ay^2 - bx^2}{y}\,dx.
+    $$
+
+    - **Upper semicircle** ($x: R \to -R$, $y = +\sqrt{R^2 - x^2}$):
+
+    $$
+    \begin{aligned}
+    \int_{\text{upper}} \mathbf{v}\cdot d\mathbf{l} &= \int_R^{-R} \frac{a(R^2 - x^2) - bx^2}{\sqrt{R^2 - x^2}}\,dx = \int_R^{-R} \frac{aR^2 - (a+b)x^2}{\sqrt{R^2 - x^2}}\,dx \\
+    &= \left[ aR^2\sin^{-1}\!\left(\frac{x}{R}\right) - (a+b)\left(-\frac{x}{2}\sqrt{R^2 - x^2} + \frac{R^2}{2}\sin^{-1}\!\left(\frac{x}{R}\right)\right) \right]_R^{-R} \\
+    &= \frac{R^2}{2}(a - b)\left[\sin^{-1}(-1) - \sin^{-1}(1)\right] = \frac{R^2}{2}(a - b)(-\pi) = \frac{1}{2}\pi R^2(b - a).
+    \end{aligned}
+    $$
+
+    - **Lower semicircle** ($x: -R \to R$, $y = -\sqrt{R^2 - x^2}$): both the sign of $y$ and the integration limits reverse, giving the exact same value $\frac{1}{2}\pi R^2(b - a)$.
+
+    Adding the two halves yields
+
+    $$
+    \oint \mathbf{v}\cdot d\mathbf{l} = \pi R^2(b - a),
+    $$
+
+    which matches the surface integral.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.56" title="Line Integral & Stokes' Theorem on a yz-Triangle" tag="Griffiths 1.56 · Stokes' Theorem">
+  <div slot="problem">
+    Compute the line integral of
+
+    $$
+    \mathbf{v} = 6\,\hat{\mathbf{x}} + yz^2\,\hat{\mathbf{y}} + (3y + z)\,\hat{\mathbf{z}}
+    $$
+
+    along the triangular path in the $yz$-plane from $(0,0,0) \to (0,1,0) \to (0,0,2) \to (0,0,0)$ (Fig. 1.49). Check your answer using Stokes' theorem.
+  </div>
+
+  <div slot="answer">
+    $$
+    \oint \mathbf{v}\cdot d\mathbf{l} = \int (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \frac{8}{3}.
+    $$
+  </div>
+
+  <div slot="solution">
+    **1. Direct line integral:**
+
+    Break the closed loop into its three straight segments:
+
+    - **Segment 1:** $(0,0,0) \to (0,1,0)$, where $x = z = 0$, $dx = dz = 0$, $y: 0 \to 1$. Since $z = 0$, $\mathbf{v}\cdot d\mathbf{l} = yz^2\,dy = 0$, so $\int_1 \mathbf{v}\cdot d\mathbf{l} = 0$.
+    - **Segment 2:** $(0,1,0) \to (0,0,2)$, where $x = 0$, $z = 2 - 2y$, $dz = -2\,dy$, $y: 1 \to 0$.
+
+    $$
+    \begin{aligned}
+    \int_2 \mathbf{v}\cdot d\mathbf{l} &= \int_1^0 \left[y(2 - 2y)^2 - 2(3y + 2 - 2y)\right]dy = 2\int_1^0 \left(2y^3 - 4y^2 + y - 2\right)dy \\
+    &= 2\left[\frac{y^4}{2} - \frac{4y^3}{3} + \frac{y^2}{2} - 2y\right]_1^0 = -2\left(\frac{1}{2} - \frac{4}{3} + \frac{1}{2} - 2\right) = \frac{14}{3}.
+    \end{aligned}
+    $$
+
+    - **Segment 3:** $(0,0,2) \to (0,0,0)$, where $x = y = 0$, $dx = dy = 0$, $z: 2 \to 0$.
+
+    $$
+    \int_3 \mathbf{v}\cdot d\mathbf{l} = \int_2^0 z\,dz = \left[\frac{z^2}{2}\right]_2^0 = -2.
+    $$
+
+    Total line integral:
+
+    $$
+    \oint \mathbf{v}\cdot d\mathbf{l} = 0 + \frac{14}{3} - 2 = \frac{8}{3}.
+    $$
+
+    **2. Check via Stokes' theorem:**
+
+    For the triangular region in the $yz$-plane traversed counterclockwise as viewed from $+x$, the outward area element is $d\mathbf{a} = dy\,dz\,\hat{\mathbf{x}}$, so we only need the $x$-component of $\nabla\times\mathbf{v}$:
+
+    $$
+    (\nabla\times\mathbf{v})_x = \frac{\partial}{\partial y}(3y + z) - \frac{\partial}{\partial z}(yz^2) = 3 - 2yz.
+    $$
+
+    Integrating over the triangle ($0 \le y \le 1$, $0 \le z \le 2 - 2y$):
+
+    $$
+    \begin{aligned}
+    \int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} &= \int_0^1 \left[\int_0^{2-2y} (3 - 2yz)\,dz\right]dy = \int_0^1 \left[3(2 - 2y) - y(2 - 2y)^2\right]dy \\
+    &= \int_0^1 \left(-4y^3 + 8y^2 - 10y + 6\right)dy = \left[-y^4 + \frac{8}{3}y^3 - 5y^2 + 6y\right]_0^1 \\
+    &= -1 + \frac{8}{3} - 5 + 6 = \frac{8}{3}.
+    \end{aligned}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.57" title="Line Integral & Stokes' Theorem in Spherical Coordinates" tag="Griffiths 1.57 · Stokes' Theorem">
+  <div slot="problem">
+    Compute the line integral of
+
+    $$
+    \mathbf{v} = (r\cos^2\theta)\,\hat{\mathbf{r}} - (r\cos\theta\sin\theta)\,\hat{\boldsymbol{\theta}} + 3r\,\hat{\boldsymbol{\phi}}
+    $$
+
+    around the closed path in Fig. 1.50: $(0,0,0) \to (1,0,0) \to (0,1,0)$ (along the unit circle in the $xy$-plane) $\to (0,1,2) \to (0,0,0)$. Check your answer using Stokes' theorem.
+  </div>
+
+  <div slot="answer">
+    $$
+    \oint \mathbf{v}\cdot d\mathbf{l} = \int (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \frac{3\pi}{2}.
+    $$
+  </div>
+
+  <div slot="solution">
+    **1. Direct line integral (in spherical coordinates):**
+
+    Recall $d\mathbf{l} = dr\,\hat{\mathbf{r}} + r\,d\theta\,\hat{\boldsymbol{\theta}} + r\sin\theta\,d\phi\,\hat{\boldsymbol{\phi}}$.
+
+    - **Segment 1:** $(0,0,0) \to (1,0,0)$, along which $\theta = \pi/2$, $\phi = 0$, $r: 0 \to 1$. Since $\cos(\pi/2) = 0$, $\mathbf{v}\cdot d\mathbf{l} = r\cos^2\theta\,dr = 0$, so $\int_1 \mathbf{v}\cdot d\mathbf{l} = 0$.
+    - **Segment 2:** $(1,0,0) \to (0,1,0)$, quarter circle with $r = 1$, $\theta = \pi/2$, $\phi: 0 \to \pi/2$:
+
+    $$
+    \int_2 \mathbf{v}\cdot d\mathbf{l} = \int_0^{\pi/2} (3r)(r\sin\theta\,d\phi) = 3\int_0^{\pi/2} d\phi = \frac{3\pi}{2}.
+    $$
+
+    - **Segment 3:** $(0,1,0) \to (0,1,2)$ in the $yz$-plane ($\phi = \pi/2$). Here $r\sin\theta = y = 1$, so $r = \frac{1}{\sin\theta}$ and $dr = -\frac{\cos\theta}{\sin^2\theta}\,d\theta$, while $\theta$ runs from $\pi/2$ to $\theta_0 = \tan^{-1}(1/2)$ (so $\sin\theta_0 = 1/\sqrt{5}$ and $\cos\theta_0 = 2/\sqrt{5}$):
+
+    $$
+    \mathbf{v}\cdot d\mathbf{l} = r\cos^2\theta\,dr - r^2\cos\theta\sin\theta\,d\theta = \left(-\frac{\cos^3\theta}{\sin^3\theta} - \frac{\cos\theta}{\sin\theta}\right)d\theta = -\frac{\cos\theta}{\sin^3\theta}\,d\theta.
+    $$
+
+    Integrating:
+
+    $$
+    \int_3 \mathbf{v}\cdot d\mathbf{l} = -\int_{\pi/2}^{\theta_0} \frac{\cos\theta}{\sin^3\theta}\,d\theta = \left[\frac{1}{2\sin^2\theta}\right]_{\pi/2}^{\theta_0} = \frac{1}{2(1/5)} - \frac{1}{2(1)} = \frac{5}{2} - \frac{1}{2} = 2.
+    $$
+
+    - **Segment 4:** $(0,1,2) \to (0,0,0)$ along $\phi = \pi/2$, $\theta = \theta_0$, $r: \sqrt{5} \to 0$. Here $\mathbf{v}\cdot d\mathbf{l} = r\cos^2\theta_0\,dr = \frac{4}{5}r\,dr$:
+
+    $$
+    \int_4 \mathbf{v}\cdot d\mathbf{l} = \int_{\sqrt{5}}^0 \frac{4}{5}r\,dr = \left[\frac{2}{5}r^2\right]_{\sqrt{5}}^0 = -2.
+    $$
+
+    Total line integral:
+
+    $$
+    \oint \mathbf{v}\cdot d\mathbf{l} = 0 + \frac{3\pi}{2} + 2 - 2 = \frac{3\pi}{2}.
+    $$
+
+    **2. Check via Stokes' theorem:**
+
+    Compute $\nabla\times\mathbf{v}$ in spherical coordinates:
+
+    $$
+    \begin{aligned}
+    \nabla\times\mathbf{v} &= \frac{1}{r\sin\theta}\left[\frac{\partial}{\partial\theta}(3r\sin\theta) - 0\right]\hat{\mathbf{r}} + \frac{1}{r}\left[0 - \frac{\partial}{\partial r}(3r^2)\right]\hat{\boldsymbol{\theta}} \\
+    &\quad + \frac{1}{r}\left[\frac{\partial}{\partial r}(-r^2\cos\theta\sin\theta) - \frac{\partial}{\partial\theta}(r\cos^2\theta)\right]\hat{\boldsymbol{\phi}} \\
+    &= 3\cot\theta\,\hat{\mathbf{r}} - 6\,\hat{\boldsymbol{\theta}} + \frac{1}{r}\left(-2r\cos\theta\sin\theta + 2r\cos\theta\sin\theta\right)\hat{\boldsymbol{\phi}} = 3\cot\theta\,\hat{\mathbf{r}} - 6\,\hat{\boldsymbol{\theta}}.
+    \end{aligned}
+    $$
+
+    Span the loop with two flat faces:
+    - **Back triangle** (in the $\phi = \pi/2$ plane): $d\mathbf{a} \propto \hat{\boldsymbol{\phi}}$. Since $(\nabla\times\mathbf{v})_\phi = 0$, the flux through this face is $0$.
+    - **Bottom quarter-disk** (in the $xy$-plane, $\theta = \pi/2$): by the right-hand rule for counterclockwise traversal, $d\mathbf{a} = r\,dr\,d\phi\,\hat{\mathbf{z}} = -r\,dr\,d\phi\,\hat{\boldsymbol{\theta}}$. Thus $(\nabla\times\mathbf{v})\cdot d\mathbf{a} = 6r\,dr\,d\phi$:
+
+    $$
+    \int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \int_0^1 6r\,dr \int_0^{\pi/2} d\phi = 6\left(\frac{1}{2}\right)\left(\frac{\pi}{2}\right) = \frac{3\pi}{2}.
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.58" title="Stokes' Theorem on an Inclined Triangular Surface" tag="Griffiths 1.58 · Stokes' Theorem">
+  <div slot="problem">
+    Check Stokes' theorem for the function $\mathbf{v} = y\,\hat{\mathbf{z}}$, using the triangular surface with vertices $(a,0,0)$, $(0,2a,0)$, and $(0,0,a)$ shown in Fig. 1.51.
+  </div>
+
+  <div slot="answer">
+    $$
+    \oint \mathbf{v}\cdot d\mathbf{l} = \int (\nabla\times\mathbf{v})\cdot d\mathbf{a} = a^2.
+    $$
+  </div>
+
+  <div slot="solution">
+    **1. Direct line integral:**
+
+    Since $\mathbf{v} = y\,\hat{\mathbf{z}}$, we have $\mathbf{v}\cdot d\mathbf{l} = y\,dz$. Traversing the triangle in the sense $(0,0,a) \to (a,0,0) \to (0,2a,0) \to (0,0,a)$ (outward normal pointing into the first octant):
+
+    - **Left edge ($xz$-plane, $(0,0,a) \to (a,0,0)$):** here $y = 0$, so $\mathbf{v}\cdot d\mathbf{l} = 0$, giving $0$.
+    - **Bottom edge ($xy$-plane, $(a,0,0) \to (0,2a,0)$):** here $z = 0$, so $dz = 0$ and $\mathbf{v}\cdot d\mathbf{l} = 0$, giving $0$.
+    - **Back edge ($yz$-plane, $(0,2a,0) \to (0,0,a)$):** along this line $z = a - \frac{1}{2}y$, so $dz = -\frac{1}{2}\,dy$ as $y: 2a \to 0$:
+
+    $$
+    \int_{\text{back}} \mathbf{v}\cdot d\mathbf{l} = \int_{2a}^0 y\left(-\frac{1}{2}\,dy\right) = -\frac{1}{2}\left[\frac{y^2}{2}\right]_{2a}^0 = \frac{4a^2}{4} = a^2.
+    $$
+
+    Total line integral: $\oint \mathbf{v}\cdot d\mathbf{l} = a^2$.
+
+    **2. Check via Stokes' theorem:**
+
+    The curl of $\mathbf{v} = y\,\hat{\mathbf{z}}$ is simply
+
+    $$
+    \nabla\times\mathbf{v} = \frac{\partial y}{\partial y}\,\hat{\mathbf{x}} = \hat{\mathbf{x}}.
+    $$
+
+    Therefore, $\int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \int_{\mathcal{S}} \hat{\mathbf{x}}\cdot d\mathbf{a}$ is equal to the area of the projection of the triangular surface onto the $yz$-plane. That projection is a right triangle with legs of length $2a$ (along $y$) and $a$ (along $z$), so
+
+    $$
+    \int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \frac{1}{2}(a)(2a) = a^2,
+    $$
+
+    matching the line integral.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.59" title="Divergence Theorem for an 'Ice-Cream Cone' Volume" tag="Griffiths 1.59 · Divergence Theorem">
+  <div slot="problem">
+    Check the divergence theorem for the function
+
+    $$
+    \mathbf{v} = r^2\sin\theta\,\hat{\mathbf{r}} + 4r^2\cos\theta\,\hat{\boldsymbol{\theta}} + r^2\tan\theta\,\hat{\boldsymbol{\phi}},
+    $$
+
+    using the volume of the "ice-cream cone" shown in Fig. 1.52 (a cone of half-angle $30^\circ = \pi/6$ capped by a spherical surface of radius $R$ centered at the origin).
+  </div>
+
+  <div slot="answer">
+    Both the volume integral and the closed-surface integral equal
+
+    $$
+    \frac{\pi R^4}{12}\left(2\pi + 3\sqrt{3}\right).
+    $$
+  </div>
+
+  <div slot="solution">
+    **1. Volume integral (LHS):**
+
+    Compute $\nabla\cdot\mathbf{v}$ in spherical coordinates (noting $v_\phi = r^2\tan\theta$ is independent of $\phi$):
+
+    $$
+    \begin{aligned}
+    \nabla\cdot\mathbf{v} &= \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^4\sin\theta\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}\left(4r^2\sin\theta\cos\theta\right) + 0 \\
+    &= 4r\sin\theta + \frac{4r}{\sin\theta}\left(\cos^2\theta - \sin^2\theta\right) = \frac{4r\cos^2\theta}{\sin\theta}.
+    \end{aligned}
+    $$
+
+    Integrating over $0 \le r \le R$, $0 \le \theta \le \pi/6$, $0 \le \phi \le 2\pi$:
+
+    $$
+    \begin{aligned}
+    \int_{\mathcal{V}} (\nabla\cdot\mathbf{v})\,d\tau &= \int_0^R 4r^3\,dr \int_0^{\pi/6} \cos^2\theta\,d\theta \int_0^{2\pi} d\phi = 2\pi R^4\left[\frac{\theta}{2} + \frac{\sin 2\theta}{4}\right]_0^{\pi/6} \\
+    &= 2\pi R^4\left(\frac{\pi}{12} + \frac{\sqrt{3}}{8}\right) = \frac{\pi R^4}{12}\left(2\pi + 3\sqrt{3}\right).
+    \end{aligned}
+    $$
+
+    **2. Surface integral (RHS):**
+
+    The surface has two parts:
+
+    - **Spherical cap ("ice cream", $r = R$, $0 \le \theta \le \pi/6$, $0 \le \phi \le 2\pi$):** $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$, so $\mathbf{v}\cdot d\mathbf{a} = R^4\sin^2\theta\,d\theta\,d\phi$:
+
+    $$
+    \begin{aligned}
+    \int_{\text{cap}} \mathbf{v}\cdot d\mathbf{a} &= R^4(2\pi)\int_0^{\pi/6} \sin^2\theta\,d\theta = 2\pi R^4\left[\frac{\theta}{2} - \frac{\sin 2\theta}{4}\right]_0^{\pi/6} \\
+    &= 2\pi R^4\left(\frac{\pi}{12} - \frac{\sqrt{3}}{8}\right) = \frac{\pi R^4}{12}\left(2\pi - 3\sqrt{3}\right).
+    \end{aligned}
+    $$
+
+    - **Conical side ($\theta = \pi/6$, $0 \le r \le R$, $0 \le \phi \le 2\pi$):** the outward normal points in $+\hat{\boldsymbol{\theta}}$, so $d\mathbf{a} = r\sin(\pi/6)\,dr\,d\phi\,\hat{\boldsymbol{\theta}} = \frac{1}{2}r\,dr\,d\phi\,\hat{\boldsymbol{\theta}}$. Then $\mathbf{v}\cdot d\mathbf{a} = 4r^2\cos(\pi/6)\left(\frac{1}{2}r\,dr\,d\phi\right) = \sqrt{3}\,r^3\,dr\,d\phi$:
+
+    $$
+    \int_{\text{cone}} \mathbf{v}\cdot d\mathbf{a} = \sqrt{3}\int_0^R r^3\,dr \int_0^{2\pi} d\phi = \sqrt{3}\left(\frac{R^4}{4}\right)(2\pi) = \frac{\sqrt{3}}{2}\pi R^4 = \frac{\pi R^4}{12}\left(6\sqrt{3}\right).
+    $$
+
+    Adding both parts gives
+
+    $$
+    \oint_{\mathcal{S}} \mathbf{v}\cdot d\mathbf{a} = \frac{\pi R^4}{12}\left(2\pi - 3\sqrt{3} + 6\sqrt{3}\right) = \frac{\pi R^4}{12}\left(2\pi + 3\sqrt{3}\right),
+    $$
+
+    in exact agreement with the volume integral.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.60" title="Second-Derivative Identities from Integral Theorems" tag="Griffiths 1.60 · Vector Identities">
+  <div slot="problem">
+    Here are two cute checks of the fundamental theorems:
+
+    (a) Combine Corollary 2 to the gradient theorem with Stokes' theorem ($\mathbf{v} = \nabla T$, in this case). Show that the result is consistent with what you already knew about second derivatives.
+
+    (b) Combine Corollary 2 to Stokes' theorem with the divergence theorem. Show that the result is consistent with what you already knew.
+  </div>
+
+  <div slot="answer">
+    (a) $\nabla\times(\nabla T) = \mathbf{0}$ (curl of a gradient is zero).
+    (b) $\nabla\cdot(\nabla\times\mathbf{v}) = 0$ (divergence of a curl is zero).
+  </div>
+
+  <div slot="solution">
+    **(a)** Corollary 2 to the gradient theorem states that the closed line integral of any gradient vanishes: $\oint (\nabla T)\cdot d\mathbf{l} = 0$. Applying Stokes' theorem to $\mathbf{v} = \nabla T$ over any surface $\mathcal{S}$ bounded by that closed loop gives
+
+    $$
+    \int_{\mathcal{S}} \left[\nabla\times(\nabla T)\right]\cdot d\mathbf{a} = \oint (\nabla T)\cdot d\mathbf{l} = 0.
+    $$
+
+    Because this holds for *any* surface $\mathcal{S}$, the integrand must vanish everywhere:
+
+    $$
+    \nabla\times(\nabla T) = \mathbf{0},
+    $$
+
+    confirming the second-derivative identity (Eq. 1.44) that the curl of a gradient is always zero.
+
+    **(b)** Corollary 2 to Stokes' theorem states that the flux of a curl through any closed surface vanishes: $\oint (\nabla\times\mathbf{v})\cdot d\mathbf{a} = 0$. Applying the divergence theorem to the enclosed volume $\mathcal{V}$ gives
+
+    $$
+    \int_{\mathcal{V}} \nabla\cdot(\nabla\times\mathbf{v})\,d\tau = \oint (\nabla\times\mathbf{v})\cdot d\mathbf{a} = 0.
+    $$
+
+    Because this holds for *any* volume $\mathcal{V}$, the integrand must vanish everywhere:
+
+    $$
+    \nabla\cdot(\nabla\times\mathbf{v}) = 0,
+    $$
+
+    confirming the second-derivative identity (Eq. 1.46) that the divergence of a curl is always zero.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.61" title="Integral Corollaries & Green's Identities" tag="Griffiths 1.61 · Integral Corollaries">
+  <div slot="problem">
+    Although the gradient, divergence, and curl theorems are the fundamental integral theorems of vector calculus, it is possible to derive a number of corollaries from them. Show that:
+
+    (a) $\int_{\mathcal{V}} (\nabla T)\,d\tau = \oint_{\mathcal{S}} T\,d\mathbf{a}$.
+
+    (b) $\int_{\mathcal{V}} (\nabla\times\mathbf{v})\,d\tau = -\oint_{\mathcal{S}} \mathbf{v}\times d\mathbf{a}$.
+
+    (c) $\int_{\mathcal{V}} \left[T\nabla^2 U + (\nabla T)\cdot(\nabla U)\right]d\tau = \oint_{\mathcal{S}} (T\nabla U)\cdot d\mathbf{a}$ (Green's first identity).
+
+    (d) $\int_{\mathcal{V}} \left(T\nabla^2 U - U\nabla^2 T\right)d\tau = \oint_{\mathcal{S}} (T\nabla U - U\nabla T)\cdot d\mathbf{a}$ (Green's second identity).
+
+    (e) $\int_{\mathcal{S}} \nabla T \times d\mathbf{a} = -\oint_{\mathcal{P}} T\,d\mathbf{l}$.
+  </div>
+
+  <div slot="answer">
+    Each identity follows by substituting an appropriate test field ($\mathbf{c}T$, $\mathbf{v}\times\mathbf{c}$, or $T\nabla U$, where $\mathbf{c}$ is an arbitrary constant vector) into the divergence or Stokes' theorem and applying product rules.
+  </div>
+
+  <div slot="solution">
+    **(a)** Let $\mathbf{v} = \mathbf{c}T$, where $\mathbf{c}$ is an arbitrary constant vector, in the divergence theorem $\int_{\mathcal{V}} (\nabla\cdot\mathbf{v})\,d\tau = \oint_{\mathcal{S}} \mathbf{v}\cdot d\mathbf{a}$. By product rule $\nabla\cdot(\mathbf{c}T) = T(\nabla\cdot\mathbf{c}) + \mathbf{c}\cdot(\nabla T) = \mathbf{c}\cdot(\nabla T)$ (since $\mathbf{c}$ is constant), we get
+
+    $$
+    \mathbf{c}\cdot\int_{\mathcal{V}} (\nabla T)\,d\tau = \mathbf{c}\cdot\oint_{\mathcal{S}} T\,d\mathbf{a}.
+    $$
+
+    Choosing $\mathbf{c} = \hat{\mathbf{x}}, \hat{\mathbf{y}}, \hat{\mathbf{z}}$ in turn equates each component, yielding $\int_{\mathcal{V}} (\nabla T)\,d\tau = \oint_{\mathcal{S}} T\,d\mathbf{a}$.
+
+    **(b)** Replace $\mathbf{v}$ by $\mathbf{v}\times\mathbf{c}$ in the divergence theorem, where $\mathbf{c}$ is constant. Since $\nabla\times\mathbf{c} = \mathbf{0}$, product rule $\nabla\cdot(\mathbf{v}\times\mathbf{c}) = \mathbf{c}\cdot(\nabla\times\mathbf{v}) - \mathbf{v}\cdot(\nabla\times\mathbf{c}) = \mathbf{c}\cdot(\nabla\times\mathbf{v})$. Meanwhile, the cyclic scalar triple product gives $(\mathbf{v}\times\mathbf{c})\cdot d\mathbf{a} = \mathbf{c}\cdot(d\mathbf{a}\times\mathbf{v}) = -\mathbf{c}\cdot(\mathbf{v}\times d\mathbf{a})$. Thus
+
+    $$
+    \mathbf{c}\cdot\int_{\mathcal{V}} (\nabla\times\mathbf{v})\,d\tau = -\mathbf{c}\cdot\oint_{\mathcal{S}} \mathbf{v}\times d\mathbf{a}.
+    $$
+
+    Since $\mathbf{c}$ is arbitrary, $\int_{\mathcal{V}} (\nabla\times\mathbf{v})\,d\tau = -\oint_{\mathcal{S}} \mathbf{v}\times d\mathbf{a}$.
+
+    **(c)** Let $\mathbf{v} = T\nabla U$ in the divergence theorem. Using $\nabla\cdot(T\nabla U) = T\nabla\cdot(\nabla U) + (\nabla T)\cdot(\nabla U) = T\nabla^2 U + (\nabla T)\cdot(\nabla U)$ directly yields
+
+    $$
+    \int_{\mathcal{V}} \left[T\nabla^2 U + (\nabla T)\cdot(\nabla U)\right]d\tau = \oint_{\mathcal{S}} (T\nabla U)\cdot d\mathbf{a}.
+    $$
+
+    **(d)** Exchange $T \leftrightarrow U$ in part (c):
+
+    $$
+    \int_{\mathcal{V}} \left[U\nabla^2 T + (\nabla U)\cdot(\nabla T)\right]d\tau = \oint_{\mathcal{S}} (U\nabla T)\cdot d\mathbf{a}.
+    $$
+
+    Subtracting this from part (c), the $(\nabla T)\cdot(\nabla U)$ terms cancel, giving Green's second identity:
+
+    $$
+    \int_{\mathcal{V}} \left(T\nabla^2 U - U\nabla^2 T\right)d\tau = \oint_{\mathcal{S}} (T\nabla U - U\nabla T)\cdot d\mathbf{a}.
+    $$
+
+    **(e)** Let $\mathbf{v} = \mathbf{c}T$ ($\mathbf{c}$ constant) in Stokes' theorem $\int_{\mathcal{S}} (\nabla\times\mathbf{v})\cdot d\mathbf{a} = \oint_{\mathcal{P}} \mathbf{v}\cdot d\mathbf{l}$. Since $\nabla\times(\mathbf{c}T) = T(\nabla\times\mathbf{c}) - \mathbf{c}\times(\nabla T) = -\mathbf{c}\times(\nabla T)$, the left side is
+
+    $$
+    \int_{\mathcal{S}} \left[-\mathbf{c}\times(\nabla T)\right]\cdot d\mathbf{a} = -\mathbf{c}\cdot\int_{\mathcal{S}} \nabla T \times d\mathbf{a}.
+    $$
+
+    Equating this to $\mathbf{c}\cdot\oint_{\mathcal{P}} T\,d\mathbf{l}$ for arbitrary $\mathbf{c}$ gives
+
+    $$
+    \int_{\mathcal{S}} \nabla T \times d\mathbf{a} = -\oint_{\mathcal{P}} T\,d\mathbf{l}.
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.62" title="Properties of the Vector Area" tag="Griffiths 1.62 · Vector Area">
+  <div slot="problem">
+    The integral
+
+    $$
+    \mathbf{a} \equiv \int_{\mathcal{S}} d\mathbf{a}
+    $$
+
+    is sometimes called the *vector area* of the surface $\mathcal{S}$. If $\mathcal{S}$ happens to be flat, then $|\mathbf{a}|$ is the ordinary (scalar) area, obviously.
+
+    (a) Find the vector area of a hemispherical bowl of radius $R$.
+
+    (b) Show that $\mathbf{a} = \mathbf{0}$ for any closed surface.
+
+    (c) Show that $\mathbf{a}$ is the same for all surfaces sharing the same boundary.
+
+    (d) Show that $\mathbf{a} = \frac{1}{2}\oint_{\mathcal{P}} \mathbf{r}\times d\mathbf{l}$, where the integral is around the boundary line.
+
+    (e) Show that $\oint_{\mathcal{P}} (\mathbf{c}\cdot\mathbf{r})\,d\mathbf{l} = \mathbf{a}\times\mathbf{c}$ for any constant vector $\mathbf{c}$.
+  </div>
+
+  <div slot="answer">
+    (a) $\mathbf{a} = \pi R^2\,\hat{\mathbf{z}}$ (magnitude $\pi R^2$ along the symmetry axis).
+    (b)–(e) Verified using Prob. 1.61(a), (e) and triangular decomposition.
+  </div>
+
+  <div slot="solution">
+    **(a)** Place the bowl as the northern hemisphere of radius $R$ with outward normal $\hat{\mathbf{r}}$ and $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$. By symmetry in $\phi$, the $x$- and $y$-components integrate to zero, while $\hat{\mathbf{r}}\cdot\hat{\mathbf{z}} = \cos\theta$:
+
+    $$
+    \mathbf{a} = R^2\hat{\mathbf{z}}\int_0^{2\pi} d\phi \int_0^{\pi/2} \sin\theta\cos\theta\,d\theta = 2\pi R^2\hat{\mathbf{z}}\left[\frac{\sin^2\theta}{2}\right]_0^{\pi/2} = \pi R^2\,\hat{\mathbf{z}}.
+    $$
+
+    (Notice this equals the vector area of the flat circular disk spanning the rim.)
+
+    **(b)** Set $T = 1$ in Prob. 1.61(a): since $\nabla(1) = \mathbf{0}$,
+
+    $$
+    \mathbf{a} = \oint_{\mathcal{S}} d\mathbf{a} = \int_{\mathcal{V}} \nabla(1)\,d\tau = \mathbf{0}.
+    $$
+
+    **(c)** Suppose two surfaces $\mathcal{S}_1$ and $\mathcal{S}_2$ share the same boundary $\mathcal{P}$. Reversing the orientation of $\mathcal{S}_2$ and gluing it to $\mathcal{S}_1$ forms a closed surface $\mathcal{S} = \mathcal{S}_1 \cup (-\mathcal{S}_2)$. By part (b),
+
+    $$
+    \mathbf{0} = \oint_{\mathcal{S}} d\mathbf{a} = \mathbf{a}_1 - \mathbf{a}_2 \implies \mathbf{a}_1 = \mathbf{a}_2.
+    $$
+
+    **(d)** Construct the conical surface $\mathcal{S}_{\text{cone}}$ formed by straight rays from the origin to every point on the boundary $\mathcal{P}$. Divide it into infinitesimal triangular wedges with vertices at the origin and opposite edge $d\mathbf{l}$ at position $\mathbf{r}$. Each triangle has vector area $d\mathbf{a} = \frac{1}{2}(\mathbf{r}\times d\mathbf{l})$ (half the parallelogram spanned by $\mathbf{r}$ and $d\mathbf{l}$, with right-hand normal). Integrating over the cone—and using part (c) to extend the result to *any* surface $\mathcal{S}$ with boundary $\mathcal{P}$—gives
+
+    $$
+    \mathbf{a} = \frac{1}{2}\oint_{\mathcal{P}} \mathbf{r}\times d\mathbf{l}.
+    $$
+
+    **(e)** Set $T = \mathbf{c}\cdot\mathbf{r}$ in Prob. 1.61(e). Since $\nabla(\mathbf{c}\cdot\mathbf{r}) = \mathbf{c}\times(\nabla\times\mathbf{r}) + (\mathbf{c}\cdot\nabla)\mathbf{r} = \mathbf{0} + \mathbf{c} = \mathbf{c}$, we have
+
+    $$
+    \oint_{\mathcal{P}} (\mathbf{c}\cdot\mathbf{r})\,d\mathbf{l} = -\int_{\mathcal{S}} \nabla(\mathbf{c}\cdot\mathbf{r})\times d\mathbf{a} = -\int_{\mathcal{S}} \mathbf{c}\times d\mathbf{a} = -\mathbf{c}\times\mathbf{a} = \mathbf{a}\times\mathbf{c}.
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.63" title="Divergence and Curl of Power-Law Radial Fields" tag="Griffiths 1.63 · Delta Functions">
+  <div slot="problem">
+    (a) Find the divergence of the function $\mathbf{v} = \hat{\mathbf{r}}/r$. First compute it directly, as in Eq. 1.84. Test your result using the divergence theorem, as in Eq. 1.85. Is there a delta function at the origin, as there was for $\hat{\mathbf{r}}/r^2$? What is the general formula for the divergence of $r^n\hat{\mathbf{r}}$?
+
+    (b) Find the curl of $r^n\hat{\mathbf{r}}$. Test your conclusion using Prob. 1.61(b).
+  </div>
+
+  <div slot="answer">
+    (a) $\nabla\cdot(\hat{\mathbf{r}}/r) = 1/r^2$ (no delta function at the origin). In general, $\nabla\cdot(r^n\hat{\mathbf{r}}) = (n+2)r^{n-1}$ unless $n = -2$, in which case it is $4\pi\delta^3(\mathbf{r})$ (for $n < -2$, the divergence is ill-defined at the origin).
+
+    (b) $\nabla\times(r^n\hat{\mathbf{r}}) = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    **(a)** Using the spherical divergence formula for $\mathbf{v} = \hat{\mathbf{r}}/r$:
+
+    $$
+    \nabla\cdot\mathbf{v} = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\cdot\frac{1}{r}\right) = \frac{1}{r^2}\frac{\partial r}{\partial r} = \frac{1}{r^2}.
+    $$
+
+    Testing with the divergence theorem over a sphere of radius $R$ centered at the origin:
+
+    $$
+    \oint_{\mathcal{S}} \mathbf{v}\cdot d\mathbf{a} = \int \left(\frac{1}{R}\hat{\mathbf{r}}\right)\cdot\left(R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}\right) = R\int_0^\pi\sin\theta\,d\theta \int_0^{2\pi} d\phi = 4\pi R,
+    $$
+
+    $$
+    \int_{\mathcal{V}} (\nabla\cdot\mathbf{v})\,d\tau = \int_0^R \frac{1}{r^2}\left(4\pi r^2\,dr\right) = 4\pi\int_0^R dr = 4\pi R.
+    $$
+
+    The two integrals match already, so **there is no delta function at the origin**.
+
+    For the general radial power law $\mathbf{v} = r^n\hat{\mathbf{r}}$ (with $n > -2$ so the volume integral converges at the origin):
+
+    $$
+    \nabla\cdot(r^n\hat{\mathbf{r}}) = \frac{1}{r^2}\frac{\partial}{\partial r}(r^{n+2}) = (n+2)r^{n-1}.
+    $$
+
+    When $n = -2$, the naive derivative vanishes for $r > 0$, while the surface flux is $4\pi$, yielding $\nabla\cdot(\hat{\mathbf{r}}/r^2) = 4\pi\delta^3(\mathbf{r})$. For $n < -2$, the flux through a sphere of radius $R$ diverges as $R \to 0$, so the divergence is ill-defined at the origin.
+
+    **(b)** Since $r^n\hat{\mathbf{r}}$ has only an $r$-component that depends only on $r$, the spherical curl formula immediately gives
+
+    $$
+    \nabla\times(r^n\hat{\mathbf{r}}) = \mathbf{0}.
+    $$
+
+    Testing via Prob. 1.61(b) on a sphere of radius $R$:
+
+    $$
+    \int_{\mathcal{V}} \left[\nabla\times(r^n\hat{\mathbf{r}})\right]d\tau = -\oint_{\mathcal{S}} (r^n\hat{\mathbf{r}})\times d\mathbf{a} = -\oint_{\mathcal{S}} \left(R^n\hat{\mathbf{r}}\right)\times\left(R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}\right) = \mathbf{0},
+    $$
+
+    since $\hat{\mathbf{r}}\times\hat{\mathbf{r}} = \mathbf{0}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.64" title="Regularized Approximation to the 3D Delta Function" tag="Griffiths 1.64 · Delta Functions">
+  <div slot="problem">
+    In case you're not persuaded that $\nabla^2(1/r) = -4\pi\delta^3(\mathbf{r})$, try replacing $r$ by $\sqrt{r^2 + \epsilon^2}$, and watching what happens as $\epsilon \to 0$. Specifically, let
+
+    $$
+    D(r,\epsilon) \equiv -\frac{1}{4\pi}\nabla^2\left(\frac{1}{\sqrt{r^2 + \epsilon^2}}\right).
+    $$
+
+    To demonstrate that this goes to $\delta^3(\mathbf{r})$ as $\epsilon \to 0$:
+
+    (a) Show that $D(r,\epsilon) = \dfrac{3\epsilon^2}{4\pi(r^2 + \epsilon^2)^{5/2}}$.
+
+    (b) Check that $D(0,\epsilon) \to \infty$, as $\epsilon \to 0$.
+
+    (c) Check that $D(r,\epsilon) \to 0$, as $\epsilon \to 0$, for all $r \neq 0$.
+
+    (d) Check that the integral of $D(r,\epsilon)$ over all space is $1$.
+  </div>
+
+  <div slot="answer">
+    (a) $D(r,\epsilon) = \frac{3\epsilon^2}{4\pi(r^2+\epsilon^2)^{5/2}}$.
+    (b) $D(0,\epsilon) = \frac{3}{4\pi\epsilon^3} \to \infty$.
+    (c) $D(r,\epsilon) \to 0$ for $r \neq 0$.
+    (d) $\int_{\text{all space}} D(r,\epsilon)\,d\tau = 1$ for every $\epsilon > 0$.
+  </div>
+
+  <div slot="solution">
+    **(a)** Since $(r^2 + \epsilon^2)^{-1/2}$ depends only on $r$, the spherical Laplacian reduces to $\nabla^2 f(r) = \frac{1}{r^2}\frac{d}{dr}\left(r^2\frac{df}{dr}\right)$:
+
+    $$
+    \frac{d}{dr}\left(r^2 + \epsilon^2\right)^{-1/2} = -\frac{r}{\left(r^2 + \epsilon^2\right)^{3/2}}.
+    $$
+
+    Therefore,
+
+    $$
+    \begin{aligned}
+    D(r,\epsilon) &= -\frac{1}{4\pi r^2}\frac{d}{dr}\left(-\frac{r^3}{(r^2 + \epsilon^2)^{3/2}}\right) = \frac{1}{4\pi r^2}\left[\frac{3r^2}{(r^2 + \epsilon^2)^{3/2}} - \frac{3r^4}{(r^2 + \epsilon^2)^{5/2}}\right] \\
+    &= \frac{1}{4\pi r^2}\frac{3r^2(r^2 + \epsilon^2) - 3r^4}{(r^2 + \epsilon^2)^{5/2}} = \frac{3\epsilon^2}{4\pi(r^2 + \epsilon^2)^{5/2}}.
+    \end{aligned}
+    $$
+
+    **(b)** Setting $r = 0$:
+
+    $$
+    D(0,\epsilon) = \frac{3\epsilon^2}{4\pi\epsilon^5} = \frac{3}{4\pi\epsilon^3} \xrightarrow{\epsilon \to 0} \infty.
+    $$
+
+    **(c)** For any fixed $r \neq 0$, as $\epsilon \to 0$ the denominator approaches $r^5 \neq 0$ while the numerator $3\epsilon^2 \to 0$, so
+
+    $$
+    D(r,\epsilon) \xrightarrow{\epsilon \to 0} 0 \qquad (r \neq 0).
+    $$
+
+    **(d)** Integrating over all space using $d\tau = 4\pi r^2\,dr$ and substituting $r = \epsilon\tan\alpha$ ($dr = \epsilon\sec^2\alpha\,d\alpha$, $r^2 + \epsilon^2 = \epsilon^2\sec^2\alpha$):
+
+    $$
+    \begin{aligned}
+    \int_{\text{all space}} D(r,\epsilon)\,d\tau &= \int_0^\infty \frac{3\epsilon^2}{4\pi(r^2 + \epsilon^2)^{5/2}}\left(4\pi r^2\,dr\right) = 3\epsilon^2 \int_0^\infty \frac{r^2\,dr}{(r^2 + \epsilon^2)^{5/2}} \\
+    &= 3\epsilon^2 \int_0^{\pi/2} \frac{\epsilon^2\tan^2\alpha \cdot \epsilon\sec^2\alpha\,d\alpha}{\epsilon^5\sec^5\alpha} = 3\int_0^{\pi/2} \sin^2\alpha\cos\alpha\,d\alpha \\
+    &= \left[\sin^3\alpha\right]_0^{\pi/2} = 1.
+    \end{aligned}
+    $$
+
+    Together, (b), (c), and (d) are the defining properties of $\delta^3(\mathbf{r})$, confirming $\lim_{\epsilon \to 0} D(r,\epsilon) = \delta^3(\mathbf{r})$.
+  </div>
+</ProblemCard>
+
+</section>

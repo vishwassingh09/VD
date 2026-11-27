@@ -1,0 +1,852 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch3-sec5" class="ed-sec-block">
+
+### Chapter 3 Review Problems (3.37 – 3.58)
+
+<div class="ed-theory-box">
+
+**Chapter 3 Formula & Problem-Solving Checklist**
+
+1. **Laplace's Equation & Uniqueness:** In charge-free regions, $\nabla^2 V = 0$; $V$ equals its spherical average $V_{\text{ave}}(R) = V(P)$ and admits no local extrema. *First Uniqueness Theorem:* $V$ in a volume $\mathcal{V}$ is uniquely fixed by $V$ on $\partial\mathcal{V}$. *Second Uniqueness Theorem:* $\mathbf{E}$ in $\mathcal{V}$ containing conductors is uniquely fixed by the total charge $Q_i$ on each conductor and boundary conditions on $\partial\mathcal{V}$.
+2. **Method of Images & Reciprocity:** Place fictitious charges outside the region of interest so conducting boundaries become equipotentials. For a grounded sphere of radius $R$ and charge $q$ at $a > R$, place $q' = -(R/a)q$ at $b = R^2/a$. *Green's Reciprocity Theorem:* for any two independent configurations $(\rho_1, V_1)$ and $(\rho_2, V_2)$,
+
+$$
+\int \rho_1 V_2\, d\tau = \int \rho_2 V_1\, d\tau.
+$$
+
+3. **Separation of Variables:**
+   - *Cartesian:* sinusoidal modes along bounded zero-potential directions, $\sinh$/$\cosh$ or $e^{\pm kx}$ in the remaining direction (plus $k=0$ linear terms when needed), matched via Fourier's trick.
+   - *Spherical (azimuthal symmetry):* $V(r,\theta) = \sum_{l=0}^\infty \left(A_l r^l + B_l r^{-(l+1)}\right) P_l(\cos\theta)$, matching $V$ and $\Delta(\partial V/\partial r) = -\sigma/\epsilon_0$ via orthogonality of $P_l(\cos\theta)$.
+   - *Cylindrical (no $z$-dependence):* $V(s,\phi) = a_0 + b_0 \ln s + \sum_{k=1}^\infty (a_k s^k + b_k s^{-k})(c_k \cos k\phi + d_k \sin k\phi)$.
+4. **Multipole Expansion & Dipole Contact Term:** Far from a localized distribution ($r \gg r'$),
+
+$$
+V(\mathbf{r}) = \frac{1}{4\pi\epsilon_0} \sum_{n=0}^\infty \frac{1}{r^{n+1}} \int (r')^n P_n(\cos\alpha)\,\rho(\mathbf{r}')\, d\tau',
+$$
+
+yielding monopole $Q$, dipole $\mathbf{p} = \int \mathbf{r}'\rho\, d\tau'$, and quadrupole $Q_{ij} = \frac{1}{2}\int [3r_i' r_j' - (r')^2 \delta_{ij}]\rho\, d\tau'$. Including the origin, the true field of an ideal dipole is
+
+$$
+\mathbf{E}_{\text{dip}}(\mathbf{r}) = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}\right] - \frac{\mathbf{p}}{3\epsilon_0}\delta^3(\mathbf{r}).
+$$
+
+</div>
+
+<ProblemCard num="3.37" title="Mean Value Theorem via Laplace's Equation" tag="Griffiths 3.37 · Laplace's Equation">
+<div slot="problem">
+    In Section 3.1.4 it was proved using Coulomb's law that the electrostatic potential at any point $P$ in a charge-free region equals its average value over any spherical surface of radius $R$ centered at $P$. Give an alternative proof relying only on Laplace's equation. Set the origin at $P$ and let $V_{\text{ave}}(R)$ be the average. First show that
+
+$$
+\frac{dV_{\text{ave}}}{dR} = \frac{1}{4\pi R^2}\oint \nabla V \cdot d\mathbf{a},
+$$
+
+and then apply the divergence theorem to conclude that $V_{\text{ave}}(R) = V_{\text{ave}}(0) = V(P)$ for all $R$.
+</div>
+<div slot="answer">
+    $\dfrac{dV_{\text{ave}}}{dR} = \dfrac{1}{4\pi R^2}\displaystyle\int_{\mathcal{V}(R)} \nabla^2 V\, d\tau = 0 \implies V_{\text{ave}}(R) = V_{\text{ave}}(0) = V(P)$.
+</div>
+<div slot="solution">
+    With the origin at $P$, the surface average over a sphere $\mathcal{S}(R)$ of radius $R$ is
+
+$$
+V_{\text{ave}}(R) = \frac{1}{4\pi R^2}\oint_{\mathcal{S}(R)} V(\mathbf{r})\, da = \frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi V(R,\theta,\phi)\sin\theta\, d\theta\, d\phi.
+$$
+
+Because the $R^2$ in $da = R^2\sin\theta\, d\theta\, d\phi$ cancels the $1/R^2$ factor, $R$ appears only inside $V(R,\theta,\phi)$. Differentiating with respect to $R$ gives
+
+$$
+\frac{dV_{\text{ave}}}{dR} = \frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi \frac{\partial V}{\partial R}\sin\theta\, d\theta\, d\phi = \frac{1}{4\pi R^2}\oint_{\mathcal{S}(R)} (\nabla V\cdot\hat{\mathbf{r}})\, R^2\sin\theta\, d\theta\, d\phi = \frac{1}{4\pi R^2}\oint_{\mathcal{S}(R)} \nabla V \cdot d\mathbf{a}.
+$$
+
+Applying the divergence theorem to the spherical volume $\mathcal{V}(R)$ enclosed by $\mathcal{S}(R)$,
+
+$$
+\frac{dV_{\text{ave}}}{dR} = \frac{1}{4\pi R^2}\int_{\mathcal{V}(R)} \nabla\cdot(\nabla V)\, d\tau = \frac{1}{4\pi R^2}\int_{\mathcal{V}(R)} \nabla^2 V\, d\tau = 0,
+$$
+
+since $\nabla^2 V = 0$ throughout the charge-free region. Hence $V_{\text{ave}}(R)$ is independent of $R$. Taking the limit $R \to 0$ yields $V_{\text{ave}}(R) = V_{\text{ave}}(0) = V(P)$ for all $R$.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.38" title="Induced Charge on a Grounded Plane Without Images" tag="Griffiths 3.38 · Boundary Conditions">
+<div slot="problem">
+    Derive Eq. 3.10 for the surface charge density $\sigma(x,y)$ induced on a grounded conducting plane ($z = 0$) by a point charge $q$ at $(0,0,d)$ without using the method of images. Write down the $z$-components of the field due to $q$ and the field due to $\sigma(x,y)$ just below the surface ($z = 0^-$), and set their sum to zero inside the conductor to determine $\sigma(x,y)$.
+</div>
+<div slot="answer">
+    $\sigma(x,y) = -\dfrac{qd}{2\pi (x^2 + y^2 + d^2)^{3/2}}$.
+</div>
+<div slot="solution">
+    At a point $(x,y,0^-)$ infinitesimally below the conducting surface, the displacement vector from the point charge $q$ at $(0,0,d)$ is $\boldsymbol{\mathscr{r}} = x\hat{\mathbf{x}} + y\hat{\mathbf{y}} - d\hat{\mathbf{z}}$, with $\mathscr{r} = \sqrt{x^2 + y^2 + d^2}$. The $z$-component of the field produced by $q$ is therefore
+
+$$
+E_{q,z} = \frac{1}{4\pi\epsilon_0}\frac{q(-d)}{(x^2 + y^2 + d^2)^{3/2}}.
+$$
+
+Meanwhile, just below the plane $z = 0$, the $z$-component of the field due to the induced surface charge $\sigma(x,y)$ comes solely from the local neighborhood of $(x,y)$ (which acts like an infinite uniform plane of density $\sigma(x,y)$, since more distant surface patches lie in the $xy$-plane and contribute no $z$-component at $z = 0^-$):
+
+$$
+E_{\sigma, z} = -\frac{\sigma(x,y)}{2\epsilon_0}.
+$$
+
+Inside the conductor ($z = 0^-$), the total electric field must vanish, so $E_{q,z} + E_{\sigma,z} = 0$:
+
+$$
+-\frac{qd}{4\pi\epsilon_0(x^2 + y^2 + d^2)^{3/2}} - \frac{\sigma(x,y)}{2\epsilon_0} = 0 \implies \sigma(x,y) = -\frac{qd}{2\pi(x^2 + y^2 + d^2)^{3/2}}.
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.39" title="Point Charge Between Parallel Grounded Planes" tag="Griffiths 3.39 · Method of Images">
+<div slot="problem">
+    Two infinite parallel grounded conducting planes are held a distance $a$ apart. A point charge $q$ is placed in the region between them, a distance $x$ from one plate. Find the force on $q$, and verify your result for the special cases $a \to \infty$ and $x = a/2$.
+</div>
+<div slot="answer">
+    $F = \dfrac{q^2}{16\pi\epsilon_0}\displaystyle\sum_{n=0}^\infty \left[\frac{1}{[(n+1)a - x]^2} - \frac{1}{(na + x)^2}\right]$ (toward the plate at $a$, away from the plate at $0$). For $a \to \infty$, $F \to -\dfrac{q^2}{4\pi\epsilon_0(2x)^2}$; for $x = a/2$, $F = 0$.
+</div>
+<div slot="solution">
+    Place plate 1 at coordinate $0$, plate 2 at coordinate $a$, and the charge $q$ at coordinate $x$ ($0 < x < a$), with the positive axis pointing from plate 1 toward plate 2. Repeated reflections across both planes generate an infinite lattice of image charges:
+    - Positive images $+q$ at $x \pm 2na$ ($n = 1, 2, 3, \dots$). Because these lie symmetrically on both sides of $q$ at distances $2na$, their forces on $q$ cancel in pairs.
+    - Negative images $-q$ to the left of plate 1 at $-x - 2na$ ($n = 0, 1, 2, \dots$), at distances $2na + 2x$ from $q$, pulling $q$ in the negative direction.
+    - Negative images $-q$ to the right of plate 2 at $2(n+1)a - x$ ($n = 0, 1, 2, \dots$), at distances $2(n+1)a - 2x$ from $q$, pulling $q$ in the positive direction.
+
+Summing the forces from all negative images gives
+
+$$
+F = \frac{q^2}{4\pi\epsilon_0}\sum_{n=0}^\infty \left[\frac{1}{[2(n+1)a - 2x]^2} - \frac{1}{[2na + 2x]^2}\right] = \frac{q^2}{16\pi\epsilon_0}\sum_{n=0}^\infty \left[\frac{1}{[(n+1)a - x]^2} - \frac{1}{(na + x)^2}\right].
+$$
+
+**Special cases:**
+- When $a \to \infty$ ($x \ll a$), only the $n=0$ term $-1/x^2$ survives, yielding $F = -\dfrac{q^2}{4\pi\epsilon_0(2x)^2}$, which reproduces the single-plane image force (Eq. 3.12).
+- When $x = a/2$, $(n+1)a - x = na + x = \left(n + \frac{1}{2}\right)a$, so the positive and negative series cancel term by term and $F = 0$ by symmetry.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.40" title="Opposite Line Charges Near a Conducting Cylinder" tag="Griffiths 3.40 · Method of Images">
+<div slot="problem">
+    Two long straight wires carrying opposite uniform line charges $\pm\lambda$ are situated on opposite sides of a long uncharged conducting cylinder of radius $R$, each a distance $a$ from the cylinder axis ($a > R$). Find the electrostatic potential $V(s,\phi)$.
+</div>
+<div slot="answer">
+    $V(s,\phi) = \dfrac{\lambda}{4\pi\epsilon_0}\ln\dfrac{(s^2 + a^2 + 2sa\cos\phi)[(sa/R)^2 + R^2 - 2sa\cos\phi]}{(s^2 + a^2 - 2sa\cos\phi)[(sa/R)^2 + R^2 + 2sa\cos\phi]}$.
+</div>
+<div slot="solution">
+    Place $+\lambda$ at $(s=a, \phi=0)$ and $-\lambda$ at $(s=a, \phi=\pi)$ outside the cylinder of radius $R$ centered on the $z$-axis. By the cylindrical method of images (Prob. 2.52), the wire $+\lambda$ at $(a,0)$ induces an image line charge $-\lambda$ at $(b,0)$ with $b = R^2/a$, while $-\lambda$ at $(a,\pi)$ induces an image line charge $+\lambda$ at $(b,\pi)$. (Because these two images have equal and opposite line charges, the net charge on the cylinder is zero and no additional image line charge on the axis is required.)
+
+Let $s_1, s_2, s_3, s_4$ denote the perpendicular distances from the field point $(s,\phi)$ to $+\lambda$ at $(a,0)$, $-\lambda$ at $(b,0)$, $-\lambda$ at $(a,\pi)$, and $+\lambda$ at $(b,\pi)$, respectively:
+
+$$
+s_1^2 = s^2 + a^2 - 2sa\cos\phi, \qquad s_3^2 = s^2 + a^2 + 2sa\cos\phi,
+$$
+
+$$
+s_2^2 = s^2 + b^2 - 2sb\cos\phi = \frac{R^2}{a^2}\left[\left(\frac{sa}{R}\right)^2 + R^2 - 2sa\cos\phi\right],
+$$
+
+$$
+s_4^2 = s^2 + b^2 + 2sb\cos\phi = \frac{R^2}{a^2}\left[\left(\frac{sa}{R}\right)^2 + R^2 + 2sa\cos\phi\right].
+$$
+
+Superposing the potentials $V_i = -\dfrac{\lambda_i}{2\pi\epsilon_0}\ln s_i$ of the four line charges (the constants cancel since the total line charge is zero),
+
+$$
+V(s,\phi) = \frac{\lambda}{2\pi\epsilon_0}\ln\left(\frac{s_3 s_2}{s_1 s_4}\right) = \frac{\lambda}{4\pi\epsilon_0}\ln\frac{(s^2 + a^2 + 2sa\cos\phi)[(sa/R)^2 + R^2 - 2sa\cos\phi]}{(s^2 + a^2 - 2sa\cos\phi)[(sa/R)^2 + R^2 + 2sa\cos\phi]}.
+$$
+
+On the cylinder $s = R$, $(sa/R)^2 + R^2 \mp 2sa\cos\phi = a^2 + R^2 \mp 2Ra\cos\phi$, so the numerator and denominator coincide and $V(R,\phi) = 0$ as required.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.41" title="Doubly Ionized Buckminsterfullerene" tag="Griffiths 3.41 · Method of Images">
+<div slot="problem">
+    Model $\text{C}_{60}^-$ as a conducting spherical shell of radius $R = 3.5\,\text{\AA}$ carrying one smeared electron (charge $q = -e$). A second electron approaches from infinity. (a) Find the distance $r$ (in $\text{\AA}$) from the center where the net force on the second electron is zero. (b) How much energy (in $\text{eV}$) is needed to push the second electron from infinity to that point?
+</div>
+<div slot="answer">
+    (a) $r_0 = \dfrac{1 + \sqrt{5}}{2}R \approx 5.66\,\text{\AA}$. (b) $W = \dfrac{e^2}{8\pi\epsilon_0 R} \approx 2.06\,\text{eV}$.
+</div>
+<div slot="solution">
+    **(a)** For a conducting sphere of radius $R$ carrying total charge $q$ in the presence of a point charge $q$ at distance $r > R$ (Prob. 3.9), the image configuration consists of $q' = -(R/r)q$ at $b = R^2/r$ and $q'' = q - q' = q(1 + R/r)$ at the center. The radial force on the external electron is
+
+$$
+F(r) = \frac{1}{4\pi\epsilon_0}\left[\frac{q q''}{r^2} + \frac{q q'}{(r - b)^2}\right] = \frac{q^2}{4\pi\epsilon_0}\left[\frac{1 + R/r}{r^2} - \frac{Rr}{(r^2 - R^2)^2}\right] = \frac{q^2}{4\pi\epsilon_0 r^3}\left[r - \frac{R^3(2r^2 - R^2)}{(r^2 - R^2)^2}\right].
+$$
+
+Setting $F = 0$ with $x \equiv r/R > 1$ gives
+
+$$
+x(x^2 - 1)^2 = 2x^2 - 1 \implies x^5 - 2x^3 - 2x^2 + x + 1 = (x^2 - x - 1)(x^3 + x^2 - 1) = 0.
+$$
+
+For $x > 1$, $x^3 + x^2 - 1 > 1$, so the unique root is $x_0 = \dfrac{1 + \sqrt{5}}{2} \approx 1.61803$ (satisfying $x_0^2 - 1 = x_0$). Thus
+
+$$
+r_0 = x_0 R = \frac{1 + \sqrt{5}}{2}(3.5\,\text{\AA}) \approx 5.66\,\text{\AA}.
+$$
+
+**(b)** The work required to push the electron from $\infty$ to $r_0$ is
+
+$$
+W = -\int_\infty^{r_0} F(r)\, dr = \frac{q^2}{4\pi\epsilon_0 R}\int_{x_0}^\infty \left[\frac{1}{x^2} - \frac{2x^2 - 1}{x^3(x^2 - 1)^2}\right] dx.
+$$
+
+Using $\dfrac{d}{dx}\left[\dfrac{1}{2x^2(x^2 - 1)}\right] = -\dfrac{2x^2 - 1}{x^3(x^2 - 1)^2}$, the integral evaluates to
+
+$$
+W = \frac{q^2}{4\pi\epsilon_0 R}\left[-\frac{1}{x} + \frac{1}{2x^2(x^2 - 1)}\right]_{x_0}^\infty = \frac{q^2}{4\pi\epsilon_0 R}\left[\frac{1}{x_0} - \frac{1}{2x_0^2(x_0^2 - 1)}\right].
+$$
+
+Since $x_0^2 - 1 = x_0$ and $x_0^3 = 2x_0^2 - 1$, the bracket simplifies to $\dfrac{2x_0^2 - 1}{2x_0^3} = \dfrac{1}{2}$. Therefore,
+
+$$
+W = \frac{e^2}{8\pi\epsilon_0 R} = \frac{(1.602 \times 10^{-19}\,\text{C})^2}{8\pi(8.854 \times 10^{-12}\,\text{F/m})(3.5 \times 10^{-10}\,\text{m})} = 3.30 \times 10^{-19}\,\text{J} \approx 2.06\,\text{eV}.
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.42" title="Rectangular Pipe via Superposition" tag="Griffiths 3.42 · Separation of Variables">
+<div slot="problem">
+    Using the superposition principle together with Ex. 3.4 and Prob. 3.15, find the potential inside an infinite rectangular pipe with two facing sides ($x = \pm b$) at constant potential $V_0$, a third side ($y = a$) at constant potential $V_1$, and the bottom ($y = 0$) grounded.
+</div>
+<div slot="answer">
+    $V(x,y) = \dfrac{4}{\pi}\displaystyle\sum_{n=1,3,5,\dots}\frac{1}{n}\left[V_0\frac{\cosh(n\pi x/a)}{\cosh(n\pi b/a)}\sin\!\left(\frac{n\pi y}{a}\right) + V_1\frac{\sinh(n\pi y/2b)}{\sinh(n\pi a/2b)}\sin\!\left(\frac{n\pi(x+b)}{2b}\right)\right]$.
+</div>
+<div slot="solution">
+    Decompose the boundary-value problem into $V(x,y) = V^{(1)}(x,y) + V^{(2)}(x,y)$:
+    1. $V^{(1)}(\pm b, y) = V_0$ and $V^{(1)}(x, 0) = V^{(1)}(x, a) = 0$. This is directly Example 3.4 (Eq. 3.42):
+
+$$
+V^{(1)}(x,y) = \frac{4V_0}{\pi}\sum_{n=1,3,5,\dots}\frac{1}{n}\frac{\cosh(n\pi x/a)}{\cosh(n\pi b/a)}\sin\!\left(\frac{n\pi y}{a}\right).
+$$
+
+    2. $V^{(2)}(\pm b, y) = 0$, $V^{(2)}(x, 0) = 0$, and $V^{(2)}(x, a) = V_1$. In Problem 3.15, the region $0 < x < a$, $0 < y < b$ had potential $V_0$ on $x = b$ and zero on the other three sides, giving $\frac{4V_0}{\pi}\sum_{n\text{ odd}}\frac{1}{n}\frac{\sinh(n\pi x/a)}{\sinh(n\pi b/a)}\sin(n\pi y/a)$. Making the replacements $x \to y$, $y \to x+b$, $a \to 2b$, $b \to a$, and $V_0 \to V_1$ maps that geometry onto $-b < x < b$, $0 < y < a$:
+
+$$
+V^{(2)}(x,y) = \frac{4V_1}{\pi}\sum_{n=1,3,5,\dots}\frac{1}{n}\frac{\sinh(n\pi y/2b)}{\sinh(n\pi a/2b)}\sin\!\left(\frac{n\pi(x+b)}{2b}\right).
+$$
+
+(Note that $\sin[n\pi(x+b)/2b] = (-1)^{(n-1)/2}\cos(n\pi x/2b)$ for odd $n$.) Adding the two solutions gives
+
+$$
+V(x,y) = \frac{4}{\pi}\sum_{n=1,3,5,\dots}\frac{1}{n}\left[V_0\frac{\cosh(n\pi x/a)}{\cosh(n\pi b/a)}\sin\!\left(\frac{n\pi y}{a}\right) + V_1\frac{\sinh(n\pi y/2b)}{\sinh(n\pi a/2b)}\sin\!\left(\frac{n\pi(x+b)}{2b}\right)\right].
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.43" title="Conducting Sphere Inside a Charged Shell" tag="Griffiths 3.43 · Spherical Harmonics">
+<div slot="problem">
+    A conducting sphere of radius $a$ at potential $V_0$ is surrounded by a thin concentric spherical shell of radius $b$ carrying glued surface charge $\sigma(\theta) = k\cos\theta$. (a) Find the potential in the regions $r > b$ and $a < r < b$. (b) Find the induced surface charge $\sigma_i(\theta)$ on the conductor. (c) Find the total charge of the system and check that it agrees with the large-$r$ behavior of $V$.
+</div>
+<div slot="answer">
+    (a) $V(r,\theta) = \dfrac{aV_0}{r} + \dfrac{(b^3 - a^3)k\cos\theta}{3\epsilon_0 r^2}$ ($r \ge b$); $V(r,\theta) = \dfrac{aV_0}{r} + \dfrac{(r^3 - a^3)k\cos\theta}{3\epsilon_0 r^2}$ ($a \le r \le b$). (b) $\sigma_i(\theta) = \dfrac{\epsilon_0 V_0}{a} - k\cos\theta$. (c) $Q_{\text{tot}} = 4\pi\epsilon_0 a V_0$, matching $V \sim \dfrac{Q_{\text{tot}}}{4\pi\epsilon_0 r}$.
+</div>
+<div slot="solution">
+    **(a)** By azimuthal symmetry, the general solution of Laplace's equation takes the form
+
+$$
+V_{\text{out}}(r,\theta) = \sum_{l=0}^\infty \frac{B_l}{r^{l+1}}P_l(\cos\theta) \quad (r > b), \qquad V_{\text{in}}(r,\theta) = \sum_{l=0}^\infty \left(C_l r^l + \frac{D_l}{r^{l+1}}\right)P_l(\cos\theta) \quad (a < r < b),
+$$
+
+where $V_{\text{out}} \to 0$ as $r \to \infty$. The boundary conditions are:
+1. $V_{\text{in}}(a,\theta) = V_0$: $C_0 + \dfrac{D_0}{a} = V_0$, and $C_l a^l + \dfrac{D_l}{a^{l+1}} = 0 \implies D_l = -a^{2l+1}C_l$ ($l \ge 1$).
+2. $V_{\text{out}}(b,\theta) = V_{\text{in}}(b,\theta)$: $\dfrac{B_l}{b^{l+1}} = C_l b^l + \dfrac{D_l}{b^{l+1}} \implies B_l - D_l = C_l b^{2l+1}$.
+3. Derivative jump at $r=b$: $-\left.\dfrac{\partial V_{\text{out}}}{\partial r}\right|_{b^+} + \left.\dfrac{\partial V_{\text{in}}}{\partial r}\right|_{b^-} = \dfrac{k}{\epsilon_0}P_1(\cos\theta)$, which gives
+
+$$
+\frac{(l+1)(B_l - D_l)}{b^{l+2}} + l C_l b^{l-1} = \frac{k}{\epsilon_0}\delta_{l,1} \implies (2l+1)C_l b^{2l+1} = \frac{kb^3}{\epsilon_0}\delta_{l,1}.
+$$
+
+Thus $C_l = 0$ for all $l \ne 1$. For $l = 0$, $C_0 = 0 \implies D_0 = B_0 = aV_0$. For $l \ge 2$, $C_l = D_l = B_l = 0$. For $l = 1$,
+
+$$
+C_1 = \frac{k}{3\epsilon_0}, \qquad D_1 = -\frac{k a^3}{3\epsilon_0}, \qquad B_1 = \frac{k(b^3 - a^3)}{3\epsilon_0}.
+$$
+
+Hence
+
+$$
+V(r,\theta) = \begin{cases} \dfrac{aV_0}{r} + \dfrac{(b^3 - a^3)k\cos\theta}{3\epsilon_0 r^2}, & r \ge b, \\[8pt] \dfrac{aV_0}{r} + \dfrac{k}{3\epsilon_0}\left(r - \dfrac{a^3}{r^2}\right)\cos\theta, & a \le r \le b. \end{cases}
+$$
+
+**(b)** On the conductor at $r = a$,
+
+$$
+\sigma_i(\theta) = -\epsilon_0 \left.\frac{\partial V_{\text{in}}}{\partial r}\right|_{r=a} = -\epsilon_0\left[-\frac{aV_0}{a^2} + \frac{k}{3\epsilon_0}\left(1 + \frac{2a^3}{a^3}\right)\cos\theta\right] = \frac{\epsilon_0 V_0}{a} - k\cos\theta.
+$$
+
+**(c)** The glued charge on the outer shell integrates to zero ($\int \cos\theta\, d\Omega = 0$), and the induced charge on the inner conductor is
+
+$$
+Q_{\text{tot}} = \int \sigma_i(\theta)\, da = \left(\frac{\epsilon_0 V_0}{a}\right)(4\pi a^2) = 4\pi\epsilon_0 a V_0.
+$$
+
+At large $r$, $V(r,\theta) \approx \dfrac{aV_0}{r} = \dfrac{Q_{\text{tot}}}{4\pi\epsilon_0 r}$, as required by the monopole term.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.44" title="Multipole Expansion of a Uniformly Charged Rod" tag="Griffiths 3.44 · Multipole Expansion">
+<div slot="problem">
+    A charge $+Q$ is distributed uniformly along the $z$-axis from $z = -a$ to $z = +a$. Show that for $r > a$,
+
+$$
+V(r,\theta) = \frac{Q}{4\pi\epsilon_0 r}\left[1 + \frac{1}{3}\left(\frac{a}{r}\right)^2 P_2(\cos\theta) + \frac{1}{5}\left(\frac{a}{r}\right)^4 P_4(\cos\theta) + \dots\right].
+$$
+</div>
+<div slot="answer">
+    $V(r,\theta) = \dfrac{Q}{4\pi\epsilon_0 r}\displaystyle\sum_{n=0,2,4,\dots}\dfrac{1}{n+1}\left(\dfrac{a}{r}\right)^n P_n(\cos\theta)$.
+</div>
+<div slot="solution">
+    With line charge density $\lambda = Q/(2a)$, split the multipole expansion (Eq. 3.95) into $z' \in [0,a]$ and $z' \in [-a,0]$:
+
+$$
+V(r,\theta) = \frac{\lambda}{4\pi\epsilon_0}\sum_{n=0}^\infty \frac{1}{r^{n+1}}\left[\int_0^a (r')^n P_n(\cos\alpha_+)\, dr' + \int_0^a (r')^n P_n(\cos\alpha_-)\, dr'\right].
+$$
+
+For $z' > 0$, $\alpha_+ = \theta$; for $z' < 0$, $\alpha_- = \pi - \theta$, so $\cos\alpha_- = -\cos\theta$ and $P_n(-\cos\theta) = (-1)^n P_n(\cos\theta)$. Thus odd-$n$ terms cancel and even-$n$ terms double:
+
+$$
+V(r,\theta) = \frac{2\lambda}{4\pi\epsilon_0}\sum_{n=0,2,4,\dots} \frac{P_n(\cos\theta)}{r^{n+1}} \int_0^a (r')^n\, dr' = \frac{Q}{4\pi\epsilon_0 a}\sum_{n=0,2,4,\dots}\frac{a^{n+1}}{(n+1)r^{n+1}}P_n(\cos\theta) = \frac{Q}{4\pi\epsilon_0 r}\sum_{n=0,2,4,\dots}\frac{1}{n+1}\left(\frac{a}{r}\right)^n P_n(\cos\theta).
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.45" title="Cylindrical Shell with Opposite Half-Surface Charges" tag="Griffiths 3.45 · Cylindrical Coordinates">
+<div slot="problem">
+    A long cylindrical shell of radius $R$ carries uniform surface charge $+\sigma_0$ on the upper half ($0 < \phi < \pi$) and $-\sigma_0$ on the lower half ($\pi < \phi < 2\pi$). Find the electric potential inside and outside the cylinder.
+</div>
+<div slot="answer">
+    $V(s,\phi) = \dfrac{2\sigma_0 R}{\pi\epsilon_0}\displaystyle\sum_{k=1,3,5,\dots}\dfrac{\sin(k\phi)}{k^2}\begin{cases}(s/R)^k, & s \le R, \\ (R/s)^k, & s \ge R.\end{cases}$
+</div>
+<div slot="solution">
+    From cylindrical separation of variables (Prob. 3.24), with no $z$-dependence and zero net charge per unit length (so $b_0 = 0$ and we may set $a_0 = 0$):
+
+$$
+V_{\text{in}}(s,\phi) = \sum_{k=1}^\infty s^k (a_k\cos k\phi + b_k\sin k\phi) \quad (s < R), \qquad V_{\text{out}}(s,\phi) = \sum_{k=1}^\infty s^{-k} (c_k\cos k\phi + d_k\sin k\phi) \quad (s > R).
+$$
+
+Continuity at $s = R$ requires $c_k = R^{2k}a_k$ and $d_k = R^{2k}b_k$. The discontinuity in the normal derivative (Eq. 2.36) gives
+
+$$
+\left.\frac{\partial V_{\text{out}}}{\partial s}\right|_{R^+} - \left.\frac{\partial V_{\text{in}}}{\partial s}\right|_{R^-} = -\frac{\sigma(\phi)}{\epsilon_0} \implies \sum_{k=1}^\infty 2k R^{k-1}(a_k\cos k\phi + b_k\sin k\phi) = \frac{\sigma(\phi)}{\epsilon_0}.
+$$
+
+Since $\sigma(\phi)$ is odd in $\phi$, multiplying by $\cos(l\phi)$ and integrating over $[0,2\pi]$ yields $a_l = 0$. Multiplying by $\sin(l\phi)$ and integrating gives
+
+$$
+2l R^{l-1}\pi b_l = \frac{\sigma_0}{\epsilon_0}\left[\int_0^\pi \sin(l\phi)\, d\phi - \int_\pi^{2\pi}\sin(l\phi)\, d\phi\right] = \frac{2\sigma_0}{\epsilon_0}\frac{1 - (-1)^l}{l},
+$$
+
+so $b_l = 0$ for even $l$ and $b_l = \dfrac{2\sigma_0}{\pi\epsilon_0 l^2 R^{l-1}}$ for odd $l$. Therefore,
+
+$$
+V(s,\phi) = \frac{2\sigma_0 R}{\pi\epsilon_0}\sum_{k=1,3,5,\dots}\frac{\sin(k\phi)}{k^2}\begin{cases}(s/R)^k, & s \le R, \\ (R/s)^k, & s \ge R.\end{cases}
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.46" title="Leading Multipole Terms for Charged Rods" tag="Griffiths 3.46 · Multipole Expansion">
+<div slot="problem">
+    A thin insulating rod running along the $z$-axis from $z = -a$ to $z = +a$ carries line charge: (a) $\lambda(z) = k\cos(\pi z/2a)$, (b) $\lambda(z) = k\sin(\pi z/a)$, (c) $\lambda(z) = k\cos(\pi z/a)$, where $k$ is a constant. Find the leading term in the multipole expansion of $V(r,\theta)$ in each case.
+</div>
+<div slot="answer">
+    (a) $\dfrac{ak}{\pi^2\epsilon_0 r}$ (monopole); (b) $\dfrac{a^2 k\cos\theta}{2\pi^2\epsilon_0 r^2}$ (dipole); (c) $-\dfrac{a^3 k}{2\pi^3\epsilon_0 r^3}(3\cos^2\theta - 1)$ (quadrupole).
+</div>
+<div slot="solution">
+    Along the $z$-axis, $(r')^n P_n(\cos\alpha) = z^n P_n(\cos\theta)$ for both $z > 0$ and $z < 0$ (since $r' = |z|$ and $P_n(-\cos\theta) = (-1)^n P_n(\cos\theta)$). Thus Eq. 3.95 gives
+
+$$
+V(r,\theta) = \frac{1}{4\pi\epsilon_0}\sum_{n=0}^\infty \frac{P_n(\cos\theta)}{r^{n+1}}I_n, \qquad I_n \equiv \int_{-a}^a z^n\lambda(z)\, dz.
+$$
+
+**(a)** For $\lambda = k\cos(\pi z/2a)$:
+
+$$
+I_0 = k\int_{-a}^a \cos\!\left(\frac{\pi z}{2a}\right) dz = \frac{2ak}{\pi}\left[\sin\!\left(\frac{\pi z}{2a}\right)\right]_{-a}^a = \frac{4ak}{\pi} \implies V(r,\theta) \approx \frac{1}{4\pi\epsilon_0}\frac{4ak}{\pi r} = \frac{ak}{\pi^2\epsilon_0 r}.
+$$
+
+**(b)** For $\lambda = k\sin(\pi z/a)$: $I_0 = 0$ by oddness, and
+
+$$
+I_1 = k\int_{-a}^a z\sin\!\left(\frac{\pi z}{a}\right) dz = k\left[-\frac{az}{\pi}\cos\!\left(\frac{\pi z}{a}\right) + \frac{a^2}{\pi^2}\sin\!\left(\frac{\pi z}{a}\right)\right]_{-a}^a = \frac{2a^2 k}{\pi} \implies V(r,\theta) \approx \frac{a^2 k\cos\theta}{2\pi^2\epsilon_0 r^2}.
+$$
+
+**(c)** For $\lambda = k\cos(\pi z/a)$: $I_0 = \dfrac{ak}{\pi}[\sin\pi - \sin(-\pi)] = 0$, $I_1 = 0$ by oddness, and
+
+$$
+I_2 = k\int_{-a}^a z^2\cos\!\left(\frac{\pi z}{a}\right) dz = k\left[\frac{a z^2}{\pi}\sin\!\left(\frac{\pi z}{a}\right) + \frac{2a^2 z}{\pi^2}\cos\!\left(\frac{\pi z}{a}\right) - \frac{2a^3}{\pi^3}\sin\!\left(\frac{\pi z}{a}\right)\right]_{-a}^a = -\frac{4a^3 k}{\pi^2}.
+$$
+
+Using $P_2(\cos\theta) = \frac{1}{2}(3\cos^2\theta - 1)$, the leading (quadrupole) term is
+
+$$
+V(r,\theta) \approx -\frac{a^3 k}{2\pi^3\epsilon_0 r^3}(3\cos^2\theta - 1).
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.47" title="Average Electric Field Inside a Sphere" tag="Griffiths 3.47 · Electrostatics Theorem">
+<div slot="problem">
+    Prove that the average electric field inside a sphere of radius $R$ due to all charges within the sphere is $\mathbf{E}_{\text{ave}} = -\dfrac{\mathbf{p}}{4\pi\epsilon_0 R^3}$ (Eq. 3.105), where $\mathbf{p}$ is the total dipole moment relative to the center: (a) Show that $\mathbf{E}_{\text{ave}}$ due to a single charge $q$ at $\mathbf{r}$ inside the sphere equals the field at $\mathbf{r}$ due to a uniform sphere with $\rho = -q/(\frac{4}{3}\pi R^3)$; (b) evaluate this using Gauss's law; (c) generalize via superposition; (d) show that the average field over the sphere due to exterior charges equals the field they produce at the center.
+</div>
+<div slot="answer">
+    $\mathbf{E}_{\text{ave, int}} = -\dfrac{\mathbf{p}}{4\pi\epsilon_0 R^3}$; $\mathbf{E}_{\text{ave, ext}} = \mathbf{E}_{\text{ext}}(\mathbf{0})$.
+</div>
+<div slot="solution">
+    **(a)** For a single charge $q$ at $\mathbf{r}$ inside the sphere, the volume average of its field over the sphere is
+
+$$
+\mathbf{E}_{\text{ave}} = \frac{1}{\frac{4}{3}\pi R^3}\int_{\text{sphere}} \frac{1}{4\pi\epsilon_0}\frac{q}{\mathscr{r}^2}\hat{\boldsymbol{\mathscr{r}}}\, d\tau',
+$$
+
+where $\boldsymbol{\mathscr{r}} = \mathbf{r}' - \mathbf{r}$ points from $\mathbf{r}$ to $d\tau'$. On the other hand, the field at $\mathbf{r}$ produced by a uniformly charged sphere of density $\rho = -q/(\frac{4}{3}\pi R^3)$ is
+
+$$
+\mathbf{E}_\rho(\mathbf{r}) = \frac{1}{4\pi\epsilon_0}\int_{\text{sphere}} \rho\,\frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\, d\tau' = \frac{1}{4\pi\epsilon_0}\int_{\text{sphere}} \left(-\frac{q}{\frac{4}{3}\pi R^3}\right)\frac{-\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\, d\tau' = \mathbf{E}_{\text{ave}}.
+$$
+
+**(b)** From Gauss's law inside a uniformly charged sphere (Prob. 2.12),
+
+$$
+\mathbf{E}_\rho(\mathbf{r}) = \frac{\rho}{3\epsilon_0}\mathbf{r} = -\frac{q\mathbf{r}}{4\pi\epsilon_0 R^3} = -\frac{\mathbf{p}}{4\pi\epsilon_0 R^3},
+$$
+
+where $\mathbf{p} = q\mathbf{r}$ is the dipole moment of $q$ relative to the sphere's center.
+
+**(c)** For an arbitrary distribution inside the sphere, superposition gives $\mathbf{E}_{\text{ave}} = \sum \mathbf{E}_{\text{ave}, i} = -\dfrac{\sum \mathbf{p}_i}{4\pi\epsilon_0 R^3} = -\dfrac{\mathbf{p}}{4\pi\epsilon_0 R^3}$.
+
+**(d)** If $q$ lies at $\mathbf{r}$ outside the sphere ($r > R$), the same integral identity yields $\mathbf{E}_{\text{ave}} = \mathbf{E}_\rho(\mathbf{r})$. By Gauss's law outside a sphere of total charge $Q_\rho = \frac{4}{3}\pi R^3 \rho = -q$,
+
+$$
+\mathbf{E}_{\text{ave}} = \frac{1}{4\pi\epsilon_0}\frac{-q}{r^2}\hat{\mathbf{r}} = \frac{1}{4\pi\epsilon_0}\frac{q}{r^2}(-\hat{\mathbf{r}}),
+$$
+
+which is precisely the field produced by $q$ at the center of the sphere. By superposition, the volume-averaged field due to any exterior charge distribution equals the field it produces at the center.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.48" title="Delta-Function Term in the Ideal Dipole Field" tag="Griffiths 3.48 · Electric Dipole">
+<div slot="problem">
+    (a) Using $\mathbf{E}_{\text{dip}} = \dfrac{p}{4\pi\epsilon_0 r^3}(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}})$ (Eq. 3.103), compute the average electric field of a dipole over a sphere of radius $R$ centered at the origin by doing the angular integrals first (after excising a tiny $\epsilon$-sphere around $r = 0$). (b) Compare with Prob. 3.47 (Eq. 3.105) to deduce the delta-function contact term inside the $\epsilon$-sphere (Eq. 3.106).
+</div>
+<div slot="answer">
+    (a) Outside the $\epsilon$-sphere, the angular integral gives $\mathbf{E}_{\text{ave}} = \mathbf{0}$. (b) $\mathbf{E}_{\text{contact}} = -\dfrac{\mathbf{p}}{3\epsilon_0}\delta^3(\mathbf{r})$, giving $\mathbf{E}_{\text{dip}}(\mathbf{r}) = \dfrac{1}{4\pi\epsilon_0 r^3}[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}] - \dfrac{\mathbf{p}}{3\epsilon_0}\delta^3(\mathbf{r})$.
+</div>
+<div slot="solution">
+    **(a)** Expressing $\hat{\mathbf{r}}$ and $\hat{\boldsymbol{\theta}}$ in Cartesian unit vectors gives
+
+$$
+\mathbf{E}_{\text{dip}} = \frac{p}{4\pi\epsilon_0 r^3}\left[3\sin\theta\cos\theta(\cos\phi\,\hat{\mathbf{x}} + \sin\phi\,\hat{\mathbf{y}}) + (3\cos^2\theta - 1)\hat{\mathbf{z}}\right].
+$$
+
+Integrating over the region $\epsilon \le r \le R$, the $\phi$ integrals of $\cos\phi$ and $\sin\phi$ vanish over $[0,2\pi]$, leaving
+
+$$
+\mathbf{E}_{\text{ave}}(r > \epsilon) = \frac{1}{\frac{4}{3}\pi R^3}\frac{p\hat{\mathbf{z}}}{4\pi\epsilon_0}(2\pi)\int_\epsilon^R \frac{dr}{r}\int_0^\pi (3\cos^2\theta - 1)\sin\theta\, d\theta.
+$$
+
+Because $\int_0^\pi (3\cos^2\theta - 1)\sin\theta\, d\theta = [-\cos^3\theta + \cos\theta]_0^\pi = 0$ and the radial integral $\ln(R/\epsilon)$ is finite for $\epsilon > 0$, the contribution from $\epsilon \le r \le R$ is unambiguously $\mathbf{0}$.
+
+**(b)** By Eq. 3.105, the total average over the sphere must equal $-\dfrac{\mathbf{p}}{4\pi\epsilon_0 R^3}$, so the entire result must originate at $r = 0$ as a singular term $\mathbf{E}_{\text{contact}} = \mathbf{A}\,\delta^3(\mathbf{r})$:
+
+$$
+\frac{1}{\frac{4}{3}\pi R^3}\int_{\text{sphere}} \mathbf{A}\,\delta^3(\mathbf{r})\, d\tau = \frac{3\mathbf{A}}{4\pi R^3} = -\frac{\mathbf{p}}{4\pi\epsilon_0 R^3} \implies \mathbf{A} = -\frac{\mathbf{p}}{3\epsilon_0}.
+$$
+
+Adding this contact term to Eq. 3.104 yields the exact dipole field:
+
+$$
+\mathbf{E}_{\text{dip}}(\mathbf{r}) = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}\right] - \frac{\mathbf{p}}{3\epsilon_0}\delta^3(\mathbf{r}).
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.49" title="Point-Dipole Limit of a Polarized Spherical Shell" tag="Griffiths 3.49 · Electric Dipole">
+<div slot="problem">
+    In Ex. 3.9 and Prob. 3.30, a spherical shell of radius $R$ with surface charge $\sigma(\theta) = k\cos\theta$ produces a pure dipole field outside and a uniform field inside (Eq. 3.86). Show that the limit $R \to 0$ (with dipole moment $\mathbf{p}$ held fixed) reproduces the delta-function term in Eq. 3.106.
+</div>
+<div slot="answer">
+    Inside $r < R$, $\mathbf{E}_{\text{in}} = -\dfrac{\mathbf{p}}{4\pi\epsilon_0 R^3}$, whose volume integral is $-\dfrac{\mathbf{p}}{3\epsilon_0}$, matching $-\dfrac{\mathbf{p}}{3\epsilon_0}\delta^3(\mathbf{r})$ as $R \to 0$.
+</div>
+<div slot="solution">
+    From Eq. 3.86, the potential inside the spherical shell ($r < R$) is $V = \dfrac{k}{3\epsilon_0}r\cos\theta = \dfrac{k}{3\epsilon_0}z$, so the interior electric field is uniform:
+
+$$
+\mathbf{E}_{\text{in}} = -\nabla V = -\frac{k}{3\epsilon_0}\hat{\mathbf{z}}.
+$$
+
+From Prob. 3.30, the dipole moment of the shell is $\mathbf{p} = \dfrac{4}{3}\pi R^3 k\hat{\mathbf{z}}$, so $k\hat{\mathbf{z}} = \dfrac{3\mathbf{p}}{4\pi R^3}$ and
+
+$$
+\mathbf{E}_{\text{in}} = -\frac{\mathbf{p}}{4\pi\epsilon_0 R^3} \quad (r < R).
+$$
+
+Holding $\mathbf{p}$ constant and letting $R \to 0$, $\mathbf{E}_{\text{in}}$ diverges at the origin while its support shrinks to a point, and its volume integral over the sphere remains constant:
+
+$$
+\int_{r < R} \mathbf{E}_{\text{in}}\, d\tau = \left(-\frac{\mathbf{p}}{4\pi\epsilon_0 R^3}\right)\left(\frac{4}{3}\pi R^3\right) = -\frac{\mathbf{p}}{3\epsilon_0}.
+$$
+
+Thus in the point-dipole limit $R \to 0$, $\mathbf{E}_{\text{in}} \to -\dfrac{\mathbf{p}}{3\epsilon_0}\delta^3(\mathbf{r})$, reproducing the contact term in Eq. 3.106.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.50" title="Green's Reciprocity Theorem" tag="Griffiths 3.50 · Reciprocity Theorem">
+<div slot="problem">
+    (a) Let $\rho_1(\mathbf{r})$ produce potential $V_1(\mathbf{r})$, and let an independent charge distribution $\rho_2(\mathbf{r})$ produce $V_2(\mathbf{r})$. Prove Green's reciprocity theorem:
+
+$$
+\int_{\text{all space}} \rho_1 V_2\, d\tau = \int_{\text{all space}} \rho_2 V_1\, d\tau.
+$$
+
+(b) For two separated conductors $a$ and $b$, charging $a$ with $Q$ (leaving $b$ uncharged) raises $b$ to potential $V_{ab}$, while charging $b$ with $Q$ (leaving $a$ uncharged) raises $a$ to potential $V_{ba}$. Show that $V_{ab} = V_{ba}$.
+</div>
+<div slot="answer">
+    (a) Equating two integrations by parts of $\int \mathbf{E}_1\cdot\mathbf{E}_2\, d\tau$ proves $\int \rho_1 V_2\, d\tau = \int \rho_2 V_1\, d\tau$. (b) $Q V_{ab} = Q V_{ba} \implies V_{ab} = V_{ba}$.
+</div>
+<div slot="solution">
+    **(a)** Consider $I = \int_{\text{all space}} \mathbf{E}_1\cdot\mathbf{E}_2\, d\tau = \int (\nabla V_1)\cdot(\nabla V_2)\, d\tau$. Using the product rule $\nabla\cdot(V_1\nabla V_2) = (\nabla V_1)\cdot(\nabla V_2) + V_1\nabla^2 V_2$ and the divergence theorem over a sphere $\mathcal{S}$ at infinity (where $V_1 \sim 1/r$ and $|\nabla V_2| \sim 1/r^2$, so the boundary integral vanishes as $1/r \to 0$):
+
+$$
+I = \oint_{\mathcal{S}} V_1\nabla V_2\cdot d\mathbf{a} - \int V_1\nabla^2 V_2\, d\tau = \frac{1}{\epsilon_0}\int \rho_2 V_1\, d\tau,
+$$
+
+where we used Poisson's equation $\nabla^2 V_2 = -\rho_2/\epsilon_0$. Repeating the same manipulation with labels $1$ and $2$ interchanged gives $I = \dfrac{1}{\epsilon_0}\int \rho_1 V_2\, d\tau$. Equating the two expressions yields
+
+$$
+\int_{\text{all space}} \rho_1 V_2\, d\tau = \int_{\text{all space}} \rho_2 V_1\, d\tau.
+$$
+
+**(b)** Let Situation 1 have $Q_a^{(1)} = Q$, $Q_b^{(1)} = 0$, and $V_{1b} = V_{ab}$; let Situation 2 have $Q_a^{(2)} = 0$, $Q_b^{(2)} = Q$, and $V_{2a} = V_{ba}$. Since each conductor is an equipotential,
+
+$$
+\int \rho_1 V_2\, d\tau = V_{2a}Q_a^{(1)} + V_{2b}Q_b^{(1)} = V_{ba} Q, \qquad \int \rho_2 V_1\, d\tau = V_{1a}Q_a^{(2)} + V_{1b}Q_b^{(2)} = V_{ab} Q.
+$$
+
+By Green's reciprocity theorem, $Q V_{ba} = Q V_{ab}$, and hence $V_{ab} = V_{ba}$.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.51" title="Induced Charges via Green's Reciprocity" tag="Griffiths 3.51 · Reciprocity Theorem">
+<div slot="problem">
+    Use Green's reciprocity theorem (Prob. 3.50) to find the induced charges on each grounded conductor in the following configurations: (a) a point charge $q$ placed between two grounded parallel plates separated by $d$, at distance $x$ from plate 1; (b) a point charge $q$ placed at radius $r$ between two grounded concentric spherical conducting shells of radii $a$ and $b$ ($a < r < b$).
+</div>
+<div slot="answer">
+    (a) $Q_1 = q\left(\dfrac{x}{d} - 1\right)$, $Q_2 = -q\dfrac{x}{d}$. (b) $Q_a = -\dfrac{qa}{b-a}\left(\dfrac{b}{r} - 1\right)$, $Q_b = -\dfrac{qb}{b-a}\left(1 - \dfrac{a}{r}\right)$.
+</div>
+<div slot="solution">
+    In every case, take Situation 1 to be the actual system (both conductors grounded so $V_1 = 0$ on them, and point charge $q$ present), and Situation 2 to be the charge-free system with one conductor at $V_0$ and the other at $0$. Then $\int \rho_2 V_1\, d\tau = 0$ because $\rho_2$ resides only on the conductors where $V_1 = 0$.
+
+**(a) Parallel plates:**
+- To find $Q_2$, set plate 1 at $0$ and plate 2 at $V_0$ in Situation 2, so $V_2(x) = V_0 x/d$. Then $\int \rho_1 V_2\, d\tau = 0$ gives
+
+$$
+Q_1(0) + q\left(V_0\frac{x}{d}\right) + Q_2 V_0 = 0 \implies Q_2 = -q\frac{x}{d}.
+$$
+
+- To find $Q_1$, set plate 1 at $V_0$ and plate 2 at $0$ in Situation 2, so $V_2(x) = V_0(1 - x/d)$. Then
+
+$$
+Q_1 V_0 + q V_0\left(1 - \frac{x}{d}\right) = 0 \implies Q_1 = -q\left(1 - \frac{x}{d}\right) = q\left(\frac{x}{d} - 1\right).
+$$
+
+**(b) Concentric spherical shells:** Between the shells, the spherically symmetric solution to Laplace's equation has the form $V_2(r) = A + B/r$.
+- To find $Q_a$, set $V_2(a) = V_0$ and $V_2(b) = 0$, yielding $V_2(r) = \dfrac{aV_0}{b-a}\left(\dfrac{b}{r} - 1\right)$. Reciprocity gives
+
+$$
+Q_a V_0 + q\,\frac{aV_0}{b-a}\left(\frac{b}{r} - 1\right) = 0 \implies Q_a = -\frac{qa}{b-a}\left(\frac{b}{r} - 1\right).
+$$
+
+- To find $Q_b$, set $V_2(a) = 0$ and $V_2(b) = V_0$, yielding $V_2(r) = \dfrac{bV_0}{b-a}\left(1 - \dfrac{a}{r}\right)$. Reciprocity gives
+
+$$
+Q_b V_0 + q\,\frac{bV_0}{b-a}\left(1 - \frac{a}{r}\right) = 0 \implies Q_b = -\frac{qb}{b-a}\left(1 - \frac{a}{r}\right).
+$$
+
+(As a check, $Q_a + Q_b = -q$, as required by Gauss's law.)
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.52" title="Quadrupole and Octopole Moment Tensors" tag="Griffiths 3.52 · Multipole Expansion">
+<div slot="problem">
+    (a) Show that the quadrupole term in the multipole expansion can be written $V_{\text{quad}}(\mathbf{r}) = \dfrac{1}{4\pi\epsilon_0 r^3}\displaystyle\sum_{i,j=1}^3 \hat{r}_i \hat{r}_j Q_{ij}$, where $Q_{ij} \equiv \dfrac{1}{2}\displaystyle\int [3r_i' r_j' - (r')^2\delta_{ij}]\rho(\mathbf{r}')\, d\tau'$. (b) Find all nine components of $Q_{ij}$ for the square quadrupole of side $a$ in the $xy$-plane (Fig. 3.30), with $+q$ at $(\pm a/2, \pm a/2)$ and $-q$ at $(\pm a/2, \mp a/2)$. (c) Show that $Q_{ij}$ is independent of origin if the monopole and dipole moments vanish. (d) Define the octopole moment tensor $Q_{ijk}$ and express $V_{\text{oct}}$ in terms of it.
+</div>
+<div slot="answer">
+    (b) $Q_{xy} = Q_{yx} = \frac{3}{2}q a^2$, all other components zero. (d) $V_{\text{oct}} = \dfrac{1}{4\pi\epsilon_0 r^4}\displaystyle\sum_{i,j,k}\hat{r}_i \hat{r}_j \hat{r}_k Q_{ijk}$, with $Q_{ijk} = \dfrac{1}{2}\displaystyle\int\left[5r_i' r_j' r_k' - (r')^2(r_i'\delta_{jk} + r_j'\delta_{ik} + r_k'\delta_{ij})\right]\rho(\mathbf{r}')\, d\tau'$.
+</div>
+<div slot="solution">
+    **(a)** Using $\sum_i \hat{r}_i r_i' = \hat{\mathbf{r}}\cdot\mathbf{r}' = r'\cos\alpha$ and $\sum_{i,j}\hat{r}_i\hat{r}_j\delta_{ij} = \hat{\mathbf{r}}\cdot\hat{\mathbf{r}} = 1$,
+
+$$
+\frac{1}{4\pi\epsilon_0 r^3}\sum_{i,j=1}^3 \hat{r}_i\hat{r}_j Q_{ij} = \frac{1}{4\pi\epsilon_0 r^3}\int \frac{1}{2}\left[3(\hat{\mathbf{r}}\cdot\mathbf{r}')^2 - (r')^2\right]\rho(\mathbf{r}')\, d\tau' = \frac{1}{4\pi\epsilon_0 r^3}\int (r')^2 P_2(\cos\alpha)\rho(\mathbf{r}')\, d\tau',
+$$
+
+which is the $n = 2$ term of Eq. 3.95.
+
+**(b)** Since $z' = 0$ for all four charges, $Q_{xz} = Q_{zx} = Q_{yz} = Q_{zy} = 0$. Moreover, $(x')^2 = (y')^2 = a^2/4$ and $(r')^2 = a^2/2$ are identical for all four charges, while $\sum q = q - q - q + q = 0$, so $Q_{xx} = Q_{yy} = Q_{zz} = 0$. The remaining off-diagonal components are
+
+$$
+Q_{xy} = Q_{yx} = \frac{3}{2}\left[\left(\frac{a}{2}\right)\left(\frac{a}{2}\right)q + \left(\frac{a}{2}\right)\left(-\frac{a}{2}\right)(-q) + \left(-\frac{a}{2}\right)\left(\frac{a}{2}\right)(-q) + \left(-\frac{a}{2}\right)\left(-\frac{a}{2}\right)q\right] = \frac{3}{2}q a^2.
+$$
+
+**(c)** Shifting the origin by $\mathbf{d}$ replaces $\mathbf{r}' \to \mathbf{r}' - \mathbf{d}$, giving
+
+$$
+2\tilde{Q}_{ij} = \int \left[3(r_i' - d_i)(r_j' - d_j) - (\mathbf{r}' - \mathbf{d})^2\delta_{ij}\right]\rho\, d\tau' = 2Q_{ij} - 3(d_i p_j + d_j p_i) + 3d_i d_j Q + 2(\mathbf{d}\cdot\mathbf{p})\delta_{ij} - d^2\delta_{ij}Q.
+$$
+
+If $Q = 0$ and $\mathbf{p} = \mathbf{0}$, then $\tilde{Q}_{ij} = Q_{ij}$.
+
+**(d)** Since $P_3(\cos\alpha) = \frac{1}{2}(5\cos^3\alpha - 3\cos\alpha)$, writing $(r')^3 P_3(\cos\alpha) = \sum_{i,j,k}\hat{r}_i\hat{r}_j\hat{r}_k \cdot \frac{1}{2}[5r_i' r_j' r_k' - (r')^2(r_i'\delta_{jk} + r_j'\delta_{ik} + r_k'\delta_{ij})]$ yields
+
+$$
+V_{\text{oct}}(\mathbf{r}) = \frac{1}{4\pi\epsilon_0 r^4}\sum_{i,j,k=1}^3 \hat{r}_i\hat{r}_j\hat{r}_k Q_{ijk}, \qquad Q_{ijk} \equiv \frac{1}{2}\int \left[5r_i' r_j' r_k' - (r')^2(r_i'\delta_{jk} + r_j'\delta_{ik} + r_k'\delta_{ij})\right]\rho(\mathbf{r}')\, d\tau'.
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.53" title="Conducting Sphere in a Uniform Field via Images" tag="Griffiths 3.53 · Method of Images">
+<div slot="problem">
+    Solve Ex. 3.8 (a neutral/grounded conducting sphere of radius $R$ placed in a uniform external field $\mathbf{E}_0 = E_0\hat{\mathbf{z}}$) using the method of images: place $+q$ at $z = +a$ and $-q$ at $z = -a$, and take the limit $a \to \infty$ with $\dfrac{1}{4\pi\epsilon_0}\dfrac{2q}{a^2} = -E_0$ held constant. Check agreement with Eq. 3.76.
+</div>
+<div slot="answer">
+    $V(r,\theta) = -E_0\left(r - \dfrac{R^3}{r^2}\right)\cos\theta$, matching Eq. 3.76.
+</div>
+<div slot="solution">
+    By Ex. 3.2, $+q$ at $(0,0,+a)$ induces image charge $q' = -(R/a)q$ at $z = +b$ (where $b = R^2/a$), and $-q$ at $(0,0,-a)$ induces $-q'$ at $z = -b$. Let $r_1, r_2, r_3, r_4$ be the distances from the field point $(r,\theta)$ to $+q$, $-q$, $+q'$, and $-q'$, respectively:
+
+$$
+r_{1,2} = \sqrt{r^2 + a^2 \mp 2ra\cos\theta}, \qquad r_{3,4} = \sqrt{r^2 + b^2 \mp 2rb\cos\theta}.
+$$
+
+In the limit $a \to \infty$ (so $a \gg r$ and $b = R^2/a \ll r$),
+
+$$
+\frac{1}{r_1} - \frac{1}{r_2} \approx \frac{1}{a}\left(1 + \frac{r}{a}\cos\theta\right) - \frac{1}{a}\left(1 - \frac{r}{a}\cos\theta\right) = \frac{2r\cos\theta}{a^2},
+$$
+
+$$
+\frac{1}{r_3} - \frac{1}{r_4} \approx \frac{1}{r}\left(1 + \frac{b}{r}\cos\theta\right) - \frac{1}{r}\left(1 - \frac{b}{r}\cos\theta\right) = \frac{2b\cos\theta}{r^2} = \frac{2R^2\cos\theta}{a r^2}.
+$$
+
+Substituting $q' = -(R/a)q$ into the total potential gives
+
+$$
+V(r,\theta) \approx \frac{1}{4\pi\epsilon_0}\left[q\left(\frac{2r\cos\theta}{a^2}\right) - \frac{Rq}{a}\left(\frac{2R^2\cos\theta}{a r^2}\right)\right] = \frac{1}{4\pi\epsilon_0}\frac{2q}{a^2}\left(r - \frac{R^3}{r^2}\right)\cos\theta.
+$$
+
+Holding $\dfrac{1}{4\pi\epsilon_0}\dfrac{2q}{a^2} = -E_0$ fixed as $a \to \infty$ (so the external field of $\pm q$ near the origin is $+E_0\hat{\mathbf{z}}$) gives
+
+$$
+V(r,\theta) = -E_0\left(r - \frac{R^3}{r^2}\right)\cos\theta,
+$$
+
+in exact agreement with Eq. 3.76.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.54" title="Rectangular Pipe Including the k = 0 Mode" tag="Griffiths 3.54 · Separation of Variables">
+<div slot="problem">
+    For the infinite rectangular pipe of Ex. 3.4, suppose the bottom ($y = 0$) and both sides ($x = \pm b$) are grounded, while the top ($y = a$) is at constant potential $V_0$. Solve this by setting up sinusoidal functions in $y$ and hyperbolic functions in $x$, explicitly including the $k = 0$ solution of Eq. 3.26. Also obtain the alternative form using sinusoidal functions in $x$ and hyperbolics in $y$.
+</div>
+<div slot="answer">
+    $V(x,y) = V_0\left[\dfrac{y}{a} + \dfrac{2}{\pi}\displaystyle\sum_{n=1}^\infty \frac{(-1)^n\cosh(n\pi x/a)}{n\cosh(n\pi b/a)}\sin\!\left(\frac{n\pi y}{a}\right)\right] = -\dfrac{2V_0}{b}\displaystyle\sum_{n=1}^\infty \frac{(-1)^n\sinh(\alpha_n y)}{\alpha_n\sinh(\alpha_n a)}\cos(\alpha_n x)$, where $\alpha_n \equiv \dfrac{(2n-1)\pi}{2b}$.
+</div>
+<div slot="solution">
+    **Method 1 (sinusoidal in $y$, hyperbolic in $x$, plus $k=0$):** For separation constant $k = 0$ in Eq. 3.26, $d^2 X/dx^2 = d^2 Y/dy^2 = 0$, giving $X(x) = Ax + B$ and $Y(y) = Cy + D$. By symmetry in $x$, $A = 0$, so the $k = 0$ solution is $Cy + D$. Choosing $D = 0$ and $C = V_0/a$ satisfies the $y$-boundary conditions $V(x,0) = 0$ and $V(x,a) = V_0$. Writing
+
+$$
+V(x,y) = V_0\frac{y}{a} + \bar{V}(x,y),
+$$
+
+the remainder $\bar{V}(x,y)$ satisfies $\bar{V}(x,0) = \bar{V}(x,a) = 0$ and $\bar{V}(\pm b, y) = -V_0(y/a)$. Following Ex. 3.4, $\bar{V}(x,y) = \sum_{n=1}^\infty C_n\cosh(n\pi x/a)\sin(n\pi y/a)$. Applying Fourier's trick on $[0,a]$:
+
+$$
+C_n\cosh\!\left(\frac{n\pi b}{a}\right) = -\frac{2V_0}{a^2}\int_0^a y\sin\!\left(\frac{n\pi y}{a}\right) dy = -\frac{2V_0}{a^2}\left[-\frac{a^2\cos(n\pi)}{n\pi}\right] = \frac{2V_0(-1)^n}{n\pi}.
+$$
+
+Hence
+
+$$
+V(x,y) = V_0\left[\frac{y}{a} + \frac{2}{\pi}\sum_{n=1}^\infty \frac{(-1)^n\cosh(n\pi x/a)}{n\cosh(n\pi b/a)}\sin\!\left(\frac{n\pi y}{a}\right)\right].
+$$
+
+**Method 2 (sinusoidal in $x$, hyperbolic in $y$):** Symmetry in $x$ and $V(x,0) = 0$ select $V(x,y) = \sum A_n\cos(\alpha_n x)\sinh(\alpha_n y)$, while $V(\pm b, y) = 0$ requires $\alpha_n b = (2n-1)\pi/2$, or $\alpha_n = (2n-1)\pi/(2b)$ ($n = 1,2,3,\dots$). Matching $V(x,a) = V_0$ via Fourier's trick on $[-b,b]$ gives
+
+$$
+A_n = \frac{1}{b\sinh(\alpha_n a)}\int_{-b}^b V_0\cos(\alpha_n x)\, dx = \frac{2V_0\sin(\alpha_n b)}{b\alpha_n\sinh(\alpha_n a)} = -\frac{2V_0(-1)^n}{b\alpha_n\sinh(\alpha_n a)},
+$$
+
+since $\sin[(2n-1)\pi/2] = (-1)^{n-1} = -(-1)^n$. Thus
+
+$$
+V(x,y) = -\frac{2V_0}{b}\sum_{n=1}^\infty \frac{(-1)^n\sinh(\alpha_n y)}{\alpha_n\sinh(\alpha_n a)}\cos(\alpha_n x).
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.55" title="Induced Charge on Square and Circular Pipes" tag="Griffiths 3.55 · Separation of Variables">
+<div slot="problem">
+    (a) A long metal pipe of square cross-section (side $a$) is grounded on three sides while the fourth side is at constant potential $V_0$. Find the net charge per unit length $\lambda$ on the side opposite to $V_0$. (b) A long metal pipe of circular cross-section (radius $R$) is split lengthwise into four equal sections, three grounded and the fourth at constant potential $V_0$. Find the net charge per unit length $\lambda$ on the section opposite to $V_0$.
+</div>
+<div slot="answer">
+    For both (a) and (b), $\lambda = -\dfrac{\epsilon_0 V_0}{\pi}\ln 2$.
+</div>
+<div slot="solution">
+    **(a)** Using Prob. 3.15(b) with $b = a$ (where the strip $x = a$ is at $V_0$ and the opposite wall $x = 0$ is grounded),
+
+$$
+V(x,y) = \frac{4V_0}{\pi}\sum_{n\text{ odd}}\frac{\sinh(n\pi x/a)\sin(n\pi y/a)}{n\sinh(n\pi)}.
+$$
+
+With inward normal $\hat{\mathbf{n}} = \hat{\mathbf{x}}$ at $x = 0$, the surface charge density on the opposite wall is
+
+$$
+\sigma(y) = -\epsilon_0\left.\frac{\partial V}{\partial x}\right|_{x=0} = -\frac{4\epsilon_0 V_0}{a}\sum_{n\text{ odd}}\frac{\sin(n\pi y/a)}{\sinh(n\pi)}.
+$$
+
+Integrating over $y \in [0,a]$ using $\int_0^a \sin(n\pi y/a)\, dy = \frac{2a}{n\pi}$ for odd $n$ gives
+
+$$
+\lambda = \int_0^a \sigma(y)\, dy = -\frac{8\epsilon_0 V_0}{\pi}\sum_{n=1,3,5,\dots}^\infty \frac{1}{n\sinh(n\pi)} = -\frac{\epsilon_0 V_0}{\pi}\ln 2,
+$$
+
+using the exact identity $\sum_{n\text{ odd}}\frac{1}{n\sinh(n\pi)} = \frac{1}{8}\ln 2$.
+
+**(b)** Place the $V_0$ section at $-\pi/4 < \phi < \pi/4$. Inside the pipe ($s < R$), symmetry under $\phi \to -\phi$ and regularity at $s = 0$ give $V(s,\phi) = a_0 + \sum_{k=1}^\infty a_k s^k\cos(k\phi)$. Fourier's trick at $s = R$ gives $a_0 = V_0/4$ and $a_k R^k = \frac{2V_0}{\pi k}\sin(k\pi/4)$, so
+
+$$
+V(s,\phi) = V_0\left[\frac{1}{4} + \frac{2}{\pi}\sum_{k=1}^\infty \frac{\sin(k\pi/4)}{k}\left(\frac{s}{R}\right)^k\cos(k\phi)\right].
+$$
+
+Because the series for $\partial V/\partial s$ at $s = R$ is not uniformly convergent, integrate $\sigma(\phi, s) \equiv \epsilon_0\frac{\partial V}{\partial s}$ (since $\hat{\mathbf{n}} = -\hat{\mathbf{s}}$) over the opposite arc $3\pi/4 < \phi < 5\pi/4$ at radius $s < R$ first, letting $x \equiv s/R \to 1^-$ at the end:
+
+$$
+\lambda(x) = 2R\int_{3\pi/4}^\pi \sigma(\phi, s)\, d\phi = \frac{4\epsilon_0 V_0}{\pi}\sum_{k=1}^\infty x^{k-1}\sin\!\left(\frac{k\pi}{4}\right)\int_{3\pi/4}^\pi \cos(k\phi)\, d\phi = -\frac{4\epsilon_0 V_0}{\pi}\sum_{k=1}^\infty \frac{x^{k-1}}{k}\sin\!\left(\frac{k\pi}{4}\right)\sin\!\left(\frac{3k\pi}{4}\right).
+$$
+
+Using $\sin(k\pi/4)\sin(3k\pi/4) = \frac{1}{2}[\cos(k\pi/2) - \cos(k\pi)]$, the coefficient is $+1/2$ for odd $k$, $-1$ for $k = 2,6,10,\dots$, and $0$ for $k = 4,8,12,\dots$. Summing the Taylor series for $0 < x < 1$:
+
+$$
+\lambda(x) = -\frac{4\epsilon_0 V_0}{\pi x}\left[\frac{1}{2}\sum_{m=0}^\infty \frac{x^{2m+1}}{2m+1} - \frac{1}{2}\sum_{m=0}^\infty \frac{(x^2)^{2m+1}}{2m+1}\right] = -\frac{\epsilon_0 V_0}{\pi x}\ln\!\left(\frac{1+x}{1-x}\cdot\frac{1-x^2}{1+x^2}\right) = -\frac{\epsilon_0 V_0}{\pi x}\ln\!\left[\frac{(1+x)^2}{1+x^2}\right].
+$$
+
+Taking the limit $x \to 1^-$ gives $\lambda = -\dfrac{\epsilon_0 V_0}{\pi}\ln 2$.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.56" title="Dipole Pendulum Motion" tag="Griffiths 3.56 · Electric Dipole">
+<div slot="problem">
+    An ideal electric dipole $\mathbf{p} = p\hat{\mathbf{z}}$ is situated at the origin. A point charge $q$ is released from rest at a point in the $xy$-plane. Show that it swings back and forth in a semicircular arc, as though it were a pendulum supported at the origin.
+</div>
+<div slot="answer">
+    On the circle $r = l$, the electrostatic force $\mathbf{F}_e = \dfrac{qp}{4\pi\epsilon_0 l^3}(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}})$ matches the total force on a pendulum released from $\theta = \pi/2$ with $mg \leftrightarrow \dfrac{qp}{4\pi\epsilon_0 l^3}$.
+</div>
+<div slot="solution">
+    Assume $q > 0$ (if $q < 0$, the swing simply occurs in the upper rather than lower hemisphere). Released from rest at radius $l$ in the $xy$-plane ($\theta = \pi/2$), $q$ initially experiences an electric force in $+\hat{\boldsymbol{\theta}}$ (downward into the lower hemisphere $\theta > \pi/2$):
+
+$$
+\mathbf{F}_e = q\mathbf{E}_{\text{dip}} = \frac{qp}{4\pi\epsilon_0 r^3}\left(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}}\right).
+$$
+
+Now compare this with a simple pendulum of mass $m$ and string length $l$ hanging from the origin in uniform downward gravity $-g\hat{\mathbf{z}}$, released from rest at $\theta = \pi/2$. Let $\alpha = \pi - \theta$ be its angle from the $-\hat{\mathbf{z}}$ axis (so $\cos\alpha = -\cos\theta$). By energy conservation, $\frac{1}{2}mv^2 = mgl\cos\alpha = -mgl\cos\theta$, and radial force balance gives
+
+$$
+T - mg\cos\alpha = \frac{mv^2}{l} \implies T = 3mg\cos\alpha = -3mg\cos\theta.
+$$
+
+Thus the total force on the pendulum bob is
+
+$$
+\mathbf{F}_{\text{pend}} = -mg\hat{\mathbf{z}} - T\hat{\mathbf{r}} = mg\left(-\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}}\right) + 3mg\cos\theta\,\hat{\mathbf{r}} = mg\left(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}}\right).
+$$
+
+On the circle $r = l$, $\mathbf{F}_e$ is identical in form to $\mathbf{F}_{\text{pend}}$ under the correspondence $mg \leftrightarrow \dfrac{qp}{4\pi\epsilon_0 l^3}$. Because both systems start from rest at the same initial position $(l, \pi/2)$ and obey identical equations of motion along $r = l$, the charge $q$ executes the exact same semicircular pendulum motion in the plane containing $\hat{\mathbf{z}}$ and the release point.
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.57" title="Circular Orbit of a Charge in a Dipole Field" tag="Griffiths 3.57 · Electric Dipole">
+<div slot="problem">
+    A stationary electric dipole $\mathbf{p} = p\hat{\mathbf{z}}$ sits at the origin. A positive point charge $q$ (mass $m$) executes circular motion of radius $s$ at constant speed in the dipole field. Characterize the plane of the orbit, and find the speed $v$, angular momentum $L$, and total energy $W$ of the charge.
+</div>
+<div slot="answer">
+    Plane: $z = -\dfrac{s}{\sqrt{2}}$ (polar angle $\cos\theta = -\dfrac{1}{\sqrt{3}}$). Speed: $v = \dfrac{1}{s}\sqrt{\dfrac{qp}{3\sqrt{3}\pi\epsilon_0 m}}$; angular momentum: $L = \sqrt{\dfrac{qpm}{3\sqrt{3}\pi\epsilon_0}}$; total energy: $W = 0$.
+</div>
+<div slot="solution">
+    By azimuthal symmetry, the circular orbit lies in a horizontal plane perpendicular to the $z$-axis at some fixed polar angle $\theta$. For $q > 0$, the vertical component $F_z = q E_z$ must vanish and the cylindrical radial component $F_s = q E_s$ must point inward ($-\hat{\mathbf{s}}$) to provide the centripetal force. From Eq. 3.104,
+
+$$
+\mathbf{E} = \frac{p}{4\pi\epsilon_0 r^3}\left(3\cos\theta\,\hat{\mathbf{r}} - \hat{\mathbf{z}}\right) = \frac{p}{4\pi\epsilon_0 r^3}\left[3\cos\theta\sin\theta\,\hat{\mathbf{s}} + (3\cos^2\theta - 1)\hat{\mathbf{z}}\right].
+$$
+
+Setting $E_z = 0$ gives $\cos^2\theta = 1/3$, so $\sin\theta = \sqrt{2/3}$. For $E_s < 0$ (centripetal for $q > 0$), we must choose the lower hemisphere $\cos\theta = -1/\sqrt{3}$. Hence $r = s/\sin\theta = \sqrt{3/2}\,s$, and the orbit lies in the plane
+
+$$
+z = r\cos\theta = -\frac{s}{\sqrt{2}}.
+$$
+
+At this angle, the electric field is purely radial in cylindrical coordinates:
+
+$$
+\mathbf{E} = \frac{p}{4\pi\epsilon_0 (3/2)^{3/2} s^3}\left[3\left(-\frac{1}{\sqrt{3}}\right)\sqrt{\frac{2}{3}}\,\hat{\mathbf{s}}\right] = -\frac{p}{3\sqrt{3}\pi\epsilon_0 s^3}\hat{\mathbf{s}}.
+$$
+
+Equating the centripetal force $mv^2/s$ to $q|E_s|$ yields
+
+$$
+\frac{mv^2}{s} = \frac{qp}{3\sqrt{3}\pi\epsilon_0 s^3} \implies v = \frac{1}{s}\sqrt{\frac{qp}{3\sqrt{3}\pi\epsilon_0 m}}.
+$$
+
+The angular momentum about the $z$-axis is independent of $s$:
+
+$$
+L = mvs = \sqrt{\frac{qpm}{3\sqrt{3}\pi\epsilon_0}}.
+$$
+
+Finally, the total mechanical energy is
+
+$$
+W = \frac{1}{2}mv^2 + qV = \frac{qp}{6\sqrt{3}\pi\epsilon_0 s^2} + \frac{qp\cos\theta}{4\pi\epsilon_0 r^2} = \frac{qp}{6\sqrt{3}\pi\epsilon_0 s^2} + \frac{qp(-1/\sqrt{3})}{4\pi\epsilon_0 (3/2) s^2} = 0.
+$$
+</div>
+</ProblemCard>
+
+<ProblemCard num="3.58" title="Surface Charge Equivalent to an Interior Point Charge" tag="Griffiths 3.58 · Legendre Polynomials">
+<div slot="problem">
+    Find the surface charge density $\sigma(\theta)$ on a spherical shell of radius $R$ that produces the exact same electric field outside the sphere ($r > R$) as a single point charge $q$ located at $z = a < R$ on the $z$-axis.
+</div>
+<div slot="answer">
+    $\sigma(\theta) = \dfrac{q}{4\pi R}\dfrac{R^2 - a^2}{(R^2 + a^2 - 2Ra\cos\theta)^{3/2}}$.
+</div>
+<div slot="solution">
+    For $r > a$, the potential of the point charge $q$ at $z = a$ is given by the Legendre expansion (Eq. 3.94):
+
+$$
+V_q(r,\theta) = \frac{q}{4\pi\epsilon_0 \sqrt{r^2 + a^2 - 2ar\cos\theta}} = \frac{q}{4\pi\epsilon_0 r}\sum_{l=0}^\infty \left(\frac{a}{r}\right)^l P_l(\cos\theta).
+$$
+
+Matching this to the exterior spherical harmonics expansion $V(r,\theta) = \sum_{l=0}^\infty \dfrac{B_l}{r^{l+1}}P_l(\cos\theta)$ for $r > R$ gives $B_l = \dfrac{q a^l}{4\pi\epsilon_0}$. By continuity at $r = R$ (Eq. 3.81), the interior coefficients are $A_l = \dfrac{B_l}{R^{2l+1}} = \dfrac{q a^l}{4\pi\epsilon_0 R^{2l+1}}$, so the surface charge density on the sphere (Eq. 3.83) is
+
+$$
+\sigma(\theta) = \epsilon_0\sum_{l=0}^\infty (2l+1)A_l R^{l-1} P_l(\cos\theta) = \frac{q}{4\pi R^2}\sum_{l=0}^\infty (2l+1)\left(\frac{a}{R}\right)^l P_l(\cos\theta).
+$$
+
+To sum the series in closed form, note from the generating function at $r = R > a$ that
+
+$$
+f(a) \equiv \frac{1}{\sqrt{R^2 + a^2 - 2aR\cos\theta}} = \frac{1}{R}\sum_{l=0}^\infty \left(\frac{a}{R}\right)^l P_l(\cos\theta).
+$$
+
+Differentiating with respect to $a$ gives
+
+$$
+\frac{df}{da} = -\frac{a - R\cos\theta}{(R^2 + a^2 - 2aR\cos\theta)^{3/2}} = \frac{1}{aR}\sum_{l=0}^\infty l\left(\frac{a}{R}\right)^l P_l(\cos\theta).
+$$
+
+Combining $\sum_{l=0}^\infty (2l+1)(a/R)^l P_l(\cos\theta) = R f(a) + 2aR\,\dfrac{df}{da}$ yields
+
+$$
+\sigma(\theta) = \frac{q}{4\pi R^2}\left[\frac{R}{(R^2 + a^2 - 2aR\cos\theta)^{1/2}} - \frac{2aR(a - R\cos\theta)}{(R^2 + a^2 - 2aR\cos\theta)^{3/2}}\right] = \frac{q}{4\pi R}\frac{R^2 - a^2}{(R^2 + a^2 - 2Ra\cos\theta)^{3/2}}.
+$$
+</div>
+</ProblemCard>
+
+</section>

@@ -1,0 +1,559 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch9-sec2" class="ed-sec-block">
+
+### 9.2 Electromagnetic Waves in Vacuum
+
+<div class="ed-theory-box">
+
+**Core Theory — Vacuum Wave Equations, Plane Waves, Energy, Momentum &amp; Radiation Pressure:**
+
+**1. The Wave Equation for $\vec{E}$ and $\vec{B}$ in Vacuum:** In regions free of charge ($\rho = 0$) and current ($\vec{J} = 0$), Maxwell's equations reduce to $\nabla\cdot\vec{E} = 0$, $\nabla\cdot\vec{B} = 0$, $\nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}$, and $\nabla\times\vec{B} = \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t}$. Taking the curl of Faraday's and Ampère–Maxwell's laws and applying $\nabla\times(\nabla\times\vec{A}) = \nabla(\nabla\cdot\vec{A}) - \nabla^2\vec{A}$ decouples $\vec{E}$ and $\vec{B}$ into identical three-dimensional wave equations:
+
+$$
+\nabla^2\vec{E} = \mu_0\epsilon_0\frac{\partial^2\vec{E}}{\partial t^2}, \qquad \nabla^2\vec{B} = \mu_0\epsilon_0\frac{\partial^2\vec{B}}{\partial t^2}
+$$
+
+Each Cartesian component satisfies the classical wave equation $\nabla^2 f = \frac{1}{v^2}\frac{\partial^2 f}{\partial t^2}$, revealing that electromagnetic waves propagate through vacuum at the speed of light:
+
+$$
+c = \frac{1}{\sqrt{\epsilon_0\mu_0}} \approx 3.00 \times 10^8\text{ m/s}
+$$
+
+**2. Monochromatic Plane Waves:** A sinusoidal plane wave of angular frequency $\omega$ and wave vector $\vec{k} = k\hat{k}$ (with $k = \omega/c$) traveling in direction $\hat{k}$ has complex fields (physical fields are $\operatorname{Re}[\tilde{\vec{E}}]$ and $\operatorname{Re}[\tilde{\vec{B}}]$):
+
+$$
+\tilde{\vec{E}}(\vec{r}, t) = \tilde{E}_0 e^{i(\vec{k}\cdot\vec{r} - \omega t)}\hat{n}, \qquad \tilde{\vec{B}}(\vec{r}, t) = \frac{1}{c}\tilde{E}_0 e^{i(\vec{k}\cdot\vec{r} - \omega t)}(\hat{k}\times\hat{n}) = \frac{1}{c}(\hat{k}\times\tilde{\vec{E}})
+$$
+
+where $\tilde{E}_0 = E_0 e^{i\delta}$ and $\hat{n}$ is the unit polarization vector (taken by convention along $\vec{E}$). Taking real parts gives the physical fields:
+
+$$
+\vec{E}(\vec{r}, t) = E_0\cos(\vec{k}\cdot\vec{r} - \omega t + \delta)\hat{n}, \qquad \vec{B}(\vec{r}, t) = \frac{E_0}{c}\cos(\vec{k}\cdot\vec{r} - \omega t + \delta)(\hat{k}\times\hat{n})
+$$
+
+Maxwell's equations impose constraints beyond the wave equation alone:
+- **Transversality ($\nabla\cdot\vec{E} = \nabla\cdot\vec{B} = 0$):** $\hat{n}\cdot\hat{k} = 0$ (and $\vec{B}\cdot\hat{k} = 0$ automatically).
+- **Mutual Orthogonality &amp; Amplitude Ratio ($\nabla\times\vec{E} = -\partial\vec{B}/\partial t$):** $\vec{E}$ and $\vec{B}$ oscillate in phase, are mutually perpendicular ($\vec{E}\perp\vec{B}\perp\hat{k}$), form a right-handed triad ($\hat{E}\times\hat{B} = \hat{k}$), and satisfy $B_0 = E_0/c$.
+
+For the standard wave propagating along $+\hat{z}$ and linearly polarized along $\hat{x}$, $\vec{E}(z, t) = E_0\cos(kz - \omega t + \delta)\hat{x}$ and $\vec{B}(z, t) = \frac{E_0}{c}\cos(kz - \omega t + \delta)\hat{y}$.
+
+**3. Energy, Momentum, Intensity &amp; Radiation Pressure:** Because $B^2 = E^2/c^2 = \mu_0\epsilon_0 E^2$, the electric and magnetic energy densities in a plane wave are equal, yielding total energy density $u$, Poynting vector $\vec{S}$, and momentum density $\vec{g}$:
+
+$$
+u = \epsilon_0 E_0^2\cos^2(\vec{k}\cdot\vec{r} - \omega t + \delta), \qquad \vec{S} = \frac{1}{\mu_0}(\vec{E}\times\vec{B}) = cu\,\hat{k}, \qquad \vec{g} = \frac{1}{c^2}\vec{S} = \frac{u}{c}\hat{k}
+$$
+
+Averaging over one full period ($\langle\cos^2\rangle = 1/2$, or via the complex identity $\langle fg\rangle = \frac{1}{2}\operatorname{Re}(\tilde{f}\tilde{g}^*)$ for monochromatic waves sharing $\vec{k}$ and $\omega$) defines the **intensity** $I \equiv |\langle\vec{S}\rangle|$:
+
+$$
+\langle u\rangle = \frac{1}{2}\epsilon_0 E_0^2, \qquad \langle\vec{S}\rangle = \frac{1}{2}c\epsilon_0 E_0^2\,\hat{k} = I\hat{k}, \qquad \langle\vec{g}\rangle = \frac{1}{2c}\epsilon_0 E_0^2\,\hat{k} = \frac{I}{c^2}\hat{k}
+$$
+
+When light strikes a surface at normal incidence, the **radiation pressure** (average force per unit area) is $P = \frac{I}{c} = \frac{1}{2}\epsilon_0 E_0^2$ for a perfect absorber and $P = \frac{2I}{c} = \epsilon_0 E_0^2$ for a perfect reflector (where the momentum reverses). Equivalently, $-\overleftrightarrow{T}$ gives the momentum flux density across surfaces.
+
+</div>
+
+<ProblemCard num="9.8" title="Circularly Polarized Waves on a String" tag="Griffiths 9.8 · Polarization">
+
+<div slot="problem">
+
+Equation 9.36 describes the most general linearly polarized wave on a string. Linear (or "plane") polarization (so called because the displacement is parallel to a fixed vector $\hat{n}$) results from the combination of horizontally and vertically polarized waves of the same phase (Eq. 9.39). If the two components are of equal amplitude, but out of phase by $90^\circ$ (say, $\delta_v = 0$, $\delta_h = 90^\circ$), the result is a circularly polarized wave. In that case:
+
+**(a)** At a fixed point $z$, show that the string moves in a circle about the $z$ axis. Does it go clockwise or counterclockwise, as you look down the axis toward the origin? How would you construct a wave circling the other way? (In optics, the clockwise case is called right circular polarization, and the counterclockwise, left circular polarization.)
+
+**(b)** Sketch the string at time $t = 0$.
+
+**(c)** How would you shake the string in order to produce a circularly polarized wave?
+
+</div>
+
+<div slot="answer">
+
+**(a)** $\vec{f}(z, t) = A\cos(kz - \omega t)\hat{x} - A\sin(kz - \omega t)\hat{y}$, which satisfies $f_x^2 + f_y^2 = A^2$ (a circle of radius $A$). Looking down the $z$ axis toward the origin, the string moves **counterclockwise** (left circular polarization). To reverse the rotation (clockwise / right circular polarization), set $\delta_h = -90^\circ$ (or $+270^\circ$).
+
+**(b)** At $t = 0$, $\vec{f}(z, 0) = A\cos(kz)\hat{x} - A\sin(kz)\hat{y}$, which traces a **left-handed helix** of radius $A$ and pitch $\lambda = 2\pi/k$ wrapped around the $z$ axis (passing through $+A\hat{x}$ at $z = 0$, $-A\hat{y}$ at $z = \lambda/4$, $-A\hat{x}$ at $z = \lambda/2$, and $+A\hat{y}$ at $z = 3\lambda/4$).
+
+**(c)** Shake the driven end of the string around in a circle of radius $A$ at angular frequency $\omega$ in the $xy$ plane (counterclockwise as viewed looking toward the origin), rather than shaking it up and down along a line.
+
+</div>
+
+<div slot="solution">
+
+**(a)** Writing the vertical ($\hat{x}$) component with $\delta_v = 0$ and the horizontal ($\hat{y}$) component with $\delta_h = 90^\circ = \pi/2$ (both of equal real amplitude $A$):
+
+$$
+\vec{f}_v(z, t) = A\cos(kz - \omega t)\hat{x}, \qquad \vec{f}_h(z, t) = A\cos\!\left(kz - \omega t + \frac{\pi}{2}\right)\hat{y} = -A\sin(kz - \omega t)\hat{y}
+$$
+
+Superposing the two components gives the total transverse displacement:
+
+$$
+\vec{f}(z, t) = A\cos(kz - \omega t)\hat{x} - A\sin(kz - \omega t)\hat{y}
+$$
+
+At any fixed position $z$, the squared distance from the $z$ axis is:
+
+$$
+f_x^2 + f_y^2 = A^2\cos^2(kz - \omega t) + A^2\sin^2(kz - \omega t) = A^2
+$$
+
+Thus, each point on the string traces a circle of radius $A$ centered on the $z$ axis. To determine the direction of rotation, evaluate $\vec{f}(z, t)$ at two successive times (say, at $z = 0$, or for arbitrary $z$):
+
+$$
+\vec{f}(z, 0) = A\cos(kz)\hat{x} - A\sin(kz)\hat{y}
+$$
+
+$$
+\vec{f}\!\left(z, \frac{\pi}{2\omega}\right) = A\cos\!\left(kz - \frac{\pi}{2}\right)\hat{x} - A\sin\!\left(kz - \frac{\pi}{2}\right)\hat{y} = A\sin(kz)\hat{x} + A\cos(kz)\hat{y}
+$$
+
+Specifically, at $z = 0$, the displacement starts at $+A\hat{x}$ ($t = 0$) and moves to $+A\hat{y}$ a quarter period later ($t = \pi/(2\omega)$). In a right-handed coordinate system ($\hat{x}\times\hat{y} = \hat{z}$), looking from $+z$ back toward the origin (with $+\hat{z}$ pointing toward your eye), rotating from $+\hat{x}$ toward $+\hat{y}$ is **counterclockwise** (left circular polarization).
+
+To construct a wave circling the opposite way (clockwise / right circular polarization), flip the sign of the relative phase by choosing $\delta_h = -90^\circ$ (equivalently $+270^\circ$), giving:
+
+$$
+\vec{f}_h(z, t) = A\cos\!\left(kz - \omega t - \frac{\pi}{2}\right)\hat{y} = +A\sin(kz - \omega t)\hat{y}
+$$
+
+Then at $z = 0$ the string moves from $+A\hat{x}$ at $t = 0$ to $-A\hat{y}$ at $t = \pi/(2\omega)$, circling clockwise.
+
+**(b)** Setting $t = 0$ in $\vec{f}(z, t)$ gives the snapshot shape of the string:
+
+$$
+\vec{f}(z, 0) = A\cos(kz)\hat{x} - A\sin(kz)\hat{y}
+$$
+
+Because $f_x^2 + f_y^2 = A^2$ while the angle in the $xy$ plane decreases linearly as $-kz$ with increasing $z$, the string forms a **helix** of radius $A$ and spatial pitch $\lambda = 2\pi/k$ coaxial with the $z$ axis:
+- At $z = 0$: $\vec{f} = +A\hat{x}$
+- At $z = \lambda/4$: $\vec{f} = -A\hat{y}$
+- At $z = \lambda/2$: $\vec{f} = -A\hat{x}$
+- At $z = 3\lambda/4$: $\vec{f} = +A\hat{y}$
+- At $z = \lambda$: $\vec{f} = +A\hat{x}$
+
+As $z$ increases, this is a left-handed helix (winding clockwise away from the origin); when the entire rigid helix translates in the $+\hat{z}$ direction at speed $v = \omega/k$, every fixed slice $z$ rotates counterclockwise when viewed toward the origin.
+
+**(c)** To launch this circularly polarized wave from the end $z = 0$, evaluate $\vec{f}(0, t) = A\cos(\omega t)\hat{x} + A\sin(\omega t)\hat{y}$. Instead of shaking the end back and forth along a straight line, you **shake the end of the string around in a circle** of radius $A$ at angular frequency $\omega$ (counterclockwise as viewed looking toward the origin).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.9" title="Monochromatic Plane Waves in Arbitrary Directions" tag="Griffiths 9.9 · Plane Waves">
+
+<div slot="problem">
+
+Write down the (real) electric and magnetic fields for a monochromatic plane wave of amplitude $E_0$, frequency $\omega$, and phase angle zero that is:
+
+**(a)** traveling in the negative $x$ direction and polarized in the $z$ direction;
+
+**(b)** traveling in the direction from the origin to the point $(1, 1, 1)$, with polarization parallel to the $xz$ plane.
+
+In each case, sketch the wave, and give the explicit Cartesian components of $\vec{k}$ and $\hat{n}$.
+
+</div>
+
+<div slot="answer">
+
+**(a)** $\vec{k} = \left(-\dfrac{\omega}{c},\, 0,\, 0\right)$, $\;\hat{n} = (0,\, 0,\, 1)$:
+
+$$
+\vec{E}(x, t) = E_0\cos\!\left(\frac{\omega}{c}x + \omega t\right)\hat{z}, \qquad \vec{B}(x, t) = \frac{E_0}{c}\cos\!\left(\frac{\omega}{c}x + \omega t\right)\hat{y}
+$$
+
+**(b)** $\vec{k} = \dfrac{\omega}{\sqrt{3}\,c}(1,\, 1,\, 1)$, $\;\hat{n} = \dfrac{1}{\sqrt{2}}(1,\, 0,\, -1)$ (up to an overall sign):
+
+$$
+\vec{E}(\vec{r}, t) = E_0\cos\!\left[\frac{\omega}{\sqrt{3}\,c}(x + y + z) - \omega t\right]\left(\frac{\hat{x} - \hat{z}}{\sqrt{2}}\right), \qquad \vec{B}(\vec{r}, t) = \frac{E_0}{c}\cos\!\left[\frac{\omega}{\sqrt{3}\,c}(x + y + z) - \omega t\right]\left(\frac{-\hat{x} + 2\hat{y} - \hat{z}}{\sqrt{6}}\right)
+$$
+
+</div>
+
+<div slot="solution">
+
+Using Eqs. 9.51 and 9.52 with phase $\delta = 0$ and wavenumber $k = \omega/c$, the real fields of a monochromatic plane wave are:
+
+$$
+\vec{E}(\vec{r}, t) = E_0\cos(\vec{k}\cdot\vec{r} - \omega t)\hat{n}, \qquad \vec{B}(\vec{r}, t) = \frac{E_0}{c}\cos(\vec{k}\cdot\vec{r} - \omega t)(\hat{k}\times\hat{n})
+$$
+
+**(a)** For propagation in the $-\hat{x}$ direction ($\hat{k} = -\hat{x}$) and polarization along $+\hat{z}$:
+
+$$
+\vec{k} = -\frac{\omega}{c}\hat{x} = \left(-\frac{\omega}{c},\, 0,\, 0\right), \qquad \hat{n} = \hat{z} = (0,\, 0,\, 1)
+$$
+
+Note that $\hat{n}\cdot\hat{k} = 0$, confirming transversality. Computing the phase argument and the magnetic field direction:
+
+$$
+\vec{k}\cdot\vec{r} = -\frac{\omega}{c}x, \qquad \hat{k}\times\hat{n} = (-\hat{x})\times\hat{z} = +\hat{y}
+$$
+
+Using $\cos(-u) = \cos(u)$ so that $\cos\!\left(-\frac{\omega}{c}x - \omega t\right) = \cos\!\left(\frac{\omega}{c}x + \omega t\right)$:
+
+$$
+\vec{E}(x, t) = E_0\cos\!\left(\frac{\omega}{c}x + \omega t\right)\hat{z}, \qquad \vec{B}(x, t) = \frac{E_0}{c}\cos\!\left(\frac{\omega}{c}x + \omega t\right)\hat{y}
+$$
+
+*Geometric picture:* The wave travels along the $-x$ axis with wavelength $\lambda = 2\pi c/\omega$. At $t = 0$, $\vec{E}$ oscillates sinusoidally in the $xz$ plane along $\pm\hat{z}$ with amplitude $E_0$, while $\vec{B}$ oscillates in phase in the $xy$ plane along $\pm\hat{y}$ with amplitude $E_0/c$, such that $\vec{E}\times\vec{B}$ always points along $-\hat{x}$ (or vanishes at the nodes).
+
+**(b)** The unit vector pointing from $(0, 0, 0)$ to $(1, 1, 1)$ is $\hat{k} = \frac{1}{\sqrt{3}}(\hat{x} + \hat{y} + \hat{z})$, so:
+
+$$
+\vec{k} = \frac{\omega}{\sqrt{3}\,c}(\hat{x} + \hat{y} + \hat{z}) = \left(\frac{\omega}{\sqrt{3}\,c},\, \frac{\omega}{\sqrt{3}\,c},\, \frac{\omega}{\sqrt{3}\,c}\right)
+$$
+
+Because $\hat{n}$ is parallel to the $xz$ plane, its $y$ component is zero: $\hat{n} = \alpha\hat{x} + \beta\hat{z}$. Transversality ($\hat{n}\cdot\hat{k} = 0$) and normalization ($|\hat{n}| = 1$) require:
+
+$$
+\frac{1}{\sqrt{3}}(\alpha + \beta) = 0 \implies \beta = -\alpha, \qquad \alpha^2 + \beta^2 = 2\alpha^2 = 1 \implies \alpha = \frac{1}{\sqrt{2}}
+$$
+
+Choosing the positive $\alpha$ orientation (negating $\hat{n}$ simply shifts the phase by $\pi$), we get:
+
+$$
+\hat{n} = \frac{\hat{x} - \hat{z}}{\sqrt{2}} = \left(\frac{1}{\sqrt{2}},\, 0,\, -\frac{1}{\sqrt{2}}\right)
+$$
+
+Next, compute $\vec{k}\cdot\vec{r}$ and the unit magnetic field direction $\hat{k}\times\hat{n}$:
+
+$$
+\vec{k}\cdot\vec{r} = \frac{\omega}{\sqrt{3}\,c}(\hat{x} + \hat{y} + \hat{z})\cdot(x\hat{x} + y\hat{y} + z\hat{z}) = \frac{\omega}{\sqrt{3}\,c}(x + y + z)
+$$
+
+$$
+\hat{k}\times\hat{n} = \frac{1}{\sqrt{6}}
+\begin{vmatrix}
+\hat{x} & \hat{y} & \hat{z} \\
+1 & 1 & 1 \\
+1 & 0 & -1
+\end{vmatrix}
+= \frac{1}{\sqrt{6}}(-\hat{x} + 2\hat{y} - \hat{z})
+$$
+
+Substituting these into Eqs. 9.51 and 9.52 yields the real fields:
+
+$$
+\vec{E}(x, y, z, t) = E_0\cos\!\left[\frac{\omega}{\sqrt{3}\,c}(x + y + z) - \omega t\right]\left(\frac{\hat{x} - \hat{z}}{\sqrt{2}}\right)
+$$
+
+$$
+\vec{B}(x, y, z, t) = \frac{E_0}{c}\cos\!\left[\frac{\omega}{\sqrt{3}\,c}(x + y + z) - \omega t\right]\left(\frac{-\hat{x} + 2\hat{y} - \hat{z}}{\sqrt{6}}\right)
+$$
+
+*Geometric picture:* Planes of constant phase are the tilted planes $x + y + z = \text{const}$ advancing along the body diagonal $(1, 1, 1)$. In each plane, $\vec{E}$ oscillates along $(\hat{x} - \hat{z})/\sqrt{2}$ and $\vec{B}$ oscillates in phase along $(-\hat{x} + 2\hat{y} - \hat{z})/\sqrt{6}$, mutually perpendicular with $(\hat{x} - \hat{z})\times(-\hat{x} + 2\hat{y} - \hat{z})$ pointing along $(1, 1, 1)$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.10" title="Radiation Pressure of Sunlight" tag="Griffiths 9.10 · Radiation Pressure">
+
+<div slot="problem">
+
+The intensity of sunlight hitting the earth is about $1300\text{ W/m}^2$. If sunlight strikes a perfect absorber, what pressure does it exert? How about a perfect reflector? What fraction of atmospheric pressure does this amount to?
+
+</div>
+
+<div slot="answer">
+
+- **Perfect absorber:** $P_{\text{abs}} = 4.3 \times 10^{-6}\text{ N/m}^2$ ($\approx 4.3 \times 10^{-11}\text{ atm}$).
+- **Perfect reflector:** $P_{\text{refl}} = 8.7 \times 10^{-6}\text{ N/m}^2$ ($\approx 8.6 \times 10^{-11}\text{ atm}$).
+
+</div>
+
+<div slot="solution">
+
+At normal incidence on a perfect absorber (Eq. 9.64), the radiation pressure is $P_{\text{abs}} = I/c$. With $I = 1300\text{ W/m}^2$ and $c = 3.00 \times 10^8\text{ m/s}$:
+
+$$
+P_{\text{abs}} = \frac{I}{c} = \frac{1300\text{ W/m}^2}{3.00 \times 10^8\text{ m/s}} \approx 4.33 \times 10^{-6}\text{ N/m}^2 \approx 4.3 \times 10^{-6}\text{ N/m}^2
+$$
+
+On a perfect reflector, the photon momentum reverses direction instead of merely stopping, doubling the momentum transfer and thus doubling the pressure:
+
+$$
+P_{\text{refl}} = \frac{2I}{c} \approx 8.67 \times 10^{-6}\text{ N/m}^2 \approx 8.7 \times 10^{-6}\text{ N/m}^2
+$$
+
+Comparing with standard atmospheric pressure $P_{\text{atm}} = 1.013 \times 10^5\text{ N/m}^2$:
+
+$$
+\frac{P_{\text{abs}}}{P_{\text{atm}}} = \frac{4.33 \times 10^{-6}}{1.013 \times 10^5} \approx 4.3 \times 10^{-11}, \qquad \frac{P_{\text{refl}}}{P_{\text{atm}}} = \frac{8.67 \times 10^{-6}}{1.013 \times 10^5} \approx 8.6 \times 10^{-11}
+$$
+
+So solar radiation pressure is roughly $4.3 \times 10^{-11}$ atmospheres on an absorber and $8.6 \times 10^{-11}$ atmospheres on a reflector.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.11" title="Microscopic Mechanism of Radiation Pressure" tag="Griffiths 9.11 · Lorentz Force &amp; Damping">
+
+<div slot="problem">
+
+Consider a particle of charge $q$ and mass $m$, free to move in the $xy$ plane in response to an electromagnetic wave propagating in the $z$ direction (Eq. 9.48—might as well set $\delta = 0$).
+
+**(a)** Ignoring the magnetic force, find the velocity of the particle, as a function of time. (Assume the average velocity is zero.)
+
+**(b)** Now calculate the resulting magnetic force on the particle.
+
+**(c)** Show that the (time) average magnetic force is zero.
+
+The problem with this naive model for the pressure of light is that the velocity is $90^\circ$ out of phase with the fields. For energy to be absorbed, there's got to be some resistance to the motion of the charges. Suppose we include a force of the form $-\gamma m\vec{v}$, for some damping constant $\gamma$.
+
+**(d)** Repeat part (a) (ignore the exponentially damped transient). Repeat part (b), and find the average magnetic force on the particle.
+
+</div>
+
+<div slot="answer">
+
+**(a)** $\vec{v}(t) = -\dfrac{qE_0}{m\omega}\sin(kz - \omega t)\hat{x}$.
+
+**(b)** $\vec{F}_m(t) = -\dfrac{q^2 E_0^2}{m\omega c}\sin(kz - \omega t)\cos(kz - \omega t)\hat{z} = -\dfrac{q^2 E_0^2}{2m\omega c}\sin[2(kz - \omega t)]\hat{z}$.
+
+**(c)** $\langle\vec{F}_m\rangle = 0$.
+
+**(d)** With $\theta \equiv \tan^{-1}(\omega/\gamma)$:
+
+$$
+\vec{v}(t) = \frac{qE_0}{m\sqrt{\omega^2 + \gamma^2}}\cos(kz - \omega t + \theta)\hat{x}, \qquad \vec{F}_m(t) = \frac{q^2 E_0^2}{mc\sqrt{\omega^2 + \gamma^2}}\cos(kz - \omega t + \theta)\cos(kz - \omega t)\hat{z}
+$$
+
+$$
+\langle\vec{F}_m\rangle = \frac{q^2 E_0^2 \gamma}{2mc(\omega^2 + \gamma^2)}\hat{z}
+$$
+
+</div>
+
+<div slot="solution">
+
+From Eq. 9.48 with $\delta = 0$ and $\omega = ck$, the fields at the particle's $z$-plane are:
+
+$$
+\vec{E}(z, t) = E_0\cos(kz - \omega t)\hat{x}, \qquad \vec{B}(z, t) = \frac{E_0}{c}\cos(kz - \omega t)\hat{y}
+$$
+
+**(a)** Ignoring the magnetic force, Newton's second law is:
+
+$$
+m\frac{d\vec{v}}{dt} = q\vec{E} = qE_0\cos(kz - \omega t)\hat{x}
+$$
+
+Integrating with respect to $t$ (at fixed $z$):
+
+$$
+\vec{v}(t) = \frac{qE_0}{m}\int \cos(kz - \omega t)\,dt\,\hat{x} = -\frac{qE_0}{m\omega}\sin(kz - \omega t)\hat{x} + \vec{C}
+$$
+
+Since $\langle\vec{v}\rangle = 0$ and $\langle\sin(kz - \omega t)\rangle = 0$, the integration constant is $\vec{C} = 0$, leaving:
+
+$$
+\vec{v}(t) = -\frac{qE_0}{m\omega}\sin(kz - \omega t)\hat{x}
+$$
+
+**(b)** The resulting magnetic Lorentz force is:
+
+$$
+\vec{F}_m(t) = q(\vec{v}\times\vec{B}) = q\left[-\frac{qE_0}{m\omega}\sin(kz - \omega t)\hat{x}\right]\times\left[\frac{E_0}{c}\cos(kz - \omega t)\hat{y}\right]
+$$
+
+Using $\hat{x}\times\hat{y} = \hat{z}$:
+
+$$
+\vec{F}_m(t) = -\frac{q^2 E_0^2}{m\omega c}\sin(kz - \omega t)\cos(kz - \omega t)\hat{z} = -\frac{q^2 E_0^2}{2m\omega c}\sin[2(kz - \omega t)]\hat{z}
+$$
+
+**(c)** Averaging $\vec{F}_m$ over one full period $T = 2\pi/\omega$:
+
+$$
+\langle\vec{F}_m\rangle = -\frac{q^2 E_0^2}{m\omega c}\hat{z}\cdot\frac{1}{T}\int_0^T \sin(kz - \omega t)\cos(kz - \omega t)\,dt = -\frac{q^2 E_0^2}{m\omega c}\hat{z}\cdot\frac{1}{2\omega T}\Big[\sin^2(kz - \omega t)\Big]_0^T
+$$
+
+Since $\sin^2(kz - 2\pi) = \sin^2(kz)$, the bracket vanishes and $\langle\vec{F}_m\rangle = 0$. Because $\vec{v}$ and $\vec{B}$ are $90^\circ$ out of phase, there is no net radiation force without damping.
+
+**(d)** Including the damping force $-\gamma m\vec{v}$, Newton's second law becomes:
+
+$$
+m\frac{d\vec{v}}{dt} = qE_0\cos(kz - \omega t)\hat{x} - \gamma m\vec{v} \implies \frac{d\vec{v}}{dt} + \gamma\vec{v} = \frac{qE_0}{m}\cos(kz - \omega t)\hat{x}
+$$
+
+In steady state (neglecting the homogeneous $e^{-\gamma t}$ transient), try a sinusoidal ansatz $\vec{v}(t) = A\cos(kz - \omega t + \theta)\hat{x}$. Then $\frac{d\vec{v}}{dt} = A\omega\sin(kz - \omega t + \theta)\hat{x}$. Using the identity $\cos u = \cos\theta\cos(u + \theta) + \sin\theta\sin(u + \theta)$ with $u = kz - \omega t$:
+
+$$
+A\omega\sin(kz - \omega t + \theta) + A\gamma\cos(kz - \omega t + \theta) = \frac{qE_0}{m}\Big[\cos\theta\cos(kz - \omega t + \theta) + \sin\theta\sin(kz - \omega t + \theta)\Big]
+$$
+
+Equating coefficients of $\sin(kz - \omega t + \theta)$ and $\cos(kz - \omega t + \theta)$ gives:
+
+$$
+A\omega = \frac{qE_0}{m}\sin\theta, \qquad A\gamma = \frac{qE_0}{m}\cos\theta
+$$
+
+Dividing yields $\tan\theta = \omega/\gamma$, so $\theta = \tan^{-1}(\omega/\gamma)$ with $\cos\theta = \frac{\gamma}{\sqrt{\omega^2 + \gamma^2}}$. Squaring and adding the two equations gives $A = \frac{qE_0}{m\sqrt{\omega^2 + \gamma^2}}$, hence:
+
+$$
+\vec{v}(t) = \frac{qE_0}{m\sqrt{\omega^2 + \gamma^2}}\cos(kz - \omega t + \theta)\hat{x}
+$$
+
+(Notice that as $\gamma \to 0$, $\theta \to \pi/2$ and $\cos(kz - \omega t + \pi/2) = -\sin(kz - \omega t)$, recovering part (a).) Computing the magnetic force $\vec{F}_m = q(\vec{v}\times\vec{B})$:
+
+$$
+\vec{F}_m(t) = \frac{q^2 E_0^2}{mc\sqrt{\omega^2 + \gamma^2}}\cos(kz - \omega t + \theta)\cos(kz - \omega t)\hat{z}
+$$
+
+To find the time average, expand $\cos(kz - \omega t + \theta) = \cos\theta\cos(kz - \omega t) - \sin\theta\sin(kz - \omega t)$. Since $\langle\sin(kz - \omega t)\cos(kz - \omega t)\rangle = 0$ (from part (c)) and $\langle\cos^2(kz - \omega t)\rangle = 1/2$:
+
+$$
+\langle\vec{F}_m\rangle = \frac{q^2 E_0^2}{mc\sqrt{\omega^2 + \gamma^2}}\cos\theta\left\langle\cos^2(kz - \omega t)\right\rangle\hat{z} = \frac{q^2 E_0^2}{2mc\sqrt{\omega^2 + \gamma^2}}\left(\frac{\gamma}{\sqrt{\omega^2 + \gamma^2}}\right)\hat{z} = \frac{q^2 E_0^2 \gamma}{2mc(\omega^2 + \gamma^2)}\hat{z}
+$$
+
+As a consistency check, the average power dissipated by damping is $\langle P_{\text{diss}}\rangle = \gamma m\langle v^2\rangle = \frac{q^2 E_0^2 \gamma}{2m(\omega^2 + \gamma^2)}$, so $\langle\vec{F}_m\rangle = \frac{\langle P_{\text{diss}}\rangle}{c}\hat{z}$, matching the momentum-to-energy ratio $1/c$ of the electromagnetic wave.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.12" title="Time-Average Theorem in Complex Notation" tag="Griffiths 9.12 · Complex Averages">
+
+<div slot="problem">
+
+In the complex notation there is a clever device for finding the time average of a product. Suppose $f(\vec{r}, t) = A\cos(\vec{k}\cdot\vec{r} - \omega t + \delta_a)$ and $g(\vec{r}, t) = B\cos(\vec{k}\cdot\vec{r} - \omega t + \delta_b)$. Show that $\langle fg\rangle = \frac{1}{2}\operatorname{Re}(\tilde{f}\tilde{g}^*)$, where the star denotes complex conjugation. [Note that this only works if the two waves have the same $\vec{k}$ and $\omega$, but they need not have the same amplitude or phase.] For example,
+
+$$
+\langle u\rangle = \frac{1}{4}\operatorname{Re}\!\left(\epsilon_0\tilde{\vec{E}}\cdot\tilde{\vec{E}}^* + \frac{1}{\mu_0}\tilde{\vec{B}}\cdot\tilde{\vec{B}}^*\right) \quad\text{and}\quad \langle\vec{S}\rangle = \frac{1}{2\mu_0}\operatorname{Re}(\tilde{\vec{E}}\times\tilde{\vec{B}}^*)
+$$
+
+</div>
+
+<div slot="answer">
+
+Direct integration over one period $T = 2\pi/\omega$ gives $\langle fg\rangle = \frac{1}{2}AB\cos(\delta_a - \delta_b)$, while $\frac{1}{2}\tilde{f}\tilde{g}^* = \frac{1}{2}AB e^{i(\delta_a - \delta_b)}$, whose real part is identically $\frac{1}{2}AB\cos(\delta_a - \delta_b)$.
+
+</div>
+
+<div slot="solution">
+
+First compute the time average directly over one full period $T = 2\pi/\omega$:
+
+$$
+\langle fg\rangle = \frac{1}{T}\int_0^T AB\cos(\vec{k}\cdot\vec{r} - \omega t + \delta_a)\cos(\vec{k}\cdot\vec{r} - \omega t + \delta_b)\,dt
+$$
+
+Applying the trigonometric identity $\cos\alpha\cos\beta = \frac{1}{2}[\cos(\alpha + \beta) + \cos(\alpha - \beta)]$:
+
+$$
+\langle fg\rangle = \frac{AB}{2T}\int_0^T \Big[\cos(2\vec{k}\cdot\vec{r} - 2\omega t + \delta_a + \delta_b) + \cos(\delta_a - \delta_b)\Big]\,dt
+$$
+
+The first cosine oscillates at frequency $2\omega$ and completes two full cycles over $[0, T]$, so its integral vanishes:
+
+$$
+\int_0^T \cos(2\vec{k}\cdot\vec{r} - 2\omega t + \delta_a + \delta_b)\,dt = \left[-\frac{\sin(2\vec{k}\cdot\vec{r} - 2\omega t + \delta_a + \delta_b)}{2\omega}\right]_0^T = 0
+$$
+
+The second term is independent of $t$, leaving:
+
+$$
+\langle fg\rangle = \frac{AB}{2T}\cos(\delta_a - \delta_b)\,T = \frac{1}{2}AB\cos(\delta_a - \delta_b)
+$$
+
+Now evaluate the complex-notation expression. Write $\tilde{f} = \tilde{A}e^{i(\vec{k}\cdot\vec{r} - \omega t)}$ with $\tilde{A} = Ae^{i\delta_a}$, and $\tilde{g} = \tilde{B}e^{i(\vec{k}\cdot\vec{r} - \omega t)}$ with $\tilde{B} = Be^{i\delta_b}$. Taking the complex conjugate of $\tilde{g}$:
+
+$$
+\tilde{g}^* = \tilde{B}^* e^{-i(\vec{k}\cdot\vec{r} - \omega t)} = Be^{-i\delta_b} e^{-i(\vec{k}\cdot\vec{r} - \omega t)}
+$$
+
+In the product $\tilde{f}\tilde{g}^*$, the oscillating spacetime factors $e^{\pm i(\vec{k}\cdot\vec{r} - \omega t)}$ cancel identically:
+
+$$
+\frac{1}{2}\tilde{f}\tilde{g}^* = \frac{1}{2}\tilde{A}e^{i(\vec{k}\cdot\vec{r} - \omega t)}\tilde{B}^* e^{-i(\vec{k}\cdot\vec{r} - \omega t)} = \frac{1}{2}\tilde{A}\tilde{B}^* = \frac{1}{2}AB e^{i(\delta_a - \delta_b)}
+$$
+
+Taking the real part reproduces the exact time average:
+
+$$
+\frac{1}{2}\operatorname{Re}(\tilde{f}\tilde{g}^*) = \frac{1}{2}AB\cos(\delta_a - \delta_b) = \langle fg\rangle
+$$
+
+Applying this identity component-by-component to $u = \frac{1}{2}(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2)$ and $\vec{S} = \frac{1}{\mu_0}(\vec{E}\times\vec{B})$ immediately yields the quoted formulas for $\langle u\rangle$ and $\langle\vec{S}\rangle$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.13" title="Maxwell Stress Tensor for a Monochromatic Plane Wave" tag="Griffiths 9.13 · Maxwell Stress Tensor">
+
+<div slot="problem">
+
+Find all elements of the Maxwell stress tensor for a monochromatic plane wave traveling in the $z$ direction and linearly polarized in the $x$ direction (Eq. 9.48). Does your answer make sense? (Remember that $-\overleftrightarrow{T}$ represents the momentum flux density.) How is the momentum flux density related to the energy density, in this case?
+
+</div>
+
+<div slot="answer">
+
+$$
+\overleftrightarrow{T} =
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & -u
+\end{pmatrix},
+\qquad T_{zz} = -u = -\epsilon_0 E_0^2\cos^2(kz - \omega t + \delta) \quad (\text{all other } T_{ij} = 0)
+$$
+
+Yes, it makes complete physical sense: the wave carries $z$-directed momentum at speed $c$ along $+\hat{z}$, so momentum only crosses surfaces normal to $\hat{z}$ and flows purely in the $+\hat{z}$ direction. The momentum flux density is $-\overleftrightarrow{T}$, whose sole nonzero component $(-T)_{zz} = u = gc$ equals the **energy density** $u$.
+
+</div>
+
+<div slot="solution">
+
+The Maxwell stress tensor (Eq. 8.18) is defined by:
+
+$$
+T_{ij} = \epsilon_0\left(E_i E_j - \frac{1}{2}\delta_{ij}E^2\right) + \frac{1}{\mu_0}\left(B_i B_j - \frac{1}{2}\delta_{ij}B^2\right)
+$$
+
+For the plane wave in Eq. 9.48, $\vec{E} = E_0\cos(kz - \omega t + \delta)\hat{x}$ and $\vec{B} = \frac{E_0}{c}\cos(kz - \omega t + \delta)\hat{y}$. Thus $E_x = E$, $E_y = E_z = 0$, and $B_y = B = E/c$, $B_x = B_z = 0$. Moreover, since $c^2 = 1/(\mu_0\epsilon_0)$, the electric and magnetic terms have equal energy contributions:
+
+$$
+\epsilon_0 E^2 = \frac{1}{\mu_0}B^2 = u = \epsilon_0 E_0^2\cos^2(kz - \omega t + \delta)
+$$
+
+**Off-diagonal elements ($i \neq j$):** Because $\delta_{ij} = 0$, and neither $\vec{E}$ (purely along $\hat{x}$) nor $\vec{B}$ (purely along $\hat{y}$) has two nonzero components simultaneously, $E_i E_j = 0$ and $B_i B_j = 0$ for every $i \neq j$:
+
+$$
+T_{xy} = T_{yx} = T_{xz} = T_{zx} = T_{yz} = T_{zy} = 0
+$$
+
+**Diagonal elements ($i = j$):** Evaluating the three diagonal entries directly:
+
+$$
+T_{xx} = \epsilon_0\left(E^2 - \frac{1}{2}E^2\right) + \frac{1}{\mu_0}\left(0 - \frac{1}{2}B^2\right) = \frac{1}{2}\epsilon_0 E^2 - \frac{1}{2\mu_0}B^2 = 0
+$$
+
+$$
+T_{yy} = \epsilon_0\left(0 - \frac{1}{2}E^2\right) + \frac{1}{\mu_0}\left(B^2 - \frac{1}{2}B^2\right) = -\frac{1}{2}\epsilon_0 E^2 + \frac{1}{2\mu_0}B^2 = 0
+$$
+
+$$
+T_{zz} = \epsilon_0\left(0 - \frac{1}{2}E^2\right) + \frac{1}{\mu_0}\left(0 - \frac{1}{2}B^2\right) = -\frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right) = -u = -\epsilon_0 E_0^2\cos^2(kz - \omega t + \delta)
+$$
+
+Hence $T_{zz} = -\epsilon_0 E_0^2\cos^2(kz - \omega t + \delta)$ and every other element of $\overleftrightarrow{T}$ is zero.
+
+**Physical interpretation &amp; relation to energy density:** Yes, this result makes complete sense. According to Section 8.2.3, $-\overleftrightarrow{T}\cdot d\vec{a}$ is the rate at which electromagnetic momentum crosses an oriented surface $d\vec{a}$. Because the wave's momentum density $\vec{g} = \frac{u}{c}\hat{z}$ points strictly along $+\hat{z}$ and propagates at speed $c\hat{z}$, no momentum crosses surfaces oriented perpendicular to $\hat{x}$ or $\hat{y}$, nor is there any $x$- or $y$-momentum being transported. Consequently, only $(-T)_{zz}$ can be nonzero.
+
+For a surface of area $A$ normal to $\hat{z}$ ($d\vec{a} = A\hat{z}$), a volume of length $c\,\Delta t$ passes through $A$ in time $\Delta t$, carrying momentum $\Delta p_z = g A c\,\Delta t$, so the momentum flux (momentum per unit area, per unit time) is:
+
+$$
+(-T)_{zz} = \frac{\Delta p_z}{A\,\Delta t} = gc = \left(\frac{u}{c}\right)c = u
+$$
+
+In this case, the momentum flux density equals the **energy density** $u$.
+
+</div>
+
+</ProblemCard>
+
+</section>

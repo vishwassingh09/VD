@@ -1,0 +1,398 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch10-sec2" class="ed-sec-block">
+
+### 10.2 Continuous Distributions
+
+<div class="ed-theory-box">
+
+**Core Theory: Retarded Potentials, Jefimenko's Equations, &amp; Causality (Griffiths §10.2)**
+
+1. **Retarded Time &amp; Retarded Potentials:**
+   In the Lorenz gauge ($\vec{\nabla}\cdot\vec{A} = -\mu_0\epsilon_0\,\partial V/\partial t$), the potentials satisfy decoupled inhomogeneous wave equations $\Box^2 V = -\rho/\epsilon_0$ and $\Box^2\vec{A} = -\mu_0\vec{J}$, where electromagnetic disturbances propagate at speed $c = 1/\sqrt{\mu_0\epsilon_0}$. Because the "news" from a source point $\vec{r}'$ takes time $\mathscr{r}/c$ to reach the field point $\vec{r}$ (with separation $\vec{\mathscr{r}} = \vec{r} - \vec{r}'$ and $\mathscr{r} = |\vec{r} - \vec{r}'|$), the potentials depend on the state of the sources at the **retarded time**:
+
+   $$
+   t_r \equiv t - \frac{\mathscr{r}}{c}
+   $$
+
+   Generalizing electrostatics and magnetostatics yields the **retarded potentials**:
+
+   $$
+   V(\vec{r}, t) = \frac{1}{4\pi\epsilon_0}\int \frac{\rho(\vec{r}', t_r)}{\mathscr{r}}\,d\tau', \qquad \vec{A}(\vec{r}, t) = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}', t_r)}{\mathscr{r}}\,d\tau'
+   $$
+
+   These satisfy both $\Box^2 V = -\rho/\epsilon_0$, $\Box^2\vec{A} = -\mu_0\vec{J}$ (using $\nabla^2(1/\mathscr{r}) = -4\pi\delta^3(\vec{\mathscr{r}})$) and the Lorenz gauge condition. Although the **advanced potentials** evaluated at $t_a \equiv t + \mathscr{r}/c$ also satisfy the wave equations (because $\Box^2$ is time-reversal symmetric), they violate causality by making present fields depend on future sources and are discarded on physical grounds.
+
+2. **Contrast with Moving Point Charges (Liénard-Wiechert Preview, §10.3):**
+   For stationary continuous volume elements $d\tau'$, the separation $\mathscr{r} = |\vec{r} - \vec{r}'|$ is fixed and the retarded time $t_r = t - \mathscr{r}/c$ is explicit. For a point charge moving along trajectory $\vec{w}(t)$ (taken up in §10.3), the retarded time becomes an implicit equation $c(t - t_r) = |\vec{r} - \vec{w}(t_r)|$, and integrating over the moving charge's volume introduces the Liénard-Wiechert geometric factor $(1 - \hat{\mathscr{r}}\cdot\vec{v}/c)$ in the retarded potentials and velocity/acceleration terms in the fields.
+
+3. **Jefimenko's Equations (Causal Fields from Continuous Sources):**
+   Simply replacing $t \to t_r$ inside Coulomb's law and the Biot-Savart law gives the *wrong* electric and magnetic fields, because the integrands of $V$ and $\vec{A}$ depend on $\vec{r}$ both explicitly through $\mathscr{r}$ in the denominator and implicitly through $t_r = t - \mathscr{r}/c$ in the numerator. Using $\vec{\nabla}\rho(\vec{r}', t_r) = -\frac{1}{c}\dot{\rho}\,\hat{\mathscr{r}}$ and $\vec{\nabla}\times\vec{J}(\vec{r}', t_r) = \frac{1}{c}\dot{\vec{J}}\times\hat{\mathscr{r}}$ in $\vec{E} = -\vec{\nabla}V - \partial\vec{A}/\partial t$ and $\vec{B} = \vec{\nabla}\times\vec{A}$ gives **Jefimenko's equations**:
+
+   $$
+   \vec{E}(\vec{r}, t) = \frac{1}{4\pi\epsilon_0}\int \left[\frac{\rho(\vec{r}', t_r)}{\mathscr{r}^2}\,\hat{\mathscr{r}} + \frac{\dot{\rho}(\vec{r}', t_r)}{c\mathscr{r}}\,\hat{\mathscr{r}} - \frac{\dot{\vec{J}}(\vec{r}', t_r)}{c^2\mathscr{r}}\right]d\tau'
+   $$
+
+   $$
+   \vec{B}(\vec{r}, t) = \frac{\mu_0}{4\pi}\int \left[\frac{\vec{J}(\vec{r}', t_r)}{\mathscr{r}^2} + \frac{\dot{\vec{J}}(\vec{r}', t_r)}{c\mathscr{r}}\right]\times\hat{\mathscr{r}}\,d\tau'
+   $$
+
+   Here dots denote differentiation with respect to time ($\partial/\partial t_r = \partial/\partial t$ at fixed $\vec{r}, \vec{r}'$). While it is usually easier to compute $V$ and $\vec{A}$ first and differentiate them, Jefimenko's equations provide the exact causal solutions to Maxwell's equations and justify the quasistatic approximation: the first-order $\mathscr{r}/c$ retardation terms cancel identically in $\vec{B}$ (and in $\vec{E}$ when $\vec{J}$ is constant).
+
+</div>
+
+<ProblemCard num="10.10" title="Lorenz Gauge Condition for Retarded Potentials" tag="Griffiths 10.10 · Retarded Potentials">
+
+<div slot="problem">
+
+Confirm that the retarded potentials satisfy the Lorenz gauge condition.
+
+*(Hint: First show that*
+
+$$
+\vec{\nabla}\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right) = \frac{1}{\mathscr{r}}(\vec{\nabla}\cdot\vec{J}) + \frac{1}{\mathscr{r}}(\vec{\nabla}'\cdot\vec{J}) - \vec{\nabla}'\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right),
+$$
+
+*where $\vec{\nabla}$ denotes derivatives with respect to $\vec{r}$, and $\vec{\nabla}'$ denotes derivatives with respect to $\vec{r}'$. Next, noting that $\vec{J}(\vec{r}', t - \mathscr{r}/c)$ depends on $\vec{r}'$ both explicitly and through $\mathscr{r}$, whereas it depends on $\vec{r}$ only through $\mathscr{r}$, confirm that*
+
+$$
+\vec{\nabla}\cdot\vec{J} = -\frac{1}{c}\dot{\vec{J}}\cdot(\vec{\nabla}\mathscr{r}), \qquad \vec{\nabla}'\cdot\vec{J} = -\dot{\rho} - \frac{1}{c}\dot{\vec{J}}\cdot(\vec{\nabla}'\mathscr{r}).
+$$
+
+*Use this to calculate the divergence of $\vec{A}$ in Eq. 10.26.)*
+
+</div>
+
+<div slot="answer">
+
+Using the product-rule identity, the continuity equation $\vec{\nabla}'_{\text{explicit}}\cdot\vec{J} = -\dot{\rho}$, and $\vec{\nabla}\mathscr{r} = -\vec{\nabla}'\mathscr{r}$, the $\dot{\vec{J}}$ terms cancel, leaving $\vec{\nabla}\cdot(\vec{J}/\mathscr{r}) = -\dot{\rho}/\mathscr{r} - \vec{\nabla}'\cdot(\vec{J}/\mathscr{r})$. Integrating over all space (where the boundary integral vanishes for localized currents) gives $\vec{\nabla}\cdot\vec{A} = -\mu_0\epsilon_0\dfrac{\partial V}{\partial t}$.
+
+</div>
+
+<div slot="solution">
+
+**Step 1: Product-rule identity.**
+Applying the divergence product rule with respect to $\vec{r}$ and with respect to $\vec{r}'$:
+
+$$
+\vec{\nabla}\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right) = \frac{1}{\mathscr{r}}(\vec{\nabla}\cdot\vec{J}) + \vec{J}\cdot\vec{\nabla}\!\left(\frac{1}{\mathscr{r}}\right), \qquad \vec{\nabla}'\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right) = \frac{1}{\mathscr{r}}(\vec{\nabla}'\cdot\vec{J}) + \vec{J}\cdot\vec{\nabla}'\!\left(\frac{1}{\mathscr{r}}\right)
+$$
+
+Because $\mathscr{r} = |\vec{r} - \vec{r}'|$, derivatives with respect to $\vec{r}$ and $\vec{r}'$ differ by a sign: $\vec{\nabla}(1/\mathscr{r}) = -\vec{\nabla}'(1/\mathscr{r})$. Adding the two equations eliminates the $\vec{J}\cdot\vec{\nabla}(1/\mathscr{r})$ term:
+
+$$
+\vec{\nabla}\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right) = \frac{1}{\mathscr{r}}(\vec{\nabla}\cdot\vec{J}) + \frac{1}{\mathscr{r}}(\vec{\nabla}'\cdot\vec{J}) - \vec{\nabla}'\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right) \quad\checkmark
+$$
+
+**Step 2: Evaluate $\vec{\nabla}\cdot\vec{J}$ and $\vec{\nabla}'\cdot\vec{J}$.**
+For $\vec{J} = \vec{J}(\vec{r}', t_r)$ with $t_r = t - \mathscr{r}/c$:
+- **$\vec{r}$-derivatives:** $\vec{J}$ depends on $\vec{r}$ *only* through $t_r$:
+
+  $$
+  \vec{\nabla}\cdot\vec{J} = \frac{\partial J_x}{\partial t_r}\frac{\partial t_r}{\partial x} + \frac{\partial J_y}{\partial t_r}\frac{\partial t_r}{\partial y} + \frac{\partial J_z}{\partial t_r}\frac{\partial t_r}{\partial z} = -\frac{1}{c}\left(\dot{J}_x\frac{\partial\mathscr{r}}{\partial x} + \dot{J}_y\frac{\partial\mathscr{r}}{\partial y} + \dot{J}_z\frac{\partial\mathscr{r}}{\partial z}\right) = -\frac{1}{c}\dot{\vec{J}}\cdot(\vec{\nabla}\mathscr{r})
+  $$
+
+- **$\vec{r}'$-derivatives:** $\vec{J}$ depends on $\vec{r}'$ both explicitly (through its first argument) and implicitly through $t_r$:
+
+  $$
+  \vec{\nabla}'\cdot\vec{J} = \left.\vec{\nabla}'\cdot\vec{J}\right|_{t_r\text{ fixed}} + \frac{\partial\vec{J}}{\partial t_r}\cdot\vec{\nabla}'t_r = -\dot{\rho} - \frac{1}{c}\dot{\vec{J}}\cdot(\vec{\nabla}'\mathscr{r})
+  $$
+
+  where we used the continuity equation $\left.\vec{\nabla}'\cdot\vec{J}(\vec{r}', t_r)\right|_{t_r\text{ fixed}} = -\partial\rho(\vec{r}', t_r)/\partial t_r = -\dot{\rho}$.
+
+**Step 3: Compute $\vec{\nabla}\cdot\vec{A}$.**
+Since $\vec{\nabla}\mathscr{r} = -\vec{\nabla}'\mathscr{r}$, the $\dot{\vec{J}}$ terms cancel when we add $\vec{\nabla}\cdot\vec{J}$ and $\vec{\nabla}'\cdot\vec{J}$, leaving $\vec{\nabla}\cdot\vec{J} + \vec{\nabla}'\cdot\vec{J} = -\dot{\rho}$. Thus:
+
+$$
+\vec{\nabla}\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right) = -\frac{\dot{\rho}}{\mathscr{r}} - \vec{\nabla}'\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right)
+$$
+
+Integrating over all source volume $\mathcal{V}$ and applying the divergence theorem to the second term (taking the bounding surface $\mathcal{S}_\infty$ at infinity, where the localized current $\vec{J} = \mathbf{0}$):
+
+$$
+\begin{aligned}
+\vec{\nabla}\cdot\vec{A}(\vec{r}, t) &= \frac{\mu_0}{4\pi}\int_{\mathcal{V}} \vec{\nabla}\cdot\left(\frac{\vec{J}}{\mathscr{r}}\right)d\tau' \\
+&= -\frac{\mu_0}{4\pi}\int_{\mathcal{V}} \frac{\dot{\rho}(\vec{r}', t_r)}{\mathscr{r}}\,d\tau' - \frac{\mu_0}{4\pi}\oint_{\mathcal{S}_\infty} \frac{\vec{J}(\vec{r}', t_r)}{\mathscr{r}}\cdot d\vec{a}' \\
+&= -\mu_0\epsilon_0\frac{\partial}{\partial t}\left(\frac{1}{4\pi\epsilon_0}\int_{\mathcal{V}} \frac{\rho(\vec{r}', t_r)}{\mathscr{r}}\,d\tau'\right) - 0 = -\mu_0\epsilon_0\frac{\partial V}{\partial t} \quad\checkmark
+\end{aligned}
+$$
+
+Hence the retarded potentials satisfy the Lorenz gauge condition $\vec{\nabla}\cdot\vec{A} = -\mu_0\epsilon_0\,\partial V/\partial t = -(1/c^2)\,\partial V/\partial t$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="10.11" title="Fields of a Straight Wire with Linear and Impulse Currents" tag="Griffiths 10.11 · Retarded Potentials">
+
+<div slot="problem">
+
+(a) Suppose the infinite straight wire in Ex. 10.2 carries a linearly increasing current
+
+$$
+I(t) = kt \qquad (t > 0),
+$$
+
+with $I(t) = 0$ for $t \le 0$. Find the electric and magnetic fields generated.
+
+(b) Do the same for the case of a sudden burst of current:
+
+$$
+I(t) = q_0\delta(t).
+$$
+
+</div>
+
+<div slot="answer">
+
+(a) For $t < s/c$, $\vec{E} = \mathbf{0}$ and $\vec{B} = \mathbf{0}$. For $t > s/c$:
+
+$$
+\vec{E}(s, t) = -\frac{\mu_0 k}{2\pi}\ln\!\left(\frac{ct + \sqrt{(ct)^2 - s^2}}{s}\right)\hat{z}, \qquad \vec{B}(s, t) = \frac{\mu_0 k}{2\pi cs}\sqrt{(ct)^2 - s^2}\,\hat{\phi}
+$$
+
+(b) For $t < s/c$, $\vec{E} = \mathbf{0}$ and $\vec{B} = \mathbf{0}$. For $t > s/c$:
+
+$$
+\vec{E}(s, t) = \frac{\mu_0 q_0 c^3 t}{2\pi\left[(ct)^2 - s^2\right]^{3/2}}\,\hat{z}, \qquad \vec{B}(s, t) = -\frac{\mu_0 q_0 c s}{2\pi\left[(ct)^2 - s^2\right]^{3/2}}\,\hat{\phi}
+$$
+
+</div>
+
+<div slot="solution">
+
+Place the electrically neutral wire ($\rho = 0 \implies V = 0$) along the $z$ axis and consider a field point at cylindrical radius $s$ in the $z = 0$ plane, so $\mathscr{r} = \sqrt{s^2 + z^2}$ and $t_r = t - \sqrt{s^2 + z^2}/c$.
+
+**Part (a): Linearly increasing current $I(t) = kt$ ($t > 0$)**
+
+For $t < s/c$, $t_r < 0$ for all $z$, so $I(t_r) = 0$ everywhere and $\vec{A} = \mathbf{0}$, $\vec{E} = \mathbf{0}$, $\vec{B} = \mathbf{0}$.
+
+For $t > s/c$, only the segment $|z| \le \sqrt{(ct)^2 - s^2}$ has $t_r > 0$. By symmetry in $z$:
+
+$$
+\vec{A}(s, t) = \frac{\mu_0 k}{4\pi}\hat{z}\int_{-\sqrt{(ct)^2 - s^2}}^{\sqrt{(ct)^2 - s^2}} \frac{t - \frac{\sqrt{s^2 + z^2}}{c}}{\sqrt{s^2 + z^2}}\,dz = \frac{\mu_0 k}{2\pi}\hat{z}\int_0^{\sqrt{(ct)^2 - s^2}} \left(\frac{t}{\sqrt{s^2 + z^2}} - \frac{1}{c}\right)dz
+$$
+
+Using $\int \frac{dz}{\sqrt{s^2 + z^2}} = \ln\!\left(z + \sqrt{s^2 + z^2}\right)$ and setting $u \equiv \sqrt{(ct)^2 - s^2}$ (so $\sqrt{s^2 + u^2} = ct$):
+
+$$
+\vec{A}(s, t) = \frac{\mu_0 k}{2\pi}\left[t\ln\!\left(\frac{ct + u}{s}\right) - \frac{u}{c}\right]\hat{z} \qquad (t > s/c)
+$$
+
+Differentiating with respect to $t$ (noting $\partial u/\partial t = c^2 t/u$):
+
+$$
+\frac{\partial A_z}{\partial t} = \frac{\mu_0 k}{2\pi}\left[\ln\!\left(\frac{ct + u}{s}\right) + t\,\frac{c + \frac{c^2 t}{u}}{ct + u} - \frac{1}{c}\frac{c^2 t}{u}\right] = \frac{\mu_0 k}{2\pi}\left[\ln\!\left(\frac{ct + u}{s}\right) + \frac{ct}{u} - \frac{ct}{u}\right]
+$$
+
+The last two terms cancel, giving:
+
+$$
+\vec{E}(s, t) = -\frac{\partial\vec{A}}{\partial t} = -\frac{\mu_0 k}{2\pi}\ln\!\left(\frac{ct + \sqrt{(ct)^2 - s^2}}{s}\right)\hat{z} \qquad (t > s/c)
+$$
+
+For $\vec{B} = \vec{\nabla}\times\vec{A} = -\frac{\partial A_z}{\partial s}\hat{\phi}$ (noting $\partial u/\partial s = -s/u$ and $\frac{s}{ct + u} = \frac{ct - u}{s}$):
+
+$$
+\frac{\partial A_z}{\partial s} = \frac{\mu_0 k}{2\pi}\left[t\left(-\frac{s/u}{ct + u} - \frac{1}{s}\right) + \frac{s}{cu}\right] = \frac{\mu_0 k}{2\pi}\left[-\frac{t(ct - u)}{su} - \frac{t}{s} + \frac{s}{cu}\right] = \frac{\mu_0 k}{2\pi}\left(\frac{s^2 - c^2 t^2}{csu}\right) = -\frac{\mu_0 k}{2\pi cs}\sqrt{(ct)^2 - s^2}
+$$
+
+Hence:
+
+$$
+\vec{B}(s, t) = \frac{\mu_0 k}{2\pi cs}\sqrt{(ct)^2 - s^2}\,\hat{\phi} \qquad (t > s/c)
+$$
+
+---
+
+**Part (b): Sudden burst of current $I(t) = q_0\delta(t)$**
+
+Using symmetry in $z$ and changing variables to $\mathscr{r} = \sqrt{s^2 + z^2}$ (so $z\,dz = \mathscr{r}\,d\mathscr{r} \implies dz/\mathscr{r} = d\mathscr{r}/\sqrt{\mathscr{r}^2 - s^2}$):
+
+$$
+\vec{A}(s, t) = \frac{\mu_0 q_0}{2\pi}\hat{z}\int_0^\infty \frac{\delta(t - \mathscr{r}/c)}{\mathscr{r}}\,dz = \frac{\mu_0 q_0}{2\pi}\hat{z}\int_s^\infty \frac{\delta(t - \mathscr{r}/c)}{\sqrt{\mathscr{r}^2 - s^2}}\,d\mathscr{r}
+$$
+
+Using $\delta(t - \mathscr{r}/c) = c\,\delta(\mathscr{r} - ct)$, the spike at $\mathscr{r} = ct$ lies outside $[s, \infty)$ when $ct < s$ (giving $\vec{A} = \mathbf{0}$ for $t < s/c$). For $t > s/c$:
+
+$$
+\vec{A}(s, t) = \frac{\mu_0 q_0 c}{2\pi\sqrt{(ct)^2 - s^2}}\,\hat{z} \qquad (t > s/c)
+$$
+
+Taking the time and radial derivatives for $t > s/c$:
+
+$$
+\vec{E}(s, t) = -\frac{\partial\vec{A}}{\partial t} = -\frac{\mu_0 q_0 c}{2\pi}\left(-\frac{1}{2}\right)\frac{2c^2 t}{\left[(ct)^2 - s^2\right]^{3/2}}\,\hat{z} = \frac{\mu_0 q_0 c^3 t}{2\pi\left[(ct)^2 - s^2\right]^{3/2}}\,\hat{z}
+$$
+
+$$
+\vec{B}(s, t) = -\frac{\partial A_z}{\partial s}\,\hat{\phi} = -\frac{\mu_0 q_0 c}{2\pi}\left(-\frac{1}{2}\right)\frac{-2s}{\left[(ct)^2 - s^2\right]^{3/2}}\,\hat{\phi} = -\frac{\mu_0 q_0 c s}{2\pi\left[(ct)^2 - s^2\right]^{3/2}}\,\hat{\phi}
+$$
+
+(Both fields are $\mathbf{0}$ for $t < s/c$.)
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="10.12" title="Retarded Vector Potential and Induced Electric Field of a Bent Loop" tag="Griffiths 10.12 · Retarded Vector Potential">
+
+<div slot="problem">
+
+A piece of wire bent into a loop (consisting of two concentric semicircles of radii $a$ and $b$ in the upper half-plane connected along the $x$ axis, with current flowing outward from $a$ to $b$ on the $+x$ axis, counter-clockwise around the outer semicircle of radius $b$, inward from $-b$ to $-a$ on the $-x$ axis, and clockwise around the inner semicircle of radius $a$) carries a current that increases linearly with time:
+
+$$
+I(t) = kt \qquad (-\infty < t < \infty).
+$$
+
+Calculate the retarded vector potential $\vec{A}$ at the center. Find the electric field at the center. Why does this (neutral) wire produce an electric field? (Why can't you determine the magnetic field from this expression for $\vec{A}$?)
+
+</div>
+
+<div slot="answer">
+
+At the center, $\vec{A}(\mathbf{0}, t) = \dfrac{\mu_0 kt}{2\pi}\ln\!\left(\dfrac{b}{a}\right)\hat{x}$ and $\vec{E}(\mathbf{0}, t) = -\dfrac{\mu_0 k}{2\pi}\ln\!\left(\dfrac{b}{a}\right)\hat{x}$. The changing magnetic field induces the electric field via Faraday's law. We cannot determine $\vec{B} = \vec{\nabla}\times\vec{A}$ from this expression because $\vec{A}$ was evaluated only at a single point (the center), so its spatial derivatives are not known.
+
+</div>
+
+<div slot="solution">
+
+Since $I(t_r) = k(t - \mathscr{r}/c)$ for all $t$, the retarded vector potential at the center ($\vec{r} = \mathbf{0}$, where $\mathscr{r}$ is simply the distance from the origin to $d\vec{l}$) is:
+
+$$
+\vec{A}(\mathbf{0}, t) = \frac{\mu_0}{4\pi}\oint \frac{I(t_r)}{\mathscr{r}}\,d\vec{l} = \frac{\mu_0 k}{4\pi}\oint \frac{t - \mathscr{r}/c}{\mathscr{r}}\,d\vec{l} = \frac{\mu_0 k}{4\pi}\left(t\oint\frac{d\vec{l}}{\mathscr{r}} - \frac{1}{c}\oint d\vec{l}\right)
+$$
+
+Because the net displacement around any closed loop vanishes ($\oint d\vec{l} = \mathbf{0}$), the $-\mathscr{r}/c$ retardation term drops out identically, leaving:
+
+$$
+\vec{A}(\mathbf{0}, t) = \frac{\mu_0 kt}{4\pi}\oint\frac{d\vec{l}}{\mathscr{r}}
+$$
+
+Splitting the loop into its four segments:
+1. **Inner semicircle** ($\mathscr{r} = a$, from $(-a, 0)$ to $(+a, 0)$): $\displaystyle \frac{1}{a}\int_{\text{inner}} d\vec{l} = \frac{2a\,\hat{x}}{a} = 2\,\hat{x}$.
+2. **Outer semicircle** ($\mathscr{r} = b$, from $(+b, 0)$ to $(-b, 0)$): $\displaystyle \frac{1}{b}\int_{\text{outer}} d\vec{l} = \frac{-2b\,\hat{x}}{b} = -2\,\hat{x}$.
+3. **Right straight segment** ($x$ from $a$ to $b$, $\mathscr{r} = x$, $d\vec{l} = dx\,\hat{x}$): $\displaystyle \hat{x}\int_a^b \frac{dx}{x} = \ln\!\left(\frac{b}{a}\right)\hat{x}$.
+4. **Left straight segment** ($x$ from $-b$ to $-a$, $\mathscr{r} = -x$, $d\vec{l} = dx\,\hat{x}$): $\displaystyle \hat{x}\int_{-b}^{-a} \frac{dx}{-x} = \ln\!\left(\frac{b}{a}\right)\hat{x}$.
+
+The two semicircular contributions cancel ($2\,\hat{x} - 2\,\hat{x} = \mathbf{0}$), and the two radial segments add:
+
+$$
+\vec{A}(\mathbf{0}, t) = \frac{\mu_0 kt}{4\pi}\left[2\ln\!\left(\frac{b}{a}\right)\hat{x}\right] = \frac{\mu_0 kt}{2\pi}\ln\!\left(\frac{b}{a}\right)\hat{x}
+$$
+
+Since the wire is electrically neutral ($V = 0$), the electric field at the center is:
+
+$$
+\vec{E}(\mathbf{0}, t) = -\frac{\partial\vec{A}}{\partial t} = -\frac{\mu_0 k}{2\pi}\ln\!\left(\frac{b}{a}\right)\hat{x}
+$$
+
+**Physical interpretation:**
+- **Origin of $\vec{E}$:** Although the wire carries zero net charge density, the linearly increasing current $I(t) = kt$ produces a steadily changing magnetic field $\vec{B}(\vec{r}, t)$, which induces a non-conservative electric field via Faraday's law ($\vec{\nabla}\times\vec{E} = -\partial\vec{B}/\partial t$).
+- **Why $\vec{B}$ cannot be found from this $\vec{A}$:** Computing $\vec{B} = \vec{\nabla}\times\vec{A}$ requires spatial derivatives of $\vec{A}(\vec{r}, t)$ in a neighborhood of the origin, whereas our integral evaluated $\vec{A}$ only at the single point $\vec{r} = \mathbf{0}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="10.13" title="Exact Coulomb's Law for Time-Independent Current Density" tag="Griffiths 10.13 · Jefimenko's Equations">
+
+<div slot="problem">
+
+Suppose $\vec{J}(\vec{r})$ is constant in time, so (Prob. 7.60) $\rho(\vec{r}, t) = \rho(\vec{r}, 0) + \dot{\rho}(\vec{r}, 0)t$. Show that
+
+$$
+\vec{E}(\vec{r}, t) = \frac{1}{4\pi\epsilon_0}\int \frac{\rho(\vec{r}', t)}{\mathscr{r}^2}\,\hat{\mathscr{r}}\,d\tau';
+$$
+
+that is, Coulomb's law holds, with the charge density evaluated at the non-retarded time.
+
+</div>
+
+<div slot="answer">
+
+Setting $\dot{\vec{J}} = \mathbf{0}$ and $\dot{\rho}(\vec{r}', t_r) = \dot{\rho}(\vec{r}', 0)$ in Jefimenko's equation for $\vec{E}$ gives $\rho(\vec{r}', 0) + \dot{\rho}(\vec{r}', 0)(t - \mathscr{r}/c)$ in the first term, whose $-\dot{\rho}(\vec{r}', 0)/(c\mathscr{r})$ piece cancels the $\dot{\rho}(\vec{r}', t_r)/(c\mathscr{r})$ term exactly, yielding Coulomb's law at the present time $t$.
+
+</div>
+
+<div slot="solution">
+
+Because $\vec{J}(\vec{r}')$ is constant in time, $\dot{\vec{J}}(\vec{r}', t_r) = \mathbf{0}$, and by the continuity equation $\dot{\rho}(\vec{r}', t) = -\vec{\nabla}'\cdot\vec{J}(\vec{r}')$ is independent of time, so $\dot{\rho}(\vec{r}', t_r) = \dot{\rho}(\vec{r}', 0)$. Substituting $\rho(\vec{r}', t_r) = \rho(\vec{r}', 0) + \dot{\rho}(\vec{r}', 0)t_r$ and $\dot{\vec{J}} = \mathbf{0}$ into Jefimenko's equation for $\vec{E}$ (Eq. 10.36):
+
+$$
+\vec{E}(\vec{r}, t) = \frac{1}{4\pi\epsilon_0}\int \left[\frac{\rho(\vec{r}', 0) + \dot{\rho}(\vec{r}', 0)t_r}{\mathscr{r}^2} + \frac{\dot{\rho}(\vec{r}', 0)}{c\mathscr{r}}\right]\hat{\mathscr{r}}\,d\tau'
+$$
+
+Now substitute the retarded time $t_r = t - \mathscr{r}/c$:
+
+$$
+\begin{aligned}
+\vec{E}(\vec{r}, t) &= \frac{1}{4\pi\epsilon_0}\int \left[\frac{\rho(\vec{r}', 0) + \dot{\rho}(\vec{r}', 0)(t - \mathscr{r}/c)}{\mathscr{r}^2} + \frac{\dot{\rho}(\vec{r}', 0)}{c\mathscr{r}}\right]\hat{\mathscr{r}}\,d\tau' \\
+&= \frac{1}{4\pi\epsilon_0}\int \left[\frac{\rho(\vec{r}', 0) + \dot{\rho}(\vec{r}', 0)t}{\mathscr{r}^2} - \frac{\dot{\rho}(\vec{r}', 0)}{c\mathscr{r}} + \frac{\dot{\rho}(\vec{r}', 0)}{c\mathscr{r}}\right]\hat{\mathscr{r}}\,d\tau' \\
+&= \frac{1}{4\pi\epsilon_0}\int \frac{\rho(\vec{r}', t)}{\mathscr{r}^2}\,\hat{\mathscr{r}}\,d\tau' \quad\checkmark
+\end{aligned}
+$$
+
+The retardation correction cancels identically, so Coulomb's law holds exactly with $\rho$ evaluated at the present (non-retarded) time $t$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="10.14" title="Quasistatic Biot-Savart Law from Jefimenko's Equation" tag="Griffiths 10.14 · Quasistatic Approximation">
+
+<div slot="problem">
+
+Suppose the current density changes slowly enough that we can (to good approximation) ignore all higher derivatives in the Taylor expansion
+
+$$
+\vec{J}(t_r) = \vec{J}(t) + (t_r - t)\dot{\vec{J}}(t) + \cdots
+$$
+
+(for clarity, the $\vec{r}'$-dependence is suppressed). Show that a fortuitous cancellation in Eq. 10.38 yields
+
+$$
+\vec{B}(\vec{r}, t) = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}', t)\times\hat{\mathscr{r}}}{\mathscr{r}^2}\,d\tau'.
+$$
+
+</div>
+
+<div slot="answer">
+
+Truncating after the first derivative gives $\vec{J}(\vec{r}', t_r) \approx \vec{J}(\vec{r}', t) + (t_r - t)\dot{\vec{J}}(\vec{r}', t)$ and $\dot{\vec{J}}(\vec{r}', t_r) \approx \dot{\vec{J}}(\vec{r}', t)$. Using $t_r - t = -\mathscr{r}/c$ in Eq. 10.38 cancels the $\dot{\vec{J}}$ terms identically, leaving the instantaneous Biot-Savart law.
+
+</div>
+
+<div slot="solution">
+
+Dropping $\ddot{\vec{J}}$ and all higher-order time derivatives in the Taylor expansion about the present time $t$ gives:
+
+$$
+\vec{J}(\vec{r}', t_r) \approx \vec{J}(\vec{r}', t) + (t_r - t)\dot{\vec{J}}(\vec{r}', t), \qquad \dot{\vec{J}}(\vec{r}', t_r) \approx \dot{\vec{J}}(\vec{r}', t)
+$$
+
+Substituting these into Jefimenko's equation for the magnetic field (Eq. 10.38):
+
+$$
+\vec{B}(\vec{r}, t) = \frac{\mu_0}{4\pi}\int \left[\frac{\vec{J}(\vec{r}', t_r)}{\mathscr{r}^2} + \frac{\dot{\vec{J}}(\vec{r}', t_r)}{c\mathscr{r}}\right]\times\hat{\mathscr{r}}\,d\tau' \approx \frac{\mu_0}{4\pi}\int \left[\frac{\vec{J}(\vec{r}', t) + (t_r - t)\dot{\vec{J}}(\vec{r}', t)}{\mathscr{r}^2} + \frac{\dot{\vec{J}}(\vec{r}', t)}{c\mathscr{r}}\right]\times\hat{\mathscr{r}}\,d\tau'
+$$
+
+Since $t_r - t = -\mathscr{r}/c$ (Eq. 10.25), the first-order retardation terms cancel:
+
+$$
+\frac{(t_r - t)\dot{\vec{J}}(\vec{r}', t)}{\mathscr{r}^2} + \frac{\dot{\vec{J}}(\vec{r}', t)}{c\mathscr{r}} = -\frac{\dot{\vec{J}}(\vec{r}', t)}{c\mathscr{r}} + \frac{\dot{\vec{J}}(\vec{r}', t)}{c\mathscr{r}} = \mathbf{0}
+$$
+
+Therefore, to first order in $\mathscr{r}/c$ (with corrections appearing only at order $\ddot{\vec{J}}\,\mathscr{r}^2/c^2$):
+
+$$
+\vec{B}(\vec{r}, t) = \frac{\mu_0}{4\pi}\int \frac{\vec{J}(\vec{r}', t)\times\hat{\mathscr{r}}}{\mathscr{r}^2}\,d\tau' \quad\checkmark
+$$
+
+This explains why the quasistatic Biot-Savart law works far better for slowly varying currents than a naive neglect of retardation might suggest.
+
+</div>
+
+</ProblemCard>
+
+</section>

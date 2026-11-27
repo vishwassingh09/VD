@@ -7,8 +7,14 @@ order: 5
 ---
 import NotesPdfViewer from '../../../components/NotesPdfViewer.astro';
 import EdChapterPicker from '../../../components/ed/EdChapterPicker.astro';
+import Chapter1 from '../../../components/ed/Chapter1.astro';
 import Chapter2 from '../../../components/ed/Chapter2.astro';
-import Chapter3 from '../../../components/ed/Chapter3.mdx';
+import Chapter3 from '../../../components/ed/Chapter3.astro';
+import Chapter4 from '../../../components/ed/Chapter4.astro';
+import Chapter5 from '../../../components/ed/Chapter5.astro';
+import Chapter6 from '../../../components/ed/Chapter6.astro';
+import Chapter7 from '../../../components/ed/Chapter7.astro';
+import Chapter8 from '../../../components/ed/Chapter8.astro';
 
 ## Electrodynamics (MSc Level)
 
@@ -28,15 +34,45 @@ This is my first reading of D.J. Griffiths (*Introduction to Electrodynamics*).
 
 <EdChapterPicker
   chapters={[
+    { id: 'ed-ch1', label: 'Chapter 1: Vector Analysis (All 64 Problems)' },
     { id: 'ed-ch2', label: 'Chapter 2: Electrostatics (Minimal Theory + All 61 Problems)' },
-    { id: 'ed-ch3', label: 'Chapter 3: Potentials (Summary + Key Problems)' },
+    { id: 'ed-ch3', label: 'Chapter 3: Potentials (All 58 Problems)' },
+    { id: 'ed-ch4', label: 'Chapter 4: Electric Fields in Matter (All 43 Problems)' },
+    { id: 'ed-ch5', label: 'Chapter 5: Magnetostatics (All 62 Problems)' },
+    { id: 'ed-ch6', label: 'Chapter 6: Magnetic Fields in Matter (All 29 Problems)' },
+    { id: 'ed-ch7', label: 'Chapter 7: Electrodynamics (All 64 Problems)' },
+    { id: 'ed-ch8', label: 'Chapter 8: Conservation Laws (All 24 Problems)' },
   ]}
 >
-  <div id="ed-ch2" class="ed-chapter-panel active-ed-chapter">
+  <div id="ed-ch1" class="ed-chapter-panel active-ed-chapter">
+    <Chapter1 />
+  </div>
+
+  <div id="ed-ch2" class="ed-chapter-panel" style="display: none;">
     <Chapter2 />
   </div>
 
   <div id="ed-ch3" class="ed-chapter-panel" style="display: none;">
     <Chapter3 />
+  </div>
+
+  <div id="ed-ch4" class="ed-chapter-panel" style="display: none;">
+    <Chapter4 />
+  </div>
+
+  <div id="ed-ch5" class="ed-chapter-panel" style="display: none;">
+    <Chapter5 />
+  </div>
+
+  <div id="ed-ch6" class="ed-chapter-panel" style="display: none;">
+    <Chapter6 />
+  </div>
+
+  <div id="ed-ch7" class="ed-chapter-panel" style="display: none;">
+    <Chapter7 />
+  </div>
+
+  <div id="ed-ch8" class="ed-chapter-panel" style="display: none;">
+    <Chapter8 />
   </div>
 </EdChapterPicker>

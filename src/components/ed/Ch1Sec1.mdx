@@ -1,0 +1,425 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec1" class="ed-sec-block">
+
+### 1.1 Vector Algebra
+
+<div class="ed-theory-box">
+
+**Core Theory (Griffiths §§1.1.1–1.1.5):**
+
+- **Scalars vs. Vectors:** A *scalar* (e.g., mass, charge, temperature) is invariant under coordinate rotations, whereas a *vector* (e.g., displacement, velocity, force, $\vec{E}$, $\vec{B}$) has both magnitude and direction and transforms identically to a displacement vector under coordinate changes. Vector addition is commutative and associative: $\vec{A}+\vec{B}=\vec{B}+\vec{A}$, $(\vec{A}+\vec{B})+\vec{C}=\vec{A}+(\vec{B}+\vec{C})$, and $\vec{A}-\vec{B}=\vec{A}+(-\vec{B})$.
+
+- **Dot & Cross Products (Coordinate-Free):** For two vectors $\vec{A}, \vec{B}$ placed tail-to-tail at angle $\theta$:
+
+$$
+\vec{A}\cdot\vec{B} \equiv AB\cos\theta, \qquad \vec{A}\times\vec{B} \equiv AB\sin\theta\,\hat{n}
+$$
+
+  where $\hat{n}$ is the unit normal to the plane of $\vec{A}$ and $\vec{B}$ fixed by the **right-hand rule**. Geometrically, $\vec{A}\cdot\vec{B}$ is $A$ times the projection of $\vec{B}$ onto $\vec{A}$ (with $\vec{A}\cdot\vec{A}=A^2$), while $|\vec{A}\times\vec{B}|$ is the area of the parallelogram spanned by $\vec{A}$ and $\vec{B}$. The dot product is commutative; the cross product is anticommutative ($\vec{B}\times\vec{A}=-\vec{A}\times\vec{B}$) and **not associative**. Both are distributive over vector addition.
+
+- **Right-Handed Cartesian Component Form:** With orthonormal basis $\hat{x}\times\hat{y}=\hat{z}$ (cyclic):
+
+$$
+\vec{A}\cdot\vec{B} = A_x B_x + A_y B_y + A_z B_z, \qquad \vec{A}\times\vec{B} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ A_x & A_y & A_z \\ B_x & B_y & B_z \end{vmatrix}
+$$
+
+- **Triple Products & BAC-CAB Rule:**
+  1. **Scalar triple product** (signed parallelepiped volume; cyclic invariance, dot/cross interchangeable):
+
+$$
+\vec{A}\cdot(\vec{B}\times\vec{C}) = \vec{B}\cdot(\vec{C}\times\vec{A}) = \vec{C}\cdot(\vec{A}\times\vec{B}) = (\vec{A}\times\vec{B})\cdot\vec{C} = \begin{vmatrix} A_x & A_y & A_z \\ B_x & B_y & B_z \\ C_x & C_y & C_z \end{vmatrix}
+$$
+
+  2. **Vector triple product (BAC-CAB rule):**
+
+$$
+\vec{A}\times(\vec{B}\times\vec{C}) = \vec{B}(\vec{A}\cdot\vec{C}) - \vec{C}(\vec{A}\cdot\vec{B}), \qquad (\vec{A}\times\vec{B})\cdot(\vec{C}\times\vec{D}) = (\vec{A}\cdot\vec{C})(\vec{B}\cdot\vec{D}) - (\vec{A}\cdot\vec{D})(\vec{B}\cdot\vec{C})
+$$
+
+- **Position, Displacement, and Separation Vectors:** The position vector from the origin $O$ is $\vec{r} = x\hat{x} + y\hat{y} + z\hat{z}$ (magnitude $r=\sqrt{x^2+y^2+z^2}$, radial unit vector $\hat{r}=\vec{r}/r$), and the infinitesimal displacement is $d\vec{l} = dx\,\hat{x} + dy\,\hat{y} + dz\,\hat{z}$. From a source point $\vec{r}'$ to a field point $\vec{r}$, Griffiths defines the **separation vector** $\vec{\mathscr{r}}$:
+
+$$
+\vec{\mathscr{r}} \equiv \vec{r} - \vec{r}', \qquad \mathscr{r} = |\vec{r} - \vec{r}'|, \qquad \hat{\mathscr{r}} = \frac{\vec{r} - \vec{r}'}{|\vec{r} - \vec{r}'|}
+$$
+
+- **Rotations, Tensors, and Parity:** Under a rotation of axes by $\phi$ about the $x$-axis (or general 3D rotation $R$), components transform as:
+
+$$
+\begin{pmatrix} \bar{A}_y \\ \bar{A}_z \end{pmatrix} = \begin{pmatrix} \cos\phi & \sin\phi \\ -\sin\phi & \cos\phi \end{pmatrix} \begin{pmatrix} A_y \\ A_z \end{pmatrix}, \qquad \bar{A}_i = \sum_{j=1}^3 R_{ij} A_j \quad (R^T R = I)
+$$
+
+  A rank-$n$ tensor transforms with $n$ factors of $R$ ($\bar{T}_{ij} = \sum_{k,l} R_{ik}R_{jl}T_{kl}$). Under **spatial inversion** ($\vec{r} \to -\vec{r}$), true (polar) vectors flip sign ($\vec{A} \to -\vec{A}$), **pseudovectors** (axial vectors, e.g., $\vec{A}\times\vec{B}$, $\vec{L}$, $\vec{N}$) do *not* flip sign, scalars are invariant, and **pseudoscalars** (e.g., $\vec{A}\cdot(\vec{B}\times\vec{C})$) flip sign.
+
+</div>
+
+<ProblemCard num="1.1" title="Distributivity of Dot and Cross Products" tag="Griffiths 1.1 · Vector Operations">
+  <div slot="problem">
+    Using the definitions $\vec{A}\cdot\vec{B} \equiv AB\cos\theta$ and $\vec{A}\times\vec{B} \equiv AB\sin\theta\,\hat{n}$, and appropriate diagrams, show that the dot product and cross product are distributive:
+    1. When the three vectors $\vec{A}, \vec{B}, \vec{C}$ are coplanar;
+    2. In the general (non-coplanar) three-dimensional case.
+  </div>
+
+  <div slot="answer">
+    Both $\vec{A}\cdot(\vec{B}+\vec{C}) = \vec{A}\cdot\vec{B} + \vec{A}\cdot\vec{C}$ and $\vec{A}\times(\vec{B}+\vec{C}) = \vec{A}\times\vec{B} + \vec{A}\times\vec{C}$ hold geometrically in both the coplanar and general 3D cases by linearity of orthogonal projections and planar rotations.
+  </div>
+
+  <div slot="solution">
+    1. **Coplanar case:** Place $\vec{A}$ along a reference axis, and draw $\vec{B}$ and $\vec{C}$ head-to-tail in the plane with $\vec{A}$ so that their sum is $\vec{B}+\vec{C}$. Let $\theta_1, \theta_2, \theta_3$ be the angles that $\vec{B}$, $\vec{C}$, and $\vec{B}+\vec{C}$ make with $\vec{A}$, respectively.
+       - *Dot product:* Projecting the triangle formed by $\vec{B}$, $\vec{C}$, and $\vec{B}+\vec{C}$ onto the line of $\vec{A}$, the signed projection of the resultant equals the sum of the signed projections:
+
+       $$
+       |\vec{B}+\vec{C}|\cos\theta_3 = |\vec{B}|\cos\theta_1 + |\vec{C}|\cos\theta_2
+       $$
+
+       Multiplying both sides by $|\vec{A}|$ yields:
+
+       $$
+       |\vec{A}||\vec{B}+\vec{C}|\cos\theta_3 = |\vec{A}||\vec{B}|\cos\theta_1 + |\vec{A}||\vec{C}|\cos\theta_2 \implies \vec{A}\cdot(\vec{B}+\vec{C}) = \vec{A}\cdot\vec{B} + \vec{A}\cdot\vec{C}
+       $$
+
+       - *Cross product:* Projecting the same triangle onto the axis in the plane perpendicular to $\vec{A}$, the perpendicular components add identically:
+
+       $$
+       |\vec{B}+\vec{C}|\sin\theta_3 = |\vec{B}|\sin\theta_1 + |\vec{C}|\sin\theta_2
+       $$
+
+       Multiplying by $|\vec{A}|\hat{n}$, where $\hat{n}$ is the unit vector pointing out of the plane (right-hand rule), gives:
+
+       $$
+       |\vec{A}||\vec{B}+\vec{C}|\sin\theta_3\,\hat{n} = |\vec{A}||\vec{B}|\sin\theta_1\,\hat{n} + |\vec{A}||\vec{C}|\sin\theta_2\,\hat{n} \implies \vec{A}\times(\vec{B}+\vec{C}) = (\vec{A}\times\vec{B}) + (\vec{A}\times\vec{C})
+       $$
+
+       (Note: if $\vec{B}$ and $\vec{C}$ lie on opposite sides of $\vec{A}$, the signed perpendicular projections carry opposite signs, matching the opposite orientations of $\hat{n}$.)
+
+    2. **General 3D case:**
+       - *Dot product:* Even when $\vec{A}, \vec{B}, \vec{C}$ are non-coplanar, the orthogonal projection of the vector triangle $(\vec{B}, \vec{C}, \vec{B}+\vec{C})$ onto the line defined by $\vec{A}$ is linear: the signed projection of $\vec{B}+\vec{C}$ onto $\vec{A}$ still equals the sum of the signed projections of $\vec{B}$ and $\vec{C}$ onto $\vec{A}$. Multiplying by $|\vec{A}|$ gives $\vec{A}\cdot(\vec{B}+\vec{C}) = \vec{A}\cdot\vec{B} + \vec{A}\cdot\vec{C}$.
+       - *Cross product:* Decompose $\vec{B} = \vec{B}_\parallel + \vec{B}_\perp$ and $\vec{C} = \vec{C}_\parallel + \vec{C}_\perp$ into components parallel and perpendicular to $\vec{A}$. Since $\vec{A}\times\vec{B}_\parallel = \vec{A}\times\vec{C}_\parallel = \mathbf{0}$, we have $\vec{A}\times\vec{B} = \vec{A}\times\vec{B}_\perp$, $\vec{A}\times\vec{C} = \vec{A}\times\vec{C}_\perp$, and $\vec{A}\times(\vec{B}+\vec{C}) = \vec{A}\times(\vec{B}_\perp + \vec{C}_\perp)$. Every vector in the plane perpendicular to $\vec{A}$ is mapped by $\vec{A}\times(\cdot)$ via a uniform scaling by $A$ followed by a rigid $90^\circ$ rotation about $\vec{A}$ in that plane. Because scaling and rigid rotation preserve parallelogram addition of $\vec{B}_\perp$ and $\vec{C}_\perp$, we obtain $\vec{A}\times(\vec{B}+\vec{C}) = \vec{A}\times\vec{B} + \vec{A}\times\vec{C}$. (See also G. E. Hay, *Vector and Tensor Analysis*, Ch. 1, Secs. 7–8.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.2" title="Non-Associativity of the Cross Product" tag="Griffiths 1.2 · Cross Product">
+  <div slot="problem">
+    Is the cross product associative?
+
+    $$
+    (\vec{A}\times\vec{B})\times\vec{C} \stackrel{?}{=} \vec{A}\times(\vec{B}\times\vec{C})
+    $$
+
+    If so, prove it; if not, provide a counterexample (the simpler the better).
+  </div>
+
+  <div slot="answer">
+    **No**, the cross product is not associative. Counterexample: take $\vec{A} = \vec{B} = \hat{x}$ and $\vec{C} = \hat{y}$; then $(\vec{A}\times\vec{B})\times\vec{C} = \mathbf{0}$, whereas $\vec{A}\times(\vec{B}\times\vec{C}) = \hat{x}\times\hat{z} = -\hat{y} \neq \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    The triple cross product is **not** associative in general. Let $\vec{A} = \vec{B}$ (nonzero) and choose $\vec{C}$ perpendicular to $\vec{A}$, for instance $\vec{A} = \vec{B} = \hat{x}$ and $\vec{C} = \hat{y}$ (or $\vec{A} = \vec{B}$ to the right and $\vec{C}$ upward in the page):
+
+    - On the left-hand side, since $\vec{A}$ and $\vec{B}$ are parallel, $\vec{A}\times\vec{B} = \mathbf{0}$, so:
+
+    $$
+    (\vec{A}\times\vec{B})\times\vec{C} = \mathbf{0}\times\vec{C} = \mathbf{0}
+    $$
+
+    - On the right-hand side, $\vec{B}\times\vec{C}$ is perpendicular to both $\vec{B}$ and $\vec{C}$ (e.g., $\hat{x}\times\hat{y} = \hat{z}$, pointing out of the page) with magnitude $BC$. Then $\vec{A}\times(\vec{B}\times\vec{C})$ has magnitude $ABC \neq 0$ (e.g., $\hat{x}\times\hat{z} = -\hat{y}$, pointing downward):
+
+    $$
+    \vec{A}\times(\vec{B}\times\vec{C}) \neq \mathbf{0} = (\vec{A}\times\vec{B})\times\vec{C}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.3" title="Angle Between Body Diagonals of a Cube" tag="Griffiths 1.3 · Dot Product">
+  <div slot="problem">
+    Find the angle between the body diagonals of a cube.
+  </div>
+
+  <div slot="answer">
+    $\theta = \cos^{-1}(1/3) \approx 70.53^\circ$ (or its supplement $109.47^\circ$ for oppositely directed diagonals).
+  </div>
+
+  <div slot="solution">
+    Place a unit cube in the first octant with one corner at the origin $(0,0,0)$. Choose two body diagonals sharing the center, e.g., $\vec{A}$ from $(0,0,1)$ to $(1,1,0)$ and $\vec{B}$ from $(0,0,0)$ to $(1,1,1)$:
+
+    $$
+    \vec{A} = \hat{x} + \hat{y} - \hat{z}, \qquad \vec{B} = \hat{x} + \hat{y} + \hat{z}
+    $$
+
+    Their magnitudes are $A = \sqrt{1^2+1^2+(-1)^2} = \sqrt{3}$ and $B = \sqrt{1^2+1^2+1^2} = \sqrt{3}$. Comparing component and coordinate-free forms of the dot product:
+
+    $$
+    \vec{A}\cdot\vec{B} = (1)(1) + (1)(1) + (-1)(1) = 1 = AB\cos\theta = (\sqrt{3})(\sqrt{3})\cos\theta = 3\cos\theta
+    $$
+
+    Hence:
+
+    $$
+    \cos\theta = \frac{1}{3} \implies \theta = \cos^{-1}\!\left(\frac{1}{3}\right) \approx 70.5288^\circ
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.4" title="Unit Normal to an Inclined Plane via Cross Product" tag="Griffiths 1.4 · Cross Product">
+  <div slot="problem">
+    Use the cross product to find the components of the unit vector $\hat{n}$ perpendicular to the shaded plane in Fig. 1.11, which intersects the coordinate axes at $(1,0,0)$, $(0,2,0)$, and $(0,0,3)$.
+  </div>
+
+  <div slot="answer">
+    $$
+    \hat{n} = \frac{6}{7}\hat{x} + \frac{3}{7}\hat{y} + \frac{2}{7}\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    The cross product of any two non-collinear vectors lying in the plane gives a vector perpendicular to the plane. Choosing the two edge vectors starting from $(1,0,0)$ to $(0,2,0)$ and $(0,0,3)$:
+
+    $$
+    \vec{A} = -\hat{x} + 2\hat{y} + 0\hat{z}, \qquad \vec{B} = -\hat{x} + 0\hat{y} + 3\hat{z}
+    $$
+
+    Their cross product is:
+
+    $$
+    \vec{A}\times\vec{B} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ -1 & 2 & 0 \\ -1 & 0 & 3 \end{vmatrix} = (6 - 0)\hat{x} + (0 - (-3))\hat{y} + (0 - (-2))\hat{z} = 6\hat{x} + 3\hat{y} + 2\hat{z}
+    $$
+
+    Its magnitude is $|\vec{A}\times\vec{B}| = \sqrt{6^2 + 3^2 + 2^2} = \sqrt{36 + 9 + 4} = \sqrt{49} = 7$. Dividing by the magnitude gives the outward unit normal:
+
+    $$
+    \hat{n} = \frac{\vec{A}\times\vec{B}}{|\vec{A}\times\vec{B}|} = \frac{6}{7}\hat{x} + \frac{3}{7}\hat{y} + \frac{2}{7}\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.5" title="Component Proof of the BAC-CAB Rule" tag="Griffiths 1.5 · Triple Products">
+  <div slot="problem">
+    Prove the BAC-CAB rule, $\vec{A}\times(\vec{B}\times\vec{C}) = \vec{B}(\vec{A}\cdot\vec{C}) - \vec{C}(\vec{A}\cdot\vec{B})$, by writing out both sides in component form.
+  </div>
+
+  <div slot="answer">
+    Both sides have identical $x$-, $y$-, and $z$-components, e.g., $x$-component $A_y B_x C_y + A_z B_x C_z - A_y B_y C_x - A_z B_z C_x$.
+  </div>
+
+  <div slot="solution">
+    Compute the $x$-component of the left-hand side:
+
+    $$
+    \vec{A}\times(\vec{B}\times\vec{C}) = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ A_x & A_y & A_z \\ B_y C_z - B_z C_y & B_z C_x - B_x C_z & B_x C_y - B_y C_x \end{vmatrix}
+    $$
+
+    Taking the $x$-component gives:
+
+    $$
+    \left[\vec{A}\times(\vec{B}\times\vec{C})\right]_x = A_y(B_x C_y - B_y C_x) - A_z(B_z C_x - B_x C_z) = A_y B_x C_y - A_y B_y C_x - A_z B_z C_x + A_z B_x C_z
+    $$
+
+    Now compute the $x$-component of the right-hand side:
+
+    $$
+    \left[\vec{B}(\vec{A}\cdot\vec{C}) - \vec{C}(\vec{A}\cdot\vec{B})\right]_x = B_x(A_x C_x + A_y C_y + A_z C_z) - C_x(A_x B_x + A_y B_y + A_z B_z)
+    $$
+
+    Expanding and canceling $A_x B_x C_x - A_x B_x C_x = 0$:
+
+    $$
+    \left[\vec{B}(\vec{A}\cdot\vec{C}) - \vec{C}(\vec{A}\cdot\vec{B})\right]_x = A_y B_x C_y + A_z B_x C_z - A_y B_y C_x - A_z B_z C_x
+    $$
+
+    The $x$-components agree identically. By cyclic permutation of $(x,y,z)$, the $y$- and $z$-components agree in the exact same way. $\checkmark$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.6" title="Jacobi Identity and Conditions for Associativity" tag="Griffiths 1.6 · Triple Products">
+  <div slot="problem">
+    Prove that
+
+    $$
+    \left[\vec{A}\times(\vec{B}\times\vec{C})\right] + \left[\vec{B}\times(\vec{C}\times\vec{A})\right] + \left[\vec{C}\times(\vec{A}\times\vec{B})\right] = \mathbf{0}
+    $$
+
+    Under what conditions does $\vec{A}\times(\vec{B}\times\vec{C}) = (\vec{A}\times\vec{B})\times\vec{C}$?
+  </div>
+
+  <div slot="answer">
+    The Jacobi identity holds directly from the BAC-CAB rule. Furthermore, $\vec{A}\times(\vec{B}\times\vec{C}) = (\vec{A}\times\vec{B})\times\vec{C}$ if and only if either $\vec{A}$ is parallel (or antiparallel, or zero) to $\vec{C}$, or $\vec{B}$ is perpendicular to both $\vec{A}$ and $\vec{C}$ (including $\vec{B} = \mathbf{0}$).
+  </div>
+
+  <div slot="solution">
+    Apply the BAC-CAB rule (Eq. 1.17) to each term:
+
+    $$
+    \begin{aligned}
+    \vec{A}\times(\vec{B}\times\vec{C}) + \vec{B}\times(\vec{C}\times\vec{A}) + \vec{C}\times(\vec{A}\times\vec{B})
+    &= \left[\vec{B}(\vec{A}\cdot\vec{C}) - \vec{C}(\vec{A}\cdot\vec{B})\right] + \left[\vec{C}(\vec{B}\cdot\vec{A}) - \vec{A}(\vec{B}\cdot\vec{C})\right] \\
+    &\quad + \left[\vec{A}(\vec{C}\cdot\vec{B}) - \vec{B}(\vec{C}\cdot\vec{A})\right] = \mathbf{0}
+    \end{aligned}
+    $$
+
+    Since $(\vec{A}\times\vec{B})\times\vec{C} = -\vec{C}\times(\vec{A}\times\vec{B})$, rearranging the Jacobi identity yields:
+
+    $$
+    \vec{A}\times(\vec{B}\times\vec{C}) - (\vec{A}\times\vec{B})\times\vec{C} = -\vec{B}\times(\vec{C}\times\vec{A}) = \vec{A}(\vec{B}\cdot\vec{C}) - \vec{C}(\vec{A}\cdot\vec{B})
+    $$
+
+    Setting this difference equal to $\mathbf{0}$ gives $\vec{A}(\vec{B}\cdot\vec{C}) = \vec{C}(\vec{A}\cdot\vec{B})$. This holds if and only if:
+    - $\vec{A}$ and $\vec{C}$ are collinear (parallel, antiparallel, or one of them is $\mathbf{0}$), OR
+    - $\vec{A}$ and $\vec{C}$ are linearly independent and both coefficients vanish: $\vec{B}\cdot\vec{C} = \vec{A}\cdot\vec{B} = 0$, meaning $\vec{B}$ is perpendicular to both $\vec{A}$ and $\vec{C}$ (including the case $\vec{B} = \mathbf{0}$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.7" title="Constructing the Separation Vector" tag="Griffiths 1.7 · Script-r">
+  <div slot="problem">
+    Find the separation vector $\vec{\mathscr{r}}$ from the source point $(2, 8, 7)$ to the field point $(4, 6, 8)$. Determine its magnitude ($\mathscr{r}$), and construct the unit vector $\hat{\mathscr{r}}$.
+  </div>
+
+  <div slot="answer">
+    $\vec{\mathscr{r}} = 2\hat{x} - 2\hat{y} + \hat{z}$, $\mathscr{r} = 3$, and $\hat{\mathscr{r}} = \frac{2}{3}\hat{x} - \frac{2}{3}\hat{y} + \frac{1}{3}\hat{z}$.
+  </div>
+
+  <div slot="solution">
+    With $\vec{r} = 4\hat{x} + 6\hat{y} + 8\hat{z}$ and $\vec{r}' = 2\hat{x} + 8\hat{y} + 7\hat{z}$:
+
+    $$
+    \vec{\mathscr{r}} = \vec{r} - \vec{r}' = (4 - 2)\hat{x} + (6 - 8)\hat{y} + (8 - 7)\hat{z} = 2\hat{x} - 2\hat{y} + \hat{z}
+    $$
+
+    Its magnitude is:
+
+    $$
+    \mathscr{r} = |\vec{\mathscr{r}}| = \sqrt{2^2 + (-2)^2 + 1^2} = \sqrt{4 + 4 + 1} = 3
+    $$
+
+    Dividing by $\mathscr{r}$ yields the unit separation vector:
+
+    $$
+    \hat{\mathscr{r}} = \frac{\vec{\mathscr{r}}}{\mathscr{r}} = \frac{2}{3}\hat{x} - \frac{2}{3}\hat{y} + \frac{1}{3}\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.8" title="Orthogonality of Rotation Matrices" tag="Griffiths 1.8 · Coordinate Transformations">
+  <div slot="problem">
+    1. Prove that the two-dimensional rotation matrix preserves dot products. (That is, show that $\bar{A}_y \bar{B}_y + \bar{A}_z \bar{B}_z = A_y B_y + A_z B_z$.)
+    2. What constraints must the elements ($R_{ij}$) of the three-dimensional rotation matrix satisfy, in order to preserve the length of $\vec{A}$ (for all vectors $\vec{A}$)?
+  </div>
+
+  <div slot="answer">
+    1. Verified algebraically via $\cos^2\phi + \sin^2\phi = 1$.
+    2. $\sum_{i=1}^3 R_{ij} R_{ik} = \delta_{jk}$ (i.e., $R^T R = I$; $R$ is an orthogonal matrix).
+  </div>
+
+  <div slot="solution">
+    1. Using the 2D transformation $\bar{A}_y = \cos\phi\,A_y + \sin\phi\,A_z$ and $\bar{A}_z = -\sin\phi\,A_y + \cos\phi\,A_z$ (and similarly for $\vec{B}$):
+
+    $$
+    \begin{aligned}
+    \bar{A}_y \bar{B}_y + \bar{A}_z \bar{B}_z
+    &= (\cos\phi\,A_y + \sin\phi\,A_z)(\cos\phi\,B_y + \sin\phi\,B_z) \\
+    &\quad + (-\sin\phi\,A_y + \cos\phi\,A_z)(-\sin\phi\,B_y + \cos\phi\,B_z) \\
+    &= (\cos^2\phi + \sin^2\phi)A_y B_y + (\sin\phi\cos\phi - \sin\phi\cos\phi)(A_y B_z + A_z B_y) \\
+    &\quad + (\sin^2\phi + \cos^2\phi)A_z B_z \\
+    &= A_y B_y + A_z B_z \quad\checkmark
+    \end{aligned}
+    $$
+
+    2. For a 3D rotation $\bar{A}_i = \sum_{j=1}^3 R_{ij} A_j$, the squared length is:
+
+    $$
+    \bar{A}_x^2 + \bar{A}_y^2 + \bar{A}_z^2 = \sum_{i=1}^3 \bar{A}_i \bar{A}_i = \sum_{i=1}^3 \left(\sum_{j=1}^3 R_{ij} A_j\right)\left(\sum_{k=1}^3 R_{ik} A_k\right) = \sum_{j,k=1}^3 \left(\sum_{i=1}^3 R_{ij} R_{ik}\right) A_j A_k
+    $$
+
+    This equals $A_x^2 + A_y^2 + A_z^2 = \sum_{j,k=1}^3 \delta_{jk} A_j A_k$ provided:
+
+    $$
+    \sum_{i=1}^3 R_{ij} R_{ik} = \delta_{jk} = \begin{cases} 1 & \text{if } j = k \\ 0 & \text{if } j \neq k \end{cases}
+    $$
+
+    To verify necessity for *all* vectors $\vec{A}$, test $\vec{A} = (1,0,0)$ (giving $\sum_i R_{i1}^2 = 1$, and similarly $\sum_i R_{i2}^2 = \sum_i R_{i3}^2 = 1$) and $\vec{A} = (1,1,0)$ (giving $2 = \sum_i R_{i1}^2 + \sum_i R_{i2}^2 + 2\sum_i R_{i1}R_{i2} \implies \sum_i R_{i1}R_{i2} = 0$, and likewise for all $j\neq k$). In matrix form, $R^T R = I$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.9" title="Rotation Matrix for 120° Around the (1,1,1) Axis" tag="Griffiths 1.9 · Coordinate Transformations">
+  <div slot="problem">
+    Find the transformation matrix $R$ that describes a rotation by $120^\circ$ about an axis from the origin through the point $(1, 1, 1)$. The rotation is clockwise as you look down the axis toward the origin.
+  </div>
+
+  <div slot="answer">
+    $$
+    R = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix}
+    $$
+  </div>
+
+  <div slot="solution">
+    Looking from $(1,1,1)$ back toward the origin in a right-handed Cartesian system, the $z$-axis points upward (12 o'clock), the $y$-axis points down-right (4 o'clock), and the $x$-axis points down-left (8 o'clock).
+
+    Rotating the coordinate axes clockwise by $120^\circ$ when looking toward the origin carries:
+    - the $z$-axis into the $y$-axis (so the new $\bar{z}$-axis coincides with the old $y$-axis),
+    - the $y$-axis into the $x$-axis (so $\bar{y} = x$), and
+    - the $x$-axis into the $z$-axis (so $\bar{x} = z$).
+
+    Therefore, the components of any vector $\vec{A}$ transform as:
+
+    $$
+    \bar{A}_x = A_z, \qquad \bar{A}_y = A_x, \qquad \bar{A}_z = A_y
+    $$
+
+    Writing $\bar{A}_i = \sum_j R_{ij} A_j$ in matrix form yields:
+
+    $$
+    \begin{pmatrix} \bar{A}_x \\ \bar{A}_y \\ \bar{A}_z \end{pmatrix} = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix} \begin{pmatrix} A_x \\ A_y \\ A_z \end{pmatrix} \implies R = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.10" title="Translations, Inversions, Pseudovectors, and Pseudoscalars" tag="Griffiths 1.10 · Parity & Tensors">
+  <div slot="problem">
+    1. How do the components of a vector transform under a translation of coordinates ($\bar{x}=x, \bar{y}=y-a, \bar{z}=z$)?
+    2. How do the components of a vector transform under an inversion of coordinates ($\bar{x}=-x, \bar{y}=-y, \bar{z}=-z$)?
+    3. How do the components of a cross product transform under inversion? [The cross-product of two vectors is properly called a **pseudovector** because of this "anomalous" behavior.] Is the cross product of two pseudovectors a vector, or a pseudovector? Name two pseudovector quantities in classical mechanics.
+    4. How does the scalar triple product of three vectors transform under inversions? (Such an object is called a **pseudoscalar**.)
+  </div>
+
+  <div slot="answer">
+    1. No change: $(\bar{A}_x, \bar{A}_y, \bar{A}_z) = (A_x, A_y, A_z)$.
+    2. All components change sign: $\bar{\vec{A}} = -\vec{A}$, i.e., $(\bar{A}_x, \bar{A}_y, \bar{A}_z) = (-A_x, -A_y, -A_z)$.
+    3. $\vec{A}\times\vec{B} \to +(\vec{A}\times\vec{B})$ (no sign change). The cross product of two pseudovectors is a **pseudovector**. Examples: angular momentum ($\vec{L}=\vec{r}\times\vec{p}$) and torque ($\vec{N}=\vec{r}\times\vec{F}$), as well as angular velocity $\vec{\omega}$ and magnetic field $\vec{B}$.
+    4. $\vec{A}\cdot(\vec{B}\times\vec{C}) \to -\vec{A}\cdot(\vec{B}\times\vec{C})$ (changes sign).
+  </div>
+
+  <div slot="solution">
+    1. **Translation:** Displacement vectors depend only on coordinate *differences* $\Delta x = x_2 - x_1$, $\Delta y = y_2 - y_1$, $\Delta z = z_2 - z_1$. Since $\Delta\bar{y} = (y_2-a)-(y_1-a) = \Delta y$, the components of any vector are completely unchanged:
+
+    $$
+    \bar{A}_x = A_x, \qquad \bar{A}_y = A_y, \qquad \bar{A}_z = A_z
+    $$
+
+    (Note: the position vector $\vec{r}$ is tied to a specific origin $O$; shifting the origin defines a *different* vector from the new origin $\bar{O}$ to $P$, whereas the original arrow from $O$ to $P$ has unchanged components.)
+
+    2. **Inversion:** Since $\Delta\bar{x} = -\Delta x$, $\Delta\bar{y} = -\Delta y$, $\Delta\bar{z} = -\Delta z$, all components of a true (polar) vector flip sign:
+
+    $$
+    \bar{A}_x = -A_x, \qquad \bar{A}_y = -A_y, \qquad \bar{A}_z = -A_z \qquad (\vec{A} \to -\vec{A})
+    $$
+
+    3. **Cross product under inversion:** If $\vec{C} = \vec{A}\times\vec{B}$ with polar vectors $\vec{A},\vec{B}$, then under inversion:
+
+    $$
+    \bar{\vec{C}} = (-\vec{A})\times(-\vec{B}) = +\vec{A}\times\vec{B} = +\vec{C}
+    $$
+
+    (equivalently, $\bar{C}_x = \bar{A}_y\bar{B}_z - \bar{A}_z\bar{B}_y = (-A_y)(-B_z) - (-A_z)(-B_y) = +C_x$). Thus a pseudovector does *not* change sign under inversion.
+    - If $\vec{P}_1$ and $\vec{P}_2$ are two pseudovectors, then $(\vec{P}_1\times\vec{P}_2) \to (+\vec{P}_1)\times(+\vec{P}_2) = +(\vec{P}_1\times\vec{P}_2)$, so the cross product of two pseudovectors is again a **pseudovector**. (By contrast, the cross product of a polar vector and a pseudovector flips sign, yielding a polar vector.)
+    - Two classical-mechanics pseudovectors: **angular momentum** $\vec{L} = \vec{r}\times\vec{p}$ and **torque** $\vec{N} = \vec{r}\times\vec{F}$ (also angular velocity $\vec{\omega}$).
+
+    4. **Scalar triple product under inversion:** For three polar vectors $\vec{A}, \vec{B}, \vec{C}$, let $a = \vec{A}\cdot(\vec{B}\times\vec{C})$. Under inversion:
+
+    $$
+    \bar{a} = (-\vec{A})\cdot\left[(-\vec{B})\times(-\vec{C})\right] = -\vec{A}\cdot(\vec{B}\times\vec{C}) = -a
+    $$
+
+    Hence a **pseudoscalar** reverses sign under spatial inversion (unlike an ordinary scalar, which is invariant).
+  </div>
+</ProblemCard>
+
+</section>

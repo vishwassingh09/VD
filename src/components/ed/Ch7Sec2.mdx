@@ -1,0 +1,1041 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch7-sec2" class="ed-sec-block">
+
+### 7.2 Electromagnetic Induction
+
+<div class="ed-theory-box">
+
+**1. Faraday's Law &amp; Lenz's Law (§7.2.1):** While motional emf arises from the magnetic Lorentz force on moving conductors, Faraday demonstrated that a time-varying magnetic field induces a non-conservative electric field $\vec{E}$ even in stationary circuits. In integral and differential forms, **Faraday's law** is
+
+$$
+\mathcal{E} = \oint_{\mathcal{C}} \vec{E}\cdot d\vec{l} = -\iint_{\mathcal{S}} \frac{\partial\vec{B}}{\partial t}\cdot d\vec{a} = -\frac{d\Phi}{dt}, \qquad \nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}.
+$$
+
+Together with motional emf, any change in magnetic flux $\Phi = \int \vec{B}\cdot d\vec{a}$ through a circuit produces $\mathcal{E} = -d\Phi/dt$ (the universal flux rule). **Lenz's law** encodes the minus sign: induced currents flow in the direction that generates a secondary magnetic flux opposing the *change* in applied flux.
+
+**2. Induced Electric Fields (§7.2.2):** For a purely Faraday-induced electric field (with $\rho = 0$),
+
+$$
+\nabla\cdot\vec{E} = 0, \qquad \nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}.
+$$
+
+This system is mathematically isomorphic to magnetostatics ($\nabla\cdot\vec{B} = 0$, $\nabla\times\vec{B} = \mu_0\vec{J}$) under the mapping $\vec{B} \to \vec{E}$ and $\mu_0\vec{J} \to -\partial\vec{B}/\partial t$. Consequently, we obtain the Faraday–Biot–Savart integral and Amperian-style symmetry rules (valid in the **quasistatic regime**, where spatial scales satisfy $s \ll c\tau$):
+
+$$
+\vec{E}(\vec{r},t) = -\frac{1}{4\pi}\int \frac{(\partial\vec{B}/\partial t)\times\hat{\mathscr{r}}}{\mathscr{r}^2}\,d\tau', \qquad \oint \vec{E}\cdot d\vec{l} = -\frac{d\Phi}{dt}.
+$$
+
+**3. Mutual &amp; Self-Inductance (§7.2.3):** A steady current $I_1$ in loop 1 produces flux $\Phi_2 = M_{21}I_1$ through loop 2. Invoking Stokes' theorem and the magnetostatic vector potential yields the **Neumann formula**,
+
+$$
+M_{21} = M_{12} = M = \frac{\mu_0}{4\pi}\oint_{\mathcal{C}_1}\oint_{\mathcal{C}_2}\frac{d\vec{l}_1\cdot d\vec{l}_2}{\mathscr{r}},
+$$
+
+proving that $M$ is purely geometric and symmetric. Similarly, a single circuit links its own flux via $\Phi = LI$, defining the **self-inductance** $L > 0$ (measured in henries, $\text{H}$). Varying currents generate a mutually induced emf $\mathcal{E}_2 = -M\,dI_1/dt$ and a self-induced **back emf** $\mathcal{E} = -L\,dI/dt$ that opposes changes in current like inertia in mechanics.
+
+**4. Energy in Magnetic Fields (§7.2.4):** The work done against the back emf to establish a current $I$ in an inductor $L$ is $W = \int_0^t (-\mathcal{E})I\,dt' = \frac{1}{2}LI^2$. Rewriting $LI = \oint \vec{A}\cdot d\vec{l}$ and generalizing to volume currents using $\nabla\times\vec{B} = \mu_0\vec{J}$ and integration by parts gives
+
+$$
+W = \frac{1}{2}LI^2 = \frac{1}{2}\int_V (\vec{A}\cdot\vec{J})\,d\tau = \frac{1}{2\mu_0}\left[\int_V B^2\,d\tau - \oint_S (\vec{A}\times\vec{B})\cdot d\vec{a}\right].
+$$
+
+Extending $V$ to all space sends the boundary surface integral to zero, yielding the magnetic field energy density $u_B = B^2/(2\mu_0)$:
+
+$$
+W = \frac{1}{2\mu_0}\int_{\text{all space}} B^2\,d\tau.
+$$
+
+</div>
+
+<ProblemCard num="7.12" title="AC Solenoid and Coaxial Wire Loop" tag="Griffiths 7.12 · Faraday's Law">
+
+<div slot="problem">
+
+A long solenoid of radius $a$ is driven by an alternating current so that the magnetic field inside is $\vec{B}(t) = B_0\cos(\omega t)\,\hat{z}$. A coaxial circular wire loop of radius $a/2$ and resistance $R$ is placed inside the solenoid. Find the induced current $I(t)$ in the loop as a function of time.
+
+</div>
+
+<div slot="answer">
+
+$$
+I(t) = \frac{\pi a^2 \omega B_0}{4R}\sin(\omega t)
+$$
+
+(flowing counterclockwise when viewed from $+z$ for $\sin(\omega t) &gt; 0$).
+
+</div>
+
+<div slot="solution">
+
+Choose the unit normal of the circular loop in the $+\hat{z}$ direction (right-hand rule gives positive circulation along $+\hat{\phi}$, i.e., counterclockwise viewed from $+z$). Since the loop has radius $r = a/2 &lt; a$, the uniform field $\vec{B}(t) = B_0\cos(\omega t)\,\hat{z}$ fills its entire area $\pi(a/2)^2 = \pi a^2/4$. The magnetic flux through the loop is
+
+$$
+\Phi(t) = \int \vec{B}(t)\cdot d\vec{a} = \frac{\pi a^2}{4} B_0\cos(\omega t).
+$$
+
+By Faraday's law, the induced emf is
+
+$$
+\mathcal{E}(t) = -\frac{d\Phi}{dt} = \frac{\pi a^2 \omega B_0}{4}\sin(\omega t).
+$$
+
+Applying Ohm's law gives the induced current:
+
+$$
+I(t) = \frac{\mathcal{E}(t)}{R} = \frac{\pi a^2 \omega B_0}{4R}\sin(\omega t).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.13" title="Square Loop in Nonuniform Time-Varying Field" tag="Griffiths 7.13 · Faraday's Law">
+
+<div slot="problem">
+
+A square wire loop of side $a$ sits in the first quadrant of the $xy$-plane with one corner at the origin. The region contains a nonuniform, time-dependent magnetic field $\vec{B}(y,t) = k y^3 t^2\,\hat{z}$, where $k$ is a constant. Determine the emf induced in the loop.
+
+</div>
+
+<div slot="answer">
+
+$$
+\mathcal{E}(t) = -\frac{1}{2}k t a^5 \quad \left(\text{magnitude } \frac{1}{2}k t a^5, \text{ directed clockwise in the } xy\text{-plane}\right).
+$$
+
+</div>
+
+<div slot="solution">
+
+Taking the area element $d\vec{a} = dx\,dy\,\hat{z}$ over the square $0 \le x \le a$, $0 \le y \le a$, the magnetic flux at time $t$ is
+
+$$
+\Phi(t) = \int_0^a dx \int_0^a k y^3 t^2\,dy = k t^2 a \left[\frac{y^4}{4}\right]_0^a = \frac{1}{4}k t^2 a^5.
+$$
+
+Differentiating with respect to time gives the induced emf:
+
+$$
+\mathcal{E}(t) = -\frac{d\Phi}{dt} = -\frac{1}{2}k t a^5.
+$$
+
+For $k &gt; 0$ and $t &gt; 0$, the upward ($+\hat{z}$) flux is increasing, so by Lenz's law the induced emf drives current clockwise in the $xy$-plane (generating a compensating $-\hat{z}$ flux).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.14" title="Magnet Falling Through an Aluminum Pipe" tag="Griffiths 7.14 · Lenz's Law &amp; Eddy Currents">
+
+<div slot="problem">
+
+In a classic demonstration, a short cylindrical bar magnet dropped down a vertical aluminum pipe about $2\text{ m}$ long takes several seconds to emerge, whereas an identical unmagnetized iron cylinder falls through in a fraction of a second. Explain why the magnet is slowed down.
+
+</div>
+
+<div slot="answer">
+
+Changing magnetic flux induces azimuthal **eddy currents** in the conducting aluminum wall whose magnetic forces oppose the magnet's motion (Lenz's law), bringing it rapidly to a slow terminal speed.
+
+</div>
+
+<div slot="solution">
+
+Aluminum is non-ferromagnetic but a good electrical conductor. View the pipe as a continuous stack of coaxial conducting rings, and suppose for definiteness that the magnet's effective bound surface current $I_b$ circulates counterclockwise when viewed from above, so $\vec{B}$ points upward along its axis near both ends:
+
+1. **Below the magnet:** As the magnet approaches a ring of the pipe below it, the upward magnetic flux through that ring increases. By Lenz's law, an induced eddy current $I_{\text{ind}}$ flows clockwise (producing a downward field to oppose the increase). Because $I_{\text{ind}}$ is opposite to $I_b$, the two currents **repel**, exerting an upward braking force on the magnet.
+2. **Above the magnet:** As the magnet recedes from a ring above it, the upward flux decreases. The induced eddy current flows counterclockwise (parallel to $I_b$) to sustain the flux. Because parallel currents **attract**, this region also pulls **upward** on the magnet.
+3. **Energy viewpoint:** The gravitational potential energy lost by the falling magnet is continuously converted into Joule heat ($I_{\text{ind}}^2 R$) in the resistive aluminum wall. The viscous-like magnetic drag grows linearly with velocity until it balances gravity, resulting in a very small terminal velocity, whereas unmagnetized iron induces no eddy currents and undergoes free fall.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.15" title="Induced Electric Field of a Solenoid" tag="Griffiths 7.15 · Induced Electric Field">
+
+<div slot="problem">
+
+A long solenoid of radius $a$ with $n$ turns per unit length carries a slowly varying current $I(t)$ in the $+\hat{\phi}$ direction. Using the quasistatic approximation, find the magnitude and direction of the induced electric field $\vec{E}(s,t)$ both inside ($s &lt; a$) and outside ($s &gt; a$) the solenoid.
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{E}(s,t) = \begin{cases} -\dfrac{\mu_0 n s}{2}\dfrac{dI}{dt}\,\hat{\phi}, &amp; s &lt; a, \\[8pt] -\dfrac{\mu_0 n a^2}{2s}\dfrac{dI}{dt}\,\hat{\phi}, &amp; s &gt; a. \end{cases}
+$$
+
+</div>
+
+<div slot="solution">
+
+In the quasistatic approximation, the magnetic field of the infinite solenoid is
+
+$$
+\vec{B}(s,t) = \begin{cases} \mu_0 n I(t)\,\hat{z}, &amp; s &lt; a, \\ \vec{0}, &amp; s &gt; a. \end{cases}
+$$
+
+Since $\nabla\cdot\vec{E} = 0$ and $\nabla\times\vec{E} = -\partial\vec{B}/\partial t$ is identical in form to magnetostatics with $\mu_0\vec{J} \leftrightarrow -\partial\vec{B}/\partial t$, cylindrical symmetry dictates that $\vec{E} = E(s,t)\,\hat{\phi}$. We evaluate $\oint \vec{E}\cdot d\vec{l} = -d\Phi/dt$ on a coaxial circular loop of radius $s$ oriented in $+\hat{\phi}$ (normal $+\hat{z}$):
+
+**Inside ($s &lt; a$):** The enclosed flux is $\Phi = \mu_0 n I(t)\pi s^2$, so
+
+$$
+E(2\pi s) = -\mu_0 n \pi s^2 \frac{dI}{dt} \implies \vec{E}(s,t) = -\frac{\mu_0 n s}{2}\frac{dI}{dt}\,\hat{\phi}.
+$$
+
+**Outside ($s &gt; a$):** Only the core out to $a$ carries magnetic field, so $\Phi = \mu_0 n I(t)\pi a^2$, giving
+
+$$
+E(2\pi s) = -\mu_0 n \pi a^2 \frac{dI}{dt} \implies \vec{E}(s,t) = -\frac{\mu_0 n a^2}{2s}\frac{dI}{dt}\,\hat{\phi}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.16" title="Induced Electric Field in a Coaxial Cable" tag="Griffiths 7.16 · Quasistatic Approximation">
+
+<div slot="problem">
+
+An alternating current $I(t) = I_0\cos(\omega t)$ flows along a long straight wire ($+\hat{z}$) and returns along a coaxial conducting tube of radius $a$ ($-\hat{z}$). (a) What is the direction of the induced electric field (radial, circumferential, or longitudinal)? (b) Assuming $\vec{E} \to \vec{0}$ as $s \to \infty$, find $\vec{E}(s,t)$ in the quasistatic approximation.
+
+</div>
+
+<div slot="answer">
+
+(a) **Longitudinal** ($\pm\hat{z}$).
+
+(b)
+$$
+\vec{E}(s,t) = \begin{cases} \dfrac{\mu_0 I_0\omega}{2\pi}\sin(\omega t)\ln\left(\dfrac{a}{s}\right)\,\hat{z}, &amp; s &lt; a, \\[8pt] \vec{0}, &amp; s &gt; a. \end{cases}
+$$
+
+</div>
+
+<div slot="solution">
+
+**(a)** In the quasistatic approximation, Ampère's law gives a purely circumferential magnetic field between the conductors and zero outside:
+
+$$
+\vec{B}(s,t) = \begin{cases} \dfrac{\mu_0 I(t)}{2\pi s}\,\hat{\phi}, &amp; s &lt; a, \\ \vec{0}, &amp; s &gt; a. \end{cases}
+$$
+
+Under the Faraday–Ampère analogy ($\mu_0\vec{J} \leftrightarrow -\partial\vec{B}/\partial t$), the azimuthal source $-\partial\vec{B}/\partial t$ acts like the azimuthal surface current of a solenoid. Just as a solenoid's magnetic field is longitudinal, the induced electric field here is **longitudinal** ($\vec{E} = E_z(s,t)\,\hat{z}$).
+
+**(b)** Outside the outer tube ($s &gt; a$), $\partial\vec{B}/\partial t = 0$. Taking a rectangular loop of axial length $l$ in the $sz$-plane spanning from $s &gt; a$ to $s_2 \to \infty$ gives $E_z(s)l - E_z(\infty)l = 0$; since $E_z(\infty) = 0$, we have $\vec{E} = \vec{0}$ for $s &gt; a$.
+
+For $s &lt; a$, construct a rectangular loop of length $l$ in the $sz$-plane with inner vertical side at $s$ (oriented along $-\hat{z}$) and outer vertical side at $s_2 &gt; a$ (oriented along $+\hat{z}$). By the right-hand rule, the area normal is $+\hat{\phi}$, matching the direction of $\vec{B}$. Since $E_z(s_2) = 0$, the circulation is
+
+Since in cylindrical coordinates $\hat{z}\times\hat{s} = \hat{\phi}$, a rectangular loop whose boundary runs in $+\hat{z}$ at the inner radius $s$ and $-\hat{z}$ at the outer radius $s_2$ has area normal $+\hat{\phi}$. Thus $\oint \vec{E}\cdot d\vec{l} = E_z(s)l - E_z(s_2)l = E_z(s)l$, and the flux in $+\hat{\phi}$ is
+
+$$
+\Phi(t) = \int_s^a \frac{\mu_0 I(t)}{2\pi s'}\,l\,ds' = \frac{\mu_0 I(t)l}{2\pi}\ln\left(\frac{a}{s}\right).
+$$
+
+Applying Faraday's law with $dI/dt = -\omega I_0\sin(\omega t)$ gives
+
+$$
+E_z(s,t)l = -\frac{d\Phi}{dt} = -\frac{\mu_0 l}{2\pi}\ln\left(\frac{a}{s}\right)\frac{dI}{dt} = \frac{\mu_0 I_0\omega l}{2\pi}\sin(\omega t)\ln\left(\frac{a}{s}\right),
+$$
+
+so for $s &lt; a$,
+
+$$
+\vec{E}(s,t) = \frac{\mu_0 I_0\omega}{2\pi}\sin(\omega t)\ln\left(\frac{a}{s}\right)\,\hat{z}.
+$$
+
+*(Note: As $s \to 0$, $E_z$ diverges logarithmically because the inner wire was idealized as infinitesimally thin.)*
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.17" title="Solenoid Linked by a Resistive Loop" tag="Griffiths 7.17 · Induced Current &amp; Total Charge">
+
+<div slot="problem">
+
+A long solenoid of radius $a$ with $n$ turns per unit length is encircled by an external wire loop containing a resistor $R$. (a) If the solenoid current increases at a constant rate $dI/dt = k$ (producing $\vec{B}$ to the right), find the current in the external loop and its direction through the resistor (left or right). (b) If the solenoid carries a constant current $I$ and is pulled completely out of the loop to the left, what total charge passes through the resistor?
+
+</div>
+
+<div slot="answer">
+
+(a) $I_R = \dfrac{\pi a^2 \mu_0 n k}{R}$, passing **to the right** through the resistor (for a single-turn external loop; scaled by $N_w$ if the wire wraps $N_w$ times around the solenoid).
+
+(b) $Q = \dfrac{\pi a^2 \mu_0 n I}{R}$ for a single-turn external loop (or $Q = \dfrac{2\pi a^2 \mu_0 n I}{R}$ if the loop in the diagram wraps twice around the solenoid).
+
+</div>
+
+<div slot="solution">
+
+**(a)** Inside the solenoid, $B = \mu_0 n I$, directed to the right. For a single turn of the external loop encircling the solenoid, the flux is $\Phi = \pi a^2 \mu_0 n I$. When $dI/dt = k$, the induced emf has magnitude
+
+$$
+|\mathcal{E}| = \frac{d\Phi}{dt} = \pi a^2 \mu_0 n \frac{dI}{dt} = \pi a^2 \mu_0 n k,
+$$
+
+so the current through the resistor is
+
+$$
+I_R = \frac{|\mathcal{E}|}{R} = \frac{\pi a^2 \mu_0 n k}{R}.
+$$
+
+Because the rightward flux is increasing, Lenz's law requires the induced current to produce a field to the left inside the solenoid. By the right-hand rule, the current circulates counterclockwise when viewed from the front/right, passing **to the right** through the resistor at the bottom of the loop. *(If the wire in Fig. 7.28 wraps $N_w = 2$ times around the solenoid, the flux and induced current are simply multiplied by $N_w$.)*
+
+**(b)** At any instant while the solenoid is being withdrawn, $I_R(t) = \frac{dQ}{dt} = \frac{1}{R}\left|\frac{d\Phi}{dt}\right|$. Integrating over the entire process as the flux drops from $\Phi_i$ to $0$:
+
+$$
+Q = \int_0^\infty I_R(t)\,dt = \frac{1}{R}\left|\int_{\Phi_i}^0 d\Phi\right| = \frac{\Phi_i}{R}.
+$$
+
+For a single wrap of the external wire, $\Phi_i = \pi a^2 \mu_0 n I$, giving $Q = \dfrac{\pi a^2 \mu_0 n I}{R}$. *(In versions of Fig. 7.28 where the external wire loops twice around the solenoid, $\Phi_i = 2\pi a^2 \mu_0 n I$ and $Q = \dfrac{2\pi a^2 \mu_0 n I}{R}$.)*
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.18" title="Square Loop Near a Cut Straight Wire" tag="Griffiths 7.18 · Induced Charge">
+
+<div slot="problem">
+
+A square loop of side $a$ and resistance $R$ lies coplanar at a distance $s$ from an infinite straight wire carrying current $I$ to the right (so the loop is above the wire). The current is turned off—either abruptly or gradually via $I(t) = (1 - \alpha t)I$ for $0 \le t \le 1/\alpha$ and $0$ for $t &gt; 1/\alpha$. Find the direction of the induced current in the loop and the total charge $Q$ that flows past a given point in the loop.
+
+</div>
+
+<div slot="answer">
+
+Current flows **counterclockwise**, and the total charge passed is
+
+$$
+Q = \frac{\mu_0 I a}{2\pi R}\ln\left(1 + \frac{a}{s}\right).
+$$
+
+</div>
+
+<div slot="solution">
+
+At distance $s'$ above the wire, the magnetic field points out of the page with magnitude $B(s') = \frac{\mu_0 I(t)}{2\pi s'}$. Integrating over the square loop ($s \le s' \le s+a$, width $a$):
+
+$$
+\Phi(t) = \int_s^{s+a} \frac{\mu_0 I(t)}{2\pi s'}\,a\,ds' = \frac{\mu_0 a I(t)}{2\pi}\ln\left(1 + \frac{a}{s}\right).
+$$
+
+Since the outward flux decreases as $I(t)$ drops to zero, Lenz's law implies that the induced current must generate an outward field within the loop, so it flows **counterclockwise**.
+
+Using the linear ramp $I(t) = (1-\alpha t)I$ for $0 \le t \le 1/\alpha$, we have $dI/dt = -\alpha I$, so the induced current during this interval is constant:
+
+$$
+I_{\text{loop}} = \frac{|\mathcal{E}|}{R} = \frac{1}{R}\left|\frac{d\Phi}{dt}\right| = \frac{\alpha \mu_0 I a}{2\pi R}\ln\left(1 + \frac{a}{s}\right).
+$$
+
+Integrating over $0 \le t \le 1/\alpha$ gives the total charge:
+
+$$
+Q = \int_0^{1/\alpha} I_{\text{loop}}\,dt = \frac{\mu_0 I a}{2\pi R}\ln\left(1 + \frac{a}{s}\right),
+$$
+
+which is independent of $\alpha$ (and hence remains valid in the sudden-cut limit $\alpha \to \infty$, since $Q = |\Delta\Phi|/R$ holds for any monotonic turn-off profile).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.19" title="Electric Field on the Axis of a Toroid" tag="Griffiths 7.19 · Faraday–Magnetostatics Analogy">
+
+<div slot="problem">
+
+A tightly wound toroidal coil of $N$ turns has a rectangular cross section with inner radius $a$, outer radius $a+w$, and height $h$, where $w, h \ll a$. The current increases steadily at rate $dI/dt = k$. Find the induced electric field at a distance $z$ along the symmetry axis above the center of the toroid by exploiting the analogy with magnetostatics.
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{E}(z) = \mp\frac{\mu_0 N h w k a}{4\pi(a^2+z^2)^{3/2}}\,\hat{z} \quad \left(\text{magnitude } \frac{\mu_0 N h w k a}{4\pi(a^2+z^2)^{3/2}}\right),
+$$
+
+directed along $-\hat{z}$ if $\vec{B}$ circulates in $+\hat{\phi}$ (and $+\hat{z}$ if $\vec{B}$ circulates in $-\hat{\phi}$).
+
+</div>
+
+<div slot="solution">
+
+Inside the toroid, the quasistatic magnetic field is $\vec{B} = \pm\frac{\mu_0 N I}{2\pi s}\,\hat{\phi}$ (taking $+\hat{\phi}$ for definiteness). The magnetic flux through the toroid's cross section is
+
+$$
+\Phi = \frac{\mu_0 N I}{2\pi}\int_a^{a+w}\frac{h}{s}\,ds = \frac{\mu_0 N I h}{2\pi}\ln\left(1 + \frac{w}{a}\right) \approx \frac{\mu_0 N h w I}{2\pi a},
+$$
+
+since $w \ll a$. Thus, the rate of change of flux is
+
+$$
+\frac{d\Phi}{dt} \approx \frac{\mu_0 N h w k}{2\pi a}.
+$$
+
+Because $w, h \ll a$, the region where $\partial\vec{B}/\partial t \neq 0$ forms a thin circular ring of radius $a$. Under the exact mathematical analogy
+
+$$
+\nabla\cdot\vec{E} = 0, \quad \nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t} \qquad \Longleftrightarrow \qquad \nabla\cdot\vec{B} = 0, \quad \nabla\times\vec{B} = \mu_0\vec{J},
+$$
+
+the induced electric field on the $z$-axis is identical to the on-axis magnetic field of a circular loop of radius $a$ carrying an effective current $\mu_0 I_{\text{eff}} = -\frac{d\Phi}{dt}$ (flowing in $-\hat{\phi}$ when $\vec{B}$ is in $+\hat{\phi}$). Substituting $I \to I_{\text{eff}} = -\frac{1}{\mu_0}\frac{d\Phi}{dt}$ into the Biot–Savart formula for a circular loop, $B_z = \frac{\mu_0 I_{\text{eff}} a^2}{2(a^2+z^2)^{3/2}}$, yields
+
+$$
+\vec{E}(z) = \frac{\mu_0}{2}\left(-\frac{1}{\mu_0}\frac{\mu_0 N h w k}{2\pi a}\right)\frac{a^2}{(a^2+z^2)^{3/2}}\,\hat{z} = -\frac{\mu_0 N h w k a}{4\pi(a^2+z^2)^{3/2}}\,\hat{z}
+$$
+
+(or with the opposite sign if the windings are oriented so that $\vec{B}$ points in $-\hat{\phi}$).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.20" title="Induced Electric Field of a Moving Uniform Magnet" tag="Griffiths 7.20 · Faraday–Ampère Analogy">
+
+<div slot="problem">
+
+In Faraday's Experiment 2 (Fig. 7.21b), a rectangular region of uniform inward magnetic field moves to the left at constant velocity. Identify where $\partial\vec{B}/\partial t$ is nonzero, and use the analogy between Faraday's law and Ampère's law to sketch and describe the induced electric field qualitatively.
+
+</div>
+
+<div slot="answer">
+
+$\partial\vec{B}/\partial t$ is nonzero only along the **left and right vertical edges** of the moving field region; $\vec{E}$ circulates **counterclockwise** around the left edge and **clockwise** around the right edge (pointing upward inside the magnet region).
+
+</div>
+
+<div slot="solution">
+
+Inside the moving magnet and far outside it, $\vec{B}$ is locally constant in time, so $\partial\vec{B}/\partial t = \vec{0}$. As the rectangular region of inward $\vec{B}$ shifts to the left:
+
+- **Left edge:** An observer sitting at the left boundary sees the inward magnetic field suddenly turn *on*, so $\partial\vec{B}/\partial t$ points **into the page**.
+- **Right edge:** An observer at the right boundary sees the inward field suddenly turn *off*, so $\partial\vec{B}/\partial t$ points **out of the page**.
+
+In the Faraday–Ampère analogy ($\nabla\times\vec{E} = -\partial\vec{B}/\partial t \leftrightarrow \nabla\times\vec{B} = \mu_0\vec{J}$), the source $-\partial\vec{B}/\partial t$ acts like two vertical ribbon currents:
+1. At the **left edge**, $-\partial\vec{B}/\partial t$ points **out of the page**, analogous to a current sheet flowing out of the page; by the right-hand rule, $\vec{E}$ curls **counterclockwise** around the left edge.
+2. At the **right edge**, $-\partial\vec{B}/\partial t$ points **into the page**, analogous to a current sheet flowing into the page; $\vec{E}$ curls **clockwise** around the right edge.
+
+Between the two edges (inside the magnet), both contributions point upward, reproducing the exact upward force on charges in a stationary loop whose left side sits inside the right edge of the moving field.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.21" title="Turning Off a Uniform All-Space Magnetic Field" tag="Griffiths 7.21 · Uniqueness &amp; Boundary Conditions">
+
+<div slot="problem">
+
+Suppose a spatially uniform magnetic field $\vec{B} = B_0(t)\,\hat{z}$ fills all space, with a positive charge resting at the origin. Now the magnetic field is switched off, inducing an electric field. In what direction does the charge move?
+
+</div>
+
+<div slot="answer">
+
+**Indeterminate**—without boundary conditions at infinity or a specified physical source geometry, $\vec{E}$ at the origin is not uniquely determined.
+
+</div>
+
+<div slot="solution">
+
+Faraday's law and Gauss's law specify only the curl and divergence of the induced field:
+
+$$
+\nabla\times\vec{E} = -\frac{dB_0}{dt}\,\hat{z}, \qquad \nabla\cdot\vec{E} = 0.
+$$
+
+By Helmholtz's theorem, a vector field is uniquely determined only when its curl and divergence are supplemented by boundary conditions at infinity (typically $\vec{E} \to \vec{0}$ as $r \to \infty$) or spatial symmetry tied to localized sources. Here the source $\partial\vec{B}/\partial t$ extends uniformly to infinity, so $\vec{E}$ cannot vanish at infinity and no point is singled out as an axis of symmetry.
+
+For example, the cylindrically symmetric field centered at the origin,
+
+$$
+\vec{E}_1(x,y) = \frac{1}{2}\frac{dB_0}{dt}(y\,\hat{x} - x\,\hat{y}),
+$$
+
+satisfies both equations and yields $\vec{E}_1(0) = \vec{0}$ (the charge remains stationary). However, adding any constant vector $\vec{E}_0$—which is equivalent to shifting the axis of the infinitely large solenoid generating $B_0(t)$—also satisfies $\nabla\times\vec{E} = -(dB_0/dt)\,\hat{z}$ and $\nabla\cdot\vec{E} = 0$, imparting an arbitrary acceleration to the charge at the origin. Thus, the problem is physically ill-posed until the geometry of the distant currents is specified.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.22" title="Mutual Inductance of Coaxial Circular Loops" tag="Griffiths 7.22 · Mutual Inductance">
+
+<div slot="problem">
+
+A small circular loop of radius $a$ lies a distance $z$ along the common axis above a large circular loop of radius $b$ ($a \ll b$), with both loop planes parallel. (a) Run current $I$ in the large loop and find the flux through the small loop (treating the field across the small loop as uniform). (b) Run current $I$ in the small loop and find the flux through the large loop (treating the small loop as a magnetic dipole). (c) Extract $M_{21}$ and $M_{12}$ and verify reciprocity.
+
+</div>
+
+<div slot="answer">
+
+(a) $\Phi_2 = \dfrac{\mu_0 \pi I a^2 b^2}{2(b^2+z^2)^{3/2}}$.
+
+(b) $\Phi_1 = \dfrac{\mu_0 \pi I a^2 b^2}{2(b^2+z^2)^{3/2}}$.
+
+(c) $M_{12} = M_{21} = \dfrac{\mu_0 \pi a^2 b^2}{2(b^2+z^2)^{3/2}}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** By the Biot–Savart law, a current $I$ in the large loop of radius $b$ produces an on-axis magnetic field at height $z$ given by
+
+$$
+\vec{B}_1(z) = \frac{\mu_0 I}{2}\frac{b^2}{(b^2+z^2)^{3/2}}\,\hat{z}.
+$$
+
+Because $a \ll b$, $\vec{B}_1$ is nearly uniform over the area $\pi a^2$ of the small loop, so the flux through it is
+
+$$
+\Phi_2 = B_1(z)(\pi a^2) = \frac{\mu_0 \pi I a^2 b^2}{2(b^2+z^2)^{3/2}}.
+$$
+
+**(b)** With current $I$ in the small loop, its magnetic dipole moment is $\vec{m} = I\pi a^2\,\hat{z}$. In spherical coordinates centered at the small loop, the dipole field at distance $r$ is
+
+$$
+\vec{B}_2(r,\theta) = \frac{\mu_0 I \pi a^2}{4\pi r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right).
+$$
+
+Choose the spherical cap of radius $r = \sqrt{b^2+z^2}$ centered on the small loop and bounded by the large loop (opening angle $\bar{\theta}$ with $\sin\bar{\theta} = b/r$). On this cap, $d\vec{a} = r^2\sin\theta\,d\theta\,d\phi\,\hat{r}$, so
+
+$$
+\Phi_1 = \int_0^{2\pi} d\phi \int_0^{\bar{\theta}} \frac{\mu_0 I a^2}{4r^3}(2\cos\theta) r^2\sin\theta\,d\theta = \frac{\mu_0 \pi I a^2}{r}\int_0^{\bar{\theta}} \sin\theta\cos\theta\,d\theta = \frac{\mu_0 \pi I a^2}{2r}\sin^2\bar{\theta}.
+$$
+
+Substituting $\sin\bar{\theta} = b/r$ and $r = \sqrt{b^2+z^2}$ gives
+
+$$
+\Phi_1 = \frac{\mu_0 \pi I a^2 b^2}{2(b^2+z^2)^{3/2}}.
+$$
+
+**(c)** Dividing by $I$ yields
+
+$$
+M_{21} = \frac{\Phi_2}{I} = \frac{\mu_0 \pi a^2 b^2}{2(b^2+z^2)^{3/2}} = \frac{\Phi_1}{I} = M_{12},
+$$
+
+explicitly confirming the reciprocity theorem $M_{12} = M_{21}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.23" title="Square Loop Between Two Long Parallel Wires" tag="Griffiths 7.23 · Reciprocity &amp; Mutual Inductance">
+
+<div slot="problem">
+
+A square loop of side $a$ lies symmetrically midway between two long parallel wires separated by $3a$ (representing the two long sides of a very large rectangular loop, with far ends negligible), all in the same plane. A clockwise current $I(t)$ in the square loop increases at a constant rate $dI/dt = k$. Find the emf induced in the large loop and the direction of its induced current.
+
+</div>
+
+<div slot="answer">
+
+$$
+|\mathcal{E}| = \frac{\mu_0 k a \ln 2}{\pi}, \qquad \text{flowing counterclockwise.}
+$$
+
+</div>
+
+<div slot="solution">
+
+Directly computing the flux through the big loop from the square loop is cumbersome, so we exploit $M_{21} = M_{12}$ by imagining a current $I$ flowing around the big loop and computing the flux $\Phi$ it puts through the square.
+
+Since the square of side $a$ is centered between the two wires separated by $3a$, the distance from each long wire to the nearest edge of the square is $(3a - a)/2 = a$, and to the farthest edge is $2a$. Because the currents in the two opposite sides of the big loop flow in opposite directions, their magnetic fields reinforce between the wires, each contributing equally:
+
+$$
+\Phi = 2\int_a^{2a} \frac{\mu_0 I}{2\pi s}\,a\,ds = \frac{\mu_0 I a}{\pi}\ln 2.
+$$
+
+Thus the mutual inductance is $M = \frac{\Phi}{I} = \frac{\mu_0 a \ln 2}{\pi}$, and the magnitude of the emf induced in the big loop when $dI/dt = k$ in the square is
+
+$$
+|\mathcal{E}| = M\frac{dI}{dt} = \frac{\mu_0 k a \ln 2}{\pi}.
+$$
+
+**Direction:** A clockwise current in the square produces magnetic field lines pointing **into** the page inside the square and **out of** the page everywhere outside it. Because the big loop encloses *all* of the inward field lines and only a *portion* of the outward return lines, the net flux through the big loop is **into** the page and increasing. By Lenz's law, the induced current in the big loop generates an outward flux, so it flows **counterclockwise**.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.24" title="Self-Inductance of an Infinite Solenoid" tag="Griffiths 7.24 · Self-Inductance">
+
+<div slot="problem">
+
+Determine the self-inductance per unit length $\mathcal{L} = L/l$ of a long solenoid of radius $R$ carrying $n$ turns per unit length.
+
+</div>
+
+<div slot="answer">
+
+$$
+\mathcal{L} = \mu_0 n^2 \pi R^2.
+$$
+
+</div>
+
+<div slot="solution">
+
+A current $I$ in the solenoid creates a uniform interior magnetic field $B = \mu_0 n I$. The magnetic flux through a single circular turn is
+
+$$
+\Phi_1 = B(\pi R^2) = \mu_0 n \pi R^2 I.
+$$
+
+In a section of length $l$, there are $N = n l$ turns, so the total flux linkage is
+
+$$
+\Phi = N\Phi_1 = \mu_0 n^2 \pi R^2 l I.
+$$
+
+Comparing with $\Phi = L I$ gives $L = \mu_0 n^2 \pi R^2 l$, so the self-inductance per unit length is
+
+$$
+\mathcal{L} = \frac{L}{l} = \mu_0 n^2 \pi R^2.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.25" title="Self-Inductance of a Hairpin Loop" tag="Griffiths 7.25 · Thin-Wire Divergence">
+
+<div slot="problem">
+
+Estimate the self-inductance $L$ of a long "hairpin" loop of length $l$ formed by two parallel straight wires separated by distance $d$ (neglecting end effects). Show what difficulty arises for zero-thickness wires, and obtain a finite expression by giving the wire a small radius $\epsilon \ll d$ while ignoring flux inside the wire itself.
+
+</div>
+
+<div slot="answer">
+
+$$
+L \approx \frac{\mu_0 l}{\pi}\ln\left(\frac{d}{\epsilon}\right)
+$$
+
+(which diverges logarithmically as the wire radius $\epsilon \to 0$).
+
+</div>
+
+<div slot="solution">
+
+For two long antiparallel wires carrying current $I$ separated by $d$, the magnetic field in the plane between them at distance $s$ from one wire is the sum of both contributions:
+
+$$
+B(s) = \frac{\mu_0 I}{2\pi s} + \frac{\mu_0 I}{2\pi (d-s)}.
+$$
+
+If we tried to integrate from $s = 0$ to $s = d$, the $1/s$ singularity at the wire axis would make the flux—and hence $L$—diverge. Keeping a finite wire radius $\epsilon \ll d$ and integrating over the exterior region $\epsilon \le s \le d - \epsilon$:
+
+$$
+\Phi = l\int_\epsilon^{d-\epsilon}\left(\frac{\mu_0 I}{2\pi s} + \frac{\mu_0 I}{2\pi (d-s)}\right)ds = 2\cdot\frac{\mu_0 I l}{2\pi}\int_\epsilon^{d-\epsilon}\frac{ds}{s} = \frac{\mu_0 I l}{\pi}\ln\left(\frac{d-\epsilon}{\epsilon}\right) \approx \frac{\mu_0 I l}{\pi}\ln\left(\frac{d}{\epsilon}\right).
+$$
+
+Dividing by $I$ yields
+
+$$
+L \approx \frac{\mu_0 l}{\pi}\ln\left(\frac{d}{\epsilon}\right).
+$$
+
+Unlike mutual inductance of separated filaments, self-inductance depends critically on the finite cross-sectional size $\epsilon$ of the conductor.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.26" title="Toroidal Pickup Coil Around an AC Wire" tag="Griffiths 7.26 · Mutual &amp; Self-Induction">
+
+<div slot="problem">
+
+An alternating current $I(t) = I_0\cos(\omega t)$ with amplitude $I_0 = 0.5\text{ A}$ and frequency $60\text{ Hz}$ flows down a straight wire along the symmetry axis of a rectangular toroid (inner radius $a = 1\text{ cm}$, outer radius $b = 2\text{ cm}$, height $h = 1\text{ cm}$, $N = 1000$ turns) connected to a $R = 500\,\Omega$ resistor. (a) In the quasistatic approximation, find the emf induced in the toroid and the resistor current $I_R(t)$. (b) Calculate the back emf in the coil due to $I_R(t)$ and the ratio of its amplitude to that of the direct emf in (a).
+
+</div>
+
+<div slot="answer">
+
+(a) $\mathcal{E}(t) = 2.61\times 10^{-4}\sin(\omega t)\text{ V}$, $I_R(t) = 5.23\times 10^{-7}\sin(\omega t)\text{ A}$ (with $\omega = 120\pi \approx 377\text{ s}^{-1}$).
+
+(b) $\mathcal{E}_b(t) = -2.73\times 10^{-7}\cos(\omega t)\text{ V}$; amplitude ratio $\dfrac{\mathcal{E}_{b,0}}{\mathcal{E}_0} = \dfrac{\mu_0 N^2 h \omega}{2\pi R}\ln\left(\dfrac{b}{a}\right) \approx 1.05\times 10^{-3}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** In the quasistatic approximation, the straight wire produces $\vec{B}(s,t) = \frac{\mu_0 I(t)}{2\pi s}\,\hat{\phi}$. The flux through one turn of the toroid is
+
+$$
+\Phi_1 = \frac{\mu_0 I(t)}{2\pi}\int_a^b \frac{h}{s}\,ds = \frac{\mu_0 h I(t)}{2\pi}\ln\left(\frac{b}{a}\right),
+$$
+
+so the total flux linkage across $N$ turns is $\Phi(t) = \frac{\mu_0 N h}{2\pi}\ln\left(\frac{b}{a}\right)I_0\cos(\omega t)$. With $\omega = 2\pi(60) = 120\pi \approx 377\text{ rad/s}$, the induced emf is
+
+$$
+\mathcal{E}(t) = -\frac{d\Phi}{dt} = \frac{\mu_0 N h \omega I_0}{2\pi}\ln\left(\frac{b}{a}\right)\sin(\omega t).
+$$
+
+Substituting $\mu_0/(2\pi) = 2\times 10^{-7}\text{ T}\cdot\text{m/A}$, $N = 10^3$, $h = 10^{-2}\text{ m}$, $b/a = 2$, $I_0 = 0.5\text{ A}$, and $\omega = 120\pi\text{ s}^{-1}$:
+
+$$
+\mathcal{E}_0 = (2\times 10^{-7})(10^3)(10^{-2})(\ln 2)(0.5)(120\pi) = 2.613\times 10^{-4}\text{ V} \approx 2.61\times 10^{-4}\text{ V}.
+$$
+
+Neglecting self-inductance at lowest order, the current in the $500\,\Omega$ resistor is
+
+$$
+I_R(t) = \frac{\mathcal{E}(t)}{R} = \frac{2.613\times 10^{-4}}{500}\sin(\omega t) \approx 5.23\times 10^{-7}\sin(\omega t)\text{ A}.
+$$
+
+**(b)** From Eq. (7.28), the self-inductance of the toroid is
+
+$$
+L = \frac{\mu_0 N^2 h}{2\pi}\ln\left(\frac{b}{a}\right) = (2\times 10^{-7})(10^6)(10^{-2})\ln 2 = 1.386\times 10^{-3}\text{ H} \approx 1.39\text{ mH}.
+$$
+
+The back emf produced by $I_R(t)$ is
+
+$$
+\mathcal{E}_b(t) = -L\frac{dI_R}{dt} = -L\omega I_{R,0}\cos(\omega t) = -(1.386\times 10^{-3})(377)(5.226\times 10^{-7})\cos(\omega t) \approx -2.73\times 10^{-7}\cos(\omega t)\text{ V}.
+$$
+
+The ratio of amplitudes is
+
+$$
+\frac{\mathcal{E}_{b,0}}{\mathcal{E}_0} = \frac{L\omega}{R} = \frac{\mu_0 N^2 h \omega}{2\pi R}\ln\left(\frac{b}{a}\right) \approx \frac{(1.386\times 10^{-3})(377)}{500} = 1.05\times 10^{-3},
+$$
+
+confirming that neglecting the back emf in part (a) is accurate to $0.1\%$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.27" title="LC and RLC Circuit Oscillations" tag="Griffiths 7.27 · LC Oscillations">
+
+<div slot="problem">
+
+A capacitor $C$ is charged to voltage $V$ and connected across an inductor $L$ via a switch $S$ closed at $t = 0$. Find the current $I(t)$ in the circuit. How does the result change if a resistor $R$ is placed in series with $L$ and $C$?
+
+</div>
+
+<div slot="answer">
+
+For the ideal $LC$ circuit, $I(t) = V\sqrt{\dfrac{C}{L}}\sin\left(\dfrac{t}{\sqrt{LC}}\right)$. With a series resistor $R$, the oscillations become exponentially damped according to $L\dfrac{d^2Q}{dt^2} + R\dfrac{dQ}{dt} + \dfrac{1}{C}Q = 0$.
+
+</div>
+
+<div slot="solution">
+
+Let $Q(t)$ be the charge on the positive capacitor plate, and choose $I(t) = -dQ/dt$ as the current flowing out of that plate through the inductor. The back emf $-L\,dI/dt$ balances the capacitor voltage $Q/C$:
+
+$$
+\frac{Q}{C} - L\frac{dI}{dt} = 0 \implies L\frac{d^2 Q}{dt^2} + \frac{1}{C}Q = 0,
+$$
+
+which is simple harmonic motion with angular frequency $\omega = 1/\sqrt{LC}$. The general solution is $Q(t) = A\cos(\omega t) + B\sin(\omega t)$. Applying the initial conditions $Q(0) = CV$ and $I(0) = -Q'(0) = 0$ gives $A = CV$ and $B = 0$, so
+
+$$
+Q(t) = CV\cos(\omega t), \qquad I(t) = -\frac{dQ}{dt} = CV\omega\sin(\omega t) = V\sqrt{\frac{C}{L}}\sin\left(\frac{t}{\sqrt{LC}}\right).
+$$
+
+**With a series resistor $R$:** Kirchhoff's loop rule becomes $\frac{Q}{C} - L\frac{dI}{dt} = I R$, yielding the damped harmonic oscillator equation
+
+$$
+L\frac{d^2 Q}{dt^2} + R\frac{dQ}{dt} + \frac{1}{C}Q = 0.
+$$
+
+Depending on the damping ratio $\gamma/\omega$ (with $\gamma = R/2L$), the circuit exhibits underdamped oscillation ($R &lt; 2\sqrt{L/C}$, $I(t) = \frac{V}{L\omega'}e^{-\gamma t}\sin(\omega' t)$ where $\omega' = \sqrt{\omega^2 - \gamma^2}$), critical damping ($R = 2\sqrt{L/C}$), or overdamping ($R &gt; 2\sqrt{L/C}$).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.28" title="Magnetic Energy of a Solenoid Four Ways" tag="Griffiths 7.28 · Magnetic Energy">
+
+<div slot="problem">
+
+Calculate the magnetic energy stored in a section of length $l$ of a long solenoid (radius $R$, current $I$, $n$ turns per unit length) by four methods: (a) using $W = \frac{1}{2}LI^2$ (with $L$ from Problem 7.24); (b) using $W = \frac{1}{2}\oint (\vec{A}\cdot\vec{I})\,dl$; (c) using $W = \frac{1}{2\mu_0}\int_{\text{all space}} B^2\,d\tau$; and (d) using $W = \frac{1}{2\mu_0}\left[\int_V B^2\,d\tau - \oint_S (\vec{A}\times\vec{B})\cdot d\vec{a}\right]$ over the cylindrical shell volume $a &lt; s &lt; b$ (with $a &lt; R &lt; b$).
+
+</div>
+
+<div slot="answer">
+
+All four methods yield
+
+$$
+W = \frac{1}{2}\mu_0 n^2 \pi R^2 l I^2.
+$$
+
+</div>
+
+<div slot="solution">
+
+**(a)** From Problem 7.24, $L = \mu_0 n^2 \pi R^2 l$, so
+
+$$
+W = \frac{1}{2}LI^2 = \frac{1}{2}\mu_0 n^2 \pi R^2 l I^2.
+$$
+
+**(b)** From magnetostatics (Ex. 5.12), the vector potential at the solenoid surface $s = R$ is $\vec{A}(R) = \frac{1}{2}\mu_0 n I R\,\hat{\phi}$. For a single turn of circumference $2\pi R$, $\frac{1}{2}\oint (\vec{A}\cdot\vec{I})\,dl = \frac{1}{2}\left(\frac{1}{2}\mu_0 n I R\right) I (2\pi R) = \frac{1}{2}\mu_0 n \pi R^2 I^2$. Multiplying by the $nl$ turns in length $l$ gives
+
+$$
+W = \frac{1}{2}\mu_0 n^2 \pi R^2 l I^2.
+$$
+
+**(c)** Since $B = \mu_0 n I$ inside ($s &lt; R$) and $B = 0$ outside ($s &gt; R$), integrating $B^2/(2\mu_0)$ over the interior cylinder of volume $\pi R^2 l$ gives
+
+$$
+W = \frac{1}{2\mu_0}\int B^2\,d\tau = \frac{1}{2\mu_0}(\mu_0 n I)^2 (\pi R^2 l) = \frac{1}{2}\mu_0 n^2 \pi R^2 l I^2.
+$$
+
+**(d)** Consider the annular cylindrical volume $V$ bounded by $a &lt; s &lt; b$ ($a &lt; R &lt; b$) and $0 &lt; z &lt; l$:
+1. The volume integral only receives contributions from $a &lt; s &lt; R$:
+$$
+\int_V B^2\,d\tau = (\mu_0 n I)^2 \pi (R^2 - a^2)l.
+$$
+2. For the boundary integral $\oint_S (\vec{A}\times\vec{B})\cdot d\vec{a}$: at $s = b &gt; R$, $\vec{B} = \vec{0}$; on the flat ends $z = 0, l$, $\vec{A}\times\vec{B} \propto \hat{\phi}\times\hat{z} = \hat{s}$ is perpendicular to $d\vec{a} = \pm\hat{z}\,da$. On the inner wall $s = a &lt; R$, $\vec{A}(a) = \frac{1}{2}\mu_0 n I a\,\hat{\phi}$ and $\vec{B} = \mu_0 n I\,\hat{z}$, while the outward normal from the shell $a &lt; s &lt; b$ points radially *inward*, $d\vec{a} = -a\,d\phi\,dz\,\hat{s}$. Hence
+$$
+-\oint_S (\vec{A}\times\vec{B})\cdot d\vec{a} = -\int_0^l dz \int_0^{2\pi} \left(\frac{1}{2}\mu_0^2 n^2 I^2 a\,\hat{s}\right)\cdot(-\hat{s}\,a\,d\phi) = \mu_0^2 n^2 I^2 \pi a^2 l.
+$$
+
+Combining both terms:
+
+$$
+W = \frac{1}{2\mu_0}\left[\mu_0^2 n^2 I^2 \pi(R^2 - a^2)l + \mu_0^2 n^2 I^2 \pi a^2 l\right] = \frac{1}{2}\mu_0 n^2 \pi R^2 l I^2,
+$$
+
+recovering the exact same energy independently of $a$ and $b$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.29" title="Magnetic Energy and Inductance of a Toroid" tag="Griffiths 7.29 · Magnetic Energy">
+
+<div slot="problem">
+
+Calculate the magnetic energy stored in the rectangular toroidal coil of Example 7.11 (inner radius $a$, outer radius $b$, height $h$, $N$ total turns, current $I$) using $W = \frac{1}{2\mu_0}\int B^2\,d\tau$, and use your result to verify Eq. (7.28) for the self-inductance $L$.
+
+</div>
+
+<div slot="answer">
+
+$$
+W = \frac{\mu_0 N^2 I^2 h}{4\pi}\ln\left(\frac{b}{a}\right), \qquad L = \frac{\mu_0 N^2 h}{2\pi}\ln\left(\frac{b}{a}\right).
+$$
+
+</div>
+
+<div slot="solution">
+
+Inside the toroid ($a &lt; s &lt; b$, $0 &lt; z &lt; h$), the magnetic field is $B(s) = \frac{\mu_0 N I}{2\pi s}$, and outside it is zero. Integrating the magnetic energy density over the toroidal volume ($d\tau = h s\,ds\,d\phi$):
+
+$$
+W = \frac{1}{2\mu_0}\int_0^{2\pi} d\phi \int_a^b \left(\frac{\mu_0 N I}{2\pi s}\right)^2 h s\,ds = \frac{\mu_0 N^2 I^2 h}{4\pi}\int_a^b \frac{ds}{s} = \frac{\mu_0 N^2 I^2 h}{4\pi}\ln\left(\frac{b}{a}\right).
+$$
+
+Equating this to $W = \frac{1}{2}LI^2$ immediately yields
+
+$$
+L = \frac{2W}{I^2} = \frac{\mu_0 N^2 h}{2\pi}\ln\left(\frac{b}{a}\right),
+$$
+
+in exact agreement with Eq. (7.28) of Example 7.11.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.30" title="Internal Self-Inductance of a Solid Coaxial Cable" tag="Griffiths 7.30 · Energy Method for Inductance">
+
+<div slot="problem">
+
+A long cylindrical cable of radius $R$ carries a total current $I$ uniformly distributed across its circular cross section ($s &lt; R$), returning along a thin cylindrical sheath at $s = R$ separated by a negligible insulating layer. Find the self-inductance per unit length $\mathcal{L} = L/l$.
+
+</div>
+
+<div slot="answer">
+
+$$
+\mathcal{L} = \frac{\mu_0}{8\pi} \quad (\text{independent of } R).
+$$
+
+</div>
+
+<div slot="solution">
+
+Because different current filaments inside the solid core enclose different amounts of flux, the energy method $W = \frac{1}{2}LI^2$ is far simpler than direct flux linkage. By Ampère's law on a circle of radius $s &lt; R$, $B(2\pi s) = \mu_0 I (s^2/R^2)$, while for $s &gt; R$ the net enclosed current is zero:
+
+$$
+\vec{B}(s) = \begin{cases} \dfrac{\mu_0 I s}{2\pi R^2}\,\hat{\phi}, &amp; s &lt; R, \\ \vec{0}, &amp; s &gt; R. \end{cases}
+$$
+
+The magnetic energy stored in a section of length $l$ is
+
+$$
+W = \frac{1}{2\mu_0}\int_0^R \left(\frac{\mu_0 I s}{2\pi R^2}\right)^2 (2\pi s l\,ds) = \frac{\mu_0 I^2 l}{4\pi R^4}\int_0^R s^3\,ds = \frac{\mu_0 I^2 l}{16\pi}.
+$$
+
+Setting $W = \frac{1}{2}L I^2$ gives $L = \frac{\mu_0 l}{8\pi}$, so the self-inductance per unit length is
+
+$$
+\mathcal{L} = \frac{L}{l} = \frac{\mu_0}{8\pi},
+$$
+
+remarkably independent of the cable radius $R$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.31" title="RL Discharge and Energy Conservation" tag="Griffiths 7.31 · Energy Dissipation">
+
+<div slot="problem">
+
+A series circuit containing a battery $\mathcal{E}_0$, resistor $R$, and inductor $L$ has been connected for a long time when, at $t = 0$, a switch instantaneously bypasses the battery (shorting $L$ directly across $R$). (a) Find the current $I(t)$ for $t \ge 0$. (b) Compute the total energy delivered to the resistor. (c) Show that this equals the initial magnetic energy stored in the inductor.
+
+</div>
+
+<div slot="answer">
+
+(a) $I(t) = \dfrac{\mathcal{E}_0}{R}e^{-Rt/L}$.
+
+(b) $W_R = \dfrac{1}{2}L\left(\dfrac{\mathcal{E}_0}{R}\right)^2$.
+
+(c) Matches $W_0 = \dfrac{1}{2}LI_0^2 = \dfrac{1}{2}L\left(\dfrac{\mathcal{E}_0}{R}\right)^2$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** In steady state prior to $t = 0$, $dI/dt = 0$, so the initial current is $I_0 = \mathcal{E}_0/R$. For $t &gt; 0$, the battery is out of the loop and the back emf drives the current through $R$:
+
+$$
+-L\frac{dI}{dt} = I R \implies \frac{dI}{dt} = -\frac{R}{L}I.
+$$
+
+Integrating with $I(0) = I_0 = \mathcal{E}_0/R$ gives
+
+$$
+I(t) = \frac{\mathcal{E}_0}{R}e^{-Rt/L}.
+$$
+
+**(b)** The instantaneous Joule power dissipated in the resistor is $P(t) = I^2(t)R = \frac{\mathcal{E}_0^2}{R}e^{-2Rt/L}$. Integrating over all $t \ge 0$:
+
+$$
+W_R = \int_0^\infty P(t)\,dt = \frac{\mathcal{E}_0^2}{R}\int_0^\infty e^{-2Rt/L}\,dt = \frac{\mathcal{E}_0^2}{R}\left(\frac{L}{2R}\right) = \frac{1}{2}L\left(\frac{\mathcal{E}_0}{R}\right)^2.
+$$
+
+**(c)** At $t = 0$, the magnetic energy stored in the inductor was
+
+$$
+W_0 = \frac{1}{2}L I_0^2 = \frac{1}{2}L\left(\frac{\mathcal{E}_0}{R}\right)^2 = W_R,
+$$
+
+verifying that all latent magnetic energy is converted into thermal energy in $R$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.32" title="Mutual Inductance and Interaction Energy of Two Dipoles" tag="Griffiths 7.32 · Dipole Mutual Inductance">
+
+<div slot="problem">
+
+Two tiny wire loops with vector areas $\vec{a}_1$ and $\vec{a}_2$ are separated by a displacement $\vec{r}$ much larger than their sizes. (a) Find their mutual inductance $M$ by treating them as magnetic dipoles, and check consistency with $M_{12} = M_{21}$. (b) Suppose a steady current $I_1$ is maintained in loop 1 while current in loop 2 is ramped up from $0$ to $I_2$. Calculate the work done against the mutually induced emf to keep $I_1$ constant, and comment on the comparison with Eq. (6.35).
+
+</div>
+
+<div slot="answer">
+
+(a) $M = \dfrac{\mu_0}{4\pi r^3}\left[3(\vec{a}_1\cdot\hat{r})(\vec{a}_2\cdot\hat{r}) - \vec{a}_1\cdot\vec{a}_2\right]$, manifestly symmetric in $1 \leftrightarrow 2$.
+
+(b) $W_1 = M I_1 I_2 = \dfrac{\mu_0}{4\pi r^3}\left[3(\vec{m}_1\cdot\hat{r})(\vec{m}_2\cdot\hat{r}) - \vec{m}_1\cdot\vec{m}_2\right]$—opposite in sign to Eq. (6.35).
+
+</div>
+
+<div slot="solution">
+
+**(a)** With current $I_1$ in loop 1, its magnetic dipole moment is $\vec{m}_1 = I_1\vec{a}_1$. By Eq. (5.88), the dipole magnetic field produced at loop 2 (position $\vec{r}$ relative to loop 1) is
+
+$$
+\vec{B}_1(\vec{r}) = \frac{\mu_0 I_1}{4\pi r^3}\left[3(\vec{a}_1\cdot\hat{r})\hat{r} - \vec{a}_1\right].
+$$
+
+Because loop 2 is tiny, the flux through it is $\Phi_2 = \vec{B}_1(\vec{r})\cdot\vec{a}_2 = M I_1$, giving
+
+$$
+M = \frac{\mu_0}{4\pi r^3}\left[3(\vec{a}_1\cdot\hat{r})(\vec{a}_2\cdot\hat{r}) - \vec{a}_1\cdot\vec{a}_2\right].
+$$
+
+Interchanging $1 \leftrightarrow 2$ reverses $\hat{r} \to -\hat{r}$, leaving the product $(\vec{a}_1\cdot\hat{r})(\vec{a}_2\cdot\hat{r})$ unchanged, so $M_{12} = M_{21}$ holds identically.
+
+**(b)** While $I_2(t)$ increases from $0$ to $I_2$, the mutually induced emf in loop 1 is $\mathcal{E}_1 = -M\frac{dI_2}{dt}$. To keep $I_1$ constant, the power supply in loop 1 must do work at rate $\frac{dW_1}{dt} = -\mathcal{E}_1 I_1 = M I_1\frac{dI_2}{dt}$. Integrating over the ramp gives
+
+$$
+W_1 = M I_1 I_2 = \frac{\mu_0}{4\pi r^3}\left[3(\vec{m}_1\cdot\hat{r})(\vec{m}_2\cdot\hat{r}) - \vec{m}_1\cdot\vec{m}_2\right],
+$$
+
+where $\vec{m}_2 = I_2\vec{a}_2$.
+
+**Comparison with Eq. (6.35):** This interaction energy has the **opposite sign** to $U_{\text{dip}} = -\frac{\mu_0}{4\pi r^3}[3(\vec{m}_1\cdot\hat{r})(\vec{m}_2\cdot\hat{r}) - \vec{m}_1\cdot\vec{m}_2]$. In Chapter 6 (Prob. 6.21 / Eq. 6.35), $U_{\text{dip}}$ measures only the *mechanical* work required to bring fixed-magnitude dipoles into position and orientation, ignoring the electrical work supplied by the batteries to maintain constant currents against Faraday induction. When the full electromagnetic energy—including the battery work needed to hold the currents steady—is accounted for, the interaction energy flips sign to $+M I_1 I_2$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.33" title="Work Required to Spin Up a Charged Cylinder" tag="Griffiths 7.33 · Mechanical vs. Magnetic Energy">
+
+<div slot="problem">
+
+An infinite cylinder of radius $R$ carries a uniform surface charge $\sigma$ and is spun up from rest about its axis to a final angular velocity $\omega_f$. Compute the work required per unit length in two ways and compare: (a) find $\vec{B}$ and the induced $\vec{E}$ (in the quasistatic approximation) inside and outside in terms of $\omega$, $\dot{\omega}$, and $s$, then compute the external torque and integrate $W = \int N\,d\phi$; (b) evaluate the energy stored in the final magnetic field using $W = \frac{1}{2\mu_0}\int B^2\,d\tau$.
+
+</div>
+
+<div slot="answer">
+
+Both methods yield
+
+$$
+\frac{W}{l} = \frac{1}{2}\pi \mu_0 \sigma^2 R^4 \omega_f^2.
+$$
+
+</div>
+
+<div slot="solution">
+
+**(a)** Rotating at angular velocity $\omega(t)$, the cylinder carries a uniform surface current $\vec{K} = \sigma v\,\hat{\phi} = \sigma\omega R\,\hat{\phi}$, equivalent to an infinite solenoid:
+
+$$
+\vec{B}(s,t) = \begin{cases} \mu_0\sigma\omega(t)R\,\hat{z}, &amp; s &lt; R, \\ \vec{0}, &amp; s &gt; R. \end{cases}
+$$
+
+Applying Faraday's law on coaxial circles of radius $s$ (as in Example 7.7) yields the induced electric field:
+
+$$
+\vec{E}(s,t) = \begin{cases} -\dfrac{1}{2}\mu_0\sigma R s \dot{\omega}\,\hat{\phi}, &amp; s &lt; R, \\[8pt] -\dfrac{1}{2}\mu_0\sigma \dfrac{R^3}{s}\dot{\omega}\,\hat{\phi}, &amp; s &gt; R. \end{cases}
+$$
+
+At the surface $s = R$, $\vec{E}(R,t) = -\frac{1}{2}\mu_0\sigma R^2\dot{\omega}\,\hat{\phi}$. A segment of length $l$ carries total charge $q = 2\pi R l\sigma$, so the electromagnetic back-torque exerted *by the field* on the cylinder is
+
+$$
+\vec{N}_{\text{field}} = \vec{r}\times(q\vec{E}) = R(2\pi R l\sigma)\left(-\frac{1}{2}\mu_0\sigma R^2\dot{\omega}\right)\hat{z} = -\pi\mu_0\sigma^2 R^4 l \dot{\omega}\,\hat{z}.
+$$
+
+To spin up the cylinder (ignoring its mechanical mass), the external agent must supply torque $N_{\text{ext}} = -N_{\text{field}} = \pi\mu_0\sigma^2 R^4 l \dot{\omega}$. Using $d\phi = \omega\,dt$ and $\dot{\omega}\,dt = d\omega$, the work done per unit length is
+
+$$
+\frac{W}{l} = \frac{1}{l}\int N_{\text{ext}}\,d\phi = \pi\mu_0\sigma^2 R^4 \int_0^{\omega_f}\omega\,d\omega = \frac{1}{2}\pi\mu_0\sigma^2 R^4 \omega_f^2.
+$$
+
+**(b)** At the final angular velocity $\omega_f$, the magnetic field is $B_f = \mu_0\sigma\omega_f R$ inside the cylinder ($s &lt; R$) and zero outside. The magnetic energy stored per unit length is therefore
+
+$$
+\frac{W}{l} = \frac{1}{2\mu_0} B_f^2 (\pi R^2) = \frac{1}{2\mu_0}(\mu_0\sigma\omega_f R)^2(\pi R^2) = \frac{1}{2}\pi\mu_0\sigma^2 R^4\omega_f^2,
+$$
+
+matching part (a) identically.
+
+</div>
+
+</ProblemCard>
+
+</section>

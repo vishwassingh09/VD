@@ -1,0 +1,475 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch8-sec2" class="ed-sec-block">
+
+### 8.2 Momentum
+
+<div class="ed-theory-box">
+
+**Breakdown of Newton's Third Law and Field Momentum (§8.2.1):** In electrodynamics, Newton's third law fails for interacting moving charges. For instance, two identical point charges moving along perpendicular axes ($q_1$ along $x$ and $q_2$ along $y$) experience magnetic forces that are not collinear and not opposite ($\vec{F}_{12} \neq -\vec{F}_{21}$). Consequently, the mechanical momentum of the particles alone is not conserved; momentum conservation is restored only when we account for the momentum carried by the electromagnetic fields themselves.
+
+**Maxwell's Stress Tensor (§8.2.2):** Eliminating $\rho$ and $\vec{J}$ from the Lorentz force density $\vec{f} = \rho\vec{E} + \vec{J}\times\vec{B}$ via Gauss's law, Ampère-Maxwell's law, and Faraday's law casts the force per unit volume into
+
+$$
+\vec{f} = \nabla\cdot\overleftrightarrow{T} - \epsilon_0\mu_0\frac{\partial\vec{S}}{\partial t},
+$$
+
+where $\vec{S} = \frac{1}{\mu_0}(\vec{E}\times\vec{B})$ is the Poynting vector and $\overleftrightarrow{T}$ is the symmetric **Maxwell stress tensor**:
+
+$$
+T_{ij} \equiv \epsilon_0\left(E_i E_j - \frac{1}{2}\delta_{ij}E^2\right) + \frac{1}{\mu_0}\left(B_i B_j - \frac{1}{2}\delta_{ij}B^2\right),
+$$
+
+with $(\nabla\cdot\overleftrightarrow{T})_j = \sum_{i} \partial_i T_{ij}$. Physically, $T_{ij}$ is the electromagnetic force per unit area (stress) in the $i$-direction acting on a surface element oriented in the $j$-direction—diagonal components ($T_{xx}, T_{yy}, T_{zz}$) represent pressures/tensions, while off-diagonal components ($T_{xy}, T_{xz}, \dots$) represent shears. Integrating $\vec{f}$ over a volume $\mathcal{V}$ bounded by $\mathcal{S}$ gives the total electromagnetic force on the charges inside:
+
+$$
+\vec{F} = \oint_{\mathcal{S}} \overleftrightarrow{T}\cdot d\vec{a} - \epsilon_0\mu_0\frac{d}{dt}\int_{\mathcal{V}} \vec{S}\,d\tau,
+$$
+
+where $(\overleftrightarrow{T}\cdot d\vec{a})_j = \sum_i T_{ji}\,da_i = \sum_i T_{ij}\,da_i$. In static configurations ($\partial/\partial t = 0$), the volume integral vanishes and the force reduces purely to the boundary surface integral $\vec{F} = \oint_{\mathcal{S}} \overleftrightarrow{T}\cdot d\vec{a}$.
+
+**Conservation of Momentum (§8.2.3):** Setting $\vec{F} = d\vec{p}_{\text{mech}}/dt$ yields the integral statement of momentum conservation:
+
+$$
+\frac{d\vec{p}_{\text{mech}}}{dt} + \frac{d\vec{p}_{\text{em}}}{dt} = \oint_{\mathcal{S}} \overleftrightarrow{T}\cdot d\vec{a},
+$$
+
+where the **electromagnetic momentum** stored in $\mathcal{V}$ and its **momentum density** $\vec{g}$ are
+
+$$
+\vec{p}_{\text{em}} = \int_{\mathcal{V}} \vec{g}\,d\tau, \qquad \vec{g} = \epsilon_0(\vec{E}\times\vec{B}) = \epsilon_0\mu_0\vec{S} = \frac{\vec{S}}{c^2},
+$$
+
+and $-\overleftrightarrow{T}$ is the **momentum flux density** ($-\overleftrightarrow{T}\cdot d\vec{a}$ is the electromagnetic momentum per unit time crossing $d\vec{a}$ in the direction of $d\vec{a}$). In source-free space ($\vec{f} = \vec{0}$), this becomes the local continuity equation $\partial\vec{g}/\partial t = \nabla\cdot\overleftrightarrow{T}$.
+
+**Electromagnetic Angular Momentum (§8.2.4):** The fields also carry an angular momentum density
+
+$$
+\vec{\ell} = \vec{r}\times\vec{g} = \epsilon_0\bigl[\vec{r}\times(\vec{E}\times\vec{B})\bigr], \qquad \vec{L}_{\text{em}} = \int_{\mathcal{V}} \vec{\ell}\,d\tau.
+$$
+
+Even purely static field configurations harbor linear and angular momentum whenever $\vec{E}\times\vec{B} \neq \vec{0}$; when the fields are turned off, the stored momentum and angular momentum are transferred to the matter via Faraday induction or Lorentz forces, preserving total conservation.
+
+</div>
+
+<ProblemCard num="8.3" title="Magnetic Force Between Hemispheres of a Spinning Charged Shell" tag="Griffiths 8.3 · Maxwell Stress Tensor">
+
+<div slot="problem">
+
+Calculate the force of magnetic attraction between the northern and southern hemispheres of a uniformly charged spinning spherical shell, with radius $R$, angular velocity $\omega$, and surface charge density $\sigma$. [This is the same as Prob. 5.44, but this time use the Maxwell stress tensor and Eq. (8.21).]
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{F} = -\pi\mu_0\left(\frac{\sigma\omega R^2}{2}\right)^2 \hat{z} = -\frac{\pi}{4}\mu_0\sigma^2\omega^2 R^4\,\hat{z}
+$$
+
+(attractive force of magnitude $\frac{\pi}{4}\mu_0\sigma^2\omega^2 R^4$ pulling the northern hemisphere downward toward the southern hemisphere).
+
+</div>
+
+<div slot="solution">
+
+By axial symmetry about the $z$-axis (the spin axis), the net magnetic force on the northern hemisphere acts purely along $\hat{z}$, so we only need
+
+$$
+(\overleftrightarrow{T}\cdot d\vec{a})_z = T_{zx}\,da_x + T_{zy}\,da_y + T_{zz}\,da_z = \frac{1}{\mu_0}\left[B_z(\vec{B}\cdot d\vec{a}) - \frac{1}{2}B^2\,da_z\right].
+$$
+
+For a uniformly charged spherical shell of radius $R$, surface charge density $\sigma$, and angular velocity $\vec{\omega} = \omega\hat{z}$, the magnetic dipole moment is $\vec{m} = \frac{4}{3}\pi R^4\sigma\omega\,\hat{z}$. From Chapter 5 (Eq. 5.70, Prob. 5.37, and Eq. 5.88), the magnetic field is uniform inside and purely dipolar outside:
+
+$$
+\vec{B}(r,\theta) = \begin{cases}
+\dfrac{2}{3}\mu_0\sigma R\omega\,\hat{z}, & r < R, \\[6pt]
+\dfrac{\mu_0 m}{4\pi r^3}(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}), & r > R,
+\end{cases}
+$$
+
+where $\frac{\mu_0 m}{4\pi R^3} = \frac{1}{3}\mu_0\sigma R\omega$.
+
+Enclose the northern hemisphere with a closed surface $\mathcal{S}$ consisting of a hemispherical cap just outside $r = R$ ($0 \le \theta \le \pi/2$) and the equatorial circular disk ($z = 0$, $0 \le r \le R$).
+
+**1. Hemispherical cap ($r = R^+$):**
+
+On the cap, $d\vec{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{r}$ and $da_z = R^2\sin\theta\cos\theta\,d\theta\,d\phi$. Using $\hat{r}\cdot\hat{z} = \cos\theta$ and $\hat{\theta}\cdot\hat{z} = -\sin\theta$, we find:
+
+$$
+B_z = \frac{\mu_0 m}{4\pi R^3}(2\cos^2\theta - \sin^2\theta) = \frac{\mu_0 m}{4\pi R^3}(3\cos^2\theta - 1),
+$$
+
+$$
+\vec{B}\cdot d\vec{a} = \frac{\mu_0 m}{4\pi R^3}(2\cos\theta) R^2\sin\theta\,d\theta\,d\phi, \qquad B^2 = \left(\frac{\mu_0 m}{4\pi R^3}\right)^2 (3\cos^2\theta + 1).
+$$
+
+Substituting into $(\overleftrightarrow{T}\cdot d\vec{a})_z$ and noting $\frac{1}{\mu_0}\left(\frac{\mu_0 m}{4\pi R^3}\right)^2 R^2 = \mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2$:
+
+$$
+\begin{aligned}
+(\overleftrightarrow{T}\cdot d\vec{a})_z &= \frac{1}{\mu_0}\left(\frac{\mu_0 m}{4\pi R^3}\right)^2 \left[2(3\cos^2\theta - 1) - \frac{1}{2}(3\cos^2\theta + 1)\right] R^2\sin\theta\cos\theta\,d\theta\,d\phi \\
+&= \frac{\mu_0}{2}\left(\frac{\sigma\omega R^2}{3}\right)^2 (9\cos^2\theta - 5)\sin\theta\cos\theta\,d\theta\,d\phi.
+\end{aligned}
+$$
+
+Integrating over $\phi \in [0, 2\pi]$ and $\theta \in [0, \pi/2]$ gives:
+
+$$
+(F_{\text{hemi}})_z = \pi\mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2 \int_0^{\pi/2} (9\cos^2\theta - 5)\sin\theta\cos\theta\,d\theta = \pi\mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2 \left[-\frac{9}{4}\cos^4\theta + \frac{5}{2}\cos^2\theta\right]_0^{\pi/2} = -\frac{\pi}{4}\mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2.
+$$
+
+**2. Equatorial disk ($z = 0$, $r \le R$):**
+
+The outward normal of the surface enclosing the northern hemisphere points downward, so $d\vec{a} = -r\,dr\,d\phi\,\hat{z}$ ($da_z = -r\,dr\,d\phi$). Inside the sphere, $\vec{B} = B_z\hat{z}$ with $B_z = \frac{2}{3}\mu_0\sigma R\omega$:
+
+$$
+(\overleftrightarrow{T}\cdot d\vec{a})_z = T_{zz}\,da_z = \frac{1}{2\mu_0}B_z^2(-r\,dr\,d\phi) = -2\mu_0\left(\frac{\sigma\omega R}{3}\right)^2 r\,dr\,d\phi.
+$$
+
+Integrating over the disk gives:
+
+$$
+(F_{\text{disk}})_z = -2\mu_0\left(\frac{\sigma\omega R}{3}\right)^2 (2\pi)\int_0^R r\,dr = -2\pi\mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2.
+$$
+
+**3. Total force:**
+
+$$
+\vec{F} = \bigl[(F_{\text{hemi}})_z + (F_{\text{disk}})_z\bigr]\hat{z} = -\pi\mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2 \left(2 + \frac{1}{4}\right)\hat{z} = -\pi\mu_0\left(\frac{\sigma\omega R^2}{2}\right)^2 \hat{z} = -\frac{\pi}{4}\mu_0\sigma^2\omega^2 R^4\,\hat{z},
+$$
+
+in exact agreement with Prob. 5.44.
+
+*(Check via the full equatorial plane)*: Alternatively, enclosing the upper half-space $z > 0$ with the entire $xy$-plane plus a hemisphere at infinity (which contributes zero) replaces the cap integral by the exterior equatorial plane $r > R$ ($\theta = \pi/2$, where $\hat{\theta} = -\hat{z}$ so $B_z = -\frac{\mu_0 m}{4\pi r^3}$). Integrating $T_{zz}\,da_z = -\frac{1}{2\mu_0}\left(\frac{\mu_0 m}{4\pi r^3}\right)^2 r\,dr\,d\phi$ from $r = R$ to $\infty$ gives $(F_{\text{rest}})_z = -\frac{\pi}{4}\mu_0\left(\frac{\sigma\omega R^2}{3}\right)^2 = (F_{\text{hemi}})_z$, yielding the same total force.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.4" title="Force Between Two Point Charges via the Stress Tensor" tag="Griffiths 8.4 · Electrostatic Stress">
+
+<div slot="problem">
+
+(a) Consider two equal point charges $q$, separated by a distance $2a$. Construct the plane equidistant from the two charges. By integrating Maxwell's stress tensor over this plane, determine the force of one charge on the other.
+
+(b) Do the same for charges that are opposite in sign.
+
+</div>
+
+<div slot="answer">
+
+(a) Equal charges ($+q, +q$): $\vec{F}_{\text{upper}} = +\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{(2a)^2}\,\hat{z}$ (repulsive).
+
+(b) Opposite charges ($+q, -q$): $\vec{F}_{\text{upper}} = -\dfrac{1}{4\pi\epsilon_0}\dfrac{q^2}{(2a)^2}\,\hat{z}$ (attractive).
+
+</div>
+
+<div slot="solution">
+
+Place the two charges on the $z$-axis at $z = +a$ and $z = -a$, so the equidistant plane is the $xy$-plane ($z = 0$). To compute the force on the upper charge at $z = +a$, take the volume $\mathcal{V}$ to be the entire upper half-space $z > 0$. Its boundary $\mathcal{S}$ consists of the $xy$-plane plus a hemisphere at $r \to \infty$ (where $E \sim 1/r^2$ so $T_{ij} \sim 1/r^4$ and the surface integral vanishes). On the $xy$-plane, the outward normal of $z > 0$ is $-\hat{z}$, so $da_x = da_y = 0$ and $da_z = -r\,dr\,d\phi$ in plane polar coordinates $(r, \phi)$. Since $\vec{B} = \vec{0}$ and the force is along $\hat{z}$ by symmetry,
+
+$$
+(\overleftrightarrow{T}\cdot d\vec{a})_z = T_{zz}\,da_z = \epsilon_0\left(E_z^2 - \frac{1}{2}E^2\right)(-r\,dr\,d\phi).
+$$
+
+Let $\mathcal{R} = \sqrt{r^2 + a^2}$ be the distance from either charge to a point at radius $r$ in the $xy$-plane, and let $\theta$ be the angle made with the $xy$-plane so that $\cos\theta = r/\mathcal{R}$ and $\sin\theta = a/\mathcal{R}$.
+
+**(a) Equal charges ($+q$ at $z = +a$ and $+q$ at $z = -a$):**
+
+On the $xy$-plane, the $z$-components of the two fields cancel ($E_z = 0$) while their radial components add:
+
+$$
+\vec{E} = 2\left(\frac{1}{4\pi\epsilon_0}\frac{q}{r^2 + a^2}\right)\cos\theta\,\hat{r} = \frac{qr}{2\pi\epsilon_0 (r^2 + a^2)^{3/2}}\,\hat{r}.
+$$
+
+Hence $E_z = 0$ and $E^2 = \left[\frac{qr}{2\pi\epsilon_0 (r^2 + a^2)^{3/2}}\right]^2$, giving
+
+$$
+(\overleftrightarrow{T}\cdot d\vec{a})_z = -\frac{\epsilon_0}{2}E^2(-r\,dr\,d\phi) = +\frac{\epsilon_0}{2}\left(\frac{q}{2\pi\epsilon_0}\right)^2 \frac{r^3}{(r^2 + a^2)^3}\,dr\,d\phi.
+$$
+
+Integrating over $\phi \in [0, 2\pi]$ and $r \in [0, \infty)$ with the substitution $u = r^2$ ($du = 2r\,dr$):
+
+$$
+\begin{aligned}
+F_z &= \frac{\epsilon_0}{2}\left(\frac{q}{2\pi\epsilon_0}\right)^2 (2\pi) \int_0^\infty \frac{r^3}{(r^2 + a^2)^3}\,dr = \frac{q^2}{4\pi\epsilon_0}\cdot\frac{1}{2}\int_0^\infty \frac{u}{(u + a^2)^3}\,du \\
+&= \frac{q^2}{8\pi\epsilon_0}\left[-\frac{1}{u + a^2} + \frac{a^2}{2(u + a^2)^2}\right]_0^\infty = \frac{q^2}{8\pi\epsilon_0}\left(\frac{1}{a^2} - \frac{1}{2a^2}\right) = +\frac{1}{4\pi\epsilon_0}\frac{q^2}{(2a)^2},
+\end{aligned}
+$$
+
+which is the expected repulsive Coulomb force $\vec{F}_{\text{upper}} = +\frac{1}{4\pi\epsilon_0}\frac{q^2}{(2a)^2}\,\hat{z}$.
+
+**(b) Opposite charges ($+q$ at $z = +a$ and $-q$ at $z = -a$):**
+
+On the $xy$-plane, the radial components cancel ($E_r = 0$) and the $z$-components add in the $-\hat{z}$ direction:
+
+$$
+\vec{E} = -2\left(\frac{1}{4\pi\epsilon_0}\frac{q}{r^2 + a^2}\right)\sin\theta\,\hat{z} = -\frac{qa}{2\pi\epsilon_0 (r^2 + a^2)^{3/2}}\,\hat{z}.
+$$
+
+Thus $E^2 = E_z^2$, so $T_{zz} = +\frac{\epsilon_0}{2}E_z^2$, and
+
+$$
+(\overleftrightarrow{T}\cdot d\vec{a})_z = T_{zz}(-r\,dr\,d\phi) = -\frac{\epsilon_0}{2}\left(\frac{qa}{2\pi\epsilon_0}\right)^2 \frac{r}{(r^2 + a^2)^3}\,dr\,d\phi.
+$$
+
+Integrating over the $xy$-plane:
+
+$$
+F_z = -\frac{\epsilon_0}{2}\left(\frac{qa}{2\pi\epsilon_0}\right)^2 (2\pi)\int_0^\infty \frac{r\,dr}{(r^2 + a^2)^3} = -\frac{q^2 a^2}{4\pi\epsilon_0}\left[-\frac{1}{4(r^2 + a^2)^2}\right]_0^\infty = -\frac{q^2 a^2}{4\pi\epsilon_0}\left(\frac{1}{4a^4}\right) = -\frac{1}{4\pi\epsilon_0}\frac{q^2}{(2a)^2},
+$$
+
+giving the attractive Coulomb force $\vec{F}_{\text{upper}} = -\frac{1}{4\pi\epsilon_0}\frac{q^2}{(2a)^2}\,\hat{z}$ (and an equal and opposite force on the lower charge).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.5" title="Field Momentum and Impulse of Moving Charged Sheets" tag="Griffiths 8.5 · Momentum Conservation">
+
+<div slot="problem">
+
+Imagine two parallel infinite sheets, carrying uniform surface charge $+\sigma$ (on the sheet at $z = d$) and $-\sigma$ (at $z = 0$). They are moving in the $y$ direction at constant speed $v$ (as in Problem 5.17).
+
+(a) What is the electromagnetic momentum in a region of area $A$?
+
+(b) Now suppose the top sheet moves slowly down (speed $u$) until it reaches the bottom sheet, so the fields disappear. By calculating the total force on the charge ($q = \sigma A$), show that the impulse delivered to the sheet is equal to the momentum originally stored in the fields. [Hint: As the upper plate passes by, the magnetic field drops to zero, inducing an electric field that delivers an impulse to the lower plate.]
+
+</div>
+
+<div slot="answer">
+
+(a) $\vec{p}_{\text{em}} = -\mu_0\sigma^2 A v d\,\hat{y}$.
+
+(b) The total impulse delivered to the plates of area $A$ is $\vec{I} = \vec{I}_1 + \vec{I}_2 = -\frac{1}{2}\mu_0\sigma^2 A v d\,\hat{y} - \frac{1}{2}\mu_0\sigma^2 A v d\,\hat{y} = -\mu_0\sigma^2 A v d\,\hat{y} = \vec{p}_{\text{em}}$.
+
+</div>
+
+<div slot="solution">
+
+**(a) Initial electromagnetic momentum:**
+
+Between the sheets ($0 < z < d$), the electric field points from $+\sigma$ ($z = d$) to $-\sigma$ ($z = 0$), and the surface currents are $\vec{K}_+ = +\sigma v\,\hat{y}$ (at $z = d$) and $\vec{K}_- = -\sigma v\,\hat{y}$ (at $z = 0$). By Ampère's law (Eq. 5.58), the magnetic fields of both sheets add in the gap and cancel outside:
+
+$$
+\vec{E} = -\frac{\sigma}{\epsilon_0}\,\hat{z}, \qquad \vec{B} = \mu_0\sigma v\,\hat{x} \qquad (0 < z < d),
+$$
+
+with $\vec{E} = \vec{0}$ and $\vec{B} = \vec{0}$ for $z < 0$ and $z > d$. The momentum density in the gap is
+
+$$
+\vec{g} = \epsilon_0(\vec{E}\times\vec{B}) = \epsilon_0\left(-\frac{\sigma}{\epsilon_0}\,\hat{z}\right)\times(\mu_0\sigma v\,\hat{x}) = -\mu_0\sigma^2 v\,\hat{y}.
+$$
+
+In a region of area $A$ and thickness $d$ (volume $V = Ad$), the stored field momentum is
+
+$$
+\vec{p}_{\text{em}} = (Ad)\vec{g} = -\mu_0\sigma^2 A v d\,\hat{y}.
+$$
+
+**(b) Total impulse during collapse:**
+
+Two distinct mechanisms deliver horizontal ($y$-directed) impulse during the slow descent of the upper plate over time $\Delta t = d/u$:
+
+**(i) Magnetic Lorentz force on the descending upper plate:**
+A patch of area $A$ on the upper plate carries charge $q_+ = \sigma A$ and descends with vertical velocity component $\vec{u} = -u\,\hat{z}$ through the magnetic field produced by the lower plate alone, $\vec{B}_{\text{avg}} = \vec{B}_- = \frac{1}{2}\mu_0\sigma v\,\hat{x}$. (The $v\hat{y}$ component of the upper plate's velocity produces only a $z$-directed magnetic repulsion that reduces the plates' vertical attraction, delivering no horizontal momentum.) Thus the horizontal magnetic force on the upper patch is
+
+$$
+\vec{F}_1 = q_+(\vec{u}\times\vec{B}_{\text{avg}}) = (\sigma A)\left[(-u\,\hat{z})\times\left(\frac{1}{2}\mu_0\sigma v\,\hat{x}\right)\right] = -\frac{1}{2}\mu_0\sigma^2 A v u\,\hat{y}.
+$$
+
+Integrating over the descent gives the first impulse contribution:
+
+$$
+\vec{I}_1 = \int_0^{d/u} \vec{F}_1\,dt = -\frac{1}{2}\mu_0\sigma^2 A v\,\hat{y}\int_0^{d/u} u\,dt = -\frac{1}{2}\mu_0\sigma^2 A v d\,\hat{y}.
+$$
+
+**(ii) Faraday-induced electric force on the lower plate:**
+With the upper plate at instantaneous height $z_{\text{top}}(t) = d - ut$, the magnetic field for $z > 0$ is $\vec{B}(z, t) = \mu_0\sigma v\,\theta(d - ut - z)\,\hat{x}$, where $\theta$ is the unit step function. Its time derivative is
+
+$$
+\frac{\partial\vec{B}}{\partial t} = -\mu_0\sigma v u\,\delta(d - ut - z)\,\hat{x}.
+$$
+
+By Faraday's law, $\nabla\times\vec{E}_{\text{ind}} = -\partial\vec{B}/\partial t = +\mu_0\sigma v u\,\delta(z - z_{\text{top}})\,\hat{x}$. In the magnetostatic analogy of §7.2.2, $\vec{E}_{\text{ind}}$ behaves like the magnetic field of an effective surface current $\vec{K}_{\text{eff}} = \sigma v u\,\hat{x}$ at $z = z_{\text{top}}$. By Eq. (5.58),
+
+$$
+\vec{E}_{\text{ind}}(z) = \begin{cases}
++\dfrac{1}{2}\mu_0\sigma v u\,\hat{y}, & z < d - ut, \\[6pt]
+-\dfrac{1}{2}\mu_0\sigma v u\,\hat{y}, & z > d - ut.
+\end{cases}
+$$
+
+At the lower plate ($z = 0 < d - ut$), this induced field exerts a force on a patch of area $A$ (charge $q_- = -\sigma A$):
+
+$$
+\vec{F}_2 = (-\sigma A)\left(+\frac{1}{2}\mu_0\sigma v u\,\hat{y}\right) = -\frac{1}{2}\mu_0\sigma^2 A v u\,\hat{y},
+$$
+
+delivering an impulse
+
+$$
+\vec{I}_2 = \int_0^{d/u} \vec{F}_2\,dt = -\frac{1}{2}\mu_0\sigma^2 A v\,\hat{y}\int_0^{d/u} u\,dt = -\frac{1}{2}\mu_0\sigma^2 A v d\,\hat{y}.
+$$
+
+The total impulse delivered to the system is therefore
+
+$$
+\vec{I} = \vec{I}_1 + \vec{I}_2 = -\mu_0\sigma^2 A v d\,\hat{y} = \vec{p}_{\text{em}},
+$$
+
+matching the momentum originally stored in the fields. *(Remark: As noted in Ex. 12.13, there is also relativistic "hidden" mechanical momentum associated with the internal stresses/constraints keeping the moving plates in steady state, which cancels internally when the plates meet and does not alter the overall momentum balance.)*
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.6" title="Electromagnetic Momentum of a Capacitor in a Magnetic Field" tag="Griffiths 8.6 · Field Momentum & Impulse">
+
+<div slot="problem">
+
+A charged parallel-plate capacitor (with uniform electric field $\vec{E} = E\hat{z}$) is placed in a uniform magnetic field $\vec{B} = B\hat{x}$, as shown in Fig. 8.6 (plate area $A$, plate separation $d$).
+
+(a) Find the electromagnetic momentum in the space between the plates.
+
+(b) Now a resistive wire is connected between the plates, along the $z$ axis, so that the capacitor slowly discharges. The current through the wire will experience a magnetic force; what is the total impulse delivered to the system, during the discharge?
+
+</div>
+
+<div slot="answer">
+
+(a) $\vec{p}_{\text{em}} = \epsilon_0 E B A d\,\hat{y}$.
+
+(b) $\vec{I}_{\text{impulse}} = \epsilon_0 E B A d\,\hat{y}$, equal to $\vec{p}_{\text{em}}$.
+
+</div>
+
+<div slot="solution">
+
+**(a) Stored electromagnetic momentum:**
+
+In the volume $V = Ad$ between the plates, the uniform fields are $\vec{E} = E\hat{z}$ and $\vec{B} = B\hat{x}$. The electromagnetic momentum density is
+
+$$
+\vec{g}_{\text{em}} = \epsilon_0(\vec{E}\times\vec{B}) = \epsilon_0(E\hat{z})\times(B\hat{x}) = \epsilon_0 E B\,\hat{y}.
+$$
+
+Integrating over the volume $Ad$ between the plates yields
+
+$$
+\vec{p}_{\text{em}} = \vec{g}_{\text{em}} A d = \epsilon_0 E B A d\,\hat{y}.
+$$
+
+**(b) Total impulse during discharge:**
+
+Since $\vec{E} = E\hat{z}$ points from the lower plate (at $z = 0$, carrying initial charge $+Q_0$) to the upper plate (at $z = d$, carrying initial charge $-Q_0$), the discharge current $I(t)$ flows upward along the resistive wire ($\vec{l} = d\,\hat{z}$), with $I(t) = -dQ/dt$ as the charge $Q(t)$ on the lower plate drops from $Q(0) = Q_0$ to $Q(\infty) = 0$.
+
+The magnetic force on the current-carrying wire is $\vec{F}(t) = I(t)(\vec{l}\times\vec{B}) = I(t)Bd(\hat{z}\times\hat{x}) = I(t)Bd\,\hat{y}$. Integrating over the entire discharge gives the total impulse:
+
+$$
+\vec{I}_{\text{impulse}} = \int_0^\infty \vec{F}(t)\,dt = (Bd\,\hat{y})\int_0^\infty \left(-\frac{dQ}{dt}\right)dt = -(Bd\,\hat{y})\bigl[Q(\infty) - Q(0)\bigr] = B Q_0 d\,\hat{y}.
+$$
+
+From Gauss's law, the initial electric field in the capacitor is $E = \frac{\sigma_0}{\epsilon_0} = \frac{Q_0}{\epsilon_0 A}$, so $Q_0 = \epsilon_0 E A$. Substituting this in gives
+
+$$
+\vec{I}_{\text{impulse}} = \epsilon_0 E B A d\,\hat{y} = \vec{p}_{\text{em}},
+$$
+
+matching the electromagnetic momentum originally stored in the fields. *(As Griffiths notes in footnote 7, a complete relativistic treatment—see Babson et al., Am. J. Phys. 77, 826 (2009)—includes additional subtleties involving hidden momentum and center-of-energy motion in the external magnetic field.)*
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.7" title="Stress Tensor and Momentum Flux in a Parallel-Plate Capacitor" tag="Griffiths 8.7 · Stress Tensor & Momentum Flux">
+
+<div slot="problem">
+
+Consider an infinite parallel-plate capacitor, with the lower plate (at $z = -d/2$) carrying surface charge density $-\sigma$, and the upper plate (at $z = +d/2$) carrying charge density $+\sigma$.
+
+(a) Determine all nine elements of the stress tensor, in the region between the plates. Display your answer as a $3 \times 3$ matrix.
+
+(b) Use Eq. (8.21) to determine the electromagnetic force per unit area on the top plate. Compare Eq. (2.51).
+
+(c) What is the electromagnetic momentum per unit area, per unit time, crossing the $xy$ plane (or any other plane parallel to that one, between the plates)?
+
+(d) Of course, there must be mechanical forces holding the plates apart—perhaps the capacitor is filled with insulating material under pressure. Suppose we suddenly remove the insulator; the momentum flux (c) is now absorbed by the plates, and they begin to move. Find the momentum per unit time delivered to the top plate (which is to say, the force acting on it) and compare your answer to (b). [Note: This is not an additional force, but rather an alternative way of calculating the same force—in (b) we got it from the force law, and in (d) we do it by conservation of momentum.]
+
+</div>
+
+<div slot="answer">
+
+(a) $\overleftrightarrow{T} = \dfrac{\sigma^2}{2\epsilon_0}\begin{pmatrix} -1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & +1 \end{pmatrix}$.
+
+(b) $\vec{f} = -\dfrac{\sigma^2}{2\epsilon_0}\,\hat{z}$ (attractive downward force per unit area, matching Eq. 2.51).
+
+(c) Momentum flux crossing the $xy$-plane in the $+\hat{z}$ direction is $-\overleftrightarrow{T}\cdot\hat{z} = -\dfrac{\sigma^2}{2\epsilon_0}\,\hat{z}$ (i.e., $T_{zz} = \frac{\sigma^2}{2\epsilon_0}$ of $+\hat{z}$-momentum crossing downward in $-\hat{z}$, or $-\hat{z}$-momentum crossing upward in $+\hat{z}$, per unit area per unit time).
+
+(d) $\vec{f} = \dfrac{1}{A}\dfrac{d\vec{p}_{\text{top}}}{dt} = -\dfrac{\sigma^2}{2\epsilon_0}\,\hat{z}$, identical to (b).
+
+</div>
+
+<div slot="solution">
+
+**(a) Maxwell stress tensor between the plates:**
+
+The electric field between the plates ($-d/2 < z < +d/2$) points from $+\sigma$ to $-\sigma$:
+
+$$
+E_x = E_y = 0, \qquad E_z = -\frac{\sigma}{\epsilon_0}, \qquad \vec{B} = \vec{0}.
+$$
+
+Since only $E_z$ is nonzero, all off-diagonal components vanish ($T_{xy} = T_{xz} = T_{yz} = T_{yx} = T_{zx} = T_{zy} = 0$), while the diagonal elements are
+
+$$
+T_{xx} = T_{yy} = -\frac{\epsilon_0}{2}E^2 = -\frac{\sigma^2}{2\epsilon_0}, \qquad T_{zz} = \epsilon_0\left(E_z^2 - \frac{1}{2}E^2\right) = +\frac{\epsilon_0}{2}E^2 = +\frac{\sigma^2}{2\epsilon_0}.
+$$
+
+In matrix form:
+
+$$
+\overleftrightarrow{T} = \frac{\sigma^2}{2\epsilon_0}\begin{pmatrix} -1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & +1 \end{pmatrix}.
+$$
+
+**(b) Force per unit area on the top plate via Eq. (8.21):**
+
+Consider a volume enclosing an area $A$ of the top plate ($z = +d/2$), bounded below by a patch of area $A$ on the $xy$-plane ($z = 0$), above by a parallel patch above the top plate ($z > +d/2$, where $\vec{E} = \vec{0}$ and $\overleftrightarrow{T} = 0$), and on the sides by vertical walls whose contributions cancel pairwise by translational symmetry. On the $xy$-plane, the outward normal of this volume points in $-\hat{z}$, so $d\vec{a} = -dx\,dy\,\hat{z}$. Applying Eq. (8.21):
+
+$$
+F_z = \oint (\overleftrightarrow{T}\cdot d\vec{a})_z = \int_A T_{zz}(-dx\,dy) = -\frac{\sigma^2}{2\epsilon_0}A.
+$$
+
+Thus the electromagnetic force per unit area on the top plate is
+
+$$
+\vec{f} = \frac{\vec{F}}{A} = -\frac{\sigma^2}{2\epsilon_0}\,\hat{z},
+$$
+
+pulling the top plate toward the bottom plate, in exact agreement with the electrostatic pressure formula Eq. (2.51).
+
+**(c) Electromagnetic momentum flux crossing the $xy$-plane:**
+
+The electromagnetic momentum flux density is $-\overleftrightarrow{T}$, meaning $-\overleftrightarrow{T}\cdot d\vec{a}$ is the momentum per unit time crossing $d\vec{a}$ in the direction of $d\vec{a}$. For a unit area oriented in the $+\hat{z}$ direction ($d\vec{a} = da\,\hat{z}$),
+
+$$
+-\overleftrightarrow{T}\cdot\hat{z} = -T_{zz}\,\hat{z} = -\frac{\sigma^2}{2\epsilon_0}\,\hat{z}.
+$$
+
+Equivalently, $T_{zz} = \frac{\sigma^2}{2\epsilon_0}$ is the $z$-component of momentum crossing any horizontal plane between the plates per unit area, per unit time (specifically, $-\hat{z}$-momentum flowing upward in the $+\hat{z}$ direction, or $+\hat{z}$-momentum flowing downward in the $-\hat{z}$ direction).
+
+**(d) Force from momentum flux absorption:**
+
+When the insulating spacer is suddenly removed, the upward-flowing $-\hat{z}$-momentum flux from part (c) enters the top plate (and cannot escape above $z = +d/2$, where the fields are zero). By conservation of momentum, the momentum per unit time per unit area delivered to the top plate equals this absorbed flux:
+
+$$
+\vec{f} = \frac{1}{A}\frac{d\vec{p}_{\text{top}}}{dt} = -\overleftrightarrow{T}\cdot\hat{z} = -\frac{\sigma^2}{2\epsilon_0}\,\hat{z},
+$$
+
+which is identical to the force per unit area obtained in part (b).
+
+</div>
+
+</ProblemCard>
+
+</section>

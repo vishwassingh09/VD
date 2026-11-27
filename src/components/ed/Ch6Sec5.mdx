@@ -1,0 +1,580 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch6-sec5" class="ed-sec-block">
+
+### Chapter 6 Review Problems (6.22 – 6.29)
+
+<div class="ed-theory-box">
+
+**Chapter 6 Formula & Problem-Solving Checklist**
+
+- **Dipoles in Magnetic Fields:** Torque $\mathbf{N} = \mathbf{m} \times \mathbf{B}$; force on a point magnetic dipole $\mathbf{F} = \boldsymbol{\nabla}(\mathbf{m} \cdot \mathbf{B})$.
+- **Magnetization & Bound Currents:** Magnetization $\mathbf{M}$ (dipole moment per unit volume) produces volume bound current $\mathbf{J}_b = \boldsymbol{\nabla} \times \mathbf{M}$ and surface bound current $\mathbf{K}_b = \mathbf{M} \times \hat{\mathbf{n}}$.
+- **Auxiliary Field $\mathbf{H}$:** Defined by $\mathbf{H} \equiv \frac{1}{\mu_0}\mathbf{B} - \mathbf{M}$, satisfying $\boldsymbol{\nabla} \times \mathbf{H} = \mathbf{J}_f$, $\oint \mathbf{H} \cdot d\mathbf{l} = I_{f,\text{enc}}$, and $\boldsymbol{\nabla} \cdot \mathbf{H} = -\boldsymbol{\nabla} \cdot \mathbf{M}$ (while $\boldsymbol{\nabla} \cdot \mathbf{B} = 0$).
+- **Boundary Conditions:** $B_1^\perp = B_2^\perp$ and $\mathbf{H}_1^\parallel - \mathbf{H}_2^\parallel = \mathbf{K}_f \times \hat{\mathbf{n}}$ (so $H_1^\parallel = H_2^\parallel$ when $\mathbf{K}_f = \mathbf{0}$).
+- **Linear Magnetic Media:** $\mathbf{M} = \chi_m \mathbf{H}$ and $\mathbf{B} = \mu \mathbf{H}$ with $\mu = \mu_0(1 + \chi_m)$. Diamagnets have $\chi_m < 0$; paramagnets have $\chi_m > 0$. Inside a uniform linear medium, $\mathbf{J}_b = \chi_m \mathbf{J}_f$ (zero where $\mathbf{J}_f = \mathbf{0}$).
+- **Ferromagnetism & Electrostatic Analogy:** Ferromagnets exhibit domain alignment, hysteresis, and nonlinear $\mathbf{B}$–$\mathbf{H}$ behavior. When $\mathbf{J}_f = \mathbf{0}$, the transcription $\mathbf{D} \to \mathbf{B}$, $\mathbf{E} \to \mathbf{H}$, $\mathbf{P} \to \mu_0 \mathbf{M}$, $\varepsilon_0 \to \mu_0$, $\chi_e \to \chi_m$ maps electrostatic results directly to magnetostatics.
+
+</div>
+
+<ProblemCard num="6.22" title="Force on a Magnetic Dipole via Taylor Expansion" tag="Griffiths 6.22 · Dipole Force">
+
+<div slot="problem">
+
+In Prob. 6.4, you calculated the force on a dipole by "brute force." Here is a more elegant approach. First write $\mathbf{B}(\mathbf{r})$ as a Taylor expansion about the center of the loop:
+
+$$
+\mathbf{B}(\mathbf{r}) \cong \mathbf{B}(\mathbf{r}_0) + [(\mathbf{r} - \mathbf{r}_0) \cdot \boldsymbol{\nabla}_0]\mathbf{B}(\mathbf{r}_0),
+$$
+
+where $\mathbf{r}_0$ is the position of the dipole and $\boldsymbol{\nabla}_0$ denotes differentiation with respect to $\mathbf{r}_0$. Put this into the Lorentz force law (Eq. 5.16) to obtain
+
+$$
+\mathbf{F} = I \oint d\mathbf{l} \times [(\mathbf{r} \cdot \boldsymbol{\nabla}_0)\mathbf{B}(\mathbf{r}_0)].
+$$
+
+Or, numbering the Cartesian coordinates from $1$ to $3$:
+
+$$
+F_i = I \sum_{j,k,l=1}^3 \epsilon_{ijk} \left(\oint r_l \, dl_j\right) \nabla_{0l} B_k(\mathbf{r}_0),
+$$
+
+where $\epsilon_{ijk}$ is the Levi-Civita symbol ($+1$ if $ijk = 123, 231,$ or $312$; $-1$ if $ijk = 132, 213,$ or $321$; $0$ otherwise), in terms of which the cross product can be written $(\mathbf{A} \times \mathbf{B})_i = \sum_{j,k=1}^3 \epsilon_{ijk} A_j B_k$. Use Eq. 1.108 to evaluate the integral. Note that
+
+$$
+\sum_{j=1}^3 \epsilon_{ijk}\epsilon_{ljm} = \delta_{il}\delta_{km} - \delta_{im}\delta_{kl},
+$$
+
+where $\delta_{ij}$ is the Kronecker delta (Prob. 3.52).
+
+</div>
+
+<div slot="answer">
+
+$$
+\mathbf{F} = \boldsymbol{\nabla}_0[\mathbf{m} \cdot \mathbf{B}(\mathbf{r}_0)]
+$$
+
+</div>
+
+<div slot="solution">
+
+Starting from the magnetic force on a closed current loop $\mathbf{F} = I \oint d\mathbf{l} \times \mathbf{B}(\mathbf{r})$ and writing $\mathbf{B}_0 \equiv \mathbf{B}(\mathbf{r}_0)$, substitute the first-order Taylor expansion:
+
+$$
+\mathbf{F} = I \left(\oint d\mathbf{l}\right) \times \mathbf{B}_0 + I \oint d\mathbf{l} \times [(\mathbf{r} \cdot \boldsymbol{\nabla}_0)\mathbf{B}_0] - I \left(\oint d\mathbf{l}\right) \times [(\mathbf{r}_0 \cdot \boldsymbol{\nabla}_0)\mathbf{B}_0].
+$$
+
+Because $\mathbf{B}_0$ and $(\mathbf{r}_0 \cdot \boldsymbol{\nabla}_0)\mathbf{B}_0$ are independent of the integration variable $\mathbf{r}$, they pull out of the closed-loop integral, and $\oint d\mathbf{l} = \mathbf{0}$. Thus the first and third terms vanish, leaving:
+
+$$
+\mathbf{F} = I \oint d\mathbf{l} \times [(\mathbf{r} \cdot \boldsymbol{\nabla}_0)\mathbf{B}_0].
+$$
+
+In Cartesian index notation, $[(\mathbf{r} \cdot \boldsymbol{\nabla}_0)\mathbf{B}_0]_k = \sum_{l=1}^3 r_l \nabla_{0l} B_{0k}$, so:
+
+$$
+F_i = I \sum_{j,k,l=1}^3 \epsilon_{ijk} \left(\oint r_l \, dl_j\right) \nabla_{0l} B_{0k}.
+$$
+
+To evaluate the loop integral, recall Eq. 1.108: for any constant vector $\mathbf{c}$, $\oint (\mathbf{c} \cdot \mathbf{r})\, d\mathbf{l} = \mathbf{a} \times \mathbf{c} = -\mathbf{c} \times \mathbf{a}$, where $\mathbf{a} = \int d\mathbf{a}$ is the vector area of the loop. Writing the $j$-th component:
+
+$$
+\sum_{p=1}^3 c_p \oint r_p \, dl_j = -\sum_{p,m=1}^3 \epsilon_{jpm} c_p a_m.
+$$
+
+Choosing $c_p = \delta_{pl}$ (i.e., $1$ for component $l$ and $0$ otherwise) yields:
+
+$$
+\oint r_l \, dl_j = -\sum_{m=1}^3 \epsilon_{jlm} a_m = \sum_{m=1}^3 \epsilon_{ljm} a_m.
+$$
+
+Substituting this into $F_i$ and applying the Levi-Civita contraction identity $\sum_{j=1}^3 \epsilon_{ijk}\epsilon_{ljm} = \delta_{il}\delta_{km} - \delta_{im}\delta_{kl}$ (verified by noting that nonzero terms require $\{i,k\} = \{l,m\}$, with $i=l=1, k=m=3, j=2$ giving $+1$ and $i=m=1, k=l=3, j=2$ giving $-1$):
+
+$$
+F_i = I \sum_{j,k,l,m=1}^3 \epsilon_{ijk}\epsilon_{ljm} a_m \nabla_{0l} B_{0k} = I \sum_{k,l,m=1}^3 (\delta_{il}\delta_{km} - \delta_{im}\delta_{kl}) a_m \nabla_{0l} B_{0k}.
+$$
+
+Summing over $l$ and $m$ collapses the Kronecker deltas:
+
+$$
+F_i = I \sum_{k=1}^3 \left[a_k \nabla_{0i} B_{0k} - a_i \nabla_{0k} B_{0k}\right] = I \left[\nabla_{0i}(\mathbf{a} \cdot \mathbf{B}_0) - a_i (\boldsymbol{\nabla}_0 \cdot \mathbf{B}_0)\right].
+$$
+
+Since $\boldsymbol{\nabla}_0 \cdot \mathbf{B}_0 = 0$ (Eq. 5.50) and the magnetic dipole moment is $\mathbf{m} = I\mathbf{a}$ (Eq. 5.86), we obtain:
+
+$$
+\mathbf{F} = \boldsymbol{\nabla}_0 [\mathbf{m} \cdot \mathbf{B}(\mathbf{r}_0)].
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.23" title="Floating Magnetic Ring Toy" tag="Griffiths 6.23 · Dipole-Dipole Force">
+
+<div slot="problem">
+
+A familiar toy consists of donut-shaped permanent magnets (magnetization parallel to the axis), which slide frictionlessly on a vertical rod. Treat the magnets as dipoles, with mass $m_d$ and dipole moment $m$.
+
+(a) If you put two back-to-back magnets on the rod, the upper one will "float"—the magnetic force upward balancing the gravitational force downward. At what height ($z$) does it float?
+
+(b) If you now add a third magnet (parallel to the bottom one), what is the ratio of the two heights? (Determine the actual number, to three significant digits.)
+
+</div>
+
+<div slot="answer">
+
+(a) $z = \left(\dfrac{3\mu_0 m^2}{2\pi m_d g}\right)^{1/4}$
+
+(b) $\dfrac{x}{y} \approx 0.850$ (more precisely $0.8501$, where $x$ is the lower spacing and $y$ is the upper spacing)
+
+</div>
+
+<div slot="solution">
+
+**(a)** Take the bottom dipole at the origin with $\mathbf{m}_1 = m\hat{\mathbf{z}}$. On the $z$ axis ($\theta = 0$ in Eq. 5.88), its magnetic field at height $z$ is:
+
+$$
+\mathbf{B}_1(z) = \frac{\mu_0}{4\pi}\frac{2m}{z^3}\hat{\mathbf{z}}.
+$$
+
+The upper magnet is oriented back-to-back, $\mathbf{m}_2 = -m\hat{\mathbf{z}}$, so $\mathbf{m}_2 \cdot \mathbf{B}_1 = -\frac{\mu_0 m^2}{2\pi z^3}$. By Eq. 6.3, the upward magnetic force on the upper magnet is:
+
+$$
+\mathbf{F}_m = \boldsymbol{\nabla}(\mathbf{m}_2 \cdot \mathbf{B}_1) = \frac{\partial}{\partial z}\left(-\frac{\mu_0 m^2}{2\pi z^3}\right)\hat{\mathbf{z}} = \frac{3\mu_0 m^2}{2\pi z^4}\hat{\mathbf{z}}.
+$$
+
+At equilibrium, this upward magnetic force balances the downward gravitational force $-m_d g\hat{\mathbf{z}}$:
+
+$$
+\frac{3\mu_0 m^2}{2\pi z^4} - m_d g = 0 \implies z = \left(\frac{3\mu_0 m^2}{2\pi m_d g}\right)^{1/4}.
+$$
+
+**(b)** Let $x$ be the vertical distance between the bottom and middle magnets, and $y$ be the vertical distance between the middle and top magnets. Because the bottom and top magnets point in the same direction while the middle magnet points opposite, adjacent pairs repel and the bottom and top magnets attract.
+
+For the middle magnet in vertical equilibrium (repelled upward by the bottom magnet and downward by the top magnet):
+
+$$
+\frac{3\mu_0 m^2}{2\pi x^4} - \frac{3\mu_0 m^2}{2\pi y^4} - m_d g = 0.
+$$
+
+For the top magnet in vertical equilibrium (repelled upward by the middle magnet and attracted downward by the bottom magnet at distance $x+y$):
+
+$$
+\frac{3\mu_0 m^2}{2\pi y^4} - \frac{3\mu_0 m^2}{2\pi (x+y)^4} - m_d g = 0.
+$$
+
+Subtracting the second equation from the first eliminates $m_d g$:
+
+$$
+\frac{1}{x^4} - \frac{2}{y^4} + \frac{1}{(x+y)^4} = 0.
+$$
+
+Multiplying through by $y^4$ and defining $\alpha \equiv x/y$ gives:
+
+$$
+\frac{1}{\alpha^4} + \frac{1}{(\alpha + 1)^4} = 2.
+$$
+
+Solving this equation numerically yields $\alpha = x/y = 0.850115\dots \approx 0.850$ (or $0.8501$).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.24" title="Charged Magnetic Dipoles on an Axis" tag="Griffiths 6.24 · Classical Equilibrium">
+
+<div slot="problem">
+
+Imagine two charged magnetic dipoles (charge $q$, dipole moment $m$), constrained to move on the $z$ axis (same as Problem 6.23(a), but without gravity). Electrically they repel, but magnetically (if both $\mathbf{m}$'s point in the $z$ direction) they attract.
+
+(a) Find the equilibrium separation distance.
+
+(b) What is the equilibrium separation for two electrons in this orientation?
+
+(c) Does there exist, then, a stable bound state of two electrons?
+
+</div>
+
+<div slot="answer">
+
+(a) $z = \sqrt{6}\,\dfrac{m}{qc}$
+
+(b) $z \approx 4.72 \times 10^{-13}\text{ m}$
+
+(c) No; the equilibrium is unstable against off-axis motion and dipole reorientation.
+
+</div>
+
+<div slot="solution">
+
+**(a)** Place one dipole at the origin and the second at height $z > 0$ on the $z$ axis, with both dipoles pointing in the $+\hat{\mathbf{z}}$ direction ($\mathbf{m} = m\hat{\mathbf{z}}$). The electrostatic repulsive force on the upper dipole is:
+
+$$
+\mathbf{F}_q = \frac{1}{4\pi\varepsilon_0}\frac{q^2}{z^2}\hat{\mathbf{z}}.
+$$
+
+The attractive magnetic force on the upper dipole is:
+
+$$
+\mathbf{F}_m = \boldsymbol{\nabla}(\mathbf{m} \cdot \mathbf{B}) = \frac{\partial}{\partial z}\left(m\frac{2\mu_0 m}{4\pi z^3}\right)\hat{\mathbf{z}} = -\frac{3\mu_0 m^2}{2\pi z^4}\hat{\mathbf{z}}.
+$$
+
+At equilibrium, $\mathbf{F}_q + \mathbf{F}_m = \mathbf{0}$:
+
+$$
+\frac{1}{4\pi\varepsilon_0}\frac{q^2}{z^2} = \frac{3\mu_0 m^2}{2\pi z^4} \implies z^2 = \frac{6\mu_0 \varepsilon_0 m^2}{q^2}.
+$$
+
+Using $c = 1/\sqrt{\varepsilon_0 \mu_0}$, we find:
+
+$$
+z = \sqrt{6}\,\frac{m}{|q|c}.
+$$
+
+**(b)** For electrons, $|q| = 1.60 \times 10^{-19}\text{ C}$, the magnetic dipole moment is the Bohr magneton $m \approx 9.22 \times 10^{-24}\text{ A}\cdot\text{m}^2$ (from Prob. 5.58), and $c = 3.00 \times 10^8\text{ m/s}$:
+
+$$
+z = \sqrt{6}\,\frac{9.22 \times 10^{-24}}{(1.60 \times 10^{-19})(3.00 \times 10^8)} \approx 4.72 \times 10^{-13}\text{ m},
+$$
+
+which is roughly $1\%$ of the Bohr radius ($0.5 \times 10^{-10}\text{ m}$).
+
+**(c)** No. This is an unstable equilibrium: unless external constraints maintain the alignment of the dipoles and confine both electrons strictly to the $z$ axis, any tiny transverse displacement or rotational perturbation causes the dipoles to flip or fly apart. (Furthermore, at subatomic separations quantum mechanics governs the interaction, and no such classical bound state exists.)
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.25" title="Electrostatic-Magnetostatic Transcription" tag="Griffiths 6.25 · Field Analogies">
+
+<div slot="problem">
+
+Notice the following parallel:
+
+$$
+\boldsymbol{\nabla} \cdot \mathbf{D} = 0, \qquad \boldsymbol{\nabla} \times \mathbf{E} = \mathbf{0}, \qquad \varepsilon_0 \mathbf{E} = \mathbf{D} - \mathbf{P} \quad (\text{no free charge});
+$$
+
+$$
+\boldsymbol{\nabla} \cdot \mathbf{B} = 0, \qquad \boldsymbol{\nabla} \times \mathbf{H} = \mathbf{0}, \qquad \mu_0 \mathbf{H} = \mathbf{B} - \mu_0 \mathbf{M} \quad (\text{no free current}).
+$$
+
+Thus, the transcription $\mathbf{D} \to \mathbf{B}$, $\mathbf{E} \to \mathbf{H}$, $\mathbf{P} \to \mu_0 \mathbf{M}$, $\varepsilon_0 \to \mu_0$ turns an electrostatic problem into an analogous magnetostatic one. Use this, together with your knowledge of the electrostatic results, to rederive:
+
+(a) the magnetic field inside a uniformly magnetized sphere (Eq. 6.16);
+
+(b) the magnetic field inside a sphere of linear magnetic material in an otherwise uniform magnetic field (Prob. 6.18);
+
+(c) the average magnetic field over a sphere, due to steady currents within the sphere (Eq. 5.93).
+
+</div>
+
+<div slot="answer">
+
+(a) $\mathbf{B} = \dfrac{2}{3}\mu_0 \mathbf{M}$
+
+(b) $\mathbf{B} = \dfrac{1 + \chi_m}{1 + \chi_m/3}\mathbf{B}_0$
+
+(c) $\mathbf{B}_{\text{ave}} = \dfrac{\mu_0}{4\pi}\dfrac{2\mathbf{m}}{R^3}$
+
+</div>
+
+<div slot="solution">
+
+**(a)** The electric field inside a uniformly polarized sphere is $\mathbf{E} = -\frac{1}{3\varepsilon_0}\mathbf{P}$ (Eq. 4.14). Applying the transcription $\mathbf{E} \to \mathbf{H}$, $\mathbf{P} \to \mu_0 \mathbf{M}$, and $\varepsilon_0 \to \mu_0$ yields:
+
+$$
+\mathbf{H} = -\frac{1}{3\mu_0}(\mu_0 \mathbf{M}) = -\frac{1}{3}\mathbf{M}.
+$$
+
+Since $\mathbf{B} = \mu_0(\mathbf{H} + \mathbf{M})$, the magnetic field inside the uniformly magnetized sphere is:
+
+$$
+\mathbf{B} = \mu_0\left(-\frac{1}{3}\mathbf{M} + \mathbf{M}\right) = \frac{2}{3}\mu_0 \mathbf{M} \quad (\text{Eq. 6.16}).
+$$
+
+**(b)** The electric field inside a linear dielectric sphere placed in a uniform external field $\mathbf{E}_0$ is $\mathbf{E} = \frac{1}{1 + \chi_e/3}\mathbf{E}_0$ (Eq. 4.49). Under the transcription, Eq. 4.30 ($\mathbf{P} = \varepsilon_0 \chi_e \mathbf{E}$) becomes $\mu_0 \mathbf{M} = \mu_0 \chi_e \mathbf{H}$, so $\chi_e$ transcribes to $\chi_m$ (matching $\mathbf{M} = \chi_m \mathbf{H}$, Eq. 6.29). Hence:
+
+$$
+\mathbf{H} = \frac{1}{1 + \chi_m/3}\mathbf{H}_0.
+$$
+
+Using $\mathbf{B} = \mu_0(1 + \chi_m)\mathbf{H}$ and $\mathbf{B}_0 = \mu_0 \mathbf{H}_0$ (Eqs. 6.31 and 6.32):
+
+$$
+\frac{\mathbf{B}}{\mu_0(1 + \chi_m)} = \frac{1}{1 + \chi_m/3}\frac{\mathbf{B}_0}{\mu_0} \implies \mathbf{B} = \frac{1 + \chi_m}{1 + \chi_m/3}\mathbf{B}_0 \quad (\text{Prob. 6.18}).
+$$
+
+**(c)** The average electric field over a sphere of radius $R$ due to charges strictly inside it is $\mathbf{E}_{\text{ave}} = -\frac{1}{4\pi\varepsilon_0}\frac{\mathbf{p}}{R^3}$. Any internal charge density $\rho$ can be represented as bound charge from a frozen-in polarization ($\boldsymbol{\nabla} \cdot \mathbf{P} = -\rho$) with no free charge, in which case $\mathbf{p} = \int \mathbf{P}\, d\tau$ and:
+
+$$
+\mathbf{E}_{\text{ave}} = -\frac{1}{4\pi\varepsilon_0 R^3}\int \mathbf{P}\, d\tau.
+$$
+
+Similarly modeling any steady internal current distribution by an equivalent frozen-in magnetization $\mathbf{M}$ (with total dipole moment $\mathbf{m} = \int \mathbf{M}\, d\tau$) and applying the transcription gives:
+
+$$
+\mathbf{H}_{\text{ave}} = -\frac{1}{4\pi\mu_0 R^3}\int \mu_0 \mathbf{M}\, d\tau = -\frac{\mathbf{m}}{4\pi R^3}.
+$$
+
+Since $\mathbf{B} = \mu_0(\mathbf{H} + \mathbf{M})$ and the volume average of $\mathbf{M}$ over the sphere is $\mathbf{M}_{\text{ave}} = \frac{\mathbf{m}}{\frac{4}{3}\pi R^3} = \frac{3\mathbf{m}}{4\pi R^3}$:
+
+$$
+\mathbf{B}_{\text{ave}} = \mu_0 \mathbf{H}_{\text{ave}} + \mu_0 \mathbf{M}_{\text{ave}} = -\frac{\mu_0 \mathbf{m}}{4\pi R^3} + \frac{3\mu_0 \mathbf{m}}{4\pi R^3} = \frac{\mu_0}{4\pi}\frac{2\mathbf{m}}{R^3} \quad (\text{Eq. 5.93}).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.26" title="Uniform Source Integrals for E, V, and A" tag="Griffiths 6.26 · Uniform Sphere Potentials">
+
+<div slot="problem">
+
+Compare Eqs. 2.15, 4.9, and 6.11. Notice that if $\rho$, $\mathbf{P}$, and $\mathbf{M}$ are uniform, the same integral is involved in all three:
+
+$$
+\int \frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\, d\tau'.
+$$
+
+Therefore, if you happen to know the electric field of a uniformly charged object, you can immediately write down the scalar potential of a uniformly polarized object, and the vector potential of a uniformly magnetized object, of the same shape. Use this observation to obtain $V$ inside and outside a uniformly polarized sphere (Ex. 4.2), and $\mathbf{A}$ inside and outside a uniformly magnetized sphere (Ex. 6.1).
+
+</div>
+
+<div slot="answer">
+
+Uniformly polarized sphere:
+
+$$
+V_{\text{in}} = \frac{1}{3\varepsilon_0}(\mathbf{P} \cdot \mathbf{r}), \qquad V_{\text{out}} = \frac{R^3}{3\varepsilon_0 r^2}(\mathbf{P} \cdot \hat{\mathbf{r}})
+$$
+
+Uniformly magnetized sphere:
+
+$$
+\mathbf{A}_{\text{in}} = \frac{\mu_0}{3}(\mathbf{M} \times \mathbf{r}), \qquad \mathbf{A}_{\text{out}} = \frac{\mu_0 R^3}{3 r^2}(\mathbf{M} \times \hat{\mathbf{r}})
+$$
+
+</div>
+
+<div slot="solution">
+
+Define the common geometric integral over the volume $\mathcal{V}$:
+
+$$
+\mathbf{I}(\mathbf{r}) \equiv \frac{1}{4\pi\varepsilon_0}\int_{\mathcal{V}} \frac{\mathbf{r} - \mathbf{r}'}{|\mathbf{r} - \mathbf{r}'|^3}\, d\tau'.
+$$
+
+When $\rho$, $\mathbf{P}$, and $\mathbf{M}$ are uniform over $\mathcal{V}$, Eqs. 2.15, 4.9, and 6.11 read:
+
+$$
+\mathbf{E} = \rho\,\mathbf{I}(\mathbf{r}), \qquad V = \mathbf{P} \cdot \mathbf{I}(\mathbf{r}), \qquad \mathbf{A} = \mu_0 \varepsilon_0\,\mathbf{M} \times \mathbf{I}(\mathbf{r}).
+$$
+
+For a uniformly charged sphere of radius $R$, the electric field inside (Prob. 2.12) and outside (Ex. 2.3) is:
+
+$$
+\mathbf{E}_{\text{in}} = \frac{\rho}{3\varepsilon_0}\mathbf{r}, \qquad \mathbf{E}_{\text{out}} = \frac{\rho R^3}{3\varepsilon_0 r^2}\hat{\mathbf{r}}.
+$$
+
+Comparing with $\mathbf{E} = \rho\,\mathbf{I}(\mathbf{r})$, we identify $\mathbf{I}_{\text{in}} = \frac{1}{3\varepsilon_0}\mathbf{r}$ and $\mathbf{I}_{\text{out}} = \frac{R^3}{3\varepsilon_0 r^2}\hat{\mathbf{r}}$.
+
+Substituting into $V = \mathbf{P} \cdot \mathbf{I}(\mathbf{r})$ gives the scalar potential of a uniformly polarized sphere (confirming Ex. 4.2):
+
+$$
+V_{\text{in}} = \frac{1}{3\varepsilon_0}(\mathbf{P} \cdot \mathbf{r}), \qquad V_{\text{out}} = \frac{R^3}{3\varepsilon_0 r^2}(\mathbf{P} \cdot \hat{\mathbf{r}}).
+$$
+
+Substituting into $\mathbf{A} = \mu_0 \varepsilon_0\,\mathbf{M} \times \mathbf{I}(\mathbf{r})$ gives the vector potential of a uniformly magnetized sphere (confirming Exs. 6.1 and 5.11):
+
+$$
+\mathbf{A}_{\text{in}} = \frac{\mu_0}{3}(\mathbf{M} \times \mathbf{r}), \qquad \mathbf{A}_{\text{out}} = \frac{\mu_0 R^3}{3 r^2}(\mathbf{M} \times \hat{\mathbf{r}}).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.27" title="Refraction of Magnetic Field Lines" tag="Griffiths 6.27 · Boundary Conditions">
+
+<div slot="problem">
+
+At the interface between one linear magnetic material (permeability $\mu_1$) and another (permeability $\mu_2$), the magnetic field lines bend, making angles $\theta_1$ and $\theta_2$ with the normal to the interface. Show that $\tan\theta_2 / \tan\theta_1 = \mu_2 / \mu_1$, assuming there is no free current at the boundary. Compare Eq. 4.68.
+
+</div>
+
+<div slot="answer">
+
+$$
+\frac{\tan\theta_2}{\tan\theta_1} = \frac{\mu_2}{\mu_1}
+$$
+
+</div>
+
+<div slot="solution">
+
+At the boundary between regions $1$ and $2$, the perpendicular component of $\mathbf{B}$ is always continuous (Eq. 6.26):
+
+$$
+B_1^\perp = B_2^\perp.
+$$
+
+Because there is no free surface current ($\mathbf{K}_f = \mathbf{0}$), the parallel component of $\mathbf{H}$ is also continuous (Eq. 6.25):
+
+$$
+H_1^\parallel = H_2^\parallel.
+$$
+
+In linear magnetic materials, $\mathbf{B} = \mu\mathbf{H}$ (Eq. 6.31), so:
+
+$$
+\frac{B_1^\parallel}{\mu_1} = \frac{B_2^\parallel}{\mu_2}.
+$$
+
+Since $\theta_1$ and $\theta_2$ are measured from the interface normal, $\tan\theta_1 = B_1^\parallel / B_1^\perp$ and $\tan\theta_2 = B_2^\parallel / B_2^\perp$. Taking their ratio gives:
+
+$$
+\frac{\tan\theta_2}{\tan\theta_1} = \frac{B_2^\parallel / B_2^\perp}{B_1^\parallel / B_1^\perp} = \frac{B_2^\parallel}{B_1^\parallel} = \frac{\mu_2}{\mu_1}.
+$$
+
+This has the exact same form as the electrostatic refraction law $\tan\theta_2 / \tan\theta_1 = \varepsilon_2 / \varepsilon_1$ (Eq. 4.68), though for different physical reasons: in magnetostatics $B^\perp$ and $H^\parallel$ are continuous, whereas in electrostatics $D^\perp$ and $E^\parallel$ are continuous.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.28" title="Dipole Embedded in a Linear Magnetic Sphere" tag="Griffiths 6.28 · Linear Media">
+
+<div slot="problem">
+
+A magnetic dipole $\mathbf{m}$ is embedded at the center of a sphere (radius $R$) of linear magnetic material (permeability $\mu$). Show that the magnetic field inside the sphere ($0 < r \le R$) is
+
+$$
+\mathbf{B} = \frac{\mu}{4\pi}\left\{\frac{1}{r^3}[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}] + \frac{2(\mu_0 - \mu)\mathbf{m}}{(2\mu_0 + \mu)R^3}\right\}.
+$$
+
+What is the field outside the sphere?
+
+</div>
+
+<div slot="answer">
+
+For $r > R$:
+
+$$
+\mathbf{B} = \frac{\mu_0}{4\pi}\left(\frac{3\mu}{2\mu_0 + \mu}\right)\frac{1}{r^3}\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right]
+$$
+
+</div>
+
+<div slot="solution">
+
+By Eq. 6.33, the free dipole $\mathbf{m}$ at the center induces a bound dipole $\mathbf{m}_b = \chi_m \mathbf{m}$ right at the origin, so the net dipole moment at the center is:
+
+$$
+\mathbf{m}_{\text{center}} = \mathbf{m} + \mathbf{m}_b = (1 + \chi_m)\mathbf{m} = \frac{\mu}{\mu_0}\mathbf{m}.
+$$
+
+By Eq. 5.89, this central dipole produces:
+
+$$
+\mathbf{B}_{\text{center}} = \frac{\mu_0}{4\pi}\frac{1}{r^3}\left[3(\mathbf{m}_{\text{center}}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}_{\text{center}}\right] = \frac{\mu}{4\pi}\frac{1}{r^3}\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right],
+$$
+
+which accounts for the first term in the interior field.
+
+For $0 < r < R$, there is no free current, so $\mathbf{J}_b = \mathbf{0}$ (Eq. 6.33). The remaining contribution to $\mathbf{B}$ must therefore come from the bound surface current $\mathbf{K}_b$ at $r = R$. Guided by the form of the target answer (and the electrostatic analog in Prob. 4.37), make the ansatz that $\mathbf{K}_b$ produces a uniform interior field $\mathbf{B}_{\text{surf}} = A\mathbf{m}$ for $0 < r < R$. Then inside the sphere the magnetization is:
+
+$$
+\mathbf{M} = \chi_m \mathbf{H} = \frac{\chi_m}{\mu}\mathbf{B} = \frac{\chi_m}{4\pi r^3}\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right] + \frac{\chi_m}{\mu}A\mathbf{m}.
+$$
+
+For $0 < r < R$, $\boldsymbol{\nabla} \times \mathbf{M} = \mathbf{0}$ (the first term is proportional to a pure dipole field, which is curl-free away from $r=0$, and the second term is constant). At $r = R$, taking $\mathbf{m}$ along $\hat{\mathbf{z}}$ so that $\mathbf{m} \times \hat{\mathbf{r}} = m\sin\theta\,\hat{\boldsymbol{\phi}}$, the bound surface current is:
+
+$$
+\mathbf{K}_b = \mathbf{M}(R) \times \hat{\mathbf{r}} = \chi_m m \left(\frac{A}{\mu} - \frac{1}{4\pi R^3}\right)\sin\theta\,\hat{\boldsymbol{\phi}}.
+$$
+
+This has the exact form of the surface current on a spinning uniformly charged spherical shell, $\mathbf{K} = (\sigma\omega R)\sin\theta\,\hat{\boldsymbol{\phi}}$, with $(\sigma\omega R) \leftrightarrow \chi_m m\left(\frac{A}{\mu} - \frac{1}{4\pi R^3}\right)$. By Eq. 5.70, such a surface current creates a uniform interior field $\frac{2}{3}\mu_0(\sigma\omega R)\hat{\mathbf{z}}$. Self-consistency ($\mathbf{B}_{\text{surf}} = A\mathbf{m}$) therefore requires:
+
+$$
+A = \frac{2}{3}\mu_0 \chi_m \left(\frac{A}{\mu} - \frac{1}{4\pi R^3}\right).
+$$
+
+Using $\mu_0\chi_m = \mu - \mu_0$:
+
+$$
+A\left(1 - \frac{2(\mu - \mu_0)}{3\mu}\right) = \frac{2(\mu_0 - \mu)}{3(4\pi R^3)} \implies A\left(\frac{\mu + 2\mu_0}{3\mu}\right) = \frac{2(\mu_0 - \mu)}{3(4\pi R^3)},
+$$
+
+which gives:
+
+$$
+A = \frac{\mu}{4\pi}\frac{2(\mu_0 - \mu)}{(2\mu_0 + \mu)R^3}.
+$$
+
+Adding $\mathbf{B}_{\text{center}} + A\mathbf{m}$ reproduces the stated magnetic field for $0 < r \le R$.
+
+Outside the sphere ($r > R$), the field is the sum of the central dipole field ($\mathbf{m}_{\text{center}} = \frac{\mu}{\mu_0}\mathbf{m}$) and the exterior field of $\mathbf{K}_b$. By Prob. 5.37, a spinning spherical surface current $\mathbf{K} = (\sigma\omega R)\sin\theta\,\hat{\boldsymbol{\phi}}$ generates a pure dipole field outside with dipole moment $\mathbf{m}_{\text{surf}} = \frac{4}{3}\pi R^3(\sigma\omega R)\hat{\mathbf{z}} = \frac{2\pi R^3}{\mu_0}\mathbf{B}_{\text{surf}}$:
+
+$$
+\mathbf{m}_{\text{surf}} = \frac{2\pi R^3}{\mu_0}\left[\frac{\mu}{4\pi}\frac{2(\mu_0 - \mu)}{(2\mu_0 + \mu)R^3}\mathbf{m}\right] = \frac{\mu(\mu_0 - \mu)}{\mu_0(2\mu_0 + \mu)}\mathbf{m}.
+$$
+
+Adding the two dipole moments gives the total effective dipole moment seen outside:
+
+$$
+\mathbf{m}_{\text{tot}} = \mathbf{m}_{\text{center}} + \mathbf{m}_{\text{surf}} = \left[\frac{\mu}{\mu_0} + \frac{\mu(\mu_0 - \mu)}{\mu_0(2\mu_0 + \mu)}\right]\mathbf{m} = \frac{3\mu}{2\mu_0 + \mu}\mathbf{m}.
+$$
+
+Therefore, for $r > R$:
+
+$$
+\mathbf{B} = \frac{\mu_0}{4\pi}\left(\frac{3\mu}{2\mu_0 + \mu}\right)\frac{1}{r^3}\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right].
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.29" title="Ampère vs. Gilbert Dipoles in a Cavity" tag="Griffiths 6.29 · Cavity Fields">
+
+<div slot="problem">
+
+You are asked to referee a grant application, which proposes to determine whether the magnetization of iron is due to "Ampère" dipoles (current loops) or "Gilbert" dipoles (separated magnetic monopoles). The experiment will involve a cylinder of iron (radius $R$ and length $L = 10R$), uniformly magnetized along the direction of its axis. If the dipoles are Ampère-type, the magnetization is equivalent to a surface bound current $\mathbf{K}_b = M\hat{\boldsymbol{\phi}}$; if they are Gilbert-type, the magnetization is equivalent to surface monopole densities $\sigma_b = \pm M$ at the two ends. Unfortunately, these two configurations produce identical magnetic fields at exterior points. However, the interior fields are radically different—in the first case $\mathbf{B}$ is in the same general direction as $\mathbf{M}$, whereas in the second it is roughly opposite to $\mathbf{M}$. The applicant proposes to measure this internal field by carving out a small cavity and finding the torque on a tiny compass needle placed inside.
+
+Assuming that the obvious technical difficulties can be overcome, and that the question itself is worthy of study, would you advise funding this experiment? If so, what shape cavity would you recommend? If not, what is wrong with the proposal? (Hint: Refer to Probs. 4.11, 4.16, 6.9, and 6.13.)
+
+</div>
+
+<div slot="answer">
+
+Do **not** fund the experiment. For every cavity shape (sphere, needle, or wafer), the field inside the cavity is identical in the Ampère and Gilbert models, so a compass needle inside a cavity cannot distinguish between them.
+
+</div>
+
+<div slot="solution">
+
+The flaw in the proposal is that the magnetic field inside a carved-out cavity is **not** the same as the macroscopic field $\mathbf{B}_0$ inside the bulk material itself, because carving the cavity exposes new bound currents (in the Ampère model) or bound magnetic charges (in the Gilbert model) on the cavity walls.
+
+Deep near the center of the long cylinder ($L = 10R$):
+
+1. **Ampère-type dipoles:** The bulk field inside is essentially that of a long solenoid, $\mathbf{B}_0 \approx \mu_0 \mathbf{M}$. By Prob. 6.13, removing material to form a small cavity modifies the field inside the cavity to:
+   - Sphere: $\mathbf{B}_{\text{cav}} = \mathbf{B}_0 - \frac{2}{3}\mu_0 \mathbf{M} = \frac{1}{3}\mu_0 \mathbf{M}$
+   - Long thin needle (parallel to $\mathbf{M}$): $\mathbf{B}_{\text{cav}} = \mathbf{B}_0 - \mu_0 \mathbf{M} = \mathbf{0}$
+   - Thin wafer (perpendicular to $\mathbf{M}$): $\mathbf{B}_{\text{cav}} = \mathbf{B}_0 = \mu_0 \mathbf{M}$
+
+2. **Gilbert-type dipoles:** Deep inside the cylinder, far from the two distant end caps of surface monopole charge $\pm M$, the bulk field is nearly zero, $\mathbf{B}_0 \approx \mathbf{0}$ (equivalently, this corresponds to the macroscopic $\mathbf{H}$ field). By the electrostatic analogy of Prob. 4.16 (with $\mathbf{E} \to \mathbf{B}$, $1/\varepsilon_0 \to \mu_0$, and $\mathbf{P} \to \mathbf{M}$), the field inside the cavity is:
+   - Sphere: $\mathbf{B}_{\text{cav}} = \mathbf{B}_0 + \frac{1}{3}\mu_0 \mathbf{M} = \frac{1}{3}\mu_0 \mathbf{M}$
+   - Long thin needle (parallel to $\mathbf{M}$): $\mathbf{B}_{\text{cav}} = \mathbf{B}_0 = \mathbf{0}$
+   - Thin wafer (perpendicular to $\mathbf{M}$): $\mathbf{B}_{\text{cav}} = \mathbf{B}_0 + \mu_0 \mathbf{M} = \mu_0 \mathbf{M}$
+
+In every cavity geometry, the Ampère and Gilbert models predict the exact same cavity field $\mathbf{B}_{\text{cav}}$. Consequently, measuring the torque on a compass needle inside any cavity provides no test at all between the two models, and the grant should not be funded.
+
+</div>
+
+</ProblemCard>
+
+</section>

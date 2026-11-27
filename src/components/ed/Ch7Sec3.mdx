@@ -1,0 +1,534 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch7-sec3" class="ed-sec-block">
+
+### 7.3 Maxwell's Equations
+
+<div class="ed-theory-box">
+
+#### 7.3.1–7.3.2 Inconsistency of Pre-Maxwell Ampère's Law and the Displacement Current
+
+Prior to Maxwell, the local laws of electromagnetism were Gauss's law $\nabla \cdot \vec{E} = \rho/\epsilon_0$, the solenoidal condition $\nabla \cdot \vec{B} = 0$, Faraday's law $\nabla \times \vec{E} = -\partial\vec{B}/\partial t$, and Ampère's magnetostatic law $\nabla \times \vec{B} = \mu_0\vec{J}$. While $\nabla \cdot (\nabla \times \vec{E}) = -\partial(\nabla \cdot \vec{B})/\partial t = 0$ is identically consistent, taking the divergence of Ampère's law yields
+
+$$
+\nabla \cdot (\nabla \times \vec{B}) = \mu_0(\nabla \cdot \vec{J}) = 0,
+$$
+
+which fails whenever currents are nonsteady ($\nabla \cdot \vec{J} = -\partial\rho/\partial t \neq 0$). In integral form, $\oint \vec{B}\cdot d\vec{l} = \mu_0 I_{\text{enc}}$ becomes ill-defined for a charging capacitor because a flat surface spanning an Amperian loop around the lead wire intercepts conduction current $I_{\text{enc}} = I$, whereas a balloon-shaped surface passing between the plates intercepts $I_{\text{enc}} = 0$.
+
+Using the continuity equation $\nabla \cdot \vec{J} = -\partial\rho/\partial t$ and Gauss's law $\rho = \epsilon_0 \nabla \cdot \vec{E}$, Maxwell wrote
+
+$$
+\nabla \cdot \vec{J} = -\frac{\partial}{\partial t}(\epsilon_0 \nabla \cdot \vec{E}) = -\nabla \cdot \left(\epsilon_0\frac{\partial\vec{E}}{\partial t}\right),
+$$
+
+and added the **displacement current density**
+
+$$
+\vec{J}_d \equiv \epsilon_0 \frac{\partial \vec{E}}{\partial t}
+$$
+
+to $\vec{J}$, yielding the Ampère–Maxwell law:
+
+$$
+\nabla \times \vec{B} = \mu_0\vec{J} + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t}, \qquad \oint \vec{B}\cdot d\vec{l} = \mu_0 I_{\text{enc}} + \mu_0\epsilon_0 \frac{d}{dt}\int_S \vec{E}\cdot d\vec{a}.
+$$
+
+Taking the divergence now reproduces the continuity equation identically, and any surface spanning the Amperian loop yields the same line integral of $\vec{B}$ (whether carried by conduction current, displacement current, or a combination of both).
+
+#### 7.3.3 Complete Maxwell's Equations and Dynamics
+
+In vacuum (microscopic formulation with total charge density $\rho$ and total current density $\vec{J}$), Maxwell's equations are:
+
+$$
+\begin{aligned}
+\text{(i)}\quad \nabla \cdot \vec{E} &= \frac{\rho}{\epsilon_0}, &\qquad \text{(iii)}\quad \nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t}, \\
+\text{(ii)}\quad \nabla \cdot \vec{B} &= 0, &\qquad \text{(iv)}\quad \nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t}.
+\end{aligned}
+$$
+
+Writing the field derivatives on the left emphasizes that $\rho$ and $\vec{J}$ are the ultimate sources of the electromagnetic field ($\nabla \cdot \vec{E} = \rho/\epsilon_0$, $\nabla \times \vec{E} + \partial\vec{B}/\partial t = \vec{0}$, $\nabla \cdot \vec{B} = 0$, $\nabla \times \vec{B} - \mu_0\epsilon_0\partial\vec{E}/\partial t = \mu_0\vec{J}$), while the Lorentz force law $\vec{F} = q(\vec{E} + \vec{v}\times\vec{B})$ specifies how the fields act back on charges.
+
+#### 7.3.4 Magnetic Charge Generalization and Duality
+
+In source-free space ($\rho = 0$, $\vec{J} = \vec{0}$), Maxwell's equations are invariant under the duality rotation $\vec{E} \to c\vec{B}$, $\vec{B} \to -\frac{1}{c}\vec{E}$ (where $c = (\mu_0\epsilon_0)^{-1/2}$). Introducing hypothetical magnetic charge density $\rho_m$ and magnetic current density $\vec{J}_m$ restores full source symmetry:
+
+$$
+\begin{aligned}
+\nabla \cdot \vec{E} &= \frac{\rho_e}{\epsilon_0}, &\qquad \nabla \times \vec{E} &= -\mu_0\vec{J}_m - \frac{\partial\vec{B}}{\partial t}, \\
+\nabla \cdot \vec{B} &= \mu_0\rho_m, &\qquad \nabla \times \vec{B} &= \mu_0\vec{J}_e + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t},
+\end{aligned}
+$$
+
+implying separate conservation laws $\nabla \cdot \vec{J}_e = -\partial\rho_e/\partial t$ and $\nabla \cdot \vec{J}_m = -\partial\rho_m/\partial t$. Although magnetic monopoles have not been observed experimentally ($\rho_m = 0$, $\vec{J}_m = \vec{0}$), Dirac showed their existence would necessitate electric charge quantization.
+
+#### 7.3.5 Maxwell's Equations in Matter
+
+Inside polarizable and magnetizable media, total charge and current separate into free and bound contributions. In addition to the static bound charge $\rho_b = -\nabla\cdot\vec{P}$ and magnetization current $\vec{J}_b = \nabla\times\vec{M}$, a time-varying electric polarization $\vec{P}$ produces a linear **polarization current density**
+
+$$
+\vec{J}_p = \frac{\partial\vec{P}}{\partial t},
+$$
+
+which satisfies $\nabla\cdot\vec{J}_p = -\partial\rho_b/\partial t$ and ensures conservation of bound charge. Thus $\rho = \rho_f - \nabla\cdot\vec{P}$ and $\vec{J} = \vec{J}_f + \nabla\times\vec{M} + \partial\vec{P}/\partial t$. Defining the auxiliary fields $\vec{D} \equiv \epsilon_0\vec{E} + \vec{P}$ and $\vec{H} \equiv \frac{1}{\mu_0}\vec{B} - \vec{M}$, Maxwell's macroscopic equations become
+
+$$
+\begin{aligned}
+\nabla \cdot \vec{D} &= \rho_f, &\qquad \nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t}, \\
+\nabla \cdot \vec{B} &= 0, &\qquad \nabla \times \vec{H} &= \vec{J}_f + \frac{\partial\vec{D}}{\partial t},
+\end{aligned}
+$$
+
+where $\vec{J}_d \equiv \partial\vec{D}/\partial t$ is the displacement current in matter. For linear, isotropic media, these are closed by the constitutive relations $\vec{D} = \epsilon\vec{E}$ and $\vec{H} = \vec{B}/\mu$, with $\epsilon = \epsilon_0(1 + \chi_e)$ and $\mu = \mu_0(1 + \chi_m)$.
+
+#### 7.3.6 Electromagnetic Boundary Conditions
+
+Applying the integral forms of macroscopic Maxwell's equations to an infinitesimal Gaussian pillbox and an infinitesimal Amperian loop straddling the interface between medium 1 and medium 2 (with unit normal $\hat{n}$ pointing from medium 2 into medium 1) yields the general boundary conditions:
+
+$$
+\begin{aligned}
+D_{1\perp} - D_{2\perp} &= \sigma_f, &\qquad \vec{E}_{1\parallel} - \vec{E}_{2\parallel} &= \vec{0}, \\
+B_{1\perp} - B_{2\perp} &= 0, &\qquad \vec{H}_{1\parallel} - \vec{H}_{2\parallel} &= \vec{K}_f \times \hat{n},
+\end{aligned}
+$$
+
+where $\sigma_f$ and $\vec{K}_f$ are the free surface charge and free surface current densities on the boundary. For linear media, these become $\epsilon_1 E_{1\perp} - \epsilon_2 E_{2\perp} = \sigma_f$, $B_{1\perp} = B_{2\perp}$, $\vec{E}_{1\parallel} = \vec{E}_{2\parallel}$, and $\frac{1}{\mu_1}\vec{B}_{1\parallel} - \frac{1}{\mu_2}\vec{B}_{2\parallel} = \vec{K}_f \times \hat{n}$.
+
+</div>
+
+<ProblemCard num="7.34" title="Magnetic Field in a Narrow Capacitor Gap" tag="Griffiths 7.34 · Displacement Current">
+
+<div slot="problem">
+
+A fat wire, radius $a$, carries a constant current $I$, uniformly distributed over its cross section. A narrow gap in the wire, of width $w \ll a$, forms a parallel-plate capacitor. Find the magnetic field in the gap, at a distance $s < a$ from the axis.
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{B}(s) = \frac{\mu_0 I s}{2\pi a^2}\hat{\phi} \qquad (s < a)
+$$
+
+</div>
+
+<div slot="solution">
+
+Align the wire along the $+z$-axis so the current flows in the $+\hat{z}$ direction. Because the gap width satisfies $w \ll a$, fringing effects are negligible and the electric field inside the gap is uniform and axial:
+
+$$
+\vec{E}(t) = \frac{\sigma(t)}{\epsilon_0}\hat{z} = \frac{Q(t)}{\epsilon_0 \pi a^2}\hat{z},
+$$
+
+where $Q(t)$ is the charge accumulated on the upstream plate. Since $dQ/dt = I$, the displacement current density in the gap is uniform:
+
+$$
+\vec{J}_d = \epsilon_0 \frac{\partial\vec{E}}{\partial t} = \frac{1}{\pi a^2}\frac{dQ}{dt}\hat{z} = \frac{I}{\pi a^2}\hat{z}.
+$$
+
+By cylindrical symmetry, the magnetic field is purely azimuthal, $\vec{B} = B(s)\hat{\phi}$. Applying the Ampère–Maxwell law to a circular Amperian loop of radius $s < a$ centered on the axis inside the gap and bounded by a flat disk (through which $\vec{J} = \vec{0}$), we obtain
+
+$$
+\oint \vec{B}\cdot d\vec{l} = B(s)(2\pi s) = \mu_0 \int \vec{J}_d \cdot d\vec{a} = \mu_0 \left(\frac{I}{\pi a^2}\right)(\pi s^2) = \mu_0 I \frac{s^2}{a^2}.
+$$
+
+Solving for $B(s)$ gives
+
+$$
+\vec{B}(s) = \frac{\mu_0 I s}{2\pi a^2}\hat{\phi},
+$$
+
+which continuously matches the magnetostatic field inside the solid wire.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.35" title="Charging Capacitor: Flat vs. Cylindrical Amperian Surfaces" tag="Griffiths 7.35 · Displacement vs. Conduction Current">
+
+<div slot="problem">
+
+The preceding problem was an artificial model for the charging capacitor, designed to avoid complications associated with the current spreading out over the surface of the plates. For a more realistic model, imagine thin wires that connect to the centers of the plates. Again, the current $I$ is constant, the radius of the capacitor is $a$, and the separation of the plates is $w \ll a$. Assume that the current flows out over the plates in such a way that the surface charge is uniform, at any given time, and is zero at $t = 0$.
+
+**(a)** Find the electric field between the plates, as a function of $t$.
+
+**(b)** Find the displacement current through a circle of radius $s$ in the plane midway between the plates. Using this circle as your "Amperian loop," and the flat surface that spans it, find the magnetic field at a distance $s$ from the axis.
+
+**(c)** Repeat part **(b)**, but this time use a cylindrical surface whose open right end is the Amperian loop in the midplane and which extends to the left through the left plate and terminates in a closed end outside the capacitor. Notice that the displacement current through this surface is zero, and there are two contributions to $I_{\text{enc}}$.
+
+</div>
+
+<div slot="answer">
+
+**(a)** $\vec{E}(t) = \dfrac{It}{\pi\epsilon_0 a^2}\hat{z}$
+
+**(b)** $I_{d,\text{enc}} = I\dfrac{s^2}{a^2}$, $\qquad \vec{B}(s) = \dfrac{\mu_0 I s}{2\pi a^2}\hat{\phi}$
+
+**(c)** $\vec{B}(s) = \dfrac{\mu_0 I s}{2\pi a^2}\hat{\phi}$ (via $I_{\text{enc}} = I - I(s) = I\dfrac{s^2}{a^2}$ with $I_d = 0$)
+
+</div>
+
+<div slot="solution">
+
+**(a)** With $Q(0) = 0$ and constant current $I$ flowing along $+\hat{z}$ onto the left plate, the charge on the left plate at time $t$ is $Q(t) = It$, giving a uniform surface charge density $\sigma(t) = \frac{It}{\pi a^2}$ (and $-\sigma(t)$ on the right plate). For $w \ll a$, the electric field between the plates is uniform:
+
+$$
+\vec{E}(t) = \frac{\sigma(t)}{\epsilon_0}\hat{z} = \frac{It}{\pi\epsilon_0 a^2}\hat{z}.
+$$
+
+**(b)** The displacement current density between the plates is
+
+$$
+\vec{J}_d = \epsilon_0 \frac{\partial\vec{E}}{\partial t} = \frac{I}{\pi a^2}\hat{z}.
+$$
+
+Through a flat disk of radius $s < a$ in the midplane, the enclosed displacement current is
+
+$$
+I_{d,\text{enc}} = \int \vec{J}_d \cdot d\vec{a} = \left(\frac{I}{\pi a^2}\right)(\pi s^2) = I\frac{s^2}{a^2}.
+$$
+
+Since no conduction current crosses this flat disk ($I_{\text{enc}} = 0$), the Ampère–Maxwell law gives
+
+$$
+\oint \vec{B}\cdot d\vec{l} = B(2\pi s) = \mu_0 I_{d,\text{enc}} = \mu_0 I\frac{s^2}{a^2} \implies \vec{B}(s) = \frac{\mu_0 I s}{2\pi a^2}\hat{\phi}.
+$$
+
+**(c)** Now span the same Amperian circle of radius $s$ in the midplane with the cylindrical cup extending leftward through the left plate and closed outside the capacitor. On the closed end outside the capacitor, $\vec{E} = \vec{0}$; on the curved cylindrical wall inside the gap, $\vec{E}$ is parallel to the surface so $\vec{E}\cdot d\vec{a} = 0$. Therefore, the electric flux through this surface vanishes identically and $I_{d,\text{enc}} = 0$.
+
+However, two conduction currents pierce this surface:
+1. The thin central wire enters through the closed end, contributing $+I$ in the $+\hat{z}$ sense.
+2. As charge spreads radially outward over the left plate, a total radial surface current $I(s)$ flows outward across the circle of radius $s$, piercing the curved sidewall of the cylinder in the opposite sense and contributing $-I(s)$ to the enclosed current.
+
+To find $I(s)$, apply charge conservation to the disk of radius $s$ on the left plate: the net rate of charge accumulation inside radius $s$ is $\frac{d}{dt}[\sigma(t)\pi s^2] = I - I(s)$, so
+
+$$
+\sigma(t) = \frac{[I - I(s)]t}{\pi s^2}.
+$$
+
+Because $\sigma(t) = \frac{It}{\pi a^2}$ is independent of $s$ (and $I(a) = 0$), we must have
+
+$$
+I - I(s) = I\frac{s^2}{a^2} \implies I(s) = I\left(1 - \frac{s^2}{a^2}\right).
+$$
+
+Hence the net enclosed conduction current is $I_{\text{enc}} = I - I(s) = I\frac{s^2}{a^2}$, and the Ampère–Maxwell law again yields
+
+$$
+B(2\pi s) = \mu_0 I_{\text{enc}} = \mu_0 I\frac{s^2}{a^2} \implies \vec{B}(s) = \frac{\mu_0 I s}{2\pi a^2}\hat{\phi},
+$$
+
+in exact agreement with part **(b)**.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.36" title="Displacement Current in an AC Coaxial Line" tag="Griffiths 7.36 · High-Frequency Regime">
+
+<div slot="problem">
+
+Refer to Problem 7.16, in which an alternating current $I(t) = I_0 \cos(\omega t)$ flows along the central wire of a coaxial cylinder of radius $a$ and returns along the outer shell, producing the induced axial electric field
+
+$$
+\vec{E}(s, t) = \frac{\mu_0 I_0 \omega}{2\pi}\sin(\omega t)\ln\left(\frac{a}{s}\right)\hat{z}.
+$$
+
+**(a)** Find the displacement current density $\vec{J}_d$.
+
+**(b)** Integrate $\vec{J}_d$ to get the total displacement current,
+
+$$
+I_d = \int \vec{J}_d \cdot d\vec{a}.
+$$
+
+**(c)** Compare $I_d$ and $I$ (find their ratio). If the outer cylinder were $2\text{ mm}$ in diameter, how high would the frequency $\nu$ have to be for $I_d$ to be $1\%$ of $I$?
+
+</div>
+
+<div slot="answer">
+
+**(a)** $\vec{J}_d = \dfrac{\mu_0 \epsilon_0 \omega^2 I}{2\pi}\ln\left(\dfrac{a}{s}\right)\hat{z}$
+
+**(b)** $I_d = \dfrac{\mu_0 \epsilon_0 \omega^2 a^2}{4} I = \left(\dfrac{\omega a}{2c}\right)^2 I$
+
+**(c)** $\dfrac{I_d}{I} = \left(\dfrac{\omega a}{2c}\right)^2$; $\quad \nu \approx 9.55 \times 10^9\text{ Hz} \approx 10\text{ GHz}$
+
+</div>
+
+<div slot="solution">
+
+**(a)** Differentiating $\vec{E}(s, t)$ with respect to $t$ and using $I(t) = I_0 \cos(\omega t)$ gives
+
+$$
+\vec{J}_d = \epsilon_0 \frac{\partial\vec{E}}{\partial t} = \frac{\mu_0 \epsilon_0 I_0 \omega^2}{2\pi}\cos(\omega t)\ln\left(\frac{a}{s}\right)\hat{z} = \frac{\mu_0 \epsilon_0 \omega^2 I}{2\pi}\ln\left(\frac{a}{s}\right)\hat{z}.
+$$
+
+**(b)** Integrating over the cross-sectional disk $0 \le s \le a$ with $d\vec{a} = 2\pi s\,ds\,\hat{z}$:
+
+$$
+I_d = \int \vec{J}_d \cdot d\vec{a} = \frac{\mu_0 \epsilon_0 \omega^2 I}{2\pi} \int_0^a \ln\left(\frac{a}{s}\right) 2\pi s\,ds = \mu_0 \epsilon_0 \omega^2 I \int_0^a (s\ln a - s\ln s)\,ds.
+$$
+
+Using $\int s\ln s\,ds = \frac{s^2}{2}\ln s - \frac{s^2}{4}$ and $\lim_{s\to 0^+} s^2\ln s = 0$, we evaluate
+
+$$
+\left[\frac{s^2}{2}\ln a - \frac{s^2}{2}\ln s + \frac{s^2}{4}\right]_0^a = \frac{a^2}{2}\ln a - \frac{a^2}{2}\ln a + \frac{a^2}{4} = \frac{a^2}{4}.
+$$
+
+Thus, using $\mu_0\epsilon_0 = 1/c^2$,
+
+$$
+I_d = \frac{\mu_0\epsilon_0 \omega^2 a^2}{4}I = \left(\frac{\omega a}{2c}\right)^2 I.
+$$
+
+**(c)** The ratio of displacement current to conduction current is
+
+$$
+\frac{I_d}{I} = \left(\frac{\omega a}{2c}\right)^2.
+$$
+
+For a cylinder of diameter $2\text{ mm}$, the radius is $a = 10^{-3}\text{ m}$. Setting $I_d/I = 10^{-2}$ requires $\frac{\omega a}{2c} = \frac{1}{10}$, so
+
+$$
+\omega = \frac{2c}{10a} = \frac{2(3 \times 10^8\text{ m/s})}{10(10^{-3}\text{ m})} = 6 \times 10^{10}\text{ rad/s}.
+$$
+
+The corresponding linear frequency is
+
+$$
+\nu = \frac{\omega}{2\pi} = \frac{6 \times 10^{10}\text{ rad/s}}{2\pi} \approx 9.55 \times 10^9\text{ Hz} \approx 10\text{ GHz},
+$$
+
+which lies in the microwave band, showing why displacement current is negligible in low-frequency laboratory circuits.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.37" title="Expanding Charged Shell and Maxwell's Equations" tag="Griffiths 7.37 · Distributional Sources">
+
+<div slot="problem">
+
+Suppose
+
+$$
+\vec{E}(\vec{r}, t) = \frac{1}{4\pi\epsilon_0}\frac{q}{r^2}\theta(vt - r)\hat{r}, \qquad \vec{B}(\vec{r}, t) = \vec{0},
+$$
+
+where $\theta$ is the Heaviside step function. Show that these fields satisfy all of Maxwell's equations, and determine $\rho$ and $\vec{J}$. Describe the physical situation that gives rise to these fields.
+
+</div>
+
+<div slot="answer">
+
+$$
+\rho(\vec{r}, t) = q\delta^3(\vec{r})\theta(t) - \frac{q}{4\pi r^2}\delta(vt - r), \qquad \vec{J}(\vec{r}, t) = -\frac{qv}{4\pi r^2}\delta(vt - r)\hat{r}
+$$
+
+A point charge $+q$ is created at the origin at $t = 0$ simultaneously with an oppositely charged spherical shell of total charge $-q$ that expands radially outward at constant speed $v$.
+
+</div>
+
+<div slot="solution">
+
+We verify each of Maxwell's equations in turn (assuming $v > 0$):
+
+1. **Divergence of $\vec{B}$:** Since $\vec{B} = \vec{0}$, $\nabla \cdot \vec{B} = 0$ holds trivially.
+
+2. **Faraday's law:** Because $\vec{E}$ is purely radial and depends only on $r$ and $t$, its curl vanishes everywhere ($\nabla \times \vec{E} = \vec{0}$), matching $-\partial\vec{B}/\partial t = \vec{0}$.
+
+3. **Gauss's law:** Applying the product rule $\nabla \cdot (f\vec{A}) = f(\nabla \cdot \vec{A}) + \vec{A}\cdot\nabla f$ along with $\nabla \cdot (\hat{r}/r^2) = 4\pi\delta^3(\vec{r})$ and $\frac{\partial}{\partial r}\theta(vt - r) = -\delta(vt - r)$, we obtain
+
+$$
+\begin{aligned}
+\rho(\vec{r}, t) &= \epsilon_0 \nabla \cdot \vec{E} \\
+&= \frac{q}{4\pi}\theta(vt - r)\nabla \cdot \left(\frac{\hat{r}}{r^2}\right) + \frac{q}{4\pi r^2}\hat{r}\cdot \left[\frac{\partial}{\partial r}\theta(vt - r)\hat{r}\right] \\
+&= q\delta^3(\vec{r})\theta(t) - \frac{q}{4\pi r^2}\delta(vt - r),
+\end{aligned}
+$$
+
+where we used $\theta(vt - r)\delta^3(\vec{r}) = \theta(vt)\delta^3(\vec{r}) = \theta(t)\delta^3(\vec{r})$. (For $t < 0$, $vt - r < 0$ for all $r \ge 0$, so $\vec{E} = \vec{0}$ and $\rho = 0$ everywhere.)
+
+4. **Ampère–Maxwell law:** With $\vec{B} = \vec{0}$, $\nabla \times \vec{B} = \vec{0} = \mu_0\vec{J} + \mu_0\epsilon_0 \frac{\partial\vec{E}}{\partial t}$ requires
+
+$$
+\vec{J}(\vec{r}, t) = -\epsilon_0 \frac{\partial\vec{E}}{\partial t} = -\frac{q}{4\pi r^2}\frac{\partial}{\partial t}\theta(vt - r)\hat{r} = -\frac{qv}{4\pi r^2}\delta(vt - r)\hat{r}.
+$$
+
+**Physical interpretation:** For $t < 0$, space is empty and field-free. At $t = 0$, a point charge $+q$ appears at the origin while an equal and opposite charge $-q$ spreads out as a thin spherical shell of radius $r = vt$ expanding radially at speed $v$. Inside the shell ($r < vt$), $\vec{E}$ is the static Coulomb field of $+q$; outside ($r > vt$), the net enclosed charge is zero and $\vec{E} = \vec{0}$. The expanding shell carries radial current density $\vec{J} = \rho_{\text{shell}}\vec{v}$, which is exactly cancelled by the displacement current $\epsilon_0\partial\vec{E}/\partial t$, ensuring $\vec{B} = \vec{0}$ everywhere by spherical symmetry.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.38" title="Lorentz Force Law for a Magnetic Monopole" tag="Griffiths 7.38 · Electromagnetic Duality">
+
+<div slot="problem">
+
+Assuming that "Coulomb's law" for magnetic charges ($q_m$) reads
+
+$$
+\vec{F} = \frac{\mu_0 q_{m1} q_{m2}}{4\pi r^2}\hat{r},
+$$
+
+work out the force law for a monopole $q_m$ moving with velocity $\vec{v}$ through electric and magnetic fields $\vec{E}$ and $\vec{B}$.
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{F} = q_m\left(\vec{B} - \frac{1}{c^2}\vec{v} \times \vec{E}\right) = q_m\left(\vec{B} - \mu_0\epsilon_0 \vec{v} \times \vec{E}\right)
+$$
+
+</div>
+
+<div slot="solution">
+
+From the generalized Gauss's law for magnetism, $\nabla \cdot \vec{B} = \mu_0 \rho_m$, the magnetic field of a stationary point monopole $q_{m1}$ at the origin is
+
+$$
+\vec{B} = \frac{\mu_0 q_{m1}}{4\pi r^2}\hat{r}.
+$$
+
+Comparing with the given magnetic Coulomb force on a test monopole $q_{m2}$, $\vec{F} = \frac{\mu_0 q_{m1} q_{m2}}{4\pi r^2}\hat{r} = q_{m2}\vec{B}$, shows that the static force on a monopole $q_m$ is $q_m\vec{B}$.
+
+To include velocity-dependent terms, note that Maxwell's equations with electric and magnetic sources,
+
+$$
+\begin{aligned}
+\nabla \cdot \vec{E} &= \frac{\rho_e}{\epsilon_0}, &\qquad \nabla \times \vec{E} &= -\mu_0\vec{J}_m - \frac{\partial\vec{B}}{\partial t}, \\
+\nabla \cdot \vec{B} &= \mu_0\rho_m, &\qquad \nabla \times \vec{B} &= \mu_0\vec{J}_e + \mu_0\epsilon_0\frac{\partial\vec{E}}{\partial t},
+\end{aligned}
+$$
+
+are invariant under the duality transformation (with $c^2 = 1/(\mu_0\epsilon_0)$)
+
+$$
+\vec{E} \to c\vec{B}, \qquad \vec{B} \to -\frac{1}{c}\vec{E}, \qquad q_e \to \frac{q_m}{c}, \qquad q_m \to -c q_e,
+$$
+
+along with the corresponding transformations of densities and currents ($\rho_e \to \rho_m/c$, $\vec{J}_e \to \vec{J}_m/c$, $\rho_m \to -c\rho_e$, $\vec{J}_m \to -c\vec{J}_e$). Applying this exact duality to the standard Lorentz force $\vec{F} = q_e(\vec{E} + \vec{v}\times\vec{B})$ yields the force on a magnetic monopole:
+
+$$
+\vec{F} = \left(\frac{q_m}{c}\right)\left[c\vec{B} + \vec{v} \times \left(-\frac{1}{c}\vec{E}\right)\right] = q_m\left(\vec{B} - \frac{1}{c^2}\vec{v} \times \vec{E}\right) = q_m\left(\vec{B} - \mu_0\epsilon_0\,\vec{v}\times\vec{E}\right).
+$$
+
+For $\vec{v} = \vec{0}$, this reduces to $\vec{F} = q_m\vec{B}$, reproducing the magnetic Coulomb law with unit proportionality constant.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.39" title="Monopole Passing Through a Resistanceless Loop" tag="Griffiths 7.39 · Generalized Faraday Law">
+
+<div slot="problem">
+
+Suppose a magnetic monopole $q_m$ passes through a resistanceless loop of wire with self-inductance $L$. What current is induced in the loop?
+
+</div>
+
+<div slot="answer">
+
+$$
+|I| = \frac{\mu_0 q_m}{L}
+$$
+
+</div>
+
+<div slot="solution">
+
+Integrate the generalized Faraday law, $\nabla \times \vec{E} = -\mu_0\vec{J}_m - \frac{\partial\vec{B}}{\partial t}$, over any open surface $S$ bounded by the loop:
+
+$$
+\mathcal{E} = \oint \vec{E}\cdot d\vec{l} = -\mu_0 I_{m,\text{enc}} - \frac{d\Phi_{\text{tot}}}{dt},
+$$
+
+where $I_{m,\text{enc}} = \int_S \vec{J}_m \cdot d\vec{a}$ is the magnetic current piercing $S$ and $\Phi_{\text{tot}} = \Phi_{\text{ext}} + LI$ is the total magnetic flux (monopole flux plus self-flux) through $S$. Because the loop is resistanceless ($R = 0$), $\mathcal{E} = IR = 0$ around the wire, so
+
+$$
+0 = -\mu_0 I_{m,\text{enc}} - \frac{d\Phi_{\text{ext}}}{dt} - L\frac{dI}{dt} \implies L\Delta I = -\mu_0 Q_m - \Delta\Phi_{\text{ext}},
+$$
+
+where $Q_m$ is the net magnetic charge crossing $S$ and $\Delta\Phi_{\text{ext}}$ is the net change in external monopole flux from $t \to -\infty$ to $t \to +\infty$ (assuming the loop starts with $I = 0$).
+
+We can evaluate the induced current using either of two surfaces bounded by the loop (oriented so $d\vec{a}$ points in the direction of the monopole's motion):
+
+1. **Flat disk spanning the loop:** Before the monopole reaches the plane, $\Phi_{\text{ext}}$ rises smoothly from $0$ to $+\mu_0 q_m/2$; as the monopole crosses the disk, $\Phi_{\text{ext}}$ jumps discontinuously by $-\mu_0 q_m$ to $-\mu_0 q_m/2$, and then rises back to $0$ as the monopole recedes to $+\infty$. Thus the net change is $\Delta\Phi_{\text{ext}} = 0$, while $Q_m = q_m$ crosses the disk, giving
+
+$$
+I = -\frac{\mu_0 q_m}{L}.
+$$
+
+2. **Balloon-shaped surface bulging past the loop on the far side:** Here the monopole passes into the interior without piercing the surface ($Q_m = 0$), so $\Phi_{\text{ext}}$ increases continuously and monotonically from $0$ to $+\mu_0 q_m$ ($\Delta\Phi_{\text{ext}} = +\mu_0 q_m$). Total flux conservation ($\Phi_{\text{tot}} = 0$) again yields
+
+$$
+I = -\frac{\mu_0 q_m}{L}.
+$$
+
+In either description, a persistent current of magnitude $I = \mu_0 q_m / L$ is induced in the loop (circulating so as to oppose the monopole's flux), which serves as the operating principle of superconducting monopole detectors.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="7.40" title="Conduction vs. Displacement Current in Sea Water" tag="Griffiths 7.40 · Macroscopic Media">
+
+<div slot="problem">
+
+Sea water at frequency $\nu = 4 \times 10^8\text{ Hz}$ has permittivity $\epsilon = 81\epsilon_0$, permeability $\mu = \mu_0$, and resistivity $\rho = 0.23\ \Omega\cdot\text{m}$. What is the ratio of conduction current to displacement current? (*Hint:* Consider a parallel-plate capacitor immersed in sea water and driven by a voltage $V_0\cos(2\pi\nu t)$.)
+
+</div>
+
+<div slot="answer">
+
+$$
+\frac{I_{c,0}}{I_{d,0}} = \frac{1}{2\pi\nu\epsilon\rho} \approx 2.41
+$$
+
+</div>
+
+<div slot="solution">
+
+For a parallel-plate capacitor of plate separation $d$ driven by $V(t) = V_0\cos(2\pi\nu t)$, the electric field in the sea water is
+
+$$
+E(t) = \frac{V(t)}{d} = \frac{V_0}{d}\cos(2\pi\nu t).
+$$
+
+By Ohm's law ($\vec{J}_c = \sigma\vec{E} = \vec{E}/\rho$), the conduction current density is
+
+$$
+J_c(t) = \frac{E(t)}{\rho} = \frac{V_0}{\rho d}\cos(2\pi\nu t),
+$$
+
+with amplitude $J_{c,0} = \frac{V_0}{\rho d}$.
+
+In linear dielectric matter ($\vec{D} = \epsilon\vec{E}$), the displacement current density is
+
+$$
+J_d(t) = \frac{\partial D}{\partial t} = \epsilon\frac{\partial E}{\partial t} = -\frac{2\pi\nu\epsilon V_0}{d}\sin(2\pi\nu t),
+$$
+
+with amplitude $J_{d,0} = \frac{2\pi\nu\epsilon V_0}{d}$. (The two currents are $90^\circ$ out of phase, and since both are uniform over the plate area $A$, the ratio of total currents equals the ratio of current density amplitudes.)
+
+Taking the ratio of the conduction current amplitude to the displacement current amplitude gives
+
+$$
+\frac{I_{c,0}}{I_{d,0}} = \frac{J_{c,0}}{J_{d,0}} = \frac{1}{2\pi\nu\epsilon\rho}.
+$$
+
+Substituting $\nu = 4 \times 10^8\text{ Hz}$, $\epsilon = 81\epsilon_0 = 81(8.854 \times 10^{-12}\text{ F/m})$, and $\rho = 0.23\ \Omega\cdot\text{m}$:
+
+$$
+\frac{I_{c,0}}{I_{d,0}} = \frac{1}{2\pi (4 \times 10^8\text{ s}^{-1})(81 \times 8.854 \times 10^{-12}\text{ F/m})(0.23\ \Omega\cdot\text{m})} = \frac{1}{0.4146} \approx 2.41.
+$$
+
+Thus, at $400\text{ MHz}$, the conduction and displacement currents in sea water are of comparable magnitude, with conduction current larger by a factor of $2.41$.
+
+</div>
+
+</ProblemCard>
+
+</section>

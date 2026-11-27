@@ -1,0 +1,793 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch4-sec5" class="ed-sec-block">
+
+### Chapter 4 Review Problems (4.29 – 4.43)
+
+<div class="ed-theory-box">
+
+**Chapter 4 Formula & Problem-Solving Checklist**
+
+- **Dipoles in Electric Fields:** Induced dipole moment $\mathbf{p} = \alpha\mathbf{E}$. Force on an ideal dipole in a nonuniform field: $\mathbf{F} = (\mathbf{p}\cdot\nabla)\mathbf{E}$. Torque about the dipole's center: $\mathbf{N} = \mathbf{p}\times\mathbf{E}$; about another origin at $\mathbf{r}$, $\mathbf{N} = (\mathbf{p}\times\mathbf{E}) + (\mathbf{r}\times\mathbf{F})$. Potential energy of a permanent dipole: $U = -\mathbf{p}\cdot\mathbf{E}$.
+- **Polarization & Bound Charges:** Dipole moment per unit volume $\mathbf{P}$ produces volume and surface bound charges:
+
+$$
+\rho_b = -\nabla\cdot\mathbf{P}, \qquad \sigma_b = \mathbf{P}\cdot\hat{\mathbf{n}}, \qquad Q_b = \int_{\mathcal{V}} \rho_b\,d\tau + \oint_{\mathcal{S}} \sigma_b\,da = 0.
+$$
+
+- **Electric Displacement $\mathbf{D}$:** Defined by $\mathbf{D} = \epsilon_0\mathbf{E} + \mathbf{P}$, satisfying $\nabla\cdot\mathbf{D} = \rho_f$ and $\oint \mathbf{D}\cdot d\mathbf{a} = Q_{f,\text{enc}}$. At any interface, $D_{1\perp} - D_{2\perp} = \sigma_f$ and $\mathbf{E}_{1\parallel} = \mathbf{E}_{2\parallel}$ (note $\nabla\times\mathbf{D} = \nabla\times\mathbf{P}$ is not zero in general).
+- **Linear Dielectrics:** $\mathbf{P} = \epsilon_0\chi_e\mathbf{E}$ and $\mathbf{D} = \epsilon\mathbf{E}$ with $\epsilon = \epsilon_0(1+\chi_e) = \epsilon_0\epsilon_r$. In homogeneous regions without free charge, $\nabla\cdot\mathbf{E} = 0$ and $\nabla^2 V = 0$; across dielectric interfaces with $\sigma_f = 0$, $V$ and $\epsilon(\partial V/\partial n)$ are continuous, and solutions are unique for given $\rho_f$ and boundary potentials.
+- **Energy & Forces on Dielectrics:** Electrostatic energy in linear media is $W = \frac{1}{2}\int \mathbf{D}\cdot\mathbf{E}\,d\tau$. The net force on a polarized body is $\mathbf{F} = \int (\mathbf{P}\cdot\nabla)\mathbf{E}_{\text{ext}}\,d\tau$, or by virtual work $F = -dW/dx$ (fixed free charge $Q_f$) and $F = +dW/dx$ (fixed potential $V$).
+
+</div>
+
+<ProblemCard num="4.29" title="Force and Torque Between Two Perpendicular Dipoles" tag="Griffiths 4.29 · Dipole Forces & Torques">
+<div slot="problem">
+
+(a) For the configuration in Problem 4.5 (dipole $\mathbf{p}_1 = p_1\hat{\mathbf{z}}$ at the origin and dipole $\mathbf{p}_2 = p_2\hat{\mathbf{y}}$ on the $y$-axis at distance $r$), calculate the force on $\mathbf{p}_2$ due to $\mathbf{p}_1$, and the force on $\mathbf{p}_1$ due to $\mathbf{p}_2$. Are the answers consistent with Newton's third law?
+
+(b) Find the total torque on $\mathbf{p}_2$ with respect to the center of $\mathbf{p}_1$, and compare it with the torque on $\mathbf{p}_1$ about that same point.
+
+</div>
+<div slot="answer">
+
+(a) $\mathbf{F}_2 = \dfrac{3p_1 p_2}{4\pi\epsilon_0 r^4}\hat{\mathbf{z}}$ and $\mathbf{F}_1 = -\dfrac{3p_1 p_2}{4\pi\epsilon_0 r^4}\hat{\mathbf{z}}$; yes, $\mathbf{F}_1 = -\mathbf{F}_2$, consistent with Newton's third law.
+
+(b) $\mathbf{N}_2 = \dfrac{p_1 p_2}{2\pi\epsilon_0 r^3}\hat{\mathbf{x}}$, which is equal and opposite to $\mathbf{N}_1 = -\dfrac{p_1 p_2}{2\pi\epsilon_0 r^3}\hat{\mathbf{x}}$.
+
+</div>
+<div slot="solution">
+
+**(a)** In Cartesian coordinates, $\mathbf{p}_1 = p_1\hat{\mathbf{z}}$ sits at $(0,0,0)$ and $\mathbf{p}_2 = p_2\hat{\mathbf{y}}$ sits at $(0,r,0)$. The electric field of $\mathbf{p}_1$ at $(x,y,z)$ is
+
+$$
+\mathbf{E}_1(x,y,z) = \frac{1}{4\pi\epsilon_0 r'^3}\left[3(\mathbf{p}_1\cdot\hat{\mathbf{r}}')\hat{\mathbf{r}}' - \mathbf{p}_1\right] = \frac{p_1}{4\pi\epsilon_0 (x^2+y^2+z^2)^{5/2}}\left[3xz\hat{\mathbf{x}} + 3yz\hat{\mathbf{y}} + (2z^2 - x^2 - y^2)\hat{\mathbf{z}}\right].
+$$
+
+On the $y$-axis ($x=0$, $z=0$, $y>0$), this simplifies to $\mathbf{E}_1(0,y,0) = -\dfrac{p_1}{4\pi\epsilon_0 y^3}\hat{\mathbf{z}}$. Using $\mathbf{F}_2 = (\mathbf{p}_2\cdot\nabla)\mathbf{E}_1\big|_{(0,r,0)}$, we obtain
+
+$$
+\mathbf{F}_2 = p_2 \frac{\partial \mathbf{E}_1}{\partial y}\bigg|_{(0,r,0)} = p_2 \frac{d}{dy}\left(-\frac{p_1}{4\pi\epsilon_0 y^3}\right)\bigg|_{y=r}\hat{\mathbf{z}} = \frac{3p_1 p_2}{4\pi\epsilon_0 r^4}\hat{\mathbf{z}}.
+$$
+
+For $\mathbf{F}_1$, write the field of $\mathbf{p}_2 = p_2\hat{\mathbf{y}}$ (located at $r\hat{\mathbf{y}}$) at a general point $(x,y,z)$. Setting $\eta = y - r$, the displacement from $\mathbf{p}_2$ is $\boldsymbol{r}'' = x\hat{\mathbf{x}} + \eta\hat{\mathbf{y}} + z\hat{\mathbf{z}}$ and $\mathbf{p}_2\cdot\boldsymbol{r}'' = p_2\eta$, so
+
+$$
+\mathbf{E}_2(x,y,z) = \frac{p_2}{4\pi\epsilon_0 (x^2+\eta^2+z^2)^{5/2}}\left[3x\eta\hat{\mathbf{x}} + (2\eta^2 - x^2 - z^2)\hat{\mathbf{y}} + 3z\eta\hat{\mathbf{z}}\right].
+$$
+
+At the origin $(0,0,0)$, we have $\eta = -r$, $x=0$, and $z=0$. Taking $\mathbf{F}_1 = (\mathbf{p}_1\cdot\nabla)\mathbf{E}_2\big|_{(0,0,0)} = p_1\dfrac{\partial \mathbf{E}_2}{\partial z}\big|_{(0,0,0)}$, only the $z$-component (linear in $z$) has a nonzero derivative at $z=0$:
+
+$$
+\mathbf{F}_1 = p_1\frac{3p_2(-r)}{4\pi\epsilon_0 r^5}\hat{\mathbf{z}} = -\frac{3p_1 p_2}{4\pi\epsilon_0 r^4}\hat{\mathbf{z}}.
+$$
+
+Thus $\mathbf{F}_1 = -\mathbf{F}_2$, in agreement with Newton's third law.
+
+**(b)** The total torque on $\mathbf{p}_2$ about the origin (the center of $\mathbf{p}_1$) is $\mathbf{N}_2 = (\mathbf{p}_2\times\mathbf{E}_1) + (\mathbf{r}\times\mathbf{F}_2)$, with $\mathbf{r} = r\hat{\mathbf{y}}$:
+
+$$
+\mathbf{p}_2\times\mathbf{E}_1 = (p_2\hat{\mathbf{y}})\times\left(-\frac{p_1}{4\pi\epsilon_0 r^3}\hat{\mathbf{z}}\right) = -\frac{p_1 p_2}{4\pi\epsilon_0 r^3}\hat{\mathbf{x}},
+$$
+
+$$
+\mathbf{r}\times\mathbf{F}_2 = (r\hat{\mathbf{y}})\times\left(\frac{3p_1 p_2}{4\pi\epsilon_0 r^4}\hat{\mathbf{z}}\right) = \frac{3p_1 p_2}{4\pi\epsilon_0 r^3}\hat{\mathbf{x}}.
+$$
+
+Adding the two contributions gives
+
+$$
+\mathbf{N}_2 = \frac{2p_1 p_2}{4\pi\epsilon_0 r^3}\hat{\mathbf{x}} = \frac{p_1 p_2}{2\pi\epsilon_0 r^3}\hat{\mathbf{x}}.
+$$
+
+Meanwhile, $\mathbf{p}_1$ is at the origin ($\mathbf{r}_1 = \mathbf{0}$), where $\mathbf{E}_2(\mathbf{0}) = \dfrac{2p_2}{4\pi\epsilon_0 r^3}\hat{\mathbf{y}}$, so the torque on $\mathbf{p}_1$ about its own center is
+
+$$
+\mathbf{N}_1 = \mathbf{p}_1\times\mathbf{E}_2(\mathbf{0}) = (p_1\hat{\mathbf{z}})\times\left(\frac{2p_2}{4\pi\epsilon_0 r^3}\hat{\mathbf{y}}\right) = -\frac{2p_1 p_2}{4\pi\epsilon_0 r^3}\hat{\mathbf{x}} = -\frac{p_1 p_2}{2\pi\epsilon_0 r^3}\hat{\mathbf{x}} = -\mathbf{N}_2.
+$$
+
+The two torques about the same reference point are equal and opposite, conserving total angular momentum.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.30" title="Dipole Between Tilted Conducting Plates" tag="Griffiths 4.30 · Qualitative Force Analysis">
+<div slot="problem">
+
+An electric dipole $\mathbf{p}$, pointing in the $+y$ direction, is placed midway between two large conducting plates that diverge toward $+x$. The upper plate makes a small angle $+\theta$ with the $x$-axis and is held at $+V$; the lower plate makes angle $-\theta$ with the $x$-axis and is held at $-V$. What is the direction of the net force on $\mathbf{p}$? Explain qualitatively.
+
+</div>
+<div slot="answer">
+
+The net force on $\mathbf{p}$ is in the $+x$ direction (to the right).
+
+</div>
+<div slot="solution">
+
+Because the electric field $\mathbf{E}$ must be perpendicular to the surface of each equipotential conducting plate and point from the $+V$ (upper) plate to the $-V$ (lower) plate, the field lines bulge outward to the right ($+x$).
+
+- At the upper ($+q$) end of the dipole ($y > 0$), the field line tilts downward and to the right ($E_x > 0$), so the force $\mathbf{F}_+ = +q\mathbf{E}$ has a component in the $+x$ direction.
+- At the lower ($-q$) end of the dipole ($y < 0$), the field line tilts downward and to the left ($E_x < 0$) as it meets the lower plate perpendicularly, so the force $\mathbf{F}_- = -q\mathbf{E}$ also has a component in the $+x$ direction.
+- By reflection symmetry across the $x$-axis ($V(x,-y) = -V(x,y)$), $E_y$ is symmetric in $y$, so the vertical components of $\mathbf{F}_+$ and $\mathbf{F}_-$ cancel ($\partial E_y/\partial y|_{y=0} = 0$).
+
+Equivalently, $\mathbf{p}$ points opposite to $\mathbf{E}$ at $y=0$, so its potential energy $U = -\mathbf{p}\cdot\mathbf{E} = +p|\mathbf{E}|$ decreases as $|\mathbf{E}|$ weakens to the right where the plates are farther apart; hence the net force $\mathbf{F} = p(\partial E_x/\partial y)\hat{\mathbf{x}}$ points to the right ($+x$).
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.31" title="Dipole on a Circular Track Around a Point Charge" tag="Griffiths 4.31 · Dipole Force & Energy Conservation">
+<div slot="problem">
+
+A point charge $Q$ is "nailed down" on a table. Around it, at radius $R$, is a frictionless circular track on which a dipole $\mathbf{p}$ rides, constrained always to point tangent to the circle. Use $\mathbf{F} = (\mathbf{p}\cdot\nabla)\mathbf{E}$ to show that the electric force on the dipole is
+
+$$
+\mathbf{F} = \frac{Q}{4\pi\epsilon_0 R^3}\mathbf{p}.
+$$
+
+Notice that this force is always in the "forward" direction. Why isn't this a perpetual motion machine?
+
+</div>
+<div slot="answer">
+
+In cylindrical coordinates, $\mathbf{F} = (\mathbf{p}\cdot\nabla)\mathbf{E} = \dfrac{Qp}{4\pi\epsilon_0 R^3}\hat{\boldsymbol{\phi}} = \dfrac{Q}{4\pi\epsilon_0 R^3}\mathbf{p}$. It is not a perpetual motion machine because the track's constraint torque (needed to keep $\mathbf{p}$ tangent to the circle against the electrostatic torque $\mathbf{N} = \mathbf{p}\times\mathbf{E}$) exerts a backward tangential force component that cancels $\mathbf{F}$ (equivalently, the negative rotational work $\mathbf{N}\cdot\boldsymbol{\omega}$ cancels $\mathbf{F}\cdot\mathbf{v}$, since $U = -\mathbf{p}\cdot\mathbf{E} = 0$ is constant around the track).
+
+</div>
+<div slot="solution">
+
+In cylindrical coordinates $(s, \phi, z)$ in the $z = 0$ plane, the point charge at the origin produces the field $\mathbf{E} = \dfrac{Q}{4\pi\epsilon_0 s^2}\hat{\mathbf{s}}$, and the tangential dipole is $\mathbf{p} = p\hat{\boldsymbol{\phi}}$. Thus $\mathbf{p}\cdot\nabla = \dfrac{p}{s}\dfrac{\partial}{\partial \phi}$. Using $\dfrac{\partial \hat{\mathbf{s}}}{\partial \phi} = \hat{\boldsymbol{\phi}}$, we find at $s = R$:
+
+$$
+\mathbf{F} = (\mathbf{p}\cdot\nabla)\mathbf{E}\bigg|_{s=R} = \left(\frac{p}{s}\frac{\partial}{\partial \phi}\right)\left(\frac{Q}{4\pi\epsilon_0 s^2}\hat{\mathbf{s}}\right)\bigg|_{s=R} = \frac{Qp}{4\pi\epsilon_0 R^3}\frac{\partial \hat{\mathbf{s}}}{\partial \phi} = \frac{Qp}{4\pi\epsilon_0 R^3}\hat{\boldsymbol{\phi}} = \frac{Q}{4\pi\epsilon_0 R^3}\mathbf{p}.
+$$
+
+**Why this is not a perpetual motion machine:**
+If the dipole were free, the field of $Q$ would exert a torque $\mathbf{N}_{\text{elec}} = \mathbf{p}\times\mathbf{E} = -\dfrac{Qp}{4\pi\epsilon_0 R^2}\hat{\mathbf{z}}$ (clockwise for $Q > 0$, $\mathbf{p} = p\hat{\boldsymbol{\phi}}$) trying to align $\mathbf{p}$ radially. To keep $\mathbf{p}$ tangent to the circle, the track must supply an equal and opposite counterclockwise constraint torque via normal forces at the ends of the physical dipole (length $d$, at angles $\pm d/(2R)$): an inward radial force at the front end and an outward radial force at the back end. Because the radial directions at $\pm d/(2R)$ tilt slightly relative to $\hat{\mathbf{s}}(0)$, both normal forces have a backward ($-\hat{\boldsymbol{\phi}}$) component that cancels the forward electric force $\mathbf{F}$ (and if the dipole moves, the normal forces act perpendicular to each end's actual velocity and do zero work, while $\mathbf{F}\cdot\mathbf{v} + \mathbf{N}_{\text{elec}}\cdot\boldsymbol{\omega} = 0$ since $U = -\mathbf{p}\cdot\mathbf{E} = 0$ everywhere on the circle). No net energy can be extracted.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.32" title="Earnshaw's Theorem for a Polarizable Atom" tag="Griffiths 4.32 · Electrostatic Trapping">
+<div slot="problem">
+
+Earnshaw's theorem says that you cannot trap a charged particle in an electrostatic field. Could you trap a neutral (but polarizable) atom ($\mathbf{p} = \alpha\mathbf{E}$) in an electrostatic field?
+
+(a) Show that the force on the atom is $\mathbf{F} = \frac{1}{2}\alpha\nabla(E^2)$.
+
+(b) Is it possible for $E^2$ to have a local maximum in a charge-free region (so that $\mathbf{F}$ would push the atom back to equilibrium)? Show that the answer is no.
+
+</div>
+<div slot="answer">
+
+(a) Follows from $\mathbf{F} = \alpha(\mathbf{E}\cdot\nabla)\mathbf{E}$ and $\nabla\times\mathbf{E} = \mathbf{0}$.
+
+(b) No; by the mean-value theorem for harmonic components of $\mathbf{E}$ (Problem 3.4a), $E^2$ cannot have a local maximum in a charge-free region, so a neutral polarizable atom cannot be trapped electrostatically.
+
+</div>
+<div slot="solution">
+
+**(a)** With $\mathbf{p} = \alpha\mathbf{E}$, the dipole force formula gives $\mathbf{F} = (\mathbf{p}\cdot\nabla)\mathbf{E} = \alpha(\mathbf{E}\cdot\nabla)\mathbf{E}$. By the vector product rule,
+
+$$
+\nabla(E^2) = \nabla(\mathbf{E}\cdot\mathbf{E}) = 2(\mathbf{E}\cdot\nabla)\mathbf{E} + 2\mathbf{E}\times(\nabla\times\mathbf{E}).
+$$
+
+In electrostatics, $\nabla\times\mathbf{E} = \mathbf{0}$, so $(\mathbf{E}\cdot\nabla)\mathbf{E} = \frac{1}{2}\nabla(E^2)$ and therefore
+
+$$
+\mathbf{F} = \frac{1}{2}\alpha\nabla(E^2).
+$$
+
+**(b)** Suppose for contradiction that $E^2$ has a local maximum at a point $P$ in a charge-free region. Then there exists a sphere of radius $R$ centered at $P$ (containing no charge) on whose surface $E^2(P') < E^2(P)$, and hence $|\mathbf{E}(P')| < |\mathbf{E}(P)|$, for all points $P'$ on the surface. Choose the $z$-axis along $\mathbf{E}(P)$, so that $E_z(P) = |\mathbf{E}(P)|$. In a charge-free region, each Cartesian component of $\mathbf{E}$ satisfies Laplace's equation, so by the mean-value theorem (Problem 3.4a) the average of $E_z$ over the sphere equals its value at the center:
+
+$$
+|\mathbf{E}(P)| = E_z(P) = \frac{1}{4\pi R^2}\oint_{\text{sphere}} E_z\,da \le \frac{1}{4\pi R^2}\oint_{\text{sphere}} |\mathbf{E}|\,da < \frac{1}{4\pi R^2}\oint_{\text{sphere}} |\mathbf{E}(P)|\,da = |\mathbf{E}(P)|.
+$$
+
+This contradiction proves that $E^2$ cannot have a local maximum in a charge-free region (though it can have a local minimum, such as $E = 0$ midway between two equal charges). Hence a polarizable atom with $\alpha > 0$ cannot be stably trapped in a static electric field.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.33" title="Bound Charges of a Uniformly Diverging Polarization Cube" tag="Griffiths 4.33 · Bound Charges">
+<div slot="problem">
+
+A dielectric cube of side $a$, centered at the origin, carries a "frozen-in" polarization $\mathbf{P} = k\mathbf{r}$, where $k$ is a constant. Find all the bound charges, and check that they add up to zero.
+
+</div>
+<div slot="answer">
+
+$\rho_b = -3k$ throughout the cube ($Q_{\text{vol}} = -3ka^3$), and $\sigma_b = \dfrac{ka}{2}$ on all six faces ($Q_{\text{surf}} = +3ka^3$); total bound charge $Q_b = 0$.
+
+</div>
+<div slot="solution">
+
+Writing $\mathbf{P} = k(x\hat{\mathbf{x}} + y\hat{\mathbf{y}} + z\hat{\mathbf{z}})$, the volume bound charge density inside the cube ($-a/2 < x,y,z < a/2$) is
+
+$$
+\rho_b = -\nabla\cdot\mathbf{P} = -k\left(\frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial z}{\partial z}\right) = -3k.
+$$
+
+Integrating over the cube's volume $a^3$ gives
+
+$$
+Q_{\text{vol}} = -3ka^3.
+$$
+
+The surface bound charge density on each face is $\sigma_b = \mathbf{P}\cdot\hat{\mathbf{n}}$. For example, on the top face at $z = a/2$ with outward normal $\hat{\mathbf{n}} = \hat{\mathbf{z}}$, we have $\sigma_b = k(a/2)$. By symmetry, on every face ($x = \pm a/2$, $y = \pm a/2$, $z = \pm a/2$),
+
+$$
+\sigma_b = \frac{ka}{2}.
+$$
+
+Summing over all six faces of area $a^2$ each yields
+
+$$
+Q_{\text{surf}} = 6\left(\frac{ka}{2}\right)a^2 = +3ka^3.
+$$
+
+Therefore, the total bound charge is $Q_b = Q_{\text{vol}} + Q_{\text{surf}} = -3ka^3 + 3ka^3 = 0$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.34" title="Capacitor with Linearly Varying Dielectric Constant" tag="Griffiths 4.34 · Inhomogeneous Linear Dielectric">
+<div slot="problem">
+
+The space between the plates of a parallel-plate capacitor is filled with dielectric material whose dielectric constant varies linearly from $1$ at the bottom plate ($x = 0$) to $2$ at the top plate ($x = d$). The capacitor is connected to a battery of voltage $V$. Find all the bound charge, and check that the total is zero.
+
+</div>
+<div slot="answer">
+
+Assuming the bottom plate ($x=0$) is at $+V$ relative to the top plate ($x=d$): $\rho_b(x) = -\dfrac{\epsilon_0 V}{d^2\ln 2}\dfrac{1}{(1+x/d)^2}$, $\sigma_b(0) = 0$, and $\sigma_b(d) = \dfrac{\epsilon_0 V}{2d\ln 2}$ (all signs reverse if the battery polarity is reversed). Total bound charge $Q_b = 0$.
+
+</div>
+<div slot="solution">
+
+Let the battery maintain potential $+V$ on the bottom plate ($x=0$) and $0$ on the top plate ($x=d$), so $\mathbf{E}$ points in the $+\hat{\mathbf{x}}$ direction (reversing the battery flips all signs). The dielectric constant and susceptibility are
+
+$$
+\epsilon_r(x) = 1 + \frac{x}{d}, \qquad \chi_e(x) = \frac{x}{d}, \qquad \epsilon(x) = \epsilon_0\left(1 + \frac{x}{d}\right).
+$$
+
+Since there is no free charge inside the dielectric and the geometry is planar, $\mathbf{D} = \sigma_f\hat{\mathbf{x}}$ is uniform throughout the gap, where $\sigma_f > 0$ is the free surface charge density on the bottom plate. Hence
+
+$$
+\mathbf{E}(x) = \frac{\mathbf{D}}{\epsilon(x)} = \frac{\sigma_f}{\epsilon_0(1 + x/d)}\hat{\mathbf{x}}.
+$$
+
+Relating $\sigma_f$ to the voltage $V$:
+
+$$
+V = \int_0^d E_x\,dx = \frac{\sigma_f}{\epsilon_0}\int_0^d \frac{dx}{1+x/d} = \frac{\sigma_f d}{\epsilon_0}\ln 2 \implies \sigma_f = \frac{\epsilon_0 V}{d\ln 2}.
+$$
+
+Thus the electric field and polarization are
+
+$$
+\mathbf{E}(x) = \frac{V}{d\ln 2}\frac{1}{1+x/d}\hat{\mathbf{x}}, \qquad \mathbf{P}(x) = \epsilon_0\chi_e(x)\mathbf{E}(x) = \frac{\epsilon_0 V}{d\ln 2}\frac{x/d}{1+x/d}\hat{\mathbf{x}}.
+$$
+
+Differentiating gives the volume bound charge density:
+
+$$
+\rho_b(x) = -\nabla\cdot\mathbf{P} = -\frac{dP_x}{dx} = -\frac{\epsilon_0 V}{d^2\ln 2}\frac{(1+x/d) - (x/d)}{(1+x/d)^2} = -\frac{\epsilon_0 V}{d^2\ln 2}\frac{1}{(1+x/d)^2}.
+$$
+
+At the surfaces (with outward normal $\hat{\mathbf{n}}$ from the dielectric):
+- At $x = 0$ ($\hat{\mathbf{n}} = -\hat{\mathbf{x}}$): $\mathbf{P}(0) = \mathbf{0}$, so $\sigma_b(0) = 0$.
+- At $x = d$ ($\hat{\mathbf{n}} = +\hat{\mathbf{x}}$): $\sigma_b(d) = P_x(d) = \dfrac{\epsilon_0 V}{d\ln 2}\dfrac{1}{1+1} = \dfrac{\epsilon_0 V}{2d\ln 2}$.
+
+For plate area $A$, the total bound charge is
+
+$$
+Q_b = A\int_0^d \rho_b(x)\,dx + A\sigma_b(d) = -\frac{\epsilon_0 V A}{d^2\ln 2}\left[d\left(-\frac{1}{1+x/d}\right)\right]_0^d + \frac{\epsilon_0 V A}{2d\ln 2} = -\frac{\epsilon_0 V A}{2d\ln 2} + \frac{\epsilon_0 V A}{2d\ln 2} = 0.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.35" title="Point Charge at the Center of a Linear Dielectric Sphere" tag="Griffiths 4.35 · Displacement & Bound Charge">
+<div slot="problem">
+
+A point charge $q$ is embedded at the center of a sphere of linear dielectric material (with susceptibility $\chi_e$ and radius $R$). Find the electric field, the polarization, and the bound charge densities, $\rho_b$ and $\sigma_b$. What is the total bound charge on the surface? Where is the compensating negative bound charge located?
+
+</div>
+<div slot="answer">
+
+Inside ($r < R$): $\mathbf{E} = \dfrac{q}{4\pi\epsilon_0(1+\chi_e)r^2}\hat{\mathbf{r}}$, $\mathbf{P} = \dfrac{q\chi_e}{4\pi(1+\chi_e)r^2}\hat{\mathbf{r}}$; outside ($r > R$): $\mathbf{E} = \dfrac{q}{4\pi\epsilon_0 r^2}\hat{\mathbf{r}}$, $\mathbf{P} = \mathbf{0}$. Bound charges: $\rho_b = -\dfrac{q\chi_e}{1+\chi_e}\delta^3(\mathbf{r})$ and $\sigma_b = \dfrac{q\chi_e}{4\pi(1+\chi_e)R^2}$. Total surface bound charge is $Q_{\text{surf}} = \dfrac{q\chi_e}{1+\chi_e}$; the compensating negative bound charge $-q\dfrac{\chi_e}{1+\chi_e}$ is concentrated at the center $r = 0$.
+
+</div>
+<div slot="solution">
+
+By spherical symmetry, Gauss's law for $\mathbf{D}$ ($\oint \mathbf{D}\cdot d\mathbf{a} = Q_{f,\text{enc}} = q$) gives
+
+$$
+\mathbf{D} = \frac{q}{4\pi r^2}\hat{\mathbf{r}} \qquad (\text{for all } r > 0).
+$$
+
+Inside the dielectric ($r < R$), $\epsilon = \epsilon_0(1+\chi_e)$, so
+
+$$
+\mathbf{E} = \frac{\mathbf{D}}{\epsilon} = \frac{q}{4\pi\epsilon_0(1+\chi_e)r^2}\hat{\mathbf{r}}, \qquad \mathbf{P} = \epsilon_0\chi_e\mathbf{E} = \frac{q\chi_e}{4\pi(1+\chi_e)r^2}\hat{\mathbf{r}}.
+$$
+
+Outside the sphere ($r > R$), $\mathbf{P} = \mathbf{0}$ and $\mathbf{E} = \dfrac{\mathbf{D}}{\epsilon_0} = \dfrac{q}{4\pi\epsilon_0 r^2}\hat{\mathbf{r}}$.
+
+Using the identity $\nabla\cdot(\hat{\mathbf{r}}/r^2) = 4\pi\delta^3(\mathbf{r})$, the volume bound charge density is
+
+$$
+\rho_b = -\nabla\cdot\mathbf{P} = -\frac{q\chi_e}{4\pi(1+\chi_e)}\nabla\cdot\left(\frac{\hat{\mathbf{r}}}{r^2}\right) = -\frac{q\chi_e}{1+\chi_e}\delta^3(\mathbf{r}).
+$$
+
+At the outer surface $r = R$ (with $\hat{\mathbf{n}} = \hat{\mathbf{r}}$), the surface bound charge density is
+
+$$
+\sigma_b = \mathbf{P}(R)\cdot\hat{\mathbf{r}} = \frac{q\chi_e}{4\pi(1+\chi_e)R^2}.
+$$
+
+The total bound charge on the surface $r = R$ is
+
+$$
+Q_{\text{surf}} = \sigma_b(4\pi R^2) = q\frac{\chi_e}{1+\chi_e},
+$$
+
+and the compensating negative bound charge sits right at the center ($r = 0$), surrounding the embedded point charge $q$:
+
+$$
+Q_{\text{vol}} = \int \rho_b\,d\tau = -q\frac{\chi_e}{1+\chi_e}\int \delta^3(\mathbf{r})\,d\tau = -q\frac{\chi_e}{1+\chi_e}.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.36" title="Refraction of Electric Field Lines at a Dielectric Interface" tag="Griffiths 4.36 · Dielectric Boundary Conditions">
+<div slot="problem">
+
+At the interface between one linear dielectric (permittivity $\epsilon_1$) and another (permittivity $\epsilon_2$), the electric field lines bend from angle $\theta_1$ to angle $\theta_2$ (measured from the normal to the interface). Show that
+
+$$
+\frac{\tan\theta_2}{\tan\theta_1} = \frac{\epsilon_2}{\epsilon_1},
+$$
+
+assuming there is no free charge at the boundary. Would a convex "lens" of dielectric material tend to "focus" or "defocus" the electric field?
+
+</div>
+<div slot="answer">
+
+Follows from continuity of $E_\parallel$ and $D_\perp = \epsilon E_\perp$. A convex dielectric "lens" would **defocus** the electric field lines.
+
+</div>
+<div slot="solution">
+
+Decompose the electric field on either side of the interface into components parallel ($E_\parallel$) and perpendicular ($E_\perp$) to the boundary. Since $\theta_1$ and $\theta_2$ are measured from the normal,
+
+$$
+\tan\theta_1 = \frac{E_{1\parallel}}{E_{1\perp}}, \qquad \tan\theta_2 = \frac{E_{2\parallel}}{E_{2\perp}}.
+$$
+
+With no free surface charge ($\sigma_f = 0$) at the boundary, the electrostatic boundary conditions require:
+1. Continuity of the tangential electric field: $E_{1\parallel} = E_{2\parallel}$.
+2. Continuity of the normal displacement: $D_{1\perp} = D_{2\perp} \implies \epsilon_1 E_{1\perp} = \epsilon_2 E_{2\perp}$.
+
+Taking the ratio of $\tan\theta_2$ to $\tan\theta_1$ yields
+
+$$
+\frac{\tan\theta_2}{\tan\theta_1} = \frac{E_{2\parallel}/E_{2\perp}}{E_{1\parallel}/E_{1\perp}} = \frac{E_{1\perp}}{E_{2\perp}} = \frac{\epsilon_2}{\epsilon_1}.
+$$
+
+When field lines pass from air ($\epsilon_1 = \epsilon_0$) into a dielectric ($\epsilon_2 > \epsilon_0$), $\tan\theta_2 / \tan\theta_1 = \epsilon_2/\epsilon_0 > 1$, so $\theta_2 > \theta_1$: the field lines bend *away* from the normal. This is the opposite of Snell's law for light rays entering a higher-index medium (which bend toward the normal), so a convex dielectric "lens" would **defocus** (diverge) the electric field lines.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.37" title="Point Dipole at the Center of a Linear Dielectric Sphere" tag="Griffiths 4.37 · Separation of Variables in Dielectrics">
+<div slot="problem">
+
+A point dipole $\mathbf{p}$ is embedded at the center of a sphere of linear dielectric material (with radius $R$ and dielectric constant $\epsilon_r$). Find the electric potential inside and outside the sphere.
+
+</div>
+<div slot="answer">
+
+$$
+V(r,\theta) = \begin{cases} \dfrac{p\cos\theta}{4\pi\epsilon_0 \epsilon_r r^2}\left[1 + 2\left(\dfrac{\epsilon_r - 1}{\epsilon_r + 2}\right)\dfrac{r^3}{R^3}\right], & (r \le R), \\[10pt] \dfrac{p\cos\theta}{4\pi\epsilon_0 r^2}\left(\dfrac{3}{\epsilon_r + 2}\right), & (r \ge R). \end{cases}
+$$
+
+</div>
+<div slot="solution">
+
+Align the $z$-axis with $\mathbf{p}$. Just as a point charge $q$ embedded in a linear dielectric is partially screened at the origin to $q/\epsilon_r$ (Problem 4.35), the embedded point dipole $\mathbf{p}$ at the center has an effective net dipole moment $\mathbf{p}' = \mathbf{p} - \dfrac{\chi_e}{1+\chi_e}\mathbf{p} = \dfrac{\mathbf{p}}{\epsilon_r}$ (equivalently, $\mathbf{D}$ has the singularity of $\mathbf{p}$ as $r\to 0$, so $V \to \dfrac{p\cos\theta}{4\pi\epsilon_0 \epsilon_r r^2}$).
+
+Using separation of variables in spherical coordinates with azimuthal symmetry:
+
+$$
+V_{\text{in}}(r,\theta) = \frac{p\cos\theta}{4\pi\epsilon_0 \epsilon_r r^2} + \sum_{l=0}^{\infty} A_l r^l P_l(\cos\theta) \qquad (r \le R),
+$$
+
+$$
+V_{\text{out}}(r,\theta) = \sum_{l=0}^{\infty} \frac{B_l}{r^{l+1}} P_l(\cos\theta) \qquad (r \ge R).
+$$
+
+At $r = R$, continuity of $V$ gives:
+- For $l \ne 1$: $B_l = R^{2l+1} A_l$.
+- For $l = 1$: $\dfrac{p}{4\pi\epsilon_0 \epsilon_r R^2} + A_1 R = \dfrac{B_1}{R^2} \implies B_1 = \dfrac{p}{4\pi\epsilon_0 \epsilon_r} + A_1 R^3$.
+
+Since $\sigma_f = 0$ at $r = R$, continuity of $D_r = -\epsilon\dfrac{\partial V}{\partial r}$ requires $\epsilon_r \dfrac{\partial V_{\text{in}}}{\partial r}\big|_{R^-} = \dfrac{\partial V_{\text{out}}}{\partial r}\big|_{R^+}$:
+
+$$
+-\frac{2p\cos\theta}{4\pi\epsilon_0 R^3} + \epsilon_r\sum_{l=0}^{\infty} l A_l R^{l-1} P_l(\cos\theta) = -\sum_{l=0}^{\infty} (l+1)\frac{B_l}{R^{l+2}} P_l(\cos\theta).
+$$
+
+- For $l \ne 1$, substituting $B_l = R^{2l+1} A_l$ yields $\epsilon_r l A_l = -(l+1)A_l \implies A_l = B_l = 0$.
+- For $l = 1$, substituting $B_1 = \dfrac{p}{4\pi\epsilon_0 \epsilon_r} + A_1 R^3$:
+
+$$
+-\frac{2p}{4\pi\epsilon_0 R^3} + \epsilon_r A_1 = -\frac{2}{R^3}\left(\frac{p}{4\pi\epsilon_0 \epsilon_r} + A_1 R^3\right) = -\frac{2p}{4\pi\epsilon_0 \epsilon_r R^3} - 2A_1.
+$$
+
+Solving for $A_1$ and $B_1$:
+
+$$
+(\epsilon_r + 2)A_1 = \frac{2(\epsilon_r - 1)p}{4\pi\epsilon_0 \epsilon_r R^3} \implies A_1 = \frac{2(\epsilon_r - 1)p}{4\pi\epsilon_0 \epsilon_r(\epsilon_r + 2)R^3},
+$$
+
+$$
+B_1 = \frac{p}{4\pi\epsilon_0 \epsilon_r}\left[1 + \frac{2(\epsilon_r - 1)}{\epsilon_r + 2}\right] = \frac{3p}{4\pi\epsilon_0(\epsilon_r + 2)}.
+$$
+
+Substituting $A_1$ and $B_1$ back into the expansions gives
+
+$$
+V(r,\theta) = \begin{cases} \dfrac{p\cos\theta}{4\pi\epsilon_0 \epsilon_r r^2}\left[1 + 2\left(\dfrac{\epsilon_r - 1}{\epsilon_r + 2}\right)\dfrac{r^3}{R^3}\right], & (r \le R), \\[10pt] \dfrac{p\cos\theta}{4\pi\epsilon_0 r^2}\left(\dfrac{3}{\epsilon_r + 2}\right), & (r \ge R). \end{cases}
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.38" title="Uniqueness Theorem with Linear Dielectrics" tag="Griffiths 4.38 · Uniqueness Theorem">
+<div slot="problem">
+
+Prove the following uniqueness theorem: A volume $\mathcal{V}$ contains a specified free charge distribution, and various pieces of linear dielectric material, with the susceptibility of each one given. If the potential is specified on the boundaries $\mathcal{S}$ of $\mathcal{V}$ ($V = 0$ at infinity would be suitable), then the potential throughout $\mathcal{V}$ is uniquely determined.
+
+</div>
+<div slot="answer">
+
+Integrating $\nabla\cdot(V_3\mathbf{D}_3)$ over $\mathcal{V}$ for the difference $V_3 = V_2 - V_1$ yields $\int_{\mathcal{V}} \epsilon E_3^2\,d\tau = 0$, forcing $\mathbf{E}_3 = \mathbf{0}$ and $V_2 = V_1$ everywhere.
+
+</div>
+<div slot="solution">
+
+Suppose there exist two solutions $V_1$ and $V_2$ inside $\mathcal{V}$ that satisfy the boundary condition $V_1 = V_2$ on $\mathcal{S}$ and yield fields $\mathbf{E}_i = -\nabla V_i$ and $\mathbf{D}_i = \epsilon\mathbf{E}_i$ (where $\epsilon = \epsilon_0(1+\chi_e) > 0$ is specified everywhere) satisfying $\nabla\cdot\mathbf{D}_i = \rho_f$. Define the difference fields
+
+$$
+V_3 \equiv V_2 - V_1, \qquad \mathbf{E}_3 \equiv \mathbf{E}_2 - \mathbf{E}_1 = -\nabla V_3, \qquad \mathbf{D}_3 \equiv \mathbf{D}_2 - \mathbf{D}_1 = \epsilon\mathbf{E}_3.
+$$
+
+Then $V_3 = 0$ on $\mathcal{S}$, and inside each dielectric region $\nabla\cdot\mathbf{D}_3 = \rho_f - \rho_f = 0$ (moreover, at any dielectric interface inside $\mathcal{V}$, $V_3$ and $D_{3\perp}$ are continuous). Applying the divergence theorem to $V_3\mathbf{D}_3$ over $\mathcal{V}$:
+
+$$
+\int_{\mathcal{V}} \nabla\cdot(V_3\mathbf{D}_3)\,d\tau = \oint_{\mathcal{S}} V_3\mathbf{D}_3\cdot d\mathbf{a} = 0,
+$$
+
+because $V_3 = 0$ on $\mathcal{S}$ (and internal interface terms cancel by continuity of $V_3$ and $D_{3\perp}$). Expanding the divergence with the product rule gives
+
+$$
+\int_{\mathcal{V}} (\nabla V_3)\cdot\mathbf{D}_3\,d\tau + \int_{\mathcal{V}} V_3(\nabla\cdot\mathbf{D}_3)\,d\tau = 0.
+$$
+
+Since $\nabla\cdot\mathbf{D}_3 = 0$ and $\nabla V_3 = -\mathbf{E}_3$, this simplifies to
+
+$$
+-\int_{\mathcal{V}} \mathbf{E}_3\cdot\mathbf{D}_3\,d\tau = -\int_{\mathcal{V}} \epsilon E_3^2\,d\tau = 0.
+$$
+
+Because $\epsilon > 0$ and $E_3^2 \ge 0$ everywhere in $\mathcal{V}$, we must have $\mathbf{E}_3 = -\nabla V_3 = \mathbf{0}$ everywhere. Therefore $V_3$ is constant throughout $\mathcal{V}$, and since $V_3 = 0$ on $\mathcal{S}$, it follows that $V_3 = 0$ everywhere, i.e., $V_2 = V_1$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.39" title="Conducting Sphere Half-Embedded in a Linear Dielectric" tag="Griffiths 4.39 · Symmetry & Uniqueness">
+<div slot="problem">
+
+A conducting sphere of radius $R$ at potential $V_0$ is half embedded in linear dielectric material of susceptibility $\chi_e$, which occupies the region $z < 0$. Claim: the potential everywhere ($r \ge R$) is the same as without the dielectric. Check this claim as follows:
+
+(a) Write down the formula for the proposed potential $V(r)$ in terms of $V_0$, $R$, and $r$. Use it to determine $\mathbf{E}$, $\mathbf{P}$, the bound charge, and the free charge distribution on the sphere.
+
+(b) Show that the resulting charge configuration produces the potential $V(r)$.
+
+(c) Appeal to the uniqueness theorem in Problem 4.38 to complete the argument.
+
+(d) Could you solve the two configurations in Fig. 4.36—(a) a sphere partially embedded in a dielectric with a flat boundary offset from the sphere's center ($z = z_0 \ne 0$), and (b) a sphere embedded in a conical/wedge-shaped dielectric whose flat boundaries pass through the center—with the same potential? If not, explain why.
+
+</div>
+<div slot="answer">
+
+(a) $V(r) = V_0\dfrac{R}{r}$ ($r \ge R$); $\mathbf{E} = \dfrac{V_0 R}{r^2}\hat{\mathbf{r}}$; $\mathbf{P} = \epsilon_0\chi_e\dfrac{V_0 R}{r^2}\hat{\mathbf{r}}$ for $z < 0$ (zero for $z > 0$); $\rho_b = 0$, $\sigma_b = -\dfrac{\epsilon_0\chi_e V_0}{R}$ on the lower hemisphere ($r=R, z<0$) and $0$ elsewhere; $\sigma_f = \dfrac{\epsilon_0 V_0}{R}$ ($z>0$) and $\dfrac{\epsilon_0(1+\chi_e)V_0}{R}$ ($z<0$).
+
+(b) $\sigma_{\text{tot}} = \sigma_f + \sigma_b = \dfrac{\epsilon_0 V_0}{R}$ is uniform on $r = R$, producing $V(r) = V_0 R/r$.
+
+(c) Boundary conditions and constitutive equations are satisfied, so Problem 4.38 guarantees uniqueness.
+
+(d) Wedge/cone through the center (b) works the same way; offset plane (a) does not, because $\mathbf{P}\cdot\hat{\mathbf{n}} \ne 0$ on the flat boundary spoils spherical symmetry.
+
+</div>
+<div slot="solution">
+
+**(a)** Outside the sphere ($r \ge R$), the proposed vacuum-like potential is
+
+$$
+V(r) = V_0\frac{R}{r}.
+$$
+
+Its electric field is
+
+$$
+\mathbf{E} = -\nabla V = \frac{V_0 R}{r^2}\hat{\mathbf{r}} \qquad (r > R).
+$$
+
+The polarization is $\mathbf{P} = \mathbf{0}$ for $z > 0$, and for $z < 0$:
+
+$$
+\mathbf{P} = \epsilon_0\chi_e\mathbf{E} = \epsilon_0\chi_e\frac{V_0 R}{r^2}\hat{\mathbf{r}}.
+$$
+
+Computing the bound charges:
+- **Volume ($r > R, z < 0$):** $\rho_b = -\nabla\cdot\mathbf{P} = 0$, since $\nabla\cdot(\hat{\mathbf{r}}/r^2) = 0$ away from the origin.
+- **Flat interface ($z = 0, r > R$):** The outward normal from the dielectric is $\hat{\mathbf{n}} = \hat{\mathbf{z}} \perp \hat{\mathbf{r}}$, so $\sigma_b = \mathbf{P}\cdot\hat{\mathbf{z}} = 0$.
+- **Spherical dielectric surface ($r = R, z < 0$):** The outward normal from the dielectric points into the conducting sphere, $\hat{\mathbf{n}} = -\hat{\mathbf{r}}$, giving
+
+$$
+\sigma_b = \mathbf{P}(R)\cdot(-\hat{\mathbf{r}}) = -\frac{\epsilon_0\chi_e V_0}{R} \qquad (r = R,\; z < 0).
+$$
+
+For the free charge density on the conducting sphere ($r = R$), since $\mathbf{D} = \mathbf{0}$ inside the conductor, $\sigma_f = D_r(R^+) = \epsilon E_r(R^+)$:
+
+$$
+\sigma_f = \begin{cases} \dfrac{\epsilon_0 V_0}{R}, & z > 0 \text{ (northern hemisphere)}, \\[8pt] \dfrac{\epsilon_0(1+\chi_e)V_0}{R}, & z < 0 \text{ (southern hemisphere)}. \end{cases}
+$$
+
+**(b)** Adding free and bound charges everywhere gives $\rho_{\text{tot}} = 0$ for $r > R$, $\sigma_{\text{tot}} = 0$ on $z = 0$, and on the sphere $r = R$:
+- Northern hemisphere ($z > 0$): $\sigma_{\text{tot}} = \dfrac{\epsilon_0 V_0}{R} + 0 = \dfrac{\epsilon_0 V_0}{R}$.
+- Southern hemisphere ($z < 0$): $\sigma_{\text{tot}} = \dfrac{\epsilon_0(1+\chi_e)V_0}{R} - \dfrac{\epsilon_0\chi_e V_0}{R} = \dfrac{\epsilon_0 V_0}{R}$.
+
+Thus the total charge is a uniform spherical shell of total charge $Q_{\text{tot}} = 4\pi R^2\sigma_{\text{tot}} = 4\pi\epsilon_0 R V_0$, whose potential for $r \ge R$ is indeed
+
+$$
+V(r) = \frac{Q_{\text{tot}}}{4\pi\epsilon_0 r} = V_0\frac{R}{r}.
+$$
+
+**(c)** In the region $r > R$, $\rho_f = 0$, $D_\perp = 0$ is continuous across $z = 0$, and $V$ satisfies the boundary conditions ($V = V_0$ at $r = R$ and $V \to 0$ as $r \to \infty$). By the uniqueness theorem (Problem 4.38), $V(r) = V_0 R/r$ is the unique solution.
+
+**(d)** Configuration (b) (boundaries passing radially through the center of the sphere) works in exactly the same way because $\hat{\mathbf{n}} \perp \hat{\mathbf{r}}$ everywhere on the flat/conical dielectric boundaries, so $\sigma_b = 0$ and $D_\perp = 0$ on those boundaries. Configuration (a) (a flat dielectric boundary offset from the center, $z = z_0 \ne 0$) does **not** work: on the flat boundary, $\mathbf{P} \propto \hat{\mathbf{r}}$ is not perpendicular to $\hat{\mathbf{n}} = \hat{\mathbf{z}}$, producing nonzero bound charge $\sigma_b = \mathbf{P}\cdot\hat{\mathbf{z}} \ne 0$ (and violating continuity of $D_\perp$) that spoils the spherical symmetry.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.40" title="Force on a Tiny Dielectric Sphere Near a Line Charge" tag="Griffiths 4.40 · Force on a Dielectric">
+<div slot="problem">
+
+Use $\mathbf{F} = \int (\mathbf{P}\cdot\nabla)\mathbf{E}_{\text{ext}}\,d\tau$ to determine the force on a tiny sphere, of radius $R$, composed of linear dielectric material of susceptibility $\chi_e$, which is situated a distance $s$ from a fine wire carrying a uniform line charge $\lambda$.
+
+</div>
+<div slot="answer">
+
+$$
+\mathbf{F} = -\frac{\chi_e}{\chi_e + 3}\frac{\lambda^2 R^3}{\pi\epsilon_0 s^3}\hat{\mathbf{s}} \quad (\text{attractive, toward the wire}).
+$$
+
+</div>
+<div slot="solution">
+
+The external electric field produced by the uniform line charge is
+
+$$
+\mathbf{E}_{\text{ext}} = \frac{\lambda}{2\pi\epsilon_0 s}\hat{\mathbf{s}}.
+$$
+
+Because the dielectric sphere is tiny ($R \ll s$), $\mathbf{E}_{\text{ext}}$ is essentially uniform over the sphere. From Example 4.7, a linear dielectric sphere placed in a uniform external field $\mathbf{E}_{\text{ext}}$ acquires a uniform internal field $\mathbf{E}_{\text{in}} = \dfrac{3}{\epsilon_r + 2}\mathbf{E}_{\text{ext}} = \dfrac{1}{1 + \chi_e/3}\mathbf{E}_{\text{ext}}$, and therefore a uniform polarization
+
+$$
+\mathbf{P} = \epsilon_0\chi_e\mathbf{E}_{\text{in}} = \frac{\epsilon_0\chi_e}{1 + \chi_e/3}\mathbf{E}_{\text{ext}} = \frac{\epsilon_0\chi_e}{1 + \chi_e/3}\frac{\lambda}{2\pi\epsilon_0 s}\hat{\mathbf{s}}.
+$$
+
+In cylindrical coordinates, $\mathbf{P}\cdot\nabla = P_s\dfrac{\partial}{\partial s}$, so
+
+$$
+(\mathbf{P}\cdot\nabla)\mathbf{E}_{\text{ext}} = P_s\frac{\partial}{\partial s}\left(\frac{\lambda}{2\pi\epsilon_0 s}\hat{\mathbf{s}}\right) = -\frac{\epsilon_0\chi_e}{1 + \chi_e/3}\left(\frac{\lambda}{2\pi\epsilon_0}\right)^2\frac{1}{s^3}\hat{\mathbf{s}}.
+$$
+
+Integrating over the volume $\frac{4}{3}\pi R^3$ of the tiny sphere (treating $s$ as constant over the sphere):
+
+$$
+\mathbf{F} = \int (\mathbf{P}\cdot\nabla)\mathbf{E}_{\text{ext}}\,d\tau = -\frac{\epsilon_0\chi_e}{1 + \chi_e/3}\frac{\lambda^2}{4\pi^2\epsilon_0^2 s^3}\left(\frac{4}{3}\pi R^3\right)\hat{\mathbf{s}} = -\frac{\chi_e}{\chi_e + 3}\frac{\lambda^2 R^3}{\pi\epsilon_0 s^3}\hat{\mathbf{s}}.
+$$
+
+The negative sign indicates that the dielectric sphere is attracted toward the charged wire.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.41" title="The Clausius-Mossotti (Lorentz-Lorenz) Formula" tag="Griffiths 4.41 · Local Fields & Polarizability">
+<div slot="problem">
+
+In a linear dielectric, $\mathbf{P} = \epsilon_0\chi_e\mathbf{E}$, whereas for an isolated atom $\mathbf{p} = \alpha\mathbf{E}_{\text{else}}$, where $\mathbf{E}_{\text{else}}$ is the field due to everything except that particular atom. Imagine that the space allotted to each atom is a sphere of radius $R$ (so $N = 1/\left(\frac{4}{3}\pi R^3\right)$), and show that
+
+$$
+\mathbf{E} = \left(1 - \frac{N\alpha}{3\epsilon_0}\right)\mathbf{E}_{\text{else}}.
+$$
+
+Use this to conclude that
+
+$$
+\chi_e = \frac{N\alpha/\epsilon_0}{1 - N\alpha/(3\epsilon_0)}, \qquad \text{or} \qquad \alpha = \frac{3\epsilon_0}{N}\left(\frac{\epsilon_r - 1}{\epsilon_r + 2}\right)
+$$
+
+(the Clausius-Mossotti formula).
+
+</div>
+<div slot="answer">
+
+Follows by writing $\mathbf{E} = \mathbf{E}_{\text{else}} + \mathbf{E}_{\text{self}}$ with $\mathbf{E}_{\text{self}} = -\dfrac{\mathbf{p}}{4\pi\epsilon_0 R^3}$ and combining $\mathbf{P} = N\alpha\mathbf{E}_{\text{else}} = \epsilon_0\chi_e\mathbf{E}$.
+
+</div>
+<div slot="solution">
+
+With number density $N = \dfrac{1}{\frac{4}{3}\pi R^3}$, we have $\dfrac{1}{4\pi R^3} = \dfrac{N}{3}$. Each atom has dipole moment $\mathbf{p} = \alpha\mathbf{E}_{\text{else}}$, so the polarization is
+
+$$
+\mathbf{P} = N\mathbf{p} = N\alpha\mathbf{E}_{\text{else}}.
+$$
+
+The macroscopic field $\mathbf{E}$ is the spatial average of the microscopic field over the sphere of radius $R$, which splits into the external contribution $\mathbf{E}_{\text{else}}$ plus the average field of the atom itself over that sphere, $\mathbf{E}_{\text{self}}$. By Eq. 3.105,
+
+$$
+\mathbf{E}_{\text{self}} = -\frac{\mathbf{p}}{4\pi\epsilon_0 R^3} = -\frac{\alpha}{4\pi\epsilon_0 R^3}\mathbf{E}_{\text{else}} = -\frac{N\alpha}{3\epsilon_0}\mathbf{E}_{\text{else}}.
+$$
+
+Therefore,
+
+$$
+\mathbf{E} = \mathbf{E}_{\text{self}} + \mathbf{E}_{\text{else}} = \left(1 - \frac{N\alpha}{3\epsilon_0}\right)\mathbf{E}_{\text{else}}.
+$$
+
+Substituting $\mathbf{E}_{\text{else}} = \dfrac{\mathbf{E}}{1 - N\alpha/(3\epsilon_0)}$ into $\mathbf{P} = N\alpha\mathbf{E}_{\text{else}}$ and equating with $\mathbf{P} = \epsilon_0\chi_e\mathbf{E}$ gives
+
+$$
+\epsilon_0\chi_e = \frac{N\alpha}{1 - N\alpha/(3\epsilon_0)} \implies \chi_e = \frac{N\alpha/\epsilon_0}{1 - N\alpha/(3\epsilon_0)}.
+$$
+
+Solving for $\alpha$ and substituting $\chi_e = \epsilon_r - 1$:
+
+$$
+\frac{N\alpha}{\epsilon_0}\left(1 + \frac{\chi_e}{3}\right) = \chi_e \implies \alpha = \frac{3\epsilon_0}{N}\frac{\chi_e}{\chi_e + 3} = \frac{3\epsilon_0}{N}\left(\frac{\epsilon_r - 1}{\epsilon_r + 2}\right).
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.42" title="Testing the Clausius-Mossotti Relation on Gases" tag="Griffiths 4.42 · Atomic Polarizability Data">
+<div slot="problem">
+
+Check the Clausius-Mossotti relation from Problem 4.41 for the gases listed in Table 4.1 ($\text{H}_2$, $\text{He}$, $\text{Ne}$, $\text{Ar}$), using the experimental susceptibilities in Table 4.2. (At these low densities, $\chi_e \approx N\alpha/\epsilon_0$ and the Clausius-Mossotti correction term is negligible.)
+
+</div>
+<div slot="answer">
+
+Predicted $\chi_e \approx N\alpha/\epsilon_0$ vs. Table 4.2 values: $\text{H}_2$: $2.3\times 10^{-4}$ vs. $2.5\times 10^{-4}$; $\text{He}$: $7.0\times 10^{-5}$ vs. $6.5\times 10^{-5}$; $\text{Ne}$: $1.35\times 10^{-4}$ vs. $1.3\times 10^{-4}$; $\text{Ar}$: $5.6\times 10^{-4}$ vs. $5.2\times 10^{-4}$ (good agreement).
+
+</div>
+<div slot="solution">
+
+At STP ($0^\circ\text{C}$, $1\text{ atm}$), $1\text{ mol}$ of an ideal gas occupies $22.4\text{ L} = 22.4\times 10^{-3}\text{ m}^3$, so the number density is
+
+$$
+N = \frac{6.02\times 10^{23}}{22.4\times 10^{-3}\text{ m}^3} \approx 2.7\times 10^{25}\text{ m}^{-3}.
+$$
+
+Table 4.1 reports $\tilde{\alpha} \equiv \dfrac{\alpha}{4\pi\epsilon_0}$ in units of $10^{-30}\text{ m}^3$, so $\alpha = 4\pi\epsilon_0\,\tilde{\alpha}\times 10^{-30}\text{ m}^3$. Since $N\alpha/(3\epsilon_0) \sim 10^{-4} \ll 1$,
+
+$$
+\chi_e \approx \frac{N\alpha}{\epsilon_0} = (2.7\times 10^{25})(4\pi\times 10^{-30})\,\tilde{\alpha} = 3.4\times 10^{-4}\,\tilde{\alpha}.
+$$
+
+Comparing with Table 4.2 ($\chi_e = \epsilon_r - 1$):
+- **$\text{H}_2$:** $\tilde{\alpha} = 0.667 \implies N\alpha/\epsilon_0 = 2.3\times 10^{-4}$ (Table 4.2: $\chi_e = 2.5\times 10^{-4}$).
+- **$\text{He}$:** $\tilde{\alpha} = 0.205 \implies N\alpha/\epsilon_0 = 7.0\times 10^{-5}$ (Table 4.2: $\chi_e = 6.5\times 10^{-5}$).
+- **$\text{Ne}$:** $\tilde{\alpha} = 0.396 \implies N\alpha/\epsilon_0 = 1.35\times 10^{-4}$ (Table 4.2: $\chi_e = 1.3\times 10^{-4}$).
+- **$\text{Ar}$:** $\tilde{\alpha} = 1.64 \implies N\alpha/\epsilon_0 = 5.6\times 10^{-4}$ (Table 4.2: $\chi_e = 5.2\times 10^{-4}$).
+
+In all four cases the agreement is quite good.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.43" title="The Langevin Equation for Polar Dielectrics" tag="Griffiths 4.43 · Statistical Mechanics of Dipoles">
+<div slot="problem">
+
+The Langevin equation gives the susceptibility of a polar substance in terms of its permanent molecular dipole moment $p$:
+
+(a) The energy of a dipole in an external field $\mathbf{E}$ (oriented along the $z$-axis) is $u = -\mathbf{p}\cdot\mathbf{E} = -pE\cos\theta$. In thermal equilibrium at temperature $T$, the average energy is
+
+$$
+\langle u \rangle = \frac{\int u e^{-u/kT}\,d\Omega}{\int e^{-u/kT}\,d\Omega},
+$$
+
+where $d\Omega = \sin\theta\,d\theta\,d\phi$. Use this to derive the Langevin formula for the polarization of $N$ molecules per unit volume:
+
+$$
+P = Np\left[\coth\left(\frac{pE}{kT}\right) - \frac{kT}{pE}\right],
+$$
+
+and describe the behavior of $P/(Np)$ as a function of $pE/kT$.
+
+(b) Show that for $kT \gg pE$, the material is linear, and calculate $\chi_e$ in terms of $N$, $p$, $T$, and $k$. Compute $\chi_e$ for liquid water at $20^\circ\text{C}$ ($p = 6.1\times 10^{-30}\text{ C}\cdot\text{m}$) and for water vapor at $100^\circ\text{C}$ and $1\text{ atm}$, and compare with Table 4.2 ($\chi_e = 79$ for water, $5.9\times 10^{-3}$ for steam).
+
+</div>
+<div slot="answer">
+
+(a) $P = Np\left[\coth(pE/kT) - kT/(pE)\right]$; $P/(Np)$ starts at the origin with slope $1/3$ for $pE/kT \ll 1$ and approaches $1$ asymptotically for $pE/kT \gg 1$.
+
+(b) $\chi_e = \dfrac{Np^2}{3\epsilon_0 kT}$. For liquid water at $20^\circ\text{C}$, $\chi_e \approx 12$ (far below $79$, because $\mathbf{E} \ne \mathbf{E}_{\text{else}}$ and intermolecular correlations are neglected); for steam at $100^\circ\text{C}$ and $1\text{ atm}$, $\chi_e \approx 5.4\times 10^{-3}$ (close to $5.9\times 10^{-3}$).
+
+</div>
+<div slot="solution">
+
+**(a)** Integrating over $\phi \in [0,2\pi]$ cancels a factor of $2\pi$ between numerator and denominator. Changing variables from $\theta \in [0,\pi]$ to $u \in [-pE, pE]$ with $du = pE\sin\theta\,d\theta$:
+
+$$
+\langle u \rangle = \frac{\int_{-pE}^{pE} u e^{-u/kT}\,du}{\int_{-pE}^{pE} e^{-u/kT}\,du}.
+$$
+
+Evaluating the numerator by parts and the denominator directly:
+
+$$
+\int_{-pE}^{pE} u e^{-u/kT}\,du = \left[-(kT)^2 e^{-u/kT}\left(\frac{u}{kT} + 1\right)\right]_{-pE}^{pE} = (kT)^2\left[e^{pE/kT}\left(1 - \frac{pE}{kT}\right) - e^{-pE/kT}\left(1 + \frac{pE}{kT}\right)\right],
+$$
+
+$$
+\int_{-pE}^{pE} e^{-u/kT}\,du = kT\left(e^{pE/kT} - e^{-pE/kT}\right).
+$$
+
+Dividing gives
+
+$$
+\langle u \rangle = kT - pE\left(\frac{e^{pE/kT} + e^{-pE/kT}}{e^{pE/kT} - e^{-pE/kT}}\right) = kT - pE\coth\left(\frac{pE}{kT}\right).
+$$
+
+Since $u = -\mathbf{p}\cdot\mathbf{E}$, the mean dipole component along $\mathbf{E}$ is $\langle p\cos\theta\rangle = -\langle u\rangle/E$, so the polarization magnitude is
+
+$$
+P = N\langle p\cos\theta\rangle = -N\frac{\langle u\rangle}{E} = Np\left[\coth\left(\frac{pE}{kT}\right) - \frac{kT}{pE}\right].
+$$
+
+Let $y = P/(Np)$ and $x = pE/kT$, so $y = \coth x - 1/x$. For $x \ll 1$, $\coth x = \dfrac{1}{x} + \dfrac{x}{3} - \dfrac{x^3}{45} + \cdots$, so $y \approx \dfrac{x}{3}$ starts at the origin with initial slope $1/3$. For $x \to \infty$, $\coth x \to 1$ and $1/x \to 0$, so $y \to 1$ asymptotically (complete alignment).
+
+**(b)** In the regime $pE \ll kT$ ($x \ll 1$), keeping the leading linear term $y \approx x/3$ gives
+
+$$
+P \approx Np\left(\frac{pE}{3kT}\right) = \frac{Np^2}{3kT}E = \epsilon_0\chi_e E \implies \chi_e = \frac{Np^2}{3\epsilon_0 kT}.
+$$
+
+- **Liquid water ($20^\circ\text{C} = 293\text{ K}$):** With density $1\text{ g/cm}^3 = 10^6\text{ g/m}^3$ and molar mass $18\text{ g/mol}$,
+
+$$
+N = \frac{6.02\times 10^{23}}{18}\times 10^6\text{ m}^{-3} \approx 3.34\times 10^{28}\text{ m}^{-3},
+$$
+
+$$
+\chi_e = \frac{(3.34\times 10^{28})(6.1\times 10^{-30})^2}{3(8.85\times 10^{-12})(1.38\times 10^{-23})(293)} \approx 12.
+$$
+
+This is far from the experimental value $\chi_e = 79$ in Table 4.2 because in a dense polar liquid $\mathbf{E}_{\text{else}}$ differs substantially from the macroscopic field $\mathbf{E}$ (and strong hydrogen-bond correlations exist).
+
+- **Water vapor ($100^\circ\text{C} = 373\text{ K}$, $1\text{ atm}$):** Treating steam as an ideal gas ($N = P_{\text{atm}}/(kT)$, or molar volume $22.4\times 10^{-3}\times \dfrac{373}{273} \approx 3.06\times 10^{-2}\text{ m}^3/\text{mol}$):
+
+$$
+N \approx 1.97\times 10^{25}\text{ m}^{-3} \implies \chi_e = \frac{(1.97\times 10^{25})(6.1\times 10^{-30})^2}{3(8.85\times 10^{-12})(1.38\times 10^{-23})(373)} \approx 5.4\times 10^{-3}.
+$$
+
+(Note: scaling $22.4\text{ L}$ by $373/293$ instead of $373/273$ gives $5.7\times 10^{-3}$.) Both are in close agreement with the experimental value $5.9\times 10^{-3}$ in Table 4.2, since $\mathbf{E}_{\text{else}} \approx \mathbf{E}$ in a dilute gas.
+
+</div>
+</ProblemCard>
+
+</section>

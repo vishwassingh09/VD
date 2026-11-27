@@ -1,0 +1,558 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+import EdDiagram from '../../components/EdDiagram.astro';
+
+<section id="ch3-sec4" class="ed-sec-block">
+
+### 3.4 Multipole Expansion
+
+<div class="ed-theory-box">
+
+**Core Theory (Griffiths §§3.4.1–3.4.4 — Multipole Expansion, Dipole &amp; Higher Moments, Origin Dependence, Dipole Field):**
+
+- **Multipole Expansion in $1/r$ and Legendre Polynomials (§3.4.1):** Consider a localized charge distribution $\rho(\vec{r}')$ enclosed within a finite radius $r'_{\max}$, observed at a distant field point $\vec{r}$ with $r > r'_{\max}$. Let $\mathscr{r} = |\vec{r} - \vec{r}'|$ be the separation vector magnitude and $\alpha$ be the angle between $\vec{r}$ and $\vec{r}'$ ($\cos\alpha = \hat{r}\cdot\hat{r}'$). By the law of cosines:
+
+$$
+\mathscr{r} = \sqrt{r^2 + (r')^2 - 2rr'\cos\alpha} = r\sqrt{1 + \varepsilon}, \qquad \varepsilon \equiv \frac{r'}{r}\left(\frac{r'}{r} - 2\cos\alpha\right)
+$$
+
+  For $r > r'$, expanding $(1 + \varepsilon)^{-1/2} = 1 - \frac{1}{2}\varepsilon + \frac{3}{8}\varepsilon^2 - \frac{5}{16}\varepsilon^3 + \cdots$ and collecting like powers of $(r'/r)$ yields the **generating function expansion for the Legendre polynomials** $P_n(\cos\alpha)$:
+
+$$
+\frac{1}{\mathscr{r}} = \frac{1}{|\vec{r} - \vec{r}'|} = \frac{1}{r}\sum_{n=0}^{\infty}\left(\frac{r'}{r}\right)^n P_n(\cos\alpha) \qquad (r > r')
+$$
+
+  Substituting into $V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\int \frac{\rho(\vec{r}')}{\mathscr{r}}\,d\tau'$ produces the **electrostatic multipole expansion**:
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\int (r')^n P_n(\cos\alpha)\,\rho(\vec{r}')\,d\tau'
+$$
+
+  Writing the first three terms ($n = 0$ monopole $\propto 1/r$, $n = 1$ dipole $\propto 1/r^2$, $n = 2$ quadrupole $\propto 1/r^3$) explicitly:
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\epsilon_0}\left[\frac{1}{r}\int \rho(\vec{r}')\,d\tau' + \frac{1}{r^2}\int r'\cos\alpha\,\rho(\vec{r}')\,d\tau' + \frac{1}{r^3}\int (r')^2\left(\frac{3\cos^2\alpha - 1}{2}\right)\rho(\vec{r}')\,d\tau' + \cdots\right]
+$$
+
+  Because $\alpha$ is the angle between $\vec{r}'$ and the observation direction $\hat{r}$, the angular integrals depend on the direction $(\theta, \phi)$ of the field point. Along the $+z$-axis ($\hat{r} = \hat{z}$), $\alpha$ reduces directly to the source polar angle $\theta'$.
+
+- **Monopole, Dipole, and Quadrupole Terms (§3.4.2):**
+  - **Monopole ($n = 0$):** Governed by the total charge $Q = \int \rho(\vec{r}')\,d\tau'$:
+
+$$
+V_{\text{mon}}(\vec{r}) = \frac{1}{4\pi\epsilon_0}\frac{Q}{r}
+$$
+
+  - **Dipole ($n = 1$):** Using $r'\cos\alpha = \hat{r}\cdot\vec{r}'$, the $1/r^2$ term separates into a purely source-dependent vector—the **electric dipole moment** $\vec{p}$—contracted with $\hat{r}$:
+
+$$
+V_{\text{dip}}(\vec{r}) = \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2}, \qquad \vec{p} \equiv \int \vec{r}'\rho(\vec{r}')\,d\tau' \quad\text{or}\quad \vec{p} = \sum_{i} q_i\vec{r}_i'
+$$
+
+    For a **physical dipole** ($\pm q$ separated by displacement $\vec{d}$ pointing from $-q$ to $+q$), $\vec{p} = q\vec{d}$, and higher odd multipoles ($n = 3, 5, \dots$) remain present. A **pure (ideal) point dipole** is obtained in the singular limit $d \to 0$, $q \to \infty$ with $\vec{p} = q\vec{d}$ held fixed; for an ideal dipole at the origin, $V_{\text{dip}}$ is exact everywhere ($r > 0$).
+  - **Quadrupole ($n = 2$) &amp; Higher Poles:** When $Q = 0$ and $\vec{p} = \mathbf{0}$, the $1/r^3$ quadrupole term dominates. In Cartesian tensor form, $V_{\text{quad}}(\vec{r}) = \dfrac{1}{4\pi\epsilon_0}\dfrac{1}{2r^3}\sum_{i,j=1}^3 Q_{ij}\hat{r}_i\hat{r}_j$, where $Q_{ij} = \int \big[3x_i'x_j' - (r')^2\delta_{ij}\big]\rho(\vec{r}')\,d\tau'$ is the symmetric traceless quadrupole tensor.
+
+- **Coordinate-Origin Dependence (§3.4.3):** Because the expansion is organized in powers of $1/r$ about a chosen origin $O$, shifting the origin by $\vec{a}$ ($\vec{r}'_{\text{new}} = \vec{r}' - \vec{a}$) leaves the total charge $Q$ invariant, while transforming the dipole moment according to:
+
+$$
+\vec{p}_{\text{new}} = \int (\vec{r}' - \vec{a})\rho(\vec{r}')\,d\tau' = \vec{p} - Q\vec{a}
+$$
+
+  Consequently, **the dipole moment $\vec{p}$ is independent of the choice of origin if and only if $Q = 0$**. More generally, the *lowest nonvanishing multipole moment* of a localized distribution is coordinate-origin independent, whereas all higher multipole moments depend on the choice of origin.
+
+- **Electric Field of a Pure Dipole (§3.4.4):** For an ideal dipole $\vec{p} = p\hat{z}$ at the origin, $V_{\text{dip}}(r,\theta) = \dfrac{p\cos\theta}{4\pi\epsilon_0 r^2}$. Taking $\vec{E}_{\text{dip}} = -\nabla V_{\text{dip}}$ in spherical coordinates gives the standard form and its coordinate-free equivalent (Prob. 3.36):
+
+$$
+\vec{E}_{\text{dip}}(r,\theta) = \frac{p}{4\pi\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right) = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right]
+$$
+
+  Taking the gradient lowers the radial power by one: monopole fields decay as $1/r^2$, dipole fields as $1/r^3$, quadrupole fields as $1/r^4$, and octopole fields as $1/r^5$. For a physical dipole of separation $d$, $\vec{E}_{\text{dip}}$ is valid only in the far-field regime $r \gg d$.
+
+</div>
+
+<EdDiagram
+  name="multipole-geometry"
+  caption="Multipole geometry: source point r', field point r, separation |r − r'|, and angle α (from notes p. 14)."
+/>
+
+<ProblemCard num="3.27" title="Far-Field Potential on the z-Axis of a Charged Sphere" tag="Griffiths 3.27 · Multipole Expansion on Axis">
+  <div slot="problem">
+    A sphere of radius $R$, centered at the origin, carries volume charge density
+
+    $$
+    \rho(r,\theta) = k\frac{R}{r^2}(R - 2r)\sin\theta,
+    $$
+
+    where $k$ is a constant and $r, \theta$ are the standard spherical coordinates. Find the approximate electrostatic potential at points on the $z$-axis far from the sphere ($z \gg R$).
+  </div>
+
+  <div slot="answer">
+    $$
+    V(z) \approx \frac{1}{4\pi\epsilon_0}\frac{k\pi^2 R^5}{48z^3} = \frac{k\pi R^5}{192\epsilon_0 z^3} \qquad (\text{quadrupole, } z > 0)
+    $$
+  </div>
+
+  <div slot="solution">
+    For field points on the positive $z$-axis ($\vec{r} = z\hat{z}$ with $z > R$), the angle $\alpha$ between $\vec{r}$ and the source position $\vec{r}'$ equals the source polar angle $\theta'$ (writing $r, \theta, \phi$ for the integration variables inside the sphere). We evaluate the multipole integrals term by term until the first nonvanishing contribution is found.
+
+    1. **Monopole Term ($n = 0$):**
+
+       $$
+       Q = \int \rho\,d\tau = kR \int_0^{2\pi} d\phi \int_0^{\pi} \sin^2\theta\,d\theta \int_0^{R} \frac{R - 2r}{r^2}\,r^2\,dr
+       $$
+
+       The radial integral vanishes identically:
+
+       $$
+       \int_0^R (R - 2r)\,dr = \Big[Rr - r^2\Big]_0^R = R^2 - R^2 = 0
+       $$
+
+       Hence $Q = 0$ and $V_{\text{mon}} = 0$.
+
+    2. **Dipole Term ($n = 1$):**
+
+       $$
+       \int r\cos\theta\,\rho\,d\tau = kR \int_0^{2\pi} d\phi \int_0^{\pi} \sin^2\theta\cos\theta\,d\theta \int_0^R r(R - 2r)\,dr
+       $$
+
+       The polar integral vanishes:
+
+       $$
+       \int_0^{\pi} \sin^2\theta\cos\theta\,d\theta = \left[\frac{\sin^3\theta}{3}\right]_0^{\pi} = 0
+       $$
+
+       Thus $V_{\text{dip}} = 0$.
+
+    3. **Quadrupole Term ($n = 2$):** Using $P_2(\cos\theta) = \frac{1}{2}(3\cos^2\theta - 1)$:
+
+       $$
+       I_2 = \int r^2 P_2(\cos\theta)\,\rho\,d\tau = kR\left(\int_0^{2\pi} d\phi\right)\left(\int_0^R r^2(R - 2r)\,dr\right)\left(\int_0^\pi \frac{3\cos^2\theta - 1}{2}\sin^2\theta\,d\theta\right)
+       $$
+
+       Evaluating each factor separately:
+       - Azimuthal integral: $\int_0^{2\pi} d\phi = 2\pi$.
+       - Radial integral:
+
+       $$
+       \int_0^R (Rr^2 - 2r^3)\,dr = \left[\frac{Rr^3}{3} - \frac{r^4}{2}\right]_0^R = \frac{R^4}{3} - \frac{R^4}{2} = -\frac{R^4}{6}
+       $$
+
+       - Polar integral (rewriting $3\cos^2\theta - 1 = 3(1 - \sin^2\theta) - 1 = 2 - 3\sin^2\theta$):
+
+       $$
+       \frac{1}{2}\int_0^{\pi}\left(2\sin^2\theta - 3\sin^4\theta\right)d\theta = \frac{1}{2}\left[2\left(\frac{\pi}{2}\right) - 3\left(\frac{3\pi}{8}\right)\right] = \frac{1}{2}\left(\pi - \frac{9\pi}{8}\right) = -\frac{\pi}{16}
+       $$
+
+       Multiplying the factors together:
+
+       $$
+       I_2 = kR(2\pi)\left(-\frac{R^4}{6}\right)\left(-\frac{\pi}{16}\right) = \frac{k\pi^2 R^5}{48}
+       $$
+
+    Substituting $I_2$ into the $n = 2$ multipole term with $r = z$ ($z \gg R$) yields the leading quadrupole potential:
+
+    $$
+    V(z) \approx \frac{1}{4\pi\epsilon_0}\frac{I_2}{z^3} = \frac{1}{4\pi\epsilon_0}\frac{k\pi^2 R^5}{48z^3} = \frac{k\pi R^5}{192\epsilon_0 z^3}
+    $$
+
+    *(Note: Along the negative $z$-axis, $r = |z|$ and $\cos\alpha = -\cos\theta$; since $P_2(-\cos\theta) = P_2(\cos\theta)$ is even, the general far-field axial potential is $\dfrac{k\pi R^5}{192\epsilon_0 |z|^3}$.)*
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.28" title="Multipole Expansion of a Uniformly Charged Ring" tag="Griffiths 3.28 · Ring Multipoles">
+  <div slot="problem">
+    A circular ring of radius $R$ lies in the $xy$-plane, centered at the origin, and carries a uniform linear charge density $\lambda$. Determine the first three terms ($n = 0, 1, 2$) in the multipole expansion for the potential $V(r,\theta)$.
+  </div>
+
+  <div slot="answer">
+    $$
+    V_0(r) = \frac{\lambda R}{2\epsilon_0 r}, \qquad V_1(r,\theta) = 0, \qquad V_2(r,\theta) = -\frac{\lambda R^3}{8\epsilon_0 r^3}(3\cos^2\theta - 1) = -\frac{\lambda R^3}{4\epsilon_0 r^3}P_2(\cos\theta)
+    $$
+  </div>
+
+  <div slot="solution">
+    For a line charge on the ring ($r' = R$, $\theta' = \pi/2$), replace $\rho(\vec{r}')\,d\tau'$ by $\lambda\,dl' = \lambda R\,d\phi'$. Writing the field point $\vec{r}$ and source point $\vec{r}'$ in Cartesian unit vectors:
+
+    $$
+    \vec{r} = r(\sin\theta\cos\phi\,\hat{x} + \sin\theta\sin\phi\,\hat{y} + \cos\theta\,\hat{z}), \qquad \vec{r}' = R(\cos\phi'\,\hat{x} + \sin\phi'\,\hat{y})
+    $$
+
+    The cosine of the angle $\alpha$ between $\vec{r}$ and $\vec{r}'$ is:
+
+    $$
+    \cos\alpha = \hat{r}\cdot\hat{r}' = \sin\theta\left(\cos\phi\cos\phi' + \sin\phi\sin\phi'\right)
+    $$
+
+    Evaluating the multipole terms $V_n = \dfrac{1}{4\pi\epsilon_0 r^{n+1}}\int_0^{2\pi} R^n P_n(\cos\alpha)\,\lambda R\,d\phi'$:
+
+    1. **Monopole Term ($n = 0$):** With $P_0(\cos\alpha) = 1$,
+
+       $$
+       Q = \lambda R \int_0^{2\pi} d\phi' = 2\pi R\lambda \implies V_0(r) = \frac{1}{4\pi\epsilon_0}\frac{2\pi R\lambda}{r} = \frac{\lambda R}{2\epsilon_0 r}
+       $$
+
+    2. **Dipole Term ($n = 1$):** With $P_1(\cos\alpha) = \cos\alpha$,
+
+       $$
+       \int_0^{2\pi} R\cos\alpha\,\lambda R\,d\phi' = \lambda R^2\sin\theta \int_0^{2\pi}\left(\cos\phi\cos\phi' + \sin\phi\sin\phi'\right)d\phi' = 0 \implies V_1(r,\theta) = 0
+       $$
+
+    3. **Quadrupole Term ($n = 2$):** With $P_2(\cos\alpha) = \frac{1}{2}(3\cos^2\alpha - 1)$:
+
+       $$
+       I_2 = \lambda R^3\int_0^{2\pi}\frac{1}{2}\Big[3\sin^2\theta\left(\cos\phi\cos\phi' + \sin\phi\sin\phi'\right)^2 - 1\Big]d\phi'
+       $$
+
+       Expanding the square and using $\int_0^{2\pi}\cos^2\phi'\,d\phi' = \int_0^{2\pi}\sin^2\phi'\,d\phi' = \pi$ and $\int_0^{2\pi}\sin\phi'\cos\phi'\,d\phi' = 0$:
+
+       $$
+       I_2 = \frac{\lambda R^3}{2}\Big[3\sin^2\theta\left(\pi\cos^2\phi + \pi\sin^2\phi\right) - 2\pi\Big] = \frac{\pi\lambda R^3}{2}\left(3\sin^2\theta - 2\right)
+       $$
+
+       Replacing $\sin^2\theta = 1 - \cos^2\theta$:
+
+       $$
+       I_2 = \frac{\pi\lambda R^3}{2}\left(1 - 3\cos^2\theta\right) = -\pi\lambda R^3\left(\frac{3\cos^2\theta - 1}{2}\right) = -\pi\lambda R^3 P_2(\cos\theta)
+       $$
+
+       Dividing by $4\pi\epsilon_0 r^3$ yields:
+
+       $$
+       V_2(r,\theta) = -\frac{\lambda R^3}{8\epsilon_0 r^3}(3\cos^2\theta - 1) = -\frac{\lambda R^3}{4\epsilon_0 r^3}P_2(\cos\theta)
+       $$
+
+    *Check on the $z$-axis ($\theta = 0$):* The exact axial potential $V(z) = \dfrac{\lambda R}{2\epsilon_0\sqrt{z^2 + R^2}} = \dfrac{\lambda R}{2\epsilon_0 z} - \dfrac{\lambda R^3}{4\epsilon_0 z^3} + \cdots$ agrees with $V_0 + V_1 + V_2$ at $\theta = 0$ ($P_2(1) = 1$).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.29" title="Far-Field Potential of Four Point Charges on the y- and z-Axes" tag="Griffiths 3.29 · Discrete Dipole Moment">
+  <div slot="problem">
+    Four point charges are positioned at distance $a$ from the origin along the coordinate axes (Griffiths Fig. 3.31): $+3q$ at $(0, 0, a)$, $+q$ at $(0, 0, -a)$, $-2q$ at $(0, a, 0)$, and $-2q$ at $(0, -a, 0)$. Find a simple approximate formula for the potential at points far from the origin ($r \gg a$), expressed in spherical coordinates.
+  </div>
+
+  <div slot="answer">
+    $$
+    V(r,\theta) \approx \frac{1}{4\pi\epsilon_0}\frac{2qa\cos\theta}{r^2} = \frac{qa\cos\theta}{2\pi\epsilon_0 r^2}
+    $$
+  </div>
+
+  <div slot="solution">
+    First check the monopole moment (total charge):
+
+    $$
+    Q = 3q + q - 2q - 2q = 0
+    $$
+
+    Since $Q = 0$, the leading far-field contribution is the dipole term (provided $\vec{p} \ne \mathbf{0}$). Summing $\vec{p} = \sum_i q_i\vec{r}_i'$ over the four point charges:
+
+    $$
+    \vec{p} = (3q)(a\hat{z}) + q(-a\hat{z}) + (-2q)(a\hat{y}) + (-2q)(-a\hat{y}) = (3qa - qa)\hat{z} + (-2qa + 2qa)\hat{y} = 2qa\hat{z}
+    $$
+
+    Using $\vec{p}\cdot\hat{r} = 2qa\,(\hat{z}\cdot\hat{r}) = 2qa\cos\theta$ in Eq. (3.99), the approximate potential for $r \gg a$ is:
+
+    $$
+    V(r,\theta) \approx \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2} = \frac{1}{4\pi\epsilon_0}\frac{2qa\cos\theta}{r^2} = \frac{qa\cos\theta}{2\pi\epsilon_0 r^2}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.30" title="Dipole Moment and Exact Exterior Potential of a cos θ Charged Shell" tag="Griffiths 3.30 · Pure Dipole Shell">
+  <div slot="problem">
+    In Griffiths Ex. 3.9, a spherical shell of radius $R$ centered at the origin carries surface charge density $\sigma(\theta) = k\cos\theta$, and its exact potential was found to be (Eq. 3.87) $V(r,\theta) = \frac{k}{3\epsilon_0}r\cos\theta$ for $r \le R$ and $V(r,\theta) = \frac{kR^3}{3\epsilon_0 r^2}\cos\theta$ for $r \ge R$.
+    1. Calculate the dipole moment $\vec{p}$ of this surface charge distribution.
+    2. Find the approximate potential at points far from the sphere ($r \gg R$), compare with the exact result (Eq. 3.87), and state what you can conclude about all other multipole moments.
+  </div>
+
+  <div slot="answer">
+    1. $\vec{p} = \dfrac{4\pi R^3 k}{3}\hat{z}$.
+    2. $V_{\text{dip}}(r,\theta) = \dfrac{kR^3\cos\theta}{3\epsilon_0 r^2}$, which is **identical** to the exact exterior potential for all $r > R$; therefore, the monopole moment and **all higher multipole moments** ($n \ge 2$) vanish identically.
+  </div>
+
+  <div slot="solution">
+    1. **Dipole Moment:** By azimuthal symmetry ($\sigma$ is independent of $\phi$), $p_x = p_y = 0$, so $\vec{p} = p_z\hat{z}$. Integrating $z'\sigma(\theta')\,da'$ over the sphere ($z' = R\cos\theta'$, $da' = R^2\sin\theta'\,d\theta'\,d\phi'$):
+
+       $$
+       p_z = \int_{\text{sphere}} z'\sigma\,da' = \int_0^{2\pi} d\phi' \int_0^{\pi} (R\cos\theta')(k\cos\theta')R^2\sin\theta'\,d\theta' = 2\pi k R^3 \int_0^{\pi} \cos^2\theta'\sin\theta'\,d\theta'
+       $$
+
+       Evaluating the $\theta'$ integral:
+
+       $$
+       \int_0^{\pi} \cos^2\theta'\sin\theta'\,d\theta' = \left[-\frac{\cos^3\theta'}{3}\right]_0^{\pi} = -\frac{(-1) - 1}{3} = \frac{2}{3}
+       $$
+
+       Hence:
+
+       $$
+       \vec{p} = \frac{4\pi R^3 k}{3}\hat{z}
+       $$
+
+    2. **Far-Field Potential &amp; Higher Multipoles:** The total charge is $Q = \int_0^{2\pi} d\phi' \int_0^\pi k\cos\theta' R^2\sin\theta'\,d\theta' = 0$, so the dipole term gives the leading asymptotic potential:
+
+       $$
+       V_{\text{dip}}(r,\theta) = \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2} = \frac{1}{4\pi\epsilon_0}\frac{(4\pi R^3 k/3)\cos\theta}{r^2} = \frac{kR^3\cos\theta}{3\epsilon_0 r^2}
+       $$
+
+       Comparing with Eq. (3.87), this expression matches the **exact** potential for all $r \ge R$. Because the multipole expansion converges uniquely for $r > R$ and only the $n = 1$ ($1/r^2$) term is present, **every multipole moment except the dipole ($n = 0$ and all $n \ge 2$) is identically zero**—a $\cos\theta$ surface charge on a sphere creates a pure dipole field outside the sphere.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.31" title="Quadrupole and Octopole Terms of a Physical Dipole" tag="Griffiths 3.31 · Physical Dipole Expansion">
+  <div slot="problem">
+    For the physical dipole of Ex. 3.10—charges $+q$ at $(0, 0, d/2)$ and $-q$ at $(0, 0, -d/2)$—expand $1/\mathscr{r}_+$ and $1/\mathscr{r}_-$ to order $(d/r)^3$, and determine the quadrupole and octopole terms in the potential $V(r,\theta)$.
+  </div>
+
+  <div slot="answer">
+    $$
+    V_{\text{quad}}(r,\theta) = 0, \qquad V_{\text{oct}}(r,\theta) = \frac{1}{4\pi\epsilon_0}\frac{qd^3}{8r^4}(5\cos^3\theta - 3\cos\theta) = \frac{qd^3}{32\pi\epsilon_0 r^4}(5\cos^3\theta - 3\cos\theta)
+    $$
+  </div>
+
+  <div slot="solution">
+    Apply the Legendre generating-function expansion, $\dfrac{1}{\mathscr{r}} = \dfrac{1}{r}\sum_{n=0}^{\infty}\left(\dfrac{r'}{r}\right)^n P_n(\cos\alpha)$, to each charge with $r' = d/2$:
+    - For $+q$ on the $+z$-axis, $\alpha = \theta$:
+
+    $$
+    \frac{1}{\mathscr{r}_+} = \frac{1}{r}\sum_{n=0}^{\infty}\left(\frac{d}{2r}\right)^n P_n(\cos\theta)
+    $$
+
+    - For $-q$ on the $-z$-axis, $\alpha = \pi - \theta$, so $\cos\alpha = -\cos\theta$:
+
+    $$
+    \frac{1}{\mathscr{r}_-} = \frac{1}{r}\sum_{n=0}^{\infty}\left(\frac{d}{2r}\right)^n P_n(-\cos\theta)
+    $$
+
+    Using the parity property $P_n(-x) = (-1)^n P_n(x)$, all even-$n$ terms cancel and all odd-$n$ terms double in the difference:
+
+    $$
+    V(r,\theta) = \frac{q}{4\pi\epsilon_0}\left(\frac{1}{\mathscr{r}_+} - \frac{1}{\mathscr{r}_-}\right) = \frac{q}{4\pi\epsilon_0 r}\sum_{n=0}^{\infty}\left(\frac{d}{2r}\right)^n \Big[1 - (-1)^n\Big]P_n(\cos\theta) = \frac{2q}{4\pi\epsilon_0 r}\sum_{n=1,3,5,\dots}^{\infty}\left(\frac{d}{2r}\right)^n P_n(\cos\theta)
+    $$
+
+    Keeping terms through $n = 3$ (order $(d/r)^3$):
+    - **$n = 1$ (Dipole):** $V_{\text{dip}} = \dfrac{2q}{4\pi\epsilon_0 r}\left(\dfrac{d}{2r}\right)P_1(\cos\theta) = \dfrac{1}{4\pi\epsilon_0}\dfrac{qd\cos\theta}{r^2}$.
+    - **$n = 2$ (Quadrupole):** Since $n = 2$ is even,
+
+    $$
+    V_{\text{quad}}(r,\theta) = 0
+    $$
+
+    - **$n = 3$ (Octopole):** Using $P_3(\cos\theta) = \frac{1}{2}(5\cos^3\theta - 3\cos\theta)$,
+
+    $$
+    V_{\text{oct}}(r,\theta) = \frac{2q}{4\pi\epsilon_0 r}\left(\frac{d}{2r}\right)^3 P_3(\cos\theta) = \frac{2q}{4\pi\epsilon_0 r}\frac{d^3}{8r^3}\frac{1}{2}(5\cos^3\theta - 3\cos\theta) = \frac{qd^3}{32\pi\epsilon_0 r^4}(5\cos^3\theta - 3\cos\theta)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.32" title="Origin Dependence of Multipoles for Two Unequal Charges" tag="Griffiths 3.32 · Origin Shift &amp; Multipoles">
+  <div slot="problem">
+    Two point charges, $3q$ and $-q$, are separated by a distance $a$. For each of the three coordinate placements in Griffiths Fig. 3.35—**(a)** $3q$ at $(0, 0, a)$ and $-q$ at the origin; **(b)** $-q$ at $(0, 0, a)$ and $3q$ at the origin; **(c)** $3q$ at $(0, a, 0)$ and $-q$ at the origin—determine:
+    1. the monopole moment $Q$,
+    2. the dipole moment $\vec{p}$, and
+    3. the approximate potential $V(r,\theta,\phi)$ at large $r$ (in spherical coordinates), including both monopole and dipole terms.
+  </div>
+
+  <div slot="answer">
+    - **(a)** $Q = 2q$; $\;\vec{p} = 3qa\hat{z}$; $\;V \approx \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{2q}{r} + \dfrac{3qa\cos\theta}{r^2}\right)$.
+    - **(b)** $Q = 2q$; $\;\vec{p} = -qa\hat{z}$; $\;V \approx \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{2q}{r} - \dfrac{qa\cos\theta}{r^2}\right)$.
+    - **(c)** $Q = 2q$; $\;\vec{p} = 3qa\hat{y}$; $\;V \approx \dfrac{1}{4\pi\epsilon_0}\left(\dfrac{2q}{r} + \dfrac{3qa\sin\theta\sin\phi}{r^2}\right)$.
+  </div>
+
+  <div slot="solution">
+    For each configuration, the two-term multipole potential is:
+
+    $$
+    V(\vec{r}) \approx \frac{1}{4\pi\epsilon_0}\left(\frac{Q}{r} + \frac{\vec{p}\cdot\hat{r}}{r^2}\right), \qquad \text{with } \hat{r} = \sin\theta\cos\phi\,\hat{x} + \sin\theta\sin\phi\,\hat{y} + \cos\theta\,\hat{z}
+    $$
+
+    1. **Configuration (a): $3q$ at $(0,0,a)$, $-q$ at $(0,0,0)$.**
+       - (i) $Q = 3q + (-q) = 2q$.
+       - (ii) $\vec{p} = 3q(a\hat{z}) + (-q)(\mathbf{0}) = 3qa\hat{z}$.
+       - (iii) Since $\hat{z}\cdot\hat{r} = \cos\theta$,
+
+       $$
+       V(r,\theta) \approx \frac{1}{4\pi\epsilon_0}\left(\frac{2q}{r} + \frac{3qa\cos\theta}{r^2}\right)
+       $$
+
+    2. **Configuration (b): $-q$ at $(0,0,a)$, $3q$ at $(0,0,0)$.**
+       - (i) $Q = -q + 3q = 2q$ (unchanged, as $Q$ is origin-independent).
+       - (ii) $\vec{p} = (-q)(a\hat{z}) + 3q(\mathbf{0}) = -qa\hat{z}$ (demonstrating that $\vec{p}$ depends on the origin whenever $Q \ne 0$).
+       - (iii) With $\vec{p}\cdot\hat{r} = -qa\cos\theta$,
+
+       $$
+       V(r,\theta) \approx \frac{1}{4\pi\epsilon_0}\left(\frac{2q}{r} - \frac{qa\cos\theta}{r^2}\right)
+       $$
+
+    3. **Configuration (c): $3q$ at $(0,a,0)$, $-q$ at $(0,0,0)$.**
+       - (i) $Q = 3q - q = 2q$.
+       - (ii) $\vec{p} = 3q(a\hat{y}) + (-q)(\mathbf{0}) = 3qa\hat{y}$.
+       - (iii) Using $\hat{y}\cdot\hat{r} = \sin\theta\sin\phi$,
+
+       $$
+       V(r,\theta,\phi) \approx \frac{1}{4\pi\epsilon_0}\left(\frac{2q}{r} + \frac{3qa\sin\theta\sin\phi}{r^2}\right)
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.33" title="Force and Work on a Point Charge Near an Ideal Dipole" tag="Griffiths 3.33 · Pure Dipole Force &amp; Work">
+  <div slot="problem">
+    An ideal ("pure") dipole $\vec{p} = p\hat{z}$ is located at the origin, pointing along the $+z$-axis.
+    1. What is the force on a point charge $q$ placed at Cartesian coordinates $(a, 0, 0)$ (assume $a > 0$)?
+    2. What is the force on $q$ placed at $(0, 0, a)$?
+    3. How much work is required to move $q$ from $(a, 0, 0)$ to $(0, 0, a)$?
+  </div>
+
+  <div slot="answer">
+    1. $\vec{F}(a,0,0) = -\dfrac{pq}{4\pi\epsilon_0 a^3}\hat{z}$.
+    2. $\vec{F}(0,0,a) = \dfrac{pq}{2\pi\epsilon_0 a^3}\hat{z}$.
+    3. $W = \dfrac{pq}{4\pi\epsilon_0 a^2}$.
+  </div>
+
+  <div slot="solution">
+    The electric field of a pure dipole $\vec{p} = p\hat{z}$ at the origin is (Eq. 3.103):
+
+    $$
+    \vec{E}_{\text{dip}}(r,\theta) = \frac{p}{4\pi\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)
+    $$
+
+    1. **Force at $(a, 0, 0)$:** In spherical coordinates, this point is $r = a$, $\theta = \pi/2$, $\phi = 0$. At $\theta = \pi/2$, $\cos\theta = 0$, $\sin\theta = 1$, and $\hat{\theta} = -\hat{z}$ (since $\hat{\theta} = \cos\theta\cos\phi\,\hat{x} + \cos\theta\sin\phi\,\hat{y} - \sin\theta\,\hat{z}$). Thus:
+
+       $$
+       \vec{E}(a,0,0) = \frac{p}{4\pi\epsilon_0 a^3}\hat{\theta} = -\frac{p}{4\pi\epsilon_0 a^3}\hat{z} \implies \vec{F} = q\vec{E} = -\frac{pq}{4\pi\epsilon_0 a^3}\hat{z}
+       $$
+
+    2. **Force at $(0, 0, a)$:** Here $r = a$ and $\theta = 0$, where $\cos\theta = 1$, $\sin\theta = 0$, and $\hat{r} = \hat{z}$. Thus:
+
+       $$
+       \vec{E}(0,0,a) = \frac{2p}{4\pi\epsilon_0 a^3}\hat{z} = \frac{p}{2\pi\epsilon_0 a^3}\hat{z} \implies \vec{F} = q\vec{E} = \frac{pq}{2\pi\epsilon_0 a^3}\hat{z}
+       $$
+
+    3. **Work to Move $q$ from $(a,0,0)$ to $(0,0,a)$:** Because the electrostatic force is conservative, the work done against the field depends only on the dipole potential $V_{\text{dip}}(r,\theta) = \dfrac{p\cos\theta}{4\pi\epsilon_0 r^2}$ at the endpoints:
+
+       $$
+       W = q\Big[V_{\text{dip}}(0,0,a) - V_{\text{dip}}(a,0,0)\Big] = \frac{qp}{4\pi\epsilon_0 a^2}\left[\cos(0) - \cos\!\left(\frac{\pi}{2}\right)\right] = \frac{pq}{4\pi\epsilon_0 a^2}
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.34" title="Two-Term Far-Field Electric Field of Three Point Charges" tag="Griffiths 3.34 · Monopole + Dipole Field">
+  <div slot="problem">
+    Three point charges are placed at distance $a$ from the origin (Griffiths Fig. 3.38): $+q$ at $(0, 0, a)$, $-q$ at $(0, a, 0)$, and $-q$ at $(0, -a, 0)$. Find the approximate electric field $\vec{E}(r,\theta)$ at points far from the origin ($r \gg a$), expressed in spherical coordinates and keeping the two lowest-order terms in the multipole expansion.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E}(r,\theta) \approx \frac{q}{4\pi\epsilon_0}\left[-\frac{1}{r^2}\hat{r} + \frac{a}{r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)\right]
+    $$
+  </div>
+
+  <div slot="solution">
+    First determine the monopole and dipole moments relative to the origin:
+
+    $$
+    Q = q - q - q = -q, \qquad \vec{p} = q(a\hat{z}) + (-q)(a\hat{y}) + (-q)(-a\hat{y}) = qa\hat{z}
+    $$
+
+    The two lowest-order terms in the multipole potential are:
+
+    $$
+    V_{\text{mon}}(r) = -\frac{q}{4\pi\epsilon_0 r}, \qquad V_{\text{dip}}(r,\theta) = \frac{1}{4\pi\epsilon_0}\frac{qa\cos\theta}{r^2}
+    $$
+
+    Combining them:
+
+    $$
+    V(r,\theta) \approx \frac{q}{4\pi\epsilon_0}\left(-\frac{1}{r} + \frac{a\cos\theta}{r^2}\right)
+    $$
+
+    Computing $\vec{E} = -\nabla V = -\dfrac{\partial V}{\partial r}\hat{r} - \dfrac{1}{r}\dfrac{\partial V}{\partial\theta}\hat{\theta}$ (or adding $\vec{E}_{\text{mon}} + \vec{E}_{\text{dip}}$ directly):
+
+    $$
+    E_r = -\frac{q}{4\pi\epsilon_0}\left(\frac{1}{r^2} - \frac{2a\cos\theta}{r^3}\right) = \frac{q}{4\pi\epsilon_0}\left(-\frac{1}{r^2} + \frac{2a\cos\theta}{r^3}\right), \qquad E_{\theta} = -\frac{q}{4\pi\epsilon_0 r}\left(-\frac{a\sin\theta}{r^2}\right) = \frac{q}{4\pi\epsilon_0}\frac{a\sin\theta}{r^3}
+    $$
+
+    Therefore, to the first two multipole orders:
+
+    $$
+    \vec{E}(r,\theta) \approx \frac{q}{4\pi\epsilon_0}\left[-\frac{1}{r^2}\hat{r} + \frac{a}{r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)\right]
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.35" title="Far-Field Electric Field of a Solid Sphere with Opposite Hemispherical Charges" tag="Griffiths 3.35 · Hemispherical Dipole">
+  <div slot="problem">
+    A solid sphere of radius $R$ is centered at the origin. The northern hemisphere ($0 \le \theta < \pi/2$) carries a uniform volume charge density $+\rho_0$, and the southern hemisphere ($\pi/2 < \theta \le \pi$) carries a uniform volume charge density $-\rho_0$. Find the approximate electric field $\vec{E}(r,\theta)$ at points far from the sphere ($r \gg R$).
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{E}(r,\theta) \approx \frac{\pi\rho_0 R^4}{8\pi\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right) = \frac{\rho_0 R^4}{8\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)
+    $$
+  </div>
+
+  <div slot="solution">
+    By antisymmetry between the upper and lower hemispheres, the total charge is $Q = 0$, so the far-field behavior is governed by the electric dipole moment $\vec{p}$. By azimuthal symmetry, $p_x = p_y = 0$ and $\vec{p} = p_z\hat{z}$.
+
+    In the southern hemisphere ($\pi/2 < \theta' \le \pi$), both $z' = r'\cos\theta'$ and $\rho = -\rho_0$ reverse sign relative to the northern hemisphere, so the integrand $z'\rho$ takes identical values in both hemispheres:
+
+    $$
+    p_z = \int_{\text{sphere}} z'\rho(\vec{r}')\,d\tau' = 2\rho_0 \int_0^{2\pi} d\phi' \int_0^{\pi/2} \cos\theta'\sin\theta'\,d\theta' \int_0^R (r')^3\,dr'
+    $$
+
+    Evaluating each integral:
+
+    $$
+    p_z = 2\rho_0 (2\pi)\left[\frac{\sin^2\theta'}{2}\right]_0^{\pi/2}\left[\frac{(r')^4}{4}\right]_0^R = 4\pi\rho_0\left(\frac{1}{2}\right)\left(\frac{R^4}{4}\right) = \frac{\pi\rho_0 R^4}{2}
+    $$
+
+    Thus $\vec{p} = \dfrac{\pi\rho_0 R^4}{2}\hat{z}$. Substituting $p = \dfrac{\pi\rho_0 R^4}{2}$ into the dipole electric field formula, Eq. (3.103), gives:
+
+    $$
+    \vec{E}(r,\theta) \approx \frac{1}{4\pi\epsilon_0 r^3}\left(\frac{\pi\rho_0 R^4}{2}\right)\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right) = \frac{\rho_0 R^4}{8\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="3.36" title="Coordinate-Free Form of the Electric Field of an Ideal Dipole" tag="Griffiths 3.36 · Coordinate-Free Dipole Field">
+  <div slot="problem">
+    Show that the electric field of an ideal dipole in spherical coordinates (Eq. 3.103),
+
+    $$
+    \vec{E}_{\text{dip}}(r,\theta) = \frac{p}{4\pi\epsilon_0 r^3}\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right),
+    $$
+
+    can be written in the coordinate-free form (Eq. 3.104)
+
+    $$
+    \vec{E}_{\text{dip}}(\vec{r}) = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right].
+    $$
+  </div>
+
+  <div slot="answer">
+    Decomposing $\vec{p} = (\vec{p}\cdot\hat{r})\hat{r} + (\vec{p}\cdot\hat{\theta})\hat{\theta} = p\cos\theta\,\hat{r} - p\sin\theta\,\hat{\theta}$ in the spherical basis yields $3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p} = p(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta})$, establishing Eq. (3.104).
+  </div>
+
+  <div slot="solution">
+    **Method 1 (Spherical-Basis Decomposition):** Choose coordinates with the dipole at the origin and $\vec{p} = p\hat{z}$. Since $\{\hat{r}, \hat{\theta}, \hat{\phi}\}$ forms an orthonormal basis at any point $\vec{r}$ and $\hat{z}$ lies in the $(\hat{r}, \hat{\theta})$-plane with $\hat{z}\cdot\hat{r} = \cos\theta$ and $\hat{z}\cdot\hat{\theta} = -\sin\theta$ ($\hat{z}\cdot\hat{\phi} = 0$), we can expand $\vec{p}$ in this basis as:
+
+    $$
+    \vec{p} = (\vec{p}\cdot\hat{r})\hat{r} + (\vec{p}\cdot\hat{\theta})\hat{\theta} = p\cos\theta\,\hat{r} - p\sin\theta\,\hat{\theta}
+    $$
+
+    Evaluating the coordinate-free bracket using $\vec{p}\cdot\hat{r} = p\cos\theta$:
+
+    $$
+    3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p} = 3p\cos\theta\,\hat{r} - \left(p\cos\theta\,\hat{r} - p\sin\theta\,\hat{\theta}\right) = p\left(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}\right)
+    $$
+
+    Dividing by $4\pi\epsilon_0 r^3$ reproduces Eq. (3.103) identically. Because both sides of $\vec{E}_{\text{dip}}(\vec{r}) = \dfrac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right]$ are built purely from invariant vector operations ($\vec{p}$, $\vec{r} = r\hat{r}$, and inner products), the result holds for any orientation of $\vec{p}$ and any coordinate system.
+
+    **Method 2 (Direct Coordinate-Free Gradient):** Starting directly from $V_{\text{dip}}(\vec{r}) = \dfrac{\vec{p}\cdot\vec{r}}{4\pi\epsilon_0 r^3}$ and applying $\nabla(\vec{p}\cdot\vec{r}) = \vec{p}$ and $\nabla(r^{-3}) = -3r^{-4}\hat{r} = -3r^{-5}\vec{r}$:
+
+    $$
+    \vec{E}_{\text{dip}}(\vec{r}) = -\frac{1}{4\pi\epsilon_0}\left[\frac{\nabla(\vec{p}\cdot\vec{r})}{r^3} + (\vec{p}\cdot\vec{r})\nabla(r^{-3})\right] = -\frac{1}{4\pi\epsilon_0}\left[\frac{\vec{p}}{r^3} - \frac{3(\vec{p}\cdot\hat{r})\hat{r}}{r^3}\right] = \frac{1}{4\pi\epsilon_0 r^3}\left[3(\vec{p}\cdot\hat{r})\hat{r} - \vec{p}\right]
+    $$
+  </div>
+</ProblemCard>
+
+</section>

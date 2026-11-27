@@ -1,0 +1,647 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch9-sec5" class="ed-sec-block">
+
+### 9.5 Guided Waves
+
+<div class="ed-theory-box">
+
+**1. Waveguides &amp; Boundary Conditions**
+
+For monochromatic waves propagating along the $z$-axis inside a hollow, perfectly conducting pipe,
+
+$$
+\tilde{\mathbf{E}}(x, y, z, t) = \tilde{\mathbf{E}}_0(x, y)\, e^{i(kz - \omega t)}, \qquad \tilde{\mathbf{B}}(x, y, z, t) = \tilde{\mathbf{B}}_0(x, y)\, e^{i(kz - \omega t)},
+$$
+
+the boundary conditions at the inner conducting walls are
+
+$$
+E_{\parallel} = 0, \qquad B_{\perp} = 0.
+$$
+
+From Maxwell's equations in empty space, the transverse field components ($E_x, E_y, B_x, B_y$) are determined entirely by the longitudinal components ($E_z, B_z$):
+
+$$
+\begin{aligned}
+E_x &= \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial E_z}{\partial x} + \omega\frac{\partial B_z}{\partial y}\right), & E_y &= \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial E_z}{\partial y} - \omega\frac{\partial B_z}{\partial x}\right), \\
+B_x &= \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial B_z}{\partial x} - \frac{\omega}{c^2}\frac{\partial E_z}{\partial y}\right), & B_y &= \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial B_z}{\partial y} + \frac{\partial E_z}{\partial x}\frac{\omega}{c^2}\right),
+\end{aligned}
+$$
+
+where $E_z$ and $B_z$ satisfy the uncoupled two-dimensional Helmholtz equations
+
+$$
+\left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] E_z = 0, \qquad \left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] B_z = 0.
+$$
+
+Waves are classified as **TE** (transverse electric, $E_z = 0$), **TM** (transverse magnetic, $B_z = 0$), or **TEM** ($E_z = B_z = 0$, which cannot occur in a hollow single-conductor waveguide).
+
+**2. Rectangular Waveguide ($a \times b$, with $a \ge b$)**
+
+- **$\text{TE}_{mn}$ modes** ($m, n = 0, 1, 2, \dots$, not both zero): $B_z(x, y) = B_0 \cos(m\pi x/a)\cos(n\pi y/b)$, lowest mode $\text{TE}_{10}$ ($\omega_{10} = c\pi/a$).
+- **$\text{TM}_{mn}$ modes** ($m, n = 1, 2, 3, \dots$): $E_z(x, y) = E_0 \sin(m\pi x/a)\sin(n\pi y/b)$, lowest mode $\text{TM}_{11}$.
+- **Cutoff frequency, wave number, phase &amp; group velocities**:
+
+$$
+\omega_{mn} = c\pi\sqrt{\left(\frac{m}{a}\right)^2 + \left(\frac{n}{b}\right)^2}, \qquad k = \frac{1}{c}\sqrt{\omega^2 - \omega_{mn}^2},
+$$
+
+$$
+v = \frac{\omega}{k} = \frac{c}{\sqrt{1 - (\omega_{mn}/\omega)^2}} > c, \qquad v_g = \frac{1}{dk/d\omega} = c\sqrt{1 - (\omega_{mn}/\omega)^2} < c.
+$$
+
+**3. Coaxial Transmission Line (radii $a$ and $b$)**
+
+With an inner conductor present, **TEM** waves ($E_z = B_z = 0$) propagate nondispersively at speed $c$ ($k = \omega/c$):
+
+$$
+\mathbf{E}(s, \phi, z, t) = \frac{A\cos(kz - \omega t)}{s}\,\hat{\mathbf{s}}, \qquad \mathbf{B}(s, \phi, z, t) = \frac{A\cos(kz - \omega t)}{cs}\,\hat{\boldsymbol{\phi}}.
+$$
+
+</div>
+
+<ProblemCard num="9.27" title="Waveguide Field Equations from Maxwell's Equations" tag="Griffiths 9.27 · Waveguide Formalism">
+
+<div slot="problem">
+
+Consider monochromatic waves propagating in the $z$-direction inside a hollow waveguide: $\tilde{\mathbf{E}} = \tilde{\mathbf{E}}_0(x, y)e^{i(kz-\omega t)}$ and $\tilde{\mathbf{B}} = \tilde{\mathbf{B}}_0(x, y)e^{i(kz-\omega t)}$, satisfying Maxwell's vacuum equations (Eq. 9.177): (i) $\nabla\cdot\mathbf{E} = 0$, (ii) $\nabla\cdot\mathbf{B} = 0$, (iii) $\nabla\times\mathbf{E} = -\partial\mathbf{B}/\partial t$, and (iv) $\nabla\times\mathbf{B} = \frac{1}{c^2}\partial\mathbf{E}/\partial t$.
+
+(a) Derive Eqs. 9.179 (the six component equations from the curl equations), and from these obtain Eqs. 9.180 (the transverse components $E_x, E_y, B_x, B_y$ in terms of $E_z$ and $B_z$).
+
+(b) Put Eq. 9.180 into Maxwell's equations (i) and (ii) to obtain Eq. 9.181. Check that you get the same results using (i) and (iv) of Eq. 9.179.
+
+</div>
+
+<div slot="answer">
+
+**(a)** Equations 9.179 are:
+(i) $\partial_x E_y - \partial_y E_x = i\omega B_z$, (ii) $\partial_y E_z - ikE_y = i\omega B_x$, (iii) $ikE_x - \partial_x E_z = i\omega B_y$, (iv) $\partial_x B_y - \partial_y B_x = -\frac{i\omega}{c^2}E_z$, (v) $\partial_y B_z - ikB_y = -\frac{i\omega}{c^2}E_x$, (vi) $ikB_x - \partial_x B_z = -\frac{i\omega}{c^2}E_y$. Solving (ii), (iii), (v), (vi) gives Eqs. 9.180:
+
+$$
+E_x = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial E_z}{\partial x} + \omega\frac{\partial B_z}{\partial y}\right), \qquad E_y = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial E_z}{\partial y} - \omega\frac{\partial B_z}{\partial x}\right),
+$$
+
+$$
+B_x = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial B_z}{\partial x} - \frac{\omega}{c^2}\frac{\partial E_z}{\partial y}\right), \qquad B_y = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial B_z}{\partial y} + \frac{\omega}{c^2}\frac{\partial E_z}{\partial x}\right).
+$$
+
+**(b)** Both the divergence equations and Eqs. 9.179(i), (iv) yield the uncoupled Helmholtz equations (Eq. 9.181):
+
+$$
+\left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] E_z = 0, \qquad \left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] B_z = 0.
+$$
+
+</div>
+
+<div slot="solution">
+
+**(a)** For fields of the form $\tilde{\mathbf{E}} = \tilde{\mathbf{E}}_0(x, y)e^{i(kz-\omega t)}$ and $\tilde{\mathbf{B}} = \tilde{\mathbf{B}}_0(x, y)e^{i(kz-\omega t)}$, derivatives with respect to $z$ and $t$ become $\partial/\partial z \to ik$ and $\partial/\partial t \to -i\omega$. Thus
+
+$$
+\nabla \times \tilde{\mathbf{E}} = -\frac{\partial \tilde{\mathbf{B}}}{\partial t} = i\omega \tilde{\mathbf{B}}_0 e^{i(kz-\omega t)}, \qquad \nabla \times \tilde{\mathbf{B}} = \frac{1}{c^2}\frac{\partial \tilde{\mathbf{E}}}{\partial t} = -\frac{i\omega}{c^2} \tilde{\mathbf{E}}_0 e^{i(kz-\omega t)}.
+$$
+
+Writing out the Cartesian components of $\nabla \times \tilde{\mathbf{E}}$ and canceling the common factor $e^{i(kz-\omega t)}$ (dropping tildes and subscripts $0$ on components):
+
+$$
+\begin{aligned}
+(\text{i}) \quad & \frac{\partial E_y}{\partial x} - \frac{\partial E_x}{\partial y} = i\omega B_z, \\
+(\text{ii}) \quad & \frac{\partial E_z}{\partial y} - ikE_y = i\omega B_x, \\
+(\text{iii}) \quad & ikE_x - \frac{\partial E_z}{\partial x} = i\omega B_y.
+\end{aligned}
+$$
+
+Similarly, the Cartesian components of $\nabla \times \tilde{\mathbf{B}} = -\frac{i\omega}{c^2}\tilde{\mathbf{E}}$ yield:
+
+$$
+\begin{aligned}
+(\text{iv}) \quad & \frac{\partial B_y}{\partial x} - \frac{\partial B_x}{\partial y} = -\frac{i\omega}{c^2}E_z, \\
+(\text{v}) \quad & \frac{\partial B_z}{\partial y} - ikB_y = -\frac{i\omega}{c^2}E_x, \\
+(\text{vi}) \quad & ikB_x - \frac{\partial B_z}{\partial x} = -\frac{i\omega}{c^2}E_y.
+\end{aligned}
+$$
+
+This establishes Eqs. 9.179. Now we solve (ii), (iii), (v), and (vi) for the transverse components:
+
+- **For $E_x$:** Substitute $i\omega B_y = ikE_x - \partial E_z/\partial x$ from (iii) into $\omega$ times (v):
+
+$$
+\omega\frac{\partial B_z}{\partial y} - k\left(ikE_x - \frac{\partial E_z}{\partial x}\right) = -\frac{i\omega^2}{c^2}E_x \implies i\left[\left(\frac{\omega}{c}\right)^2 - k^2\right]E_x = -\left(k\frac{\partial E_z}{\partial x} + \omega\frac{\partial B_z}{\partial y}\right),
+$$
+
+so dividing by $i[(\omega/c)^2 - k^2]$ (using $-1/i = i$) gives Eq. 9.180(i):
+
+$$
+E_x = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial E_z}{\partial x} + \omega\frac{\partial B_z}{\partial y}\right).
+$$
+
+- **For $E_y$:** Substitute $i\omega B_x = \partial E_z/\partial y - ikE_y$ from (ii) into $\omega$ times (vi):
+
+$$
+k\left(\frac{\partial E_z}{\partial y} - ikE_y\right) - \omega\frac{\partial B_z}{\partial x} = -\frac{i\omega^2}{c^2}E_y \implies i\left[\left(\frac{\omega}{c}\right)^2 - k^2\right]E_y = -\left(k\frac{\partial E_z}{\partial y} - \omega\frac{\partial B_z}{\partial x}\right),
+$$
+
+which gives Eq. 9.180(ii):
+
+$$
+E_y = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial E_z}{\partial y} - \omega\frac{\partial B_z}{\partial x}\right).
+$$
+
+- **For $B_x$:** Multiply (ii) by $\omega/c^2$ and (vi) by $k$, then eliminate $\frac{i\omega k}{c^2}E_y$:
+
+$$
+\frac{\omega}{c^2}\frac{\partial E_z}{\partial y} - \frac{i\omega^2}{c^2}B_x = ik^2 B_x - k\frac{\partial B_z}{\partial x} \implies B_x = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial B_z}{\partial x} - \frac{\omega}{c^2}\frac{\partial E_z}{\partial y}\right).
+$$
+
+- **For $B_y$:** Multiply (iii) by $\omega/c^2$ and (v) by $k$, then add to eliminate $\frac{i\omega k}{c^2}E_x$:
+
+$$
+0 = \frac{\omega}{c^2}\frac{\partial E_z}{\partial x} + k\frac{\partial B_z}{\partial y} + i\left[\left(\frac{\omega}{c}\right)^2 - k^2\right]B_y \implies B_y = \frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial B_z}{\partial y} + \frac{\omega}{c^2}\frac{\partial E_z}{\partial x}\right).
+$$
+
+**(b)** Maxwell's equation (i), $\nabla \cdot \tilde{\mathbf{E}} = 0$, becomes
+
+$$
+\frac{\partial E_x}{\partial x} + \frac{\partial E_y}{\partial y} + ikE_z = 0.
+$$
+
+Substituting $E_x$ and $E_y$ from Eqs. 9.180:
+
+$$
+\frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial^2 E_z}{\partial x^2} + \omega\frac{\partial^2 B_z}{\partial x\partial y} + k\frac{\partial^2 E_z}{\partial y^2} - \omega\frac{\partial^2 B_z}{\partial y\partial x}\right) + ikE_z = 0.
+$$
+
+The mixed partial derivatives of $B_z$ cancel. Dividing by $ik$ and multiplying by $(\omega/c)^2 - k^2$ gives Eq. 9.181(i):
+
+$$
+\left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] E_z = 0.
+$$
+
+Likewise, Maxwell's equation (ii), $\nabla \cdot \tilde{\mathbf{B}} = 0$, becomes $\frac{\partial B_x}{\partial x} + \frac{\partial B_y}{\partial y} + ikB_z = 0$. Substituting $B_x$ and $B_y$ from Eqs. 9.180:
+
+$$
+\frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial^2 B_z}{\partial x^2} - \frac{\omega}{c^2}\frac{\partial^2 E_z}{\partial x\partial y} + k\frac{\partial^2 B_z}{\partial y^2} + \frac{\omega}{c^2}\frac{\partial^2 E_z}{\partial y\partial x}\right) + ikB_z = 0,
+$$
+
+whose mixed partials cancel to yield Eq. 9.181(ii):
+
+$$
+\left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] B_z = 0.
+$$
+
+**Alternative check using Eqs. 9.179(i) and (iv):**
+
+Substituting $E_x$ and $E_y$ from Eqs. 9.180 into Eq. 9.179(i), $\partial_x E_y - \partial_y E_x = i\omega B_z$:
+
+$$
+\frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial^2 E_z}{\partial x\partial y} - \omega\frac{\partial^2 B_z}{\partial x^2} - k\frac{\partial^2 E_z}{\partial y\partial x} - \omega\frac{\partial^2 B_z}{\partial y^2}\right) = i\omega B_z.
+$$
+
+The $E_z$ terms cancel, and multiplying by $\frac{(\omega/c)^2 - k^2}{-i\omega}$ gives $\left[\partial_x^2 + \partial_y^2 + (\omega/c)^2 - k^2\right]B_z = 0$, matching Eq. 9.181(ii).
+
+Similarly, substituting $B_x$ and $B_y$ from Eqs. 9.180 into Eq. 9.179(iv), $\partial_x B_y - \partial_y B_x = -\frac{i\omega}{c^2}E_z$:
+
+$$
+\frac{i}{(\omega/c)^2 - k^2}\left(k\frac{\partial^2 B_z}{\partial x\partial y} + \frac{\omega}{c^2}\frac{\partial^2 E_z}{\partial x^2} - k\frac{\partial^2 B_z}{\partial y\partial x} + \frac{\omega}{c^2}\frac{\partial^2 E_z}{\partial y^2}\right) = -\frac{i\omega}{c^2}E_z.
+$$
+
+The $B_z$ terms cancel, and multiplying by $\frac{c^2[(\omega/c)^2 - k^2]}{i\omega}$ recovers Eq. 9.181(i).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.28" title="Nonexistence of the TE00 Mode" tag="Griffiths 9.28 · Rectangular Waveguide">
+
+<div slot="problem">
+
+Show that the mode $\text{TE}_{00}$ cannot occur in a rectangular wave guide.
+
+*[Hint: In this case $\omega/c = k$, so Eqs. 9.180 are indeterminate, and you must go back to Eq. 9.179. Show that $B_z$ is a constant, and hence—applying Faraday's law in integral form to a cross section—that $B_z = 0$, so this would be a TEM mode.]*
+
+</div>
+
+<div slot="answer">
+
+When $E_z = 0$ and $\omega/c = k$, Eqs. 9.179 give $\partial B_z/\partial x = \partial B_z/\partial y = 0$, so $B_z$ is constant across the waveguide cross section. Applying Faraday's law $\oint \mathbf{E}\cdot d\mathbf{l} = -\frac{d}{dt}\int \mathbf{B}\cdot d\mathbf{a}$ around the conducting perimeter (where $\mathbf{E} = \mathbf{0}$) forces $B_z = 0$. This reduces the wave to a TEM mode, which cannot exist in a hollow waveguide.
+
+</div>
+
+<div slot="solution">
+
+For a $\text{TE}_{00}$ mode, $E_z = 0$ and $m = n = 0$, so $\omega_{00} = 0$ and $k = \omega/c$. Because $(\omega/c)^2 - k^2 = 0$, Eqs. 9.180 are indeterminate and we return directly to Eqs. 9.179.
+
+Setting $E_z = 0$ and $\omega = kc$ in Eqs. 9.179(ii) and (iii) gives
+
+$$
+-ikE_y = ikcB_x \implies E_y = -cB_x,
+$$
+
+$$
+ikE_x = ikcB_y \implies E_x = cB_y.
+$$
+
+Substituting these relations along with $\omega/c^2 = k/c$ into Eqs. 9.179(v) and (vi):
+
+$$
+\frac{\partial B_z}{\partial y} - ikB_y = -\frac{ik}{c}E_x = -ikB_y \implies \frac{\partial B_z}{\partial y} = 0,
+$$
+
+$$
+ikB_x - \frac{\partial B_z}{\partial x} = -\frac{ik}{c}E_y = ikB_x \implies \frac{\partial B_z}{\partial x} = 0.
+$$
+
+Since $B_z$ depends only on $x$ and $y$, this implies $B_z$ is a constant throughout the cross section (consistent with $B_z = B_0\cos(0)\cos(0) = B_0$ in Eq. 9.186).
+
+Now apply Faraday's law in integral form to a cross section of the waveguide, taking the closed boundary loop $\mathcal{P}$ just inside the perfectly conducting wall where $\mathbf{E} = \mathbf{0}$:
+
+$$
+\oint_{\mathcal{P}} \tilde{\mathbf{E}} \cdot d\mathbf{l} = -\int \frac{\partial \tilde{\mathbf{B}}}{\partial t} \cdot d\mathbf{a} = i\omega \int \tilde{B}_z\, da.
+$$
+
+Because $B_z$ is constant over the cross section of area $ab$,
+
+$$
+0 = i\omega B_z e^{i(kz-\omega t)}(ab) \implies B_z = 0
+$$
+
+(for $\omega \neq 0$). Since both $E_z = 0$ and $B_z = 0$, this would be a TEM mode, which cannot exist inside a hollow single-conductor waveguide.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.29" title="Propagating TE Modes and Single-Mode Bandwidth" tag="Griffiths 9.29 · Rectangular Waveguide">
+
+<div slot="problem">
+
+Consider a rectangular wave guide with dimensions $2.28\text{ cm} \times 1.01\text{ cm}$. What TE modes will propagate in this wave guide, if the driving frequency is $1.70 \times 10^{10}\text{ Hz}$? Suppose you wanted to excite only one TE mode; what range of frequencies could you use? What are the corresponding wavelengths (in open space)?
+
+</div>
+
+<div slot="answer">
+
+At $\nu = 1.70 \times 10^{10}\text{ Hz}$, **four** TE modes propagate: **$\text{TE}_{10}$**, **$\text{TE}_{20}$**, **$\text{TE}_{01}$**, and **$\text{TE}_{11}$**.
+
+To excite only one TE mode ($\text{TE}_{10}$), the driving frequency must lie in the range
+
+$$
+0.66 \times 10^{10}\text{ Hz} < \nu < 1.32 \times 10^{10}\text{ Hz} \quad (6.58\text{ GHz} < \nu < 13.16\text{ GHz}),
+$$
+
+corresponding to open-space wavelengths
+
+$$
+2.28\text{ cm} < \lambda < 4.56\text{ cm}.
+$$
+
+</div>
+
+<div slot="solution">
+
+Let $a = 2.28\text{ cm} = 0.0228\text{ m}$ and $b = 1.01\text{ cm} = 0.0101\text{ m}$. From Eq. 9.188, the cutoff frequency $\nu_{mn} = \omega_{mn}/(2\pi)$ for the $\text{TE}_{mn}$ mode is
+
+$$
+\nu_{mn} = \frac{c}{2}\sqrt{\left(\frac{m}{a}\right)^2 + \left(\frac{n}{b}\right)^2}.
+$$
+
+Evaluating the lowest candidate cutoff frequencies (with $c = 3.00 \times 10^8\text{ m/s}$):
+
+$$
+\nu_{10} = \frac{c}{2a} = \frac{3.00 \times 10^8}{2(0.0228)} = 0.658 \times 10^{10}\text{ Hz} \approx 0.66 \times 10^{10}\text{ Hz},
+$$
+
+$$
+\nu_{20} = 2\nu_{10} = \frac{c}{a} = 1.316 \times 10^{10}\text{ Hz} \approx 1.32 \times 10^{10}\text{ Hz},
+$$
+
+$$
+\nu_{30} = 3\nu_{10} = 1.974 \times 10^{10}\text{ Hz} \approx 1.97 \times 10^{10}\text{ Hz},
+$$
+
+$$
+\nu_{01} = \frac{c}{2b} = \frac{3.00 \times 10^8}{2(0.0101)} = 1.485 \times 10^{10}\text{ Hz} \approx 1.49 \times 10^{10}\text{ Hz},
+$$
+
+$$
+\nu_{02} = 2\nu_{01} = \frac{c}{b} = 2.970 \times 10^{10}\text{ Hz} \approx 2.97 \times 10^{10}\text{ Hz},
+$$
+
+$$
+\nu_{11} = \frac{c}{2}\sqrt{\frac{1}{a^2} + \frac{1}{b^2}} = 1.50 \times 10^8\sqrt{\frac{1}{0.0228^2} + \frac{1}{0.0101^2}} = 1.624 \times 10^{10}\text{ Hz} \approx 1.62 \times 10^{10}\text{ Hz},
+$$
+
+$$
+\nu_{21} = \frac{c}{2}\sqrt{\frac{4}{a^2} + \frac{1}{b^2}} = 1.984 \times 10^{10}\text{ Hz} \approx 1.98 \times 10^{10}\text{ Hz}.
+$$
+
+A mode propagates if $\nu > \nu_{mn}$. At $\nu = 1.70 \times 10^{10}\text{ Hz}$, only four modes satisfy $\nu_{mn} < 1.70 \times 10^{10}\text{ Hz}$: **$\text{TE}_{10}$, $\text{TE}_{20}$, $\text{TE}_{01}$, and $\text{TE}_{11}$**.
+
+To excite **only one** TE mode, the driving frequency must exceed the lowest cutoff ($\nu_{10}$) while remaining below the second-lowest cutoff ($\nu_{20}$):
+
+$$
+0.66 \times 10^{10}\text{ Hz} < \nu < 1.32 \times 10^{10}\text{ Hz}.
+$$
+
+Since the open-space wavelength is $\lambda = c/\nu$, the cutoff wavelengths are $\lambda_{10} = c/\nu_{10} = 2a = 4.56\text{ cm}$ and $\lambda_{20} = c/\nu_{20} = a = 2.28\text{ cm}$. Thus the allowed open-space wavelength range is
+
+$$
+2.28\text{ cm} < \lambda < 4.56\text{ cm}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.30" title="Energy Transport Speed in a TEmn Mode" tag="Griffiths 9.30 · Energy &amp; Group Velocity">
+
+<div slot="problem">
+
+Confirm that the energy in the $\text{TE}_{mn}$ mode travels at the group velocity.
+
+*[Hint: Find the time-averaged Poynting vector $\langle\mathbf{S}\rangle$ and the energy density $\langle u\rangle$ (use Prob. 9.12 if you wish). Integrate over the cross section of the wave guide to get the energy per unit time and per unit length carried by the wave, and take their ratio.]*
+
+</div>
+
+<div slot="answer">
+
+Integrating the time-averaged Poynting vector and energy density over the waveguide cross section gives (for $m, n \ge 1$; doubled when $m=0$ or $n=0$):
+
+$$
+\int \langle\mathbf{S}\rangle \cdot d\mathbf{a} = \frac{\omega k ab c^2 B_0^2}{8\mu_0 \omega_{mn}^2}, \qquad \int \langle u\rangle\, da = \frac{\omega^2 ab B_0^2}{8\mu_0 \omega_{mn}^2}.
+$$
+
+Their ratio is the energy transport velocity:
+
+$$
+v_{\text{energy}} = \frac{\int \langle\mathbf{S}\rangle \cdot d\mathbf{a}}{\int \langle u\rangle\, da} = \frac{kc^2}{\omega} = c\sqrt{1 - \left(\frac{\omega_{mn}}{\omega}\right)^2} = v_g.
+$$
+
+</div>
+
+<div slot="solution">
+
+For the $\text{TE}_{mn}$ mode ($E_z = 0$, $B_z = B_0 \cos(m\pi x/a)\cos(n\pi y/b)$, taking $B_0$ real without loss of generality), Eqs. 9.180 give the complex field amplitudes:
+
+$$
+E_x = -\frac{i\omega}{(\omega/c)^2 - k^2}\frac{n\pi}{b}B_0 \cos\left(\frac{m\pi x}{a}\right)\sin\left(\frac{n\pi y}{b}\right), \qquad E_y = \frac{i\omega}{(\omega/c)^2 - k^2}\frac{m\pi}{a}B_0 \sin\left(\frac{m\pi x}{a}\right)\cos\left(\frac{n\pi y}{b}\right),
+$$
+
+$$
+B_x = -\frac{ik}{(\omega/c)^2 - k^2}\frac{m\pi}{a}B_0 \sin\left(\frac{m\pi x}{a}\right)\cos\left(\frac{n\pi y}{b}\right), \qquad B_y = -\frac{ik}{(\omega/c)^2 - k^2}\frac{n\pi}{b}B_0 \cos\left(\frac{m\pi x}{a}\right)\sin\left(\frac{n\pi y}{b}\right).
+$$
+
+Using the time-averaged Poynting vector $\langle\mathbf{S}\rangle = \frac{1}{2\mu_0}\operatorname{Re}(\tilde{\mathbf{E}} \times \tilde{\mathbf{B}}^*)$ (with $\tilde{\mathbf{E}} = \tilde{\mathbf{E}}_0 e^{i(kz-\omega t)}$ and $\tilde{\mathbf{B}}^* = \tilde{\mathbf{B}}_0^* e^{-i(kz-\omega t)}$):
+
+- The $x$- and $y$-components of $\tilde{\mathbf{E}} \times \tilde{\mathbf{B}}^*$ are $E_y B_z^*$ and $-E_x B_z^*$, which are purely imaginary and therefore have zero real part.
+- The $z$-component is $E_x B_y^* - E_y B_x^*$, where both $(-i)(+i) = +1$ and $-(+i)(+i) = +1$ are real and positive:
+
+$$
+\langle\mathbf{S}\rangle = \frac{\omega k \pi^2 B_0^2}{2\mu_0[(\omega/c)^2 - k^2]^2}\left[\left(\frac{n}{b}\right)^2 \cos^2\left(\frac{m\pi x}{a}\right)\sin^2\left(\frac{n\pi y}{b}\right) + \left(\frac{m}{a}\right)^2 \sin^2\left(\frac{m\pi x}{a}\right)\cos^2\left(\frac{n\pi y}{b}\right)\right]\hat{\mathbf{z}}.
+$$
+
+Assume $m, n \ge 1$ first; then $\int_0^a \sin^2(m\pi x/a)\,dx = \int_0^a \cos^2(m\pi x/a)\,dx = a/2$, and similarly for $y$, giving $ab/4$ for each term upon integrating over the cross section:
+
+$$
+\int \langle\mathbf{S}\rangle \cdot d\mathbf{a} = \frac{\omega k \pi^2 B_0^2 ab}{8\mu_0[(\omega/c)^2 - k^2]^2}\left[\left(\frac{n}{b}\right)^2 + \left(\frac{m}{a}\right)^2\right].
+$$
+
+From Eqs. 9.188 and 9.190, $\pi^2[(m/a)^2 + (n/b)^2] = (\omega_{mn}/c)^2 = (\omega/c)^2 - k^2$, so this simplifies to
+
+$$
+\int \langle\mathbf{S}\rangle \cdot d\mathbf{a} = \frac{\omega k ab c^2 B_0^2}{8\mu_0 \omega_{mn}^2}.
+$$
+
+Next, compute the time-averaged energy density $\langle u\rangle = \frac{1}{4}\left(\epsilon_0 \tilde{\mathbf{E}}\cdot\tilde{\mathbf{E}}^* + \frac{1}{\mu_0}\tilde{\mathbf{B}}\cdot\tilde{\mathbf{B}}^*\right)$:
+
+$$
+\begin{aligned}
+\langle u\rangle &= \frac{\epsilon_0 \omega^2 \pi^2 B_0^2}{4[(\omega/c)^2 - k^2]^2}\left[\left(\frac{n}{b}\right)^2\cos^2\left(\frac{m\pi x}{a}\right)\sin^2\left(\frac{n\pi y}{b}\right) + \left(\frac{m}{a}\right)^2\sin^2\left(\frac{m\pi x}{a}\right)\cos^2\left(\frac{n\pi y}{b}\right)\right] \\
+&\quad + \frac{1}{4\mu_0}B_0^2 \cos^2\left(\frac{m\pi x}{a}\right)\cos^2\left(\frac{n\pi y}{b}\right) \\
+&\quad + \frac{k^2 \pi^2 B_0^2}{4\mu_0[(\omega/c)^2 - k^2]^2}\left[\left(\frac{n}{b}\right)^2\cos^2\left(\frac{m\pi x}{a}\right)\sin^2\left(\frac{n\pi y}{b}\right) + \left(\frac{m}{a}\right)^2\sin^2\left(\frac{m\pi x}{a}\right)\cos^2\left(\frac{n\pi y}{b}\right)\right].
+\end{aligned}
+$$
+
+Integrating over the cross section (each trigonometric product integrates to $ab/4$) and using $\epsilon_0 c^2 = 1/\mu_0$ along with $(\omega/c)^2 - k^2 = (\omega_{mn}/c)^2$:
+
+$$
+\int \langle u\rangle\, da = \frac{ab B_0^2}{16\mu_0}\left[\frac{\omega^2}{\omega_{mn}^2} + 1 + \frac{k^2 c^2}{\omega_{mn}^2}\right].
+$$
+
+Since $\omega^2 = (kc)^2 + \omega_{mn}^2$, we have $1 + \frac{k^2 c^2}{\omega_{mn}^2} = \frac{\omega^2}{\omega_{mn}^2}$, and therefore
+
+$$
+\int \langle u\rangle\, da = \frac{\omega^2 ab B_0^2}{8\mu_0 \omega_{mn}^2}.
+$$
+
+*(Note: If $m = 0$ or $n = 0$, the surviving $\int \cos^2(0)\,dx = a$ doubles both $\int\langle\mathbf{S}\rangle\cdot d\mathbf{a}$ and $\int\langle u\rangle\,da$, leaving their ratio unchanged.)*
+
+Taking the ratio of energy per unit time to energy per unit length gives the speed of energy flow:
+
+$$
+v_{\text{energy}} = \frac{\int \langle\mathbf{S}\rangle \cdot d\mathbf{a}}{\int \langle u\rangle\, da} = \frac{kc^2}{\omega} = \frac{c\sqrt{\omega^2 - \omega_{mn}^2}}{\omega} = c\sqrt{1 - \left(\frac{\omega_{mn}}{\omega}\right)^2} = v_g,
+$$
+
+confirming Eq. 9.192.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.31" title="TM Modes in a Rectangular Waveguide" tag="Griffiths 9.31 · TM Modes">
+
+<div slot="problem">
+
+Work out the theory of TM modes for a rectangular wave guide. In particular, find the longitudinal electric field, the cutoff frequencies, and the wave and group velocities. Find the ratio of the lowest TM cutoff frequency to the lowest TE cutoff frequency, for a given wave guide.
+
+*[Caution: What is the lowest TM mode?]*
+
+</div>
+
+<div slot="answer">
+
+- **Longitudinal electric field** ($B_z = 0$):
+
+$$
+E_z(x, y) = E_0 \sin\left(\frac{m\pi x}{a}\right)\sin\left(\frac{n\pi y}{b}\right), \qquad (m, n = 1, 2, 3, \dots).
+$$
+
+- **Cutoff frequencies, wave velocity, and group velocity**:
+
+$$
+\omega_{mn} = c\pi\sqrt{\left(\frac{m}{a}\right)^2 + \left(\frac{n}{b}\right)^2}, \qquad v = \frac{c}{\sqrt{1 - (\omega_{mn}/\omega)^2}}, \qquad v_g = c\sqrt{1 - \left(\frac{\omega_{mn}}{\omega}\right)^2}.
+$$
+
+- **Lowest TM mode &amp; cutoff ratio** (for $a \ge b$): The lowest TM mode is **$\text{TM}_{11}$** (since $m=0$ or $n=0$ gives $E_z = 0$). Comparing with $\text{TE}_{10}$ ($\omega_{10} = c\pi/a$),
+
+$$
+\frac{\omega_{11}^{\text{TM}}}{\omega_{10}^{\text{TE}}} = \sqrt{1 + \left(\frac{a}{b}\right)^2}.
+$$
+
+</div>
+
+<div slot="solution">
+
+For TM waves, $B_z = 0$ and $E_z(x, y)$ satisfies Eq. 9.181(i):
+
+$$
+\left[\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \left(\frac{\omega}{c}\right)^2 - k^2\right] E_z = 0.
+$$
+
+Using separation of variables, $E_z(x, y) = X(x)Y(y)$, we obtain
+
+$$
+\frac{1}{X}\frac{d^2 X}{dx^2} = -k_x^2, \qquad \frac{1}{Y}\frac{d^2 Y}{dy^2} = -k_y^2, \qquad -k_x^2 - k_y^2 + \left(\frac{\omega}{c}\right)^2 - k^2 = 0.
+$$
+
+The general solution for $X(x)$ is $X(x) = A\sin(k_x x) + B\cos(k_x x)$. Because $E_z$ is tangential to all four conducting walls ($x = 0, a$ and $y = 0, b$), the boundary condition $E_{\parallel} = 0$ requires $E_z = 0$ on the walls:
+
+- $X(0) = 0 \implies B = 0$.
+- $X(a) = 0 \implies k_x = \frac{m\pi}{a}$. Crucially, $m = 0$ is **not** allowed, because $m = 0$ makes $X(x) = 0$ everywhere (which would make $E_z = 0$ as well as $B_z = 0$, reducing to a forbidden TEM mode). Hence $m = 1, 2, 3, \dots$.
+
+Applying the same boundary conditions $Y(0) = Y(b) = 0$ gives $k_y = \frac{n\pi}{b}$ with $n = 1, 2, 3, \dots$. Combining the two factors yields the longitudinal electric field for the $\text{TM}_{mn}$ mode:
+
+$$
+E_z(x, y) = E_0 \sin\left(\frac{m\pi x}{a}\right)\sin\left(\frac{n\pi y}{b}\right), \qquad (m, n = 1, 2, 3, \dots).
+$$
+
+(From Eqs. 9.180, the remaining boundary conditions $E_y = B_x = 0$ at $x = 0, a$ and $E_x = B_y = 0$ at $y = 0, b$ are also automatically satisfied.)
+
+Substituting $k_x$ and $k_y$ back into the separation relation gives the dispersion relation, which has the exact same form as for TE modes:
+
+$$
+k = \sqrt{\left(\frac{\omega}{c}\right)^2 - \pi^2\left[\left(\frac{m}{a}\right)^2 + \left(\frac{n}{b}\right)^2\right]} = \frac{1}{c}\sqrt{\omega^2 - \omega_{mn}^2},
+$$
+
+where the cutoff frequency is
+
+$$
+\omega_{mn} = c\pi\sqrt{\left(\frac{m}{a}\right)^2 + \left(\frac{n}{b}\right)^2}.
+$$
+
+Consequently, the wave (phase) velocity and group velocity are
+
+$$
+v = \frac{\omega}{k} = \frac{c}{\sqrt{1 - (\omega_{mn}/\omega)^2}}, \qquad v_g = \frac{1}{dk/d\omega} = c\sqrt{1 - \left(\frac{\omega_{mn}}{\omega}\right)^2}.
+$$
+
+Because both $m \ge 1$ and $n \ge 1$, the lowest TM mode is **$\text{TM}_{11}$**, with cutoff frequency $\omega_{11}^{\text{TM}} = c\pi\sqrt{(1/a)^2 + (1/b)^2}$. Assuming $a \ge b$, the lowest TE mode is $\text{TE}_{10}$ with $\omega_{10}^{\text{TE}} = c\pi/a$. Their ratio is
+
+$$
+\frac{\omega_{11}^{\text{TM}}}{\omega_{10}^{\text{TE}}} = \frac{c\pi\sqrt{(1/a)^2 + (1/b)^2}}{c\pi/a} = \sqrt{1 + \left(\frac{a}{b}\right)^2}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.32" title="TEM Wave in a Coaxial Transmission Line" tag="Griffiths 9.32 · Coaxial Line">
+
+<div slot="problem">
+
+Consider the TEM fields in a coaxial transmission line of inner radius $a$ and outer radius $b$ (Eq. 9.197):
+
+$$
+\mathbf{E}(s, \phi, z, t) = \frac{A\cos(kz - \omega t)}{s}\,\hat{\mathbf{s}}, \qquad \mathbf{B}(s, \phi, z, t) = \frac{A\cos(kz - \omega t)}{cs}\,\hat{\boldsymbol{\phi}},
+$$
+
+with $k = \omega/c$.
+
+(a) Show directly that Eqs. 9.197 satisfy Maxwell's equations (Eq. 9.177) and the boundary conditions (Eq. 9.175).
+
+(b) Find the charge density, $\lambda(z, t)$, and the current, $I(z, t)$, on the inner conductor.
+
+</div>
+
+<div slot="answer">
+
+**(a)** Direct differentiation in cylindrical coordinates confirms $\nabla\cdot\mathbf{E} = 0$, $\nabla\cdot\mathbf{B} = 0$, $\nabla\times\mathbf{E} = -\partial\mathbf{B}/\partial t$, and $\nabla\times\mathbf{B} = \frac{1}{c^2}\partial\mathbf{E}/\partial t$ (using $k = \omega/c$), while $E_{\parallel} = E_\phi = E_z = 0$ and $B_{\perp} = B_s = 0$ at $s = a$ and $s = b$.
+
+**(b)** On the inner conductor:
+
+$$
+\lambda(z, t) = 2\pi\epsilon_0 A\cos(kz - \omega t), \qquad I(z, t) = \frac{2\pi A}{\mu_0 c}\cos(kz - \omega t) = 2\pi\epsilon_0 c A\cos(kz - \omega t).
+$$
+
+*(On the outer conductor, the charge per unit length and current are $-\lambda(z, t)$ and $-I(z, t)$.)*
+
+</div>
+
+<div slot="solution">
+
+**(a)** Using the divergence and curl formulas in cylindrical coordinates $(s, \phi, z)$ for $\mathbf{E} = E_s\hat{\mathbf{s}}$ and $\mathbf{B} = B_\phi\hat{\boldsymbol{\phi}}$ (both independent of $\phi$):
+
+- **Gauss's law for $\mathbf{E}$:**
+
+$$
+\nabla \cdot \mathbf{E} = \frac{1}{s}\frac{\partial}{\partial s}(s E_s) = \frac{1}{s}\frac{\partial}{\partial s}\bigl[A\cos(kz - \omega t)\bigr] = 0.
+$$
+
+- **Gauss's law for $\mathbf{B}$:**
+
+$$
+\nabla \cdot \mathbf{B} = \frac{1}{s}\frac{\partial B_\phi}{\partial \phi} = 0.
+$$
+
+- **Faraday's law:**
+
+$$
+\nabla \times \mathbf{E} = \frac{\partial E_s}{\partial z}\,\hat{\boldsymbol{\phi}} = -\frac{Ak\sin(kz - \omega t)}{s}\,\hat{\boldsymbol{\phi}}.
+$$
+
+On the other hand,
+
+$$
+-\frac{\partial \mathbf{B}}{\partial t} = -\frac{A\omega\sin(kz - \omega t)}{cs}\,\hat{\boldsymbol{\phi}}.
+$$
+
+Since $k = \omega/c$, we have $\nabla \times \mathbf{E} = -\partial\mathbf{B}/\partial t$.
+
+- **Ampère–Maxwell law:**
+
+$$
+\nabla \times \mathbf{B} = -\frac{\partial B_\phi}{\partial z}\,\hat{\mathbf{s}} + \frac{1}{s}\frac{\partial}{\partial s}(s B_\phi)\,\hat{\mathbf{z}} = \frac{Ak\sin(kz - \omega t)}{cs}\,\hat{\mathbf{s}} + 0.
+$$
+
+Meanwhile,
+
+$$
+\frac{1}{c^2}\frac{\partial \mathbf{E}}{\partial t} = \frac{A\omega\sin(kz - \omega t)}{c^2 s}\,\hat{\mathbf{s}}.
+$$
+
+Again, $k = \omega/c$ ensures $\nabla \times \mathbf{B} = \frac{1}{c^2}\partial\mathbf{E}/\partial t$.
+
+- **Boundary conditions:** At the conducting surfaces $s = a$ and $s = b$, the tangential electric field vanishes because $\mathbf{E}$ is purely radial ($E_\phi = E_z = 0 \implies E_{\parallel} = 0$), and the normal magnetic field vanishes because $\mathbf{B}$ is purely azimuthal ($B_s = 0 \implies B_{\perp} = 0$).
+
+**(b)** To find the linear charge density $\lambda(z, t)$ on the inner conductor, apply Gauss's law to a coaxial Gaussian cylinder of radius $s$ ($a < s < b$) and infinitesimal length $dz$:
+
+$$
+\oint \mathbf{E} \cdot d\mathbf{a} = \frac{A\cos(kz - \omega t)}{s}(2\pi s\, dz) = \frac{Q_{\text{enc}}}{\epsilon_0} = \frac{\lambda(z, t)\,dz}{\epsilon_0},
+$$
+
+which gives
+
+$$
+\lambda(z, t) = 2\pi\epsilon_0 A\cos(kz - \omega t).
+$$
+
+To find the current $I(z, t)$ on the inner conductor, apply the Ampère–Maxwell law to a circular loop of radius $s$ ($a < s < b$) centered on the $z$-axis. Because $\mathbf{E}$ is radial ($\hat{\mathbf{s}}$), the electric flux through the flat circular disk bounded by the loop is zero, so the displacement current vanishes:
+
+$$
+\oint \mathbf{B} \cdot d\mathbf{l} = \frac{A\cos(kz - \omega t)}{cs}(2\pi s) = \mu_0 I_{\text{enc}},
+$$
+
+which yields (using $\mu_0 c = 1/(\epsilon_0 c)$)
+
+$$
+I(z, t) = \frac{2\pi A}{\mu_0 c}\cos(kz - \omega t) = 2\pi\epsilon_0 c A\cos(kz - \omega t) = c\lambda(z, t).
+$$
+
+*(Because $\mathbf{E} = \mathbf{B} = \mathbf{0}$ inside the outer conductor, a Gaussian surface or Ampèrian loop of radius $s > b$ encloses zero net charge and zero net current; hence the outer conductor carries $-\lambda(z, t)$ and $-I(z, t)$.)*
+
+</div>
+
+</ProblemCard>
+
+</section>

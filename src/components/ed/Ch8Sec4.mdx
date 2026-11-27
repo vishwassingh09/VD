@@ -1,0 +1,1055 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch8-sec4" class="ed-sec-block">
+
+### Chapter 8 Review Problems (8.13 – 8.24)
+
+<div class="ed-theory-box">
+
+#### Chapter 8 Formula &amp; Problem-Solving Checklist
+
+**1. Energy Conservation (Poynting's Theorem)**
+In vacuum, the work done on charges equals the decrease in stored field energy minus the energy flowing out through the boundary surface $S$:
+
+$$
+\frac{dW}{dt} = -\frac{d}{dt}\int_V u\,d\tau - \oint_S \mathbf{S}\cdot d\mathbf{a}, \qquad u = \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right), \qquad \mathbf{S} = \frac{1}{\mu_0}(\mathbf{E}\times\mathbf{B}).
+$$
+
+In linear matter (accounting only for work on free charges and currents $\mathbf{J}_f$):
+
+$$
+\mathbf{S} = \mathbf{E}\times\mathbf{H}, \qquad \frac{\partial u}{\partial t} = \mathbf{E}\cdot\frac{\partial\mathbf{D}}{\partial t} + \mathbf{H}\cdot\frac{\partial\mathbf{B}}{\partial t}, \qquad u = \frac{1}{2}\left(\mathbf{E}\cdot\mathbf{D} + \mathbf{B}\cdot\mathbf{H}\right).
+$$
+
+**2. Maxwell Stress Tensor &amp; Momentum Conservation**
+The electromagnetic force density $\mathbf{f} = \rho\mathbf{E} + \mathbf{J}\times\mathbf{B}$ satisfies
+
+$$
+\mathbf{f} = \nabla\cdot\overleftrightarrow{\mathbf{T}} - \frac{\partial\mathbf{g}}{\partial t}, \qquad T_{ij} = \epsilon_0\left(E_i E_j - \frac{1}{2}\delta_{ij}E^2\right) + \frac{1}{\mu_0}\left(B_i B_j - \frac{1}{2}\delta_{ij}B^2\right).
+$$
+
+Thus the rate of change of total (mechanical + electromagnetic) momentum is $\frac{d}{dt}(\mathbf{p}_{\text{mech}} + \mathbf{p}_{\text{em}}) = \oint_S \overleftrightarrow{\mathbf{T}}\cdot d\mathbf{a}$.
+
+**3. Field Momentum &amp; Angular Momentum**
+In vacuum (and with magnetic monopoles included):
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) = \frac{1}{c^2}\mathbf{S}, \qquad \mathbf{p}_{\text{em}} = \int_V \mathbf{g}\,d\tau, \qquad \boldsymbol{\ell} = \mathbf{r}\times\mathbf{g}, \qquad \mathbf{L}_{\text{em}} = \int_V (\mathbf{r}\times\mathbf{g})\,d\tau.
+$$
+
+In matter (Minkowski momentum density): $\mathbf{g} = \mathbf{D}\times\mathbf{B}$.
+
+**4. Hidden Momentum &amp; Problem-Solving Checklist**
+- **Ideal magnetic dipole in a static electric field:** $\mathbf{p}_{\text{em}} = -\epsilon_0\mu_0(\mathbf{m}\times\mathbf{E}) = -\frac{1}{c^2}(\mathbf{m}\times\mathbf{E})$. For any static, localized system with $\mathbf{p}_{\text{total}} = \mathbf{0}$, this field momentum is balanced by relativistic **hidden momentum** $\mathbf{p}_{\text{hidden}} = -\mathbf{p}_{\text{em}}$ inside the current-carrying charges.
+- **Check cross-product directions carefully:** Use cylindrical ($\hat{\mathbf{s}}\times\hat{\boldsymbol{\phi}} = \hat{\mathbf{z}}$, $\hat{\mathbf{s}}\times\hat{\mathbf{z}} = -\hat{\boldsymbol{\phi}}$) or spherical unit vectors consistently, and verify by symmetry which Cartesian components integrate to zero before evaluating integrals.
+- **Conservation checks:** When currents or fields are switched off, the impulse $\int \mathbf{F}\,dt$ or angular impulse $\int \mathbf{N}\,dt$ imparted by the induced electric field must match the loss in electromagnetic momentum or angular momentum (including any residual field from moving charges).
+
+</div>
+
+<ProblemCard num="8.13" title="Energy Transfer from Solenoid to Coaxial Ring" tag="Griffiths 8.13 · Poynting Vector">
+
+<div slot="problem">
+
+A very long solenoid of radius $a$, with $n$ turns per unit length, carries a current $I_s$. Coaxial with the solenoid, at radius $b \gg a$, is a circular ring of wire, with resistance $R$. When the current in the solenoid is (gradually) decreased, a current $I_r$ is induced in the ring.
+
+(a) Calculate $I_r$, in terms of $dI_s/dt$.
+
+(b) The power ($I_r^2 R$) delivered to the ring must have come from the solenoid. Confirm this by calculating the Poynting vector just outside the solenoid (the electric field is due to the changing flux in the solenoid; the magnetic field is due to the current in the ring). Integrate over the entire surface of the solenoid, and check that you recover the correct total power.
+
+</div>
+
+<div slot="answer">
+
+(a) $I_r = -\dfrac{\mu_0 \pi a^2 n}{R}\dfrac{dI_s}{dt} = \dfrac{\mu_0 \pi a^2 n}{R}\left|\dfrac{dI_s}{dt}\right|$
+
+(b) $\mathbf{S} = -\dfrac{1}{4}\mu_0 a b^2 n I_r \dfrac{dI_s}{dt}\dfrac{1}{(b^2 + z^2)^{3/2}}\hat{\mathbf{s}}$; integrating over the solenoid surface yields $P = I_r^2 R$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** Let the solenoid axis lie along $\hat{\mathbf{z}}$, with $I_s$ circulating in the $+\hat{\boldsymbol{\phi}}$ direction so that the magnetic field inside the solenoid is $\mathbf{B}_s = \mu_0 n I_s\,\hat{\mathbf{z}}$. The magnetic flux through the coaxial ring is confined to the solenoid cross section of area $\pi a^2$:
+
+$$
+\Phi = \pi a^2 B_s = \mu_0 \pi a^2 n I_s.
+$$
+
+By Faraday's law, the induced emf in the ring is $\mathcal{E} = -d\Phi/dt = I_r R$, so
+
+$$
+I_r = -\frac{1}{R}\frac{d\Phi}{dt} = -\frac{\mu_0 \pi a^2 n}{R}\frac{dI_s}{dt}.
+$$
+
+Since $I_s$ is decreasing, $dI_s/dt < 0$, meaning $I_r > 0$ circulates in the $+\hat{\boldsymbol{\phi}}$ direction with magnitude $I_r = \frac{\mu_0 \pi a^2 n}{R}\left|\frac{dI_s}{dt}\right|$.
+
+**(b)** Just outside the solenoid (at cylindrical radius $s = a^+$), Faraday's law applied to a circular loop of radius $a$ gives
+
+$$
+\oint \mathbf{E}\cdot d\mathbf{l} = -\frac{d\Phi}{dt} \implies E_\phi (2\pi a) = -\mu_0 \pi a^2 n \frac{dI_s}{dt} \implies \mathbf{E} = -\frac{1}{2}\mu_0 a n \frac{dI_s}{dt}\,\hat{\boldsymbol{\phi}}.
+$$
+
+Because $b \gg a$, the magnetic field of the ring at the surface of the solenoid ($s = a$) is well approximated by its on-axis field (Griffiths Eq. 5.41):
+
+$$
+\mathbf{B} = \frac{\mu_0 I_r}{2}\frac{b^2}{(b^2 + z^2)^{3/2}}\,\hat{\mathbf{z}}.
+$$
+
+(The solenoid's own magnetic field vanishes outside $s = a$.) Thus, the Poynting vector just outside the solenoid is
+
+$$
+\mathbf{S} = \frac{1}{\mu_0}(\mathbf{E}\times\mathbf{B}) = \frac{1}{\mu_0}\left(-\frac{1}{2}\mu_0 a n \frac{dI_s}{dt}\right)\left(\frac{\mu_0 I_r}{2}\frac{b^2}{(b^2 + z^2)^{3/2}}\right)(\hat{\boldsymbol{\phi}}\times\hat{\mathbf{z}}).
+$$
+
+Using $\hat{\boldsymbol{\phi}}\times\hat{\mathbf{z}} = \hat{\mathbf{s}}$, we obtain
+
+$$
+\mathbf{S} = -\frac{1}{4}\mu_0 a b^2 n I_r \frac{dI_s}{dt}\frac{1}{(b^2 + z^2)^{3/2}}\,\hat{\mathbf{s}}.
+$$
+
+Since $dI_s/dt < 0$, $\mathbf{S}$ points radially outward ($+\hat{\mathbf{s}}$), carrying energy from the solenoid to the ring. Integrating $\mathbf{S}$ over the entire cylindrical surface of the solenoid ($da = 2\pi a\,dz\,\hat{\mathbf{s}}$):
+
+$$
+P = \int \mathbf{S}\cdot d\mathbf{a} = \int_{-\infty}^{\infty} S_s (2\pi a)\,dz = -\frac{1}{2}\pi \mu_0 a^2 b^2 n I_r \frac{dI_s}{dt}\int_{-\infty}^{\infty} \frac{dz}{(b^2 + z^2)^{3/2}}.
+$$
+
+Evaluating the $z$ integral:
+
+$$
+\int_{-\infty}^{\infty} \frac{dz}{(b^2 + z^2)^{3/2}} = \left[\frac{z}{b^2\sqrt{b^2 + z^2}}\right]_{-\infty}^{\infty} = \frac{2}{b^2}.
+$$
+
+Therefore,
+
+$$
+P = -\frac{1}{2}\pi \mu_0 a^2 b^2 n I_r \frac{dI_s}{dt}\left(\frac{2}{b^2}\right) = \left(-\mu_0 \pi a^2 n \frac{dI_s}{dt}\right) I_r = (I_r R) I_r = I_r^2 R.
+$$
+
+This matches the Joule heating power dissipated in the ring.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.14" title="Energy, Momentum, and Power Flow of Moving Charged Cylinders" tag="Griffiths 8.14 · Field Energy & Momentum">
+
+<div slot="problem">
+
+An infinitely long cylindrical tube, of radius $a$, moves at constant speed $v$ along its axis. It carries a net charge per unit length $\lambda$, uniformly distributed over its surface. Surrounding it, at radius $b$, is another cylinder, moving with the same velocity but carrying the opposite charge ($-\lambda$). Find:
+
+(a) The energy per unit length stored in the fields.
+
+(b) The momentum per unit length in the fields.
+
+(c) The energy per unit time transported by the fields across a plane perpendicular to the cylinders.
+
+</div>
+
+<div slot="answer">
+
+(a) $\dfrac{W}{\ell} = \dfrac{\lambda^2}{4\pi\epsilon_0}\left(1 + \dfrac{v^2}{c^2}\right)\ln\left(\dfrac{b}{a}\right)$
+
+(b) $\dfrac{\mathbf{p}}{\ell} = \dfrac{\mu_0 \lambda^2 v}{2\pi}\ln\left(\dfrac{b}{a}\right)\hat{\mathbf{z}}$
+
+(c) $\dfrac{dW}{dt} = \dfrac{\mu_0 \lambda^2 c^2 v}{2\pi}\ln\left(\dfrac{b}{a}\right) = \dfrac{\lambda^2 v}{2\pi\epsilon_0}\ln\left(\dfrac{b}{a}\right)$
+
+</div>
+
+<div slot="solution">
+
+Take the cylinder axis along $\hat{\mathbf{z}}$ so that both cylinders move with velocity $\mathbf{v} = v\hat{\mathbf{z}}$. The inner cylinder carries current $I = \lambda v$ along $+\hat{\mathbf{z}}$, and the outer cylinder carries $-I$ along $+\hat{\mathbf{z}}$. By Gauss's law and Ampère's law, the fields vanish for $s < a$ and $s > b$, while in the region $a < s < b$ they are
+
+$$
+\mathbf{E} = \frac{\lambda}{2\pi\epsilon_0 s}\,\hat{\mathbf{s}}, \qquad \mathbf{B} = \frac{\mu_0 I}{2\pi s}\,\hat{\boldsymbol{\phi}} = \frac{\mu_0 \lambda v}{2\pi s}\,\hat{\boldsymbol{\phi}}.
+$$
+
+**(a)** The electromagnetic energy density in $a < s < b$ is
+
+$$
+u = \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right) = \frac{1}{2}\left[\epsilon_0\left(\frac{\lambda}{2\pi\epsilon_0 s}\right)^2 + \frac{1}{\mu_0}\left(\frac{\mu_0 \lambda v}{2\pi s}\right)^2\right] = \frac{\lambda^2}{8\pi^2 \epsilon_0 s^2}\left(1 + \epsilon_0\mu_0 v^2\right).
+$$
+
+Using $\epsilon_0\mu_0 = 1/c^2$ and integrating over a cylindrical shell of length $\ell$:
+
+$$
+\frac{W}{\ell} = \int_a^b u(2\pi s)\,ds = \frac{\lambda^2}{4\pi\epsilon_0}\left(1 + \frac{v^2}{c^2}\right)\int_a^b \frac{ds}{s} = \frac{\lambda^2}{4\pi\epsilon_0}\left(1 + \frac{v^2}{c^2}\right)\ln\left(\frac{b}{a}\right).
+$$
+
+**(b)** The electromagnetic momentum density in $a < s < b$ is
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) = \epsilon_0\left(\frac{\lambda}{2\pi\epsilon_0 s}\right)\left(\frac{\mu_0 \lambda v}{2\pi s}\right)(\hat{\mathbf{s}}\times\hat{\boldsymbol{\phi}}) = \frac{\mu_0 \lambda^2 v}{4\pi^2 s^2}\,\hat{\mathbf{z}}.
+$$
+
+Integrating over a length $\ell$ gives the momentum per unit length:
+
+$$
+\frac{\mathbf{p}}{\ell} = \int_a^b \mathbf{g}(2\pi s)\,ds = \frac{\mu_0 \lambda^2 v}{2\pi}\hat{\mathbf{z}}\int_a^b \frac{ds}{s} = \frac{\mu_0 \lambda^2 v}{2\pi}\ln\left(\frac{b}{a}\right)\hat{\mathbf{z}}.
+$$
+
+**(c)** The Poynting vector is $\mathbf{S} = \frac{1}{\mu_0}(\mathbf{E}\times\mathbf{B}) = \frac{1}{\epsilon_0\mu_0}\mathbf{g} = c^2\mathbf{g}$. Integrating $\mathbf{S}\cdot d\mathbf{a}$ over a cross-sectional plane perpendicular to the cylinders ($d\mathbf{a} = 2\pi s\,ds\,\hat{\mathbf{z}}$):
+
+$$
+\frac{dW}{dt} = \int_a^b \mathbf{S}\cdot d\mathbf{a} = c^2 \left(\frac{p_z}{\ell}\right) = \frac{\mu_0 \lambda^2 c^2 v}{2\pi}\ln\left(\frac{b}{a}\right) = \frac{\lambda^2 v}{2\pi\epsilon_0}\ln\left(\frac{b}{a}\right).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.15" title="Point Charge at the Center of a Toroidal Coil" tag="Griffiths 8.15 · Momentum & Impulse">
+
+<div slot="problem">
+
+A point charge $q$ is located at the center of a toroidal coil of rectangular cross section, inner radius $a$, outer radius $a + w$, and height $h$, which carries a total of $N$ tightly-wound turns and current $I$.
+
+(a) Find the electromagnetic momentum $\mathbf{p}$ of this configuration, assuming that $w$ and $h$ are both much less than $a$ (so you can ignore the variation of the fields over the cross section).
+
+(b) Now the current in the toroid is turned off, quickly enough that the point charge does not move appreciably as the magnetic field drops to zero. Show that the impulse imparted to $q$ is equal to the momentum originally stored in the electromagnetic fields. [Hint: You might want to refer to Prob. 7.19.]
+
+</div>
+
+<div slot="answer">
+
+(a) $\mathbf{p} = \dfrac{\mu_0 q N I w h}{4\pi a^2}\hat{\mathbf{z}}$ (where $\hat{\mathbf{z}}$ is chosen so that $\mathbf{B}$ circulates in $+\hat{\boldsymbol{\phi}}$)
+
+(b) $\mathbf{I}_{\text{imp}} = \displaystyle\int_0^\infty q\mathbf{E}_{\text{ind}}\,dt = \dfrac{\mu_0 q N I w h}{4\pi a^2}\hat{\mathbf{z}} = \mathbf{p}$
+
+</div>
+
+<div slot="solution">
+
+**(a)** Orient the toroid in the $xy$ plane centered at the origin, with the winding direction chosen so that the magnetic field inside the toroid points in the $+\hat{\boldsymbol{\phi}}$ direction:
+
+$$
+\mathbf{B} = \frac{\mu_0 N I}{2\pi s}\,\hat{\boldsymbol{\phi}} \approx \frac{\mu_0 N I}{2\pi a}\,\hat{\boldsymbol{\phi}} \qquad (\text{inside the toroid}),
+$$
+
+and $\mathbf{B} = \mathbf{0}$ outside. Because $w, h \ll a$, points inside the toroid have $r \approx a$ and $\hat{\mathbf{r}} \approx \hat{\mathbf{s}}$, so the electric field of the central point charge $q$ there is
+
+$$
+\mathbf{E} = \frac{q}{4\pi\epsilon_0 r^2}\,\hat{\mathbf{r}} \approx \frac{q}{4\pi\epsilon_0 a^2}\,\hat{\mathbf{s}}.
+$$
+
+The electromagnetic momentum density inside the toroid is
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) \approx \epsilon_0\left(\frac{q}{4\pi\epsilon_0 a^2}\right)\left(\frac{\mu_0 N I}{2\pi a}\right)(\hat{\mathbf{s}}\times\hat{\boldsymbol{\phi}}) = \frac{\mu_0 q N I}{8\pi^2 a^3}\,\hat{\mathbf{z}}.
+$$
+
+Since $\mathbf{g}$ is uniform over the toroid's volume $V \approx (2\pi a) w h$, the total field momentum is
+
+$$
+\mathbf{p} = \mathbf{g} V = \left(\frac{\mu_0 q N I}{8\pi^2 a^3}\,\hat{\mathbf{z}}\right)(2\pi a w h) = \frac{\mu_0 q N I w h}{4\pi a^2}\,\hat{\mathbf{z}}.
+$$
+
+**(b)** From Problem 7.19 (evaluated at $z = 0$), a changing current $I(t)$ in this toroid induces an electric field at the origin given by
+
+$$
+\mathbf{E}_{\text{ind}} = -\frac{\mu_0 N h w}{4\pi a^2}\frac{dI}{dt}\,\hat{\mathbf{z}}.
+$$
+
+(By Lenz's law, when $I$ decreases so that $dI/dt < 0$, $\mathbf{E}_{\text{ind}}$ points along $+\hat{\mathbf{z}}$.) Since $q$ does not move appreciably while the current drops from $I$ to $0$, the total impulse delivered to $q$ is
+
+$$
+\mathbf{I}_{\text{imp}} = \int_0^\infty \mathbf{F}\,dt = \int_0^\infty q\mathbf{E}_{\text{ind}}\,dt = -\frac{\mu_0 q N h w}{4\pi a^2}\hat{\mathbf{z}} \int_I^0 dI = \frac{\mu_0 q N I w h}{4\pi a^2}\,\hat{\mathbf{z}} = \mathbf{p}.
+$$
+
+Thus, the field momentum originally stored in the system is transferred entirely to the point charge.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.16" title="Field Momentum of a Polarized and Magnetized Sphere" tag="Griffiths 8.16 · Momentum Density">
+
+<div slot="problem">
+
+A sphere of radius $R$ carries a uniform polarization $\mathbf{P}$ and a uniform magnetization $\mathbf{M}$ (not necessarily in the same direction). Find the electromagnetic momentum of this configuration. [Answer: $\frac{4}{9}\pi \mu_0 R^3 (\mathbf{M} \times \mathbf{P})$]
+
+</div>
+
+<div slot="answer">
+
+$\mathbf{p}_{\text{tot}} = \dfrac{4}{9}\pi \mu_0 R^3 (\mathbf{M} \times \mathbf{P})$
+
+</div>
+
+<div slot="solution">
+
+From Griffiths Eqs. 3.104, 4.14, 5.89, and 6.16, the electric and magnetic fields of a uniformly polarized and uniformly magnetized sphere of radius $R$ are
+
+$$
+\mathbf{E} = \begin{cases} -\dfrac{1}{3\epsilon_0}\mathbf{P}, & r < R, \\[8pt] \dfrac{1}{4\pi\epsilon_0 r^3}\left[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}\right], & r > R, \end{cases}
+\qquad
+\mathbf{B} = \begin{cases} \dfrac{2}{3}\mu_0\mathbf{M}, & r < R, \\[8pt] \dfrac{\mu_0}{4\pi r^3}\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right], & r > R, \end{cases}
+$$
+
+where the total electric and magnetic dipole moments are $\mathbf{p} = \frac{4}{3}\pi R^3\mathbf{P}$ and $\mathbf{m} = \frac{4}{3}\pi R^3\mathbf{M}$. We split the momentum integral $\mathbf{p}_{\text{tot}} = \epsilon_0 \int (\mathbf{E}\times\mathbf{B})\,d\tau$ into inside ($r < R$) and outside ($r > R$) parts.
+
+**Inside ($r < R$):** Both fields are uniform, so
+
+$$
+\mathbf{p}_{\text{in}} = \epsilon_0 \int_{r < R} \left(-\frac{1}{3\epsilon_0}\mathbf{P}\right)\times\left(\frac{2}{3}\mu_0\mathbf{M}\right) d\tau = -\frac{2}{9}\mu_0(\mathbf{P}\times\mathbf{M})\left(\frac{4}{3}\pi R^3\right) = \frac{8}{27}\pi\mu_0 R^3(\mathbf{M}\times\mathbf{P}).
+$$
+
+**Outside ($r > R$):**
+
+$$
+\mathbf{p}_{\text{out}} = \frac{\mu_0}{16\pi^2} \int_{r > R} \frac{1}{r^6}\left\{\left[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}\right]\times\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right]\right\} d\tau.
+$$
+
+Expanding the cross product inside the braces:
+
+$$
+\left[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}\right]\times\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right] = -3(\mathbf{p}\cdot\hat{\mathbf{r}})(\hat{\mathbf{r}}\times\mathbf{m}) + 3(\mathbf{m}\cdot\hat{\mathbf{r}})(\hat{\mathbf{r}}\times\mathbf{p}) + (\mathbf{p}\times\mathbf{m}).
+$$
+
+Using the BAC-CAB identity $\hat{\mathbf{r}}\times[\hat{\mathbf{r}}\times(\mathbf{p}\times\mathbf{m})] = \hat{\mathbf{r}}[\hat{\mathbf{r}}\cdot(\mathbf{p}\times\mathbf{m})] - (\mathbf{p}\times\mathbf{m})$ and comparing with $\hat{\mathbf{r}}\times[\mathbf{p}(\hat{\mathbf{r}}\cdot\mathbf{m}) - \mathbf{m}(\hat{\mathbf{r}}\cdot\mathbf{p})] = (\hat{\mathbf{r}}\cdot\mathbf{m})(\hat{\mathbf{r}}\times\mathbf{p}) - (\hat{\mathbf{r}}\cdot\mathbf{p})(\hat{\mathbf{r}}\times\mathbf{m})$, the cross product simplifies to
+
+$$
+3\left\{\hat{\mathbf{r}}[\hat{\mathbf{r}}\cdot(\mathbf{p}\times\mathbf{m})] - (\mathbf{p}\times\mathbf{m})\right\} + (\mathbf{p}\times\mathbf{m}) = -2(\mathbf{p}\times\mathbf{m}) + 3\hat{\mathbf{r}}\left[\hat{\mathbf{r}}\cdot(\mathbf{p}\times\mathbf{m})\right].
+$$
+
+Choose the $z$ axis along $\mathbf{p}\times\mathbf{m}$, so $\hat{\mathbf{r}}\cdot(\mathbf{p}\times\mathbf{m}) = |\mathbf{p}\times\mathbf{m}|\cos\theta$. Writing $\hat{\mathbf{r}} = \sin\theta\cos\phi\,\hat{\mathbf{x}} + \sin\theta\sin\phi\,\hat{\mathbf{y}} + \cos\theta\,\hat{\mathbf{z}}$, the $\hat{\mathbf{x}}$ and $\hat{\mathbf{y}}$ terms integrate to zero over $\phi \in [0, 2\pi]$. Thus:
+
+$$
+\mathbf{p}_{\text{out}} = \frac{\mu_0}{16\pi^2}\left(\int_R^\infty \frac{r^2\,dr}{r^6}\right)\left[-2(\mathbf{p}\times\mathbf{m})\int_0^{2\pi}d\phi\int_0^\pi \sin\theta\,d\theta + 3(\mathbf{p}\times\mathbf{m})\int_0^{2\pi}d\phi\int_0^\pi \cos^2\theta\sin\theta\,d\theta\right].
+$$
+
+Since $\int_R^\infty r^{-4}\,dr = \frac{1}{3R^3}$, $\int \sin\theta\,d\theta\,d\phi = 4\pi$, and $\int \cos^2\theta\sin\theta\,d\theta\,d\phi = \frac{4\pi}{3}$:
+
+$$
+\mathbf{p}_{\text{out}} = \frac{\mu_0}{16\pi^2}\left(\frac{1}{3R^3}\right)\left[-8\pi(\mathbf{p}\times\mathbf{m}) + 4\pi(\mathbf{p}\times\mathbf{m})\right] = -\frac{\mu_0}{12\pi R^3}(\mathbf{p}\times\mathbf{m}) = \frac{\mu_0}{12\pi R^3}(\mathbf{m}\times\mathbf{p}).
+$$
+
+Substituting $\mathbf{p} = \frac{4}{3}\pi R^3\mathbf{P}$ and $\mathbf{m} = \frac{4}{3}\pi R^3\mathbf{M}$ gives
+
+$$
+\mathbf{p}_{\text{out}} = \frac{\mu_0}{12\pi R^3}\left(\frac{4}{3}\pi R^3\right)^2(\mathbf{M}\times\mathbf{P}) = \frac{4}{27}\pi\mu_0 R^3(\mathbf{M}\times\mathbf{P}).
+$$
+
+Adding the inside and outside contributions:
+
+$$
+\mathbf{p}_{\text{tot}} = \mathbf{p}_{\text{in}} + \mathbf{p}_{\text{out}} = \left(\frac{8}{27} + \frac{4}{27}\right)\pi\mu_0 R^3(\mathbf{M}\times\mathbf{P}) = \frac{4}{9}\pi\mu_0 R^3(\mathbf{M}\times\mathbf{P}).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.17" title="Classical Spinning-Sphere Model of the Electron" tag="Griffiths 8.17 · Energy & Angular Momentum">
+
+<div slot="problem">
+
+Picture the electron as a uniformly charged spherical shell, with charge $e$ and radius $R$, spinning at angular velocity $\omega$.
+
+(a) Calculate the total energy contained in the electromagnetic fields.
+
+(b) Calculate the total angular momentum contained in the fields.
+
+(c) According to the Einstein formula ($E = mc^2$), the energy in the fields should contribute to the mass of the electron. Lorentz and others speculated that the entire mass of the electron might be accounted for in this way: $U_{\text{em}} = m_e c^2$. Suppose, moreover, that the electron's spin angular momentum is entirely attributable to the electromagnetic fields: $L_{\text{em}} = \hbar/2$. On these two assumptions, determine the radius and angular velocity of the electron. What is their product, $\omega R$? Does this classical model make sense?
+
+</div>
+
+<div slot="answer">
+
+(a) $U_{\text{em}} = \dfrac{e^2}{8\pi\epsilon_0 R} + \dfrac{\mu_0 e^2 \omega^2 R}{36\pi}$
+
+(b) $\mathbf{L}_{\text{em}} = \dfrac{\mu_0 e^2 \omega R}{18\pi}\hat{\mathbf{z}}$
+
+(c) $\omega R = \dfrac{9\pi\hbar}{\mu_0 e^2} \approx 9.23 \times 10^{10}\text{ m/s}$, $R \approx 2.95 \times 10^{-11}\text{ m}$, $\omega \approx 3.13 \times 10^{21}\text{ rad/s}$. Because $\omega R \approx 308 c > c$, the equatorial speed exceeds the speed of light, so this classical model does not make sense.
+
+</div>
+
+<div slot="solution">
+
+Let the spin axis be along $\hat{\mathbf{z}}$. With surface charge density $\sigma = \frac{e}{4\pi R^2}$, the magnetic dipole moment of the spinning shell is $m = \frac{4}{3}\pi\sigma\omega R^4 = \frac{1}{3}e\omega R^2$. From Eq. 5.70 and Prob. 5.37, the fields are
+
+$$
+\mathbf{E} = \begin{cases} \mathbf{0}, & r < R, \\[6pt] \dfrac{e}{4\pi\epsilon_0 r^2}\hat{\mathbf{r}}, & r > R, \end{cases}
+\qquad
+\mathbf{B} = \begin{cases} \dfrac{2}{3}\mu_0\sigma R\omega\,\hat{\mathbf{z}} = \dfrac{\mu_0 e\omega}{6\pi R}\,\hat{\mathbf{z}}, & r < R, \\[8pt] \dfrac{\mu_0 m}{4\pi r^3}(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}}), & r > R. \end{cases}
+$$
+
+**(a)** The electric field energy (Example 2.9) is
+
+$$
+W_E = \frac{1}{8\pi\epsilon_0}\frac{e^2}{R}.
+$$
+
+Inside the sphere ($r < R$), $\mathbf{B}$ is uniform, so the internal magnetic energy is
+
+$$
+W_{B,\text{in}} = \frac{B_{\text{in}}^2}{2\mu_0}\left(\frac{4}{3}\pi R^3\right) = \frac{1}{2\mu_0}\left(\frac{\mu_0 e\omega}{6\pi R}\right)^2\left(\frac{4}{3}\pi R^3\right) = \frac{\mu_0 e^2 \omega^2 R}{54\pi}.
+$$
+
+Outside the sphere ($r > R$), $B^2 = \left(\frac{\mu_0 m}{4\pi r^3}\right)^2 (4\cos^2\theta + \sin^2\theta) = \left(\frac{\mu_0 e \omega R^2}{12\pi r^3}\right)^2 (3\cos^2\theta + 1)$, so
+
+$$
+W_{B,\text{out}} = \frac{\mu_0 e^2 \omega^2 R^4}{288\pi^2} \int_R^\infty \frac{r^2\,dr}{r^6}\int_0^\pi (3\cos^2\theta + 1)\sin\theta\,d\theta \int_0^{2\pi}d\phi = \frac{\mu_0 e^2 \omega^2 R^4}{288\pi^2}\left(\frac{1}{3R^3}\right)(4)(2\pi) = \frac{\mu_0 e^2 \omega^2 R}{108\pi}.
+$$
+
+Combining the magnetic contributions gives $W_B = \frac{\mu_0 e^2 \omega^2 R}{54\pi} + \frac{\mu_0 e^2 \omega^2 R}{108\pi} = \frac{\mu_0 e^2 \omega^2 R}{36\pi}$, and the total field energy is
+
+$$
+U_{\text{em}} = W_E + W_B = \frac{e^2}{8\pi\epsilon_0 R} + \frac{\mu_0 e^2 \omega^2 R}{36\pi} = \frac{e^2}{8\pi\epsilon_0 R}\left[1 + \frac{2}{9}\left(\frac{\omega R}{c}\right)^2\right].
+$$
+
+**(b)** Only $r > R$ has both $\mathbf{E}$ and $\mathbf{B}$ nonzero:
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) = \frac{\mu_0 e m}{16\pi^2 r^5}\sin\theta\,(\hat{\mathbf{r}}\times\hat{\boldsymbol{\theta}}) = \frac{\mu_0 e m}{16\pi^2 r^5}\sin\theta\,\hat{\boldsymbol{\phi}}.
+$$
+
+The angular momentum density is $\boldsymbol{\ell} = \mathbf{r}\times\mathbf{g} = -\frac{\mu_0 e m}{16\pi^2 r^4}\sin\theta\,\hat{\boldsymbol{\theta}}$. Using $\hat{\boldsymbol{\theta}}_z = -\sin\theta$ (and noting the $x, y$ components vanish upon $\phi$ integration):
+
+$$
+\mathbf{L}_{\text{em}} = \frac{\mu_0 e m}{16\pi^2}\hat{\mathbf{z}}\int_R^\infty \frac{r^2\,dr}{r^4}\int_0^\pi \sin^3\theta\,d\theta\int_0^{2\pi}d\phi = \frac{\mu_0 e m}{16\pi^2}\left(\frac{1}{R}\right)\left(\frac{4}{3}\right)(2\pi)\hat{\mathbf{z}} = \frac{\mu_0 e m}{6\pi R}\,\hat{\mathbf{z}}.
+$$
+
+Substituting $m = \frac{1}{3}e\omega R^2$ yields
+
+$$
+\mathbf{L}_{\text{em}} = \frac{\mu_0 e^2 \omega R}{18\pi}\,\hat{\mathbf{z}}.
+$$
+
+**(c)** Setting $L_{\text{em}} = \frac{\hbar}{2}$:
+
+$$
+\frac{\mu_0 e^2 \omega R}{18\pi} = \frac{\hbar}{2} \implies \omega R = \frac{9\pi\hbar}{\mu_0 e^2} \approx \frac{9\pi(1.05\times 10^{-34})}{(4\pi\times 10^{-7})(1.60\times 10^{-19})^2} \approx 9.23\times 10^{10}\text{ m/s}.
+$$
+
+Thus $\frac{\omega R}{c} \approx \frac{9.23\times 10^{10}}{3.00\times 10^8} \approx 308$, so $1 + \frac{2}{9}\left(\frac{\omega R}{c}\right)^2 \approx 2.10\times 10^4$. Setting $U_{\text{em}} = m_e c^2$ gives
+
+$$
+R = \frac{e^2}{8\pi\epsilon_0 m_e c^2}\left[1 + \frac{2}{9}\left(\frac{\omega R}{c}\right)^2\right] \approx \frac{(1.60\times 10^{-19})^2 (2.10\times 10^4)}{8\pi(8.85\times 10^{-12})(9.11\times 10^{-31})(3.00\times 10^8)^2} \approx 2.95\times 10^{-11}\text{ m},
+$$
+
+and
+
+$$
+\omega = \frac{9.23\times 10^{10}}{2.95\times 10^{-11}} \approx 3.13\times 10^{21}\text{ rad/s}.
+$$
+
+Since $\omega R \approx 308 c$, the speed of a point on the electron's equator would be over 300 times the speed of light, violating special relativity. Therefore, this classical model is physically unrealistic.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.18" title="Conservation Laws with Magnetic Charge" tag="Griffiths 8.18 · Magnetic Monopoles">
+
+<div slot="problem">
+
+Work out the formulas for $u$, $\mathbf{S}$, $\mathbf{g}$, and $\overleftrightarrow{\mathbf{T}}$ in the presence of magnetic charge. [Hint: Start with the generalized Maxwell equations (7.44) and Lorentz force law (Eq. 8.44), and follow the derivations in Sections 8.1.2, 8.2.2, and 8.2.3.]
+
+</div>
+
+<div slot="answer">
+
+All four expressions are **unchanged**:
+
+$$
+u = \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right), \quad \mathbf{S} = \frac{1}{\mu_0}(\mathbf{E}\times\mathbf{B}), \quad \mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}), \quad T_{ij} = \epsilon_0\left(E_i E_j - \frac{1}{2}\delta_{ij}E^2\right) + \frac{1}{\mu_0}\left(B_i B_j - \frac{1}{2}\delta_{ij}B^2\right).
+$$
+
+</div>
+
+<div slot="solution">
+
+The generalized Maxwell equations with electric ($\rho_e, \mathbf{J}_e$) and magnetic ($\rho_m, \mathbf{J}_m$) sources (Eq. 7.44) are
+
+$$
+\begin{aligned}
+\text{(i)}\quad \nabla\cdot\mathbf{E} &= \frac{1}{\epsilon_0}\rho_e, & \text{(ii)}\quad \nabla\cdot\mathbf{B} &= \mu_0\rho_m, \\
+\text{(iii)}\quad \nabla\times\mathbf{E} &= -\mu_0\mathbf{J}_m - \frac{\partial\mathbf{B}}{\partial t}, & \text{(iv)}\quad \nabla\times\mathbf{B} &= \mu_0\mathbf{J}_e + \mu_0\epsilon_0\frac{\partial\mathbf{E}}{\partial t},
+\end{aligned}
+$$
+
+and the generalized Lorentz force law (Eq. 8.44) is
+
+$$
+\mathbf{F} = q_e(\mathbf{E} + \mathbf{v}\times\mathbf{B}) + q_m\left(\mathbf{B} - \frac{1}{c^2}\mathbf{v}\times\mathbf{E}\right).
+$$
+
+**Energy ($u$ and $\mathbf{S}$):** Since $(\mathbf{v}\times\mathbf{B})\cdot\mathbf{v} = 0$ and $(\mathbf{v}\times\mathbf{E})\cdot\mathbf{v} = 0$, the rate at which the fields do work on all electric and magnetic charges in volume $V$ is
+
+$$
+\frac{dW}{dt} = \int_V (\mathbf{E}\cdot\mathbf{J}_e + \mathbf{B}\cdot\mathbf{J}_m)\,d\tau.
+$$
+
+Using (iii) and (iv) to eliminate $\mathbf{J}_e$ and $\mathbf{J}_m$:
+
+$$
+\mathbf{E}\cdot\mathbf{J}_e + \mathbf{B}\cdot\mathbf{J}_m = \frac{1}{\mu_0}\mathbf{E}\cdot(\nabla\times\mathbf{B}) - \epsilon_0\mathbf{E}\cdot\frac{\partial\mathbf{E}}{\partial t} - \frac{1}{\mu_0}\mathbf{B}\cdot(\nabla\times\mathbf{E}) - \frac{1}{\mu_0}\mathbf{B}\cdot\frac{\partial\mathbf{B}}{\partial t}.
+$$
+
+Since $\nabla\cdot(\mathbf{E}\times\mathbf{B}) = \mathbf{B}\cdot(\nabla\times\mathbf{E}) - \mathbf{E}\cdot(\nabla\times\mathbf{B})$, this becomes
+
+$$
+\mathbf{E}\cdot\mathbf{J}_e + \mathbf{B}\cdot\mathbf{J}_m = -\frac{1}{\mu_0}\nabla\cdot(\mathbf{E}\times\mathbf{B}) - \frac{1}{2}\frac{\partial}{\partial t}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right).
+$$
+
+Integrating over $V$ and applying the divergence theorem recovers Poynting's theorem (Eq. 8.9) unchanged:
+
+$$
+\frac{dW}{dt} = -\frac{d}{dt}\int_V \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right) d\tau - \frac{1}{\mu_0}\oint_S (\mathbf{E}\times\mathbf{B})\cdot d\mathbf{a},
+$$
+
+so $u = \frac{1}{2}\left(\epsilon_0 E^2 + \frac{1}{\mu_0}B^2\right)$ and $\mathbf{S} = \frac{1}{\mu_0}(\mathbf{E}\times\mathbf{B})$ remain the same.
+
+**Momentum ($\mathbf{g}$ and $\overleftrightarrow{\mathbf{T}}$):** The total force per unit volume is
+
+$$
+\mathbf{f} = (\rho_e\mathbf{E} + \mathbf{J}_e\times\mathbf{B}) + \left(\rho_m\mathbf{B} - \frac{1}{c^2}\mathbf{J}_m\times\mathbf{E}\right).
+$$
+
+Substituting $\rho_e, \rho_m, \mathbf{J}_e, \mathbf{J}_m$ from (i)–(iv) and using $1/c^2 = \epsilon_0\mu_0$:
+
+$$
+\begin{aligned}
+\mathbf{f} &= \epsilon_0(\nabla\cdot\mathbf{E})\mathbf{E} + \left(\frac{1}{\mu_0}\nabla\times\mathbf{B} - \epsilon_0\frac{\partial\mathbf{E}}{\partial t}\right)\times\mathbf{B} + \frac{1}{\mu_0}(\nabla\cdot\mathbf{B})\mathbf{B} - \epsilon_0\mu_0\left(-\frac{1}{\mu_0}\nabla\times\mathbf{E} - \frac{1}{\mu_0}\frac{\partial\mathbf{B}}{\partial t}\right)\times\mathbf{E} \\
+&= \epsilon_0\left[(\nabla\cdot\mathbf{E})\mathbf{E} - \mathbf{E}\times(\nabla\times\mathbf{E})\right] + \frac{1}{\mu_0}\left[(\nabla\cdot\mathbf{B})\mathbf{B} - \mathbf{B}\times(\nabla\times\mathbf{B})\right] - \epsilon_0\frac{\partial}{\partial t}(\mathbf{E}\times\mathbf{B}).
+\end{aligned}
+$$
+
+(Notice that $(\nabla\cdot\mathbf{B})\mathbf{B}$ now enters naturally from $\rho_m\mathbf{B}$, rather than having to be added as zero.) Applying the vector identity $\mathbf{A}\times(\nabla\times\mathbf{A}) = \frac{1}{2}\nabla(A^2) - (\mathbf{A}\cdot\nabla)\mathbf{A}$ yields
+
+$$
+\mathbf{f} = \epsilon_0\left[(\nabla\cdot\mathbf{E})\mathbf{E} + (\mathbf{E}\cdot\nabla)\mathbf{E} - \frac{1}{2}\nabla(E^2)\right] + \frac{1}{\mu_0}\left[(\nabla\cdot\mathbf{B})\mathbf{B} + (\mathbf{B}\cdot\nabla)\mathbf{B} - \frac{1}{2}\nabla(B^2)\right] - \epsilon_0\frac{\partial}{\partial t}(\mathbf{E}\times\mathbf{B}),
+$$
+
+which is identical to Eq. 8.16. Hence $\mathbf{f} = \nabla\cdot\overleftrightarrow{\mathbf{T}} - \frac{\partial\mathbf{g}}{\partial t}$ with the exact same Maxwell stress tensor $T_{ij}$ and momentum density $\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B})$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.19" title="Angular Momentum of Thomson's Dipole" tag="Griffiths 8.19 · Dirac Quantization">
+
+<div slot="problem">
+
+Suppose you had an electric charge $q_e$ and a magnetic monopole $q_m$. The field of the electric charge is
+
+$$
+\mathbf{E} = \frac{1}{4\pi\epsilon_0}\frac{q_e}{r^2}\hat{\mathbf{r}}
+$$
+
+(of course), and the field of the magnetic monopole is
+
+$$
+\mathbf{B} = \frac{\mu_0}{4\pi}\frac{q_m}{r^2}\hat{\mathbf{r}}.
+$$
+
+Find the total angular momentum stored in the fields, if the two charges are separated by a distance $d$. [Answer: $(\mu_0/4\pi)q_e q_m$.]
+
+</div>
+
+<div slot="answer">
+
+$\mathbf{L} = \dfrac{\mu_0 q_e q_m}{4\pi}\,\hat{\mathbf{z}}$ (pointing from $q_e$ toward $q_m$, independent of $d$)
+
+</div>
+
+<div slot="solution">
+
+Place the electric charge $q_e$ at the origin and the magnetic monopole $q_m$ on the $z$ axis at $(0, 0, d)$. At a field point $\mathbf{r}$, the separation vector from $q_m$ is $\mathbf{r}' = \mathbf{r} - d\hat{\mathbf{z}}$, with $r' = \sqrt{r^2 + d^2 - 2rd\cos\theta}$. The fields are
+
+$$
+\mathbf{E} = \frac{q_e}{4\pi\epsilon_0 r^3}\,\mathbf{r}, \qquad \mathbf{B} = \frac{\mu_0 q_m}{4\pi (r')^3}(\mathbf{r} - d\hat{\mathbf{z}}).
+$$
+
+Since $\mathbf{r}\times\mathbf{r} = \mathbf{0}$, the electromagnetic momentum density is
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) = -\frac{\mu_0 q_e q_m d}{16\pi^2 r^3 (r^2 + d^2 - 2rd\cos\theta)^{3/2}}(\mathbf{r}\times\hat{\mathbf{z}}),
+$$
+
+and the angular momentum density is
+
+$$
+\boldsymbol{\ell} = \mathbf{r}\times\mathbf{g} = -\frac{\mu_0 q_e q_m d}{16\pi^2 r^3 (r^2 + d^2 - 2rd\cos\theta)^{3/2}}\,\mathbf{r}\times(\mathbf{r}\times\hat{\mathbf{z}}).
+$$
+
+Using the BAC-CAB rule:
+
+$$
+\mathbf{r}\times(\mathbf{r}\times\hat{\mathbf{z}}) = \mathbf{r}(\mathbf{r}\cdot\hat{\mathbf{z}}) - r^2\hat{\mathbf{z}} = r^2\cos\theta\,\hat{\mathbf{r}} - r^2\hat{\mathbf{z}}.
+$$
+
+By azimuthal symmetry, the $x$ and $y$ components of $\hat{\mathbf{r}}$ integrate to zero over $\phi \in [0, 2\pi]$. Since $\hat{\mathbf{r}}_z = \cos\theta$, the $z$ component of $\mathbf{r}\times(\mathbf{r}\times\hat{\mathbf{z}})$ is $-r^2(1 - \cos^2\theta)$, and the minus signs cancel:
+
+$$
+\mathbf{L} = \frac{\mu_0 q_e q_m d}{16\pi^2}\hat{\mathbf{z}} \int_0^{2\pi} d\phi \int_0^\pi \sin\theta\,(1 - \cos^2\theta)\,d\theta \int_0^\infty \frac{r^2\cdot r^2\,dr}{r^3(r^2 + d^2 - 2rd\cos\theta)^{3/2}}.
+$$
+
+Substituting $u = \cos\theta$ ($du = -\sin\theta\,d\theta$) and performing the $\phi$ integral ($2\pi$):
+
+$$
+\mathbf{L} = \frac{\mu_0 q_e q_m d}{8\pi}\hat{\mathbf{z}} \int_{-1}^1 (1 - u^2)\,du \int_0^\infty \frac{r\,dr}{(r^2 + d^2 - 2rdu)^{3/2}}.
+$$
+
+Evaluating the $r$ integral first:
+
+$$
+\int_0^\infty \frac{r\,dr}{(r^2 + d^2 - 2rdu)^{3/2}} = \left[\frac{ru - d}{d(1 - u^2)\sqrt{r^2 + d^2 - 2rdu}}\right]_0^\infty = \frac{u}{d(1 - u^2)} - \left(-\frac{1}{d(1 - u^2)}\right) = \frac{1 + u}{d(1 - u^2)} = \frac{1}{d(1 - u)}.
+$$
+
+Substituting this back into the $u$ integral:
+
+$$
+\mathbf{L} = \frac{\mu_0 q_e q_m d}{8\pi}\hat{\mathbf{z}} \int_{-1}^1 \frac{1 - u^2}{d(1 - u)}\,du = \frac{\mu_0 q_e q_m}{8\pi}\hat{\mathbf{z}} \int_{-1}^1 (1 + u)\,du = \frac{\mu_0 q_e q_m}{8\pi}\left[u + \frac{u^2}{2}\right]_{-1}^1 \hat{\mathbf{z}} = \frac{\mu_0 q_e q_m}{4\pi}\,\hat{\mathbf{z}}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.20" title="Field Momentum of a Magnetic Dipole in a Static Electric Field" tag="Griffiths 8.20 · Hidden Momentum">
+
+<div slot="problem">
+
+Consider an ideal stationary magnetic dipole $\mathbf{m}$ in a static electric field $\mathbf{E}$. Show that the fields carry momentum
+
+$$
+\mathbf{p} = -\epsilon_0\mu_0(\mathbf{m}\times\mathbf{E}).
+$$
+
+[Hint: There are several ways to do this. The simplest method is to start with $\mathbf{p} = \epsilon_0 \int (\mathbf{E}\times\mathbf{B})\,d\tau$, write $\mathbf{E} = -\nabla V$, and use integration by parts to show that $\mathbf{p} = \epsilon_0\mu_0 \int V\mathbf{J}\,d\tau$. So far, this is valid for any localized static configuration. For a current confined to an infinitesimal neighborhood of the origin we can approximate $V(\mathbf{r}) \approx V(0) - \mathbf{E}(0)\cdot\mathbf{r}$. Treat the dipole as a current loop, and use Eqs. 5.82 and 1.108.]
+
+</div>
+
+<div slot="answer">
+
+$\mathbf{p} = -\epsilon_0\mu_0(\mathbf{m}\times\mathbf{E}) = -\dfrac{1}{c^2}(\mathbf{m}\times\mathbf{E})$ (proved via integration by parts and the multipole/Taylor expansion of $V(\mathbf{r})$).
+
+</div>
+
+<div slot="solution">
+
+Since the electric field is static, $\mathbf{E} = -\nabla V$, so the field momentum over all space $V_{\text{all}}$ is
+
+$$
+\mathbf{p} = \epsilon_0 \int_{V_{\text{all}}} (\mathbf{E}\times\mathbf{B})\,d\tau = -\epsilon_0 \int_{V_{\text{all}}} (\nabla V)\times\mathbf{B}\,d\tau.
+$$
+
+Using the product rule $\nabla\times(V\mathbf{B}) = (\nabla V)\times\mathbf{B} + V(\nabla\times\mathbf{B})$, we rewrite the integrand:
+
+$$
+\mathbf{p} = -\epsilon_0 \int_{V_{\text{all}}} \nabla\times(V\mathbf{B})\,d\tau + \epsilon_0 \int_{V_{\text{all}}} V(\nabla\times\mathbf{B})\,d\tau.
+$$
+
+By the curl-theorem corollary (Problem 1.61(b)), the first integral converts to a surface integral at infinity:
+
+$$
+-\epsilon_0 \int_{V_{\text{all}}} \nabla\times(V\mathbf{B})\,d\tau = \epsilon_0 \oint_{S_\infty} V\mathbf{B}\times d\mathbf{a} = \mathbf{0},
+$$
+
+which vanishes for localized static sources (where $B \sim r^{-3}$ or faster, and $V \sim r^{-1}$ or constant, so $V\mathbf{B}r^2 \to 0$). In the remaining volume integral, Ampère's law for magnetostatics gives $\nabla\times\mathbf{B} = \mu_0\mathbf{J}$, yielding
+
+$$
+\mathbf{p} = \epsilon_0\mu_0 \int_{V_{\text{all}}} V\mathbf{J}\,d\tau = \frac{1}{c^2} \int_{V_{\text{all}}} V\mathbf{J}\,d\tau.
+$$
+
+Now let the current be confined to a tiny region around the origin. Expanding $V(\mathbf{r})$ to first order about the origin gives $V(\mathbf{r}) \approx V(0) + (\nabla V)_0\cdot\mathbf{r} = V(0) - \mathbf{E}(0)\cdot\mathbf{r}$, so
+
+$$
+\mathbf{p} = \frac{1}{c^2}V(0)\int \mathbf{J}\,d\tau - \frac{1}{c^2}\int \left[\mathbf{E}(0)\cdot\mathbf{r}\right]\mathbf{J}\,d\tau.
+$$
+
+Modeling the ideal dipole as a steady current loop ($\mathbf{J}\,d\tau \to I\,d\mathbf{l}$):
+1. The first integral vanishes because $\oint d\mathbf{l} = \mathbf{0}$ for any closed loop.
+2. For the second integral, Griffiths Eq. 1.108 states $\oint (\mathbf{c}\cdot\mathbf{r})\,d\mathbf{l} = \mathbf{a}\times\mathbf{c}$ for any constant vector $\mathbf{c}$ and vector area $\mathbf{a}$. Setting $\mathbf{c} = \mathbf{E}(0)$ and using $\mathbf{m} = I\mathbf{a}$ (Eq. 5.82):
+
+$$
+\int \left[\mathbf{E}(0)\cdot\mathbf{r}\right]\mathbf{J}\,d\tau \longrightarrow I\oint \left[\mathbf{E}(0)\cdot\mathbf{r}\right] d\mathbf{l} = I\mathbf{a}\times\mathbf{E}(0) = \mathbf{m}\times\mathbf{E}(0).
+$$
+
+Therefore,
+
+$$
+\mathbf{p} = -\frac{1}{c^2}(\mathbf{m}\times\mathbf{E}) = -\epsilon_0\mu_0(\mathbf{m}\times\mathbf{E}).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.21" title="Exact Angular Momentum Accounting in Example 8.4" tag="Griffiths 8.21 · Residual Field Angular Momentum">
+
+<div slot="problem">
+
+Because the cylinders in Ex. 8.4 are left rotating (at angular velocities $\omega_a$ and $\omega_b$, say), there is actually a residual magnetic field, and hence angular momentum in the fields, even after the current in the solenoid has been extinguished. If the cylinders are heavy, this correction will be negligible, but it is interesting to do the problem without making that assumption.
+
+(a) Calculate (in terms of $\omega_a$ and $\omega_b$) the final angular momentum in the fields. [Define $\boldsymbol{\omega} = \omega\hat{\mathbf{z}}$, so $\omega_a$ and $\omega_b$ could be positive or negative.]
+
+(b) As the cylinders begin to rotate, their changing magnetic field induces an extra azimuthal electric field, which, in turn, will make an additional contribution to the torques. Find the resulting extra angular momentum, and compare it with your result in (a). [Answer: $-\mu_0 Q^2 \omega_b (b^2 - a^2)/4\pi l\,\hat{\mathbf{z}}$]
+
+</div>
+
+<div slot="answer">
+
+(a) $\mathbf{L}_{\text{field}} = \dfrac{\mu_0 Q^2 \omega_b (b^2 - a^2)}{4\pi l}\,\hat{\mathbf{z}}$
+
+(b) $\mathbf{L}_{\text{extra}} = -\dfrac{\mu_0 Q^2 \omega_b (b^2 - a^2)}{4\pi l}\,\hat{\mathbf{z}} = -\mathbf{L}_{\text{field}}$ (the extra torque reduces the final mechanical angular momentum by precisely the residual field angular momentum in (a)).
+
+</div>
+
+<div slot="solution">
+
+**(a)** In Example 8.4, the inner cylinder of radius $a$ and length $l$ carries charge $+Q$ ($\sigma_a = \frac{Q}{2\pi a l}$), and the outer cylinder of radius $b > a$ carries charge $-Q$ ($\sigma_b = -\frac{Q}{2\pi b l}$). Rotating with $\boldsymbol{\omega}_a = \omega_a\hat{\mathbf{z}}$ and $\boldsymbol{\omega}_b = \omega_b\hat{\mathbf{z}}$, their surface currents are
+
+$$
+\mathbf{K}_a = \sigma_a(\omega_a a)\hat{\boldsymbol{\phi}} = \frac{Q\omega_a}{2\pi l}\hat{\boldsymbol{\phi}}, \qquad \mathbf{K}_b = \sigma_b(\omega_b b)\hat{\boldsymbol{\phi}} = -\frac{Q\omega_b}{2\pi l}\hat{\boldsymbol{\phi}}.
+$$
+
+Each rotating shell acts as a long solenoid producing a uniform axial magnetic field inside and zero outside. Superposing the two gives
+
+$$
+\mathbf{B} = \begin{cases} \dfrac{\mu_0 Q}{2\pi l}(\omega_a - \omega_b)\hat{\mathbf{z}}, & s < a, \\[8pt] -\dfrac{\mu_0 Q \omega_b}{2\pi l}\hat{\mathbf{z}}, & a < s < b, \\[8pt] \mathbf{0}, & s > b. \end{cases}
+$$
+
+Meanwhile, the electric field is nonzero only between the shells ($a < s < b$):
+
+$$
+\mathbf{E} = \frac{Q}{2\pi\epsilon_0 l s}\,\hat{\mathbf{s}}.
+$$
+
+In $a < s < b$, using $\hat{\mathbf{s}}\times\hat{\mathbf{z}} = -\hat{\boldsymbol{\phi}}$, the electromagnetic momentum density is
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) = \epsilon_0\left(\frac{Q}{2\pi\epsilon_0 l s}\right)\left(-\frac{\mu_0 Q\omega_b}{2\pi l}\right)(\hat{\mathbf{s}}\times\hat{\mathbf{z}}) = \frac{\mu_0 Q^2 \omega_b}{4\pi^2 l^2 s}\,\hat{\boldsymbol{\phi}}.
+$$
+
+The angular momentum density is $\boldsymbol{\ell} = \mathbf{r}\times\mathbf{g} = \frac{\mu_0 Q^2 \omega_b}{4\pi^2 l^2 s}(s\hat{\mathbf{s}} + z\hat{\mathbf{z}})\times\hat{\boldsymbol{\phi}} = \frac{\mu_0 Q^2 \omega_b}{4\pi^2 l^2 s}(s\hat{\mathbf{z}} - z\hat{\mathbf{s}})$. The $\hat{\mathbf{s}}$ term integrates to zero over $\phi$, leaving
+
+$$
+\mathbf{L}_{\text{field}} = \frac{\mu_0 Q^2 \omega_b}{4\pi^2 l^2}\hat{\mathbf{z}}\int_{a < s < b} d\tau = \frac{\mu_0 Q^2 \omega_b}{4\pi^2 l^2}\pi(b^2 - a^2)l\,\hat{\mathbf{z}} = \frac{\mu_0 Q^2 \omega_b (b^2 - a^2)}{4\pi l}\,\hat{\mathbf{z}}.
+$$
+
+(Note that in Example 8.4, $\omega_b < 0$ because the outer shell carries $-Q$, so $\mathbf{L}_{\text{field}}$ points in $-\hat{\mathbf{z}}$.)
+
+**(b)** At any intermediate instant while the shells accelerate, the magnetic flux due to the rotating shells through a circle of radius $s$ ($a < s < b$) is
+
+$$
+\Phi(s) = \frac{\mu_0 Q}{2\pi l}(\omega_a - \omega_b)\pi a^2 - \frac{\mu_0 Q\omega_b}{2\pi l}\pi(s^2 - a^2) = \frac{\mu_0 Q}{2l}\left(\omega_a a^2 - \omega_b s^2\right).
+$$
+
+By Faraday's law, $E_{\text{extra}}(s)(2\pi s) = -\frac{d\Phi}{dt}$, so the extra induced electric field for $a < s < b$ (and by continuity at $s = a$ and $s = b$) is
+
+$$
+\mathbf{E}_{\text{extra}}(s) = -\frac{\mu_0 Q}{4\pi l s}\left(a^2\frac{d\omega_a}{dt} - s^2\frac{d\omega_b}{dt}\right)\hat{\boldsymbol{\phi}}.
+$$
+
+Evaluating at $s = a$ and $s = b$:
+
+$$
+\mathbf{E}_{\text{extra}}(a) = -\frac{\mu_0 Q a}{4\pi l}\left(\frac{d\omega_a}{dt} - \frac{d\omega_b}{dt}\right)\hat{\boldsymbol{\phi}}, \qquad \mathbf{E}_{\text{extra}}(b) = -\frac{\mu_0 Q}{4\pi l b}\left(a^2\frac{d\omega_a}{dt} - b^2\frac{d\omega_b}{dt}\right)\hat{\boldsymbol{\phi}}.
+$$
+
+The resulting extra torques $\mathbf{N} = s\hat{\mathbf{s}}\times q\mathbf{E}_{\text{extra}}$ on the inner ($+Q$) and outer ($-Q$) shells are
+
+$$
+\mathbf{N}_a = -\frac{\mu_0 Q^2 a^2}{4\pi l}\left(\frac{d\omega_a}{dt} - \frac{d\omega_b}{dt}\right)\hat{\mathbf{z}}, \qquad \mathbf{N}_b = +\frac{\mu_0 Q^2}{4\pi l}\left(a^2\frac{d\omega_a}{dt} - b^2\frac{d\omega_b}{dt}\right)\hat{\mathbf{z}}.
+$$
+
+Integrating from $t = 0$ (when $\omega_a = \omega_b = 0$) to $t \to \infty$ gives the extra angular impulses:
+
+$$
+\mathbf{L}_{a,\text{extra}} = \int_0^\infty \mathbf{N}_a\,dt = -\frac{\mu_0 Q^2 a^2}{4\pi l}(\omega_a - \omega_b)\hat{\mathbf{z}}, \qquad \mathbf{L}_{b,\text{extra}} = \int_0^\infty \mathbf{N}_b\,dt = \frac{\mu_0 Q^2}{4\pi l}(a^2\omega_a - b^2\omega_b)\hat{\mathbf{z}}.
+$$
+
+Summing the two contributions:
+
+$$
+\mathbf{L}_{\text{extra}} = \mathbf{L}_{a,\text{extra}} + \mathbf{L}_{b,\text{extra}} = \frac{\mu_0 Q^2}{4\pi l}\left(-a^2\omega_a + a^2\omega_b + a^2\omega_a - b^2\omega_b\right)\hat{\mathbf{z}} = -\frac{\mu_0 Q^2 \omega_b (b^2 - a^2)}{4\pi l}\,\hat{\mathbf{z}}.
+$$
+
+Comparing with (a), $\mathbf{L}_{\text{extra}} = -\mathbf{L}_{\text{field}}$, so $\mathbf{L}_{\text{extra}} + \mathbf{L}_{\text{field}} = \mathbf{0}$: total angular momentum is conserved exactly.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.22" title="Point Charge Outside an Infinite Solenoid" tag="Griffiths 8.22 · Momentum & Angular Momentum">
+
+<div slot="problem">
+
+A point charge $q$ is a distance $a > R$ from the axis of an infinite solenoid (radius $R$, $n$ turns per unit length, current $I$). Find the linear momentum and the angular momentum (with respect to the origin) in the fields. (Put $q$ on the $x$ axis, with the solenoid along $z$; treat the solenoid as a nonconductor, so you don't need to worry about induced charges on its surface.) [Answer: $\mathbf{p} = (\mu_0 q n I R^2/2a)\,\hat{\mathbf{y}}$; $\mathbf{L} = \mathbf{0}$]
+
+</div>
+
+<div slot="answer">
+
+$\mathbf{p} = \dfrac{\mu_0 q n I R^2}{2a}\,\hat{\mathbf{y}}$, $\qquad \mathbf{L} = \mathbf{0}$
+
+</div>
+
+<div slot="solution">
+
+Inside the solenoid ($s < R$), $\mathbf{B} = \mu_0 n I\,\hat{\mathbf{z}}$, and outside ($s > R$), $\mathbf{B} = \mathbf{0}$. With $q$ at $(a, 0, 0)$, the separation vector from $q$ to $(x, y, z)$ is $\mathbf{r}' = (x - a, y, z)$, so
+
+$$
+\mathbf{E} = \frac{q}{4\pi\epsilon_0 (r')^3}\mathbf{r}', \qquad r' = \sqrt{(x - a)^2 + y^2 + z^2}.
+$$
+
+For $s < R$, the electromagnetic momentum density is
+
+$$
+\mathbf{g} = \epsilon_0(\mathbf{E}\times\mathbf{B}) = \frac{\mu_0 q n I}{4\pi (r')^3}(\mathbf{r}'\times\hat{\mathbf{z}}) = \frac{\mu_0 q n I}{4\pi (r')^3}\left[y\hat{\mathbf{x}} - (x - a)\hat{\mathbf{y}}\right].
+$$
+
+**Linear Momentum:** Integrating $\mathbf{g}$ over the interior of the solenoid ($s < R$), the $\hat{\mathbf{x}}$ term is odd in $y$ and integrates to zero, leaving
+
+$$
+\mathbf{p} = -\frac{\mu_0 q n I}{4\pi}\hat{\mathbf{y}} \int_{s < R} \frac{x - a}{\left[(x - a)^2 + y^2 + z^2\right]^{3/2}}\,dx\,dy\,dz.
+$$
+
+Performing the $z$ integral first via $\int_{-\infty}^\infty \frac{dz}{(u^2 + z^2)^{3/2}} = \left[\frac{z}{u^2\sqrt{u^2 + z^2}}\right]_{-\infty}^\infty = \frac{2}{u^2}$:
+
+$$
+\mathbf{p} = -\frac{\mu_0 q n I}{2\pi}\hat{\mathbf{y}} \int_{s < R} \frac{x - a}{(x - a)^2 + y^2}\,dx\,dy.
+$$
+
+Switching to polar coordinates ($x = s\cos\phi$, $y = s\sin\phi$, $dx\,dy = s\,ds\,d\phi$):
+
+$$
+\mathbf{p} = -\frac{\mu_0 q n I}{2\pi}\hat{\mathbf{y}} \int_0^R s\,ds \int_0^{2\pi} \frac{s\cos\phi - a}{s^2 + a^2 - 2sa\cos\phi}\,d\phi.
+$$
+
+Using the standard definite integrals (valid for $A > |B| > 0$):
+
+$$
+\int_0^{2\pi} \frac{d\phi}{A + B\cos\phi} = \frac{2\pi}{\sqrt{A^2 - B^2}}, \qquad \int_0^{2\pi} \frac{\cos\phi\,d\phi}{A + B\cos\phi} = \frac{2\pi}{B}\left(1 - \frac{A}{\sqrt{A^2 - B^2}}\right),
+$$
+
+with $A = s^2 + a^2$, $B = -2sa$, and $\sqrt{A^2 - B^2} = a^2 - s^2$ (since $s < R < a$):
+
+$$
+\int_0^{2\pi} \frac{s\cos\phi - a}{s^2 + a^2 - 2sa\cos\phi}\,d\phi = -\frac{\pi}{a}\left(1 - \frac{s^2 + a^2}{a^2 - s^2}\right) - \frac{2\pi a}{a^2 - s^2} = \frac{2\pi s^2 - 2\pi a^2}{a(a^2 - s^2)} = -\frac{2\pi}{a}.
+$$
+
+Therefore,
+
+$$
+\mathbf{p} = -\frac{\mu_0 q n I}{2\pi}\hat{\mathbf{y}} \int_0^R s\left(-\frac{2\pi}{a}\right) ds = \frac{\mu_0 q n I R^2}{2a}\,\hat{\mathbf{y}}.
+$$
+
+**Angular Momentum:** The angular momentum density about the origin is
+
+$$
+\boldsymbol{\ell} = \mathbf{r}\times\mathbf{g} = \frac{\mu_0 q n I}{4\pi (r')^3}\left[z(x - a)\hat{\mathbf{x}} + zy\hat{\mathbf{y}} - \left(x^2 + y^2 - ax\right)\hat{\mathbf{z}}\right].
+$$
+
+The $\hat{\mathbf{x}}$ and $\hat{\mathbf{y}}$ components are odd in $z$ and integrate to zero. Evaluating the $z$ integral as before and switching to polar coordinates ($x^2 + y^2 - ax = s^2 - sa\cos\phi$):
+
+$$
+\mathbf{L} = -\frac{\mu_0 q n I}{2\pi}\hat{\mathbf{z}} \int_0^R s\,ds \int_0^{2\pi} \frac{s^2 - sa\cos\phi}{s^2 + a^2 - 2sa\cos\phi}\,d\phi.
+$$
+
+Evaluating the $\phi$ integral with the same identities:
+
+$$
+\int_0^{2\pi} \frac{s^2 - sa\cos\phi}{s^2 + a^2 - 2sa\cos\phi}\,d\phi = \frac{2\pi s^2}{a^2 - s^2} + \pi\left(1 - \frac{s^2 + a^2}{a^2 - s^2}\right) = \frac{2\pi s^2}{a^2 - s^2} - \frac{2\pi s^2}{a^2 - s^2} = 0.
+$$
+
+Because the angular integral vanishes identically for every $s < R$, we obtain $\mathbf{L} = \mathbf{0}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.23" title="Poynting's Theorem and Field Momentum in Matter" tag="Griffiths 8.23 · Fields in Matter">
+
+<div slot="problem">
+
+(a) Carry through the argument in Sect. 8.1.2, starting with Eq. 8.6, but using $\mathbf{J}_f$ in place of $\mathbf{J}$. Show that the Poynting vector becomes
+
+$$
+\mathbf{S} = \mathbf{E}\times\mathbf{H},
+$$
+
+and the rate of change of the energy density in the fields is
+
+$$
+\frac{\partial u}{\partial t} = \mathbf{E}\cdot\frac{\partial\mathbf{D}}{\partial t} + \mathbf{H}\cdot\frac{\partial\mathbf{B}}{\partial t}.
+$$
+
+For linear media, show that
+
+$$
+u = \frac{1}{2}(\mathbf{E}\cdot\mathbf{D} + \mathbf{B}\cdot\mathbf{H}).
+$$
+
+(b) In the same spirit, reproduce the argument in Sect. 8.2.2, starting with Eq. 8.15, with $\rho_f$ and $\mathbf{J}_f$ in place of $\rho$ and $\mathbf{J}$. Don't bother to construct the Maxwell stress tensor, but do show that the momentum density is
+
+$$
+\mathbf{g} = \mathbf{D}\times\mathbf{B}.
+$$
+
+</div>
+
+<div slot="answer">
+
+(a) $\mathbf{S} = \mathbf{E}\times\mathbf{H}$, $\quad \dfrac{\partial u}{\partial t} = \mathbf{E}\cdot\dfrac{\partial\mathbf{D}}{\partial t} + \mathbf{H}\cdot\dfrac{\partial\mathbf{B}}{\partial t}$, and for linear media $u = \dfrac{1}{2}(\mathbf{E}\cdot\mathbf{D} + \mathbf{B}\cdot\mathbf{H})$.
+
+(b) $\mathbf{g} = \mathbf{D}\times\mathbf{B}$ (Minkowski momentum density).
+
+</div>
+
+<div slot="solution">
+
+**(a)** Including only the work done on free currents $\mathbf{J}_f$, Eq. 8.6 becomes
+
+$$
+\frac{dW}{dt} = \int_V (\mathbf{E}\cdot\mathbf{J}_f)\,d\tau.
+$$
+
+From Maxwell's equations in matter (Eq. 7.56), $\mathbf{J}_f = \nabla\times\mathbf{H} - \frac{\partial\mathbf{D}}{\partial t}$, so
+
+$$
+\mathbf{E}\cdot\mathbf{J}_f = \mathbf{E}\cdot(\nabla\times\mathbf{H}) - \mathbf{E}\cdot\frac{\partial\mathbf{D}}{\partial t}.
+$$
+
+Using the product rule $\nabla\cdot(\mathbf{E}\times\mathbf{H}) = \mathbf{H}\cdot(\nabla\times\mathbf{E}) - \mathbf{E}\cdot(\nabla\times\mathbf{H})$ together with Faraday's law $\nabla\times\mathbf{E} = -\frac{\partial\mathbf{B}}{\partial t}$, we find
+
+$$
+\mathbf{E}\cdot(\nabla\times\mathbf{H}) = -\mathbf{H}\cdot\frac{\partial\mathbf{B}}{\partial t} - \nabla\cdot(\mathbf{E}\times\mathbf{H}).
+$$
+
+Substituting this back and integrating over $V$ (applying the divergence theorem to the last term):
+
+$$
+\frac{dW}{dt} = -\int_V \left(\mathbf{E}\cdot\frac{\partial\mathbf{D}}{\partial t} + \mathbf{H}\cdot\frac{\partial\mathbf{B}}{\partial t}\right) d\tau - \oint_S (\mathbf{E}\times\mathbf{H})\cdot d\mathbf{a}.
+$$
+
+Comparing with $\frac{dW}{dt} = -\int_V \frac{\partial u}{\partial t}\,d\tau - \oint_S \mathbf{S}\cdot d\mathbf{a}$, we identify the Poynting vector and energy-density rate in matter:
+
+$$
+\mathbf{S} = \mathbf{E}\times\mathbf{H}, \qquad \frac{\partial u}{\partial t} = \mathbf{E}\cdot\frac{\partial\mathbf{D}}{\partial t} + \mathbf{H}\cdot\frac{\partial\mathbf{B}}{\partial t}.
+$$
+
+For linear media with time-independent permittivity $\epsilon$ and permeability $\mu$, $\mathbf{D} = \epsilon\mathbf{E}$ and $\mathbf{H} = \frac{1}{\mu}\mathbf{B}$, so
+
+$$
+\frac{\partial u}{\partial t} = \epsilon\mathbf{E}\cdot\frac{\partial\mathbf{E}}{\partial t} + \frac{1}{\mu}\mathbf{B}\cdot\frac{\partial\mathbf{B}}{\partial t} = \frac{1}{2}\frac{\partial}{\partial t}\left(\epsilon E^2 + \frac{1}{\mu}B^2\right) = \frac{1}{2}\frac{\partial}{\partial t}(\mathbf{E}\cdot\mathbf{D} + \mathbf{B}\cdot\mathbf{H}),
+$$
+
+which integrates to $u = \frac{1}{2}(\mathbf{E}\cdot\mathbf{D} + \mathbf{B}\cdot\mathbf{H})$.
+
+**(b)** Starting from the force per unit volume on free charges and currents:
+
+$$
+\mathbf{f} = \rho_f\mathbf{E} + \mathbf{J}_f\times\mathbf{B}.
+$$
+
+Substituting $\rho_f = \nabla\cdot\mathbf{D}$ and $\mathbf{J}_f = \nabla\times\mathbf{H} - \frac{\partial\mathbf{D}}{\partial t}$ gives
+
+$$
+\mathbf{f} = (\nabla\cdot\mathbf{D})\mathbf{E} + (\nabla\times\mathbf{H})\times\mathbf{B} - \frac{\partial\mathbf{D}}{\partial t}\times\mathbf{B}.
+$$
+
+Using the product rule $\frac{\partial}{\partial t}(\mathbf{D}\times\mathbf{B}) = \frac{\partial\mathbf{D}}{\partial t}\times\mathbf{B} + \mathbf{D}\times\frac{\partial\mathbf{B}}{\partial t}$ and Faraday's law $\frac{\partial\mathbf{B}}{\partial t} = -\nabla\times\mathbf{E}$, we have
+
+$$
+-\frac{\partial\mathbf{D}}{\partial t}\times\mathbf{B} = -\mathbf{D}\times(\nabla\times\mathbf{E}) - \frac{\partial}{\partial t}(\mathbf{D}\times\mathbf{B}).
+$$
+
+Adding the vanishing term $(\nabla\cdot\mathbf{B})\mathbf{H} = \mathbf{0}$ yields
+
+$$
+\mathbf{f} = \left[(\nabla\cdot\mathbf{D})\mathbf{E} - \mathbf{D}\times(\nabla\times\mathbf{E})\right] + \left[(\nabla\cdot\mathbf{B})\mathbf{H} - \mathbf{B}\times(\nabla\times\mathbf{H})\right] - \frac{\partial}{\partial t}(\mathbf{D}\times\mathbf{B}).
+$$
+
+The bracketed terms contain only spatial derivatives (forming the divergence of the stress tensor in linear media), while the last term is $-\frac{\partial\mathbf{g}}{\partial t}$, identifying the electromagnetic momentum density as $\mathbf{g} = \mathbf{D}\times\mathbf{B}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.24" title="Charged Spinning Disk Rising in a Magnetic Field" tag="Griffiths 8.24 · Magnetic Forces Do No Work">
+
+<div slot="problem">
+
+A circular disk of radius $R$ and mass $M$ carries $n$ point charges ($q$), attached at regular intervals around its rim. At time $t = 0$ the disk lies in the $xy$ plane, with its center at the origin, and is rotating about the $z$ axis with angular velocity $\omega_0$, when it is released. The disk is immersed in a (time-independent) external magnetic field
+
+$$
+\mathbf{B}(s, z) = k(-s\hat{\mathbf{s}} + 2z\hat{\mathbf{z}}),
+$$
+
+where $k$ is a constant.
+
+(a) Find the position of the center of the disk, $z(t)$, and its angular velocity, $\omega(t)$, as functions of time. (Ignore gravity.)
+
+(b) Describe the motion, and check that the total (kinetic) energy—translational plus rotational—is constant, confirming that the magnetic force does no work.
+
+</div>
+
+<div slot="answer">
+
+(a) $\omega(t) = \omega_0\cos(\alpha t)$ and $z(t) = \omega_0\sqrt{\dfrac{I}{M}}\,\dfrac{1 - \cos(\alpha t)}{\alpha} = \dfrac{I\omega_0}{n q k R^2}\left[1 - \cos(\alpha t)\right]$, where $\alpha = \dfrac{n q k R^2}{\sqrt{MI}}$ and $I$ is the disk's moment of inertia.
+
+(b) The disk oscillates harmonically up and down along $z$ as its rotation rate oscillates between $+\omega_0$ and $-\omega_0$; the total kinetic energy remains constant at $E = \dfrac{1}{2}I\omega_0^2$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** By azimuthal symmetry, the disk moves purely vertically along the $z$ axis while spinning about it. At height $z$, each rim charge ($s = R$) has velocity $\mathbf{v} = \omega R\hat{\boldsymbol{\phi}} + v_z\hat{\mathbf{z}}$ (with $v_z = dz/dt$), so the magnetic force on the $i$th charge is
+
+$$
+\mathbf{F}_i = q(\mathbf{v}\times\mathbf{B}) = qk \begin{vmatrix} \hat{\mathbf{s}} & \hat{\boldsymbol{\phi}} & \hat{\mathbf{z}} \\ 0 & \omega R & v_z \\ -R & 0 & 2z \end{vmatrix} = qk\left(2\omega R z\,\hat{\mathbf{s}} - R v_z\,\hat{\boldsymbol{\phi}} + \omega R^2\,\hat{\mathbf{z}}\right).
+$$
+
+Because the $n$ charges are spaced at regular intervals around the rim, the $\hat{\mathbf{s}}$ and $\hat{\boldsymbol{\phi}}$ force vectors sum to zero for the net translational force:
+
+$$
+\mathbf{F}_{\text{net}} = \sum_{i=1}^n \mathbf{F}_i = n q k R^2 \omega\,\hat{\mathbf{z}} = M\frac{d^2 z}{dt^2}\,\hat{\mathbf{z}} \implies \frac{d^2 z}{dt^2} = \left(\frac{n q k R^2}{M}\right)\omega. \qquad [1]
+$$
+
+Relative to the center of the disk at $(0, 0, z)$, the position of the $i$th charge is $\mathbf{r}'_i = R\hat{\mathbf{s}}$. Its torque contribution is $\mathbf{r}'_i\times\mathbf{F}_i = qk(-R^2 v_z\,\hat{\mathbf{z}} - \omega R^3\,\hat{\boldsymbol{\phi}})$. Again the $\hat{\boldsymbol{\phi}}$ vectors cancel in the sum, giving the net torque about the center of mass:
+
+$$
+\mathbf{N} = \sum_{i=1}^n (\mathbf{r}'_i\times\mathbf{F}_i) = -n q k R^2 v_z\,\hat{\mathbf{z}} = I\frac{d\omega}{dt}\,\hat{\mathbf{z}} \implies \frac{d\omega}{dt} = -\left(\frac{n q k R^2}{I}\right)\frac{dz}{dt}, \qquad [2]
+$$
+
+where $I$ is the moment of inertia of the disk (including the attached charges). Differentiating $[2]$ with respect to $t$ and substituting $[1]$ yields the simple harmonic oscillator equation:
+
+$$
+\frac{d^2\omega}{dt^2} = -\left(\frac{n q k R^2}{I}\right)\frac{d^2 z}{dt^2} = -\frac{(n q k R^2)^2}{M I}\omega = -\alpha^2\omega, \qquad \alpha \equiv \frac{n q k R^2}{\sqrt{MI}}.
+$$
+
+Since $\omega(0) = \omega_0$ and $\dot{\omega}(0) = -\left(\frac{n q k R^2}{I}\right)v_z(0) = 0$, the angular velocity is
+
+$$
+\omega(t) = \omega_0 \cos(\alpha t).
+$$
+
+Substituting this into $[2]$ gives
+
+$$
+\frac{dz}{dt} = -\frac{I}{n q k R^2}\frac{d\omega}{dt} = \frac{I\alpha}{n q k R^2}\omega_0 \sin(\alpha t) = \omega_0\sqrt{\frac{I}{M}}\sin(\alpha t).
+$$
+
+Integrating from $0$ to $t$ with $z(0) = 0$:
+
+$$
+z(t) = \omega_0\sqrt{\frac{I}{M}}\int_0^t \sin(\alpha t')\,dt' = \frac{\omega_0}{\alpha}\sqrt{\frac{I}{M}}\left[1 - \cos(\alpha t)\right] = \frac{I\omega_0}{n q k R^2}\left[1 - \cos(\alpha t)\right].
+$$
+
+*(Note: If the disk is massless and each of the $n$ charges has mass $m$, then $M = nm$ and $I = nmR^2$, simplifying to $\alpha = qkR/m$ and $z(t) = (\omega_0 R/\alpha)[1 - \cos(\alpha t)]$.)*
+
+**(b)** The disk rises like a helicopter while its spin slows down ($\omega$ drops to $0$ at the midpoint height, then reverses sign as the disk continues upward to its peak $z_{\max} = \frac{2I\omega_0}{n q k R^2}$ where $\omega = -\omega_0$), and then falls back down as the spin reverses back to $+\omega_0$ at $z = 0$. The total kinetic energy is
+
+$$
+E = \frac{1}{2}M v_z^2 + \frac{1}{2}I\omega^2 = \frac{1}{2}M\left(\omega_0^2\frac{I}{M}\sin^2(\alpha t)\right) + \frac{1}{2}I\omega_0^2\cos^2(\alpha t) = \frac{1}{2}I\omega_0^2\left[\sin^2(\alpha t) + \cos^2(\alpha t)\right] = \frac{1}{2}I\omega_0^2,
+$$
+
+which is strictly constant and equal to the initial rotational energy, confirming that the magnetic force does no work.
+
+</div>
+
+</ProblemCard>
+
+</section>

@@ -1,0 +1,926 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec2" class="ed-sec-block">
+
+### 1.2 Differential Calculus
+
+<div class="ed-theory-box">
+
+**Core Theory (Griffiths §§1.2.1–1.2.7 — Gradient, Del, Divergence, Curl, Product Rules & Second Derivatives):**
+
+- **Ordinary Derivatives & Total Differential in 3D:** For a single-variable function $f(x)$, $df = (df/dx)\,dx$ gives the proportionality factor relating an infinitesimal increment $dx$ to the change $df$ (geometrically, the slope of $f$ vs. $x$). For a scalar field $T(x,y,z)$ in three dimensions, the directional rate of change depends on the displacement direction, yet three partial derivatives completely determine the total differential:
+
+$$
+dT = \frac{\partial T}{\partial x}\,dx + \frac{\partial T}{\partial y}\,dy + \frac{\partial T}{\partial z}\,dz = (\nabla T)\cdot d\vec{l}
+$$
+
+  where $d\vec{l} = dx\,\hat{x} + dy\,\hat{y} + dz\,\hat{z}$.
+
+- **The Gradient ($\nabla T$):** Defined in Cartesian coordinates as the vector field:
+
+$$
+\nabla T \equiv \frac{\partial T}{\partial x}\,\hat{x} + \frac{\partial T}{\partial y}\,\hat{y} + \frac{\partial T}{\partial z}\,\hat{z}
+$$
+
+  Since $dT = |\nabla T|\,|d\vec{l}|\cos\theta$ (where $\theta$ is the angle between $\nabla T$ and $d\vec{l}$), holding $|d\vec{l}|$ fixed maximizes $dT$ at $\theta = 0$ and yields $dT = 0$ at $\theta = 90^\circ$. Consequently:
+  1. $\nabla T$ points in the direction of **steepest ascent** (maximum rate of increase) of $T$, and is perpendicular to contour lines / level surfaces ($T = \text{const}$).
+  2. $|\nabla T|$ gives the **maximum spatial rate of increase** (slope along the direction of steepest ascent).
+  3. Points where $\nabla T = \mathbf{0}$ are **stationary points** (local maxima, minima, saddle points, or shoulders), assuming $T$ is differentiable (no kinks).
+
+- **The Del Operator ($\nabla$):** Writing unit vectors to the left so derivatives act only on what follows, del is the vector differential operator:
+
+$$
+\nabla = \hat{x}\frac{\partial}{\partial x} + \hat{y}\frac{\partial}{\partial y} + \hat{z}\frac{\partial}{\partial z}
+$$
+
+  Del is *not* an ordinary vector—it is an instruction to differentiate what stands to its right—yet it mimics ordinary vector algebra in three fundamental operations: the **gradient** $\nabla T$ (on a scalar), the **divergence** $\nabla\cdot\vec{v}$ (dot product with a vector), and the **curl** $\nabla\times\vec{v}$ (cross product with a vector).
+
+- **The Divergence ($\nabla\cdot\vec{v}$):** Acting on a vector function $\vec{v}(x,y,z)$ produces a scalar field:
+
+$$
+\nabla\cdot\vec{v} = \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z}
+$$
+
+  Geometrically, $\nabla\cdot\vec{v}$ measures how strongly $\vec{v}$ **spreads out** from a point: positive divergence corresponds to a local source ("faucet") and negative divergence to a local sink ("drain"). *(Caveat: singular fields such as $\hat{r}/r^2$ can satisfy $\nabla\cdot\vec{v}=0$ everywhere except $r=0$, where the naive derivative breaks down and a Dirac delta contribution resides; see §1.5.)*
+
+- **The Curl ($\nabla\times\vec{v}$):** Acting on a vector function $\vec{v}(x,y,z)$ produces a vector field:
+
+$$
+\nabla\times\vec{v} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ v_x & v_y & v_z \end{vmatrix} = \left(\frac{\partial v_z}{\partial y} - \frac{\partial v_y}{\partial z}\right)\hat{x} + \left(\frac{\partial v_x}{\partial z} - \frac{\partial v_z}{\partial x}\right)\hat{y} + \left(\frac{\partial v_y}{\partial x} - \frac{\partial v_x}{\partial y}\right)\hat{z}
+$$
+
+  Geometrically, $\nabla\times\vec{v}$ measures how much $\vec{v}$ **swirls** (circulates) around a point—a small floating paddlewheel placed at a point of nonzero curl rotates, with axis and sense given by the right-hand rule.
+
+- **Linearity, Product Rules, and Quotient Rules:** Gradient, divergence, and curl are all linear operators. Because products of scalar and vector fields yield two scalars ($fg$, $\vec{A}\cdot\vec{B}$) and two vectors ($f\vec{A}$, $\vec{A}\times\vec{B}$), there are **six product rules**:
+
+$$
+\begin{aligned}
+\text{(i)}\quad \nabla(fg) &= f\nabla g + g\nabla f \\
+\text{(ii)}\quad \nabla(\vec{A}\cdot\vec{B}) &= \vec{A}\times(\nabla\times\vec{B}) + \vec{B}\times(\nabla\times\vec{A}) + (\vec{A}\cdot\nabla)\vec{B} + (\vec{B}\cdot\nabla)\vec{A} \\
+\text{(iii)}\quad \nabla\cdot(f\vec{A}) &= f(\nabla\cdot\vec{A}) + \vec{A}\cdot(\nabla f) \\
+\text{(iv)}\quad \nabla\cdot(\vec{A}\times\vec{B}) &= \vec{B}\cdot(\nabla\times\vec{A}) - \vec{A}\cdot(\nabla\times\vec{B}) \\
+\text{(v)}\quad \nabla\times(f\vec{A}) &= f(\nabla\times\vec{A}) - \vec{A}\times(\nabla f) \\
+\text{(vi)}\quad \nabla\times(\vec{A}\times\vec{B}) &= (\vec{B}\cdot\nabla)\vec{A} - (\vec{A}\cdot\nabla)\vec{B} + \vec{A}(\nabla\cdot\vec{B}) - \vec{B}(\nabla\cdot\vec{A})
+\end{aligned}
+$$
+
+  with corresponding quotient rules ($g \neq 0$):
+
+$$
+\nabla\left(\frac{f}{g}\right) = \frac{g\nabla f - f\nabla g}{g^2}, \qquad \nabla\cdot\left(\frac{\vec{A}}{g}\right) = \frac{g(\nabla\cdot\vec{A}) - \vec{A}\cdot(\nabla g)}{g^2}, \qquad \nabla\times\left(\frac{\vec{A}}{g}\right) = \frac{g(\nabla\times\vec{A}) + \vec{A}\times(\nabla g)}{g^2}
+$$
+
+- **Second Derivatives:** Applying $\nabla$ twice yields five combinations, which reduce to two independent operators and two fundamental identities (valid for $C^2$ fields, relying on the equality of mixed partial derivatives $\partial_x\partial_y = \partial_y\partial_x$, *not* naive algebraic identities with $\nabla$ treated as a vector):
+  1. **Laplacian of a scalar:** $\nabla^2 T \equiv \nabla\cdot(\nabla T) = \dfrac{\partial^2 T}{\partial x^2} + \dfrac{\partial^2 T}{\partial y^2} + \dfrac{\partial^2 T}{\partial z^2}$.
+  2. **Curl of a gradient vanishes identically:** $\nabla\times(\nabla T) = \mathbf{0}$. *(Contrast with $(\nabla T)\times(\nabla S)$, which is generally nonzero!)*
+  3. **Gradient of a divergence:** $\nabla(\nabla\cdot\vec{v})$ (distinct from the vector Laplacian: $\nabla^2\vec{v} \neq \nabla(\nabla\cdot\vec{v})$).
+  4. **Divergence of a curl vanishes identically:** $\nabla\cdot(\nabla\times\vec{v}) = 0$.
+  5. **Curl of a curl & Vector Laplacian:**
+
+$$
+\nabla\times(\nabla\times\vec{v}) = \nabla(\nabla\cdot\vec{v}) - \nabla^2\vec{v}
+$$
+
+  In Cartesian coordinates, $\nabla^2\vec{v} = (\nabla^2 v_x)\hat{x} + (\nabla^2 v_y)\hat{y} + (\nabla^2 v_z)\hat{z}$; in curvilinear coordinates (where basis vectors vary with position), $\nabla^2\vec{v} \equiv \nabla(\nabla\cdot\vec{v}) - \nabla\times(\nabla\times\vec{v})$ serves as the coordinate-independent definition.
+
+</div>
+
+<ProblemCard num="1.11" title="Computing Gradients of Scalar Functions" tag="Griffiths 1.11 · Gradient">
+  <div slot="problem">
+    Find the gradients of the following functions:
+    1. $f(x, y, z) = x^2 + y^3 + z^4$.
+    2. $f(x, y, z) = x^2 y^3 z^4$.
+    3. $f(x, y, z) = e^x \sin(y) \ln(z)$.
+  </div>
+
+  <div slot="answer">
+    1. $\nabla f = 2x\,\hat{x} + 3y^2\,\hat{y} + 4z^3\,\hat{z}$
+    2. $\nabla f = 2xy^3 z^4\,\hat{x} + 3x^2 y^2 z^4\,\hat{y} + 4x^2 y^3 z^3\,\hat{z}$
+    3. $\nabla f = e^x \sin(y)\ln(z)\,\hat{x} + e^x \cos(y)\ln(z)\,\hat{y} + \dfrac{e^x \sin(y)}{z}\,\hat{z}$
+  </div>
+
+  <div slot="solution">
+    Using the Cartesian gradient definition $\nabla f = \dfrac{\partial f}{\partial x}\hat{x} + \dfrac{\partial f}{\partial y}\hat{y} + \dfrac{\partial f}{\partial z}\hat{z}$:
+
+    1. Differentiating $f(x,y,z) = x^2 + y^3 + z^4$ with respect to each coordinate while holding the other two fixed:
+
+    $$
+    \nabla f = \frac{\partial}{\partial x}(x^2)\,\hat{x} + \frac{\partial}{\partial y}(y^3)\,\hat{y} + \frac{\partial}{\partial z}(z^4)\,\hat{z} = 2x\,\hat{x} + 3y^2\,\hat{y} + 4z^3\,\hat{z}
+    $$
+
+    2. Differentiating $f(x,y,z) = x^2 y^3 z^4$:
+
+    $$
+    \nabla f = (2x)y^3 z^4\,\hat{x} + x^2(3y^2)z^4\,\hat{y} + x^2 y^3(4z^3)\,\hat{z} = 2xy^3 z^4\,\hat{x} + 3x^2 y^2 z^4\,\hat{y} + 4x^2 y^3 z^3\,\hat{z}
+    $$
+
+    3. Differentiating $f(x,y,z) = e^x \sin(y) \ln(z)$ ($z &gt; 0$):
+
+    $$
+    \nabla f = e^x \sin(y) \ln(z)\,\hat{x} + e^x \cos(y) \ln(z)\,\hat{y} + \frac{e^x \sin(y)}{z}\,\hat{z}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.12" title="Topography of a Hill via the Gradient" tag="Griffiths 1.12 · Gradient Geometry">
+  <div slot="problem">
+    The height of a certain hill (in feet) is given by
+
+    $$
+    h(x, y) = 10(2xy - 3x^2 - 4y^2 - 18x + 28y + 12),
+    $$
+
+    where $y$ is the distance (in miles) north, $x$ the distance east of South Hadley.
+    1. Where is the top of the hill located?
+    2. How high is the hill?
+    3. How steep is the slope (in feet per mile) at a point $1\text{ mile}$ north and $1\text{ mile}$ east of South Hadley? In what direction is the slope steepest, at that point?
+  </div>
+
+  <div slot="answer">
+    1. $x = -2\text{ miles}$, $y = 3\text{ miles}$ (i.e., $3\text{ miles}$ north and $2\text{ miles}$ west of South Hadley).
+    2. $h_{\max} = 720\text{ ft}$.
+    3. Slope $|\nabla h| = 220\sqrt{2} \approx 311\text{ ft/mile}$, steepest toward the **northwest** (along $\frac{-\hat{x} + \hat{y}}{\sqrt{2}}$).
+  </div>
+
+  <div slot="solution">
+    1. **Summit location:** First compute the gradient of $h(x,y)$:
+
+    $$
+    \nabla h = \frac{\partial h}{\partial x}\hat{x} + \frac{\partial h}{\partial y}\hat{y} = 10\left[(2y - 6x - 18)\hat{x} + (2x - 8y + 28)\hat{y}\right]
+    $$
+
+    At the top of the hill, $\nabla h = \mathbf{0}$, giving the linear system:
+
+    $$
+    \begin{cases}
+    2y - 6x - 18 = 0 \\
+    2x - 8y + 28 = 0
+    \end{cases}
+    $$
+
+    Multiplying the second equation by $3$ gives $6x - 24y + 84 = 0$. Adding this to the first equation eliminates $x$:
+
+    $$
+    -22y + 66 = 0 \implies y = 3\text{ miles}
+    $$
+
+    Substituting $y = 3$ into $2x - 8y + 28 = 0$ yields $2x - 24 + 28 = 0 \implies x = -2\text{ miles}$. Thus the summit is **$3\text{ miles}$ north and $2\text{ miles}$ west of South Hadley**. (The Hessian $h_{xx} = -60 &lt; 0$, $h_{xx}h_{yy} - h_{xy}^2 = (-60)(-80) - 20^2 = 4400 &gt; 0$ confirms this is indeed a local maximum.)
+
+    2. **Height of the hill:** Evaluate $h$ at $(x,y) = (-2, 3)$:
+
+    $$
+    h(-2, 3) = 10\left[2(-2)(3) - 3(-2)^2 - 4(3)^2 - 18(-2) + 28(3) + 12\right] = 10(-12 - 12 - 36 + 36 + 84 + 12) = 720\text{ ft}
+    $$
+
+    3. **Slope and direction at $(1, 1)$:** Evaluate $\nabla h$ at $x = 1$, $y = 1$:
+
+    $$
+    \nabla h(1, 1) = 10\left[(2 - 6 - 18)\hat{x} + (2 - 8 + 28)\hat{y}\right] = 10(-22\hat{x} + 22\hat{y}) = 220(-\hat{x} + \hat{y})\text{ ft/mile}
+    $$
+
+    The steepness (maximum rate of ascent) is its magnitude:
+
+    $$
+    |\nabla h(1, 1)| = 220\sqrt{(-1)^2 + 1^2} = 220\sqrt{2} \approx 311\text{ ft/mile}
+    $$
+
+    Because $\nabla h(1,1)$ points along $-\hat{x} + \hat{y}$ (west and equally north), the slope is steepest in the **northwest** direction.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.13" title="Gradients of Powers of the Separation Distance" tag="Griffiths 1.13 · Separation Vector">
+  <div slot="problem">
+    Let $\vec{\mathscr{r}}$ be the separation vector from a fixed point $(x', y', z')$ to the point $(x, y, z)$, and let $\mathscr{r}$ be its length. Show that:
+    1. $\nabla(\mathscr{r}^2) = 2\vec{\mathscr{r}}$.
+    2. $\nabla(1/\mathscr{r}) = -\hat{\mathscr{r}}/\mathscr{r}^2$.
+    3. What is the general formula for $\nabla(\mathscr{r}^n)$?
+  </div>
+
+  <div slot="answer">
+    1. $\nabla(\mathscr{r}^2) = 2\vec{\mathscr{r}}$.
+    2. $\nabla(1/\mathscr{r}) = -\hat{\mathscr{r}}/\mathscr{r}^2$.
+    3. $\nabla(\mathscr{r}^n) = n\mathscr{r}^{n-1}\hat{\mathscr{r}}$ (for any real $n$, valid for $\mathscr{r} &gt; 0$ when $n \le 1$).
+  </div>
+
+  <div slot="solution">
+    With the fixed point $(x',y',z')$, the separation vector and its length are:
+
+    $$
+    \vec{\mathscr{r}} = (x - x')\hat{x} + (y - y')\hat{y} + (z - z')\hat{z}, \qquad \mathscr{r} = \sqrt{(x - x')^2 + (y - y')^2 + (z - z')^2}
+    $$
+
+    1. **Gradient of $\mathscr{r}^2$:** Since $\mathscr{r}^2 = (x - x')^2 + (y - y')^2 + (z - z')^2$:
+
+    $$
+    \nabla(\mathscr{r}^2) = \frac{\partial(\mathscr{r}^2)}{\partial x}\hat{x} + \frac{\partial(\mathscr{r}^2)}{\partial y}\hat{y} + \frac{\partial(\mathscr{r}^2)}{\partial z}\hat{z} = 2(x - x')\hat{x} + 2(y - y')\hat{y} + 2(z - z')\hat{z} = 2\vec{\mathscr{r}}
+    $$
+
+    2. **Gradient of $1/\mathscr{r}$:** Write $\mathscr{r}^{-1} = \left[(x - x')^2 + (y - y')^2 + (z - z')^2\right]^{-1/2}$. Differentiating the $x$-component:
+
+    $$
+    \frac{\partial}{\partial x}\left(\frac{1}{\mathscr{r}}\right) = -\frac{1}{2}\left[(x - x')^2 + (y - y')^2 + (z - z')^2\right]^{-3/2}\cdot 2(x - x') = -\frac{x - x'}{\mathscr{r}^3}
+    $$
+
+    By symmetry, the $y$- and $z$-components have the same form, so:
+
+    $$
+    \nabla\left(\frac{1}{\mathscr{r}}\right) = -\frac{(x - x')\hat{x} + (y - y')\hat{y} + (z - z')\hat{z}}{\mathscr{r}^3} = -\frac{\vec{\mathscr{r}}}{\mathscr{r}^3} = -\frac{\hat{\mathscr{r}}}{\mathscr{r}^2}
+    $$
+
+    3. **General power $\mathscr{r}^n$:** First note that $\dfrac{\partial \mathscr{r}}{\partial x} = \dfrac{1}{2\mathscr{r}}\cdot 2(x - x') = \dfrac{x - x'}{\mathscr{r}} = \hat{\mathscr{r}}_x$, and similarly for $y$ and $z$, so $\nabla\mathscr{r} = \hat{\mathscr{r}}$. By the chain rule on each component:
+
+    $$
+    \frac{\partial}{\partial x}(\mathscr{r}^n) = n\mathscr{r}^{n-1}\frac{\partial \mathscr{r}}{\partial x} = n\mathscr{r}^{n-1}\hat{\mathscr{r}}_x \implies \nabla(\mathscr{r}^n) = n\mathscr{r}^{n-1}\hat{\mathscr{r}}
+    $$
+
+    Setting $n = 2$ gives $2\mathscr{r}\hat{\mathscr{r}} = 2\vec{\mathscr{r}}$, and $n = -1$ gives $-\mathscr{r}^{-2}\hat{\mathscr{r}}$, recovering parts 1 and 2.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.14" title="Transformation of the Gradient Under Rotations" tag="Griffiths 1.14 · Vector Transformation">
+  <div slot="problem">
+    Suppose that $f$ is a function of two variables ($y$ and $z$) only. Show that the gradient $\nabla f = (\partial f/\partial y)\hat{y} + (\partial f/\partial z)\hat{z}$ transforms as a vector under rotations, Eq. 1.29.
+
+    *[Hint: $\dfrac{\partial f}{\partial \bar{y}} = \dfrac{\partial f}{\partial y}\dfrac{\partial y}{\partial \bar{y}} + \dfrac{\partial f}{\partial z}\dfrac{\partial z}{\partial \bar{y}}$, and the analogous formula for $\dfrac{\partial f}{\partial \bar{z}}$. We know that $\bar{y} = y\cos\phi + z\sin\phi$ and $\bar{z} = -y\sin\phi + z\cos\phi$; "solve" these equations for $y$ and $z$ (as functions of $\bar{y}$ and $\bar{z}$), and compute the needed derivatives $\partial y/\partial \bar{y}$, $\partial z/\partial \bar{y}$, etc.]*
+  </div>
+
+  <div slot="answer">
+    $(\bar{\nabla} f)_y = \cos\phi\,(\nabla f)_y + \sin\phi\,(\nabla f)_z$ and $(\bar{\nabla} f)_z = -\sin\phi\,(\nabla f)_y + \cos\phi\,(\nabla f)_z$, which matches the vector transformation law (Eq. 1.29).
+  </div>
+
+  <div slot="solution">
+    Start from the rotation equations (Griffiths Eq. 1.29):
+
+    $$
+    \bar{y} = y\cos\phi + z\sin\phi, \qquad \bar{z} = -y\sin\phi + z\cos\phi
+    $$
+
+    To invert for $y$ and $z$ in terms of $\bar{y}$ and $\bar{z}$:
+    - Multiply the first by $\sin\phi$ and the second by $\cos\phi$:
+      $\bar{y}\sin\phi = y\sin\phi\cos\phi + z\sin^2\phi$ and $\bar{z}\cos\phi = -y\sin\phi\cos\phi + z\cos^2\phi$.
+      Adding gives $z(\sin^2\phi + \cos^2\phi) = \bar{y}\sin\phi + \bar{z}\cos\phi \implies z = \bar{y}\sin\phi + \bar{z}\cos\phi$.
+    - Similarly, multiplying the first by $\cos\phi$ and the second by $-\sin\phi$ and adding gives $y = \bar{y}\cos\phi - \bar{z}\sin\phi$.
+
+    Computing the four partial derivatives of the inverse transformation:
+
+    $$
+    \frac{\partial y}{\partial \bar{y}} = \cos\phi, \qquad \frac{\partial z}{\partial \bar{y}} = \sin\phi, \qquad \frac{\partial y}{\partial \bar{z}} = -\sin\phi, \qquad \frac{\partial z}{\partial \bar{z}} = \cos\phi
+    $$
+
+    Now apply the chain rule to obtain the gradient components in the rotated frame:
+
+    $$
+    (\bar{\nabla} f)_y = \frac{\partial f}{\partial \bar{y}} = \frac{\partial f}{\partial y}\frac{\partial y}{\partial \bar{y}} + \frac{\partial f}{\partial z}\frac{\partial z}{\partial \bar{y}} = \cos\phi\,\frac{\partial f}{\partial y} + \sin\phi\,\frac{\partial f}{\partial z} = \cos\phi\,(\nabla f)_y + \sin\phi\,(\nabla f)_z
+    $$
+
+    $$
+    (\bar{\nabla} f)_z = \frac{\partial f}{\partial \bar{z}} = \frac{\partial f}{\partial y}\frac{\partial y}{\partial \bar{z}} + \frac{\partial f}{\partial z}\frac{\partial z}{\partial \bar{z}} = -\sin\phi\,\frac{\partial f}{\partial y} + \cos\phi\,\frac{\partial f}{\partial z} = -\sin\phi\,(\nabla f)_y + \cos\phi\,(\nabla f)_z
+    $$
+
+    These are precisely the transformation equations of a 2D vector (Eq. 1.29), proving that $\nabla f$ transforms as a true vector.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.15" title="Computing Divergences of Vector Fields" tag="Griffiths 1.15 · Divergence">
+  <div slot="problem">
+    Calculate the divergence of the following vector functions:
+    1. $\vec{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$.
+    2. $\vec{v}_b = xy\hat{x} + 2yz\hat{y} + 3zx\hat{z}$.
+    3. $\vec{v}_c = y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}$.
+  </div>
+
+  <div slot="answer">
+    1. $\nabla\cdot\vec{v}_a = 0$
+    2. $\nabla\cdot\vec{v}_b = 3x + y + 2z$
+    3. $\nabla\cdot\vec{v}_c = 2(x + y)$
+  </div>
+
+  <div slot="solution">
+    Using $\nabla\cdot\vec{v} = \dfrac{\partial v_x}{\partial x} + \dfrac{\partial v_y}{\partial y} + \dfrac{\partial v_z}{\partial z}$:
+
+    1. For $\vec{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$:
+
+    $$
+    \nabla\cdot\vec{v}_a = \frac{\partial}{\partial x}(x^2) + \frac{\partial}{\partial y}(3xz^2) + \frac{\partial}{\partial z}(-2xz) = 2x + 0 - 2x = 0
+    $$
+
+    2. For $\vec{v}_b = xy\hat{x} + 2yz\hat{y} + 3zx\hat{z}$:
+
+    $$
+    \nabla\cdot\vec{v}_b = \frac{\partial}{\partial x}(xy) + \frac{\partial}{\partial y}(2yz) + \frac{\partial}{\partial z}(3zx) = y + 2z + 3x
+    $$
+
+    3. For $\vec{v}_c = y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}$:
+
+    $$
+    \nabla\cdot\vec{v}_c = \frac{\partial}{\partial x}(y^2) + \frac{\partial}{\partial y}(2xy + z^2) + \frac{\partial}{\partial z}(2yz) = 0 + 2x + 2y = 2(x + y)
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.16" title="Divergence of the Inverse-Square Radial Field" tag="Griffiths 1.16 · Singular Divergence">
+  <div slot="problem">
+    Sketch the vector function
+
+    $$
+    \vec{v} = \frac{\hat{r}}{r^2},
+    $$
+
+    and compute its divergence. The answer may surprise you... can you explain it?
+  </div>
+
+  <div slot="answer">
+    For all $r &gt; 0$, $\nabla\cdot\vec{v} = 0$. The apparent paradox—a field visibly radiating outward from the origin yet having zero divergence—is resolved because the calculation is invalid at $r = 0$, where $\vec{v}$ blows up; in fact, $\nabla\cdot(\hat{r}/r^2) = 4\pi\,\delta^3(\vec{r})$ (zero everywhere except at the origin, where it is infinite).
+  </div>
+
+  <div slot="solution">
+    **Sketch:** $\vec{v} = \hat{r}/r^2$ points radially outward in all directions from the origin, with arrow lengths shrinking rapidly as $1/r^2$ as distance $r$ increases.
+
+    **Divergence for $r \neq 0$:** Write $\vec{v}$ in Cartesian coordinates using $\hat{r} = \vec{r}/r$ and $r = (x^2 + y^2 + z^2)^{1/2}$:
+
+    $$
+    \vec{v} = \frac{x\hat{x} + y\hat{y} + z\hat{z}}{r^3} = \frac{x\hat{x} + y\hat{y} + z\hat{z}}{(x^2 + y^2 + z^2)^{3/2}}
+    $$
+
+    Differentiating the $x$-component using the product rule:
+
+    $$
+    \frac{\partial v_x}{\partial x} = \frac{\partial}{\partial x}\left[x(x^2 + y^2 + z^2)^{-3/2}\right] = (x^2 + y^2 + z^2)^{-3/2} + x\left(-\frac{3}{2}\right)(x^2 + y^2 + z^2)^{-5/2}(2x) = \frac{1}{r^3} - \frac{3x^2}{r^5}
+    $$
+
+    By symmetry, $\dfrac{\partial v_y}{\partial y} = \dfrac{1}{r^3} - \dfrac{3y^2}{r^5}$ and $\dfrac{\partial v_z}{\partial z} = \dfrac{1}{r^3} - \dfrac{3z^2}{r^5}$. Summing the three derivatives:
+
+    $$
+    \nabla\cdot\vec{v} = \frac{3}{r^3} - \frac{3(x^2 + y^2 + z^2)}{r^5} = \frac{3}{r^3} - \frac{3r^2}{r^5} = 0 \qquad (r \neq 0)
+    $$
+
+    **Explanation of the paradox:** Visually, the field radiates outward from the origin and looks like a textbook source, so $\nabla\cdot\vec{v} = 0$ seems contradictory. The resolution is that our differentiation assumes $r \neq 0$; at $r = 0$, $\vec{v}$ is singular (blows up). Away from the origin, the spreading of the field lines in solid angle ($\propto r^2$) is exactly compensated by the $1/r^2$ drop in field magnitude, so no *new* flux originates in any shell not containing the origin. All of the "faucet" strength is concentrated at the single point $r = 0$, where $\nabla\cdot(\hat{r}/r^2) = 4\pi\,\delta^3(\vec{r})$ (as developed in §1.5).
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.17" title="Rotational Invariance of the Divergence" tag="Griffiths 1.17 · Scalar Invariance">
+  <div slot="problem">
+    In two dimensions, show that the divergence transforms as a scalar under rotations.
+
+    *[Hint: Use Eq. 1.29 to determine $\bar{v}_y$ and $\bar{v}_z$, and the method of Prob. 1.14 to calculate the derivatives. Your aim is to show that $\dfrac{\partial \bar{v}_y}{\partial \bar{y}} + \dfrac{\partial \bar{v}_z}{\partial \bar{z}} = \dfrac{\partial v_y}{\partial y} + \dfrac{\partial v_z}{\partial z}$.]*
+  </div>
+
+  <div slot="answer">
+    $\dfrac{\partial \bar{v}_y}{\partial \bar{y}} + \dfrac{\partial \bar{v}_z}{\partial \bar{z}} = \dfrac{\partial v_y}{\partial y} + \dfrac{\partial v_z}{\partial z}$, confirming that the divergence is invariant (a scalar) under rotations.
+  </div>
+
+  <div slot="solution">
+    By Eq. 1.29, the vector components in the rotated frame are:
+
+    $$
+    \bar{v}_y = \cos\phi\,v_y + \sin\phi\,v_z, \qquad \bar{v}_z = -\sin\phi\,v_y + \cos\phi\,v_z
+    $$
+
+    From Prob. 1.14, the partial derivative operators in the rotated frame are:
+
+    $$
+    \frac{\partial}{\partial \bar{y}} = \cos\phi\,\frac{\partial}{\partial y} + \sin\phi\,\frac{\partial}{\partial z}, \qquad \frac{\partial}{\partial \bar{z}} = -\sin\phi\,\frac{\partial}{\partial y} + \cos\phi\,\frac{\partial}{\partial z}
+    $$
+
+    Applying these to $\bar{v}_y$ and $\bar{v}_z$:
+
+    $$
+    \begin{aligned}
+    \frac{\partial \bar{v}_y}{\partial \bar{y}} &= \left(\cos\phi\,\frac{\partial}{\partial y} + \sin\phi\,\frac{\partial}{\partial z}\right)\left(\cos\phi\,v_y + \sin\phi\,v_z\right) \\
+    &= \cos^2\phi\,\frac{\partial v_y}{\partial y} + \sin\phi\cos\phi\,\frac{\partial v_y}{\partial z} + \sin\phi\cos\phi\,\frac{\partial v_z}{\partial y} + \sin^2\phi\,\frac{\partial v_z}{\partial z}
+    \end{aligned}
+    $$
+
+    $$
+    \begin{aligned}
+    \frac{\partial \bar{v}_z}{\partial \bar{z}} &= \left(-\sin\phi\,\frac{\partial}{\partial y} + \cos\phi\,\frac{\partial}{\partial z}\right)\left(-\sin\phi\,v_y + \cos\phi\,v_z\right) \\
+    &= \sin^2\phi\,\frac{\partial v_y}{\partial y} - \sin\phi\cos\phi\,\frac{\partial v_y}{\partial z} - \sin\phi\cos\phi\,\frac{\partial v_z}{\partial y} + \cos^2\phi\,\frac{\partial v_z}{\partial z}
+    \end{aligned}
+    $$
+
+    Adding the two expressions cancels all $\sin\phi\cos\phi$ cross terms and leaves:
+
+    $$
+    \frac{\partial \bar{v}_y}{\partial \bar{y}} + \frac{\partial \bar{v}_z}{\partial \bar{z}} = (\cos^2\phi + \sin^2\phi)\frac{\partial v_y}{\partial y} + (\sin^2\phi + \cos^2\phi)\frac{\partial v_z}{\partial z} = \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z}
+    $$
+
+    Since its value is unchanged by a rotation of axes, the 2D divergence transforms as a scalar.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.18" title="Computing Curls of Vector Fields" tag="Griffiths 1.18 · Curl">
+  <div slot="problem">
+    Calculate the curls of the vector functions in Prob. 1.15:
+    1. $\vec{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$.
+    2. $\vec{v}_b = xy\hat{x} + 2yz\hat{y} + 3zx\hat{z}$.
+    3. $\vec{v}_c = y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}$.
+  </div>
+
+  <div slot="answer">
+    1. $\nabla\times\vec{v}_a = -6xz\,\hat{x} + 2z\,\hat{y} + 3z^2\,\hat{z}$
+    2. $\nabla\times\vec{v}_b = -2y\,\hat{x} - 3z\,\hat{y} - x\,\hat{z}$
+    3. $\nabla\times\vec{v}_c = \mathbf{0}$
+  </div>
+
+  <div slot="solution">
+    Using the determinant formula $\nabla\times\vec{v} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ v_x & v_y & v_z \end{vmatrix}$:
+
+    1. For $\vec{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$:
+
+    $$
+    \nabla\times\vec{v}_a = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ x^2 & 3xz^2 & -2xz \end{vmatrix} = \hat{x}(0 - 6xz) + \hat{y}(0 - (-2z)) + \hat{z}(3z^2 - 0) = -6xz\,\hat{x} + 2z\,\hat{y} + 3z^2\,\hat{z}
+    $$
+
+    2. For $\vec{v}_b = xy\hat{x} + 2yz\hat{y} + 3zx\hat{z}$:
+
+    $$
+    \nabla\times\vec{v}_b = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ xy & 2yz & 3zx \end{vmatrix} = \hat{x}(0 - 2y) + \hat{y}(0 - 3z) + \hat{z}(0 - x) = -2y\,\hat{x} - 3z\,\hat{y} - x\,\hat{z}
+    $$
+
+    3. For $\vec{v}_c = y^2\hat{x} + (2xy + z^2)\hat{y} + 2yz\hat{z}$:
+
+    $$
+    \nabla\times\vec{v}_c = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ y^2 & 2xy + z^2 & 2yz \end{vmatrix} = \hat{x}(2z - 2z) + \hat{y}(0 - 0) + \hat{z}(2y - 2y) = \mathbf{0}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.19" title="Geometrical Interpretation of Curl via Clockwise Tangent Field" tag="Griffiths 1.19 · Curl Geometry">
+  <div slot="problem">
+    Draw a circle in the $xy$-plane. At a few representative points draw the vector $\vec{v}$ tangent to the circle, pointing in the clockwise direction. By comparing adjacent vectors, determine the sign of $\partial v_x / \partial y$ and $\partial v_y / \partial x$. According to Eq. 1.41, then, what is the direction of $\nabla\times\vec{v}$? Explain how this example illustrates the geometrical interpretation of the curl.
+  </div>
+
+  <div slot="answer">
+    $\dfrac{\partial v_x}{\partial y} &gt; 0$ and $\dfrac{\partial v_y}{\partial x} &lt; 0$, so $\nabla\times\vec{v} = \left(\dfrac{\partial v_y}{\partial x} - \dfrac{\partial v_x}{\partial y}\right)\hat{z}$ points in the **$-\hat{z}$ direction (into the page)**, matching the right-hand rule for a clockwise swirl.
+  </div>
+
+  <div slot="solution">
+    Consider a circle centered at the origin in the $xy$-plane with $\vec{v}$ tangent and pointing clockwise (for example, $\vec{v} = \omega(y\hat{x} - x\hat{y})$ with $\omega &gt; 0$):
+
+    - At **9 o'clock** $(-R, 0)$, $\vec{v}$ points straight up ($+y$): $v_x = 0$, $v_y &gt; 0$.
+    - Moving clockwise to **10 o'clock** (where both $x$ and $y$ increase), $\vec{v}$ tilts to the right and slightly less upward: $v_x$ increases from $0$ to positive values, while $v_y$ decreases.
+    - More generally, moving upward ($+\Delta y$ at fixed $x$) increases the rightward component $v_x$, so $\dfrac{\partial v_x}{\partial y} &gt; 0$; moving rightward ($+\Delta x$ at fixed $y$) decreases the upward component $v_y$ (turning it downward on the right side), so $\dfrac{\partial v_y}{\partial x} &lt; 0$.
+
+    Since $v_z = 0$ and nothing depends on $z$, Eq. 1.41 gives:
+
+    $$
+    \nabla\times\vec{v} = \left(\frac{\partial v_y}{\partial x} - \frac{\partial v_x}{\partial y}\right)\hat{z}
+    $$
+
+    Because $\dfrac{\partial v_y}{\partial x} &lt; 0$ and $-\dfrac{\partial v_x}{\partial y} &lt; 0$, the $z$-component is strictly negative: $\nabla\times\vec{v}$ points in the **$-\hat{z}$ direction (into the page)**.
+
+    **Geometrical interpretation:** Curling the fingers of your right hand clockwise (along the flow $\vec{v}$) makes your thumb point *into the page* ($-\hat{z}$). A tiny paddlewheel placed in this flow rotates clockwise, illustrating that $\nabla\times\vec{v}$ measures the local rotation/swirl of $\vec{v}$ with orientation determined by the right-hand rule.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.20" title="Constructing a Divergence-Free, Curl-Free Vector Field" tag="Griffiths 1.20 · Solenoidal &amp; Irrotational">
+  <div slot="problem">
+    Construct a vector function that has zero divergence and zero curl everywhere. *(A constant will do the job, of course, but make it something a little more interesting than that!)*
+  </div>
+
+  <div slot="answer">
+    For example, $\vec{v} = y\hat{x} + x\hat{y}$ (or $\vec{v} = yz\,\hat{x} + xz\,\hat{y} + xy\,\hat{z}$, or $\vec{v} = \sin x \cosh y\,\hat{x} - \cos x \sinh y\,\hat{y}$).
+  </div>
+
+  <div slot="solution">
+    Since $\nabla\times(\nabla f) = \mathbf{0}$ automatically for any smooth scalar $f$, choosing $\vec{v} = \nabla f$ guarantees zero curl; requiring $\nabla\cdot\vec{v} = \nabla^2 f = 0$ (Laplace's equation) then guarantees zero divergence everywhere.
+
+    For instance, take $f(x,y,z) = xy$:
+
+    $$
+    \vec{v} = \nabla(xy) = y\hat{x} + x\hat{y}
+    $$
+
+    Checking both derivatives directly:
+
+    $$
+    \nabla\cdot\vec{v} = \frac{\partial y}{\partial x} + \frac{\partial x}{\partial y} + \frac{\partial (0)}{\partial z} = 0
+    $$
+
+    $$
+    \nabla\times\vec{v} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ y & x & 0 \end{vmatrix} = (1 - 1)\hat{z} = \mathbf{0}
+    $$
+
+    Other nonconstant harmonic gradients that work everywhere include $\vec{v} = yz\,\hat{x} + xz\,\hat{y} + xy\,\hat{z}$ (from $f = xyz$), $\vec{v} = (3x^2 z - z^3)\hat{x} + 3\hat{y} + (x^3 - 3xz^2)\hat{z}$, and $\vec{v} = (\sin x \cosh y)\hat{x} - (\cos x \sinh y)\hat{y}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.21" title="Proofs of Product Rules (i), (iv), and (v)" tag="Griffiths 1.21 · Product Rules">
+  <div slot="problem">
+    Prove product rules (i), (iv), and (v):
+    1. $\nabla(fg) = f\nabla g + g\nabla f$.
+    2. $\nabla\cdot(\vec{A}\times\vec{B}) = \vec{B}\cdot(\nabla\times\vec{A}) - \vec{A}\cdot(\nabla\times\vec{B})$.
+    3. $\nabla\times(f\vec{A}) = f(\nabla\times\vec{A}) - \vec{A}\times(\nabla f)$.
+  </div>
+
+  <div slot="answer">
+    All three identities follow directly by expanding in Cartesian components and applying the ordinary single-variable product rule $\partial_i(uv) = u\,\partial_i v + v\,\partial_i u$.
+  </div>
+
+  <div slot="solution">
+    1. **Rule (i) — $\nabla(fg)$:** Expanding in Cartesian components and applying the ordinary product rule to each partial derivative:
+
+    $$
+    \begin{aligned}
+    \nabla(fg) &= \frac{\partial(fg)}{\partial x}\hat{x} + \frac{\partial(fg)}{\partial y}\hat{y} + \frac{\partial(fg)}{\partial z}\hat{z} \\
+    &= \left(f\frac{\partial g}{\partial x} + g\frac{\partial f}{\partial x}\right)\hat{x} + \left(f\frac{\partial g}{\partial y} + g\frac{\partial f}{\partial y}\right)\hat{y} + \left(f\frac{\partial g}{\partial z} + g\frac{\partial f}{\partial z}\right)\hat{z} \\
+    &= f\left(\frac{\partial g}{\partial x}\hat{x} + \frac{\partial g}{\partial y}\hat{y} + \frac{\partial g}{\partial z}\hat{z}\right) + g\left(\frac{\partial f}{\partial x}\hat{x} + \frac{\partial f}{\partial y}\hat{y} + \frac{\partial f}{\partial z}\hat{z}\right) \\
+    &= f\nabla g + g\nabla f
+    \end{aligned}
+    $$
+
+    2. **Rule (iv) — $\nabla\cdot(\vec{A}\times\vec{B})$:** Expanding $\vec{A}\times\vec{B}$ in components:
+
+    $$
+    \begin{aligned}
+    \nabla\cdot(\vec{A}\times\vec{B}) &= \frac{\partial}{\partial x}(A_y B_z - A_z B_y) + \frac{\partial}{\partial y}(A_z B_x - A_x B_z) + \frac{\partial}{\partial z}(A_x B_y - A_y B_x) \\
+    &= A_y\frac{\partial B_z}{\partial x} + B_z\frac{\partial A_y}{\partial x} - A_z\frac{\partial B_y}{\partial x} - B_y\frac{\partial A_z}{\partial x} \\
+    &\quad + A_z\frac{\partial B_x}{\partial y} + B_x\frac{\partial A_z}{\partial y} - A_x\frac{\partial B_z}{\partial y} - B_z\frac{\partial A_x}{\partial y} \\
+    &\quad + A_x\frac{\partial B_y}{\partial z} + B_y\frac{\partial A_x}{\partial z} - A_y\frac{\partial B_x}{\partial z} - B_x\frac{\partial A_y}{\partial z}
+    \end{aligned}
+    $$
+
+    Grouping terms proportional to components of $\vec{B}$ and components of $\vec{A}$:
+
+    $$
+    \begin{aligned}
+    \nabla\cdot(\vec{A}\times\vec{B}) &= B_x\left(\frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z}\right) + B_y\left(\frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x}\right) + B_z\left(\frac{\partial A_y}{\partial x} - \frac{\partial A_x}{\partial y}\right) \\
+    &\quad - A_x\left(\frac{\partial B_z}{\partial y} - \frac{\partial B_y}{\partial z}\right) - A_y\left(\frac{\partial B_x}{\partial z} - \frac{\partial B_z}{\partial x}\right) - A_z\left(\frac{\partial B_y}{\partial x} - \frac{\partial B_x}{\partial y}\right) \\
+    &= \vec{B}\cdot(\nabla\times\vec{A}) - \vec{A}\cdot(\nabla\times\vec{B})
+    \end{aligned}
+    $$
+
+    3. **Rule (v) — $\nabla\times(f\vec{A})$:** Expanding the curl in Cartesian components:
+
+    $$
+    \begin{aligned}
+    \nabla\times(f\vec{A}) &= \left[\frac{\partial(fA_z)}{\partial y} - \frac{\partial(fA_y)}{\partial z}\right]\hat{x} + \left[\frac{\partial(fA_x)}{\partial z} - \frac{\partial(fA_z)}{\partial x}\right]\hat{y} + \left[\frac{\partial(fA_y)}{\partial x} - \frac{\partial(fA_x)}{\partial y}\right]\hat{z} \\
+    &= \left(f\frac{\partial A_z}{\partial y} + A_z\frac{\partial f}{\partial y} - f\frac{\partial A_y}{\partial z} - A_y\frac{\partial f}{\partial z}\right)\hat{x} \\
+    &\quad + \left(f\frac{\partial A_x}{\partial z} + A_x\frac{\partial f}{\partial z} - f\frac{\partial A_z}{\partial x} - A_z\frac{\partial f}{\partial x}\right)\hat{y} \\
+    &\quad + \left(f\frac{\partial A_y}{\partial x} + A_y\frac{\partial f}{\partial x} - f\frac{\partial A_x}{\partial y} - A_x\frac{\partial f}{\partial y}\right)\hat{z}
+    \end{aligned}
+    $$
+
+    Separating the $f$-multiplied derivatives from the $\partial f$ terms:
+
+    $$
+    \begin{aligned}
+    \nabla\times(f\vec{A}) &= f\left[\left(\frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z}\right)\hat{x} + \left(\frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x}\right)\hat{y} + \left(\frac{\partial A_y}{\partial x} - \frac{\partial A_x}{\partial y}\right)\hat{z}\right] \\
+    &\quad - \left[\left(A_y\frac{\partial f}{\partial z} - A_z\frac{\partial f}{\partial y}\right)\hat{x} + \left(A_z\frac{\partial f}{\partial x} - A_x\frac{\partial f}{\partial z}\right)\hat{y} + \left(A_x\frac{\partial f}{\partial y} - A_y\frac{\partial f}{\partial x}\right)\hat{z}\right] \\
+    &= f(\nabla\times\vec{A}) - \vec{A}\times(\nabla f)
+    \end{aligned}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.22" title="The Directional Derivative Operator (A · ∇)B" tag="Griffiths 1.22 · Directional Operator">
+  <div slot="problem">
+    1. If $\vec{A}$ and $\vec{B}$ are two vector functions, what does the expression $(\vec{A}\cdot\nabla)\vec{B}$ mean? *(That is, what are its $x$, $y$, and $z$ components, in terms of the Cartesian components of $\vec{A}$, $\vec{B}$, and $\nabla$?)*
+    2. Compute $(\hat{r}\cdot\nabla)\hat{r}$, where $\hat{r}$ is the unit vector defined in Eq. 1.21.
+    3. For the functions in Prob. 1.15 ($\vec{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$ and $\vec{v}_b = xy\hat{x} + 2yz\hat{y} + 3zx\hat{z}$), evaluate $(\vec{v}_a\cdot\nabla)\vec{v}_b$.
+  </div>
+
+  <div slot="answer">
+    1. $(\vec{A}\cdot\nabla)\vec{B} = \left(A_x\frac{\partial B_x}{\partial x} + A_y\frac{\partial B_x}{\partial y} + A_z\frac{\partial B_x}{\partial z}\right)\hat{x} + \left(A_x\frac{\partial B_y}{\partial x} + A_y\frac{\partial B_y}{\partial y} + A_z\frac{\partial B_y}{\partial z}\right)\hat{y} + \left(A_x\frac{\partial B_z}{\partial x} + A_y\frac{\partial B_z}{\partial y} + A_z\frac{\partial B_z}{\partial z}\right)\hat{z}$.
+    2. $(\hat{r}\cdot\nabla)\hat{r} = \mathbf{0}$.
+    3. $(\vec{v}_a\cdot\nabla)\vec{v}_b = x^2(y + 3z^2)\hat{x} + 2xz(3z^2 - 2y)\hat{y} - 3x^2 z\,\hat{z}$.
+  </div>
+
+  <div slot="solution">
+    1. **Meaning of $(\vec{A}\cdot\nabla)\vec{B}$:** First form the scalar differential operator $\vec{A}\cdot\nabla = A_x\dfrac{\partial}{\partial x} + A_y\dfrac{\partial}{\partial y} + A_z\dfrac{\partial}{\partial z}$, and let it act componentwise on $\vec{B} = B_x\hat{x} + B_y\hat{y} + B_z\hat{z}$:
+
+    $$
+    (\vec{A}\cdot\nabla)\vec{B} = \left(A_x\frac{\partial B_x}{\partial x} + A_y\frac{\partial B_x}{\partial y} + A_z\frac{\partial B_x}{\partial z}\right)\hat{x} + \left(A_x\frac{\partial B_y}{\partial x} + A_y\frac{\partial B_y}{\partial y} + A_z\frac{\partial B_y}{\partial z}\right)\hat{y} + \left(A_x\frac{\partial B_z}{\partial x} + A_y\frac{\partial B_z}{\partial y} + A_z\frac{\partial B_z}{\partial z}\right)\hat{z}
+    $$
+
+    2. **Evaluating $(\hat{r}\cdot\nabla)\hat{r}$:** Write $\hat{r} = \dfrac{\vec{r}}{r} = \dfrac{x\hat{x} + y\hat{y} + z\hat{z}}{\sqrt{x^2 + y^2 + z^2}}$. For the $x$-component:
+
+    $$
+    \left[(\hat{r}\cdot\nabla)\hat{r}\right]_x = \frac{1}{r}\left(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y} + z\frac{\partial}{\partial z}\right)\left(\frac{x}{\sqrt{x^2 + y^2 + z^2}}\right)
+    $$
+
+    Computing the partial derivatives:
+    - $\dfrac{\partial}{\partial x}\left(\dfrac{x}{r}\right) = \dfrac{1}{r} - \dfrac{x^2}{r^3}$
+    - $\dfrac{\partial}{\partial y}\left(\dfrac{x}{r}\right) = -\dfrac{xy}{r^3}$
+    - $\dfrac{\partial}{\partial z}\left(\dfrac{x}{r}\right) = -\dfrac{xz}{r^3}$
+
+    Substituting back gives:
+
+    $$
+    \left[(\hat{r}\cdot\nabla)\hat{r}\right]_x = \frac{1}{r}\left[\frac{x}{r} - \frac{x(x^2 + y^2 + z^2)}{r^3}\right] = \frac{1}{r}\left(\frac{x}{r} - \frac{x}{r}\right) = 0
+    $$
+
+    By symmetry, the $y$- and $z$-components also vanish, so $(\hat{r}\cdot\nabla)\hat{r} = \mathbf{0}$. *(Geometrically, $\hat{r}$ does not change direction as you move radially outward along $\hat{r}$.)*
+
+    3. **Evaluating $(\vec{v}_a\cdot\nabla)\vec{v}_b$:** Here $\vec{v}_a\cdot\nabla = x^2\dfrac{\partial}{\partial x} + 3xz^2\dfrac{\partial}{\partial y} - 2xz\dfrac{\partial}{\partial z}$ acts on $\vec{v}_b = xy\hat{x} + 2yz\hat{y} + 3zx\hat{z}$:
+
+    $$
+    \begin{aligned}
+    (\vec{v}_a\cdot\nabla)\vec{v}_b &= x^2(y\hat{x} + 0\hat{y} + 3z\hat{z}) + 3xz^2(x\hat{x} + 2z\hat{y} + 0\hat{z}) - 2xz(0\hat{x} + 2y\hat{y} + 3x\hat{z}) \\
+    &= (x^2 y + 3x^2 z^2)\hat{x} + (6xz^3 - 4xyz)\hat{y} + (3x^2 z - 6x^2 z)\hat{z} \\
+    &= x^2(y + 3z^2)\hat{x} + 2xz(3z^2 - 2y)\hat{y} - 3x^2 z\,\hat{z}
+    \end{aligned}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.23" title="Proofs of Product Rules (ii) and (vi)" tag="Griffiths 1.23 · Vector Product Rules">
+  <div slot="problem">
+    *(For masochists only.)* Prove product rules (ii) and (vi). Refer to Prob. 1.22 for the definition of $(\vec{A}\cdot\nabla)\vec{B}$.
+    1. $\nabla(\vec{A}\cdot\vec{B}) = \vec{A}\times(\nabla\times\vec{B}) + \vec{B}\times(\nabla\times\vec{A}) + (\vec{A}\cdot\nabla)\vec{B} + (\vec{B}\cdot\nabla)\vec{A}$.
+    2. $\nabla\times(\vec{A}\times\vec{B}) = (\vec{B}\cdot\nabla)\vec{A} - (\vec{A}\cdot\nabla)\vec{B} + \vec{A}(\nabla\cdot\vec{B}) - \vec{B}(\nabla\cdot\vec{A})$.
+  </div>
+
+  <div slot="answer">
+    Both identities are verified by comparing the $x$-component of the LHS and RHS in Cartesian coordinates; the $y$- and $z$-components follow identically by cyclic permutation $(x \to y \to z \to x)$.
+  </div>
+
+  <div slot="solution">
+    By cyclic symmetry of $(x,y,z)$, it suffices to prove equality for the $x$-component of each identity.
+
+    1. **Rule (ii) — $x$-component of $\nabla(\vec{A}\cdot\vec{B})$:** On the LHS:
+
+    $$
+    \left[\nabla(\vec{A}\cdot\vec{B})\right]_x = \frac{\partial}{\partial x}(A_x B_x + A_y B_y + A_z B_z) = \frac{\partial A_x}{\partial x}B_x + A_x\frac{\partial B_x}{\partial x} + \frac{\partial A_y}{\partial x}B_y + A_y\frac{\partial B_y}{\partial x} + \frac{\partial A_z}{\partial x}B_z + A_z\frac{\partial B_z}{\partial x}
+    $$
+
+    Now expand the $x$-component of each term on the RHS:
+
+    $$
+    \begin{aligned}
+    \left[\vec{A}\times(\nabla\times\vec{B})\right]_x &= A_y\left(\frac{\partial B_y}{\partial x} - \frac{\partial B_x}{\partial y}\right) - A_z\left(\frac{\partial B_x}{\partial z} - \frac{\partial B_z}{\partial x}\right) \\
+    \left[\vec{B}\times(\nabla\times\vec{A})\right]_x &= B_y\left(\frac{\partial A_y}{\partial x} - \frac{\partial A_x}{\partial y}\right) - B_z\left(\frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x}\right) \\
+    \left[(\vec{A}\cdot\nabla)\vec{B}\right]_x &= A_x\frac{\partial B_x}{\partial x} + A_y\frac{\partial B_x}{\partial y} + A_z\frac{\partial B_x}{\partial z} \\
+    \left[(\vec{B}\cdot\nabla)\vec{A}\right]_x &= B_x\frac{\partial A_x}{\partial x} + B_y\frac{\partial A_x}{\partial y} + B_z\frac{\partial A_x}{\partial z}
+    \end{aligned}
+    $$
+
+    Summing all four RHS pieces, the $y$- and $z$-derivative terms cancel in pairs ($\mp A_y \partial_y B_x$, $\mp A_z \partial_z B_x$, $\mp B_y \partial_y A_x$, $\mp B_z \partial_z A_x$), leaving:
+
+    $$
+    B_x\frac{\partial A_x}{\partial x} + A_x\frac{\partial B_x}{\partial x} + B_y\frac{\partial A_y}{\partial x} + A_y\frac{\partial B_y}{\partial x} + B_z\frac{\partial A_z}{\partial x} + A_z\frac{\partial B_z}{\partial x} = \left[\nabla(\vec{A}\cdot\vec{B})\right]_x
+    $$
+
+    2. **Rule (vi) — $x$-component of $\nabla\times(\vec{A}\times\vec{B})$:** On the LHS:
+
+    $$
+    \begin{aligned}
+    \left[\nabla\times(\vec{A}\times\vec{B})\right]_x &= \frac{\partial}{\partial y}(\vec{A}\times\vec{B})_z - \frac{\partial}{\partial z}(\vec{A}\times\vec{B})_y = \frac{\partial}{\partial y}(A_x B_y - A_y B_x) - \frac{\partial}{\partial z}(A_z B_x - A_x B_z) \\
+    &= \frac{\partial A_x}{\partial y}B_y + A_x\frac{\partial B_y}{\partial y} - \frac{\partial A_y}{\partial y}B_x - A_y\frac{\partial B_x}{\partial y} - \frac{\partial A_z}{\partial z}B_x - A_z\frac{\partial B_x}{\partial z} + \frac{\partial A_x}{\partial z}B_z + A_x\frac{\partial B_z}{\partial z}
+    \end{aligned}
+    $$
+
+    On the RHS, write out the $x$-component:
+
+    $$
+    \begin{aligned}
+    &\left[(\vec{B}\cdot\nabla)\vec{A} - (\vec{A}\cdot\nabla)\vec{B} + \vec{A}(\nabla\cdot\vec{B}) - \vec{B}(\nabla\cdot\vec{A})\right]_x \\
+    &\quad = \left(B_x\frac{\partial A_x}{\partial x} + B_y\frac{\partial A_x}{\partial y} + B_z\frac{\partial A_x}{\partial z}\right) - \left(A_x\frac{\partial B_x}{\partial x} + A_y\frac{\partial B_x}{\partial y} + A_z\frac{\partial B_x}{\partial z}\right) \\
+    &\qquad + A_x\left(\frac{\partial B_x}{\partial x} + \frac{\partial B_y}{\partial y} + \frac{\partial B_z}{\partial z}\right) - B_x\left(\frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}\right)
+    \end{aligned}
+    $$
+
+    Canceling $+B_x\frac{\partial A_x}{\partial x}$ with $-B_x\frac{\partial A_x}{\partial x}$ and $-A_x\frac{\partial B_x}{\partial x}$ with $+A_x\frac{\partial B_x}{\partial x}$ leaves the exact eight terms of $\left[\nabla\times(\vec{A}\times\vec{B})\right]_x$. Cyclic permutation yields the $y$- and $z$-components.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.24" title="Derivation of the Three Quotient Rules" tag="Griffiths 1.24 · Quotient Rules">
+  <div slot="problem">
+    Derive the three quotient rules (assuming $g \neq 0$):
+    1. $\nabla\left(\dfrac{f}{g}\right) = \dfrac{g\nabla f - f\nabla g}{g^2}$.
+    2. $\nabla\cdot\left(\dfrac{\vec{A}}{g}\right) = \dfrac{g(\nabla\cdot\vec{A}) - \vec{A}\cdot(\nabla g)}{g^2}$.
+    3. $\nabla\times\left(\dfrac{\vec{A}}{g}\right) = \dfrac{g(\nabla\times\vec{A}) + \vec{A}\times(\nabla g)}{g^2}$.
+  </div>
+
+  <div slot="answer">
+    All three quotient rules follow directly by expanding in Cartesian coordinates using the single-variable quotient rule (or equivalently by applying product rules (i), (iii), and (v) with scalar factor $1/g$).
+  </div>
+
+  <div slot="solution">
+    1. **Gradient quotient rule:**
+
+    $$
+    \begin{aligned}
+    \nabla\left(\frac{f}{g}\right) &= \frac{\partial(f/g)}{\partial x}\hat{x} + \frac{\partial(f/g)}{\partial y}\hat{y} + \frac{\partial(f/g)}{\partial z}\hat{z} \\
+    &= \frac{g\,\partial_x f - f\,\partial_x g}{g^2}\hat{x} + \frac{g\,\partial_y f - f\,\partial_y g}{g^2}\hat{y} + \frac{g\,\partial_z f - f\,\partial_z g}{g^2}\hat{z} \\
+    &= \frac{1}{g^2}\left[g\left(\frac{\partial f}{\partial x}\hat{x} + \frac{\partial f}{\partial y}\hat{y} + \frac{\partial f}{\partial z}\hat{z}\right) - f\left(\frac{\partial g}{\partial x}\hat{x} + \frac{\partial g}{\partial y}\hat{y} + \frac{\partial g}{\partial z}\hat{z}\right)\right] \\
+    &= \frac{g\nabla f - f\nabla g}{g^2}
+    \end{aligned}
+    $$
+
+    2. **Divergence quotient rule:**
+
+    $$
+    \begin{aligned}
+    \nabla\cdot\left(\frac{\vec{A}}{g}\right) &= \frac{\partial(A_x/g)}{\partial x} + \frac{\partial(A_y/g)}{\partial y} + \frac{\partial(A_z/g)}{\partial z} \\
+    &= \frac{g\,\partial_x A_x - A_x\,\partial_x g}{g^2} + \frac{g\,\partial_y A_y - A_y\,\partial_y g}{g^2} + \frac{g\,\partial_z A_z - A_z\,\partial_z g}{g^2} \\
+    &= \frac{1}{g^2}\left[g\left(\frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}\right) - \left(A_x\frac{\partial g}{\partial x} + A_y\frac{\partial g}{\partial y} + A_z\frac{\partial g}{\partial z}\right)\right] \\
+    &= \frac{g(\nabla\cdot\vec{A}) - \vec{A}\cdot(\nabla g)}{g^2}
+    \end{aligned}
+    $$
+
+    3. **Curl quotient rule:** Examining the $x$-component:
+
+    $$
+    \begin{aligned}
+    \left[\nabla\times\left(\frac{\vec{A}}{g}\right)\right]_x &= \frac{\partial}{\partial y}\left(\frac{A_z}{g}\right) - \frac{\partial}{\partial z}\left(\frac{A_y}{g}\right) = \frac{g\,\partial_y A_z - A_z\,\partial_y g}{g^2} - \frac{g\,\partial_z A_y - A_y\,\partial_z g}{g^2} \\
+    &= \frac{1}{g^2}\left[g\left(\frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z}\right) + \left(A_y\frac{\partial g}{\partial z} - A_z\frac{\partial g}{\partial y}\right)\right] = \frac{g(\nabla\times\vec{A})_x + (\vec{A}\times\nabla g)_x}{g^2}
+    \end{aligned}
+    $$
+
+    The $y$- and $z$-components follow identically by cyclic permutation, yielding $\nabla\times(\vec{A}/g) = \dfrac{g(\nabla\times\vec{A}) + \vec{A}\times(\nabla g)}{g^2}$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.25" title="Direct Verification of Product Rules (iv), (ii), and (vi)" tag="Griffiths 1.25 · Product Rule Check">
+  <div slot="problem">
+    1. Check product rule (iv) (by calculating each term separately) for the functions
+       $\vec{A} = x\hat{x} + 2y\hat{y} + 3z\hat{z}$ and $\vec{B} = 3y\hat{x} - 2x\hat{y}$.
+    2. Do the same for product rule (ii).
+    3. Do the same for rule (vi).
+  </div>
+
+  <div slot="answer">
+    1. Rule (iv): $\text{LHS} = \nabla\cdot(\vec{A}\times\vec{B}) = 15z$, and $\text{RHS} = \vec{B}\cdot(\nabla\times\vec{A}) - \vec{A}\cdot(\nabla\times\vec{B}) = 0 - (-15z) = 15z$.
+    2. Rule (ii): $\text{LHS} = \nabla(\vec{A}\cdot\vec{B}) = -y\hat{x} - x\hat{y}$, and $\text{RHS} = (-10y\hat{x} + 5x\hat{y}) + \mathbf{0} + (6y\hat{x} - 2x\hat{y}) + (3y\hat{x} - 4x\hat{y}) = -y\hat{x} - x\hat{y}$.
+    3. Rule (vi): $\text{LHS} = \nabla\times(\vec{A}\times\vec{B}) = -21y\hat{x} + 10x\hat{y}$, and $\text{RHS} = (3y\hat{x} - 4x\hat{y}) - (6y\hat{x} - 2x\hat{y}) + \mathbf{0} - 6(3y\hat{x} - 2x\hat{y}) = -21y\hat{x} + 10x\hat{y}$.
+  </div>
+
+  <div slot="solution">
+    First compute the shared cross product and curls/divergences:
+
+    $$
+    \vec{A}\times\vec{B} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ x & 2y & 3z \\ 3y & -2x & 0 \end{vmatrix} = 6xz\,\hat{x} + 9yz\,\hat{y} - (2x^2 + 6y^2)\hat{z}
+    $$
+
+    $$
+    \nabla\times\vec{A} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ x & 2y & 3z \end{vmatrix} = \mathbf{0}, \qquad \nabla\times\vec{B} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ 3y & -2x & 0 \end{vmatrix} = (-2 - 3)\hat{z} = -5\hat{z}
+    $$
+
+    1. **Product rule (iv): $\nabla\cdot(\vec{A}\times\vec{B}) = \vec{B}\cdot(\nabla\times\vec{A}) - \vec{A}\cdot(\nabla\times\vec{B})$.**
+       - LHS:
+
+       $$
+       \nabla\cdot(\vec{A}\times\vec{B}) = \frac{\partial}{\partial x}(6xz) + \frac{\partial}{\partial y}(9yz) + \frac{\partial}{\partial z}(-2x^2 - 6y^2) = 6z + 9z + 0 = 15z
+       $$
+
+       - RHS: $\vec{B}\cdot(\nabla\times\vec{A}) = 0$, and $\vec{A}\cdot(\nabla\times\vec{B}) = (3z)(-5) = -15z$, so:
+
+       $$
+       \vec{B}\cdot(\nabla\times\vec{A}) - \vec{A}\cdot(\nabla\times\vec{B}) = 0 - (-15z) = 15z \quad \checkmark
+       $$
+
+    2. **Product rule (ii): $\nabla(\vec{A}\cdot\vec{B}) = \vec{A}\times(\nabla\times\vec{B}) + \vec{B}\times(\nabla\times\vec{A}) + (\vec{A}\cdot\nabla)\vec{B} + (\vec{B}\cdot\nabla)\vec{A}$.**
+       - LHS: $\vec{A}\cdot\vec{B} = 3xy - 4xy = -xy$, so:
+
+       $$
+       \nabla(\vec{A}\cdot\vec{B}) = \nabla(-xy) = -y\hat{x} - x\hat{y}
+       $$
+
+       - RHS terms:
+
+       $$
+       \vec{A}\times(\nabla\times\vec{B}) = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ x & 2y & 3z \\ 0 & 0 & -5 \end{vmatrix} = -10y\hat{x} + 5x\hat{y}, \qquad \vec{B}\times(\nabla\times\vec{A}) = \mathbf{0}
+       $$
+
+       $$
+       (\vec{A}\cdot\nabla)\vec{B} = \left(x\frac{\partial}{\partial x} + 2y\frac{\partial}{\partial y} + 3z\frac{\partial}{\partial z}\right)(3y\hat{x} - 2x\hat{y}) = 6y\hat{x} - 2x\hat{y}
+       $$
+
+       $$
+       (\vec{B}\cdot\nabla)\vec{A} = \left(3y\frac{\partial}{\partial x} - 2x\frac{\partial}{\partial y}\right)(x\hat{x} + 2y\hat{y} + 3z\hat{z}) = 3y\hat{x} - 4x\hat{y}
+       $$
+
+       - Summing the RHS terms:
+
+       $$
+       (-10y\hat{x} + 5x\hat{y}) + \mathbf{0} + (6y\hat{x} - 2x\hat{y}) + (3y\hat{x} - 4x\hat{y}) = -y\hat{x} - x\hat{y} \quad \checkmark
+       $$
+
+    3. **Product rule (vi): $\nabla\times(\vec{A}\times\vec{B}) = (\vec{B}\cdot\nabla)\vec{A} - (\vec{A}\cdot\nabla)\vec{B} + \vec{A}(\nabla\cdot\vec{B}) - \vec{B}(\nabla\cdot\vec{A})$.**
+       - LHS:
+
+       $$
+       \nabla\times(\vec{A}\times\vec{B}) = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ 6xz & 9yz & -2x^2 - 6y^2 \end{vmatrix} = (-12y - 9y)\hat{x} + (6x + 4x)\hat{y} + 0\hat{z} = -21y\hat{x} + 10x\hat{y}
+       $$
+
+       - RHS: Here $\nabla\cdot\vec{A} = 1 + 2 + 3 = 6$ and $\nabla\cdot\vec{B} = 0 + 0 + 0 = 0$. Using $(\vec{B}\cdot\nabla)\vec{A}$ and $(\vec{A}\cdot\nabla)\vec{B}$ from part 2:
+
+       $$
+       (3y\hat{x} - 4x\hat{y}) - (6y\hat{x} - 2x\hat{y}) + \mathbf{0} - 6(3y\hat{x} - 2x\hat{y}) = (3 - 6 - 18)y\hat{x} + (-4 + 2 + 12)x\hat{y} = -21y\hat{x} + 10x\hat{y} \quad \checkmark
+       $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.26" title="Computing Scalar and Vector Laplacians" tag="Griffiths 1.26 · Laplacian">
+  <div slot="problem">
+    Calculate the Laplacian of the following functions:
+    1. $T_a = x^2 + 2xy + 3z + 4$.
+    2. $T_b = \sin x \sin y \sin z$.
+    3. $T_c = e^{-5x} \sin 4y \cos 3z$.
+    4. $\vec{v} = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$.
+  </div>
+
+  <div slot="answer">
+    1. $\nabla^2 T_a = 2$
+    2. $\nabla^2 T_b = -3\sin x \sin y \sin z$
+    3. $\nabla^2 T_c = 0$
+    4. $\nabla^2 \vec{v} = 2\hat{x} + 6x\hat{y}$
+  </div>
+
+  <div slot="solution">
+    Using the Cartesian Laplacian $\nabla^2 T = \dfrac{\partial^2 T}{\partial x^2} + \dfrac{\partial^2 T}{\partial y^2} + \dfrac{\partial^2 T}{\partial z^2}$:
+
+    1. For $T_a = x^2 + 2xy + 3z + 4$:
+
+    $$
+    \frac{\partial^2 T_a}{\partial x^2} = 2, \qquad \frac{\partial^2 T_a}{\partial y^2} = 0, \qquad \frac{\partial^2 T_a}{\partial z^2} = 0 \implies \nabla^2 T_a = 2
+    $$
+
+    2. For $T_b = \sin x \sin y \sin z$:
+
+    $$
+    \frac{\partial^2 T_b}{\partial x^2} = \frac{\partial^2 T_b}{\partial y^2} = \frac{\partial^2 T_b}{\partial z^2} = -T_b \implies \nabla^2 T_b = -3T_b = -3\sin x \sin y \sin z
+    $$
+
+    3. For $T_c = e^{-5x} \sin 4y \cos 3z$:
+
+    $$
+    \frac{\partial^2 T_c}{\partial x^2} = 25\,T_c, \qquad \frac{\partial^2 T_c}{\partial y^2} = -16\,T_c, \qquad \frac{\partial^2 T_c}{\partial z^2} = -9\,T_c \implies \nabla^2 T_c = (25 - 16 - 9)T_c = 0
+    $$
+
+    4. For the vector $\vec{v} = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$, apply $\nabla^2$ to each Cartesian component (Eq. 1.43):
+       - $\nabla^2 v_x = \dfrac{\partial^2(x^2)}{\partial x^2} + 0 + 0 = 2$
+       - $\nabla^2 v_y = 0 + 0 + \dfrac{\partial^2(3xz^2)}{\partial z^2} = 6x$
+       - $\nabla^2 v_z = 0 + 0 + 0 = 0$
+
+    Hence:
+
+    $$
+    \nabla^2 \vec{v} = 2\hat{x} + 6x\hat{y}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.27" title="Vanishing of the Divergence of a Curl" tag="Griffiths 1.27 · Second Derivatives">
+  <div slot="problem">
+    Prove that the divergence of a curl is always zero. Check it for function $\vec{v}_a$ in Prob. 1.15 ($\vec{v}_a = x^2\hat{x} + 3xz^2\hat{y} - 2xz\hat{z}$).
+  </div>
+
+  <div slot="answer">
+    $\nabla\cdot(\nabla\times\vec{v}) = 0$ identically by the equality of mixed partial derivatives. For $\vec{v}_a$, $\nabla\times\vec{v}_a = -6xz\,\hat{x} + 2z\,\hat{y} + 3z^2\,\hat{z}$, whose divergence is $-6z + 0 + 6z = 0$.
+  </div>
+
+  <div slot="solution">
+    **General proof:** Expand $\nabla\cdot(\nabla\times\vec{v})$ in Cartesian coordinates for any $C^2$ vector field $\vec{v}$:
+
+    $$
+    \begin{aligned}
+    \nabla\cdot(\nabla\times\vec{v}) &= \frac{\partial}{\partial x}\left(\frac{\partial v_z}{\partial y} - \frac{\partial v_y}{\partial z}\right) + \frac{\partial}{\partial y}\left(\frac{\partial v_x}{\partial z} - \frac{\partial v_z}{\partial x}\right) + \frac{\partial}{\partial z}\left(\frac{\partial v_y}{\partial x} - \frac{\partial v_x}{\partial y}\right) \\
+    &= \left(\frac{\partial^2 v_z}{\partial x\partial y} - \frac{\partial^2 v_z}{\partial y\partial x}\right) + \left(\frac{\partial^2 v_x}{\partial y\partial z} - \frac{\partial^2 v_x}{\partial z\partial y}\right) + \left(\frac{\partial^2 v_y}{\partial z\partial x} - \frac{\partial^2 v_y}{\partial x\partial z}\right) = 0
+    \end{aligned}
+    $$
+
+    Each parenthesized pair vanishes identically by Clairaut's theorem (equality of mixed second partial derivatives).
+
+    **Check for $\vec{v}_a$:** From Prob. 1.18, $\nabla\times\vec{v}_a = -6xz\,\hat{x} + 2z\,\hat{y} + 3z^2\,\hat{z}$. Taking the divergence:
+
+    $$
+    \nabla\cdot(\nabla\times\vec{v}_a) = \frac{\partial}{\partial x}(-6xz) + \frac{\partial}{\partial y}(2z) + \frac{\partial}{\partial z}(3z^2) = -6z + 0 + 6z = 0 \quad \checkmark
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.28" title="Vanishing of the Curl of a Gradient" tag="Griffiths 1.28 · Second Derivatives">
+  <div slot="problem">
+    Prove that the curl of a gradient is always zero. Check it for function (b) in Prob. 1.11 ($f(x,y,z) = x^2 y^3 z^4$).
+  </div>
+
+  <div slot="answer">
+    $\nabla\times(\nabla T) = \mathbf{0}$ identically by the equality of mixed partial derivatives. For $f = x^2 y^3 z^4$, $\nabla\times(\nabla f) = (12x^2 y^2 z^3 - 12x^2 y^2 z^3)\hat{x} + (8xy^3 z^3 - 8xy^3 z^3)\hat{y} + (6xy^2 z^4 - 6xy^2 z^4)\hat{z} = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    **General proof:** For any $C^2$ scalar function $T(x,y,z)$, compute the curl of $\nabla T$:
+
+    $$
+    \begin{aligned}
+    \nabla\times(\nabla T) &= \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial/\partial x & \partial/\partial y & \partial/\partial z \\ \partial T/\partial x & \partial T/\partial y & \partial T/\partial z \end{vmatrix} \\
+    &= \left(\frac{\partial^2 T}{\partial y\partial z} - \frac{\partial^2 T}{\partial z\partial y}\right)\hat{x} + \left(\frac{\partial^2 T}{\partial z\partial x} - \frac{\partial^2 T}{\partial x\partial z}\right)\hat{y} + \left(\frac{\partial^2 T}{\partial x\partial y} - \frac{\partial^2 T}{\partial y\partial x}\right)\hat{z} = \mathbf{0}
+    \end{aligned}
+    $$
+
+    Every component vanishes identically by the equality of mixed partial derivatives.
+
+    **Check for $f = x^2 y^3 z^4$:** From Prob. 1.11(b), $\nabla f = 2xy^3 z^4\,\hat{x} + 3x^2 y^2 z^4\,\hat{y} + 4x^2 y^3 z^3\,\hat{z}$. Taking its curl:
+
+    $$
+    \begin{aligned}
+    \nabla\times(\nabla f) &= \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ 2xy^3 z^4 & 3x^2 y^2 z^4 & 4x^2 y^3 z^3 \end{vmatrix} \\
+    &= (12x^2 y^2 z^3 - 12x^2 y^2 z^3)\hat{x} + (8xy^3 z^3 - 8xy^3 z^3)\hat{y} + (6xy^2 z^4 - 6xy^2 z^4)\hat{z} = \mathbf{0} \quad \checkmark
+    \end{aligned}
+    $$
+  </div>
+</ProblemCard>
+
+</section>

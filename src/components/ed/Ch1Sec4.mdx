@@ -1,0 +1,527 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch1-sec4" class="ed-sec-block">
+
+### 1.4 Curvilinear Coordinates
+
+<div class="ed-theory-box">
+
+#### 1.4.1 Spherical Coordinates $(r, \theta, \phi)$
+
+A point $P$ is located by its radial distance $r \in [0, \infty)$ from the origin, polar angle $\theta \in [0, \pi]$ measured down from the $+z$ axis, and azimuthal angle $\phi \in [0, 2\pi)$ measured around from the $+x$ axis in the $xy$ plane:
+
+$$
+x = r \sin\theta \cos\phi, \qquad y = r \sin\theta \sin\phi, \qquad z = r \cos\theta.
+$$
+
+The local orthonormal basis $(\hat{\mathbf{r}}, \hat{\boldsymbol{\theta}}, \hat{\boldsymbol{\phi}})$ points in the direction of increase of each coordinate and forms a right-handed triad ($\hat{\mathbf{r}} \times \hat{\boldsymbol{\theta}} = \hat{\boldsymbol{\phi}}$):
+
+$$
+\begin{aligned}
+\hat{\mathbf{r}} &= \sin\theta \cos\phi\,\hat{\mathbf{x}} + \sin\theta \sin\phi\,\hat{\mathbf{y}} + \cos\theta\,\hat{\mathbf{z}}, \\
+\hat{\boldsymbol{\theta}} &= \cos\theta \cos\phi\,\hat{\mathbf{x}} + \cos\theta \sin\phi\,\hat{\mathbf{y}} - \sin\theta\,\hat{\mathbf{z}}, \\
+\hat{\boldsymbol{\phi}} &= -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}.
+\end{aligned}
+$$
+
+Unlike Cartesian unit vectors, $\hat{\mathbf{r}}, \hat{\boldsymbol{\theta}}, \hat{\boldsymbol{\phi}}$ vary with position $(\theta, \phi)$, so they must never be pulled outside integrals or treated as constants under differentiation (for example, $\partial \hat{\mathbf{r}}/\partial\theta = \hat{\boldsymbol{\theta}}$), nor should components at different points be added directly without transforming to a fixed basis.
+
+The infinitesimal line, surface (oriented), and volume elements are
+
+$$
+d\mathbf{l} = dr\,\hat{\mathbf{r}} + r\,d\theta\,\hat{\boldsymbol{\theta}} + r\sin\theta\,d\phi\,\hat{\boldsymbol{\phi}}, \qquad d\tau = r^2 \sin\theta\,dr\,d\theta\,d\phi,
+$$
+
+with surface elements $d\mathbf{a} = r^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$ on a sphere of constant $r$, $d\mathbf{a} = \pm r\,dr\,d\phi\,\hat{\boldsymbol{\theta}}$ on a cone of constant $\theta$, and $d\mathbf{a} = \pm r\,dr\,d\theta\,\hat{\boldsymbol{\phi}}$ on a half-plane of constant $\phi$.
+
+In spherical coordinates, the four fundamental differential operators acting on a scalar field $T(r, \theta, \phi)$ and a vector field $\mathbf{v} = v_r\,\hat{\mathbf{r}} + v_\theta\,\hat{\boldsymbol{\theta}} + v_\phi\,\hat{\boldsymbol{\phi}}$ are:
+
+$$
+\nabla T = \frac{\partial T}{\partial r}\,\hat{\mathbf{r}} + \frac{1}{r}\frac{\partial T}{\partial \theta}\,\hat{\boldsymbol{\theta}} + \frac{1}{r\sin\theta}\frac{\partial T}{\partial \phi}\,\hat{\boldsymbol{\phi}},
+$$
+
+$$
+\nabla \cdot \mathbf{v} = \frac{1}{r^2}\frac{\partial}{\partial r}(r^2 v_r) + \frac{1}{r\sin\theta}\frac{\partial}{\partial \theta}(\sin\theta\,v_\theta) + \frac{1}{r\sin\theta}\frac{\partial v_\phi}{\partial \phi},
+$$
+
+$$
+\nabla \times \mathbf{v} = \frac{1}{r\sin\theta}\left[\frac{\partial}{\partial \theta}(\sin\theta\,v_\phi) - \frac{\partial v_\theta}{\partial \phi}\right]\hat{\mathbf{r}} + \frac{1}{r}\left[\frac{1}{\sin\theta}\frac{\partial v_r}{\partial \phi} - \frac{\partial}{\partial r}(r v_\phi)\right]\hat{\boldsymbol{\theta}} + \frac{1}{r}\left[\frac{\partial}{\partial r}(r v_\theta) - \frac{\partial v_r}{\partial \theta}\right]\hat{\boldsymbol{\phi}},
+$$
+
+$$
+\nabla^2 T = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2 \frac{\partial T}{\partial r}\right) + \frac{1}{r^2\sin\theta}\frac{\partial}{\partial \theta}\left(\sin\theta\,\frac{\partial T}{\partial \theta}\right) + \frac{1}{r^2\sin^2\theta}\frac{\partial^2 T}{\partial \phi^2}.
+$$
+
+#### 1.4.2 Cylindrical Coordinates $(s, \phi, z)$
+
+A point $P$ is parameterized by its perpendicular distance $s \in [0, \infty)$ from the $z$ axis, azimuthal angle $\phi \in [0, 2\pi)$, and height $z \in (-\infty, \infty)$:
+
+$$
+x = s\cos\phi, \qquad y = s\sin\phi, \qquad z = z.
+$$
+
+The right-handed local orthonormal basis $(\hat{\mathbf{s}}, \hat{\boldsymbol{\phi}}, \hat{\mathbf{z}})$ is given by
+
+$$
+\hat{\mathbf{s}} = \cos\phi\,\hat{\mathbf{x}} + \sin\phi\,\hat{\mathbf{y}}, \qquad \hat{\boldsymbol{\phi}} = -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}, \qquad \hat{\mathbf{z}} = \hat{\mathbf{z}},
+$$
+
+with infinitesimal displacement and volume elements
+
+$$
+d\mathbf{l} = ds\,\hat{\mathbf{s}} + s\,d\phi\,\hat{\boldsymbol{\phi}} + dz\,\hat{\mathbf{z}}, \qquad d\tau = s\,ds\,d\phi\,dz.
+$$
+
+The vector derivatives in cylindrical coordinates are:
+
+$$
+\nabla T = \frac{\partial T}{\partial s}\,\hat{\mathbf{s}} + \frac{1}{s}\frac{\partial T}{\partial \phi}\,\hat{\boldsymbol{\phi}} + \frac{\partial T}{\partial z}\,\hat{\mathbf{z}},
+$$
+
+$$
+\nabla \cdot \mathbf{v} = \frac{1}{s}\frac{\partial}{\partial s}(s v_s) + \frac{1}{s}\frac{\partial v_\phi}{\partial \phi} + \frac{\partial v_z}{\partial z},
+$$
+
+$$
+\nabla \times \mathbf{v} = \left(\frac{1}{s}\frac{\partial v_z}{\partial \phi} - \frac{\partial v_\phi}{\partial z}\right)\hat{\mathbf{s}} + \left(\frac{\partial v_s}{\partial z} - \frac{\partial v_z}{\partial s}\right)\hat{\boldsymbol{\phi}} + \frac{1}{s}\left[\frac{\partial}{\partial s}(s v_\phi) - \frac{\partial v_s}{\partial \phi}\right]\hat{\mathbf{z}},
+$$
+
+$$
+\nabla^2 T = \frac{1}{s}\frac{\partial}{\partial s}\left(s\frac{\partial T}{\partial s}\right) + \frac{1}{s^2}\frac{\partial^2 T}{\partial \phi^2} + \frac{\partial^2 T}{\partial z^2}.
+$$
+
+</div>
+
+<ProblemCard num="1.37" title="Inverse Spherical Transformation" tag="Griffiths 1.37 · Spherical Coordinates">
+  <div slot="problem">
+    Find formulas for $r$, $\theta$, $\phi$ in terms of $x$, $y$, $z$ (the inverse, in other words, of Eq. 1.62).
+  </div>
+
+  <div slot="answer">
+    $$
+    r = \sqrt{x^2 + y^2 + z^2}, \qquad \theta = \cos^{-1}\!\left(\frac{z}{\sqrt{x^2 + y^2 + z^2}}\right), \qquad \phi = \tan^{-1}\!\left(\frac{y}{x}\right).
+    $$
+  </div>
+
+  <div slot="solution">
+    Starting from the forward transformation equations
+
+    $$
+    x = r \sin\theta \cos\phi, \qquad y = r \sin\theta \sin\phi, \qquad z = r \cos\theta,
+    $$
+
+    we first compute the sum of squares to eliminate $\theta$ and $\phi$:
+
+    $$
+    x^2 + y^2 + z^2 = r^2\sin^2\theta(\cos^2\phi + \sin^2\phi) + r^2\cos^2\theta = r^2(\sin^2\theta + \cos^2\theta) = r^2.
+    $$
+
+    Since $r \ge 0$, taking the positive square root gives
+
+    $$
+    r = \sqrt{x^2 + y^2 + z^2}.
+    $$
+
+    Next, dividing $z = r\cos\theta$ by $r$ yields $\cos\theta = z/r$. Because $\theta \in [0, \pi]$ lies in the principal range of the inverse cosine,
+
+    $$
+    \theta = \cos^{-1}\!\left(\frac{z}{\sqrt{x^2 + y^2 + z^2}}\right).
+    $$
+
+    Finally, taking the ratio of $y$ to $x$ cancels $r\sin\theta$:
+
+    $$
+    \frac{y}{x} = \frac{r\sin\theta\sin\phi}{r\sin\theta\cos\phi} = \tan\phi \implies \phi = \tan^{-1}\!\left(\frac{y}{x}\right),
+    $$
+
+    where the quadrant of $\phi \in [0, 2\pi)$ is determined by the individual signs of $x$ and $y$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.38" title="Spherical Unit Vectors and Their Inverse" tag="Griffiths 1.38 · Unit Vectors">
+  <div slot="problem">
+    Express the unit vectors $\hat{\mathbf{r}}$, $\hat{\boldsymbol{\theta}}$, $\hat{\boldsymbol{\phi}}$ in terms of $\hat{\mathbf{x}}$, $\hat{\mathbf{y}}$, $\hat{\mathbf{z}}$ (that is, derive Eq. 1.64). Check your answers several ways ($\hat{\mathbf{r}} \cdot \hat{\mathbf{r}} = 1$, $\hat{\boldsymbol{\theta}} \cdot \hat{\boldsymbol{\phi}} = 0$, $\hat{\mathbf{r}} \times \hat{\boldsymbol{\theta}} = \hat{\boldsymbol{\phi}}$, $\dots$). Also work out the inverse formulas, giving $\hat{\mathbf{x}}$, $\hat{\mathbf{y}}$, $\hat{\mathbf{z}}$ in terms of $\hat{\mathbf{r}}$, $\hat{\boldsymbol{\theta}}$, $\hat{\boldsymbol{\phi}}$ (and $\theta$, $\phi$).
+  </div>
+
+  <div slot="answer">
+    Forward transformation:
+
+    $$
+    \begin{aligned}
+    \hat{\mathbf{r}} &= \sin\theta\cos\phi\,\hat{\mathbf{x}} + \sin\theta\sin\phi\,\hat{\mathbf{y}} + \cos\theta\,\hat{\mathbf{z}}, \\
+    \hat{\boldsymbol{\theta}} &= \cos\theta\cos\phi\,\hat{\mathbf{x}} + \cos\theta\sin\phi\,\hat{\mathbf{y}} - \sin\theta\,\hat{\mathbf{z}}, \\
+    \hat{\boldsymbol{\phi}} &= -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}.
+    \end{aligned}
+    $$
+
+    Inverse transformation:
+
+    $$
+    \begin{aligned}
+    \hat{\mathbf{x}} &= \sin\theta\cos\phi\,\hat{\mathbf{r}} + \cos\theta\cos\phi\,\hat{\boldsymbol{\theta}} - \sin\phi\,\hat{\boldsymbol{\phi}}, \\
+    \hat{\mathbf{y}} &= \sin\theta\sin\phi\,\hat{\mathbf{r}} + \cos\theta\sin\phi\,\hat{\boldsymbol{\theta}} + \cos\phi\,\hat{\boldsymbol{\phi}}, \\
+    \hat{\mathbf{z}} &= \cos\theta\,\hat{\mathbf{r}} - \sin\theta\,\hat{\boldsymbol{\theta}}.
+    \end{aligned}
+    $$
+  </div>
+
+  <div slot="solution">
+    Write the position vector in spherical coordinates:
+
+    $$
+    \mathbf{r} = x\,\hat{\mathbf{x}} + y\,\hat{\mathbf{y}} + z\,\hat{\mathbf{z}} = r\sin\theta\cos\phi\,\hat{\mathbf{x}} + r\sin\theta\sin\phi\,\hat{\mathbf{y}} + r\cos\theta\,\hat{\mathbf{z}}.
+    $$
+
+    When only one coordinate $q \in \{r, \theta, \phi\}$ varies slightly, the displacement $d\mathbf{r} = (\partial\mathbf{r}/\partial q)\,dq$ points along the corresponding basis vector $\hat{\mathbf{q}}$. Normalizing each partial derivative gives the unit vectors:
+
+    $$
+    \hat{\mathbf{r}} = \frac{\partial\mathbf{r}/\partial r}{|\partial\mathbf{r}/\partial r|}, \qquad \hat{\boldsymbol{\theta}} = \frac{\partial\mathbf{r}/\partial\theta}{|\partial\mathbf{r}/\partial\theta|}, \qquad \hat{\boldsymbol{\phi}} = \frac{\partial\mathbf{r}/\partial\phi}{|\partial\mathbf{r}/\partial\phi|}.
+    $$
+
+    Computing each partial derivative and its squared norm:
+
+    $$
+    \frac{\partial\mathbf{r}}{\partial r} = \sin\theta\cos\phi\,\hat{\mathbf{x}} + \sin\theta\sin\phi\,\hat{\mathbf{y}} + \cos\theta\,\hat{\mathbf{z}}, \qquad \left|\frac{\partial\mathbf{r}}{\partial r}\right|^2 = \sin^2\theta(\cos^2\phi + \sin^2\phi) + \cos^2\theta = 1,
+    $$
+
+    $$
+    \frac{\partial\mathbf{r}}{\partial \theta} = r\cos\theta\cos\phi\,\hat{\mathbf{x}} + r\cos\theta\sin\phi\,\hat{\mathbf{y}} - r\sin\theta\,\hat{\mathbf{z}}, \qquad \left|\frac{\partial\mathbf{r}}{\partial \theta}\right|^2 = r^2\cos^2\theta(\cos^2\phi + \sin^2\phi) + r^2\sin^2\theta = r^2,
+    $$
+
+    $$
+    \frac{\partial\mathbf{r}}{\partial \phi} = -r\sin\theta\sin\phi\,\hat{\mathbf{x}} + r\sin\theta\cos\phi\,\hat{\mathbf{y}}, \qquad \left|\frac{\partial\mathbf{r}}{\partial \phi}\right|^2 = r^2\sin^2\theta(\sin^2\phi + \cos^2\phi) = r^2\sin^2\theta.
+    $$
+
+    Dividing by $1$, $r$, and $r\sin\theta$ respectively yields Eq. (1.64):
+
+    $$
+    \begin{aligned}
+    \hat{\mathbf{r}} &= \sin\theta\cos\phi\,\hat{\mathbf{x}} + \sin\theta\sin\phi\,\hat{\mathbf{y}} + \cos\theta\,\hat{\mathbf{z}}, \\
+    \hat{\boldsymbol{\theta}} &= \cos\theta\cos\phi\,\hat{\mathbf{x}} + \cos\theta\sin\phi\,\hat{\mathbf{y}} - \sin\theta\,\hat{\mathbf{z}}, \\
+    \hat{\boldsymbol{\phi}} &= -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}.
+    \end{aligned}
+    $$
+
+    **Checks:**
+
+    $$
+    \begin{aligned}
+    \hat{\mathbf{r}}\cdot\hat{\mathbf{r}} &= \sin^2\theta(\cos^2\phi + \sin^2\phi) + \cos^2\theta = \sin^2\theta + \cos^2\theta = 1, \\
+    \hat{\boldsymbol{\theta}}\cdot\hat{\boldsymbol{\phi}} &= -\cos\theta\cos\phi\sin\phi + \cos\theta\sin\phi\cos\phi + 0 = 0, \\
+    \hat{\mathbf{r}}\times\hat{\boldsymbol{\theta}} &= (\sin\theta\sin\phi(-\sin\theta) - \cos^2\theta\sin\phi)\,\hat{\mathbf{x}} + (\cos^2\theta\cos\phi + \sin^2\theta\cos\phi)\,\hat{\mathbf{y}} + (\sin\theta\cos\theta\cos\phi\sin\phi - \sin\theta\cos\theta\sin\phi\cos\phi)\,\hat{\mathbf{z}} \\
+    &= -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}} = \hat{\boldsymbol{\phi}}.
+    \end{aligned}
+    $$
+
+    **Inverse formulas:** Combine $\sin\theta\,\hat{\mathbf{r}}$ and $\cos\theta\,\hat{\boldsymbol{\theta}}$ to eliminate $\hat{\mathbf{z}}$:
+
+    $$
+    \sin\theta\,\hat{\mathbf{r}} + \cos\theta\,\hat{\boldsymbol{\theta}} = \cos\phi\,\hat{\mathbf{x}} + \sin\phi\,\hat{\mathbf{y}}.
+    $$
+
+    Call this relation (1), and let (2) be $\hat{\boldsymbol{\phi}} = -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}$. Multiplying (1) by $\cos\phi$ and (2) by $\sin\phi$ and subtracting eliminates $\hat{\mathbf{y}}$:
+
+    $$
+    \hat{\mathbf{x}} = \sin\theta\cos\phi\,\hat{\mathbf{r}} + \cos\theta\cos\phi\,\hat{\boldsymbol{\theta}} - \sin\phi\,\hat{\boldsymbol{\phi}}.
+    $$
+
+    Multiplying (1) by $\sin\phi$ and (2) by $\cos\phi$ and adding eliminates $\hat{\mathbf{x}}$:
+
+    $$
+    \hat{\mathbf{y}} = \sin\theta\sin\phi\,\hat{\mathbf{r}} + \cos\theta\sin\phi\,\hat{\boldsymbol{\theta}} + \cos\phi\,\hat{\boldsymbol{\phi}}.
+    $$
+
+    Finally, subtracting $\sin\theta\,\hat{\boldsymbol{\theta}}$ from $\cos\theta\,\hat{\mathbf{r}}$ eliminates both $\hat{\mathbf{x}}$ and $\hat{\mathbf{y}}$:
+
+    $$
+    \cos\theta\,\hat{\mathbf{r}} - \sin\theta\,\hat{\boldsymbol{\theta}} = (\cos^2\theta + \sin^2\theta)\,\hat{\mathbf{z}} = \hat{\mathbf{z}}.
+    $$
+
+    (Equivalently, since the transformation matrix between orthonormal bases is orthogonal, its inverse equals its transpose.)
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.39" title="Divergence Theorem for Radial Power-Law Fields" tag="Griffiths 1.39 · Divergence Theorem">
+  <div slot="problem">
+    (a) Check the divergence theorem for the function $\mathbf{v}_1 = r^2\,\hat{\mathbf{r}}$, using as your volume the sphere of radius $R$, centered at the origin.
+
+    (b) Do the same for $\mathbf{v}_2 = (1/r^2)\,\hat{\mathbf{r}}$. (If the answer surprises you, look back at Prob. 1.16.)
+  </div>
+
+  <div slot="answer">
+    (a) Both integrals equal $4\pi R^4$. (b) The naive volume integral gives $0$, whereas the surface integral gives $4\pi$; the discrepancy arises because $\nabla \cdot \mathbf{v}_2$ blows up at the origin $r = 0$, where the true volume integral is $4\pi$.
+  </div>
+
+  <div slot="solution">
+    **(a)** Using the spherical divergence formula with only a radial component $v_{1r} = r^2$,
+
+    $$
+    \nabla \cdot \mathbf{v}_1 = \frac{1}{r^2}\frac{\partial}{\partial r}(r^2 \cdot r^2) = \frac{1}{r^2}(4r^3) = 4r.
+    $$
+
+    Integrating over the solid sphere of radius $R$:
+
+    $$
+    \int_V (\nabla \cdot \mathbf{v}_1)\,d\tau = \int_0^R \int_0^\pi \int_0^{2\pi} (4r)\,r^2\sin\theta\,dr\,d\theta\,d\phi = 4\left(\int_0^R r^3\,dr\right)\left(\int_0^\pi \sin\theta\,d\theta\right)\left(\int_0^{2\pi} d\phi\right) = 4\left(\frac{R^4}{4}\right)(2)(2\pi) = 4\pi R^4.
+    $$
+
+    On the spherical boundary $r = R$, $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$, so the surface integral is
+
+    $$
+    \oint_S \mathbf{v}_1 \cdot d\mathbf{a} = \int_0^\pi \int_0^{2\pi} (R^2\,\hat{\mathbf{r}}) \cdot (R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}) = R^4 \int_0^\pi \sin\theta\,d\theta \int_0^{2\pi} d\phi = R^4(2)(2\pi) = 4\pi R^4.
+    $$
+
+    Both sides agree: $4\pi R^4$.
+
+    **(b)** For $\mathbf{v}_2 = (1/r^2)\,\hat{\mathbf{r}}$, away from $r = 0$ the spherical divergence formula gives
+
+    $$
+    \nabla \cdot \mathbf{v}_2 = \frac{1}{r^2}\frac{\partial}{\partial r}\!\left(r^2 \cdot \frac{1}{r^2}\right) = \frac{1}{r^2}\frac{\partial}{\partial r}(1) = 0 \implies \int_V (\nabla \cdot \mathbf{v}_2)\,d\tau \stackrel{\text{naive}}{=} 0.
+    $$
+
+    However, the surface integral over the sphere $r = R$ is
+
+    $$
+    \oint_S \mathbf{v}_2 \cdot d\mathbf{a} = \int_0^\pi \int_0^{2\pi} \left(\frac{1}{R^2}\,\hat{\mathbf{r}}\right) \cdot (R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}) = \int_0^\pi \sin\theta\,d\theta \int_0^{2\pi} d\phi = (2)(2\pi) = 4\pi.
+    $$
+
+    They do not agree because $\mathbf{v}_2$ diverges at the origin $r = 0$. While $\nabla \cdot \mathbf{v}_2 = 0$ everywhere for $r \neq 0$, it has a point singularity at $r = 0$ (a three-dimensional Dirac delta function, $\nabla \cdot (\hat{\mathbf{r}}/r^2) = 4\pi\,\delta^3(\mathbf{r})$), so our naive evaluation of $\int_V (\nabla \cdot \mathbf{v}_2)\,d\tau$ missed the singular contribution at the origin. The true value of the volume integral is $4\pi$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.40" title="Divergence Theorem on an Inverted Hemispherical Bowl" tag="Griffiths 1.40 · Divergence Theorem">
+  <div slot="problem">
+    Compute the divergence of the function
+
+    $$
+    \mathbf{v} = (r\cos\theta)\,\hat{\mathbf{r}} + (r\sin\theta)\,\hat{\boldsymbol{\theta}} + (r\sin\theta\cos\phi)\,\hat{\boldsymbol{\phi}}.
+    $$
+
+    Check the divergence theorem for this function, using as your volume the inverted hemispherical bowl of radius $R$, resting on the $xy$ plane and centered at the origin (Fig. 1.40: $0 \le r \le R$, $0 \le \theta \le \pi/2$, $0 \le \phi \lt 2\pi$).
+  </div>
+
+  <div slot="answer">
+    $\nabla \cdot \mathbf{v} = 5\cos\theta - \sin\phi$; both the volume integral and the closed surface integral equal $\dfrac{5\pi}{3}R^3$.
+  </div>
+
+  <div slot="solution">
+    Applying the divergence formula in spherical coordinates:
+
+    $$
+    \begin{aligned}
+    \nabla \cdot \mathbf{v} &= \frac{1}{r^2}\frac{\partial}{\partial r}\!\left(r^2 \cdot r\cos\theta\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}\!\left(\sin\theta \cdot r\sin\theta\right) + \frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}(r\sin\theta\cos\phi) \\
+    &= \frac{1}{r^2}(3r^2\cos\theta) + \frac{1}{r\sin\theta}(2r\sin\theta\cos\theta) + \frac{1}{r\sin\theta}(-r\sin\theta\sin\phi) \\
+    &= 3\cos\theta + 2\cos\theta - \sin\phi = 5\cos\theta - \sin\phi.
+    \end{aligned}
+    $$
+
+    **Volume integral:** Over the upper hemisphere ($r \in [0, R]$, $\theta \in [0, \pi/2]$, $\phi \in [0, 2\pi)$),
+
+    $$
+    \int_V (\nabla \cdot \mathbf{v})\,d\tau = \int_0^R r^2\,dr \int_0^{\pi/2} \sin\theta\,d\theta \int_0^{2\pi} (5\cos\theta - \sin\phi)\,d\phi.
+    $$
+
+    Since $\int_0^{2\pi} \sin\phi\,d\phi = 0$, the $\phi$ integral gives $2\pi(5\cos\theta) = 10\pi\cos\theta$. Thus
+
+    $$
+    \int_V (\nabla \cdot \mathbf{v})\,d\tau = \left(\frac{R^3}{3}\right)(10\pi) \int_0^{\pi/2} \sin\theta\cos\theta\,d\theta = \frac{10\pi R^3}{3}\left[\frac{\sin^2\theta}{2}\right]_0^{\pi/2} = \frac{5\pi}{3}R^3.
+    $$
+
+    **Surface integral:** The closed boundary consists of two surfaces:
+
+    1. *Curved hemisphere* ($r = R$, $\theta \in [0, \pi/2]$, $\phi \in [0, 2\pi)$), where $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$:
+
+    $$
+    \int_{\text{hemi}} \mathbf{v} \cdot d\mathbf{a} = \int_0^{\pi/2}\!\int_0^{2\pi} (R\cos\theta) R^2\sin\theta\,d\theta\,d\phi = R^3 \left(\int_0^{\pi/2} \sin\theta\cos\theta\,d\theta\right)\left(\int_0^{2\pi} d\phi\right) = R^3\left(\frac{1}{2}\right)(2\pi) = \pi R^3.
+    $$
+
+    2. *Flat circular base* in the $xy$ plane ($\theta = \pi/2$, $r \in [0, R]$, $\phi \in [0, 2\pi)$), where the outward normal points in $-\hat{\mathbf{z}} = +\hat{\boldsymbol{\theta}}$, so $d\mathbf{a} = (dr)(r\sin\theta\,d\phi)\,\hat{\boldsymbol{\theta}} = r\,dr\,d\phi\,\hat{\boldsymbol{\theta}}$:
+
+    $$
+    \int_{\text{base}} \mathbf{v} \cdot d\mathbf{a} = \int_0^R \!\int_0^{2\pi} \left.(r\sin\theta)\right|_{\theta=\pi/2} r\,dr\,d\phi = \int_0^R r^2\,dr \int_0^{2\pi} d\phi = \left(\frac{R^3}{3}\right)(2\pi) = \frac{2\pi}{3}R^3.
+    $$
+
+    Adding both contributions,
+
+    $$
+    \oint_S \mathbf{v} \cdot d\mathbf{a} = \pi R^3 + \frac{2\pi}{3}R^3 = \frac{5\pi}{3}R^3,
+    $$
+
+    which matches the volume integral.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.41" title="Gradient, Laplacian, and Gradient Theorem in Spherical Coordinates" tag="Griffiths 1.41 · Gradient &amp; Laplacian">
+  <div slot="problem">
+    Compute the gradient and Laplacian of the function $T = r(\cos\theta + \sin\theta\cos\phi)$. Check the Laplacian by converting $T$ to Cartesian coordinates and using Eq. 1.42. Test the gradient theorem for this function, using the path shown in Fig. 1.41, from $(0, 0, 0)$ to $(0, 0, 2)$: first along the $x$ axis to $(2, 0, 0)$, then along a circular arc in the $xy$ plane to $(0, 2, 0)$, and finally along a circular arc in the $yz$ plane to $(0, 0, 2)$.
+  </div>
+
+  <div slot="answer">
+    $\nabla T = (\cos\theta + \sin\theta\cos\phi)\,\hat{\mathbf{r}} + (-\sin\theta + \cos\theta\cos\phi)\,\hat{\boldsymbol{\theta}} - \sin\phi\,\hat{\boldsymbol{\phi}}$, $\nabla^2 T = 0$, and both $\int_{\mathbf{a}}^{\mathbf{b}} \nabla T \cdot d\mathbf{l}$ and $T(\mathbf{b}) - T(\mathbf{a})$ equal $2$.
+  </div>
+
+  <div slot="solution">
+    **Gradient:** Using Eq. (1.70),
+
+    $$
+    \begin{aligned}
+    \nabla T &= \frac{\partial T}{\partial r}\,\hat{\mathbf{r}} + \frac{1}{r}\frac{\partial T}{\partial \theta}\,\hat{\boldsymbol{\theta}} + \frac{1}{r\sin\theta}\frac{\partial T}{\partial \phi}\,\hat{\boldsymbol{\phi}} \\
+    &= (\cos\theta + \sin\theta\cos\phi)\,\hat{\mathbf{r}} + (-\sin\theta + \cos\theta\cos\phi)\,\hat{\boldsymbol{\theta}} + \frac{1}{\sin\theta}(-\sin\theta\sin\phi)\,\hat{\boldsymbol{\phi}} \\
+    &= (\cos\theta + \sin\theta\cos\phi)\,\hat{\mathbf{r}} + (-\sin\theta + \cos\theta\cos\phi)\,\hat{\boldsymbol{\theta}} - \sin\phi\,\hat{\boldsymbol{\phi}}.
+    \end{aligned}
+    $$
+
+    **Laplacian:** Computing $\nabla^2 T = \nabla \cdot (\nabla T)$ via Eq. (1.71):
+
+    $$
+    \begin{aligned}
+    \nabla^2 T &= \frac{1}{r^2}\frac{\partial}{\partial r}\!\left[r^2(\cos\theta + \sin\theta\cos\phi)\right] + \frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}\!\left[\sin\theta(-\sin\theta + \cos\theta\cos\phi)\right] + \frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}(-\sin\phi) \\
+    &= \frac{1}{r^2}\left[2r(\cos\theta + \sin\theta\cos\phi)\right] + \frac{1}{r\sin\theta}\left(-2\sin\theta\cos\theta + \cos^2\theta\cos\phi - \sin^2\theta\cos\phi\right) - \frac{1}{r\sin\theta}\cos\phi \\
+    &= \frac{1}{r\sin\theta}\left[2\sin\theta\cos\theta + 2\sin^2\theta\cos\phi - 2\sin\theta\cos\theta + \cos^2\theta\cos\phi - \sin^2\theta\cos\phi - \cos\phi\right] \\
+    &= \frac{1}{r\sin\theta}\left[(\sin^2\theta + \cos^2\theta)\cos\phi - \cos\phi\right] = 0.
+    \end{aligned}
+    $$
+
+    **Cartesian check:** Since $z = r\cos\theta$ and $x = r\sin\theta\cos\phi$, we have $T(x,y,z) = x + z$. Clearly
+
+    $$
+    \nabla^2 T = \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2 T}{\partial z^2} = 0 + 0 + 0 = 0.
+    $$
+
+    **Gradient theorem test:** We evaluate $\int_{\mathbf{a}}^{\mathbf{b}} \nabla T \cdot d\mathbf{l}$ along the three segments from $\mathbf{a} = (0,0,0)$ to $\mathbf{b} = (0,0,2)$:
+
+    1. *Segment 1* ($\theta = \pi/2$, $\phi = 0$, $r: 0 \to 2$): Here $d\mathbf{l} = dr\,\hat{\mathbf{r}}$, so $\nabla T \cdot d\mathbf{l} = (\cos\theta + \sin\theta\cos\phi)\,dr = (0 + 1)\,dr = dr$, giving
+
+    $$
+    \int_{\text{seg 1}} \nabla T \cdot d\mathbf{l} = \int_0^2 dr = 2.
+    $$
+
+    2. *Segment 2* ($\theta = \pi/2$, $r = 2$, $\phi: 0 \to \pi/2$): Here $d\mathbf{l} = r\sin\theta\,d\phi\,\hat{\boldsymbol{\phi}} = 2\,d\phi\,\hat{\boldsymbol{\phi}}$, so $\nabla T \cdot d\mathbf{l} = (-\sin\phi)(2\,d\phi) = -2\sin\phi\,d\phi$, giving
+
+    $$
+    \int_{\text{seg 2}} \nabla T \cdot d\mathbf{l} = \int_0^{\pi/2} (-2\sin\phi)\,d\phi = \left[2\cos\phi\right]_0^{\pi/2} = -2.
+    $$
+
+    3. *Segment 3* ($r = 2$, $\phi = \pi/2$, $\theta: \pi/2 \to 0$): Here $d\mathbf{l} = r\,d\theta\,\hat{\boldsymbol{\theta}} = 2\,d\theta\,\hat{\boldsymbol{\theta}}$, so $\nabla T \cdot d\mathbf{l} = (-\sin\theta + \cos\theta\cos\frac{\pi}{2})(2\,d\theta) = -2\sin\theta\,d\theta$, giving
+
+    $$
+    \int_{\text{seg 3}} \nabla T \cdot d\mathbf{l} = \int_{\pi/2}^0 (-2\sin\theta)\,d\theta = \left[2\cos\theta\right]_{\pi/2}^0 = 2.
+    $$
+
+    Summing the three segments gives $\int_{\mathbf{a}}^{\mathbf{b}} \nabla T \cdot d\mathbf{l} = 2 - 2 + 2 = 2$. Meanwhile, at the endpoints, $T(0,0,2) = 2(\cos 0 + 0) = 2$ and $T(0,0,0) = 0$, so $T(\mathbf{b}) - T(\mathbf{a}) = 2 - 0 = 2$, confirming the gradient theorem.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.42" title="Cylindrical Unit Vectors and Their Inverse" tag="Griffiths 1.42 · Cylindrical Coordinates">
+  <div slot="problem">
+    Express the cylindrical unit vectors $\hat{\mathbf{s}}$, $\hat{\boldsymbol{\phi}}$, $\hat{\mathbf{z}}$ in terms of $\hat{\mathbf{x}}$, $\hat{\mathbf{y}}$, $\hat{\mathbf{z}}$ (that is, derive Eq. 1.75). "Invert" your formulas to get $\hat{\mathbf{x}}$, $\hat{\mathbf{y}}$, $\hat{\mathbf{z}}$ in terms of $\hat{\mathbf{s}}$, $\hat{\boldsymbol{\phi}}$, $\hat{\mathbf{z}}$ (and $\phi$).
+  </div>
+
+  <div slot="answer">
+    Forward: $\hat{\mathbf{s}} = \cos\phi\,\hat{\mathbf{x}} + \sin\phi\,\hat{\mathbf{y}}$, $\hat{\boldsymbol{\phi}} = -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}$, $\hat{\mathbf{z}} = \hat{\mathbf{z}}$.
+
+    Inverse: $\hat{\mathbf{x}} = \cos\phi\,\hat{\mathbf{s}} - \sin\phi\,\hat{\boldsymbol{\phi}}$, $\hat{\mathbf{y}} = \sin\phi\,\hat{\mathbf{s}} + \cos\phi\,\hat{\boldsymbol{\phi}}$, $\hat{\mathbf{z}} = \hat{\mathbf{z}}$.
+  </div>
+
+  <div slot="solution">
+    Writing the position vector in cylindrical coordinates, $\mathbf{r} = s\cos\phi\,\hat{\mathbf{x}} + s\sin\phi\,\hat{\mathbf{y}} + z\,\hat{\mathbf{z}}$, and normalizing the coordinate tangents $\partial\mathbf{r}/\partial s$, $\partial\mathbf{r}/\partial\phi$, and $\partial\mathbf{r}/\partial z$ (or projecting directly from Fig. 1.42):
+
+    $$
+    \hat{\mathbf{s}} = \cos\phi\,\hat{\mathbf{x}} + \sin\phi\,\hat{\mathbf{y}}, \qquad \hat{\boldsymbol{\phi}} = -\sin\phi\,\hat{\mathbf{x}} + \cos\phi\,\hat{\mathbf{y}}, \qquad \hat{\mathbf{z}} = \hat{\mathbf{z}}.
+    $$
+
+    To invert these equations, multiply the $\hat{\mathbf{s}}$ equation by $\cos\phi$, the $\hat{\boldsymbol{\phi}}$ equation by $\sin\phi$, and subtract:
+
+    $$
+    \cos\phi\,\hat{\mathbf{s}} - \sin\phi\,\hat{\boldsymbol{\phi}} = (\cos^2\phi + \sin^2\phi)\,\hat{\mathbf{x}} + (\cos\phi\sin\phi - \sin\phi\cos\phi)\,\hat{\mathbf{y}} = \hat{\mathbf{x}}.
+    $$
+
+    Next, multiply the $\hat{\mathbf{s}}$ equation by $\sin\phi$, the $\hat{\boldsymbol{\phi}}$ equation by $\cos\phi$, and add:
+
+    $$
+    \sin\phi\,\hat{\mathbf{s}} + \cos\phi\,\hat{\boldsymbol{\phi}} = (\sin\phi\cos\phi - \cos\phi\sin\phi)\,\hat{\mathbf{x}} + (\sin^2\phi + \cos^2\phi)\,\hat{\mathbf{y}} = \hat{\mathbf{y}}.
+    $$
+
+    And $\hat{\mathbf{z}} = \hat{\mathbf{z}}$ is unchanged. Thus
+
+    $$
+    \hat{\mathbf{x}} = \cos\phi\,\hat{\mathbf{s}} - \sin\phi\,\hat{\boldsymbol{\phi}}, \qquad \hat{\mathbf{y}} = \sin\phi\,\hat{\mathbf{s}} + \cos\phi\,\hat{\boldsymbol{\phi}}, \qquad \hat{\mathbf{z}} = \hat{\mathbf{z}}.
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="1.43" title="Divergence, Divergence Theorem, and Curl in Cylindrical Coordinates" tag="Griffiths 1.43 · Cylindrical Calculus">
+  <div slot="problem">
+    (a) Find the divergence of the function
+
+    $$
+    \mathbf{v} = s(2 + \sin^2\phi)\,\hat{\mathbf{s}} + s\sin\phi\cos\phi\,\hat{\boldsymbol{\phi}} + 3z\,\hat{\mathbf{z}}.
+    $$
+
+    (b) Test the divergence theorem for this function, using the quarter-cylinder (radius $2$, height $5$, $0 \le s \le 2$, $0 \le \phi \le \pi/2$, $0 \le z \le 5$) shown in Fig. 1.43.
+
+    (c) Find the curl of $\mathbf{v}$.
+  </div>
+
+  <div slot="answer">
+    (a) $\nabla \cdot \mathbf{v} = 8$. (b) Both the volume integral and the total closed surface flux equal $40\pi$. (c) $\nabla \times \mathbf{v} = \mathbf{0}$.
+  </div>
+
+  <div slot="solution">
+    **(a)** Using Eq. (1.80) for the cylindrical divergence:
+
+    $$
+    \begin{aligned}
+    \nabla \cdot \mathbf{v} &= \frac{1}{s}\frac{\partial}{\partial s}\!\left[s^2(2 + \sin^2\phi)\right] + \frac{1}{s}\frac{\partial}{\partial\phi}(s\sin\phi\cos\phi) + \frac{\partial}{\partial z}(3z) \\
+    &= \frac{1}{s}\left[2s(2 + \sin^2\phi)\right] + \frac{1}{s}\left[s(\cos^2\phi - \sin^2\phi)\right] + 3 \\
+    &= 4 + 2\sin^2\phi + \cos^2\phi - \sin^2\phi + 3 = 4 + (\sin^2\phi + \cos^2\phi) + 3 = 8.
+    \end{aligned}
+    $$
+
+    **(b)** Integrating $\nabla \cdot \mathbf{v} = 8$ over the quarter-cylinder ($s \in [0, 2]$, $\phi \in [0, \pi/2]$, $z \in [0, 5]$):
+
+    $$
+    \int_V (\nabla \cdot \mathbf{v})\,d\tau = 8 \int_0^2 s\,ds \int_0^{\pi/2} d\phi \int_0^5 dz = 8(2)\left(\frac{\pi}{2}\right)(5) = 40\pi.
+    $$
+
+    The closed boundary has five surfaces:
+
+    1. *Top* ($z = 5$, $d\mathbf{a} = s\,ds\,d\phi\,\hat{\mathbf{z}}$): $\mathbf{v} \cdot d\mathbf{a} = 3z\,s\,ds\,d\phi = 15s\,ds\,d\phi$, so
+
+    $$
+    \int_{\text{top}} \mathbf{v} \cdot d\mathbf{a} = 15 \int_0^2 s\,ds \int_0^{\pi/2} d\phi = 15(2)\left(\frac{\pi}{2}\right) = 15\pi.
+    $$
+
+    2. *Bottom* ($z = 0$, $d\mathbf{a} = -s\,ds\,d\phi\,\hat{\mathbf{z}}$): $\mathbf{v} \cdot d\mathbf{a} = -3(0)s\,ds\,d\phi = 0$, giving $0$.
+
+    3. *Back flat face* ($\phi = \pi/2$, $d\mathbf{a} = ds\,dz\,\hat{\boldsymbol{\phi}}$): $\mathbf{v} \cdot d\mathbf{a} = s\sin(\pi/2)\cos(\pi/2)\,ds\,dz = 0$, giving $0$.
+
+    4. *Left flat face* ($\phi = 0$, $d\mathbf{a} = -ds\,dz\,\hat{\boldsymbol{\phi}}$): $\mathbf{v} \cdot d\mathbf{a} = -s\sin(0)\cos(0)\,ds\,dz = 0$, giving $0$.
+
+    5. *Curved front* ($s = 2$, $d\mathbf{a} = s\,d\phi\,dz\,\hat{\mathbf{s}} = 2\,d\phi\,dz\,\hat{\mathbf{s}}$): $\mathbf{v} \cdot d\mathbf{a} = s(2 + \sin^2\phi)s\,d\phi\,dz = 4(2 + \sin^2\phi)\,d\phi\,dz$, so
+
+    $$
+    \int_{\text{front}} \mathbf{v} \cdot d\mathbf{a} = 4 \int_0^{\pi/2} (2 + \sin^2\phi)\,d\phi \int_0^5 dz = 4\left(\pi + \frac{\pi}{4}\right)(5) = 25\pi.
+    $$
+
+    Summing all five surface integrals yields
+
+    $$
+    \oint_S \mathbf{v} \cdot d\mathbf{a} = 15\pi + 0 + 0 + 0 + 25\pi = 40\pi,
+    $$
+
+    confirming the divergence theorem.
+
+    **(c)** Using Eq. (1.81) for the cylindrical curl:
+
+    $$
+    \begin{aligned}
+    \nabla \times \mathbf{v} &= \left[\frac{1}{s}\frac{\partial(3z)}{\partial\phi} - \frac{\partial}{\partial z}(s\sin\phi\cos\phi)\right]\hat{\mathbf{s}} + \left[\frac{\partial}{\partial z}\!\left(s(2 + \sin^2\phi)\right) - \frac{\partial(3z)}{\partial s}\right]\hat{\boldsymbol{\phi}} \\
+    &\quad + \frac{1}{s}\left[\frac{\partial}{\partial s}(s^2\sin\phi\cos\phi) - \frac{\partial}{\partial\phi}\!\left(s(2 + \sin^2\phi)\right)\right]\hat{\mathbf{z}} \\
+    &= 0\,\hat{\mathbf{s}} + 0\,\hat{\boldsymbol{\phi}} + \frac{1}{s}\left(2s\sin\phi\cos\phi - s\cdot 2\sin\phi\cos\phi\right)\hat{\mathbf{z}} = \mathbf{0}.
+    \end{aligned}
+    $$
+  </div>
+</ProblemCard>
+
+</section>

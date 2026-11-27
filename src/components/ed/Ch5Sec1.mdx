@@ -1,0 +1,287 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch5-sec1" class="ed-sec-block">
+
+### 5.1 The Lorentz Force Law
+
+<div class="ed-theory-box">
+
+**Core Theory: Magnetic Fields, Particle Trajectories, Currents, and Charge Conservation**
+
+1. **The Lorentz Force Law:**
+   Whereas stationary source charges produce only an electric field $\vec{E}$, charges in motion (currents) generate an additional field—the magnetic field $\vec{B}$ (a pseudovector/axial vector). Parallel currents attract and antiparallel currents repel, while a wire carrying a steady current remains electrically neutral overall. Experimentally, the force on a point test charge $Q$ moving with velocity $\vec{v}$ in electric and magnetic fields $\vec{E}$ and $\vec{B}$ is governed by the **Lorentz force law**:
+
+   $$
+   \vec{F} = Q\left[\vec{E} + (\vec{v} \times \vec{B})\right], \qquad \vec{F}_{\text{mag}} = Q(\vec{v} \times \vec{B})
+   $$
+
+   - **Magnetic forces do no work:** For an infinitesimal displacement $d\vec{l} = \vec{v}\,dt$,
+
+   $$
+   dW_{\text{mag}} = \vec{F}_{\text{mag}} \cdot d\vec{l} = Q(\vec{v} \times \vec{B}) \cdot \vec{v}\,dt = 0
+   $$
+
+   since $(\vec{v} \times \vec{B}) \perp \vec{v}$. Magnetic forces can deflect a charged particle and redirect forces exerted by other agents (such as a battery or generator), but they can never change a particle's speed or kinetic energy.
+
+2. **Cyclotron and Helical Motion (Uniform $\vec{B}$):**
+   If a charge $Q$ enters a uniform magnetic field $\vec{B}$ with velocity $\vec{v}_\perp \perp \vec{B}$, the magnetic force supplies the centripetal acceleration for uniform circular motion of radius $R$:
+
+   $$
+   |Q| v_\perp B = \frac{m v_\perp^2}{R} \implies p_\perp = |Q| B R, \qquad \omega = \frac{|Q|B}{m}
+   $$
+
+   where $\omega$ is the **cyclotron frequency** (independent of speed in the nonrelativistic regime). Any initial velocity component $v_\parallel$ parallel to $\vec{B}$ experiences zero magnetic force and remains constant, producing a **helical trajectory** of radius $R = mv_\perp/(|Q|B)$ and pitch $2\pi v_\parallel/\omega$.
+
+3. **Cycloid Motion (Crossed Uniform $\vec{E}$ and $\vec{B}$):**
+   For $\vec{B} = B\hat{x}$ and $\vec{E} = E\hat{z}$ (with $\vec{E} \perp \vec{B}$), Newton's second law for a charge $Q$ confined to the $yz$-plane gives the coupled equations (with $\omega \equiv QB/m$):
+
+   $$
+   \ddot{y} = \omega \dot{z}, \qquad \ddot{z} = \omega\left(\frac{E}{B} - \dot{y}\right)
+   $$
+
+   whose general solution is
+
+   $$
+   y(t) = C_1 \cos(\omega t) + C_2 \sin(\omega t) + \frac{E}{B}t + C_3, \qquad z(t) = C_2 \cos(\omega t) - C_1 \sin(\omega t) + C_4
+   $$
+
+   For a particle released from rest at the origin, $y(t) = R(\omega t - \sin\omega t)$ and $z(t) = R(1 - \cos\omega t)$ with $R \equiv E/(\omega B)$, which satisfies $(y - R\omega t)^2 + (z - R)^2 = R^2$—a **cycloid** whose guiding center drifts perpendicular to both $\vec{E}$ and $\vec{B}$ at the $\vec{E}\times\vec{B}$ drift speed $u = E/B$.
+
+4. **Currents and Magnetic Forces on Current Distributions:**
+   - **Line current** ($I$, units: $1\text{ A} = 1\text{ C/s}$): Charge per unit time passing a point. A line charge $\lambda$ moving at speed $v$ gives $\vec{I} = \lambda\vec{v}$ (more generally $\vec{I} = \lambda_+\vec{v}_+ + \lambda_-\vec{v}_-$). Since $\vec{I}$ and $d\vec{l}$ are collinear along the wire:
+
+   $$
+   \vec{F}_{\text{mag}} = \int (\vec{I} \times \vec{B})\,dl = \int I\,(d\vec{l} \times \vec{B})
+   $$
+
+   - **Surface current density** $\vec{K} \equiv d\vec{I}/dl_\perp = \sigma\vec{v}$ (current per unit width perpendicular to flow, units $\text{A/m}$):
+
+   $$
+   \vec{F}_{\text{mag}} = \int (\vec{K} \times \vec{B}_{\text{ave}})\,da
+   $$
+
+   (*Caveat:* $\vec{B}$ is discontinuous across a surface current, so one must use $\vec{B}_{\text{ave}} = \frac{1}{2}(\vec{B}_{\text{above}} + \vec{B}_{\text{below}})$.)
+   - **Volume current density** $\vec{J} \equiv d\vec{I}/da_\perp = \rho\vec{v}$ (current per unit area perpendicular to flow, units $\text{A/m}^2$):
+
+   $$
+   \vec{F}_{\text{mag}} = \int (\vec{J} \times \vec{B})\,d\tau
+   $$
+
+   - **Translation dictionary:** $\sum_{i=1}^n (\;)q_i\vec{v}_i \sim \int_{\text{line}} (\;)\vec{I}\,dl \sim \int_{\text{surface}} (\;)\vec{K}\,da \sim \int_{\text{volume}} (\;)\vec{J}\,d\tau$.
+
+5. **The Continuity Equation (Local Conservation of Charge):**
+   The total current crossing an oriented surface $S$ is $I = \int_S \vec{J}\cdot d\vec{a}$. By the divergence theorem, the net outward current from a closed volume $V$ bounded by $S$ equals the rate of decrease of total charge inside $V$:
+
+   $$
+   \oint_S \vec{J}\cdot d\vec{a} = \int_V (\vec{\nabla}\cdot\vec{J})\,d\tau = -\frac{d}{dt}\int_V \rho\,d\tau = -\int_V \frac{\partial\rho}{\partial t}\,d\tau \implies \vec{\nabla}\cdot\vec{J} = -\frac{\partial\rho}{\partial t}
+   $$
+
+</div>
+
+<ProblemCard num="5.1" title="Deflection of a Charged Particle in a Uniform Magnetic Field" tag="Griffiths 5.1 · Cyclotron Motion">
+  <div slot="problem">
+    A particle of charge $q$ enters a region of uniform magnetic field $\vec{B}$ (pointing into the page). The field deflects the particle upward a distance $d$ above its original horizontal line of flight after traveling a horizontal distance $a$ inside the field region. Is the charge positive or negative? In terms of $a$, $d$, $B$, and $q$, find the momentum of the particle.
+  </div>
+
+  <div slot="answer">
+    The charge is **positive** ($q > 0$), and its momentum is:
+
+    $$
+    p = \frac{qB(a^2 + d^2)}{2d}
+    $$
+  </div>
+
+  <div slot="solution">
+    1. **Sign of the charge:** Initially the particle moves to the right ($\vec{v} \parallel +\hat{x}$), and $\vec{B}$ points into the page ($-\hat{z}$). Then $\vec{v}\times\vec{B}$ points upward ($+\hat{y}$). Since the magnetic force $\vec{F} = q(\vec{v}\times\vec{B})$ deflects the particle upward, $q$ must be **positive**.
+
+    2. **Geometry of the circular arc:** Inside the uniform field, the particle follows a circle of radius $R$ tangent to the incoming horizontal line at the point of entry (so the center of curvature lies a distance $R$ directly above the entry point). After moving horizontally by $a$ and vertically by $d$, the point on the circle is at horizontal distance $a$ and vertical distance $R - d$ from the center. By the Pythagorean theorem:
+
+    $$
+    (R - d)^2 + a^2 = R^2 \implies R^2 - 2Rd + d^2 + a^2 = R^2 \implies R = \frac{a^2 + d^2}{2d}
+    $$
+
+    3. **Momentum:** Substituting $R$ into the cyclotron formula $p = qBR$ gives:
+
+    $$
+    p = qB\frac{a^2 + d^2}{2d}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="5.2" title="Trajectories in Crossed Electric and Magnetic Fields" tag="Griffiths 5.2 · Cycloid Motion">
+  <div slot="problem">
+    Find and sketch the trajectory of the particle in Ex. 5.2 ($\vec{B} = B\hat{x}$, $\vec{E} = E\hat{z}$, positive charge $Q$ with cyclotron frequency $\omega = QB/m$), if it starts at the origin with initial velocity:
+
+    1. $\vec{v}(0) = \dfrac{E}{B}\hat{y}$,
+    2. $\vec{v}(0) = \dfrac{E}{2B}\hat{y}$,
+    3. $\vec{v}(0) = \dfrac{E}{B}(\hat{y} + \hat{z})$.
+  </div>
+
+  <div slot="answer">
+    1. **Straight line:** $y(t) = \dfrac{E}{B}t$, $z(t) = 0$ (uniform velocity along $+\hat{y}$).
+    2. **Curtate cycloid:** $y(t) = R_b(2\omega t - \sin\omega t)$, $z(t) = R_b(1 - \cos\omega t)$ with $R_b = \dfrac{E}{2\omega B}$, satisfying $(y - 2R_b\omega t)^2 + (z - R_b)^2 = R_b^2$ (circle of radius $R_b$ whose center moves at $y_0 = \frac{E}{B}t$, $z_0 = R_b$).
+    3. **Prolate (looping) cycloid:** $y(t) = R_c(1 + \omega t - \cos\omega t)$, $z(t) = R_c\sin\omega t$ with $R_c = \dfrac{E}{\omega B}$, satisfying $[y - R_c(1 + \omega t)]^2 + z^2 = R_c^2$ (circle of radius $R_c$ whose center moves at $y_0 = R_c(1 + \omega t)$, $z_0 = 0$).
+  </div>
+
+  <div slot="solution">
+    From Eq. 5.6, the general solution for motion starting at $(0, 0, 0)$ is:
+
+    $$
+    y(t) = C_1 \cos(\omega t) + C_2 \sin(\omega t) + \frac{E}{B}t + C_3, \qquad z(t) = C_2 \cos(\omega t) - C_1 \sin(\omega t) + C_4
+    $$
+
+    The initial position $y(0) = z(0) = 0$ imposes $C_3 = -C_1$ and $C_4 = -C_2$. The initial velocities are $\dot{y}(0) = \omega C_2 + \frac{E}{B}$ and $\dot{z}(0) = -\omega C_1$.
+
+    1. **Case $\vec{v}(0) = (E/B)\hat{y}$:**
+       Here $\dot{y}(0) = E/B \implies C_2 = 0 \implies C_4 = 0$, and $\dot{z}(0) = 0 \implies C_1 = 0 \implies C_3 = 0$. Thus:
+
+       $$
+       y(t) = \frac{E}{B}t, \qquad z(t) = 0
+       $$
+
+       *Physical check:* The magnetic force is $Q(\vec{v}\times\vec{B}) = Q\left(\frac{E}{B}\hat{y}\times B\hat{x}\right) = -QE\hat{z}$, which exactly cancels the electric force $Q\vec{E} = +QE\hat{z}$. With zero net force, the particle coasts in a straight line along $+\hat{y}$ at constant speed $E/B$ (the principle of a velocity selector).
+
+    2. **Case $\vec{v}(0) = (E/2B)\hat{y}$:**
+       We have $\dot{z}(0) = 0 \implies C_1 = C_3 = 0$, and $\dot{y}(0) = \omega C_2 + \frac{E}{B} = \frac{E}{2B} \implies C_2 = -\frac{E}{2\omega B}$, $C_4 = \frac{E}{2\omega B}$. Letting $R_b \equiv \frac{E}{2\omega B}$:
+
+       $$
+       y(t) = R_b(2\omega t - \sin\omega t), \qquad z(t) = R_b(1 - \cos\omega t)
+       $$
+
+       Rearranging gives $(y - 2R_b\omega t) = -R_b\sin\omega t$ and $(z - R_b) = -R_b\cos\omega t$, so:
+
+       $$
+       (y - 2R_b\omega t)^2 + (z - R_b)^2 = R_b^2
+       $$
+
+       This describes a circle of radius $R_b = E/(2\omega B)$ whose center $(0, 2R_b\omega t, R_b) = (0, \frac{E}{B}t, R_b)$ drifts in the $+\hat{y}$ direction at speed $E/B$. Because the center moves faster than the rim speed $\omega R_b = E/(2B)$, the path is a smooth wavy curve (curtate cycloid) confined to $0 \le z \le 2R_b$ without cusps or backward loops.
+
+    3. **Case $\vec{v}(0) = (E/B)(\hat{y} + \hat{z})$:**
+       Here $\dot{z}(0) = -\omega C_1 = E/B \implies C_1 = -\frac{E}{\omega B}$, $C_3 = +\frac{E}{\omega B}$; and $\dot{y}(0) = \omega C_2 + \frac{E}{B} = \frac{E}{B} \implies C_2 = C_4 = 0$. Letting $R_c \equiv \frac{E}{\omega B}$:
+
+       $$
+       y(t) = R_c(1 + \omega t - \cos\omega t), \qquad z(t) = R_c\sin\omega t
+       $$
+
+       Thus $[y - R_c(1 + \omega t)] = -R_c\cos\omega t$ and $z = R_c\sin\omega t$, giving:
+
+       $$
+       \left[y - R_c(1 + \omega t)\right]^2 + z^2 = R_c^2
+       $$
+
+       This is a circle of radius $R_c = E/(\omega B)$ whose center $(0, R_c(1 + \omega t), 0)$ moves along the $y$-axis at speed $E/B$. Since the particle starts at $(0,0,0)$ moving upward at $45^\circ$ and the circle dips into $z < 0$ on the second half of each cycle, the trajectory is a looping trochoid (prolate cycloid) oscillating symmetrically across the $y$-axis between $z = -R_c$ and $z = +R_c$.
+  </div>
+</ProblemCard>
+
+<ProblemCard num="5.3" title="J. J. Thomson's Measurement of e/m" tag="Griffiths 5.3 · Crossed Fields">
+  <div slot="problem">
+    In 1897, J. J. Thomson "discovered" the electron by measuring the charge-to-mass ratio of "cathode rays" (actually, streams of electrons, with charge $q$ and mass $m$) as follows:
+
+    1. First he passed the beam through uniform crossed electric and magnetic fields $\vec{E}$ and $\vec{B}$ (mutually perpendicular, and both of them perpendicular to the beam), and adjusted the electric field until he got zero deflection. What, then, was the speed of the particles (in terms of $E$ and $B$)?
+    2. Then he turned off the electric field, and measured the radius of curvature, $R$, of the beam, as deflected by the magnetic field alone. In terms of $E$, $B$, and $R$, what is the charge-to-mass ratio ($q/m$) of the particles?
+  </div>
+
+  <div slot="answer">
+    1. $v = \dfrac{E}{B}$
+    2. $\dfrac{q}{m} = \dfrac{E}{B^2 R}$
+  </div>
+
+  <div slot="solution">
+    1. **Velocity selector:** With $\vec{E}$, $\vec{B}$, and $\vec{v}$ mutually perpendicular and oriented so that $\vec{E}$ and $\vec{v}\times\vec{B}$ oppose each other, zero net force requires:
+
+    $$
+    \vec{F} = q\left[\vec{E} + (\vec{v} \times \vec{B})\right] = \mathbf{0} \implies qE = qvB \implies v = \frac{E}{B}
+    $$
+
+    2. **Magnetic deflection:** When $\vec{E}$ is switched off, the magnetic field bends the beam into a circular arc of radius $R$. By the cyclotron formula $mv = qBR$ (taking $q$ as the magnitude of the charge, or $|q|/m$):
+
+    $$
+    \frac{q}{m} = \frac{v}{BR} = \frac{E/B}{BR} = \frac{E}{B^2 R}
+    $$
+  </div>
+</ProblemCard>
+
+<ProblemCard num="5.4" title="Magnetic Force on a Square Loop in a Linearly Varying Field" tag="Griffiths 5.4 · Force on Line Current">
+  <div slot="problem">
+    Suppose that the magnetic field in some region has the form
+
+    $$
+    \vec{B} = kz\,\hat{x}
+    $$
+
+    (where $k$ is a constant). Find the force on a square loop (side $a$), lying in the $yz$-plane and centered at the origin, if it carries a current $I$, flowing counterclockwise when you look down the $x$-axis.
+  </div>
+
+  <div slot="answer">
+    $$
+    \vec{F} = Ika^2\,\hat{z}
+    $$
+  </div>
+
+  <div slot="solution">
+    Looking down the $+\hat{x}$-axis toward the origin, $+\hat{y}$ points to the right and $+\hat{z}$ points upward, so a counterclockwise current flows:
+    - right ($+\hat{y}$) along the bottom edge ($z = -a/2$),
+    - up ($+\hat{z}$) along the right edge ($y = +a/2$),
+    - left ($-\hat{y}$) along the top edge ($z = +a/2$),
+    - down ($-\hat{z}$) along the left edge ($y = -a/2$).
+
+    Applying $\vec{F} = I\int (d\vec{l} \times \vec{B})$ with $\vec{B} = kz\,\hat{x}$:
+
+    - **Left and right vertical edges ($y = \mp a/2$):** On the right edge ($d\vec{l} = dz\,\hat{z}$), $d\vec{l}\times\vec{B} = kz\,dz\,(\hat{z}\times\hat{x}) = kz\,dz\,\hat{y}$. On the left edge ($d\vec{l} = dz\,\hat{z}$ integrated from $+a/2$ to $-a/2$), the integral is identical with opposite sign. Hence the horizontal forces on the two vertical sides cancel (in fact each individual vertical side has $\int_{-a/2}^{a/2} z\,dz = 0$, so both vanish separately).
+    - **Top edge ($z = +a/2$, $y$ from $+a/2$ to $-a/2$):** Here $\vec{B} = k(a/2)\hat{x}$ and $d\vec{l} = dy\,\hat{y}$:
+
+    $$
+    \vec{F}_{\text{top}} = I \int_{a/2}^{-a/2} (dy\,\hat{y}) \times \left(\frac{ka}{2}\hat{x}\right) = I \frac{ka}{2} (-\hat{z}) \int_{a/2}^{-a/2} dy = +\frac{Ika^2}{2}\hat{z}
+    $$
+
+    - **Bottom edge ($z = -a/2$, $y$ from $-a/2$ to $+a/2$):** Here $\vec{B} = -k(a/2)\hat{x}$ and $d\vec{l} = dy\,\hat{y}$:
+
+    $$
+    \vec{F}_{\text{bottom}} = I \int_{-a/2}^{a/2} (dy\,\hat{y}) \times \left(-\frac{ka}{2}\hat{x}\right) = I \left(-\frac{ka}{2}\right)(-\hat{z}) a = +\frac{Ika^2}{2}\hat{z}
+    $$
+
+    Adding all four sides yields the net upward force:
+
+    $$
+    \vec{F} = \frac{Ika^2}{2}\hat{z} + \frac{Ika^2}{2}\hat{z} = Ika^2\,\hat{z}
+    $$
+
+    *(Check via magnetic dipole:* $\vec{m} = Ia^2\hat{x}$ and $\vec{F} = \vec{\nabla}(\vec{m}\cdot\vec{B}) = \vec{\nabla}(Ia^2 kz) = Ika^2\hat{z}$. ✓*)*
+  </div>
+</ProblemCard>
+
+<ProblemCard num="5.5" title="Surface and Volume Current Densities in a Cylindrical Wire" tag="Griffiths 5.5 · Current Densities">
+  <div slot="problem">
+    A current $I$ flows down a wire of radius $a$.
+
+    1. If it is uniformly distributed over the surface, what is the surface current density $K$?
+    2. If it is distributed in such a way that the volume current density is inversely proportional to the distance from the axis, what is $J(s)$?
+  </div>
+
+  <div slot="answer">
+    1. $K = \dfrac{I}{2\pi a}$
+    2. $J(s) = \dfrac{I}{2\pi a s}$
+  </div>
+
+  <div slot="solution">
+    1. **Uniform surface current:** The total width perpendicular to the current flow around the cylindrical surface is the circumference $2\pi a$. Thus:
+
+    $$
+    K = \frac{I}{l_\perp} = \frac{I}{2\pi a}
+    $$
+
+    2. **Nonuniform volume current:** Let $J(s) = \dfrac{\alpha}{s}$, where $\alpha$ is a constant. Integrating over the circular cross section of radius $a$ with $da_\perp = s\,ds\,d\phi$:
+
+    $$
+    I = \int J\,da_\perp = \int_0^{2\pi}\int_0^a \left(\frac{\alpha}{s}\right) s\,ds\,d\phi = 2\pi\alpha \int_0^a ds = 2\pi\alpha a
+    $$
+
+    Solving for $\alpha$ gives $\alpha = \dfrac{I}{2\pi a}$, and therefore:
+
+    $$
+    J(s) = \frac{I}{2\pi a s}
+    $$
+  </div>
+</ProblemCard>
+
+</section>

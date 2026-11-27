@@ -1,0 +1,1312 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch5-sec5" class="ed-sec-block">
+
+### Chapter 5 Review Problems (5.39 – 5.62)
+
+<div class="ed-theory-box">
+
+**Chapter 5 Formula & Problem-Solving Checklist**
+
+- **Lorentz Force & Currents:** $\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$ (magnetic forces do no work: $\mathbf{F}_{\text{mag}}\cdot\mathbf{v} = 0$). For line, surface, and volume currents: $\mathbf{F} = \int I\,(d\mathbf{l}\times\mathbf{B}) = \int (\mathbf{K}\times\mathbf{B}_{\text{ave}})\,da = \int (\mathbf{J}\times\mathbf{B})\,d\tau$.
+- **Biot–Savart Law:** $\mathbf{B}(\mathbf{r}) = \frac{\mu_0 I}{4\pi}\int \frac{d\mathbf{l}'\times\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}$, with $\boldsymbol{\mathscr{r}} = \mathbf{r} - \mathbf{r}'$ (replace $I\,d\mathbf{l}'$ by $\mathbf{K}\,da'$ or $\mathbf{J}\,d\tau'$ for continuous distributions).
+- **Magnetostatic Maxwell Equations & Ampère's Law:** $\nabla\cdot\mathbf{B} = 0$ and $\nabla\times\mathbf{B} = \mu_0\mathbf{J}$, or $\oint \mathbf{B}\cdot d\mathbf{l} = \mu_0 I_{\text{enc}}$ for symmetric geometries (infinite wires, planes, solenoids, toroids).
+- **Magnetic Vector Potential (Coulomb Gauge $\nabla\cdot\mathbf{A} = 0$):** $\mathbf{B} = \nabla\times\mathbf{A}$, $\nabla^2\mathbf{A} = -\mu_0\mathbf{J}$, and $\mathbf{A}(\mathbf{r}) = \frac{\mu_0}{4\pi}\int \frac{\mathbf{J}(\mathbf{r}')}{\mathscr{r}}\,d\tau'$. Where $\mathbf{J} = \mathbf{0}$, a magnetic scalar potential $U$ ($\mathbf{B} = -\nabla U$) may be used locally.
+- **Boundary Conditions:** Across a surface current $\mathbf{K}$, $B_\perp$ is continuous, $\mathbf{B}_{\parallel,\text{above}} - \mathbf{B}_{\parallel,\text{below}} = \mu_0(\mathbf{K}\times\hat{\mathbf{n}})$, $\mathbf{A}$ is continuous, and $\frac{\partial\mathbf{A}_{\text{above}}}{\partial n} - \frac{\partial\mathbf{A}_{\text{below}}}{\partial n} = -\mu_0\mathbf{K}$.
+- **Multipole Expansion & Dipoles:** The monopole term vanishes ($\oint \mathbf{J}\,d\tau' = \mathbf{0}$ for steady localized currents). The dipole moment is $\mathbf{m} = I\int d\mathbf{a} = \frac{1}{2}\int (\mathbf{r}'\times\mathbf{J})\,d\tau'$, giving $\mathbf{A}_{\text{dip}}(\mathbf{r}) = \frac{\mu_0}{4\pi}\frac{\mathbf{m}\times\hat{\mathbf{r}}}{r^2}$ and $\mathbf{B}_{\text{dip}}(\mathbf{r}) = \frac{\mu_0}{4\pi r^3}[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}] + \frac{2\mu_0}{3}\mathbf{m}\,\delta^3(\mathbf{r})$.
+
+</div>
+
+<ProblemCard num="5.39" title="Particle Trajectory Near a Straight Current" tag="Griffiths 5.39 · Lorentz Force">
+<div slot="problem">
+
+A particle of mass $m$ and charge $q$ moves in the magnetic field produced by a long straight wire carrying steady current $I$ along the $+z$-axis.
+
+(a) Is the kinetic energy of the particle conserved?
+
+(b) Express the Lorentz force $\mathbf{F}$ on the particle in cylindrical coordinates $(s, \phi, z)$.
+
+(c) Write down the three cylindrical-coordinate equations of motion.
+
+(d) Assuming $\dot{z}$ is constant, describe the resulting trajectory.
+
+</div>
+<div slot="answer">
+
+(a) Yes; magnetic forces perform zero work.
+
+(b) $\mathbf{F} = \frac{q\mu_0 I}{2\pi s}\left(-\dot{z}\,\hat{\mathbf{s}} + \dot{s}\,\hat{\mathbf{z}}\right)$.
+
+(c) With $\alpha \equiv \frac{q\mu_0 I}{2\pi m}$: $\ddot{s} - s\dot{\phi}^2 = -\alpha\frac{\dot{z}}{s}$, $s\ddot{\phi} + 2\dot{s}\dot{\phi} = 0$, and $\ddot{z} = \alpha\frac{\dot{s}}{s}$.
+
+(d) The particle executes uniform helical motion around the wire at constant radius $s$ and constant angular speed $\dot{\phi} = \pm \frac{1}{s}\sqrt{\alpha\dot{z}}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Because the magnetic force $\mathbf{F} = q(\mathbf{v}\times\mathbf{B})$ is always orthogonal to the velocity $\mathbf{v}$, the instantaneous power delivered to the particle is $\mathbf{F}\cdot\mathbf{v} = 0$. Therefore, the kinetic energy $\frac{1}{2}mv^2$ is conserved.
+
+**(b)** The magnetic field of the wire in cylindrical coordinates is $\mathbf{B} = \frac{\mu_0 I}{2\pi s}\,\hat{\boldsymbol{\phi}}$, and the particle velocity is $\mathbf{v} = \dot{s}\,\hat{\mathbf{s}} + s\dot{\phi}\,\hat{\boldsymbol{\phi}} + \dot{z}\,\hat{\mathbf{z}}$. Taking the cross product:
+
+$$
+\mathbf{v}\times\mathbf{B} = \begin{vmatrix} \hat{\mathbf{s}} & \hat{\boldsymbol{\phi}} & \hat{\mathbf{z}} \\ \dot{s} & s\dot{\phi} & \dot{z} \\ 0 & \frac{\mu_0 I}{2\pi s} & 0 \end{vmatrix} = \frac{\mu_0 I}{2\pi s}\left(-\dot{z}\,\hat{\mathbf{s}} + \dot{s}\,\hat{\mathbf{z}}\right)
+$$
+
+Multiplying by $q$ yields the force:
+
+$$
+\mathbf{F} = \frac{q\mu_0 I}{2\pi s}\left(-\dot{z}\,\hat{\mathbf{s}} + \dot{s}\,\hat{\mathbf{z}}\right)
+$$
+
+**(c)** In cylindrical coordinates, acceleration is $\mathbf{a} = (\ddot{s} - s\dot{\phi}^2)\hat{\mathbf{s}} + (s\ddot{\phi} + 2\dot{s}\dot{\phi})\hat{\boldsymbol{\phi}} + \ddot{z}\,\hat{\mathbf{z}}$. Defining $\alpha \equiv \frac{q\mu_0 I}{2\pi m}$, Newton's second law $\mathbf{F} = m\mathbf{a}$ separates into:
+
+$$
+\ddot{s} - s\dot{\phi}^2 = -\alpha\frac{\dot{z}}{s}, \qquad s\ddot{\phi} + 2\dot{s}\dot{\phi} = 0, \qquad \ddot{z} = \alpha\frac{\dot{s}}{s}
+$$
+
+**(d)** If $\dot{z}$ is constant, then $\ddot{z} = 0$, which forces $\dot{s} = 0$ and thus $s = \text{const}$ (so $\ddot{s} = 0$). The radial equation then simplifies to:
+
+$$
+s\dot{\phi}^2 = \alpha\frac{\dot{z}}{s} \implies \dot{\phi} = \pm\frac{1}{s}\sqrt{\alpha\dot{z}}
+$$
+
+(which requires $\alpha\dot{z} \ge 0$). Since $\dot{\phi}$ is also constant, the azimuthal equation $s\ddot{\phi} + 2\dot{s}\dot{\phi} = 0$ is satisfied identically. With $s$, $\dot{\phi}$, and $\dot{z}$ all constant, the particle travels along a circular helix centered on the wire.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.40" title="Self-Pinch Equilibrium in a Current-Carrying Wire" tag="Griffiths 5.40 · Pinch Effect">
+<div slot="problem">
+
+Parallel currents attract one another, yet a steady current in a metallic wire does not collapse into an infinitesimally thin filament along the axis. Explain what prevents this collapse. Suppose the stationary positive lattice has uniform charge density $\rho_+$, while the mobile negative charges (uniform density $\rho_-$ within their occupied cylinder) drift at speed $v$ along the axis. Show that in equilibrium $\rho_- = -\rho_+\gamma^2$, where $\gamma = (1 - v^2/c^2)^{-1/2}$ and $c^2 = (\mu_0\varepsilon_0)^{-1}$. If the wire as a whole is electrically neutral, where does the compensating charge reside?
+
+</div>
+<div slot="answer">
+
+As mobile negative charges pull inward toward the axis, they produce a radial electric field that repels further negative charge outward until electric and magnetic forces balance. In equilibrium, $\rho_- = -\rho_+\gamma^2$. Because $|\rho_-| \gt \rho_+$, the negative charges occupy a slightly narrower inner cylinder, leaving a thin shell of uncompensated positive charge at the outer surface of the wire.
+
+</div>
+<div slot="solution">
+
+When mobile negative charges contract slightly toward the axis, the resulting excess negative charge density sets up a radially inward electric field $\mathbf{E}$, which exerts a radially outward electric force on the negative charges. Equilibrium occurs when the net Lorentz force on a mobile charge vanishes:
+
+$$
+\mathbf{F} = q(\mathbf{E} + \mathbf{v}\times\mathbf{B}) = \mathbf{0} \implies \mathbf{E} = -(\mathbf{v}\times\mathbf{B})
+$$
+
+Take the current along $+\hat{\mathbf{z}}$, so $\mathbf{J} = \rho_-\mathbf{v} = \rho_- v\,\hat{\mathbf{z}}$ (with $\rho_- \lt 0$ and $v \lt 0$, or $\mathbf{v} = v\hat{\mathbf{z}}$). By Ampère's law on a circle of radius $s$ inside the mobile-charge region:
+
+$$
+B(2\pi s) = \mu_0(\rho_- v)(\pi s^2) \implies \mathbf{B} = \frac{\mu_0 \rho_- v s}{2}\,\hat{\boldsymbol{\phi}}
+$$
+
+By Gauss's law on a coaxial Gaussian cylinder of radius $s$ and length $l$:
+
+$$
+E(2\pi s l) = \frac{1}{\varepsilon_0}(\rho_+ + \rho_-)(\pi s^2 l) \implies \mathbf{E} = \frac{(\rho_+ + \rho_-)s}{2\varepsilon_0}\,\hat{\mathbf{s}}
+$$
+
+Meanwhile, $-(\mathbf{v}\times\mathbf{B}) = -(v\hat{\mathbf{z}})\times\left(\frac{\mu_0\rho_- v s}{2}\hat{\boldsymbol{\phi}}\right) = \frac{\mu_0\rho_- v^2 s}{2}\,\hat{\mathbf{s}}$. Equating the two expressions for $\mathbf{E}$ gives:
+
+$$
+\frac{\rho_+ + \rho_-}{2\varepsilon_0} = \frac{\mu_0 \rho_- v^2}{2} \implies \rho_+ + \rho_- = \rho_-(\mu_0\varepsilon_0 v^2) = \rho_-\frac{v^2}{c^2}
+$$
+
+Solving for $\rho_-$:
+
+$$
+\rho_+ = -\rho_-\left(1 - \frac{v^2}{c^2}\right) = -\frac{\rho_-}{\gamma^2} \implies \rho_- = -\rho_+\gamma^2
+$$
+
+Since $\gamma \gt 1$, $|\rho_-| \gt \rho_+$. For the wire as a whole to remain neutral, the mobile negative charges must fill an inner cylinder of slightly smaller radius than the wire, leaving a thin outer cylindrical shell of stationary positive charge along the surface. For typical drift speeds ($v \ll c$), $\gamma \approx 1$ and the effect is tiny, though it becomes important in relativistic beams and plasmas.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.41" title="The Hall Effect in a Conducting Bar" tag="Griffiths 5.41 · Hall Voltage">
+<div slot="problem">
+
+A steady current $I$ flows to the right along a rectangular conducting bar of vertical thickness $t$ and depth $w$, placed in a uniform magnetic field $\mathbf{B}$ pointing straight out of the page.
+
+(a) If the mobile charge carriers are positive, which face of the bar accumulates positive charge? Explain how equilibrium is reached.
+
+(b) Find the equilibrium Hall voltage between the top and bottom faces in terms of $B$, the drift speed $v$, and the relevant dimension of the bar, and state which face is at higher potential.
+
+(c) How do your conclusions change if the mobile charge carriers are negative?
+
+</div>
+<div slot="answer">
+
+(a) Positive carriers are deflected downward, making the bottom face positively charged and the top face negatively charged until the upward electric force cancels the downward magnetic force.
+
+(b) $V_H = vBt$, with the bottom face at the higher potential.
+
+(c) Negative carriers drift to the left and are also deflected downward, making the bottom face negative; the Hall voltage magnitude is still $vBt$, but now the top face is at the higher potential.
+
+</div>
+<div slot="solution">
+
+**(a)** With positive carriers moving to the right ($\mathbf{v}$ along $+\hat{\mathbf{x}}$) and $\mathbf{B}$ out of the page ($+\hat{\mathbf{z}}$), the magnetic force $\mathbf{F}_{\text{mag}} = q(\mathbf{v}\times\mathbf{B})$ points downward ($-\hat{\mathbf{y}}$). Positive charge therefore builds up on the bottom surface while leaving an equal negative charge on the top surface. This separation produces a vertically upward electric field $\mathbf{E}$, and steady state is reached when the upward electric force $qE$ exactly balances the downward magnetic force $qvB$.
+
+**(b)** From force balance:
+
+$$
+qE = qvB \implies E = vB
+$$
+
+Integrating across the vertical thickness $t$ of the bar yields the Hall potential difference:
+
+$$
+V_H = Et = vBt
+$$
+
+Because the electric field points upward (from bottom to top), the **bottom** surface is at the higher potential.
+
+**(c)** If the current $I$ to the right is carried by negative charges ($q \lt 0$), those carriers drift to the **left** ($-\hat{\mathbf{x}}$). Then $\mathbf{v}\times\mathbf{B}$ points upward ($+\hat{\mathbf{y}}$), so $\mathbf{F}_{\text{mag}} = q(\mathbf{v}\times\mathbf{B})$ again points **downward** ($-\hat{\mathbf{y}}$). Negative charge accumulates on the bottom face and positive charge on the top face. In equilibrium $E = vB$ still holds, giving the same voltage magnitude $V_H = vBt$, but $\mathbf{E}$ now points downward, so the **top** face is at the higher potential.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.42" title="Magnetic Force on a Planar Loop Partly in a Uniform Field" tag="Griffiths 5.42 · Lorentz Force">
+<div slot="problem">
+
+An irregularly shaped planar wire loop carries steady current $I$, with part of the loop lying inside a region of uniform magnetic field $\mathbf{B}$ directed perpendicular to the plane of the loop. Show that the net magnetic force on the loop has magnitude $F = IBw$, where $w$ is the length of the chord connecting the points where the wire enters and exits the field region, and find its direction. How does this generalize when the boundary of the uniform field region is irregular so that the wire enters and leaves multiple times?
+
+</div>
+<div slot="answer">
+
+$\mathbf{F} = I(\mathbf{w}\times\mathbf{B})$, with magnitude $F = IBw$, directed in the plane of the loop perpendicular to the chord $\mathbf{w}$. For an irregular field region, $\mathbf{F} = I\left(\sum_k \mathbf{w}_k\right)\times\mathbf{B}$, where $\mathbf{w}_k$ are the chord displacements of each segment inside the field.
+
+</div>
+<div slot="solution">
+
+Only the portion of the loop inside the magnetic field experiences a force. Since $\mathbf{B}$ is uniform throughout that region, it pulls outside the Lorentz force integral:
+
+$$
+\mathbf{F} = I\int_{\text{in}} (d\mathbf{l}\times\mathbf{B}) = I\left(\int_{\text{in}} d\mathbf{l}\right)\times\mathbf{B} = I(\mathbf{w}\times\mathbf{B})
+$$
+
+Here $\mathbf{w} = \int_{\text{in}} d\mathbf{l}$ is the straight displacement vector from the entry point to the exit point (the chord subtended by the field region). Because $\mathbf{w}$ lies in the plane of the loop and $\mathbf{B}$ is perpendicular to that plane, $|\mathbf{w}\times\mathbf{B}| = wB$, so:
+
+$$
+F = IBw
+$$
+
+and $\mathbf{F}$ points in the plane of the loop, perpendicular to the chord $\mathbf{w}$ along the direction of $\mathbf{w}\times\mathbf{B}$.
+
+If the field region has an irregular shape so the wire enters and exits $N$ separate times along chords $\mathbf{w}_1, \mathbf{w}_2, \dots, \mathbf{w}_N$, the total force is simply the sum over all segments inside the field:
+
+$$
+\mathbf{F} = I\left(\sum_{k=1}^{N}\mathbf{w}_k\right)\times\mathbf{B} = I(\mathbf{w}_{\text{eff}}\times\mathbf{B})
+$$
+
+where $\mathbf{w}_{\text{eff}} = \sum_{k=1}^N \mathbf{w}_k$ is the vector sum of the subtended chords. (If the entire loop sits inside the uniform field, $\oint d\mathbf{l} = \mathbf{0}$ and $\mathbf{F} = \mathbf{0}$.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.43" title="Radial Emergence from a Zero-Flux Symmetric Field" tag="Griffiths 5.43 · Angular Momentum">
+<div slot="problem">
+
+A circularly symmetric magnetic field $\mathbf{B}(r)$ perpendicular to the page occupies a circular disk of radius $R$ and has zero total magnetic flux ($\Phi = \int \mathbf{B}\cdot d\mathbf{a} = 0$). Using the torque from the Lorentz force, prove that a charged particle launched from the center ($r = 0$) and escaping the disk ($r = R$) must emerge moving along a purely radial line. Explain why a particle fired radially inward from outside toward the center will hit the center (assuming sufficient speed).
+
+</div>
+<div slot="answer">
+
+The total angular momentum acquired by the particle upon reaching $r = R$ is $\mathbf{L} = -\frac{q\Phi}{2\pi}\hat{\mathbf{z}}$. When $\Phi = 0$, $\mathbf{L} = \mathbf{r}\times\mathbf{p} = \mathbf{0}$, so $\mathbf{p} \parallel \mathbf{r}$ and the exit path is radial. Conversely, a particle fired radially inward starts with $L = 0$ and therefore arrives at $r = 0$ with $L = 0$ (if energetic enough to avoid reflection), hitting the center.
+
+</div>
+<div slot="solution">
+
+Take the magnetic field perpendicular to the plane of motion as $\mathbf{B} = B(r)\hat{\mathbf{z}}$. Starting from the center with $\mathbf{r}(0) = \mathbf{0}$ (so $\mathbf{L}(0) = \mathbf{0}$), the angular momentum acquired as the particle travels out to radius $R$ is:
+
+$$
+\mathbf{L} = \int \frac{d\mathbf{L}}{dt}\,dt = \int (\mathbf{r}\times\mathbf{F})\,dt = q\int \mathbf{r}\times(\mathbf{v}\times\mathbf{B})\,dt = q\int \mathbf{r}\times(d\mathbf{l}\times\mathbf{B})
+$$
+
+Applying the vector triple product identity $\mathbf{r}\times(d\mathbf{l}\times\mathbf{B}) = (\mathbf{r}\cdot\mathbf{B})\,d\mathbf{l} - \mathbf{B}(\mathbf{r}\cdot d\mathbf{l})$, note that $\mathbf{r}\cdot\mathbf{B} = 0$ because motion is in the plane perpendicular to $\mathbf{B}$, while $\mathbf{r}\cdot d\mathbf{l} = \mathbf{r}\cdot d\mathbf{r} = \frac{1}{2}d(r^2) = r\,dr$. Since $\mathbf{B} = B(r)\hat{\mathbf{z}}$ depends only on $r$, the integral reduces to a radial integral from $0$ to $R$:
+
+$$
+\mathbf{L} = -q\hat{\mathbf{z}}\int_0^R B(r)\,r\,dr = -\frac{q\hat{\mathbf{z}}}{2\pi}\int_0^R B(r)\,(2\pi r\,dr) = -\frac{q\Phi}{2\pi}\,\hat{\mathbf{z}}
+$$
+
+where $\Phi = \int \mathbf{B}\cdot d\mathbf{a}$ is the total magnetic flux through the disk. When $\Phi = 0$, the particle reaches $r = R$ with $\mathbf{L} = \mathbf{r}\times\mathbf{p} = \mathbf{0}$, which means $\mathbf{p}$ is parallel to $\mathbf{r}$: the particle exits along a radial line.
+
+For the inward problem, a particle fired from outside directly toward the center begins with $\mathbf{L}(R) = \mathbf{0}$. At any radius $r \lt R$, the same integration from $R$ to $r$ gives $L(r) = \frac{q}{2\pi}\int_r^R B(r')\,2\pi r'\,dr' = -\frac{q}{2\pi}\Phi(r)$ (since $\Phi(R) = 0$). Provided the kinetic energy is large enough that $L(r)/(mr)$ never exceeds the particle's speed $v$ (so it does not turn around at a radial turning point), it reaches $r \to 0$ with $L \to 0$—mirroring an outward trajectory reflected across the radial line—and strikes the target at the center.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.44" title="Magnetic Attraction Between Spinning Charged Hemispheres" tag="Griffiths 5.44 · Surface Current Force">
+<div slot="problem">
+
+Find the magnetic force of attraction between the northern and southern hemispheres of a uniformly charged spherical shell of radius $R$ and surface charge density $\sigma$ spinning at angular velocity $\omega$ (Example 5.11).
+
+</div>
+<div slot="answer">
+
+$F = \frac{\pi}{4}\mu_0\sigma^2\omega^2 R^4$ (pulling the northern hemisphere in the $-\hat{\mathbf{z}}$ direction and the southern hemisphere in the $+\hat{\mathbf{z}}$ direction).
+
+</div>
+<div slot="solution">
+
+The force on a surface current $\mathbf{K}$ is $\mathbf{F} = \int (\mathbf{K}\times\mathbf{B}_{\text{ave}})\,da$, where $\mathbf{B}_{\text{ave}} = \frac{1}{2}(\mathbf{B}_{\text{in}} + \mathbf{B}_{\text{out}})$ and $\mathbf{K} = \sigma\mathbf{v} = \sigma\omega R\sin\theta\,\hat{\boldsymbol{\phi}}$. From Example 5.11, the interior field is uniform:
+
+$$
+\mathbf{B}_{\text{in}} = \frac{2}{3}\mu_0\sigma\omega R\,\hat{\mathbf{z}} = \frac{2}{3}\mu_0\sigma\omega R\left(\cos\theta\,\hat{\mathbf{r}} - \sin\theta\,\hat{\boldsymbol{\theta}}\right)
+$$
+
+Outside ($r \gt R$), $\mathbf{A}_{\text{out}} = \frac{\mu_0 R^4\sigma\omega\sin\theta}{3r^2}\,\hat{\boldsymbol{\phi}}$, so taking $\mathbf{B}_{\text{out}} = \nabla\times\mathbf{A}_{\text{out}}$ gives:
+
+$$
+\mathbf{B}_{\text{out}} = \frac{\mu_0 R^4\sigma\omega}{3r^3}\left(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}}\right)
+$$
+
+Evaluating at $r = R$ and averaging the interior and exterior fields:
+
+$$
+\mathbf{B}_{\text{ave}} = \frac{\mu_0\sigma\omega R}{6}\left(4\cos\theta\,\hat{\mathbf{r}} - \sin\theta\,\hat{\boldsymbol{\theta}}\right)
+$$
+
+Using $\hat{\boldsymbol{\phi}}\times\hat{\mathbf{r}} = \hat{\boldsymbol{\theta}}$ and $\hat{\boldsymbol{\phi}}\times\hat{\boldsymbol{\theta}} = -\hat{\mathbf{r}}$, the force per unit area is:
+
+$$
+\mathbf{K}\times\mathbf{B}_{\text{ave}} = \frac{\mu_0(\sigma\omega R)^2}{6}\sin\theta\left(4\cos\theta\,\hat{\boldsymbol{\theta}} + \sin\theta\,\hat{\mathbf{r}}\right)
+$$
+
+By azimuthal symmetry, only the $z$-component survives integration over the northern hemisphere ($0 \le \theta \le \pi/2$). Since $\hat{\boldsymbol{\theta}}\cdot\hat{\mathbf{z}} = -\sin\theta$ and $\hat{\mathbf{r}}\cdot\hat{\mathbf{z}} = \cos\theta$:
+
+$$
+(\mathbf{K}\times\mathbf{B}_{\text{ave}})_z = \frac{\mu_0(\sigma\omega R)^2}{6}\sin\theta\left(-4\sin\theta\cos\theta + \sin\theta\cos\theta\right) = -\frac{\mu_0(\sigma\omega R)^2}{2}\sin^2\theta\cos\theta
+$$
+
+Integrating over the northern hemisphere ($da = R^2\sin\theta\,d\theta\,d\phi$):
+
+$$
+F_z = -\frac{\mu_0}{2}\sigma^2\omega^2 R^4 \int_0^{2\pi} d\phi \int_0^{\pi/2}\sin^3\theta\cos\theta\,d\theta = -\pi\mu_0\sigma^2\omega^2 R^4 \left[\frac{\sin^4\theta}{4}\right]_0^{\pi/2} = -\frac{\pi}{4}\mu_0\sigma^2\omega^2 R^4
+$$
+
+Thus the two hemispheres attract each other with force magnitude $\frac{\pi}{4}\mu_0\sigma^2\omega^2 R^4$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.45" title="Electric Charge in the Field of a Magnetic Monopole" tag="Griffiths 5.45 · Poincaré Cone">
+<div slot="problem">
+
+A particle of mass $m$ and electric charge $q_e$ moves in the radial magnetic field of a fixed hypothetical magnetic monopole $q_m$ at the origin, $\mathbf{B} = \frac{\mu_0 q_m}{4\pi r^2}\hat{\mathbf{r}}$.
+
+(a) Express the particle's acceleration $\mathbf{a}$ in terms of $q_e$, $q_m$, $m$, $\mathbf{r}$, and $\mathbf{v}$.
+
+(b) Prove that the speed $v = |\mathbf{v}|$ is constant.
+
+(c) Show that the vector $\mathbf{Q} \equiv m(\mathbf{r}\times\mathbf{v}) - \frac{\mu_0 q_e q_m}{4\pi}\hat{\mathbf{r}}$ is conserved.
+
+(d) Choosing spherical coordinates $(r,\theta,\phi)$ with the $+z$-axis along $\mathbf{Q}$: (i) evaluate $\mathbf{Q}\cdot\hat{\boldsymbol{\phi}}$ to show that $\theta$ is constant (motion on a cone); (ii) evaluate $\mathbf{Q}\cdot\hat{\mathbf{r}}$ to show that $Q = \frac{\mu_0}{4\pi}\left|\frac{q_e q_m}{\cos\theta}\right|$; (iii) evaluate $\mathbf{Q}\cdot\hat{\boldsymbol{\theta}}$ to show $\dot{\phi} = k/r^2$ and find $k$.
+
+(e) Using $v^2$ in spherical coordinates, find $\frac{dr}{d\phi} = f(r)$.
+
+(f) Integrate to determine $r(\phi)$.
+
+</div>
+<div slot="answer">
+
+(a) $\mathbf{a} = \frac{\mu_0 q_e q_m}{4\pi m r^3}(\mathbf{v}\times\mathbf{r})$.
+
+(b) $\mathbf{a}\cdot\mathbf{v} = 0 \implies v = \text{const}$.
+
+(c) $\frac{d\mathbf{Q}}{dt} = \mathbf{0}$.
+
+(d) $\theta = \text{const}$; $Q = \frac{\mu_0}{4\pi}\left|\frac{q_e q_m}{\cos\theta}\right|$; $\dot{\phi} = \frac{k}{r^2}$ with $k = \frac{Q}{m} = \frac{\mu_0 |q_e q_m|}{4\pi m|\cos\theta|}$.
+
+(e) $\frac{dr}{d\phi} = \pm r\sin\theta\sqrt{\left(\frac{vr}{k\sin\theta}\right)^2 - 1}$.
+
+(f) $r(\phi) = \frac{A}{\cos[(\phi - \phi_0)\sin\theta]}$, where $A \equiv \frac{\mu_0 |q_e q_m\tan\theta|}{4\pi m v}$.
+
+</div>
+<div slot="solution">
+
+**(a)** From the Lorentz force law $\mathbf{F} = m\mathbf{a} = q_e(\mathbf{v}\times\mathbf{B})$:
+
+$$
+\mathbf{a} = \frac{\mu_0 q_e q_m}{4\pi m r^2}(\mathbf{v}\times\hat{\mathbf{r}}) = \frac{\mu_0 q_e q_m}{4\pi m r^3}(\mathbf{v}\times\mathbf{r})
+$$
+
+**(b)** Because $\mathbf{a} \perp \mathbf{v}$, we have $\mathbf{a}\cdot\mathbf{v} = \frac{1}{2}\frac{d}{dt}(v^2) = v\frac{dv}{dt} = 0$, so $v$ is constant.
+
+**(c)** Differentiating $\mathbf{Q}$ with respect to time:
+
+$$
+\frac{d\mathbf{Q}}{dt} = m(\mathbf{v}\times\mathbf{v}) + m(\mathbf{r}\times\mathbf{a}) - \frac{\mu_0 q_e q_m}{4\pi}\frac{d}{dt}\left(\frac{\mathbf{r}}{r}\right)
+$$
+
+Here $\mathbf{v}\times\mathbf{v} = \mathbf{0}$, and using $\mathbf{a}$ from part (a):
+
+$$
+m(\mathbf{r}\times\mathbf{a}) = \frac{\mu_0 q_e q_m}{4\pi r^3}[\mathbf{r}\times(\mathbf{v}\times\mathbf{r})] = \frac{\mu_0 q_e q_m}{4\pi r^3}\left[r^2\mathbf{v} - (\mathbf{r}\cdot\mathbf{v})\mathbf{r}\right]
+$$
+
+Meanwhile, since $r\dot{r} = \mathbf{r}\cdot\mathbf{v}$:
+
+$$
+\frac{d}{dt}\left(\frac{\mathbf{r}}{r}\right) = \frac{\mathbf{v}}{r} - \frac{\mathbf{r}\dot{r}}{r^2} = \frac{\mathbf{v}}{r} - \frac{(\mathbf{r}\cdot\mathbf{v})\mathbf{r}}{r^3}
+$$
+
+The two terms cancel identically, giving $\frac{d\mathbf{Q}}{dt} = \mathbf{0}$.
+
+**(d)** Orienting $+z$ along $\mathbf{Q}$ gives $\mathbf{Q} = Q\hat{\mathbf{z}}$ ($Q \gt 0$). In spherical coordinates, $\mathbf{r} = r\hat{\mathbf{r}}$ and $\mathbf{v} = \dot{r}\hat{\mathbf{r}} + r\dot{\theta}\hat{\boldsymbol{\theta}} + r\sin\theta\,\dot{\phi}\hat{\boldsymbol{\phi}}$, so:
+
+$$
+\mathbf{r}\times\mathbf{v} = -r^2\sin\theta\,\dot{\phi}\hat{\boldsymbol{\theta}} + r^2\dot{\theta}\hat{\boldsymbol{\phi}}
+$$
+
+(i) Taking $\mathbf{Q}\cdot\hat{\boldsymbol{\phi}}$: since $\hat{\mathbf{z}}\cdot\hat{\boldsymbol{\phi}} = 0$ and $\hat{\mathbf{r}}\cdot\hat{\boldsymbol{\phi}} = 0$, we obtain $mr^2\dot{\theta} = 0$, so $\theta$ is constant (the charge moves on a cone).
+
+(ii) Taking $\mathbf{Q}\cdot\hat{\mathbf{r}}$: since $\hat{\mathbf{z}}\cdot\hat{\mathbf{r}} = \cos\theta$ and $(\mathbf{r}\times\mathbf{v})\cdot\hat{\mathbf{r}} = 0$, we get:
+
+$$
+Q\cos\theta = -\frac{\mu_0 q_e q_m}{4\pi} \implies Q = \frac{\mu_0}{4\pi}\left|\frac{q_e q_m}{\cos\theta}\right|
+$$
+
+(where the sign of $\cos\theta$ is opposite to that of $q_e q_m$).
+
+(iii) Taking $\mathbf{Q}\cdot\hat{\boldsymbol{\theta}}$: since $\hat{\mathbf{z}}\cdot\hat{\boldsymbol{\theta}} = -\sin\theta$, $(\mathbf{r}\times\mathbf{v})\cdot\hat{\boldsymbol{\theta}} = -r^2\sin\theta\,\dot{\phi}$, and $\hat{\mathbf{r}}\cdot\hat{\boldsymbol{\theta}} = 0$:
+
+$$
+-Q\sin\theta = -mr^2\sin\theta\,\dot{\phi} \implies \dot{\phi} = \frac{k}{r^2}, \qquad k \equiv \frac{Q}{m} = \frac{\mu_0 |q_e q_m|}{4\pi m |\cos\theta|}
+$$
+
+**(e)** Since $\dot{\theta} = 0$, $v^2 = \dot{r}^2 + r^2\sin^2\theta\,\dot{\phi}^2 = \dot{r}^2 + \frac{k^2\sin^2\theta}{r^2}$. Dividing $\dot{r}^2$ by $\dot{\phi}^2 = k^2/r^4$:
+
+$$
+\left(\frac{dr}{d\phi}\right)^2 = \frac{r^4}{k^2}\left(v^2 - \frac{k^2\sin^2\theta}{r^2}\right) = r^2\sin^2\theta\left[\left(\frac{vr}{k\sin\theta}\right)^2 - 1\right]
+$$
+
+Taking the square root gives:
+
+$$
+\frac{dr}{d\phi} = \pm r\sin\theta\sqrt{\left(\frac{vr}{k\sin\theta}\right)^2 - 1}
+$$
+
+**(f)** Separating variables and integrating with $u = \frac{vr}{k\sin\theta}$:
+
+$$
+\int \frac{du}{u\sqrt{u^2 - 1}} = \pm\sin\theta\int d\phi \implies \sec^{-1}\left(\frac{vr}{k\sin\theta}\right) = \pm(\phi - \phi_0)\sin\theta
+$$
+
+Solving for $r(\phi)$ (and noting $\cos$ is even):
+
+$$
+r(\phi) = \frac{A}{\cos[(\phi - \phi_0)\sin\theta]}, \qquad A \equiv \frac{k\sin\theta}{v} = \frac{\mu_0 |q_e q_m\tan\theta|}{4\pi m v}
+$$
+
+(When the cone is unrolled onto a plane, $\alpha = \phi\sin\theta$ is the planar polar angle, so $r\cos(\alpha - \alpha_0) = A$ is a straight line—a geodesic on the cone.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.46" title="Infinite Solenoid Field via the Biot–Savart Law" tag="Griffiths 5.46 · Biot–Savart">
+<div slot="problem">
+
+Use the surface-current form of the Biot–Savart law to compute the magnetic field inside and outside an infinitely long solenoid of radius $R$ with $n$ turns per unit length carrying steady current $I$.
+
+</div>
+<div slot="answer">
+
+$\mathbf{B} = \mu_0 n I\,\hat{\mathbf{z}}$ inside ($s \lt R$), and $\mathbf{B} = \mathbf{0}$ outside ($s \gt R$).
+
+</div>
+<div slot="solution">
+
+Model the solenoid as a cylindrical surface current $\mathbf{K} = K\hat{\boldsymbol{\phi}}$ with $K = nI$ along the $z$-axis. By cylindrical symmetry, place the field point on the $x$-axis at $\mathbf{r} = (s, 0, 0)$. A surface element at $\mathbf{r}' = (R\cos\phi', R\sin\phi', z')$ has $da' = R\,d\phi'\,dz'$ and $\mathbf{K} = K(-\sin\phi'\,\hat{\mathbf{x}} + \cos\phi'\,\hat{\mathbf{y}})$. The separation vector is:
+
+$$
+\boldsymbol{\mathscr{r}} = \mathbf{r} - \mathbf{r}' = (s - R\cos\phi')\,\hat{\mathbf{x}} - R\sin\phi'\,\hat{\mathbf{y}} - z'\,\hat{\mathbf{z}}
+$$
+
+with $\mathscr{r}^2 = z'^2 + R^2 + s^2 - 2Rs\cos\phi'$. Evaluating the cross product:
+
+$$
+\mathbf{K}\times\boldsymbol{\mathscr{r}} = K\left[-z'\cos\phi'\,\hat{\mathbf{x}} - z'\sin\phi'\,\hat{\mathbf{y}} + (R - s\cos\phi')\,\hat{\mathbf{z}}\right]
+$$
+
+In the Biot–Savart integral $\mathbf{B} = \frac{\mu_0}{4\pi}\int \frac{\mathbf{K}\times\boldsymbol{\mathscr{r}}}{\mathscr{r}^3}\,da'$, the $x$ and $y$ integrands are odd in $z'$ over $(-\infty, \infty)$ and integrate to zero. Thus $\mathbf{B} = B_z\hat{\mathbf{z}}$, with:
+
+$$
+B_z = \frac{\mu_0 K R}{4\pi}\int_0^{2\pi} (R - s\cos\phi')\left(\int_{-\infty}^{\infty}\frac{dz'}{(z'^2 + d^2)^{3/2}}\right)d\phi'
+$$
+
+where $d^2 \equiv R^2 + s^2 - 2Rs\cos\phi'$. Using $\int_{-\infty}^\infty (z'^2 + d^2)^{-3/2}\,dz' = \frac{2}{d^2}$ and the algebraic identity $\frac{R - s\cos\phi'}{R^2 + s^2 - 2Rs\cos\phi'} = \frac{1}{2R}\left(1 + \frac{R^2 - s^2}{R^2 + s^2 - 2Rs\cos\phi'}\right)$:
+
+$$
+B_z = \frac{\mu_0 K}{4\pi}\left[2\pi + (R^2 - s^2)\int_0^{2\pi}\frac{d\phi'}{R^2 + s^2 - 2Rs\cos\phi'}\right]
+$$
+
+Applying the standard definite integral $\int_0^{2\pi}\frac{d\phi'}{a + b\cos\phi'} = \frac{2\pi}{\sqrt{a^2 - b^2}}$ with $a = R^2 + s^2$ and $b = -2Rs$, we have $\sqrt{a^2 - b^2} = \sqrt{(R^2 - s^2)^2} = |R^2 - s^2|$:
+
+$$
+B_z = \frac{\mu_0 K}{2}\left(1 + \frac{R^2 - s^2}{|R^2 - s^2|}\right)
+$$
+
+Inside the solenoid ($s \lt R$), $\frac{R^2 - s^2}{|R^2 - s^2|} = +1$, so $\mathbf{B} = \mu_0 K\hat{\mathbf{z}} = \mu_0 nI\hat{\mathbf{z}}$. Outside ($s \gt R$), $\frac{R^2 - s^2}{|R^2 - s^2|} = -1$, so $\mathbf{B} = \mathbf{0}$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.47" title="Helmholtz Coils and Midpoint Field Uniformity" tag="Griffiths 5.47 · Helmholtz Coils">
+<div slot="problem">
+
+Two coaxial circular loops of radius $R$, each carrying steady current $I$ in the same sense, are separated by a distance $d$ along the $z$-axis (centered at $z = \pm d/2$).
+
+(a) Find the on-axis magnetic field $B(z)$ and show that $\partial B/\partial z = 0$ at the midpoint $z = 0$.
+
+(b) Determine the separation $d$ for which $\partial^2 B/\partial z^2 = 0$ at $z = 0$ (a Helmholtz coil), and calculate the magnetic field at the midpoint for this spacing.
+
+</div>
+<div slot="answer">
+
+(a) $B(z) = \frac{\mu_0 I R^2}{2}\left([R^2 + (z + d/2)^2]^{-3/2} + [R^2 + (z - d/2)^2]^{-3/2}\right)$, with $\left.\frac{\partial B}{\partial z}\right|_{z=0} = 0$.
+
+(b) $d = R$, giving $B(0) = \frac{8\mu_0 I}{5\sqrt{5}\,R}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Superposing the on-axis fields of the two loops at $z = -d/2$ and $z = +d/2$:
+
+$$
+B(z) = \frac{\mu_0 I R^2}{2}\left(\frac{1}{[R^2 + (z + d/2)^2]^{3/2}} + \frac{1}{[R^2 + (z - d/2)^2]^{3/2}}\right)
+$$
+
+Differentiating with respect to $z$:
+
+$$
+\frac{\partial B}{\partial z} = -\frac{3\mu_0 I R^2}{2}\left(\frac{z + d/2}{[R^2 + (z + d/2)^2]^{5/2}} + \frac{z - d/2}{[R^2 + (z - d/2)^2]^{5/2}}\right)
+$$
+
+At $z = 0$, the two terms are equal in magnitude and opposite in sign, so $\left.\frac{\partial B}{\partial z}\right|_{z=0} = 0$.
+
+**(b)** Differentiating once more:
+
+$$
+\frac{\partial^2 B}{\partial z^2} = \frac{3\mu_0 I R^2}{2}\left(-\frac{1}{[R^2 + (z + d/2)^2]^{5/2}} + \frac{5(z + d/2)^2}{[R^2 + (z + d/2)^2]^{7/2}} - \frac{1}{[R^2 + (z - d/2)^2]^{5/2}} + \frac{5(z - d/2)^2}{[R^2 + (z - d/2)^2]^{7/2}}\right)
+$$
+
+Evaluating at $z = 0$:
+
+$$
+\left.\frac{\partial^2 B}{\partial z^2}\right|_{z=0} = 3\mu_0 I R^2\left(\frac{5(d/2)^2 - [R^2 + (d/2)^2]}{[R^2 + (d/2)^2]^{7/2}}\right) = \frac{3\mu_0 I R^2(d^2 - R^2)}{[R^2 + (d/2)^2]^{7/2}}
+$$
+
+Setting this equal to zero yields $d = R$. Substituting $d = R$ and $z = 0$ into $B(z)$ gives the Helmholtz midpoint field:
+
+$$
+B(0) = \frac{\mu_0 I R^2}{2}\cdot\frac{2}{(R^2 + R^2/4)^{3/2}} = \frac{\mu_0 I R^2}{(5R^2/4)^{3/2}} = \frac{8\mu_0 I}{5\sqrt{5}\,R}
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.48" title="On-Axis Magnetic Field of a Rotating Charged Disk" tag="Griffiths 5.48 · Rotating Disk">
+<div slot="problem">
+
+Use the on-axis field of a circular current loop to calculate the exact magnetic field on the $z$-axis ($z \gt 0$) of a flat disk of radius $R$ carrying uniform surface charge $\sigma$ and spinning about its symmetry axis at angular velocity $\omega$. Show that for $z \gg R$ this reduces to the dipole field using the disk's dipole moment $m = \frac{\pi}{4}\sigma\omega R^4$.
+
+</div>
+<div slot="answer">
+
+$\mathbf{B}(z) = \frac{\mu_0\sigma\omega}{2}\left(\frac{R^2 + 2z^2}{\sqrt{R^2 + z^2}} - 2z\right)\hat{\mathbf{z}}$. For $z \gg R$, $\mathbf{B}(z) \approx \frac{\mu_0\sigma\omega R^4}{8z^3}\hat{\mathbf{z}} = \frac{\mu_0 m}{2\pi z^3}\hat{\mathbf{z}}$.
+
+</div>
+<div slot="solution">
+
+Divide the disk into concentric rings of radius $r'$ and width $dr'$. Each ring carries charge $dq = \sigma(2\pi r'\,dr')$ and completes one rotation in period $T = 2\pi/\omega$, so it forms a circular current $dI = \frac{dq}{T} = \sigma\omega r'\,dr'$. Integrating the loop formula over $r'$ from $0$ to $R$:
+
+$$
+\mathbf{B}(z) = \hat{\mathbf{z}}\int_0^R \frac{\mu_0(\sigma\omega r'\,dr')r'^2}{2(r'^2 + z^2)^{3/2}} = \frac{\mu_0\sigma\omega}{2}\left(\int_0^R \frac{r'^3\,dr'}{(r'^2 + z^2)^{3/2}}\right)\hat{\mathbf{z}}
+$$
+
+Substituting $u = r'^2$ ($du = 2r'\,dr'$):
+
+$$
+\int_0^R \frac{r'^3\,dr'}{(r'^2 + z^2)^{3/2}} = \frac{1}{2}\int_0^{R^2}\frac{u\,du}{(u + z^2)^{3/2}} = \left[\frac{u + 2z^2}{\sqrt{u + z^2}}\right]_0^{R^2} = \frac{R^2 + 2z^2}{\sqrt{R^2 + z^2}} - 2z
+$$
+
+Thus:
+
+$$
+\mathbf{B}(z) = \frac{\mu_0\sigma\omega}{2}\left(\frac{R^2 + 2z^2}{\sqrt{R^2 + z^2}} - 2z\right)\hat{\mathbf{z}}
+$$
+
+For $z \gg R$, expand $(1 + R^2/z^2)^{-1/2}$ to second order in $R^2/z^2$:
+
+$$
+\frac{R^2 + 2z^2}{\sqrt{R^2 + z^2}} = 2z\left(1 + \frac{R^2}{2z^2}\right)\left(1 - \frac{R^2}{2z^2} + \frac{3R^4}{8z^4} + \cdots\right) \approx 2z\left(1 + \frac{R^4}{8z^4}\right) = 2z + \frac{R^4}{4z^3}
+$$
+
+Subtracting $2z$ gives:
+
+$$
+\mathbf{B}(z) \approx \frac{\mu_0\sigma\omega}{2}\left(\frac{R^4}{4z^3}\right)\hat{\mathbf{z}} = \frac{\mu_0\sigma\omega R^4}{8z^3}\hat{\mathbf{z}}
+$$
+
+On the $+z$-axis ($\theta = 0$), the pure dipole field is $\mathbf{B}_{\text{dip}} = \frac{\mu_0 m}{2\pi z^3}\hat{\mathbf{z}}$. Substituting $m = \frac{\pi}{4}\sigma\omega R^4$ yields $\frac{\mu_0\sigma\omega R^4}{8z^3}\hat{\mathbf{z}}$, in exact agreement.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.49" title="Off-Axis Magnetic Field of a Circular Current Loop" tag="Griffiths 5.49 · Biot–Savart">
+<div slot="problem">
+
+Consider a circular loop of radius $R$ in the $xy$-plane centered at the origin, carrying steady current $I$ counterclockwise when viewed from above. Set up the Biot–Savart integrals for $B_x$, $B_y$, and $B_z$ at an arbitrary off-axis point $\mathbf{r} = (0, y, z)$ in the $yz$-plane, and evaluate $B_x$ explicitly.
+
+</div>
+<div slot="answer">
+
+$B_x = 0$; $B_y = \frac{\mu_0 I R z}{4\pi}\int_0^{2\pi}\frac{\sin\phi'\,d\phi'}{(R^2 + y^2 + z^2 - 2Ry\sin\phi')^{3/2}}$; $B_z = \frac{\mu_0 I R}{4\pi}\int_0^{2\pi}\frac{(R - y\sin\phi')\,d\phi'}{(R^2 + y^2 + z^2 - 2Ry\sin\phi')^{3/2}}$.
+
+</div>
+<div slot="solution">
+
+The source point on the loop is $\mathbf{r}' = (R\cos\phi', R\sin\phi', 0)$, with line element $d\mathbf{l}' = (-R\sin\phi'\,\hat{\mathbf{x}} + R\cos\phi'\,\hat{\mathbf{y}})\,d\phi'$. For the field point $\mathbf{r} = (0, y, z)$, the separation vector is:
+
+$$
+\boldsymbol{\mathscr{r}} = \mathbf{r} - \mathbf{r}' = -R\cos\phi'\,\hat{\mathbf{x}} + (y - R\sin\phi')\,\hat{\mathbf{y}} + z\,\hat{\mathbf{z}}
+$$
+
+whose squared magnitude is $\mathscr{r}^2 = R^2 + y^2 + z^2 - 2Ry\sin\phi'$. The cross product in the Biot–Savart law is:
+
+$$
+d\mathbf{l}'\times\boldsymbol{\mathscr{r}} = \begin{vmatrix} \hat{\mathbf{x}} & \hat{\mathbf{y}} & \hat{\mathbf{z}} \\ -R\sin\phi' & R\cos\phi' & 0 \\ -R\cos\phi' & y - R\sin\phi' & z \end{vmatrix} d\phi' = \left[Rz\cos\phi'\,\hat{\mathbf{x}} + Rz\sin\phi'\,\hat{\mathbf{y}} + (R^2 - Ry\sin\phi')\,\hat{\mathbf{z}}\right]d\phi'
+$$
+
+Substituting into $\mathbf{B} = \frac{\mu_0 I}{4\pi}\int_0^{2\pi} \frac{d\mathbf{l}'\times\boldsymbol{\mathscr{r}}}{\mathscr{r}^3}$ yields the component integrals:
+
+$$
+B_x = \frac{\mu_0 I R z}{4\pi}\int_0^{2\pi}\frac{\cos\phi'\,d\phi'}{(R^2 + y^2 + z^2 - 2Ry\sin\phi')^{3/2}}
+$$
+
+$$
+B_y = \frac{\mu_0 I R z}{4\pi}\int_0^{2\pi}\frac{\sin\phi'\,d\phi'}{(R^2 + y^2 + z^2 - 2Ry\sin\phi')^{3/2}}, \qquad B_z = \frac{\mu_0 I R}{4\pi}\int_0^{2\pi}\frac{(R - y\sin\phi')\,d\phi'}{(R^2 + y^2 + z^2 - 2Ry\sin\phi')^{3/2}}
+$$
+
+For $B_x$, substitute $u = R^2 + y^2 + z^2 - 2Ry\sin\phi'$ ($du = -2Ry\cos\phi'\,d\phi'$):
+
+$$
+B_x = \frac{\mu_0 I R z}{4\pi}\left[\frac{1}{Ry\sqrt{R^2 + y^2 + z^2 - 2Ry\sin\phi'}}\right]_0^{2\pi} = 0
+$$
+
+because $\sin(2\pi) = \sin(0) = 0$. (The remaining integrals for $B_y$ and $B_z$ are complete elliptic integrals.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.50" title="Newton's Third Law Between Two Current Loops" tag="Griffiths 5.50 · Magnetic Force">
+<div slot="problem">
+
+Starting from the Biot–Savart law and the magnetic force law for a current-carrying wire, prove that the magnetic force on loop 2 due to loop 1 can be written in the manifestly antisymmetric form:
+
+$$
+\mathbf{F}_2 = -\frac{\mu_0 I_1 I_2}{4\pi}\oint_1 \oint_2 \frac{\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,(d\mathbf{l}_1\cdot d\mathbf{l}_2)
+$$
+
+so that $\mathbf{F}_2 = -\mathbf{F}_1$, consistent with Newton's third law.
+
+</div>
+<div slot="answer">
+
+Expanding $d\mathbf{l}_2\times(d\mathbf{l}_1\times\hat{\boldsymbol{\mathscr{r}}})$ yields the desired term plus $\oint_1 d\mathbf{l}_1 \oint_2 \frac{\hat{\boldsymbol{\mathscr{r}}}\cdot d\mathbf{l}_2}{\mathscr{r}^2}$, which vanishes because $\frac{\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2} = -\nabla_2(1/\mathscr{r})$ is an exact gradient integrated around the closed loop 2.
+
+</div>
+<div slot="solution">
+
+The magnetic field created by loop 1 at a point $\mathbf{r}_2$ on loop 2 is $\mathbf{B}_1(\mathbf{r}_2) = \frac{\mu_0 I_1}{4\pi}\oint_1 \frac{d\mathbf{l}_1\times\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}$, where $\boldsymbol{\mathscr{r}} = \mathbf{r}_2 - \mathbf{r}_1$. The total magnetic force on loop 2 is therefore:
+
+$$
+\mathbf{F}_2 = I_2\oint_2 d\mathbf{l}_2\times\mathbf{B}_1 = \frac{\mu_0 I_1 I_2}{4\pi}\oint_1\oint_2 \frac{d\mathbf{l}_2\times(d\mathbf{l}_1\times\hat{\boldsymbol{\mathscr{r}}})}{\mathscr{r}^2}
+$$
+
+Applying the BAC–CAB identity $d\mathbf{l}_2\times(d\mathbf{l}_1\times\hat{\boldsymbol{\mathscr{r}}}) = d\mathbf{l}_1(d\mathbf{l}_2\cdot\hat{\boldsymbol{\mathscr{r}}}) - \hat{\boldsymbol{\mathscr{r}}}(d\mathbf{l}_1\cdot d\mathbf{l}_2)$ splits the integral into two pieces:
+
+$$
+\mathbf{F}_2 = \frac{\mu_0 I_1 I_2}{4\pi}\oint_1 d\mathbf{l}_1 \left(\oint_2 \frac{\hat{\boldsymbol{\mathscr{r}}}\cdot d\mathbf{l}_2}{\mathscr{r}^2}\right) - \frac{\mu_0 I_1 I_2}{4\pi}\oint_1\oint_2 \frac{\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}(d\mathbf{l}_1\cdot d\mathbf{l}_2)
+$$
+
+Holding $\mathbf{r}_1$ fixed while integrating over $\mathbf{r}_2$, observe that $\nabla_2\left(-\frac{1}{\mathscr{r}}\right) = \frac{\mathbf{r}_2 - \mathbf{r}_1}{\mathscr{r}^3} = \frac{\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}$. Because the closed line integral of any gradient vanishes:
+
+$$
+\oint_2 \frac{\hat{\boldsymbol{\mathscr{r}}}\cdot d\mathbf{l}_2}{\mathscr{r}^2} = \oint_2 \nabla_2\left(-\frac{1}{\mathscr{r}}\right)\cdot d\mathbf{l}_2 = 0
+$$
+
+Only the second term survives:
+
+$$
+\mathbf{F}_2 = -\frac{\mu_0 I_1 I_2}{4\pi}\oint_1\oint_2 \frac{\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}(d\mathbf{l}_1\cdot d\mathbf{l}_2)
+$$
+
+Interchanging labels $1 \leftrightarrow 2$ reverses $\hat{\boldsymbol{\mathscr{r}}} \to -\hat{\boldsymbol{\mathscr{r}}}$ while leaving $\mathscr{r}^2$ and $d\mathbf{l}_1\cdot d\mathbf{l}_2$ unchanged, proving $\mathbf{F}_2 = -\mathbf{F}_1$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.51" title="Polar Formula for In-Plane Magnetic Fields" tag="Griffiths 5.51 · Planar Loops">
+<div slot="problem">
+
+A planar wire loop described in polar coordinates by $r(\theta)$ carries steady current $I$, and we want the magnetic field at the origin.
+
+(a) Show from the Biot–Savart law that the field magnitude at the origin is $B = \frac{\mu_0 I}{4\pi}\oint \frac{d\theta}{r}$.
+
+(b) Verify this formula for a circular loop of radius $R$.
+
+(c) For the lituus spiral $r(\theta) = a/\sqrt{\theta}$ ($0 \lt \theta \le 2\pi$), closed by a straight wire along the $+x$-axis, find $B$ at the origin.
+
+(d) For a conic section with focus at the origin, $r(\theta) = \frac{p}{1 + e\cos\theta}$ ($0 \le e \lt 1$ for closed loops, or $e = 1$ for a parabola), show that $B = \frac{\mu_0 I}{2p}$ independent of the eccentricity $e$.
+
+</div>
+<div slot="answer">
+
+(a) Derived from $|d\mathbf{l}\times\hat{\boldsymbol{\mathscr{r}}}| = r\,d\theta$.
+
+(b) $B = \frac{\mu_0 I}{2R}$.
+
+(c) $B = \frac{\mu_0 I\sqrt{2\pi}}{3a}$.
+
+(d) $B = \frac{\mu_0 I}{2p}$.
+
+</div>
+<div slot="solution">
+
+**(a)** With the field point at the origin ($\mathbf{r} = \mathbf{0}$) and source element at $\mathbf{r}' = r\hat{\mathbf{r}}$, we have $\boldsymbol{\mathscr{r}} = -\mathbf{r}' = -r\hat{\mathbf{r}}$, so $\mathscr{r} = r$ and $\hat{\boldsymbol{\mathscr{r}}} = -\hat{\mathbf{r}}$. Using $d\mathbf{l} = dr\,\hat{\mathbf{r}} + r\,d\theta\,\hat{\boldsymbol{\theta}}$ (so $d\mathbf{l}\times\hat{\boldsymbol{\mathscr{r}}} = r\,d\theta\,(\hat{\boldsymbol{\theta}}\times(-\hat{\mathbf{r}})) = r\,d\theta\,\hat{\mathbf{z}}$ for counterclockwise current), the Biot–Savart law yields:
+
+$$
+B = \frac{\mu_0 I}{4\pi}\oint \frac{|d\mathbf{l}\times\hat{\boldsymbol{\mathscr{r}}}|}{r^2} = \frac{\mu_0 I}{4\pi}\oint \frac{r\,d\theta}{r^2} = \frac{\mu_0 I}{4\pi}\oint \frac{d\theta}{r}
+$$
+
+**(b)** For a circle of constant radius $r = R$:
+
+$$
+B = \frac{\mu_0 I}{4\pi R}\int_0^{2\pi} d\theta = \frac{\mu_0 I}{2R}
+$$
+
+**(c)** Along the straight return segment on the $+x$-axis, $d\mathbf{l}$ is parallel to $\hat{\boldsymbol{\mathscr{r}}}$, so $d\mathbf{l}\times\hat{\boldsymbol{\mathscr{r}}} = \mathbf{0}$ and this segment contributes nothing. Along the lituus spiral $r(\theta) = a/\sqrt{\theta}$:
+
+$$
+B = \frac{\mu_0 I}{4\pi}\int_0^{2\pi} \frac{\sqrt{\theta}}{a}\,d\theta = \frac{\mu_0 I}{4\pi a}\left[\frac{2}{3}\theta^{3/2}\right]_0^{2\pi} = \frac{\mu_0 I\sqrt{2\pi}}{3a}
+$$
+
+**(d)** Substituting $1/r(\theta) = \frac{1 + e\cos\theta}{p}$:
+
+$$
+B = \frac{\mu_0 I}{4\pi p}\int_0^{2\pi}(1 + e\cos\theta)\,d\theta = \frac{\mu_0 I}{4\pi p}(2\pi) = \frac{\mu_0 I}{2p}
+$$
+
+(Note that for $e = 1$, a parabola closed at infinity still sweeps $2\pi$ in $\theta$ from $-\pi$ to $\pi$, giving the same result.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.52" title="Integral Formulas for A in Terms of B and V in Terms of E" tag="Griffiths 5.52 · Vector Potential">
+<div slot="problem">
+
+(a) Exploit the mathematical analogy between $(\nabla\cdot\mathbf{A} = 0,\; \nabla\times\mathbf{A} = \mathbf{B})$ and Maxwell's magnetostatic equations $(\nabla\cdot\mathbf{B} = 0,\; \nabla\times\mathbf{B} = \mu_0\mathbf{J})$ to write a Biot–Savart-like integral expressing $\mathbf{A}(\mathbf{r})$ in terms of $\mathbf{B}(\mathbf{r}')$.
+
+(b) Derive the analogous electrostatic formula $V(\mathbf{r}) = -\frac{1}{4\pi}\int \frac{\mathbf{E}(\mathbf{r}')\cdot\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,d\tau'$.
+
+</div>
+<div slot="answer">
+
+(a) $\mathbf{A}(\mathbf{r}) = \frac{1}{4\pi}\int \frac{\mathbf{B}(\mathbf{r}')\times\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,d\tau'$.
+
+(b) Follows by replacing $\mathbf{P}$ with $-\varepsilon_0\mathbf{E}$ in the bound-charge potential formula (or via $\rho = \varepsilon_0\nabla\cdot\mathbf{E}$ and integration by parts).
+
+</div>
+<div slot="solution">
+
+**(a)** In magnetostatics, the system $\nabla\cdot\mathbf{B} = 0$ and $\nabla\times\mathbf{B} = \mu_0\mathbf{J}$ (with fields vanishing at infinity) has the unique solution given by the Biot–Savart law:
+
+$$
+\mathbf{B}(\mathbf{r}) = \frac{\mu_0}{4\pi}\int \frac{\mathbf{J}(\mathbf{r}')\times\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,d\tau'
+$$
+
+In the Coulomb gauge, $\mathbf{A}$ satisfies the identical system $\nabla\cdot\mathbf{A} = 0$ and $\nabla\times\mathbf{A} = \mathbf{B}$. Replacing $\mathbf{B} \to \mathbf{A}$ and $\mu_0\mathbf{J} \to \mathbf{B}$ immediately yields:
+
+$$
+\mathbf{A}(\mathbf{r}) = \frac{1}{4\pi}\int \frac{\mathbf{B}(\mathbf{r}')\times\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,d\tau'
+$$
+
+**(b)** For a localized polarization $\mathbf{P}$ with bound charge density $\rho_b = -\nabla\cdot\mathbf{P}$, the electrostatic potential is $V(\mathbf{r}) = \frac{1}{4\pi\varepsilon_0}\int \frac{\mathbf{P}(\mathbf{r}')\cdot\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,d\tau'$. In general electrostatics, Gauss's law gives $\rho = \varepsilon_0\nabla\cdot\mathbf{E}$, which matches $\rho_b = -\nabla\cdot\mathbf{P}$ under the substitution $\mathbf{P} \to -\varepsilon_0\mathbf{E}$. Making this replacement gives:
+
+$$
+V(\mathbf{r}) = -\frac{1}{4\pi}\int \frac{\mathbf{E}(\mathbf{r}')\cdot\hat{\boldsymbol{\mathscr{r}}}}{\mathscr{r}^2}\,d\tau'
+$$
+
+(Equivalently, using $\nabla'\cdot(\hat{\boldsymbol{\mathscr{r}}}/\mathscr{r}^2) = -4\pi\delta^3(\mathbf{r} - \mathbf{r}')$ and $\mathbf{E}(\mathbf{r}') = -\nabla' V(\mathbf{r}')$, integrating $\int V(\mathbf{r}')\delta^3(\mathbf{r}-\mathbf{r}')\,d\tau'$ by parts produces the same result when fields fall off fast enough at infinity.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.53" title="Line-Integral Candidates for the Vector Potential" tag="Griffiths 5.53 · Vector Potential">
+<div slot="problem">
+
+Consider attempting to reconstruct $\mathbf{A}(\mathbf{r})$ from $\mathbf{B}$ via the path integral $\mathbf{A}(\mathbf{r}) = \int_O^{\mathbf{r}}(\mathbf{B}\times d\mathbf{l})$.
+
+(a) Test this candidate for a uniform magnetic field $\mathbf{B}$ (with the origin as reference) and compare with the Coulomb-gauge result $\mathbf{A} = \frac{1}{2}(\mathbf{B}\times\mathbf{r})$.
+
+(b) Show that $\oint (\mathbf{B}\times d\mathbf{l})$ is path-dependent by evaluating it around a rectangular loop of width $w$ in a plane containing an infinite straight wire carrying current $I$, between cylindrical radii $a$ and $b$.
+
+An improved radial prescription is $\mathbf{A}(\mathbf{r}) = -\mathbf{r}\times\int_0^1 \lambda\,\mathbf{B}(\lambda\mathbf{r})\,d\lambda$.
+
+(c) Use this formula to find $\mathbf{A}$ for a uniform $\mathbf{B}$.
+
+(d) Apply it to an infinite straight wire along the $z$-axis carrying current $I$, and check whether this prescription automatically satisfies $\nabla\cdot\mathbf{A} = 0$ in general.
+
+</div>
+<div slot="answer">
+
+(a) $\int_O^{\mathbf{r}}(\mathbf{B}\times d\mathbf{l}) = \mathbf{B}\times\mathbf{r}$, which is twice the actual $\mathbf{A} = \frac{1}{2}(\mathbf{B}\times\mathbf{r})$.
+
+(b) Around the loop, $\oint(\mathbf{B}\times d\mathbf{l}) = \frac{\mu_0 I w}{2\pi}\left(\frac{1}{a} - \frac{1}{b}\right)\hat{\mathbf{s}} \ne \mathbf{0}$ (up to overall sign from loop orientation).
+
+(c) $\mathbf{A} = -\frac{1}{2}(\mathbf{r}\times\mathbf{B}) = \frac{1}{2}(\mathbf{B}\times\mathbf{r})$.
+
+(d) $\mathbf{A} = \frac{\mu_0 I}{2\pi s}(z\hat{\mathbf{s}} - s\hat{\mathbf{z}})$. It does **not** automatically satisfy $\nabla\cdot\mathbf{A} = 0$ where $\mathbf{J} \ne \mathbf{0}$ (e.g., inside a uniform-current wire, $\nabla\cdot\mathbf{A} = \frac{\mu_0 J z}{3} \ne 0$).
+
+</div>
+<div slot="solution">
+
+**(a)** For constant $\mathbf{B}$, $\int_O^{\mathbf{r}}(\mathbf{B}\times d\mathbf{l}) = \mathbf{B}\times\int_O^{\mathbf{r}} d\mathbf{l} = \mathbf{B}\times\mathbf{r}$. Since $\nabla\times(\mathbf{B}\times\mathbf{r}) = 2\mathbf{B}$, this is off by a factor of $2$ from $\mathbf{A} = \frac{1}{2}(\mathbf{B}\times\mathbf{r})$.
+
+**(b)** For the straight wire, $\mathbf{B} = \frac{\mu_0 I}{2\pi s}\hat{\boldsymbol{\phi}}$. On the two horizontal segments ($d\mathbf{l} = \pm ds\,\hat{\mathbf{s}}$), $\mathbf{B}\times d\mathbf{l}$ points along $\mp\hat{\mathbf{z}}$ and cancels between top and bottom legs. On the two vertical segments of height $w$ ($d\mathbf{l} = \pm dz\,\hat{\mathbf{z}}$) at $s = a$ and $s = b$, $\hat{\boldsymbol{\phi}}\times\hat{\mathbf{z}} = \hat{\mathbf{s}}$, giving:
+
+$$
+\oint(\mathbf{B}\times d\mathbf{l}) = \left(\frac{\mu_0 I}{2\pi a} - \frac{\mu_0 I}{2\pi b}\right)w\,\hat{\mathbf{s}} = \frac{\mu_0 I w}{2\pi}\left(\frac{1}{a} - \frac{1}{b}\right)\hat{\mathbf{s}} \ne \mathbf{0}
+$$
+
+Thus the integral depends on path.
+
+**(c)** For uniform $\mathbf{B}$, $\int_0^1 \lambda\mathbf{B}\,d\lambda = \frac{1}{2}\mathbf{B}$, so:
+
+$$
+\mathbf{A}(\mathbf{r}) = -\frac{1}{2}(\mathbf{r}\times\mathbf{B}) = \frac{1}{2}(\mathbf{B}\times\mathbf{r})
+$$
+
+**(d)** Outside the wire, $\mathbf{B}(\lambda\mathbf{r}) = \frac{\mu_0 I}{2\pi\lambda s}\hat{\boldsymbol{\phi}}$, so the $\lambda$ cancels:
+
+$$
+\mathbf{A}(\mathbf{r}) = -\mathbf{r}\times\left(\frac{\mu_0 I}{2\pi s}\hat{\boldsymbol{\phi}}\right)\int_0^1 d\lambda = -\frac{\mu_0 I}{2\pi s}(s\hat{\mathbf{s}} + z\hat{\mathbf{z}})\times\hat{\boldsymbol{\phi}} = \frac{\mu_0 I}{2\pi s}(z\hat{\mathbf{s}} - s\hat{\mathbf{z}})
+$$
+
+Although $\nabla\cdot\mathbf{A} = 0$ holds in (c) and (d), this is not true in general. Writing $\mathbf{L} \equiv \int_0^1 \lambda\mathbf{B}(\lambda\mathbf{r})\,d\lambda$:
+
+$$
+\nabla\cdot\mathbf{A} = -\nabla\cdot(\mathbf{r}\times\mathbf{L}) = \mathbf{r}\cdot(\nabla\times\mathbf{L}) = \mathbf{r}\cdot\int_0^1 \lambda^2 \mu_0\mathbf{J}(\lambda\mathbf{r})\,d\lambda
+$$
+
+which vanishes in current-free regions ($\mathbf{J} = \mathbf{0}$) but need not vanish where $\mathbf{J} \ne \mathbf{0}$. Indeed, inside a wire carrying uniform current $\mathbf{J} = J\hat{\mathbf{z}}$, Ampère's law gives $\mathbf{B} = \frac{1}{2}\mu_0 J s\hat{\boldsymbol{\phi}}$, so $\mathbf{L} = \frac{1}{6}\mu_0 J s\hat{\boldsymbol{\phi}}$ and $\mathbf{A} = \frac{\mu_0 J s}{6}(z\hat{\mathbf{s}} - s\hat{\mathbf{z}})$, which has:
+
+$$
+\nabla\cdot\mathbf{A} = \frac{\mu_0 J}{6}\left[\frac{1}{s}\frac{\partial}{\partial s}(s^2 z) + \frac{\partial}{\partial z}(-s^2)\right] = \frac{\mu_0 J z}{3} \ne 0
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.54" title="Magnetic Scalar Potential and Its Breakdown" tag="Griffiths 5.54 · Scalar Potential">
+<div slot="problem">
+
+In current-free regions ($\nabla\times\mathbf{B} = \mathbf{0}$), one can define a magnetic scalar potential $U(\mathbf{r})$ via $\mathbf{B} = -\nabla U$.
+
+(a) Construct $U(\mathbf{r})$ for a pure magnetic dipole $\mathbf{m}$ at the origin.
+
+(b) Construct $U(\mathbf{r})$ inside and outside a spinning charged spherical shell of radius $R$, surface charge $\sigma$, and angular velocity $\omega\hat{\mathbf{z}}$.
+
+(c) Attempt to construct $U(\mathbf{r})$ inside a uniformly charged spinning solid sphere (Problem 5.30), and explain why the attempt fails.
+
+</div>
+<div slot="answer">
+
+(a) $U(\mathbf{r}) = \frac{\mu_0}{4\pi}\frac{\mathbf{m}\cdot\hat{\mathbf{r}}}{r^2}$.
+
+(b) $U_{\text{out}} = \frac{\mu_0\sigma\omega R^4\cos\theta}{3r^2}$ ($r \gt R$); $U_{\text{in}} = -\frac{2}{3}\mu_0\sigma\omega R r\cos\theta$ ($r \lt R$).
+
+(c) Equating the $r$ and $\theta$ integrals of $\mathbf{B} = -\nabla U$ leads to the impossible requirement $\frac{\mu_0\omega Q}{4\pi R^3}r^3\cos\theta + f(r) = g(\theta)$; no scalar potential exists inside because $\mathbf{J} \ne \mathbf{0}$.
+
+</div>
+<div slot="solution">
+
+**(a)** Comparing the electrostatic dipole field $\mathbf{E} = \frac{1}{4\pi\varepsilon_0 r^3}[3(\mathbf{p}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{p}] = -\nabla V$ with $V = \frac{1}{4\pi\varepsilon_0}\frac{\mathbf{p}\cdot\hat{\mathbf{r}}}{r^2}$ to the magnetic dipole field $\mathbf{B} = \frac{\mu_0}{4\pi r^3}[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}] = -\nabla U$, substituting $\mathbf{p}/\varepsilon_0 \to \mu_0\mathbf{m}$ gives:
+
+$$
+U(\mathbf{r}) = \frac{\mu_0}{4\pi}\frac{\mathbf{m}\cdot\hat{\mathbf{r}}}{r^2}
+$$
+
+**(b)** From Example 5.11, the exterior field ($r \gt R$) is a pure dipole field with $\mathbf{m} = \frac{4\pi}{3}\sigma\omega R^4\hat{\mathbf{z}}$, so:
+
+$$
+U_{\text{out}}(r,\theta) = \frac{\mu_0\sigma\omega R^4\cos\theta}{3r^2} \qquad (r \gt R)
+$$
+
+Inside ($r \lt R$), the field is uniform: $\mathbf{B}_{\text{in}} = \frac{2}{3}\mu_0\sigma\omega R\hat{\mathbf{z}}$. Setting $\mathbf{B}_{\text{in}} = -\nabla U_{\text{in}}$ (with zero additive constant) gives:
+
+$$
+U_{\text{in}}(r,\theta) = -\frac{2}{3}\mu_0\sigma\omega R z = -\frac{2}{3}\mu_0\sigma\omega R r\cos\theta \qquad (r \lt R)
+$$
+
+(Note that $U$ jumps across $r = R$ because of the surface current there.)
+
+**(c)** Inside the spinning solid sphere (Problem 5.30):
+
+$$
+\mathbf{B} = \frac{\mu_0\omega Q}{4\pi R}\left[\left(1 - \frac{3r^2}{5R^2}\right)\cos\theta\,\hat{\mathbf{r}} - \left(1 - \frac{6r^2}{5R^2}\right)\sin\theta\,\hat{\boldsymbol{\theta}}\right]
+$$
+
+Setting $\mathbf{B} = -\nabla U$ gives $\partial U/\partial\phi = 0$, while the $\theta$ and $r$ components yield:
+
+$$
+\frac{1}{r}\frac{\partial U}{\partial\theta} = \frac{\mu_0\omega Q}{4\pi R}\left(1 - \frac{6r^2}{5R^2}\right)\sin\theta \implies U = -\frac{\mu_0\omega Q}{4\pi R}\left(1 - \frac{6r^2}{5R^2}\right)r\cos\theta + f(r)
+$$
+
+$$
+\frac{\partial U}{\partial r} = -\frac{\mu_0\omega Q}{4\pi R}\left(1 - \frac{3r^2}{5R^2}\right)\cos\theta \implies U = -\frac{\mu_0\omega Q}{4\pi R}\left(1 - \frac{r^2}{5R^2}\right)r\cos\theta + g(\theta)
+$$
+
+Equating these two expressions requires:
+
+$$
+\frac{\mu_0\omega Q}{4\pi R^3}r^3\cos\theta + f(r) = g(\theta)
+$$
+
+which cannot hold for any functions $f(r)$ and $g(\theta)$. A scalar magnetic potential cannot exist inside the sphere because $\mathbf{J} \ne \mathbf{0}$, so $\nabla\times\mathbf{B} = \mu_0\mathbf{J} \ne \mathbf{0}$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.55" title="Higher-Order Potential W for the Vector Potential" tag="Griffiths 5.55 · Vector Potential">
+<div slot="problem">
+
+Because $\nabla\cdot\mathbf{A} = 0$ in the Coulomb gauge, we can introduce a higher potential $\mathbf{W}$ such that $\mathbf{A} = \nabla\times\mathbf{W}$ (with $\nabla\cdot\mathbf{W} = 0$).
+
+(a) Find the general integral expression for $\mathbf{W}(\mathbf{r})$ in terms of $\mathbf{B}$ when $\mathbf{B} \to \mathbf{0}$ at infinity.
+
+(b) Determine $\mathbf{W}$ for a uniform magnetic field $\mathbf{B}$.
+
+(c) Determine $\mathbf{W}$ inside and outside an infinite solenoid of radius $R$, $n$ turns per unit length, and current $I$.
+
+</div>
+<div slot="answer">
+
+(a) $\mathbf{W}(\mathbf{r}) = \frac{1}{4\pi}\int \frac{\mathbf{B}(\mathbf{r}')}{\mathscr{r}}\,d\tau'$.
+
+(b) $\mathbf{W} = \frac{1}{10}\left[\mathbf{r}(\mathbf{r}\cdot\mathbf{B}) - 2r^2\mathbf{B}\right]$ (not unique).
+
+(c) Choosing $\mathbf{W}$ along $\hat{\mathbf{z}}$ with $W(0) = 0$: $\mathbf{W} = -\frac{1}{4}\mu_0 n I s^2\,\hat{\mathbf{z}}$ ($s \lt R$), and $\mathbf{W} = -\frac{1}{4}\mu_0 n I R^2[1 + 2\ln(s/R)]\,\hat{\mathbf{z}}$ ($s \gt R$).
+
+</div>
+<div slot="solution">
+
+**(a)** In magnetostatics, $\nabla\cdot\mathbf{A} = 0$ and $\nabla\times\mathbf{A} = \mathbf{B}$ (with $\nabla^2\mathbf{A} = -\mu_0\mathbf{J}$) lead to $\mathbf{A}(\mathbf{r}) = \frac{\mu_0}{4\pi}\int \frac{\mathbf{J}(\mathbf{r}')}{\mathscr{r}}\,d\tau'$. Here $\nabla\cdot\mathbf{W} = 0$ and $\nabla\times\mathbf{W} = \mathbf{A}$ imply $\nabla^2\mathbf{W} = -\nabla\times(\nabla\times\mathbf{W}) = -\nabla\times\mathbf{A} = -\mathbf{B}$, so replacing $\mu_0\mathbf{J} \to \mathbf{B}$ gives:
+
+$$
+\mathbf{W}(\mathbf{r}) = \frac{1}{4\pi}\int \frac{\mathbf{B}(\mathbf{r}')}{\mathscr{r}}\,d\tau'
+$$
+
+**(b)** By dimensional analysis and linearity in constant $\mathbf{B}$, try $\mathbf{W} = \alpha\,\mathbf{r}(\mathbf{r}\cdot\mathbf{B}) + \beta r^2\mathbf{B}$. Using $\nabla\cdot\mathbf{r} = 3$, $\nabla(\mathbf{r}\cdot\mathbf{B}) = \mathbf{B}$, $\nabla(r^2) = 2\mathbf{r}$, and $\nabla\times\mathbf{r} = \mathbf{0}$:
+
+$$
+\nabla\cdot\mathbf{W} = \alpha[3(\mathbf{r}\cdot\mathbf{B}) + \mathbf{r}\cdot\mathbf{B}] + 2\beta(\mathbf{r}\cdot\mathbf{B}) = 2(2\alpha + \beta)(\mathbf{r}\cdot\mathbf{B})
+$$
+
+$$
+\nabla\times\mathbf{W} = \alpha[0 - \mathbf{r}\times\mathbf{B}] + \beta[0 - \mathbf{B}\times(2\mathbf{r})] = (-\alpha + 2\beta)(\mathbf{r}\times\mathbf{B})
+$$
+
+Setting $\nabla\cdot\mathbf{W} = 0$ requires $\beta = -2\alpha$. Matching $\nabla\times\mathbf{W} = \mathbf{A} = -\frac{1}{2}(\mathbf{r}\times\mathbf{B})$ requires $-\alpha + 2(-2\alpha) = -5\alpha = -\frac{1}{2}$, so $\alpha = \frac{1}{10}$ and $\beta = -\frac{1}{5}$:
+
+$$
+\mathbf{W} = \frac{1}{10}\left[\mathbf{r}(\mathbf{r}\cdot\mathbf{B}) - 2r^2\mathbf{B}\right]
+$$
+
+**(c)** For the infinite solenoid, $\mathbf{A} = \frac{1}{2}\mu_0 n I s\,\hat{\boldsymbol{\phi}}$ ($s \lt R$) and $\mathbf{A} = \frac{\mu_0 n I R^2}{2s}\,\hat{\boldsymbol{\phi}}$ ($s \gt R$). Take $\mathbf{W} = W_z(s)\hat{\mathbf{z}}$ with $W_z(0) = 0$ (which automatically satisfies $\nabla\cdot\mathbf{W} = 0$). Then $\nabla\times\mathbf{W} = -\frac{dW_z}{ds}\hat{\boldsymbol{\phi}} = \mathbf{A}$, so $\frac{dW_z}{ds} = -A_\phi$.
+
+For $s \lt R$:
+
+$$
+W_z(s) = -\int_0^s \frac{1}{2}\mu_0 n I s'\,ds' = -\frac{\mu_0 n I s^2}{4} \implies \mathbf{W} = -\frac{1}{4}\mu_0 n I s^2\,\hat{\mathbf{z}}
+$$
+
+For $s \gt R$:
+
+$$
+W_z(s) = -\frac{\mu_0 n I R^2}{4} - \int_R^s \frac{\mu_0 n I R^2}{2s'}\,ds' = -\frac{1}{4}\mu_0 n I R^2\left[1 + 2\ln\left(\frac{s}{R}\right)\right]
+$$
+
+so $\mathbf{W} = -\frac{1}{4}\mu_0 n I R^2[1 + 2\ln(s/R)]\,\hat{\mathbf{z}}$ for $s \gt R$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.56" title="Magnetostatic Uniqueness Theorem" tag="Griffiths 5.56 · Uniqueness">
+<div slot="problem">
+
+Prove that if the current density $\mathbf{J}$ is specified throughout a volume $\mathcal{V}$, and either $\mathbf{A}$ or $\mathbf{B}$ is specified on its bounding surface $\mathcal{S}$, then the magnetic field $\mathbf{B}$ is uniquely determined throughout $\mathcal{V}$. (First establish the integral identity for arbitrary vector fields $\mathbf{U}$ and $\mathbf{V}$ by applying the divergence theorem to $\mathbf{U}\times(\nabla\times\mathbf{V})$.)
+
+</div>
+<div slot="answer">
+
+Applying the vector identity to the difference fields $\mathbf{A}_3 = \mathbf{A}_2 - \mathbf{A}_1$ and $\mathbf{B}_3 = \mathbf{B}_2 - \mathbf{B}_1$ yields $\int_\mathcal{V} |\mathbf{B}_3|^2\,d\tau = \oint_\mathcal{S} (\mathbf{A}_3\times\mathbf{B}_3)\cdot d\mathbf{a} = 0$, forcing $\mathbf{B}_1 = \mathbf{B}_2$ throughout $\mathcal{V}$.
+
+</div>
+<div slot="solution">
+
+Using the product rule $\nabla\cdot(\mathbf{U}\times\mathbf{W}) = \mathbf{W}\cdot(\nabla\times\mathbf{U}) - \mathbf{U}\cdot(\nabla\times\mathbf{W})$ with $\mathbf{W} = \nabla\times\mathbf{V}$, and applying the divergence theorem over $\mathcal{V}$:
+
+$$
+\int_\mathcal{V}\left\{(\nabla\times\mathbf{U})\cdot(\nabla\times\mathbf{V}) - \mathbf{U}\cdot[\nabla\times(\nabla\times\mathbf{V})]\right\}d\tau = \oint_\mathcal{S}[\mathbf{U}\times(\nabla\times\mathbf{V})]\cdot d\mathbf{a}
+$$
+
+Now suppose two solutions $(\mathbf{A}_1, \mathbf{B}_1)$ and $(\mathbf{A}_2, \mathbf{B}_2)$ satisfy the boundary-value problem, and define the differences $\mathbf{A}_3 \equiv \mathbf{A}_2 - \mathbf{A}_1$ and $\mathbf{B}_3 \equiv \mathbf{B}_2 - \mathbf{B}_1 = \nabla\times\mathbf{A}_3$. Inside $\mathcal{V}$:
+
+$$
+\nabla\times\mathbf{B}_3 = \nabla\times\mathbf{B}_2 - \nabla\times\mathbf{B}_1 = \mu_0\mathbf{J} - \mu_0\mathbf{J} = \mathbf{0}
+$$
+
+Setting $\mathbf{U} = \mathbf{V} = \mathbf{A}_3$ in the integral identity gives:
+
+$$
+\int_\mathcal{V}\left[\mathbf{B}_3\cdot\mathbf{B}_3 - \mathbf{A}_3\cdot(\nabla\times\mathbf{B}_3)\right]d\tau = \int_\mathcal{V}|\mathbf{B}_3|^2\,d\tau = \oint_\mathcal{S}(\mathbf{A}_3\times\mathbf{B}_3)\cdot d\mathbf{a}
+$$
+
+On the boundary $\mathcal{S}$, either $\mathbf{A}$ is specified (so $\mathbf{A}_3 = \mathbf{0}$) or $\mathbf{B}$ is specified (so $\mathbf{B}_3 = \mathbf{0}$). In either case, the surface integral vanishes:
+
+$$
+\int_\mathcal{V}|\mathbf{B}_3|^2\,d\tau = 0 \implies \mathbf{B}_3 = \mathbf{0} \implies \mathbf{B}_1 = \mathbf{B}_2
+$$
+
+everywhere inside $\mathcal{V}$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.57" title="Flux-Free Sphere Around a Dipole in a Uniform Field" tag="Griffiths 5.57 · Magnetic Dipole">
+<div slot="problem">
+
+A magnetic dipole $\mathbf{m} = -m_0\hat{\mathbf{z}}$ is placed at the origin inside an otherwise uniform magnetic field $\mathbf{B}_0 = B_0\hat{\mathbf{z}}$. Show that there is a spherical surface centered at the origin through which no magnetic field lines pass, determine its radius, and describe the field lines inside and outside this sphere.
+
+</div>
+<div slot="answer">
+
+$R = \left(\frac{\mu_0 m_0}{2\pi B_0}\right)^{1/3}$. On $r = R$, $B_r = 0$ for all $\theta$. Inside $r \lt R$, closed dipole loops circulate (downward near the origin, returning upward near $r = R$); outside $r \gt R$, the uniform field lines bend around the sphere.
+
+</div>
+<div slot="solution">
+
+Superposing the uniform field and the dipole field (with $\mathbf{m} = -m_0\hat{\mathbf{z}}$):
+
+$$
+\mathbf{B}_{\text{tot}} = B_0\hat{\mathbf{z}} - \frac{\mu_0 m_0}{4\pi r^3}\left(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}}\right)
+$$
+
+Taking the radial component using $\hat{\mathbf{z}}\cdot\hat{\mathbf{r}} = \cos\theta$:
+
+$$
+B_r = \mathbf{B}_{\text{tot}}\cdot\hat{\mathbf{r}} = \left(B_0 - \frac{\mu_0 m_0}{2\pi r^3}\right)\cos\theta
+$$
+
+This vanishes identically for every angle $\theta$ at radius $r = R$ satisfying $B_0 = \frac{\mu_0 m_0}{2\pi R^3}$, namely:
+
+$$
+R = \left(\frac{\mu_0 m_0}{2\pi B_0}\right)^{1/3}
+$$
+
+Because the normal component $B_r$ is zero across the entire surface $r = R$, the field is everywhere tangent to the sphere and no field lines cross it. Inside ($r \lt R$), the dipole dominates and field lines form closed loops pointing along $-\hat{\mathbf{z}}$ near the origin and returning along $+\hat{\mathbf{z}}$ near the boundary $r = R$. Outside ($r \gt R$), the upward external field lines deflect smoothly around the sphere as around an impenetrable magnetic shield.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.58" title="Gyromagnetic Ratio and the Bohr Magneton" tag="Griffiths 5.58 · Magnetic Dipole">
+<div slot="problem">
+
+A thin uniform ring of charge $Q$, mass $M$, and radius $R$ rotates about its symmetry axis at angular velocity $\omega$.
+
+(a) Calculate its gyromagnetic ratio $g = m/L$ (the ratio of magnetic dipole moment to angular momentum).
+
+(b) Determine the gyromagnetic ratio of a uniform spinning sphere by decomposing it into coaxial rings.
+
+(c) Using the quantum spin angular momentum $L = \frac{1}{2}\hbar$ of an electron, compute the resulting semiclassical magnetic dipole moment in $\text{A}\cdot\text{m}^2$.
+
+</div>
+<div slot="answer">
+
+(a) $g = \frac{Q}{2M}$.
+
+(b) $g = \frac{Q}{2M}$.
+
+(c) $m_{\text{semi}} = \frac{e\hbar}{4m_e} \approx 4.63\times 10^{-24}\text{ A}\cdot\text{m}^2$ (half the actual value $\mu_B = \frac{e\hbar}{2m_e}$, due to the electron $g$-factor of $\approx 2$).
+
+</div>
+<div slot="solution">
+
+**(a)** The rotating ring carries current $I = \frac{Q}{2\pi/\omega} = \frac{Q\omega}{2\pi}$ enclosing area $\pi R^2$, so its magnetic dipole moment is:
+
+$$
+\mathbf{m} = I(\pi R^2)\hat{\mathbf{z}} = \frac{1}{2}Q\omega R^2\,\hat{\mathbf{z}}
+$$
+
+Its angular momentum is $\mathbf{L} = I_{\text{rot}}\omega\hat{\mathbf{z}} = M\omega R^2\,\hat{\mathbf{z}}$. Taking the ratio gives the gyromagnetic ratio:
+
+$$
+g = \frac{m}{L} = \frac{\frac{1}{2}Q\omega R^2}{M\omega R^2} = \frac{Q}{2M}
+$$
+
+**(b)** Slice a uniform spinning sphere (or any figure of revolution with uniform charge-to-mass ratio $dq/dm = Q/M$) into coaxial thin rings rotating at the same $\omega$. Because $g = \frac{dq}{2\,dm} = \frac{Q}{2M}$ is independent of ring radius, every ring satisfies $d\mathbf{m} = \frac{Q}{2M}\,d\mathbf{L}$. Integrating over the entire sphere yields $\mathbf{m} = \frac{Q}{2M}\mathbf{L}$, so:
+
+$$
+g = \frac{Q}{2M}
+$$
+
+**(c)** For an electron ($|Q| = e = 1.602\times 10^{-19}\text{ C}$, $m_e = 9.109\times 10^{-31}\text{ kg}$) with $L = \frac{1}{2}\hbar$ ($\hbar = 1.055\times 10^{-34}\text{ J}\cdot\text{s}$):
+
+$$
+m_{\text{semi}} = \frac{e}{2m_e}\left(\frac{\hbar}{2}\right) = \frac{e\hbar}{4m_e} \approx \frac{(1.602\times 10^{-19})(1.055\times 10^{-34})}{4(9.109\times 10^{-31})} \approx 4.64\times 10^{-24}\text{ A}\cdot\text{m}^2
+$$
+
+(Note: Dirac theory gives an extra factor of $2$, placing the electron's spin magnetic moment at approximately one Bohr magneton $\mu_B = \frac{e\hbar}{2m_e} \approx 9.27\times 10^{-24}\text{ A}\cdot\text{m}^2$.)
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.59" title="Average Magnetic Field Over a Sphere" tag="Griffiths 5.59 · Average Field">
+<div slot="problem">
+
+(a) Prove that the volume-averaged magnetic field inside a sphere of radius $R$, due to steady currents confined inside the sphere, is $\mathbf{B}_{\text{ave}} = \frac{\mu_0}{4\pi}\frac{2\mathbf{m}}{R^3}$, where $\mathbf{m}$ is the total magnetic dipole moment.
+
+(b) Prove that the volume-averaged magnetic field over the sphere due to steady currents located entirely outside the sphere equals the magnetic field those external currents produce at the center of the sphere.
+
+</div>
+<div slot="answer">
+
+Both theorems follow from $\mathbf{B}_{\text{ave}} = -\frac{3\mu_0}{(4\pi)^2 R^3}\int \mathbf{J}(\mathbf{r}')\times\left(\oint_\mathcal{S}\frac{d\mathbf{a}}{\mathscr{r}}\right)d\tau'$ together with $\oint_\mathcal{S}\frac{d\mathbf{a}}{\mathscr{r}} = \frac{4\pi}{3}\mathbf{r}'$ for $r' \lt R$ and $\frac{4\pi R^3}{3r'^3}\mathbf{r}'$ for $r' \gt R$.
+
+</div>
+<div slot="solution">
+
+**(a)** Using $\mathbf{B} = \nabla\times\mathbf{A}$ and the identity $\int_\mathcal{V}(\nabla\times\mathbf{A})\,d\tau = -\oint_\mathcal{S}\mathbf{A}\times d\mathbf{a}$, the average magnetic field over the sphere is:
+
+$$
+\mathbf{B}_{\text{ave}} = \frac{3}{4\pi R^3}\int_\mathcal{V}(\nabla\times\mathbf{A})\,d\tau = -\frac{3}{4\pi R^3}\oint_\mathcal{S}\mathbf{A}\times d\mathbf{a}
+$$
+
+Inserting $\mathbf{A}(\mathbf{r}) = \frac{\mu_0}{4\pi}\int \frac{\mathbf{J}(\mathbf{r}')}{\mathscr{r}}\,d\tau'$ and reversing the order of integration:
+
+$$
+\mathbf{B}_{\text{ave}} = -\frac{3\mu_0}{(4\pi)^2 R^3}\int \mathbf{J}(\mathbf{r}')\times\left(\oint_\mathcal{S}\frac{d\mathbf{a}}{\mathscr{r}}\right)d\tau'
+$$
+
+To evaluate $\mathbf{I}(\mathbf{r}') = \oint_\mathcal{S}\frac{d\mathbf{a}}{\mathscr{r}}$, orient the coordinate axes so $\mathbf{r}' = z'\hat{\mathbf{z}}$ (with $z' = r' \gt 0$). Here $d\mathbf{a} = R^2\sin\theta\,d\theta\,d\phi\,\hat{\mathbf{r}}$ and $\mathscr{r} = \sqrt{R^2 + r'^2 - 2Rr'\cos\theta}$. By azimuthal symmetry only the $z$-component survives ($\hat{\mathbf{r}}\cdot\hat{\mathbf{z}} = \cos\theta$):
+
+$$
+\mathbf{I}(\mathbf{r}') = 2\pi R^2\hat{\mathbf{z}}\int_0^\pi \frac{\cos\theta\sin\theta\,d\theta}{\sqrt{R^2 + r'^2 - 2Rr'\cos\theta}} = 2\pi R^2\hat{\mathbf{z}}\int_{-1}^1 \frac{u\,du}{\sqrt{R^2 + r'^2 - 2Rr'u}}
+$$
+
+Integrating by parts or substituting $w = \sqrt{R^2 + r'^2 - 2Rr'u}$ gives:
+
+$$
+\mathbf{I}(\mathbf{r}') = \frac{2\pi\hat{\mathbf{z}}}{3r'^2}\left[(R^2 + r'^2 + Rr')|R - r'| - (R^2 + r'^2 - Rr')(R + r')\right]
+$$
+
+Wait—carefully checking the signs in the two regimes: for $r' \lt R$, $|R - r'| = R - r'$, and the bracket evaluates to $+2Rr'^3$, yielding:
+
+$$
+\mathbf{I}(\mathbf{r}') = \begin{cases} \frac{4\pi}{3}\mathbf{r}' & (r' \lt R) \\ \frac{4\pi R^3}{3r'^3}\mathbf{r}' & (r' \gt R) \end{cases}
+$$
+
+For currents inside the sphere ($r' \lt R$), substituting $\mathbf{I}(\mathbf{r}') = \frac{4\pi}{3}\mathbf{r}'$ gives:
+
+$$
+\mathbf{B}_{\text{ave}} = -\frac{3\mu_0}{(4\pi)^2 R^3}\left(\frac{4\pi}{3}\right)\int (\mathbf{J}(\mathbf{r}')\times\mathbf{r}')\,d\tau' = \frac{\mu_0}{4\pi R^3}\int (\mathbf{r}'\times\mathbf{J}(\mathbf{r}'))\,d\tau' = \frac{\mu_0}{4\pi}\frac{2\mathbf{m}}{R^3}
+$$
+
+since $\mathbf{m} = \frac{1}{2}\int (\mathbf{r}'\times\mathbf{J})\,d\tau'$.
+
+**(b)** For currents outside the sphere ($r' \gt R$), substituting $\mathbf{I}(\mathbf{r}') = \frac{4\pi R^3}{3r'^3}\mathbf{r}'$ gives:
+
+$$
+\mathbf{B}_{\text{ave}} = -\frac{3\mu_0}{(4\pi)^2 R^3}\left(\frac{4\pi R^3}{3}\right)\int \frac{\mathbf{J}(\mathbf{r}')\times\mathbf{r}'}{r'^3}\,d\tau' = \frac{\mu_0}{4\pi}\int \frac{\mathbf{J}(\mathbf{r}')\times(-\hat{\mathbf{r}}')}{r'^2}\,d\tau' = \mathbf{B}(\mathbf{0})
+$$
+
+because $\boldsymbol{\mathscr{r}} = \mathbf{0} - \mathbf{r}' = -\mathbf{r}'$ is the separation vector from $\mathbf{r}'$ to the center of the sphere.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.60" title="Spinning Charged Solid Sphere: Potentials and Average Field" tag="Griffiths 5.60 · Spinning Sphere">
+<div slot="problem">
+
+A solid sphere of radius $R$ carries uniform total charge $Q$ and rotates about the $z$-axis at angular velocity $\omega$.
+
+(a) Find its magnetic dipole moment $\mathbf{m}$.
+
+(b) Compute the average magnetic field inside the sphere using Problem 5.59(a).
+
+(c) Write the approximate dipole vector potential for $r \gg R$.
+
+(d) Find the exact vector potential outside the sphere ($r \gt R$) by integrating spherical shells from Example 5.11, and compare with (c).
+
+(e) Directly integrate the interior magnetic field from Problem 5.30 over the sphere volume and verify that it matches (b).
+
+</div>
+<div slot="answer">
+
+(a) $\mathbf{m} = \frac{1}{5}Q\omega R^2\,\hat{\mathbf{z}}$.
+
+(b) $\mathbf{B}_{\text{ave}} = \frac{\mu_0 Q\omega}{10\pi R}\,\hat{\mathbf{z}}$.
+
+(c) $\mathbf{A}_{\text{dip}} = \frac{\mu_0 Q\omega R^2\sin\theta}{20\pi r^2}\,\hat{\boldsymbol{\phi}}$.
+
+(d) $\mathbf{A}_{\text{out}} = \frac{\mu_0 Q\omega R^2\sin\theta}{20\pi r^2}\,\hat{\boldsymbol{\phi}}$, identical to (c).
+
+(e) Direct volume integration yields $\mathbf{B}_{\text{ave}} = \frac{\mu_0 Q\omega}{10\pi R}\,\hat{\mathbf{z}}$, matching (b).
+
+</div>
+<div slot="solution">
+
+**(a)** Decompose the sphere into concentric shells of radius $r'$ and thickness $dr'$, with surface charge $\sigma \to \rho\,dr'$ where $\rho = \frac{3Q}{4\pi R^3}$. Since a shell has $d\mathbf{m} = \frac{4\pi}{3}\omega\sigma r'^4\,\hat{\mathbf{z}}$:
+
+$$
+\mathbf{m} = \frac{4\pi}{3}\omega\rho\,\hat{\mathbf{z}}\int_0^R r'^4\,dr' = \frac{4\pi}{3}\omega\left(\frac{3Q}{4\pi R^3}\right)\frac{R^5}{5}\hat{\mathbf{z}} = \frac{1}{5}Q\omega R^2\,\hat{\mathbf{z}}
+$$
+
+**(b)** From Problem 5.59(a):
+
+$$
+\mathbf{B}_{\text{ave}} = \frac{\mu_0}{4\pi}\frac{2\mathbf{m}}{R^3} = \frac{\mu_0 Q\omega}{10\pi R}\,\hat{\mathbf{z}}
+$$
+
+**(c)** For $r \gg R$:
+
+$$
+\mathbf{A}_{\text{dip}}(r,\theta) = \frac{\mu_0 m\sin\theta}{4\pi r^2}\,\hat{\boldsymbol{\phi}} = \frac{\mu_0 Q\omega R^2\sin\theta}{20\pi r^2}\,\hat{\boldsymbol{\phi}}
+$$
+
+**(d)** Integrating the exterior potential of each shell from Example 5.11 ($\mathbf{A}_{\text{shell}} = \frac{\mu_0\omega\sigma r'^4\sin\theta}{3r^2}\hat{\boldsymbol{\phi}}$):
+
+$$
+\mathbf{A}_{\text{out}}(r,\theta) = \frac{\mu_0\omega\rho\sin\theta}{3r^2}\hat{\boldsymbol{\phi}}\int_0^R r'^4\,dr' = \frac{\mu_0\omega}{3r^2}\left(\frac{3Q}{4\pi R^3}\right)\frac{R^5}{5}\sin\theta\,\hat{\boldsymbol{\phi}} = \frac{\mu_0 Q\omega R^2\sin\theta}{20\pi r^2}\,\hat{\boldsymbol{\phi}}
+$$
+
+The external field is an exact pure dipole field.
+
+**(e)** From Problem 5.30, inside the sphere:
+
+$$
+\mathbf{B} = \frac{\mu_0\omega Q}{4\pi R}\left[\left(1 - \frac{3r^2}{5R^2}\right)\cos\theta\,\hat{\mathbf{r}} - \left(1 - \frac{6r^2}{5R^2}\right)\sin\theta\,\hat{\boldsymbol{\theta}}\right]
+$$
+
+By symmetry, only $B_z = B_r\cos\theta - B_\theta\sin\theta$ has a nonzero average:
+
+$$
+B_z = \frac{\mu_0\omega Q}{4\pi R}\left[\left(1 - \frac{3r^2}{5R^2}\right)\cos^2\theta + \left(1 - \frac{6r^2}{5R^2}\right)\sin^2\theta\right]
+$$
+
+Averaging over $\frac{4}{3}\pi R^3$ ($d\tau = r^2\sin\theta\,dr\,d\theta\,d\phi$):
+
+$$
+\int_0^R r^2\left(1 - \frac{3r^2}{5R^2}\right)dr = \frac{16}{75}R^3, \qquad \int_0^R r^2\left(1 - \frac{6r^2}{5R^2}\right)dr = \frac{7}{75}R^3
+$$
+
+Together with $\int_0^\pi \cos^2\theta\sin\theta\,d\theta = \frac{2}{3}$ and $\int_0^\pi \sin^3\theta\,d\theta = \frac{4}{3}$:
+
+$$
+\mathbf{B}_{\text{ave}} = \frac{3}{4\pi R^3}\frac{\mu_0\omega Q}{4\pi R}(2\pi)\left(\frac{16}{75}\cdot\frac{2}{3} + \frac{7}{75}\cdot\frac{4}{3}\right)R^3\hat{\mathbf{z}} = \frac{3\mu_0\omega Q}{8\pi R}\left(\frac{60}{225}\right)\hat{\mathbf{z}} = \frac{\mu_0 Q\omega}{10\pi R}\,\hat{\mathbf{z}}
+$$
+
+confirming part (b).
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.61" title="Delta-Function Contact Term in the Magnetic Dipole Field" tag="Griffiths 5.61 · Magnetic Dipole">
+<div slot="problem">
+
+Using the standard exterior dipole formula $\mathbf{B} = \frac{\mu_0 m}{4\pi r^3}(2\cos\theta\,\hat{\mathbf{r}} + \sin\theta\,\hat{\boldsymbol{\theta}})$, compute the average magnetic field over a sphere of radius $R$ centered at the origin (performing the angular integrals first). Compare with Problem 5.59(a), explain the discrepancy, and deduce the delta-function term needed at $\mathbf{r} = \mathbf{0}$.
+
+</div>
+<div slot="answer">
+
+Performing the angular integrals first gives $\mathbf{B}_{\text{ave}} = \mathbf{0}$, missing the interior contact contribution required by Problem 5.59(a). Adding $\frac{2\mu_0}{3}\mathbf{m}\,\delta^3(\mathbf{r})$ gives the complete dipole field $\mathbf{B}_{\text{dip}}(\mathbf{r}) = \frac{\mu_0}{4\pi r^3}[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}] + \frac{2\mu_0}{3}\mathbf{m}\,\delta^3(\mathbf{r})$.
+
+</div>
+<div slot="solution">
+
+With $\mathbf{m} = m\hat{\mathbf{z}}$, only $B_z$ survives azimuthal integration:
+
+$$
+B_z = \frac{\mu_0 m}{4\pi r^3}(2\cos^2\theta - \sin^2\theta) = \frac{\mu_0 m}{4\pi r^3}(3\cos^2\theta - 1)
+$$
+
+Integrating over solid angle at fixed $r \gt 0$:
+
+$$
+\int_0^{2\pi} d\phi \int_0^\pi (3\cos^2\theta - 1)\sin\theta\,d\theta = 2\pi\left[-\cos^3\theta + \cos\theta\right]_0^\pi = 0
+$$
+
+Hence the exterior dipole formula gives $\mathbf{B}_{\text{ave}} = \mathbf{0}$, in contradiction with Problem 5.59(a), which requires $\mathbf{B}_{\text{ave}} = \frac{\mu_0}{4\pi}\frac{2\mathbf{m}}{R^3}$ for any localized current loop inside the sphere.
+
+The resolution is that the $1/r^3$ expression is only valid outside an infinitesimal sphere containing the physical dipole. Inside that infinitesimal region, the actual current loop carries strong forward flux along $\mathbf{m}$, contributing a singular delta-function term $C\delta^3(\mathbf{r})$ at the origin. Matching its volume average to Problem 5.59(a):
+
+$$
+\frac{1}{\frac{4}{3}\pi R^3}\int C\,\delta^3(\mathbf{r})\,d\tau = \frac{3C}{4\pi R^3} = \frac{\mu_0 2\mathbf{m}}{4\pi R^3} \implies C = \frac{2\mu_0}{3}\mathbf{m}
+$$
+
+The complete magnetic dipole field everywhere is therefore:
+
+$$
+\mathbf{B}_{\text{dip}}(\mathbf{r}) = \frac{\mu_0}{4\pi r^3}\left[3(\mathbf{m}\cdot\hat{\mathbf{r}})\hat{\mathbf{r}} - \mathbf{m}\right] + \frac{2\mu_0}{3}\mathbf{m}\,\delta^3(\mathbf{r})
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="5.62" title="Magnetic Field of a Spinning Charged Rod" tag="Griffiths 5.62 · Dipole Stack">
+<div slot="problem">
+
+A thin rod of radius $R$ and length $L$ centered on the $z$-axis ($-L/2 \le z \le L/2$) carries uniform surface charge $\sigma$ and spins about its axis at angular velocity $\omega$. Treating the rod as a stack of magnetic dipoles, find the magnetic field in the $xy$-plane at distance $s \gg R$ from the axis.
+
+</div>
+<div slot="answer">
+
+$\mathbf{B} = \frac{\mu_0\omega\sigma L R^3}{4\left[s^2 + (L/2)^2\right]^{3/2}}\,\hat{\mathbf{z}}$.
+
+</div>
+<div slot="solution">
+
+A thin slice of thickness $dz'$ at height $z'$ carries charge $dq = 2\pi R\sigma\,dz'$, forming a ring current $dI = \frac{dq}{2\pi/\omega} = \sigma\omega R\,dz'$. Its dipole moment is $d\mathbf{m} = (\pi R^2)\,dI\,\hat{\mathbf{z}} = \pi\sigma\omega R^3\,dz'\,\hat{\mathbf{z}}$, so the dipole moment per unit length is $M = \pi\sigma\omega R^3$.
+
+Place the field point at $(s, 0, 0)$ in the $xy$-plane. Since $s \gg R$, each slice acts as a point dipole at $(0, 0, z')$, with separation vector $\boldsymbol{\mathscr{r}} = s\hat{\mathbf{x}} - z'\hat{\mathbf{z}}$ and $\mathscr{r} = \sqrt{s^2 + z'^2}$. By symmetry between $+z'$ and $-z'$, the $x$-components cancel and only the $z$-component survives. Defining $\theta$ as the polar angle of $\boldsymbol{\mathscr{r}}$ ($\cos\theta = -z'/\mathscr{r}$, $\sin\theta = s/\mathscr{r}$), the dipole field contribution is:
+
+$$
+dB_z = \frac{\mu_0\,dm}{4\pi\mathscr{r}^3}(3\cos^2\theta - 1) = \frac{\mu_0 M\,dz'}{4\pi\mathscr{r}^3}(3\cos^2\theta - 1)
+$$
+
+Using symmetry over $[-L/2, L/2]$ to double the integral over $[0, L/2]$, substitute $z' = s\cot\theta$ so $dz' = -\frac{s}{\sin^2\theta}\,d\theta$ and $\mathscr{r} = \frac{s}{\sin\theta}$, with $\theta$ running from $\pi/2$ (at $z' = 0$) to $\theta_m$ (at $z' = L/2$):
+
+$$
+B_z = 2\cdot\frac{\mu_0 M}{4\pi}\int_{\pi/2}^{\theta_m}\frac{\sin^3\theta}{s^3}(3\cos^2\theta - 1)\left(-\frac{s}{\sin^2\theta}\,d\theta\right) = \frac{\mu_0\sigma\omega R^3}{2s^2}\int_{\theta_m}^{\pi/2}(3\cos^2\theta - 1)\sin\theta\,d\theta
+$$
+
+Evaluating the integral:
+
+$$
+\int_{\theta_m}^{\pi/2}(3\cos^2\theta - 1)\sin\theta\,d\theta = \left[-\cos^3\theta + \cos\theta\right]_{\theta_m}^{\pi/2} = \cos\theta_m(1 - \cos^2\theta_m) = \cos\theta_m\sin^2\theta_m
+$$
+
+At the upper end $z' = L/2$, $\cos\theta_m = \frac{L/2}{\sqrt{s^2 + (L/2)^2}}$ and $\sin\theta_m = \frac{s}{\sqrt{s^2 + (L/2)^2}}$. Substituting these into $B_z$:
+
+$$
+\mathbf{B} = \frac{\mu_0\sigma\omega R^3}{2s^2}\cdot\frac{L/2}{\sqrt{s^2 + (L/2)^2}}\cdot\frac{s^2}{s^2 + (L/2)^2}\,\hat{\mathbf{z}} = \frac{\mu_0\omega\sigma L R^3}{4\left[s^2 + (L/2)^2\right]^{3/2}}\,\hat{\mathbf{z}}
+$$
+
+</div>
+</ProblemCard>
+
+</section>

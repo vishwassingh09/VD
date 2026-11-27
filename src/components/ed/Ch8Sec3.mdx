@@ -1,0 +1,449 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch8-sec3" class="ed-sec-block">
+
+### 8.3 Magnetic Forces Do No Work
+
+<div class="ed-theory-box">
+
+From the Lorentz force law $\vec{F} = q(\vec{E} + \vec{v} \times \vec{B})$, the instantaneous mechanical power transferred by a magnetic field to a point charge is identically zero:
+
+$$
+dW_{\text{mag}} = \vec{F}_{\text{mag}} \cdot d\vec{l} = q(\vec{v} \times \vec{B}) \cdot \vec{v}\,dt = 0.
+$$
+
+Whenever a macroscopic magnetic force appears to perform mechanical work—for example, a magnetic crane lifting a ferromagnetic load—the work is supplied by an agent other than $\vec{B}$, while the magnetic field merely redirects or transmits momentum and energy:
+
+1. **Isolated Current Ring (Rotational Energy Conversion):** If an insulating ring of radius $a$ and line charge $\lambda$ rotating at angular speed $\omega$ ($I = \lambda \omega a$) rises by $dz$ in a nonuniform field with radial component $B_s$, the upward magnetic force $F_z = 2\pi I a B_s$ yields gravitational work $dW_g = 2\pi a^2 \lambda \omega B_s\,dz$. Simultaneously, the vertical motion induces a motional emf $\mathcal{E} = -d\Phi/dt = -2\pi a B_s\,(dz/dt)$ opposing the rotation, reducing the ring's rotational kinetic energy by $dW_{\text{rot}} = -2\pi a^2 \lambda \omega B_s\,dz$. Thus $dW_g + dW_{\text{rot}} = 0$, and $\vec{B}$ serves purely as an energy transducer.
+
+2. **Two Constant-Current Loops (Power-Supply and Field Energy Accounting):** Consider a small loop $a$ (radius $a$, constant current $I_a$) hovering at distance $h$ below a large stationary loop $b$ (radius $b$, constant current $I_b$), with mutual inductance $M(h) = \frac{\pi\mu_0 a^2 b^2}{2(b^2 + h^2)^{3/2}}$. When loop $a$ rises by $dz$ ($dh = -dz$), the upward magnetic force balances gravity, $F_{\text{mag}} = \frac{3\pi}{2}\mu_0 I_a I_b \frac{a^2 b^2 h}{(b^2 + h^2)^{5/2}} = m_a g$. Loop $a$'s power supply does work $dW_a = -\mathcal{E}_a I_a\,dt = I_a I_b\,dM = m_a g\,dz$ against the motional emf $\mathcal{E}_a = -I_b\,dM/dt$, supplying the gravitational potential energy. Simultaneously, loop $b$'s power supply works against the induced Faraday emf $\mathcal{E}_b = -I_a\,dM/dt$, supplying $dW_b = -\mathcal{E}_b I_b\,dt = I_a I_b\,dM$, which accounts exactly for the increase $dU = I_a I_b\,dM$ in the total magnetostatic field energy:
+
+$$
+U = \frac{1}{2} L_a I_a^2 + \frac{1}{2} L_b I_b^2 + M I_a I_b.
+$$
+
+3. **Co-Moving Magnet and Load:** When both loops are locked together and hoisted upward at fixed separation ($dM/dt = 0$), the motional emf in loop $a$ is exactly canceled by the Faraday emf from the moving upper loop. Neither power supply performs work and $dU = 0$; the external mechanical agent pulling the hoist supplies all the gravitational work, transmitted losslessly through $\vec{B}$.
+
+4. **Hidden Momentum and Classical Scope:** In static configurations where a steady current density $\vec{J}$ sits inside an electrostatic potential $V$ ($\vec{E} = -\nabla V$), relativistic mass-energy variation of the charge carriers produces a non-mechanical "hidden momentum":
+
+$$
+\vec{P}_{\text{hid}} = -\frac{1}{c^2}\int V\vec{J}\,d\tau = \frac{1}{c^2}(\vec{m} \times \vec{E}),
+$$
+
+which precisely cancels the electromagnetic field momentum $\vec{P}_{\text{EM}} = \epsilon_0 \int (\vec{E} \times \vec{B})\,d\tau = \frac{1}{c^2}(\vec{E} \times \vec{m})$ to preserve total momentum conservation without violating the no-work theorem. Within classical electrodynamics, $\vec{B}$ could only perform work if magnetic monopoles existed, $\vec{F} = q_e(\vec{E} + \vec{v}\times\vec{B}) + q_m(\vec{B} - \epsilon_0\mu_0\vec{v}\times\vec{E})$, or if intrinsic point dipoles $\vec{m}$ existed with zero enclosed flux and force $\nabla(\vec{m}\cdot\vec{B})$.
+
+</div>
+
+<ProblemCard num="8.8" title="Angular Momentum Transfer via Radial Discharge Spoke" tag="Griffiths 8.8 · Lorentz Force &amp; Field Angular Momentum">
+
+<div slot="problem">
+
+In Ex. 8.4, suppose that instead of turning off the magnetic field (by reducing $I$) we turn off the electric field, by connecting a weakly conducting radial spoke between the cylinders. (We'll have to cut a slot in the solenoid, so the cylinders can still rotate freely.) From the magnetic force on the current in the spoke, determine the total angular momentum delivered to the cylinders, as they discharge (they are now rigidly connected, so they rotate together). Compare the initial angular momentum stored in the fields (Eq. 8.34). (Notice that the mechanism by which angular momentum is transferred from the fields to the cylinders is entirely different in the two cases: in Ex. 8.4 it was Faraday's law, but here it is the Lorentz force law.)
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{L} = -\frac{1}{2}\mu_0 n I Q (R^2 - a^2)\hat{z}
+$$
+
+which is identical to the initial electromagnetic angular momentum stored in the fields (Eq. 8.34).
+
+</div>
+
+<div slot="solution">
+
+Following the geometry of Ex. 8.4, the inner cylindrical shell of radius $a$ initially carries charge $+Q$, the outer cylindrical shell of radius $b$ ($b > a$) carries charge $-Q$, and a long solenoid of radius $R$ ($a < R < b$) with $n$ turns per unit length carrying steady current $I$ produces the magnetic field
+
+$$
+\vec{B} = \begin{cases} \mu_0 n I\,\hat{z}, & s < R, \\ \vec{0}, & s > R. \end{cases}
+$$
+
+Because the spoke is weakly conducting, the discharge proceeds quasistatically and the displacement current is negligible. At any instant during the discharge, let $I'(t) = -dq_{\text{in}}/dt > 0$ be the radial current flowing outward from the inner cylinder ($s = a$) to the outer cylinder ($s = b$), so that $d\vec{l} = ds\,\hat{s}$.
+
+The magnetic force on an infinitesimal segment $ds$ of the spoke inside the solenoid ($a < s < R$) is
+
+$$
+d\vec{F} = I' d\vec{l} \times \vec{B} = I'\mu_0 n I\,ds\,(\hat{s} \times \hat{z}) = -I'\mu_0 n I\,ds\,\hat{\phi}.
+$$
+
+For $R < s < b$, $\vec{B} = \vec{0}$, so $d\vec{F} = \vec{0}$.
+
+The instantaneous torque exerted on the spoke (and hence on the rigidly connected cylinders) about the symmetry axis is
+
+$$
+\vec{N} = \int_{\text{spoke}} \vec{r} \times d\vec{F} = -I'\mu_0 n I \int_a^R s\,ds\,(\hat{s} \times \hat{\phi}) = -\frac{1}{2}\mu_0 n I I'(R^2 - a^2)\hat{z}.
+$$
+
+Integrating over the entire discharge duration, and using $\int_0^\infty I'(t)\,dt = Q$, the total mechanical angular momentum delivered to the cylinders is
+
+$$
+\vec{L} = \int_0^\infty \vec{N}\,dt = -\frac{1}{2}\mu_0 n I (R^2 - a^2)\hat{z} \int_0^\infty I'(t)\,dt = -\frac{1}{2}\mu_0 n I Q (R^2 - a^2)\hat{z}.
+$$
+
+This matches Eq. (8.34) of Griffiths for the initial angular momentum stored in the electromagnetic fields. In Ex. 8.4, turning off $\vec{B}$ transfers $\vec{L}_{\text{EM}}$ to the cylinders via the Faraday electric field acting on the static charges; here, turning off $\vec{E}$ transfers the exact same $\vec{L}_{\text{EM}}$ via the magnetic Lorentz force acting on the radial discharge current.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.9" title="Concentric Charged Spherical Shells in a Uniform Magnetic Field" tag="Griffiths 8.9 · Electromagnetic Angular Momentum &amp; Faraday Torque">
+
+<div slot="problem">
+
+Two concentric spherical shells carry uniformly distributed charges $+Q$ (at radius $a$) and $-Q$ (at radius $b > a$). They are immersed in a uniform magnetic field $\vec{B} = B_0\hat{z}$.
+
+(a) Find the angular momentum of the fields (with respect to the center).
+
+(b) Now the magnetic field is gradually turned off. Find the torque on each sphere, and the resulting angular momentum of the system.
+
+</div>
+
+<div slot="answer">
+
+(a) $\vec{L}_{\text{EM}} = -\dfrac{1}{3} Q B_0 (b^2 - a^2)\hat{z}$.
+
+(b) $\vec{N}_a = -\dfrac{Q a^2}{3}\dfrac{dB}{dt}\hat{z}$, $\vec{N}_b = \dfrac{Q b^2}{3}\dfrac{dB}{dt}\hat{z}$, $\vec{N}_{\text{tot}} = \dfrac{Q}{3}(b^2 - a^2)\dfrac{dB}{dt}\hat{z}$, and $\vec{L}_{\text{mech}} = -\dfrac{1}{3} Q B_0 (b^2 - a^2)\hat{z}$.
+
+</div>
+
+<div slot="solution">
+
+**(a)** By Gauss's law, the electric field vanishes for $r < a$ and $r > b$, while in the region $a < r < b$ between the shells it is
+
+$$
+\vec{E} = \frac{Q}{4\pi\epsilon_0 r^2}\hat{r}.
+$$
+
+With $\vec{B} = B_0\hat{z}$, the electromagnetic linear momentum density in $a < r < b$ is
+
+$$
+\vec{g} = \epsilon_0 (\vec{E} \times \vec{B}) = \frac{Q B_0}{4\pi r^2}(\hat{r} \times \hat{z}).
+$$
+
+The angular momentum density about the common center is
+
+$$
+\vec{\ell} = \vec{r} \times \vec{g} = \frac{Q B_0}{4\pi r}\bigl[\hat{r} \times (\hat{r} \times \hat{z})\bigr].
+$$
+
+Using the vector triple-product identity,
+
+$$
+\hat{r} \times (\hat{r} \times \hat{z}) = \hat{r}(\hat{r}\cdot\hat{z}) - \hat{z}(\hat{r}\cdot\hat{r}) = \cos\theta\,\hat{r} - \hat{z}.
+$$
+
+By azimuthal symmetry about the $z$-axis, the $x$- and $y$-components integrate to zero, and the $z$-component is
+
+$$
+\bigl[\hat{r} \times (\hat{r} \times \hat{z})\bigr]_z = \cos^2\theta - 1 = -\sin^2\theta.
+$$
+
+Integrating over the spherical shell $a < r < b$ ($d\tau = r^2\sin\theta\,dr\,d\theta\,d\phi$):
+
+$$
+\vec{L}_{\text{EM}} = -\frac{Q B_0}{4\pi}\hat{z} \int_0^{2\pi} d\phi \int_0^\pi \sin^3\theta\,d\theta \int_a^b r\,dr.
+$$
+
+Using $\int_0^{2\pi} d\phi = 2\pi$, $\int_0^\pi \sin^3\theta\,d\theta = \frac{4}{3}$, and $\int_a^b r\,dr = \frac{1}{2}(b^2 - a^2)$, we obtain
+
+$$
+\vec{L}_{\text{EM}} = -\frac{Q B_0}{4\pi}(2\pi)\left(\frac{4}{3}\right)\left(\frac{b^2 - a^2}{2}\right)\hat{z} = -\frac{1}{3} Q B_0 (b^2 - a^2)\hat{z}.
+$$
+
+**(b)** As $\vec{B}(t) = B(t)\hat{z}$ decreases quasistatically from $B_0$ to $0$, Faraday's law applied to a circular loop of cylindrical radius $s = r\sin\theta$ centered on the $z$-axis gives
+
+$$
+\oint \vec{E} \cdot d\vec{l} = E_\phi (2\pi s) = -\frac{d\Phi}{dt} = -\pi s^2 \frac{dB}{dt} \implies \vec{E} = -\frac{s}{2}\frac{dB}{dt}\hat{\phi}.
+$$
+
+For the inner shell ($r = a$, surface charge density $\sigma_a = \frac{Q}{4\pi a^2}$), a patch of area $da = a^2\sin\theta\,d\theta\,d\phi$ experiences force $d\vec{F}_a = \sigma_a \vec{E}\,da$ and torque $d\vec{N}_a = a\hat{r} \times d\vec{F}_a$. Since $\hat{r} \times \hat{\phi} = -\hat{\theta}$ and $(-\hat{\theta})_z = \sin\theta$ (with $x$- and $y$-components integrating to zero by symmetry),
+
+$$
+\vec{N}_a = \hat{z}\int \left(\frac{Q}{4\pi a^2}\right)\left(-\frac{a\sin\theta}{2}\frac{dB}{dt}\right) a\sin\theta\,da = -\frac{Q a^2}{8\pi}\frac{dB}{dt}\hat{z}\int_0^{2\pi} d\phi \int_0^\pi \sin^3\theta\,d\theta = -\frac{Q a^2}{3}\frac{dB}{dt}\hat{z}.
+$$
+
+Similarly, for the outer shell ($r = b$, surface charge density $\sigma_b = -\frac{Q}{4\pi b^2}$),
+
+$$
+\vec{N}_b = +\frac{Q b^2}{3}\frac{dB}{dt}\hat{z}.
+$$
+
+The net torque on the two-sphere system is therefore
+
+$$
+\vec{N} = \vec{N}_a + \vec{N}_b = \frac{Q}{3}(b^2 - a^2)\frac{dB}{dt}\hat{z}.
+$$
+
+Integrating over time as $B(t)$ varies from $B_0$ to $0$, the final mechanical angular momentum of the system is
+
+$$
+\vec{L}_{\text{mech}} = \int \vec{N}\,dt = \frac{Q}{3}(b^2 - a^2)\hat{z} \int_{B_0}^0 dB = -\frac{1}{3} Q B_0 (b^2 - a^2)\hat{z},
+$$
+
+in exact agreement with $\vec{L}_{\text{EM}}$ from part (a).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.10" title="Charged Magnetized Iron Sphere (Sharma / Feynman Disk Paradox)" tag="Griffiths 8.10 · Angular Momentum Conservation">
+
+<div slot="problem">
+
+Imagine an iron sphere of radius $R$ that carries a charge $Q$ and a uniform magnetization $\vec{M} = M\hat{z}$. The sphere is initially at rest.
+
+(a) Compute the angular momentum stored in the electromagnetic fields.
+
+(b) Suppose the sphere is gradually (and uniformly) demagnetized (perhaps by heating it up past the Curie point). Use Faraday's law to determine the induced electric field, find the torque this field exerts on the sphere, and calculate the total angular momentum imparted to the sphere in the course of the demagnetization.
+
+(c) Suppose instead of demagnetizing the sphere we discharge it, by connecting a grounding wire to the north pole. Assume the current flows over the surface in such a way that the charge density remains uniform. Use the Lorentz force law to determine the torque on the sphere, and calculate the total angular momentum imparted to the sphere in the course of the discharge. (The magnetic field is discontinuous at the surface . . . does this matter?)
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{L} = \frac{2}{9}\mu_0 M Q R^2\hat{z}
+$$
+
+in all three parts (a), (b), and (c). At the surface $r = R$, the discontinuity in $\vec{B}$ occurs only in the tangential $\hat{\theta}$ component; because $\vec{K}$ is purely along $\hat{\theta}$, $\vec{K} \times \vec{B}$ depends only on the continuous radial component $B_r$, so using $\vec{B}_{\text{avg}}$, $\vec{B}_{\text{in}}$, or $\vec{B}_{\text{out}}$ gives the exact same result.
+
+</div>
+
+<div slot="solution">
+
+**(a)** Since the iron sphere is a conductor, the charge $Q$ resides uniformly on its surface $r = R$. The electric field is
+
+$$
+\vec{E} = \begin{cases} \vec{0}, & r < R, \\ \dfrac{Q}{4\pi\epsilon_0 r^2}\hat{r}, & r > R. \end{cases}
+$$
+
+From Ex. 6.1, the magnetic field of a uniformly magnetized sphere with $\vec{M} = M\hat{z}$ and total dipole moment $\vec{m} = \frac{4}{3}\pi R^3 M\hat{z}$ is
+
+$$
+\vec{B} = \begin{cases} \dfrac{2}{3}\mu_0 M\hat{z}, & r < R, \\ \dfrac{\mu_0 m}{4\pi r^3}(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}), & r > R. \end{cases}
+$$
+
+Because $\vec{E} = \vec{0}$ for $r < R$, the electromagnetic momentum density $\vec{g} = \epsilon_0(\vec{E}\times\vec{B})$ is nonzero only for $r > R$:
+
+$$
+\vec{g} = \epsilon_0\left(\frac{Q}{4\pi\epsilon_0 r^2}\hat{r}\right) \times \left[\frac{\mu_0 m}{4\pi r^3}(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta})\right] = \frac{\mu_0 Q m}{(4\pi)^2 r^5}\sin\theta\,\hat{\phi}.
+$$
+
+The angular momentum density for $r > R$ is
+
+$$
+\vec{\ell} = \vec{r} \times \vec{g} = \frac{\mu_0 Q m}{(4\pi)^2 r^4}\sin\theta\,(\hat{r} \times \hat{\phi}) = -\frac{\mu_0 Q m}{(4\pi)^2 r^4}\sin\theta\,\hat{\theta}.
+$$
+
+By azimuthal symmetry, only the $z$-component survives integration. Since $\hat{\theta}\cdot\hat{z} = -\sin\theta$, we have $\ell_z = \frac{\mu_0 Q m}{(4\pi)^2 r^4}\sin^2\theta$. Integrating over $r > R$:
+
+$$
+\vec{L}_{\text{EM}} = \frac{\mu_0 Q m}{(4\pi)^2}\hat{z}\int_0^{2\pi} d\phi \int_0^\pi \sin^3\theta\,d\theta \int_R^\infty \frac{dr}{r^2} = \frac{\mu_0 Q m}{(4\pi)^2}(2\pi)\left(\frac{4}{3}\right)\left(\frac{1}{R}\right)\hat{z} = \frac{\mu_0 Q m}{6\pi R}\hat{z}.
+$$
+
+Substituting $m = \frac{4}{3}\pi R^3 M$ gives
+
+$$
+\vec{L}_{\text{EM}} = \frac{2}{9}\mu_0 M Q R^2\hat{z}.
+$$
+
+**(b)** During a gradual uniform demagnetization $M(t)$, the internal magnetic field is $\vec{B}_{\text{in}}(t) = \frac{2}{3}\mu_0 M(t)\hat{z}$. Applying Faraday's law to a circular ring of radius $s = R\sin\theta$ on the surface $r = R$ (whose interior lies entirely inside the sphere):
+
+$$
+\oint \vec{E}\cdot d\vec{l} = E_\phi(2\pi R\sin\theta) = -\frac{d\Phi}{dt} = -\pi(R\sin\theta)^2\left(\frac{2}{3}\mu_0\frac{dM}{dt}\right),
+$$
+
+which yields the induced surface electric field
+
+$$
+\vec{E}(R,\theta) = -\frac{1}{3}\mu_0 R\sin\theta\frac{dM}{dt}\hat{\phi}.
+$$
+
+The force on a surface patch $da = R^2\sin\theta\,d\theta\,d\phi$ carrying surface charge $\sigma = \frac{Q}{4\pi R^2}$ is $d\vec{F} = \sigma \vec{E}\,da$, and the torque on this patch is
+
+$$
+d\vec{N} = R\hat{r}\times d\vec{F} = -\frac{\mu_0 Q}{12\pi}\frac{dM}{dt}\sin\theta\,(\hat{r}\times\hat{\phi})\,da = \frac{\mu_0 Q}{12\pi}\frac{dM}{dt}\sin\theta\,\hat{\theta}\,da.
+$$
+
+Taking the $z$-component ($\hat{\theta}\cdot\hat{z} = -\sin\theta$) and integrating over the sphere:
+
+$$
+\vec{N} = -\frac{\mu_0 Q R^2}{12\pi}\frac{dM}{dt}\hat{z}\int_0^{2\pi} d\phi \int_0^\pi \sin^3\theta\,d\theta = -\frac{2}{9}\mu_0 Q R^2\frac{dM}{dt}\hat{z}.
+$$
+
+Integrating as $M(t)$ drops from $M$ to $0$:
+
+$$
+\vec{L}_{\text{mech}} = \int \vec{N}\,dt = -\frac{2}{9}\mu_0 Q R^2\hat{z}\int_M^0 dM = \frac{2}{9}\mu_0 M Q R^2\hat{z}.
+$$
+
+**(c)** Let $q(t)$ be the remaining charge on the sphere at time $t$, so the uniform surface charge density is $\sigma(t) = \frac{q(t)}{4\pi R^2}$. The total charge lying south of polar angle $\theta$ (i.e., for $\theta' \in [\theta, \pi]$) is
+
+$$
+q_s(\theta, t) = 2\pi R^2 \sigma(t)\int_\theta^\pi \sin\theta'\,d\theta' = \frac{q(t)}{2}(1 + \cos\theta).
+$$
+
+As the sphere discharges through the grounding wire at $\theta = 0$, the current flowing northward (in the $-\hat{\theta}$ direction) across the circle of latitude at $\theta$ is $I_{\text{north}} = -dq_s/dt = -\frac{1}{2}(1+\cos\theta)(dq/dt)$, giving the surface current density
+
+$$
+\vec{K}(\theta, t) = \frac{I_{\text{north}}}{2\pi R\sin\theta}(-\hat{\theta}) = \frac{1}{4\pi R}\frac{dq}{dt}\frac{1 + \cos\theta}{\sin\theta}\hat{\theta}.
+$$
+
+At the surface $r = R$, the magnetic field jumps from $\vec{B}_{\text{in}} = \frac{2}{3}\mu_0 M\hat{z}$ to $\vec{B}_{\text{out}} = \frac{1}{3}\mu_0 M(2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta})$. The average field experienced by the surface current is
+
+$$
+\vec{B}_{\text{avg}} = \frac{1}{2}(\vec{B}_{\text{in}} + \vec{B}_{\text{out}}) = \frac{1}{6}\mu_0 M(2\hat{z} + 2\cos\theta\,\hat{r} + \sin\theta\,\hat{\theta}).
+$$
+
+Note that $\hat{\theta}\times\hat{\theta} = \vec{0}$, $\hat{\theta}\times\hat{r} = -\hat{\phi}$, and $\hat{\theta}\times\hat{z} = -\cos\theta\,\hat{\phi}$, so
+
+$$
+\vec{K} \times \vec{B}_{\text{avg}} = \frac{\mu_0 M}{24\pi R}\frac{dq}{dt}\frac{1+\cos\theta}{\sin\theta}\bigl[-4\cos\theta\,\hat{\phi}\bigr] = -\frac{\mu_0 M}{6\pi R}\frac{dq}{dt}\frac{(1+\cos\theta)\cos\theta}{\sin\theta}\hat{\phi}.
+$$
+
+(Notice that $\vec{B}_{\text{in}}$ and $\vec{B}_{\text{out}}$ share the same radial component $B_r = \frac{2}{3}\mu_0 M\cos\theta$ and differ only along $\hat{\theta}$. Because $\vec{K}$ is purely along $\hat{\theta}$, $\vec{K}\times(B_\theta\hat{\theta}) = \vec{0}$, so $\vec{K}\times\vec{B}_{\text{in}} = \vec{K}\times\vec{B}_{\text{out}} = \vec{K}\times\vec{B}_{\text{avg}}$—the discontinuity does not affect the force or torque!)
+
+The torque on a surface patch $da = R^2\sin\theta\,d\theta\,d\phi$ is
+
+$$
+d\vec{N} = R\hat{r}\times(\vec{K}\times\vec{B}_{\text{avg}})\,da = \frac{\mu_0 M R^2}{6\pi}\frac{dq}{dt}(1+\cos\theta)\cos\theta\,\hat{\theta}\,d\theta\,d\phi.
+$$
+
+Projecting onto the $z$-axis ($\hat{\theta}\cdot\hat{z} = -\sin\theta$) and integrating over the sphere (with $N_x = N_y = 0$ by azimuthal symmetry):
+
+$$
+N_z = -\frac{\mu_0 M R^2}{6\pi}\frac{dq}{dt}(2\pi)\int_0^\pi (\cos\theta\sin\theta + \cos^2\theta\sin\theta)\,d\theta = -\frac{\mu_0 M R^2}{3}\frac{dq}{dt}\left[\frac{\sin^2\theta}{2} - \frac{\cos^3\theta}{3}\right]_0^\pi = -\frac{2}{9}\mu_0 M R^2\frac{dq}{dt}.
+$$
+
+Integrating over time as $q(t)$ goes from $Q$ to $0$:
+
+$$
+\vec{L}_{\text{mech}} = \int \vec{N}\,dt = -\frac{2}{9}\mu_0 M R^2\hat{z}\int_Q^0 dq = \frac{2}{9}\mu_0 M Q R^2\hat{z}.
+$$
+
+Once again, the angular momentum delivered to the sphere equals $\vec{L}_{\text{EM}}$ from part (a).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.11" title="Magnetic Force Between Two Coaxial Current Loops (Eq. 8.39)" tag="Griffiths 8.11 · Magnetic Dipole Force">
+
+<div slot="problem">
+
+Derive Eq. 8.39:
+
+$$
+F_{\text{mag}} = \frac{3\pi}{2}\mu_0 I_a I_b \frac{a^2 b^2 h}{(b^2 + h^2)^{5/2}} = m_a g.
+$$
+
+[Hint: Treat the lower loop as a magnetic dipole.]
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{F}_{\text{mag}} = \frac{3\pi}{2}\mu_0 I_a I_b \frac{a^2 b^2 h}{(b^2 + h^2)^{5/2}}\hat{z}
+$$
+
+which equals $m_a g\,\hat{z}$ when the lower loop floats in equilibrium at distance $h$ below the upper loop.
+
+</div>
+
+<div slot="solution">
+
+Place the origin at the center of the upper loop (radius $b$, current $I_b$) with the $z$-axis pointing upward, so the lower loop (radius $a \ll b, h$, current $I_a$ flowing in the same sense) lies on the axis at $z = -h$.
+
+By Eq. (5.41), the on-axis magnetic field produced by the upper loop is
+
+$$
+\vec{B}(0,0,z) = \frac{\mu_0 I_b}{2}\frac{b^2}{(b^2 + z^2)^{3/2}}\hat{z}.
+$$
+
+Treating the small lower loop as a point magnetic dipole of moment $\vec{m} = I_a(\pi a^2)\hat{z}$, the magnetic force on it is given by Eq. (6.3):
+
+$$
+\vec{F}_{\text{mag}} = \nabla(\vec{m} \cdot \vec{B}).
+$$
+
+By azimuthal symmetry around the $z$-axis, $\frac{\partial}{\partial x}(\vec{m}\cdot\vec{B}) = \frac{\partial}{\partial y}(\vec{m}\cdot\vec{B}) = 0$ at $x = y = 0$, so only the $z$-derivative contributes:
+
+$$
+\vec{F}_{\text{mag}} = \frac{\partial}{\partial z}\left[\frac{\pi\mu_0 I_a I_b a^2 b^2}{2(b^2 + z^2)^{3/2}}\right]\hat{z} = \frac{\pi\mu_0 I_a I_b a^2 b^2}{2}\left(-\frac{3}{2}\right)\frac{2z}{(b^2 + z^2)^{5/2}}\hat{z} = -\frac{3\pi}{2}\mu_0 I_a I_b \frac{a^2 b^2 z}{(b^2 + z^2)^{5/2}}\hat{z}.
+$$
+
+Evaluating at the position $z = -h$ of the lower loop gives an upward attractive force
+
+$$
+\vec{F}_{\text{mag}} = \frac{3\pi}{2}\mu_0 I_a I_b \frac{a^2 b^2 h}{(b^2 + h^2)^{5/2}}\hat{z}.
+$$
+
+Setting the magnitude $F_{\text{mag}}$ equal to the weight $m_a g$ of the lower loop yields Eq. (8.39).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="8.12" title="Magnetic Energy of Two Coupled Current Loops (Eq. 8.43)" tag="Griffiths 8.12 · Self &amp; Mutual Inductance Energy">
+
+<div slot="problem">
+
+Derive Eq. 8.43:
+
+$$
+U = \frac{1}{2} L_a I_a^2 + \frac{1}{2} L_b I_b^2 + M I_a I_b.
+$$
+
+[Hint: Use the method of Section 7.2.4, building the two currents up from zero to their final values.]
+
+</div>
+
+<div slot="answer">
+
+$$
+U = \frac{1}{2} L_a I_a^2 + \frac{1}{2} L_b I_b^2 + M I_a I_b.
+$$
+
+</div>
+
+<div slot="solution">
+
+Let $i_a(t)$ and $i_b(t)$ denote the instantaneous currents in the two stationary loops as they are gradually ramped up from $0$ (at $t = 0$) to their final values $I_a$ and $I_b$ (at $t = T$). The total magnetic fluxes threading loops $a$ and $b$ are
+
+$$
+\Phi_a = L_a i_a + M i_b, \qquad \Phi_b = L_b i_b + M i_a.
+$$
+
+By Faraday's law, the induced back emfs opposing the changes in current are
+
+$$
+\mathcal{E}_a = -\frac{d\Phi_a}{dt} = -L_a\frac{di_a}{dt} - M\frac{di_b}{dt}, \qquad \mathcal{E}_b = -\frac{d\Phi_b}{dt} = -L_b\frac{di_b}{dt} - M\frac{di_a}{dt}.
+$$
+
+To overcome these back emfs, the external power supplies must deliver power at the combined rate
+
+$$
+\frac{dW}{dt} = -\mathcal{E}_a i_a - \mathcal{E}_b i_b = \left(L_a i_a \frac{di_a}{dt} + M i_a \frac{di_b}{dt}\right) + \left(L_b i_b \frac{di_b}{dt} + M i_b \frac{di_a}{dt}\right).
+$$
+
+Using the product rule $i_a\frac{di_b}{dt} + i_b\frac{di_a}{dt} = \frac{d}{dt}(i_a i_b)$, this simplifies to an exact time derivative:
+
+$$
+\frac{dW}{dt} = \frac{d}{dt}\left(\frac{1}{2} L_a i_a^2 + \frac{1}{2} L_b i_b^2 + M i_a i_b\right).
+$$
+
+Integrating from $t = 0$ ($i_a = i_b = 0$) to $t = T$ ($i_a = I_a$, $i_b = I_b$), the total work done by the power supplies—which is stored as the magnetostatic energy $U$ of the two-loop system, independent of the ramp-up schedule—is
+
+$$
+U = W = \frac{1}{2} L_a I_a^2 + \frac{1}{2} L_b I_b^2 + M I_a I_b.
+$$
+
+</div>
+
+</ProblemCard>
+
+</section>

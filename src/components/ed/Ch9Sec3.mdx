@@ -1,0 +1,366 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch9-sec3" class="ed-sec-block">
+
+### 9.3 Electromagnetic Waves in Matter
+
+<div class="ed-theory-box">
+
+**1. Propagation in Linear, Homogeneous Media**
+
+In regions of a linear, homogeneous medium with no free charge or free current ($\mathbf{D} = \epsilon\mathbf{E}$, $\mathbf{H} = \mathbf{B}/\mu$), Maxwell's equations take the vacuum form with $\epsilon_0 \to \epsilon$ and $\mu_0 \to \mu$. Electromagnetic waves propagate at speed
+
+$$v = \frac{1}{\sqrt{\epsilon\mu}} = \frac{c}{n}, \qquad n \equiv \sqrt{\frac{\epsilon\mu}{\epsilon_0\mu_0}} \approx \sqrt{\epsilon_r}$$
+
+where $n$ is the index of refraction (since $\mu \approx \mu_0$ for most materials). For monochromatic plane waves, $\omega = kv$, $B_0 = E_0/v$, and the energy density, Poynting vector, and intensity are
+
+$$u = \frac{1}{2}\left(\epsilon E^2 + \frac{1}{\mu}B^2\right), \qquad \mathbf{S} = \frac{1}{\mu}(\mathbf{E} \times \mathbf{B}), \qquad I = \frac{1}{2}\epsilon v E_0^2$$
+
+**2. Boundary Conditions at an Interface ($z = 0$)**
+
+$$(i)\ \epsilon_1 E_{1\perp} = \epsilon_2 E_{2\perp}, \qquad (ii)\ B_{1\perp} = B_{2\perp}, \qquad (iii)\ \mathbf{E}_{1\parallel} = \mathbf{E}_{2\parallel}, \qquad (iv)\ \frac{1}{\mu_1}\mathbf{B}_{1\parallel} = \frac{1}{\mu_2}\mathbf{B}_{2\parallel}$$
+
+**3. Normal Incidence ($\theta_I = 0$)**
+
+Defining $\beta \equiv \frac{\mu_1 v_1}{\mu_2 v_2} = \frac{\mu_1 n_2}{\mu_2 n_1}$, the reflected and transmitted amplitudes are
+
+$$\tilde{E}_{0R} = \left(\frac{1-\beta}{1+\beta}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0T} = \left(\frac{2}{1+\beta}\right)\tilde{E}_{0I}$$
+
+When $\mu_1 \approx \mu_2 \approx \mu_0$ ($\beta = n_2/n_1$), the reflection and transmission coefficients are
+
+$$R \equiv \frac{I_R}{I_I} = \left(\frac{n_1 - n_2}{n_1 + n_2}\right)^2, \qquad T \equiv \frac{I_T}{I_I} = \frac{4n_1 n_2}{(n_1 + n_2)^2}, \qquad R + T = 1$$
+
+**4. Oblique Incidence & Geometrical Optics**
+
+- **First Law:** $\mathbf{k}_I$, $\mathbf{k}_R$, $\mathbf{k}_T$, and the interface normal lie in the *plane of incidence*.
+- **Law of Reflection:** $\theta_R = \theta_I$.
+- **Snell's Law (Refraction):** $\frac{\sin\theta_T}{\sin\theta_I} = \frac{n_1}{n_2} = \frac{v_2}{v_1}$.
+
+For **polarization parallel to the plane of incidence**, with $\alpha \equiv \frac{\cos\theta_T}{\cos\theta_I}$, **Fresnel's equations** give
+
+$$\tilde{E}_{0R} = \left(\frac{\alpha - \beta}{\alpha + \beta}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0T} = \left(\frac{2}{\alpha + \beta}\right)\tilde{E}_{0I}$$
+
+$$R = \left(\frac{\alpha - \beta}{\alpha + \beta}\right)^2, \qquad T = \alpha\beta\left(\frac{2}{\alpha + \beta}\right)^2, \qquad R + T = 1$$
+
+The reflected wave vanishes ($\alpha = \beta$) at **Brewster's angle** $\theta_B$:
+
+$$\sin^2\theta_B = \frac{1 - \beta^2}{(n_1/n_2)^2 - \beta^2} \quad \xrightarrow{\mu_1 \approx \mu_2} \quad \tan\theta_B \approx \frac{n_2}{n_1}$$
+
+</div>
+
+<ProblemCard num="9.14" title="Exact Reflection and Transmission Coefficients" tag="Griffiths 9.14 · Normal Incidence">
+
+<div slot="problem">
+
+Calculate the exact reflection and transmission coefficients at normal incidence, without assuming $\mu_1 = \mu_2 = \mu_0$. Confirm that $R + T = 1$.
+
+</div>
+
+<div slot="answer">
+
+$$R = \left(\frac{1-\beta}{1+\beta}\right)^2, \qquad T = \frac{4\beta}{(1+\beta)^2}, \qquad \text{where } \beta \equiv \frac{\mu_1 v_1}{\mu_2 v_2}$$
+
+and $R + T = 1$.
+
+</div>
+
+<div slot="solution">
+
+At normal incidence, the intensity of a monochromatic plane wave in medium $i$ is $I_i = \frac{1}{2}\epsilon_i v_i E_{0i}^2$ (Eq. 9.73), and the complex amplitudes satisfy Eq. (9.82):
+
+$$\tilde{E}_{0R} = \left(\frac{1-\beta}{1+\beta}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0T} = \left(\frac{2}{1+\beta}\right)\tilde{E}_{0I}, \qquad \beta \equiv \frac{\mu_1 v_1}{\mu_2 v_2}$$
+
+The reflection coefficient is
+
+$$R \equiv \frac{I_R}{I_I} = \left(\frac{E_{0R}}{E_{0I}}\right)^2 = \left(\frac{1-\beta}{1+\beta}\right)^2$$
+
+The transmission coefficient is
+
+$$T \equiv \frac{I_T}{I_I} = \frac{\epsilon_2 v_2}{\epsilon_1 v_1}\left(\frac{E_{0T}}{E_{0I}}\right)^2 = \frac{\epsilon_2 v_2}{\epsilon_1 v_1}\left(\frac{2}{1+\beta}\right)^2$$
+
+Using the relation $\epsilon\mu = 1/v^2$, we can rewrite the prefactor $\frac{\epsilon_2 v_2}{\epsilon_1 v_1}$ in terms of $\beta$:
+
+$$\frac{\epsilon_2 v_2}{\epsilon_1 v_1} = \frac{\mu_1}{\mu_2}\left(\frac{\epsilon_2\mu_2}{\epsilon_1\mu_1}\right)\frac{v_2}{v_1} = \frac{\mu_1}{\mu_2}\left(\frac{v_1}{v_2}\right)^2 \frac{v_2}{v_1} = \frac{\mu_1 v_1}{\mu_2 v_2} = \beta$$
+
+Thus,
+
+$$T = \frac{4\beta}{(1+\beta)^2}$$
+
+Summing $R$ and $T$ confirms conservation of energy:
+
+$$R + T = \frac{(1-\beta)^2 + 4\beta}{(1+\beta)^2} = \frac{1 - 2\beta + \beta^2 + 4\beta}{(1+\beta)^2} = \frac{1 + 2\beta + \beta^2}{(1+\beta)^2} = \frac{(1+\beta)^2}{(1+\beta)^2} = 1$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.15" title="Polarization Conservation at Normal Incidence" tag="Griffiths 9.15 · Normal Incidence">
+
+<div slot="problem">
+
+In writing Eqs. (9.76) and (9.77), it was tacitly assumed that the reflected and transmitted waves have the same polarization as the incident wave—along the $x$ direction. Prove that this must be so. [Hint: Let the polarization vectors of the transmitted and reflected waves be $\hat{\mathbf{n}}_T = \cos\theta_T\,\hat{\mathbf{x}} + \sin\theta_T\,\hat{\mathbf{y}}$ and $\hat{\mathbf{n}}_R = \cos\theta_R\,\hat{\mathbf{x}} + \sin\theta_R\,\hat{\mathbf{y}}$, and prove from the boundary conditions that $\theta_T = \theta_R = 0$.]
+
+</div>
+
+<div slot="answer">
+
+From the $y$-component of $\mathbf{E}_\parallel$ continuity and the $x$-component of $\frac{1}{\mu}\mathbf{B}_\parallel$ continuity, one obtains $\tilde{E}_{0R}\sin\theta_R = \tilde{E}_{0T}\sin\theta_T$ and $\tilde{E}_{0R}\sin\theta_R = -\beta\tilde{E}_{0T}\sin\theta_T$, which together force $\sin\theta_T = \sin\theta_R = 0$, hence $\theta_T = \theta_R = 0$.
+
+</div>
+
+<div slot="solution">
+
+With the incident wave propagating along $+\hat{\mathbf{z}}$ and polarized along $\hat{\mathbf{x}}$, the reflected wave propagating along $-\hat{\mathbf{z}}$ with polarization $\hat{\mathbf{n}}_R$, and the transmitted wave propagating along $+\hat{\mathbf{z}}$ with polarization $\hat{\mathbf{n}}_T$, the complex amplitudes at $z = 0$ are:
+
+$$\tilde{\mathbf{E}}_{0I} = \tilde{E}_{0I}\,\hat{\mathbf{x}}, \qquad \tilde{\mathbf{E}}_{0R} = \tilde{E}_{0R}\,\hat{\mathbf{n}}_R, \qquad \tilde{\mathbf{E}}_{0T} = \tilde{E}_{0T}\,\hat{\mathbf{n}}_T$$
+
+Using $\tilde{\mathbf{B}} = \frac{1}{v}(\hat{\mathbf{k}} \times \tilde{\mathbf{E}})$ with $\hat{\mathbf{k}}_I = \hat{\mathbf{z}}$, $\hat{\mathbf{k}}_R = -\hat{\mathbf{z}}$, and $\hat{\mathbf{k}}_T = \hat{\mathbf{z}}$, the magnetic field amplitudes are:
+
+$$\tilde{\mathbf{B}}_{0I} = \frac{1}{v_1}\tilde{E}_{0I}\,\hat{\mathbf{y}}, \qquad \tilde{\mathbf{B}}_{0R} = -\frac{1}{v_1}\tilde{E}_{0R}(\hat{\mathbf{z}} \times \hat{\mathbf{n}}_R), \qquad \tilde{\mathbf{B}}_{0T} = \frac{1}{v_2}\tilde{E}_{0T}(\hat{\mathbf{z}} \times \hat{\mathbf{n}}_T)$$
+
+Boundary condition (iii), $\mathbf{E}_{1\parallel} = \mathbf{E}_{2\parallel}$, replaces Eq. (9.78) with
+
+$$\tilde{E}_{0I}\,\hat{\mathbf{x}} + \tilde{E}_{0R}\,\hat{\mathbf{n}}_R = \tilde{E}_{0T}\,\hat{\mathbf{n}}_T$$
+
+Boundary condition (iv), $\frac{1}{\mu_1}\mathbf{B}_{1\parallel} = \frac{1}{\mu_2}\mathbf{B}_{2\parallel}$, replaces Eq. (9.80) with
+
+$$\tilde{E}_{0I}\,\hat{\mathbf{y}} - \tilde{E}_{0R}(\hat{\mathbf{z}} \times \hat{\mathbf{n}}_R) = \beta\,\tilde{E}_{0T}(\hat{\mathbf{z}} \times \hat{\mathbf{n}}_T)$$
+
+where $\beta \equiv \frac{\mu_1 v_1}{\mu_2 v_2} > 0$. Expanding $\hat{\mathbf{n}}_R = \cos\theta_R\,\hat{\mathbf{x}} + \sin\theta_R\,\hat{\mathbf{y}}$ and $\hat{\mathbf{n}}_T = \cos\theta_T\,\hat{\mathbf{x}} + \sin\theta_T\,\hat{\mathbf{y}}$, we have $\hat{\mathbf{z}} \times \hat{\mathbf{n}}_R = -\sin\theta_R\,\hat{\mathbf{x}} + \cos\theta_R\,\hat{\mathbf{y}}$ and $\hat{\mathbf{z}} \times \hat{\mathbf{n}}_T = -\sin\theta_T\,\hat{\mathbf{x}} + \cos\theta_T\,\hat{\mathbf{y}}$.
+
+- Taking the $y$-component of the electric boundary condition gives:
+
+$$\tilde{E}_{0R}\sin\theta_R = \tilde{E}_{0T}\sin\theta_T$$
+
+- Taking the $x$-component of the magnetic boundary condition gives:
+
+$$\tilde{E}_{0R}\sin\theta_R = -\beta\,\tilde{E}_{0T}\sin\theta_T$$
+
+Comparing these two equations yields
+
+$$(1 + \beta)\tilde{E}_{0T}\sin\theta_T = 0$$
+
+Since $\beta > 0$ (so $1 + \beta \neq 0$) and $\tilde{E}_{0T} \neq 0$ for any nonzero incident wave, we conclude that $\sin\theta_T = 0$, and consequently $\tilde{E}_{0R}\sin\theta_R = 0$ (so $\sin\theta_R = 0$ whenever a reflected wave is present). Hence $\theta_T = \theta_R = 0$, proving that both the reflected and transmitted waves must be polarized along $\hat{\mathbf{x}}$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.16" title="Linear Independence of Complex Exponentials" tag="Griffiths 9.16 · Boundary Phase Matching">
+
+<div slot="problem">
+
+Suppose $A e^{iax} + B e^{ibx} = C e^{icx}$, for some nonzero constants $A, B, C, a, b, c$, and for all $x$. Prove that $a = b = c$ and $A + B = C$.
+
+</div>
+
+<div slot="answer">
+
+Evaluating the identity and its first two derivatives at $x = 0$ yields $A + B = C$, $aA + bB = cC$, and $a^2 A + b^2 B = c^2 C$, from which $(a - b)^2 AB = 0$, forcing $a = b = c$.
+
+</div>
+
+<div slot="solution">
+
+Because the relation $A e^{iax} + B e^{ibx} = C e^{icx}$ holds identically for all $x$, we may evaluate it and its derivatives at $x = 0$:
+
+1. At $x = 0$:
+
+$$A + B = C$$
+
+2. Differentiating once with respect to $x$ gives $iaA e^{iax} + ibB e^{ibx} = icC e^{icx}$. Evaluating at $x = 0$ and dividing by $i$:
+
+$$aA + bB = cC$$
+
+3. Differentiating a second time gives $-a^2 A e^{iax} - b^2 B e^{ibx} = -c^2 C e^{icx}$. Evaluating at $x = 0$ and multiplying by $-1$:
+
+$$a^2 A + b^2 B = c^2 C$$
+
+Now multiply the third equation by $C = A + B$ and use $cC = aA + bB$:
+
+$$(A + B)(a^2 A + b^2 B) = (A + B)c(cC) = cC(aA + bB) = (aA + bB)^2$$
+
+Expanding both sides gives
+
+$$a^2 A^2 + b^2 AB + a^2 AB + b^2 B^2 = a^2 A^2 + 2abAB + b^2 B^2$$
+
+Canceling $a^2 A^2 + b^2 B^2$ from both sides leaves
+
+$$(a^2 - 2ab + b^2)AB = 0 \implies (a - b)^2 AB = 0$$
+
+Since $A \neq 0$ and $B \neq 0$, we must have $a = b$. Substituting $b = a$ into $aA + bB = cC$ gives $a(A + B) = cC$, and since $A + B = C \neq 0$, it follows that $a = c$. Therefore, $a = b = c$ and $A + B = C$.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.17" title="Fresnel Equations for Perpendicular Polarization" tag="Griffiths 9.17 · Oblique Incidence (TE)">
+
+<div slot="problem">
+
+Analyze the case of polarization perpendicular to the plane of incidence (i.e., electric fields in the $y$ direction, in Fig. 9.15). Impose the boundary conditions (Eq. 9.101), and obtain the Fresnel equations for $\tilde{E}_{0R}$ and $\tilde{E}_{0T}$. Sketch $(\tilde{E}_{0R}/\tilde{E}_{0I})$ and $(\tilde{E}_{0T}/\tilde{E}_{0I})$ as functions of $\theta_I$, for the case $\beta = n_2/n_1 = 1.5$. (Note that for this $\beta$ the reflected wave is always $180^\circ$ out of phase.) Show that there is no Brewster's angle for any $n_1$ and $n_2$: $\tilde{E}_{0R}$ is never zero (unless, of course, $n_1 = n_2$ and $\mu_1 = \mu_2$, in which case the two media are optically indistinguishable). Confirm that your Fresnel equations reduce to the proper forms at normal incidence. Compute the reflection and transmission coefficients, and check that they add up to $1$.
+
+</div>
+
+<div slot="answer">
+
+$$\tilde{E}_{0R} = \left(\frac{1 - \alpha\beta}{1 + \alpha\beta}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0T} = \left(\frac{2}{1 + \alpha\beta}\right)\tilde{E}_{0I}$$
+
+where $\alpha \equiv \frac{\cos\theta_T}{\cos\theta_I}$ and $\beta \equiv \frac{\mu_1 v_1}{\mu_2 v_2}$. When $\mu_1 \approx \mu_2$, $\tilde{E}_{0R} = 0$ requires $n_1 = n_2$ (no Brewster's angle). At $\theta_I = 0^\circ$ ($\alpha = 1$), these reduce to Eq. (9.82). The energy coefficients are
+
+$$R = \left(\frac{1 - \alpha\beta}{1 + \alpha\beta}\right)^2, \qquad T = \alpha\beta\left(\frac{2}{1 + \alpha\beta}\right)^2, \qquad R + T = 1$$
+
+</div>
+
+<div slot="solution">
+
+Let the plane of incidence be the $xz$-plane, with wave vectors $\hat{\mathbf{k}}_I = \sin\theta_I\,\hat{\mathbf{x}} + \cos\theta_I\,\hat{\mathbf{z}}$, $\hat{\mathbf{k}}_R = \sin\theta_I\,\hat{\mathbf{x}} - \cos\theta_I\,\hat{\mathbf{z}}$ (since $\theta_R = \theta_I$), and $\hat{\mathbf{k}}_T = \sin\theta_T\,\hat{\mathbf{x}} + \cos\theta_T\,\hat{\mathbf{z}}$. With $\mathbf{E}$ along $\hat{\mathbf{y}}$ and $\tilde{\mathbf{B}} = \frac{1}{v}(\hat{\mathbf{k}} \times \tilde{\mathbf{E}})$:
+
+$$\tilde{\mathbf{E}}_I = \tilde{E}_{0I} e^{i(\mathbf{k}_I\cdot\mathbf{r} - \omega t)}\hat{\mathbf{y}}, \qquad \tilde{\mathbf{B}}_I = \frac{1}{v_1}\tilde{E}_{0I} e^{i(\mathbf{k}_I\cdot\mathbf{r} - \omega t)}(-\cos\theta_I\,\hat{\mathbf{x}} + \sin\theta_I\,\hat{\mathbf{z}})$$
+
+$$\tilde{\mathbf{E}}_R = \tilde{E}_{0R} e^{i(\mathbf{k}_R\cdot\mathbf{r} - \omega t)}\hat{\mathbf{y}}, \qquad \tilde{\mathbf{B}}_R = \frac{1}{v_1}\tilde{E}_{0R} e^{i(\mathbf{k}_R\cdot\mathbf{r} - \omega t)}(\cos\theta_I\,\hat{\mathbf{x}} + \sin\theta_I\,\hat{\mathbf{z}})$$
+
+$$\tilde{\mathbf{E}}_T = \tilde{E}_{0T} e^{i(\mathbf{k}_T\cdot\mathbf{r} - \omega t)}\hat{\mathbf{y}}, \qquad \tilde{\mathbf{B}}_T = \frac{1}{v_2}\tilde{E}_{0T} e^{i(\mathbf{k}_T\cdot\mathbf{r} - \omega t)}(-\cos\theta_T\,\hat{\mathbf{x}} + \sin\theta_T\,\hat{\mathbf{z}})$$
+
+At $z = 0$, the exponential factors match and cancel. Applying the boundary conditions (Eq. 9.101):
+
+- **(i) $\epsilon_1 E_{1z} = \epsilon_2 E_{2z}$:** Gives $0 = 0$ (trivial).
+- **(iii) $\mathbf{E}_{1\parallel} = \mathbf{E}_{2\parallel}$:**
+
+$$\tilde{E}_{0I} + \tilde{E}_{0R} = \tilde{E}_{0T}$$
+
+- **(ii) $B_{1z} = B_{2z}$:**
+
+$$\frac{1}{v_1}(\tilde{E}_{0I} + \tilde{E}_{0R})\sin\theta_I = \frac{1}{v_2}\tilde{E}_{0T}\sin\theta_T \implies \tilde{E}_{0I} + \tilde{E}_{0R} = \left(\frac{v_1\sin\theta_T}{v_2\sin\theta_I}\right)\tilde{E}_{0T}$$
+
+By Snell's law ($\frac{\sin\theta_T}{\sin\theta_I} = \frac{v_2}{v_1}$), the parenthetical factor equals $1$, so (ii) reproduces (iii).
+
+- **(iv) $\frac{1}{\mu_1}\mathbf{B}_{1\parallel} = \frac{1}{\mu_2}\mathbf{B}_{2\parallel}$ ($x$-component):**
+
+$$\frac{1}{\mu_1 v_1}(-\tilde{E}_{0I}\cos\theta_I + \tilde{E}_{0R}\cos\theta_I) = \frac{1}{\mu_2 v_2}(-\tilde{E}_{0T}\cos\theta_T)$$
+
+Dividing by $-\frac{\cos\theta_I}{\mu_1 v_1}$ and defining $\alpha \equiv \frac{\cos\theta_T}{\cos\theta_I}$ and $\beta \equiv \frac{\mu_1 v_1}{\mu_2 v_2}$ gives
+
+$$\tilde{E}_{0I} - \tilde{E}_{0R} = \alpha\beta\,\tilde{E}_{0T}$$
+
+**1. Fresnel Equations**
+
+Adding $\tilde{E}_{0I} + \tilde{E}_{0R} = \tilde{E}_{0T}$ and $\tilde{E}_{0I} - \tilde{E}_{0R} = \alpha\beta\,\tilde{E}_{0T}$ gives $2\tilde{E}_{0I} = (1 + \alpha\beta)\tilde{E}_{0T}$, so:
+
+$$\tilde{E}_{0T} = \left(\frac{2}{1 + \alpha\beta}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0R} = \tilde{E}_{0T} - \tilde{E}_{0I} = \left(\frac{1 - \alpha\beta}{1 + \alpha\beta}\right)\tilde{E}_{0I}$$
+
+Because $\alpha > 0$ and $\beta > 0$, the transmitted wave is always in phase with the incident wave, while the reflected wave is in phase if $\alpha\beta < 1$ and $180^\circ$ out of phase if $\alpha\beta > 1$.
+
+**2. Sketch for $\beta = n_2/n_1 = 1.5$ ($\mu_1 = \mu_2$)**
+
+Using Snell's law, $\alpha\beta = \frac{\sqrt{\beta^2 - \sin^2\theta_I}}{\cos\theta_I} = \frac{\sqrt{2.25 - \sin^2\theta_I}}{\cos\theta_I}$. Since $2.25 - \sin^2\theta_I > 1 - \sin^2\theta_I = \cos^2\theta_I$, we have $\alpha\beta > 1$ for all $\theta_I \in [0^\circ, 90^\circ)$.
+
+- At $\theta_I = 0^\circ$ ($\alpha\beta = 1.5$): $\tilde{E}_{0R}/\tilde{E}_{0I} = -0.20$ and $\tilde{E}_{0T}/\tilde{E}_{0I} = 0.80$.
+- As $\theta_I$ increases from $0^\circ$ to $90^\circ$, $\alpha\beta \to \infty$: $\tilde{E}_{0R}/\tilde{E}_{0I}$ decreases monotonically from $-0.20$ to $-1.00$ (always negative, i.e., $180^\circ$ out of phase), while $\tilde{E}_{0T}/\tilde{E}_{0I}$ decreases monotonically from $0.80$ to $0$.
+
+**3. No Brewster's Angle**
+
+Setting $\tilde{E}_{0R} = 0$ requires $\alpha\beta = 1$:
+
+$$\frac{\mu_1 v_1}{\mu_2 v_2}\frac{\sqrt{1 - (v_2/v_1)^2\sin^2\theta_I}}{\cos\theta_I} = 1 \implies 1 - \left(\frac{v_2}{v_1}\right)^2\sin^2\theta_I = \left(\frac{\mu_2 v_2}{\mu_1 v_1}\right)^2\cos^2\theta_I$$
+
+Rearranging gives
+
+$$1 = \left(\frac{v_2}{v_1}\right)^2\left[\sin^2\theta_I + \left(\frac{\mu_2}{\mu_1}\right)^2\cos^2\theta_I\right]$$
+
+Since $\mu_1 \approx \mu_2$, this simplifies to $1 \approx (v_2/v_1)^2(\sin^2\theta_I + \cos^2\theta_I) = (v_2/v_1)^2$, which holds only when $v_1 = v_2$ (so $n_1 = n_2$ and $\mu_1 = \mu_2$—optically indistinguishable media with zero reflection at all angles). Thus there is no Brewster's angle for perpendicular polarization.
+
+**4. Normal Incidence Limit**
+
+At $\theta_I = 0^\circ$, $\theta_T = 0^\circ$ and $\alpha = 1$, so the Fresnel equations reduce to
+
+$$\tilde{E}_{0R} = \left(\frac{1 - \beta}{1 + \beta}\right)\tilde{E}_{0I}, \qquad \tilde{E}_{0T} = \left(\frac{2}{1 + \beta}\right)\tilde{E}_{0I}$$
+
+in exact agreement with Eq. (9.82).
+
+**5. Reflection and Transmission Coefficients**
+
+Using Eqs. (9.115)–(9.116) and $\frac{\epsilon_2 v_2}{\epsilon_1 v_1} = \beta$:
+
+$$R = \left(\frac{E_{0R}}{E_{0I}}\right)^2 = \left(\frac{1 - \alpha\beta}{1 + \alpha\beta}\right)^2, \qquad T = \frac{\epsilon_2 v_2}{\epsilon_1 v_1}\frac{\cos\theta_T}{\cos\theta_I}\left(\frac{E_{0T}}{E_{0I}}\right)^2 = \alpha\beta\left(\frac{2}{1 + \alpha\beta}\right)^2$$
+
+Summing them yields:
+
+$$R + T = \frac{(1 - \alpha\beta)^2 + 4\alpha\beta}{(1 + \alpha\beta)^2} = \frac{1 - 2\alpha\beta + (\alpha\beta)^2 + 4\alpha\beta}{(1 + \alpha\beta)^2} = \frac{(1 + \alpha\beta)^2}{(1 + \alpha\beta)^2} = 1$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="9.18" title="Air/Diamond Interface Amplitudes and Critical Angles" tag="Griffiths 9.18 · Fresnel Equations">
+
+<div slot="problem">
+
+The index of refraction of diamond is $2.42$. Construct the graph analogous to Fig. 9.16 for the air/diamond interface. (Assume $\mu_1 = \mu_2 = \mu_0$.) In particular, calculate (a) the amplitudes at normal incidence, (b) Brewster's angle, and (c) the "crossover" angle, at which the reflected and transmitted amplitudes are equal.
+
+</div>
+
+<div slot="answer">
+
+**(a)** At $\theta_I = 0^\circ$: $\tilde{E}_{0R}/E_{0I} = -0.415$ (amplitude $0.415$, $180^\circ$ out of phase) and $E_{0T}/E_{0I} = 0.585$.
+
+**(b)** Brewster's angle: $\theta_B = 67.5^\circ$.
+
+**(c)** Crossover angle ($E_{0R} = E_{0T}$): $\theta_I = 78.3^\circ$ ($78.1^\circ$ unrounded).
+
+</div>
+
+<div slot="solution">
+
+For an air/diamond interface with $\mu_1 = \mu_2 = \mu_0$, $n_1 = 1$, and $n_2 = 2.42$, Eq. (9.106) gives $\beta = n_2/n_1 = 2.42$, and Eq. (9.110) gives
+
+$$\alpha = \frac{\sqrt{1 - (\sin\theta_I / 2.42)^2}}{\cos\theta_I}$$
+
+For polarization parallel to the plane of incidence (analogous to Fig. 9.16), Fresnel's equations (Eq. 9.109) are:
+
+$$\frac{\tilde{E}_{0R}}{\tilde{E}_{0I}} = \frac{\alpha - \beta}{\alpha + \beta}, \qquad \frac{\tilde{E}_{0T}}{\tilde{E}_{0I}} = \frac{2}{\alpha + \beta}$$
+
+**(a) Normal Incidence ($\theta_I = 0^\circ$)**
+
+At $\theta_I = 0^\circ$, $\alpha = 1$:
+
+$$\frac{\tilde{E}_{0R}}{\tilde{E}_{0I}} = \frac{1 - 2.42}{1 + 2.42} = -\frac{1.42}{3.42} = -0.415, \qquad \frac{E_{0T}}{E_{0I}} = \frac{2}{1 + 2.42} = \frac{2}{3.42} = 0.585$$
+
+So the reflected wave has amplitude $0.415\,E_{0I}$ (and is $180^\circ$ out of phase), while the transmitted wave has amplitude $0.585\,E_{0I}$.
+
+**(b) Brewster's Angle ($\theta_B$)**
+
+By Eq. (9.112), the reflected wave vanishes ($\alpha = \beta$) when
+
+$$\tan\theta_B = \frac{n_2}{n_1} = 2.42 \implies \theta_B = \tan^{-1}(2.42) = 67.5^\circ$$
+
+**(c) Crossover Angle ($E_{0R} = E_{0T}$)**
+
+Beyond Brewster's angle ($\theta_I > 67.5^\circ$), $\alpha > \beta$, so $\tilde{E}_{0R} > 0$. Setting $\tilde{E}_{0R} = \tilde{E}_{0T}$ gives
+
+$$\frac{\alpha - \beta}{\alpha + \beta} = \frac{2}{\alpha + \beta} \implies \alpha = \beta + 2 = 4.42$$
+
+Substituting $\alpha = 4.42$ into the definition of $\alpha$ and squaring both sides:
+
+$$(4.42)^2 \cos^2\theta_I = 1 - \frac{\sin^2\theta_I}{(2.42)^2}$$
+
+$$(4.42)^2 (1 - \sin^2\theta_I) = 1 - \frac{\sin^2\theta_I}{(2.42)^2}$$
+
+Using $(4.42)^2 \approx 19.5$ and $1/(2.42)^2 \approx 0.171$:
+
+$$19.5 - 19.5\sin^2\theta_I = 1 - 0.171\sin^2\theta_I \implies 18.5 = 19.3\sin^2\theta_I$$
+
+$$\sin^2\theta_I = \frac{18.5}{19.3} = 0.959 \implies \sin\theta_I = 0.979 \implies \theta_I = 78.3^\circ$$
+
+*(Retaining full intermediate precision gives $\sin^2\theta_I = 18.536/19.366 = 0.9572$, or $\theta_I = 78.1^\circ$.)*
+
+**Graph Summary (analogous to Fig. 9.16):**
+
+- The reflected ratio $\tilde{E}_{0R}/\tilde{E}_{0I}$ rises monotonically from $-0.415$ at $\theta_I = 0^\circ$, passes through $0$ at Brewster's angle $\theta_B = 67.5^\circ$, equals $\tilde{E}_{0T}/\tilde{E}_{0I} = 0.292$ at the crossover angle $\theta_I \approx 78.3^\circ$, and approaches $+1$ as $\theta_I \to 90^\circ$.
+- The transmitted ratio $\tilde{E}_{0T}/\tilde{E}_{0I}$ decreases monotonically from $0.585$ at $\theta_I = 0^\circ$ (passing through $0.413$ at $\theta_B$ and $0.292$ at the crossover angle) to $0$ as $\theta_I \to 90^\circ$.
+
+</div>
+
+</ProblemCard>
+
+</section>

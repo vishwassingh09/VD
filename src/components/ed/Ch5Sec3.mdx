@@ -1,0 +1,696 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch5-sec3" class="ed-sec-block">
+
+### 5.3 The Divergence and Curl of B
+
+<div class="ed-theory-box">
+
+#### 5.3.1 Straight-Line Currents and the Integral Circulation Law
+
+For an infinite straight wire carrying steady current $I$ along the $z$-axis, the Biot–Savart law yields $\vec{B} = \frac{\mu_0 I}{2\pi s}\hat{\phi}$. Evaluating the line integral of $\vec{B}$ around an arbitrary closed path $\mathcal{C}$ using $d\vec{l} = ds\,\hat{s} + s\,d\phi\,\hat{\phi} + dz\,\hat{z}$ gives
+
+$$
+\oint_{\mathcal{C}} \vec{B}\cdot d\vec{l} = \frac{\mu_0 I}{2\pi} \oint_{\mathcal{C}} d\phi = \mu_0 I \quad (\text{if } \mathcal{C} \text{ encircles the wire once}),
+$$
+
+and zero if $\mathcal{C}$ does not enclose the wire. By superposition, for a bundle of straight wires, $\oint \vec{B}\cdot d\vec{l} = \mu_0 I_{\text{enc}}$, where $I_{\text{enc}} = \int_S \vec{J}\cdot d\vec{a}$ is the total current passing through any surface $S$ spanning $\mathcal{C}$. Applying Stokes' theorem suggests $\nabla\times\vec{B} = \mu_0\vec{J}$, though proving this for *arbitrary* steady currents requires starting directly from the general Biot–Savart law.
+
+#### 5.3.2 General Derivation of $\nabla\cdot\vec{B}$ and $\nabla\times\vec{B}$
+
+For a general steady volume current distribution $\vec{J}(\vec{r}')$, the Biot–Savart law is
+
+$$
+\vec{B}(\vec{r}) = \frac{\mu_0}{4\pi} \int \frac{\vec{J}(\vec{r}')\times\hat{\mathfrak{r}}}{\mathfrak{r}^2}\,d\tau', \qquad \vec{\mathfrak{r}} = \vec{r} - \vec{r}'.
+$$
+
+Differentiating with respect to the unprimed field coordinates $\vec{r}$ (while $\vec{J}$ depends only on $\vec{r}'$):
+
+- **Divergence:** Using $\nabla\cdot(\vec{J}\times\frac{\hat{\mathfrak{r}}}{\mathfrak{r}^2}) = \frac{\hat{\mathfrak{r}}}{\mathfrak{r}^2}\cdot(\nabla\times\vec{J}) - \vec{J}\cdot\left(\nabla\times\frac{\hat{\mathfrak{r}}}{\mathfrak{r}^2}\right)$, both $\nabla\times\vec{J} = \mathbf{0}$ and $\nabla\times(\hat{\mathfrak{r}}/\mathfrak{r}^2) = \mathbf{0}$ vanish identically, yielding the fundamental no-monopole law:
+
+$$
+\nabla\cdot\vec{B} = 0.
+$$
+
+- **Curl:** Expanding the curl inside the integral via the vector identity $\nabla\times(\vec{J}\times\frac{\hat{\mathfrak{r}}}{\mathfrak{r}^2}) = \vec{J}\left(\nabla\cdot\frac{\hat{\mathfrak{r}}}{\mathfrak{r}^2}\right) - (\vec{J}\cdot\nabla)\frac{\hat{\mathfrak{r}}}{\mathfrak{r}^2}$ (terms with derivatives of $\vec{J}$ vanish):
+  1. Using $\nabla\cdot(\hat{\mathfrak{r}}/\mathfrak{r}^2) = 4\pi\delta^3(\vec{r}-\vec{r}')$, the first term integrates immediately to $\mu_0\vec{J}(\vec{r})$.
+  2. For the second term, because $\vec{\mathfrak{r}} = \vec{r}-\vec{r}'$, we replace $\nabla \to -\nabla'$ and use the steady-current condition $\nabla'\cdot\vec{J} = 0$ to rewrite its $i$-th Cartesian component as $\nabla'\cdot\!\left(\frac{\mathfrak{r}_i}{\mathfrak{r}^3}\vec{J}\right)$. By the divergence theorem, this integrates to a boundary surface integral $\oint_S \frac{\mathfrak{r}_i}{\mathfrak{r}^3}\vec{J}\cdot d\vec{a}'$, which vanishes when the integration volume encloses all currents ($\vec{J} = \mathbf{0}$ on $S$). Hence, generally for steady currents,
+
+$$
+\nabla\times\vec{B} = \mu_0\vec{J}.
+$$
+
+#### 5.3.3 Ampère's Law and Symmetric Applications
+
+$\nabla\times\vec{B} = \mu_0\vec{J}$ is **Ampère's law** in differential form. Applying Stokes' theorem over a surface $S$ bounded by an Amperian loop $\mathcal{C}$ yields the integral form:
+
+$$
+\oint_{\mathcal{C}} \vec{B}\cdot d\vec{l} = \mu_0 I_{\text{enc}} = \mu_0 \int_S \vec{J}\cdot d\vec{a},
+$$
+
+with orientation fixed by the right-hand rule (curling the right-hand fingers along $d\vec{l}$ defines the positive sense for $I_{\text{enc}}$ through $S$). Like Gauss's law in electrostatics, Ampère's law is always valid in magnetostatics, and determines $\vec{B}$ directly whenever symmetry allows $|\vec{B}|$ to be pulled outside the line integral:
+1. **Infinite straight wire:** $\vec{B} = \frac{\mu_0 I}{2\pi s}\hat{\phi}$.
+2. **Infinite uniform surface current** ($\vec{K} = K\hat{x}$ on $z=0$): $\vec{B} = \mp \frac{\mu_0}{2}K\hat{y}$ for $z \gtrless 0$.
+3. **Infinite closely wound solenoid** ($n$ turns/unit length): $\vec{B} = \mu_0 n I \hat{z}$ inside, $\mathbf{0}$ outside.
+4. **Uniform toroid** ($N$ total turns): $\vec{B} = \frac{\mu_0 N I}{2\pi s}\hat{\phi}$ inside the coil, $\mathbf{0}$ outside.
+
+#### 5.3.4 Comparison of Magnetostatics and Electrostatics
+
+Maxwell's equations for static fields, together with asymptotic decay ($\vec{E}, \vec{B} \to \mathbf{0}$ far from localized sources) and the Lorentz force law $\vec{F} = Q(\vec{E} + \vec{v}\times\vec{B})$, form a complete description of electrostatics and magnetostatics:
+
+$$
+\begin{aligned}
+\text{Electrostatics:} \quad & \nabla\cdot\vec{E} = \frac{\rho}{\varepsilon_0}, \qquad \nabla\times\vec{E} = \mathbf{0}, \\
+\text{Magnetostatics:} \quad & \nabla\cdot\vec{B} = 0, \qquad\;\; \nabla\times\vec{B} = \mu_0\vec{J}.
+\end{aligned}
+$$
+
+Electrostatic field lines originate on positive charges and terminate on negative charges; magnetostatic field lines have zero divergence (no magnetic monopoles), so they never begin or end—forming closed loops, extending to infinity, or forming chaotic tangles. Because $\varepsilon_0\mu_0 = 1/c^2$, magnetic forces between individual moving charges are suppressed by $(v/c)^2$ relative to electric forces. Macroscopic magnetic forces become prominent in current-carrying conductors only because the stationary lattice ions keep the wire electrically neutral, canceling the enormous electrostatic repulsion while leaving the magnetic interaction uncompensated.
+
+</div>
+
+<ProblemCard num="5.11" title="Magnetic Field on the Axis of a Finite and Infinite Solenoid" tag="Griffiths 5.11 · Biot–Savart · Solenoid">
+
+<div slot="problem">
+
+Find the magnetic field at point $P$ on the axis of a tightly wound solenoid (helical coil) consisting of $n$ turns per unit length wrapped around a cylindrical tube of radius $a$ and carrying current $I$ (Fig. 5.25). Express your answer in terms of $\theta_1$ and $\theta_2$ (it's easiest that way). Consider the turns to be essentially circular, and use the result of Ex. 5.6. What is the field on the axis of an infinite solenoid (infinite in both directions)?
+
+</div>
+
+<div slot="answer">
+
+On the axis of the finite solenoid,
+
+$$
+\vec{B} = \frac{\mu_0 n I}{2}(\cos\theta_2 - \cos\theta_1)\,\hat{z},
+$$
+
+where $\hat{z}$ points along the solenoid axis according to the right-hand rule, and $\theta_1$, $\theta_2$ are the angles measured from the $+\hat{z}$ direction at $P$ to the two ends of the solenoid. For an infinite solenoid ($\theta_1 \to \pi$, $\theta_2 \to 0$),
+
+$$
+\vec{B} = \mu_0 n I\,\hat{z}.
+$$
+
+</div>
+
+<div slot="solution">
+
+Place point $P$ at the origin ($z = 0$) on the solenoid axis, with the $+\hat{z}$ axis oriented in the direction of $\vec{B}$ given by the right-hand rule for the current $I$.
+
+From Example 5.6 (Eq. 5.41), a single circular loop of radius $a$ carrying current $I'$ centered at axial coordinate $z$ produces an axial field at $P$:
+
+$$
+B_{\text{ring}} = \frac{\mu_0 I'}{2} \frac{a^2}{(a^2 + z^2)^{3/2}}.
+$$
+
+For a tightly wound solenoid with $n$ turns per unit length, a thin slice of thickness $dz$ at coordinate $z$ contains $n\,dz$ turns and carries an effective current $dI = nI\,dz$. Its contribution to the axial magnetic field at $P$ is
+
+$$
+dB = \frac{\mu_0 n I}{2} \frac{a^2}{(a^2 + z^2)^{3/2}}\,dz.
+$$
+
+Let $\theta$ be the angle from the $+\hat{z}$ axis to the line connecting $P$ to the rim of the ring at $z$, so that
+
+$$
+z = a\cot\theta \implies dz = -\frac{a}{\sin^2\theta}\,d\theta,
+$$
+
+and
+
+$$
+(a^2 + z^2)^{3/2} = a^3(1 + \cot^2\theta)^{3/2} = \frac{a^3}{\sin^3\theta} \quad (0 \le \theta \le \pi).
+$$
+
+Substituting these into the integral from the end at angle $\theta_1$ (say, the left end at $z_1$) to the end at angle $\theta_2$ (the right end at $z_2$):
+
+$$
+B = \frac{\mu_0 n I}{2} \int_{\theta_1}^{\theta_2} \frac{a^2}{a^3 / \sin^3\theta} \left(-\frac{a}{\sin^2\theta}\,d\theta\right) = -\frac{\mu_0 n I}{2} \int_{\theta_1}^{\theta_2} \sin\theta\,d\theta.
+$$
+
+Evaluating the integral yields
+
+$$
+B = \frac{\mu_0 n I}{2} \Big[\cos\theta\Big]_{\theta_1}^{\theta_2} = \frac{\mu_0 n I}{2}(\cos\theta_2 - \cos\theta_1),
+$$
+
+so $\vec{B} = \frac{\mu_0 n I}{2}(\cos\theta_2 - \cos\theta_1)\,\hat{z}$.
+
+For an **infinite solenoid** extending from $z_1 \to -\infty$ to $z_2 \to +\infty$, we have $\theta_1 \to \pi$ and $\theta_2 \to 0$. Therefore $\cos\theta_2 - \cos\theta_1 = 1 - (-1) = 2$, giving
+
+$$
+\vec{B} = \mu_0 n I\,\hat{z}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.12" title="Magnetic Field at the Center of a Spinning Charged Spherical Shell" tag="Griffiths 5.12 · Biot–Savart · Surface Current">
+
+<div slot="problem">
+
+Use the result of Ex. 5.6 to calculate the magnetic field at the center of a uniformly charged spherical shell, of radius $R$ and total charge $Q$, spinning at constant angular velocity $\omega$.
+
+</div>
+
+<div slot="answer">
+
+Taking the rotation axis along $+\hat{z}$,
+
+$$
+\vec{B}(0) = \frac{\mu_0 Q \omega}{6\pi R}\,\hat{z}.
+$$
+
+</div>
+
+<div slot="solution">
+
+Align the $+\hat{z}$ axis with the angular velocity vector $\vec{\omega} = \omega\,\hat{z}$. The uniform surface charge density on the sphere is
+
+$$
+\sigma = \frac{Q}{4\pi R^2}.
+$$
+
+Divide the spherical shell into thin azimuthal rings parameterized by polar angle $\theta \in [0, \pi]$. A ring at polar angle $\theta$ has radius $r = R\sin\theta$, axial coordinate $z = R\cos\theta$, and arc-length width $R\,d\theta$. Every point on this ring moves with speed $v = \omega R\sin\theta$, producing a surface current density
+
+$$
+K = \sigma v = \frac{Q\omega}{4\pi R}\sin\theta.
+$$
+
+The current carried by the ring of width $R\,d\theta$ is therefore
+
+$$
+dI = K (R\,d\theta) = \frac{Q\omega}{4\pi}\sin\theta\,d\theta.
+$$
+
+By Example 5.6 (Eq. 5.41), the magnetic field at the center of the sphere ($z = 0$) due to this circular ring at axial displacement $R\cos\theta$ and radius $R\sin\theta$ points along $+\hat{z}$ and has magnitude
+
+$$
+dB = \frac{\mu_0\,dI}{2} \frac{(R\sin\theta)^2}{\left[(R\sin\theta)^2 + (R\cos\theta)^2\right]^{3/2}} = \frac{\mu_0\,dI}{2R}\sin^2\theta.
+$$
+
+Substituting $dI$ and integrating over the entire shell ($\theta$ from $0$ to $\pi$):
+
+$$
+B = \frac{\mu_0 Q \omega}{8\pi R} \int_0^\pi \sin^3\theta\,d\theta.
+$$
+
+Using $\int_0^\pi \sin^3\theta\,d\theta = \int_0^\pi (1 - \cos^2\theta)\sin\theta\,d\theta = \left[-\cos\theta + \frac{1}{3}\cos^3\theta\right]_0^\pi = \frac{4}{3}$, we obtain
+
+$$
+\vec{B}(0) = \frac{\mu_0 Q \omega}{8\pi R}\left(\frac{4}{3}\right)\hat{z} = \frac{\mu_0 Q \omega}{6\pi R}\,\hat{z}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.13" title="Magnetic Attraction vs. Electrostatic Repulsion of Moving Line Charges" tag="Griffiths 5.13 · Lorentz Force · Speed of Light">
+
+<div slot="problem">
+
+Suppose you have two infinite straight line charges $\lambda$, a distance $d$ apart, moving along at a constant speed $v$ (Fig. 5.26). How great would $v$ have to be in order for the magnetic attraction to balance the electrical repulsion? Work out the actual number. Is this a reasonable sort of speed?
+
+</div>
+
+<div slot="answer">
+
+$$
+v = \frac{1}{\sqrt{\varepsilon_0\mu_0}} = c \approx 3.00 \times 10^8\text{ m/s}.
+$$
+
+This is the speed of light, which is unattainable for massive charges; in practice, the electrical repulsion always dominates.
+
+</div>
+
+<div slot="solution">
+
+Each moving line charge constitutes a steady electric current of magnitude
+
+$$
+I = \lambda v,
+$$
+
+flowing in the same direction on both lines.
+
+By Eq. 5.40 (magnetic force between parallel currents), the attractive magnetic force per unit length between the two wires is
+
+$$
+f_m = \frac{\mu_0 I^2}{2\pi d} = \frac{\mu_0 \lambda^2 v^2}{2\pi d}.
+$$
+
+Meanwhile, by Gauss's law (Eq. 2.9), the electric field produced by one infinite line charge at distance $d$ is
+
+$$
+E = \frac{\lambda}{2\pi\varepsilon_0 d},
+$$
+
+so the repulsive electrostatic force per unit length on the second line charge is
+
+$$
+f_e = \lambda E = \frac{\lambda^2}{2\pi\varepsilon_0 d}.
+$$
+
+Setting $f_m = f_e$ to balance the two forces:
+
+$$
+\frac{\mu_0 \lambda^2 v^2}{2\pi d} = \frac{\lambda^2}{2\pi\varepsilon_0 d} \implies \mu_0 v^2 = \frac{1}{\varepsilon_0} \implies v = \frac{1}{\sqrt{\varepsilon_0\mu_0}}.
+$$
+
+Evaluating numerically with $\varepsilon_0 = 8.854 \times 10^{-12}\text{ C}^2/(\text{N}\cdot\text{m}^2)$ and $\mu_0 = 4\pi \times 10^{-7}\text{ N/A}^2$:
+
+$$
+v = \frac{1}{\sqrt{(8.854 \times 10^{-12})(4\pi \times 10^{-7})}} \approx 3.00 \times 10^8\text{ m/s} = c.
+$$
+
+Since $v$ equals the speed of light in vacuum $c$, no physical distribution of massive charges can reach this speed; electrostatic repulsion always exceeds magnetic attraction in the laboratory frame.
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.14" title="Magnetic Field of a Cylindrical Wire via Ampère's Law" tag="Griffiths 5.14 · Ampère's Law · Cylindrical Symmetry">
+
+<div slot="problem">
+
+A steady current $I$ flows down a long cylindrical wire of radius $a$ (Fig. 5.40). Find the magnetic field, both inside and outside the wire, if:
+
+(a) The current is uniformly distributed over the outside surface of the wire.
+
+(b) The current is distributed in such a way that $J$ is proportional to $s$, the distance from the axis.
+
+</div>
+
+<div slot="answer">
+
+Taking the current to flow in the $+\hat{z}$ direction:
+
+**(a)**
+
+$$
+\vec{B}(s) = \begin{cases} \mathbf{0}, & s < a, \\ \dfrac{\mu_0 I}{2\pi s}\,\hat{\phi}, & s > a. \end{cases}
+$$
+
+**(b)**
+
+$$
+\vec{B}(s) = \begin{cases} \dfrac{\mu_0 I s^2}{2\pi a^3}\,\hat{\phi}, & s < a, \\ \dfrac{\mu_0 I}{2\pi s}\,\hat{\phi}, & s > a. \end{cases}
+$$
+
+</div>
+
+<div slot="solution">
+
+Align the wire along the $z$-axis with current flowing in the $+\hat{z}$ direction. By cylindrical and translational symmetry (just as in Example 5.7), the magnetic field is purely azimuthal and depends only on the radial distance $s$: $\vec{B} = B(s)\hat{\phi}$. Applying Ampère's law to a circular Amperian loop of radius $s$ centered on the wire axis gives
+
+$$
+\oint \vec{B}\cdot d\vec{l} = B(s)(2\pi s) = \mu_0 I_{\text{enc}}(s).
+$$
+
+**(a) Surface current on $s = a$:**
+
+For $s < a$, the Amperian loop encloses no current, so $I_{\text{enc}} = 0$ and $\vec{B} = \mathbf{0}$.
+
+For $s > a$, the loop encloses the entire current $I_{\text{enc}} = I$, so
+
+$$
+B(s)(2\pi s) = \mu_0 I \implies \vec{B}(s) = \frac{\mu_0 I}{2\pi s}\,\hat{\phi}.
+$$
+
+**(b) Volume current $J(s) = ks$:**
+
+Write $\vec{J}(s) = k s\,\hat{z}$ for $s \le a$, where $k$ is a constant determined by the total current $I$:
+
+$$
+I = \int_0^a J(s)\,2\pi s\,ds = 2\pi k \int_0^a s^2\,ds = \frac{2\pi k a^3}{3} \implies k = \frac{3I}{2\pi a^3}.
+$$
+
+For $s < a$, the enclosed current within radius $s$ is
+
+$$
+I_{\text{enc}}(s) = \int_0^s k s'\,(2\pi s'\,ds') = \frac{2\pi k s^3}{3} = I\frac{s^3}{a^3}.
+$$
+
+Ampère's law gives $B(s)(2\pi s) = \mu_0 I \frac{s^3}{a^3}$, so
+
+$$
+\vec{B}(s) = \frac{\mu_0 I s^2}{2\pi a^3}\,\hat{\phi} \qquad (s < a).
+$$
+
+For $s > a$, the loop encloses the total current $I_{\text{enc}} = I$, yielding
+
+$$
+\vec{B}(s) = \frac{\mu_0 I}{2\pi s}\,\hat{\phi} \qquad (s > a).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.15" title="Magnetic Field of a Thick Infinite Current Slab" tag="Griffiths 5.15 · Ampère's Law · Planar Symmetry">
+
+<div slot="problem">
+
+A thick slab extending from $z = -a$ to $z = +a$ (and infinite in the $x$ and $y$ directions) carries a uniform volume current $\vec{J} = J\hat{x}$ (Fig. 5.41). Find the magnetic field, as a function of $z$, both inside and outside the slab.
+
+</div>
+
+<div slot="answer">
+
+$$
+\vec{B}(z) = \begin{cases} +\mu_0 J a\,\hat{y}, & z < -a, \\ -\mu_0 J z\,\hat{y}, & -a \le z \le +a, \\ -\mu_0 J a\,\hat{y}, & z > +a. \end{cases}
+$$
+
+</div>
+
+<div slot="solution">
+
+View the slab as a stack of thin horizontal current sheets of surface current density $d\vec{K} = J\,dz'\,\hat{x}$ at heights $z' \in [-a, a]$. By Example 5.8, each sheet produces a magnetic field in the $\mp\hat{y}$ direction above/below $z'$, so the total field $\vec{B}(z)$ depends only on $z$ and points strictly along $\pm\hat{y}$.
+
+Moreover, on the midplane $z = 0$, every sheet at $+z'$ is paired with an identical sheet at $-z'$ whose fields at $z = 0$ are equal and opposite, so $\vec{B}(0) = \mathbf{0}$ (equivalently, $\vec{B}(-z) = -\vec{B}(z)$ by reflection symmetry across $z = 0$). By the right-hand rule for $\vec{J} = J\hat{x}$, $\vec{B}$ points in the $-\hat{y}$ direction for $z > 0$ and in the $+\hat{y}$ direction for $z < 0$.
+
+Consider a rectangular Amperian loop in the $yz$-plane of width $l$ parallel to $y$, with its bottom edge on the midplane $z = 0$ (where $B = 0$) and its top edge at height $z > 0$, traversed so that $I_{\text{enc}}$ flows in the $+\hat{x}$ direction (clockwise in the $yz$-plane when $+\hat{x}$ points out of the page, so the top segment runs in $-\hat{y}$). The vertical sides are perpendicular to $\vec{B}$ and contribute nothing, while the bottom side at $z = 0$ has $B = 0$.
+
+- **Inside the slab ($0 \le z \le a$):** The loop encloses current $I_{\text{enc}} = J(l z)$, so Ampère's law gives
+
+$$
+\oint \vec{B}\cdot d\vec{l} = B(z) l = \mu_0 J l z \implies B(z) = \mu_0 J z \quad (\text{in } -\hat{y}).
+$$
+
+By odd symmetry $\vec{B}(-z) = -\vec{B}(z)$, the expression $\vec{B}(z) = -\mu_0 J z\,\hat{y}$ holds throughout the entire interior $-a \le z \le +a$.
+
+- **Outside the slab ($z > a$):** The loop encloses the full slab thickness from $0$ to $a$, so $I_{\text{enc}} = J(l a)$:
+
+$$
+B(z) l = \mu_0 J l a \implies \vec{B}(z) = -\mu_0 J a\,\hat{y} \qquad (z > +a).
+$$
+
+By symmetry ($\vec{B}(-z) = -\vec{B}(z)$), for $z < -a$ we have
+
+$$
+\vec{B}(z) = +\mu_0 J a\,\hat{y} \qquad (z < -a).
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.16" title="Magnetic Field of Two Long Coaxial Solenoids" tag="Griffiths 5.16 · Ampère's Law · Superposition">
+
+<div slot="problem">
+
+Two long coaxial solenoids each carry current $I$, but in opposite directions, as shown in Fig. 5.42. The inner solenoid (radius $a$) has $n_1$ turns per unit length, and the outer one (radius $b$) has $n_2$. Find $\vec{B}$ in each of the three regions: (i) inside the inner solenoid, (ii) between them, and (iii) outside both.
+
+</div>
+
+<div slot="answer">
+
+Choosing $+\hat{z}$ along the axis in the direction of the outer solenoid's internal field (so the inner solenoid's field points along $-\hat{z}$):
+
+(i) Inside the inner solenoid ($s < a$): $\vec{B} = \mu_0 I (n_2 - n_1)\,\hat{z}$.
+
+(ii) Between the solenoids ($a < s < b$): $\vec{B} = \mu_0 I n_2\,\hat{z}$.
+
+(iii) Outside both solenoids ($s > b$): $\vec{B} = \mathbf{0}$.
+
+</div>
+
+<div slot="solution">
+
+From Example 5.9 (Eq. 5.59), an infinite solenoid with $n$ turns per unit length carrying current $I$ produces a uniform magnetic field $\mu_0 n I$ inside (along the axis via the right-hand rule) and $\mathbf{0}$ outside.
+
+In Fig. 5.42, let the $+\hat{z}$ axis point along the solenoid axis in the direction of the outer solenoid's magnetic field (rightward in the figure). Because the inner solenoid carries current $I$ in the opposite azimuthal sense, its field points along $-\hat{z}$. Thus the individual fields are
+
+$$
+\vec{B}_1(s) = \begin{cases} -\mu_0 n_1 I\,\hat{z}, & s < a, \\ \mathbf{0}, & s > a, \end{cases}
+\qquad
+\vec{B}_2(s) = \begin{cases} +\mu_0 n_2 I\,\hat{z}, & s < b, \\ \mathbf{0}, & s > b. \end{cases}
+$$
+
+By the principle of superposition, $\vec{B} = \vec{B}_1 + \vec{B}_2$:
+
+**(i) Inside the inner solenoid ($s < a$):** Both solenoids contribute:
+
+$$
+\vec{B} = \mu_0 n_2 I\,\hat{z} - \mu_0 n_1 I\,\hat{z} = \mu_0 I(n_2 - n_1)\,\hat{z}.
+$$
+
+**(ii) Between the solenoids ($a < s < b$):** Only the outer solenoid contributes ($\vec{B}_1 = \mathbf{0}$):
+
+$$
+\vec{B} = \mu_0 I n_2\,\hat{z}.
+$$
+
+**(iii) Outside both solenoids ($s > b$):** Both individual fields vanish, so
+
+$$
+\vec{B} = \mathbf{0}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.17" title="Moving Parallel-Plate Capacitor: Fields and Force Balance" tag="Griffiths 5.17 · Surface Current · Lorentz Force">
+
+<div slot="problem">
+
+A large parallel-plate capacitor with uniform surface charge $\sigma$ on the upper plate and $-\sigma$ on the lower is moving with a constant speed $v$, as shown in Fig. 5.43.
+
+(a) Find the magnetic field between the plates and also above and below them.
+
+(b) Find the magnetic force per unit area on the upper plate, including its direction.
+
+(c) At what speed $v$ would the magnetic force balance the electrical force?
+
+</div>
+
+<div slot="answer">
+
+Orient the axes with $+\hat{x}$ in the direction of motion (to the right), $+\hat{z}$ upward perpendicular to the plates, and $+\hat{y}$ into the page:
+
+**(a)** Between the plates: $\vec{B} = \mu_0 \sigma v\,\hat{y}$ (into the page). Above and below both plates: $\vec{B} = \mathbf{0}$.
+
+**(b)** $\vec{f}_m = \dfrac{\mu_0 \sigma^2 v^2}{2}\,\hat{z}$ (upward, away from the lower plate).
+
+**(c)** $v = \dfrac{1}{\sqrt{\varepsilon_0\mu_0}} = c \approx 3.00 \times 10^8\text{ m/s}$.
+
+</div>
+
+<div slot="solution">
+
+Choose Cartesian coordinates with $+\hat{x}$ along the velocity $\vec{v}$ (to the right), $+\hat{z}$ upward normal to the plates, and $+\hat{y}$ into the page (forming a right-handed triad $\hat{x}\times\hat{y} = \hat{z}$).
+
+The upper plate carries surface current $\vec{K}_+ = +\sigma v\,\hat{x}$, while the lower plate carries $\vec{K}_- = -\sigma v\,\hat{x}$.
+
+**(a) Magnetic field:**
+
+By Example 5.8 (Eq. 5.58), a uniform sheet $\vec{K} = K\hat{x}$ creates a field $-\frac{\mu_0}{2}K\hat{y}$ above it and $+\frac{\mu_0}{2}K\hat{y}$ below it. Thus:
+
+- Upper plate ($z = +d/2$): $\vec{B}_+ = -\frac{\mu_0 \sigma v}{2}\hat{y}$ (out of page) above, and $+\frac{\mu_0 \sigma v}{2}\hat{y}$ (into page) below.
+- Lower plate ($z = -d/2$): $\vec{B}_- = +\frac{\mu_0 \sigma v}{2}\hat{y}$ (into page) above, and $-\frac{\mu_0 \sigma v}{2}\hat{y}$ (out of page) below.
+
+Superposing $\vec{B} = \vec{B}_+ + \vec{B}_-$:
+
+- **Above both plates ($z > +d/2$) and below both plates ($z < -d/2$):** The two fields are equal and opposite, so $\vec{B} = \mathbf{0}$.
+- **Between the plates ($-d/2 < z < +d/2$):** Both fields point in $+\hat{y}$ (into the page) and add:
+
+$$
+\vec{B} = \mu_0 \sigma v\,\hat{y}.
+$$
+
+**(b) Magnetic force per unit area on the upper plate:**
+
+To avoid self-force, the force on the upper plate is due solely to the magnetic field produced by the *lower* plate, $\vec{B}_- = +\frac{\mu_0 \sigma v}{2}\hat{y}$. From the surface Lorentz force $\vec{F} = \int (\vec{K}\times\vec{B})\,da$, the magnetic force per unit area is
+
+$$
+\vec{f}_m = \vec{K}_+ \times \vec{B}_- = (\sigma v\,\hat{x}) \times \left(\frac{\mu_0 \sigma v}{2}\hat{y}\right) = \frac{\mu_0 \sigma^2 v^2}{2}\,\hat{z} \quad (\text{upward}).
+$$
+
+**(c) Speed for magnetic–electric force balance:**
+
+The electric field produced by the lower plate ($-\sigma$) at the position of the upper plate is $\vec{E}_- = -\frac{\sigma}{2\varepsilon_0}\hat{z}$, giving an attractive (downward) electrostatic force per unit area on the upper plate:
+
+$$
+\vec{f}_e = \sigma \vec{E}_- = -\frac{\sigma^2}{2\varepsilon_0}\,\hat{z}.
+$$
+
+Equating the magnitudes $f_m = f_e$:
+
+$$
+\frac{\mu_0 \sigma^2 v^2}{2} = \frac{\sigma^2}{2\varepsilon_0} \implies v = \frac{1}{\sqrt{\varepsilon_0\mu_0}} = c \approx 3.00 \times 10^8\text{ m/s}.
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.18" title="Infinite Solenoid of Arbitrary Cross Section and the Large-Toroid Limit" tag="Griffiths 5.18 · Biot–Savart · Ampère's Law · Toroid">
+
+<div slot="problem">
+
+Show that the magnetic field of an infinite solenoid runs parallel to the axis, regardless of the cross-sectional shape of the coil, as long as that shape is constant along the length of the solenoid. What is the magnitude of the field, inside and outside of such a coil? Show that the toroid field (Eq. 5.60) reduces to the solenoid field, when the radius of the donut is so large that a segment can be considered essentially straight.
+
+</div>
+
+<div slot="answer">
+
+By pairing symmetric current elements at $+z'$ and $-z'$ in the Biot–Savart integral, the transverse ($x$ and $y$) components cancel identically, leaving $\vec{B} = B(x,y)\,\hat{z}$ everywhere. Ampère's law then yields
+
+$$
+\vec{B} = \begin{cases} \mu_0 n I\,\hat{z}, & \text{inside the solenoid}, \\ \mathbf{0}, & \text{outside the solenoid}, \end{cases}
+$$
+
+regardless of cross-sectional shape. For a large toroid ($N$ turns, radius $s$ much larger than the cross-sectional dimensions), $n \approx N/(2\pi s)$ is the local turn density per unit length, so Eq. 5.60 gives $B = \frac{\mu_0 N I}{2\pi s} = \mu_0 n I$ inside and $0$ outside, matching the straight solenoid.
+
+</div>
+
+<div slot="solution">
+
+**1. Proof that $\vec{B}$ is strictly parallel to the axis:**
+
+Choose the $z$-axis parallel to the solenoid's axis. By translational invariance along $z$, we may shift the origin so that an arbitrary field point lies in the $z = 0$ plane: $\vec{r} = (x, y, 0)$. Consider a source element on a horizontal turn at height $z'$, located at $\vec{r}_1' = (x', y', z')$ with line element $d\vec{l}' = (dx', dy', 0)$ (since the winding is tightly wound, each turn lies in a plane of constant $z'$).
+
+The separation vector from $\vec{r}_1'$ to $\vec{r}$ is
+
+$$
+\vec{\mathfrak{r}}_1 = (x - x')\,\hat{x} + (y - y')\,\hat{y} - z'\,\hat{z}.
+$$
+
+Computing the cross product $d\vec{l}' \times \vec{\mathfrak{r}}_1$:
+
+$$
+d\vec{l}' \times \vec{\mathfrak{r}}_1 = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ dx' & dy' & 0 \\ x - x' & y - y' & -z' \end{vmatrix} = (-z'\,dy')\,\hat{x} + (z'\,dx')\,\hat{y} + \big[(y - y')\,dx' - (x - x')\,dy'\big]\,\hat{z}.
+$$
+
+Because the cross-sectional shape is constant along $z$, there is an identical turn at $-z'$ with a matching source element $\vec{r}_2' = (x', y', -z')$ having the exact same $x', y', dx', dy'$, and the same distance $\mathfrak{r}_1 = \mathfrak{r}_2 = \big[(x-x')^2 + (y-y')^2 + (z')^2\big]^{1/2}$. Replacing $z' \to -z'$ flips the sign of the $\hat{x}$ and $\hat{y}$ components while leaving the $\hat{z}$ component unchanged. Therefore,
+
+$$
+d\vec{B}_1 + d\vec{B}_2 = \frac{\mu_0 I}{4\pi \mathfrak{r}_1^3} \left(d\vec{l}'\times\vec{\mathfrak{r}}_1 + d\vec{l}'\times\vec{\mathfrak{r}}_2\right)
+$$
+
+has **zero** $\hat{x}$ and $\hat{y}$ components. Integrating over all pairs of turns $\pm z'$ shows that $\vec{B}$ points purely along $\hat{z}$ everywhere (both inside and outside).
+
+**2. Magnitude inside and outside:**
+
+Having established $\vec{B} = B(x,y)\,\hat{z}$:
+
+- Consider a rectangular Amperian loop of axial length $L$ lying entirely *outside* the solenoid, with sides parallel to $\hat{z}$ at transverse positions $P_1$ and $P_2$. Since the top and bottom segments are perpendicular to $\vec{B}$ and no current is enclosed, $\oint \vec{B}\cdot d\vec{l} = [B(P_1) - B(P_2)]L = 0$, so $B$ is constant everywhere outside. Since $B \to 0$ infinitely far from the solenoid, $\vec{B} = \mathbf{0}$ everywhere outside.
+- Applying the same loop entirely *inside* encloses no current, showing $B$ is uniform across the entire interior cross section.
+- Applying a rectangular loop of length $L$ with one side inside and one side outside (where $B = 0$) encloses $I_{\text{enc}} = nIL$, so $BL = \mu_0 nIL \implies \vec{B} = \mu_0 n I\,\hat{z}$ everywhere inside.
+
+**3. Large-toroid limit:**
+
+According to Eq. 5.60, a toroid of $N$ turns produces $\vec{B} = \frac{\mu_0 N I}{2\pi s}\,\hat{\phi}$ inside the coil and $\mathbf{0}$ outside. When the major radius $s$ is much larger than the cross-sectional width of the coil, $s$ varies negligibly across the cross section and a short segment is effectively straight. The number of turns per unit length along the toroidal circumference is $n = \frac{N}{2\pi s}$, so
+
+$$
+\frac{\mu_0 N I}{2\pi s} = \mu_0 n I,
+$$
+
+recovering the infinite solenoid result (with $\hat{\phi}$ playing the role of the local axis $\hat{z}$).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.19" title="Surface Independence of Enclosed Current in Ampère's Law" tag="Griffiths 5.19 · Vector Calculus · Steady Currents">
+
+<div slot="problem">
+
+In calculating the current enclosed by an Amperian loop, one must, in general, evaluate an integral of the form
+
+$$
+I_{\text{enc}} = \int_S \vec{J}\cdot d\vec{a}.
+$$
+
+The trouble is, there are infinitely many surfaces that share the same boundary line. Which one are we supposed to use?
+
+</div>
+
+<div slot="answer">
+
+It does not matter which surface $S$ is chosen, provided it spans the Amperian loop with the correct right-hand-rule orientation. Because magnetostatics deals with steady currents ($\nabla\cdot\vec{J} = 0$), the flux integral $\int_S \vec{J}\cdot d\vec{a}$ is independent of the choice of surface $S$ sharing a fixed boundary curve.
+
+</div>
+
+<div slot="solution">
+
+**Any** smooth surface $S$ bounded by the Amperian loop $\mathcal{C}$ (oriented consistently with the traversal of $\mathcal{C}$ via the right-hand rule) gives the exact same value for $I_{\text{enc}}$.
+
+To prove this (Theorem 2 of Section 1.6.2), let $S_1$ and $S_2$ be any two surfaces sharing the closed boundary loop $\mathcal{C}$, both oriented by the same right-hand rule relative to $\mathcal{C}$. Reversing the orientation of $S_2$ creates a closed surface $\partial V = S_1 \cup (-S_2)$ enclosing a volume $V$. Applying the divergence theorem to $\vec{J}$ on $V$:
+
+$$
+\int_{S_1} \vec{J}\cdot d\vec{a} - \int_{S_2} \vec{J}\cdot d\vec{a} = \oint_{\partial V} \vec{J}\cdot d\vec{a} = \int_V (\nabla\cdot\vec{J})\,d\tau.
+$$
+
+In magnetostatics, currents are steady ($\partial\rho/\partial t = 0$), so the continuity equation (Eq. 5.33) mandates $\nabla\cdot\vec{J} = 0$ everywhere. Consequently, the volume integral vanishes identically, and
+
+$$
+\int_{S_1} \vec{J}\cdot d\vec{a} = \int_{S_2} \vec{J}\cdot d\vec{a}.
+$$
+
+*(Note: When currents are time-dependent and charge accumulates, $\nabla\cdot\vec{J} = -\partial\rho/\partial t \neq 0$; in that electrodynamic regime, $I_{\text{enc}}$ does depend on the surface, which is precisely what necessitates Maxwell's displacement current in Chapter 7.)*
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="5.20" title="Free-Electron Charge Density and Drift Velocity in Copper" tag="Griffiths 5.20 · Drift Velocity · Current Density">
+
+<div slot="problem">
+
+(a) Find the density $\rho$ of mobile charges in a piece of copper, assuming each atom contributes one free electron. [Look up the necessary physical constants.]
+
+(b) Calculate the average electron velocity in a copper wire $1\text{ mm}$ in diameter, carrying a current of $1\text{ A}$. [Note: This is literally a snail's pace. How, then, can you carry on a long distance telephone conversation?]
+
+</div>
+
+<div slot="answer">
+
+**(a)** $|\rho| \approx 1.36 \times 10^4\text{ C/cm}^3 = 1.36 \times 10^{10}\text{ C/m}^3$ (or $\approx 1.4 \times 10^4\text{ C/cm}^3$ with rounded constants; negative since the carriers are electrons, $\rho \approx -1.36 \times 10^{10}\text{ C/m}^3$).
+
+**(b)** $v \approx 9.4 \times 10^{-3}\text{ cm/s} = 9.4 \times 10^{-5}\text{ m/s}$ (or $9.1 \times 10^{-3}\text{ cm/s} \approx 33\text{ cm/hr}$ using $|\rho| = 1.4 \times 10^4\text{ C/cm}^3$). A telephone signal travels via the **electromagnetic field disturbance** along the wire at a large fraction of the speed of light $c$, setting electrons everywhere along the line into motion almost instantaneously rather than waiting for individual electrons to traverse the wire.
+
+</div>
+
+<div slot="solution">
+
+**(a) Mobile charge density in copper:**
+
+The magnitude of the mobile charge density (with one conduction electron of charge magnitude $e$ per copper atom) is
+
+$$
+|\rho| = e\,n_e = e\,\frac{N_A\,d}{M},
+$$
+
+where:
+- $e = 1.602 \times 10^{-19}\text{ C}$ (electron charge magnitude),
+- $N_A = 6.022 \times 10^{23}\text{ mol}^{-1}$ (Avogadro's number),
+- $d = 8.96\text{ g/cm}^3$ (mass density of copper),
+- $M = 63.55\text{ g/mol}$ (molar mass of copper).
+
+Substituting these values:
+
+$$
+|\rho| = (1.602 \times 10^{-19}\text{ C})(6.022 \times 10^{23}\text{ mol}^{-1})\left(\frac{8.96\text{ g/cm}^3}{63.55\text{ g/mol}}\right) \approx 1.36 \times 10^4\text{ C/cm}^3 = 1.36 \times 10^{10}\text{ C/m}^3.
+$$
+
+(With rounded values $d \approx 9.0\text{ g/cm}^3$ and $M \approx 64\text{ g/mol}$, $|\rho| \approx 1.4 \times 10^4\text{ C/cm}^3$; strictly, since electrons are negatively charged, $\rho = -e n_e \approx -1.36 \times 10^{10}\text{ C/m}^3$.)
+
+**(b) Electron drift velocity:**
+
+For a wire of diameter $1\text{ mm}$, the radius is $s = 0.5\text{ mm} = 5.0 \times 10^{-4}\text{ m} = 0.050\text{ cm}$, and the cross-sectional area is $A = \pi s^2 = \pi(2.5 \times 10^{-3}\text{ cm}^2) \approx 7.854 \times 10^{-3}\text{ cm}^2$. Since the current density magnitude is $J = I/A = |\rho| v$:
+
+$$
+v = \frac{I}{\pi s^2 |\rho|} = \frac{1\text{ A}}{\pi(2.5 \times 10^{-3}\text{ cm}^2)(1.36 \times 10^4\text{ C/cm}^3)} \approx 9.4 \times 10^{-3}\text{ cm/s} = 9.4 \times 10^{-5}\text{ m/s}.
+$$
+
+(Using $|\rho| = 1.4 \times 10^4\text{ C/cm}^3$ gives $v \approx 9.1 \times 10^{-3}\text{ cm/s} \approx 33\text{ cm/hr}$, slower than a garden snail.)
+
+**Why telephone conversations are still instantaneous:** Individual electrons do not have to travel from the transmitter to the receiver to carry information. Applying a signal voltage at one end alters the electric and magnetic fields along the wire, launching a guided electromagnetic wave that propagates along the circuit at a significant fraction of the speed of light $c$. This electric field disturbance pushes conduction electrons at every point along the entire wire almost simultaneously, transmitting the signal at $\sim c$ despite the tiny microscopic drift speed $v$.
+
+</div>
+
+</ProblemCard>
+
+</section>

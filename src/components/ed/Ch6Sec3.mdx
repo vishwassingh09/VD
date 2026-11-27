@@ -1,0 +1,349 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch6-sec3" class="ed-sec-block">
+
+### 6.3 The Auxiliary Field H
+
+<div class="ed-theory-box">
+
+**6.3.1 Ampère's Law in Magnetized Materials.** Separating the macroscopic current density into controllable *free* currents $\vec{J}_f$ (actual charge transport) and magnetization-induced *bound* currents $\vec{J}_b = \nabla \times \vec{M}$ (plus surface bound current $\vec{K}_b = \vec{M} \times \hat{n}$), Ampère's law $\frac{1}{\mu_0}(\nabla \times \vec{B}) = \vec{J}_f + \vec{J}_b$ becomes
+
+$$
+\nabla \times \left(\frac{1}{\mu_0}\vec{B} - \vec{M}\right) = \vec{J}_f.
+$$
+
+Defining the **auxiliary field** $\vec{H}$ (SI units: $\text{A/m}$) by
+
+$$
+\vec{H} \equiv \frac{1}{\mu_0}\vec{B} - \vec{M},
+$$
+
+Ampère's law takes a form involving only the free current:
+
+$$
+\nabla \times \vec{H} = \vec{J}_f, \qquad \oint \vec{H} \cdot d\vec{l} = I_{f,\text{enc}},
+$$
+
+where $I_{f,\text{enc}}$ is the free current passing through the Amperian loop. While $\vec{B}$ remains the fundamental magnetic field, $\vec{H}$ plays the practical role in magnetostatics that $\vec{E}$ (rather than $\vec{D}$) plays in electrostatics: laboratory coils carry known free currents that directly fix $\oint \vec{H} \cdot d\vec{l}$ independently of the core material.
+
+**6.3.2 A Deceptive Parallel.** By Helmholtz's theorem, specifying only the curl of a field does not determine it uniquely—its divergence is also required. Whereas $\nabla \cdot \vec{B} = 0$, the divergence of $\vec{H}$ is generally nonzero:
+
+$$
+\nabla \cdot \vec{H} = -\nabla \cdot \vec{M}.
+$$
+
+Thus $\mu_0\vec{H}$ behaves like a pure Biot–Savart field of $\vec{J}_f$ *only* when $\nabla \cdot \vec{M} = 0$ everywhere (including across surfaces, where discontinuities in $M^{\perp}$ act as surface "magnetic charge" $-\Delta M^{\perp}$). When sufficient symmetry (cylindrical, planar, solenoidal, or toroidal) forces $\nabla \cdot \vec{M} = 0$ and fixes the direction of $\vec{H}$, the integral form $\oint \vec{H}\cdot d\vec{l} = I_{f,\text{enc}}$ yields $\vec{H}$ immediately. When that symmetry is absent (e.g., a finite bar magnet), $\vec{H}$ does not vanish even if $\vec{J}_f = \vec{0}$.
+
+**6.3.3 Boundary Conditions.** Applying a Gaussian pillbox and an Amperian loop across an interface with unit normal $\hat{n}$ pointing from "below" to "above" gives the boundary conditions on $\vec{H}$ and $\vec{B}$:
+
+$$
+H_{\text{above}}^{\perp} - H_{\text{below}}^{\perp} = -\left(M_{\text{above}}^{\perp} - M_{\text{below}}^{\perp}\right), \qquad \vec{H}_{\text{above}}^{\parallel} - \vec{H}_{\text{below}}^{\parallel} = \vec{K}_f \times \hat{n},
+$$
+
+$$
+B_{\text{above}}^{\perp} - B_{\text{below}}^{\perp} = 0, \qquad \vec{B}_{\text{above}}^{\parallel} - \vec{B}_{\text{below}}^{\parallel} = \mu_0\left(\vec{K} \times \hat{n}\right),
+$$
+
+where $\vec{K}_f$ is the free surface current and $\vec{K} = \vec{K}_f + \vec{K}_b$ is the total surface current.
+
+</div>
+
+<ProblemCard num="6.12" title="Magnetized Cylinder: Bound Currents vs. H" tag="Griffiths 6.12 · Ampère's Law">
+
+<div slot="problem">
+
+An infinitely long cylinder, of radius $R$, carries a "frozen-in" magnetization, parallel to the axis,
+
+$$
+\vec{M} = k s\,\hat{z},
+$$
+
+where $k$ is a constant and $s$ is the distance from the axis; there is no free current anywhere. Find the magnetic field inside and outside the cylinder by two different methods:
+
+(a) As in Sect. 6.2, locate all the bound currents, and calculate the field they produce.
+
+(b) Use Ampère's law (in the form $\oint \vec{H} \cdot d\vec{l} = I_{f,\text{enc}}$) to find $\vec{H}$, and then get $\vec{B}$ from $\vec{H} \equiv \frac{1}{\mu_0}\vec{B} - \vec{M}$.
+
+</div>
+
+<div slot="answer">
+
+In both methods,
+
+$$
+\vec{B}(s) = \begin{cases} \mu_0 k s\,\hat{z} & (s \le R), \\ \vec{0} & (s \ge R), \end{cases}
+$$
+
+and $\vec{H} = \vec{0}$ everywhere.
+
+</div>
+
+<div slot="solution">
+
+**(a) Method of bound currents.** In cylindrical coordinates $(s,\phi,z)$, the volume bound current density inside the cylinder ($s \le R$) is
+
+$$
+\vec{J}_b = \nabla \times \vec{M} = -\frac{\partial M_z}{\partial s}\,\hat{\phi} = -k\,\hat{\phi}.
+$$
+
+On the cylindrical surface $s = R$, the outward unit normal is $\hat{n} = \hat{s}$, so the surface bound current density is
+
+$$
+\vec{K}_b = \vec{M}(R) \times \hat{s} = (kR\,\hat{z}) \times \hat{s} = kR\,\hat{\phi}.
+$$
+
+Because all bound currents flow purely in the azimuthal ($\pm\hat{\phi}$) direction with translational symmetry along $z$ and rotational symmetry around the axis, the system acts as a continuous superposition of coaxial ideal solenoids. Hence $\vec{B}$ points strictly along $\hat{z}$ and vanishes as $s \to \infty$ (and indeed for all $s \ge R$, since an Amperian loop in the $s$-$z$ plane with both longitudinal legs outside $R$ encloses no current, forcing $\vec{B} = \vec{0}$ outside).
+
+For $s \le R$, choose a rectangular Amperian loop in a constant-$\phi$ plane of axial length $l$, running along $+\hat{z}$ at radius $s$, radially outward ($+\hat{s}$) to some $s_{\text{out}} \ge R$, back along $-\hat{z}$ at $s_{\text{out}}$ (where $\vec{B} = \vec{0}$), and radially inward ($-\hat{s}$) back to $s$. Since $\hat{z} \times \hat{s} = +\hat{\phi}$, the right-hand rule assigns the loop area element $d\vec{a} = +l\,ds'\,\hat{\phi}$. Applying Ampère's law gives
+
+$$
+\oint \vec{B} \cdot d\vec{l} = B_z(s)\,l = \mu_0 I_{b,\text{enc}} = \mu_0 \left[ \int_s^R (-k\,\hat{\phi}) \cdot (\hat{\phi}\,l\,ds') + (kR\,\hat{\phi}) \cdot (\hat{\phi}\,l) \right].
+$$
+
+Evaluating the right-hand side,
+
+$$
+B_z(s)\,l = \mu_0 \left[ -kl(R - s) + kRl \right] = \mu_0 kls,
+$$
+
+so $\vec{B} = \mu_0 k s\,\hat{z}$ inside ($s \le R$) and $\vec{B} = \vec{0}$ outside ($s \ge R$).
+
+**(b) Method of the auxiliary field $\vec{H}$.** By the infinite cylindrical and axial symmetry (under $z \to -z$, the axial vector $\vec{M}$ is invariant, requiring $H_s = H_\phi = 0$), $\vec{H} = H_z(s)\,\hat{z}$ and $\vec{H} \to \vec{0}$ as $s \to \infty$. Applying $\oint \vec{H} \cdot d\vec{l} = I_{f,\text{enc}}$ to the same rectangular Amperian loop (with one leg at $s$ and the other at $s_{\text{out}} \to \infty$) yields
+
+$$
+H_z(s)\,l = I_{f,\text{enc}} = 0 \implies \vec{H} = \vec{0} \quad \text{everywhere.}
+$$
+
+(Equivalently, $\nabla \cdot \vec{M} = \frac{\partial (ks)}{\partial z} = 0$ everywhere and $M^{\perp} = \vec{M}\cdot\hat{s} = 0$ at $s=R$, so $\nabla \cdot \vec{H} = 0$ and $\nabla \times \vec{H} = \vec{0}$ everywhere with $\vec{H} \to \vec{0}$ at infinity, forcing $\vec{H} = \vec{0}$.) From $\vec{B} = \mu_0(\vec{H} + \vec{M}) = \mu_0\vec{M}$, we immediately obtain
+
+$$
+\vec{B}(s) = \begin{cases} \mu_0 k s\,\hat{z} & (s \le R), \\ \vec{0} & (s \ge R). \end{cases}
+$$
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.13" title="Fields Inside Spherical, Needle, and Wafer Cavities" tag="Griffiths 6.13 · Superposition">
+
+<div slot="problem">
+
+Suppose the field inside a large piece of magnetic material is $\vec{B}_0$, so that $\vec{H}_0 = \frac{1}{\mu_0}\vec{B}_0 - \vec{M}$, where $\vec{M}$ is a "frozen-in" magnetization.
+
+(a) Now a small spherical cavity is hollowed out of the material. Find the field $\vec{B}$ at the center of the cavity, in terms of $\vec{B}_0$ and $\vec{M}$. Also find $\vec{H}$ at the center of the cavity, in terms of $\vec{H}_0$ and $\vec{M}$.
+
+(b) Do the same for a long needle-shaped cavity running parallel to $\vec{M}$.
+
+(c) Do the same for a thin wafer-shaped cavity perpendicular to $\vec{M}$.
+
+Assume the cavities are small enough so $\vec{M}$, $\vec{B}_0$, and $\vec{H}_0$ are essentially constant.
+
+</div>
+
+<div slot="answer">
+
+(a) **Sphere:** $\vec{B} = \vec{B}_0 - \frac{2}{3}\mu_0\vec{M}$, $\quad \vec{H} = \vec{H}_0 + \frac{1}{3}\vec{M}$.
+
+(b) **Needle ($\parallel \vec{M}$):** $\vec{B} = \vec{B}_0 - \mu_0\vec{M}$, $\quad \vec{H} = \vec{H}_0$.
+
+(c) **Wafer ($\perp \vec{M}$):** $\vec{B} = \vec{B}_0$, $\quad \vec{H} = \vec{H}_0 + \vec{M}$.
+
+</div>
+
+<div slot="solution">
+
+Carving out a cavity from a medium of uniform local magnetization $\vec{M}$ is equivalent, by superposition, to leaving the original material intact (producing $\vec{B}_0$) and adding an object of the cavity's exact shape carrying uniform magnetization $-\vec{M}$. Inside the empty cavity ($\vec{M}_{\text{cav}} = \vec{0}$), the auxiliary field is simply $\vec{H} = \frac{1}{\mu_0}\vec{B}$, while in the surrounding medium $\frac{1}{\mu_0}\vec{B}_0 = \vec{H}_0 + \vec{M}$.
+
+**(a) Spherical cavity.** A uniformly magnetized sphere carrying magnetization $\vec{M}_{\text{obj}} = -\vec{M}$ produces a uniform interior magnetic field (Eq. 6.16):
+
+$$
+\vec{B}_{\text{sphere}} = \frac{2}{3}\mu_0\vec{M}_{\text{obj}} = -\frac{2}{3}\mu_0\vec{M}.
+$$
+
+Superimposing this onto $\vec{B}_0$ gives the field at the center of the spherical cavity:
+
+$$
+\vec{B} = \vec{B}_0 - \frac{2}{3}\mu_0\vec{M}.
+$$
+
+Consequently, at the center of the cavity,
+
+$$
+\vec{H} = \frac{1}{\mu_0}\vec{B} = \frac{1}{\mu_0}\vec{B}_0 - \frac{2}{3}\vec{M} = (\vec{H}_0 + \vec{M}) - \frac{2}{3}\vec{M} = \vec{H}_0 + \frac{1}{3}\vec{M}.
+$$
+
+**(b) Long needle-shaped cavity parallel to $\vec{M}$.** The superimposed object is a long thin cylinder carrying uniform magnetization $-\vec{M}$ along its axis. Taking the axis along $\hat{z}$ so $\vec{M} = M\hat{z}$, its surface bound current is $\vec{K}_b = (-\vec{M}) \times \hat{s} = -M\hat{\phi}$. Inside a long solenoid of surface current $-M\hat{\phi}$, the magnetic field is uniform (away from the distant ends) and equal to $\vec{B}_{\text{needle}} = -\mu_0 M\hat{z} = -\mu_0\vec{M}$. By superposition,
+
+$$
+\vec{B} = \vec{B}_0 - \mu_0\vec{M},
+$$
+
+and therefore
+
+$$
+\vec{H} = \frac{1}{\mu_0}\vec{B} = \frac{1}{\mu_0}\vec{B}_0 - \vec{M} = \vec{H}_0.
+$$
+
+(This agrees directly with the continuity of $\vec{H}^{\parallel}$ across the cylindrical cavity wall where $\vec{K}_f = \vec{0}$.)
+
+**(c) Thin wafer-shaped cavity perpendicular to $\vec{M}$.** The superimposed object is a thin circular disk of thickness $d \ll R$ carrying uniform magnetization $-\vec{M}$ normal to its flat faces. On the flat faces, $\vec{M}_{\text{obj}} \times (\pm\hat{n}) = \vec{0}$; the bound current $\vec{K}_b = (-\vec{M})\times\hat{s}$ flows solely around the distant cylindrical rim of radius $R$ with total current $I_b = M d$. At the center of the wafer, the Biot–Savart field from this rim scales as $\frac{\mu_0 I_b}{2R} \sim \mu_0 M \frac{d}{R} \to 0$ as $d/R \to 0$. Thus the superimposed disk contributes zero field at the center:
+
+$$
+\vec{B} = \vec{B}_0,
+$$
+
+and inside the cavity,
+
+$$
+\vec{H} = \frac{1}{\mu_0}\vec{B}_0 = \vec{H}_0 + \vec{M}.
+$$
+
+(This agrees directly with the continuity of $B^{\perp}$ and the jump $H_{\text{cav}}^{\perp} - H_0^{\perp} = M_0^{\perp}$ across the flat faces. Just as in Prob. 4.16 for $\vec{E}$ and $\vec{D}$, a thin wafer cavity measures $\vec{B}_0$ while a long needle cavity measures $\vec{H}_0$.)
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.14" title="Field Sketches for a Finite Bar Magnet" tag="Griffiths 6.14 · Magnetostatics">
+
+<div slot="problem">
+
+For the bar magnet of Prob. 6.9 (a cylinder of radius $a$ and length $L$ with uniform frozen-in magnetization $\vec{M} = M\,\hat{z}$ parallel to its axis), make careful sketches of $\vec{M}$, $\vec{B}$, and $\vec{H}$, assuming $L$ is about $2a$. Compare Prob. 4.17.
+
+</div>
+
+<div slot="answer">
+
+Take the cylinder axis along $\hat{z}$ from $z = -L/2$ to $z = +L/2$ with $L \approx 2a$:
+
+- **$\vec{M}$:** Uniformly points along $+\hat{z}$ inside the cylinder and vanishes identically outside.
+- **$\vec{B}$:** Identical to the field of a finite solenoid of radius $a$, length $L \approx 2a$, and surface current $\vec{K}_b = M\,\hat{\phi}$. Lines form closed loops ($\nabla \cdot \vec{B} = 0$), running along $+\hat{z}$ inside (with $B_z(0,0) = \mu_0 M / \sqrt{2} \approx 0.707\,\mu_0 M$ at the center), emerging from $z = +L/2$, curving back outside from $+L/2$ to $-L/2$, and re-entering at $z = -L/2$.
+- **$\vec{H}$:** Identical to the electrostatic field $\vec{E}$ of two uniformly charged circular disks of effective surface charge density $\sigma_m = +M$ at $z = +L/2$ and $\sigma_m = -M$ at $z = -L/2$ (with $\varepsilon_0$ replaced by $1$, cf. Prob. 4.17). Outside, $\vec{H} = \frac{1}{\mu_0}\vec{B}$ (identical in pattern to $\vec{B}$, running from $+L/2$ to $-L/2$). Inside, $\vec{H} = \frac{1}{\mu_0}\vec{B} - \vec{M}$ points generally opposite to $\vec{M}$ (with $H_z(0,0) \approx -0.293\,M$), so all $\vec{H}$-lines originate on $z = +L/2$ and terminate on $z = -L/2$.
+
+</div>
+
+<div slot="solution">
+
+Let the bar magnet occupy $s \le a$ and $-L/2 \le z \le +L/2$ with $L \approx 2a$, and let $\vec{M} = M\,\hat{z}$ ($M$ positive) inside. There is no free current anywhere ($\vec{J}_f = \vec{0}$, $\vec{K}_f = \vec{0}$).
+
+**1. Sketch and structure of $\vec{M}$.** Inside the cylinder ($s \le a$, $\lvert z\rvert \le L/2$), $\vec{M}$ consists of straight, parallel, uniformly spaced vectors pointing in the $+\hat{z}$ direction. Outside the cylinder, $\vec{M} = \vec{0}$ everywhere. Thus $\nabla \cdot \vec{M} = 0$ everywhere except on the two flat end caps $z = \pm L/2$, where $M^{\perp}$ drops discontinuously to zero.
+
+**2. Sketch and structure of $\vec{B}$.** Since $\vec{J}_b = \nabla \times \vec{M} = \vec{0}$ inside and $\vec{K}_b = \vec{M} \times \hat{s} = M\,\hat{\phi}$ on the curved side wall $s = a$ (with $\vec{K}_b = \vec{0}$ on the flat end caps), $\vec{B}$ is identical to the magnetic field of a finite solenoid of radius $a$ and length $L \approx 2a$ carrying surface current $K = M$.
+
+Because $\nabla \cdot \vec{B} = 0$, every $\vec{B}$-line forms a **closed loop** with no beginning or end. Inside the bar magnet, the lines run in the $+\hat{z}$ direction, bowing slightly outward near the ends; they exit the $z = +L/2$ face, loop around through exterior space back toward $z = -L/2$, and re-enter the $z = -L/2$ face. At the geometric center ($s=0, z=0$) for $L = 2a$, the finite-solenoid formula gives
+
+$$
+B_z(0,0) = \frac{\mu_0 M (L/2)}{\sqrt{(L/2)^2 + a^2}} = \frac{\mu_0 M}{\sqrt{2}} \approx 0.707\,\mu_0 M,
+$$
+
+and at the center of each end face ($s=0, z=\pm L/2$), $B_z = \frac{\mu_0 M}{2}\frac{L}{\sqrt{L^2 + a^2}} = \frac{\mu_0 M}{\sqrt{5}} \approx 0.447\,\mu_0 M$. Across the end caps $z = \pm L/2$, $\vec{K}_b = \vec{0}$, so $\vec{B}$ is completely continuous; across the curved side wall $s = a$, $B_s$ is continuous while $B_z$ drops abruptly by $\mu_0 M$ from inside to outside ($\vec{B}_{\text{out}} - \vec{B}_{\text{in}} = \mu_0(\vec{K}_b \times \hat{s}) = -\mu_0 M\,\hat{z}$).
+
+**3. Sketch and structure of $\vec{H}$.** Since $\nabla \times \vec{H} = \vec{J}_f = \vec{0}$ everywhere and $\nabla \cdot \vec{H} = -\nabla \cdot \vec{M}$, $\vec{H}$ satisfies the exact same equations as the electrostatic field $\vec{E}$ (with $\sigma/\varepsilon_0$ replaced by $\sigma_m$) of two uniformly charged circular disks of radius $a$ at $z = +L/2$ ($\sigma_m = +M$) and $z = -L/2$ ($\sigma_m = -M$). This is the exact magnetic analog of the cylindrical electret in Prob. 4.17.
+
+Outside the magnet ($\vec{M} = \vec{0}$), $\vec{H} = \frac{1}{\mu_0}\vec{B}$, so the exterior $\vec{H}$-lines have the exact same shape and direction as the exterior $\vec{B}$-lines, curving from the $+L/2$ face to the $-L/2$ face. Inside the magnet, $\vec{H} = \frac{1}{\mu_0}\vec{B} - \vec{M}$. Because $B_z / \mu_0$ inside a short bar magnet ($L \approx 2a$) is everywhere smaller than $M$—for instance, $H_z(0,0) = (\frac{1}{\sqrt{2}} - 1)M \approx -0.293\,M$ at the center and $H_{z,\text{in}}(\pm L/2, 0) \approx (0.447 - 1)M = -0.553\,M$ just inside each end cap—$\vec{H}$ inside points opposite to $\vec{M}$ (a demagnetizing field pointing from $+L/2$ toward $-L/2$). Thus all $\vec{H}$-lines **originate** on the $+L/2$ face and **terminate** on the $-L/2$ face, flowing from $+L/2$ to $-L/2$ both outside and inside. Across the side wall $s = a$, $\vec{K}_f = \vec{0}$ and $M^{\perp} = 0$, so $\vec{H}$ is completely continuous; across the end caps $z = \pm L/2$, $\vec{H}^{\parallel}$ is continuous while $H^{\perp} = H_z$ jumps discontinuously by $+M$ at $z = +L/2$ (reversing from $-\hat{z}$ inside to $+\hat{z}$ outside) and by $-M$ at $z = -L/2$ (reversing from $+\hat{z}$ outside to $-\hat{z}$ inside).
+
+</div>
+
+</ProblemCard>
+
+<ProblemCard num="6.15" title="Magnetic Scalar Potential for a Uniformly Magnetized Sphere" tag="Griffiths 6.15 · Separation of Variables">
+
+<div slot="problem">
+
+If $\vec{J}_f = \vec{0}$ everywhere, the curl of $\vec{H}$ vanishes ($\nabla \times \vec{H} = \vec{0}$), and we can express $\vec{H}$ as the gradient of a scalar potential $W$:
+
+$$
+\vec{H} = -\nabla W.
+$$
+
+According to $\nabla \cdot \vec{H} = -\nabla \cdot \vec{M}$, then,
+
+$$
+\nabla^2 W = \nabla \cdot \vec{M},
+$$
+
+so $W$ obeys Poisson's equation, with $\nabla \cdot \vec{M}$ as the "source." This opens up all the machinery of Chapter 3. As an example, find the field inside a uniformly magnetized sphere (Ex. 6.1) by separation of variables.
+
+</div>
+
+<div slot="answer">
+
+Inside the sphere ($r \le R$),
+
+$$
+W_{\text{in}}(r,\theta) = \frac{1}{3} M r \cos\theta = \frac{1}{3} M z, \qquad \vec{H}_{\text{in}} = -\frac{1}{3}\vec{M}, \qquad \vec{B}_{\text{in}} = \frac{2}{3}\mu_0\vec{M}.
+$$
+
+</div>
+
+<div slot="solution">
+
+Let the sphere have radius $R$ and uniform magnetization $\vec{M} = M\,\hat{z}$ along the $z$-axis. Both inside ($r \le R$) and outside ($r \ge R$), $\vec{M}$ is constant (zero outside), so $\nabla \cdot \vec{M} = 0$ in the interior and exterior regions. Thus $W$ satisfies Laplace's equation $\nabla^2 W = 0$ for both $0 \le r \le R$ (interior) and $r \ge R$ (exterior).
+
+By azimuthal symmetry, separation of variables in spherical coordinates (Eq. 3.65) gives the general solutions regular at the origin ($r = 0$) and vanishing at infinity ($r \to \infty$):
+
+$$
+W_{\text{in}}(r,\theta) = \sum_{l=0}^{\infty} A_l r^l P_l(\cos\theta) \quad (r \le R),
+$$
+
+$$
+W_{\text{out}}(r,\theta) = \sum_{l=0}^{\infty} \frac{B_l}{r^{l+1}} P_l(\cos\theta) \quad (r \ge R).
+$$
+
+At the spherical surface $r = R$, we enforce two boundary conditions:
+
+**1. Continuity of $W$.** By the gradient theorem along an infinitesimal path crossing the boundary from $a$ to $b$, $W(b) - W(a) = -\int_a^b \vec{H} \cdot d\vec{l} \to 0$ (since $\vec{H}$ remains finite), so
+
+$$
+W_{\text{in}}(R,\theta) = W_{\text{out}}(R,\theta) \implies A_l R^l = \frac{B_l}{R^{l+1}} \implies B_l = R^{2l+1} A_l.
+$$
+
+**2. Discontinuity of the normal component of $\vec{H}$.** Using the boundary condition $H_{\text{out}}^{\perp} - H_{\text{in}}^{\perp} = -(M_{\text{out}}^{\perp} - M_{\text{in}}^{\perp})$ with $\hat{n} = \hat{r}$, $\vec{M}_{\text{out}} = \vec{0}$, and $M_{\text{in}}^r = M\,\hat{z}\cdot\hat{r} = M\cos\theta$, we find $H_{\text{out}}^r(R,\theta) - H_{\text{in}}^r(R,\theta) = M\cos\theta$. Since $H^r = -\frac{\partial W}{\partial r}$, this reads
+
+$$
+\left.\frac{\partial W_{\text{in}}}{\partial r}\right|_{r=R} - \left.\frac{\partial W_{\text{out}}}{\partial r}\right|_{r=R} = M\cos\theta.
+$$
+
+Substituting the Legendre expansions into the derivative condition yields
+
+$$
+\sum_{l=0}^{\infty} \left[ l A_l R^{l-1} + (l+1)\frac{B_l}{R^{l+2}} \right] P_l(\cos\theta) = M\cos\theta = M P_1(\cos\theta).
+$$
+
+Using $B_l = R^{2l+1} A_l$, so that $\frac{B_l}{R^{l+2}} = R^{l-1} A_l$, this simplifies to
+
+$$
+\sum_{l=0}^{\infty} (2l + 1) A_l R^{l-1} P_l(\cos\theta) = M P_1(\cos\theta).
+$$
+
+By the orthogonality of the Legendre polynomials $P_l(\cos\theta)$ on $[-1, 1]$, every coefficient with $l \neq 1$ must vanish ($A_l = B_l = 0$ for $l \neq 1$), while for $l = 1$:
+
+$$
+3 A_1 = M \implies A_1 = \frac{M}{3}, \qquad B_1 = \frac{1}{3} M R^3.
+$$
+
+Therefore, inside the sphere,
+
+$$
+W_{\text{in}}(r,\theta) = \frac{M}{3} r \cos\theta = \frac{M}{3} z,
+$$
+
+and the auxiliary field inside is uniform:
+
+$$
+\vec{H}_{\text{in}} = -\nabla W_{\text{in}} = -\frac{M}{3}\,\hat{z} = -\frac{1}{3}\vec{M}.
+$$
+
+Finally, the magnetic field inside the uniformly magnetized sphere is
+
+$$
+\vec{B}_{\text{in}} = \mu_0\left(\vec{H}_{\text{in}} + \vec{M}\right) = \mu_0\left(-\frac{1}{3}\vec{M} + \vec{M}\right) = \frac{2}{3}\mu_0\vec{M},
+$$
+
+in exact agreement with Example 6.1 (Eq. 6.16). (Outside, $W_{\text{out}}(r,\theta) = \frac{M R^3 \cos\theta}{3 r^2} = \frac{1}{4\pi}\frac{\vec{m}\cdot\hat{r}}{r^2}$ with $\vec{m} = \frac{4}{3}\pi R^3 \vec{M}$, yielding the pure magnetic dipole field $\vec{B}_{\text{out}} = -\mu_0\nabla W_{\text{out}}$.)
+
+</div>
+
+</ProblemCard>
+
+</section>

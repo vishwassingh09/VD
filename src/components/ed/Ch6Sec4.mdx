@@ -1,0 +1,466 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch6-sec4" class="ed-sec-block">
+
+### 6.4 Linear and Nonlinear Media
+
+<div class="ed-theory-box">
+
+**1. Linear Magnetic Media, Susceptibility, and Permeability (§6.4.1)**
+
+In **paramagnetic** and **diamagnetic** substances, the magnetization $\vec{M}$ is sustained by the applied field and vanishes when the external field is removed. For fields that are not too strong, $\vec{M}$ is linearly proportional to the auxiliary field $\vec{H}$:
+
+$$
+\vec{M} = \chi_m \vec{H},
+$$
+
+where the dimensionless constant $\chi_m$ is the **magnetic susceptibility** ($\chi_m > 0$ for paramagnets, $\chi_m < 0$ for diamagnets; typical magnitudes are $|\chi_m| \sim 10^{-5}$ at room temperature). Combining this constitutive relation with $\vec{B} = \mu_0(\vec{H} + \vec{M})$ yields
+
+$$
+\vec{B} = \mu_0(1 + \chi_m)\vec{H} = \mu \vec{H}, \qquad \mu \equiv \mu_0(1 + \chi_m) = \mu_0 \mu_r,
+$$
+
+where $\mu$ is the **permeability** of the medium and $\mu_r \equiv \mu/\mu_0 = 1 + \chi_m$ is the **relative permeability** (in vacuum, $\chi_m = 0$ and $\mu = \mu_0$).
+
+Even in linear media, $\vec{H}$ is generally not divergenceless wherever $\mu$ varies spatially:
+
+$$
+\nabla \cdot \vec{H} = \nabla \cdot \left(\frac{\vec{B}}{\mu}\right) = \vec{B} \cdot \nabla\left(\frac{1}{\mu}\right) = -\nabla \cdot \vec{M},
+$$
+
+so $\nabla \cdot \vec{M}$ can be singular (infinite) at boundaries between media of different permeabilities. Within any **homogeneous** linear medium ($\chi_m = \text{const}$), the volume bound current density is proportional to the free current density:
+
+$$
+\vec{J}_b = \nabla \times \vec{M} = \nabla \times (\chi_m \vec{H}) = \chi_m \vec{J}_f.
+$$
+
+Hence, in regions of homogeneous linear material carrying no free current ($\vec{J}_f = 0$), $\vec{J}_b = 0$ and all bound current resides on surfaces as $\vec{K}_b = \vec{M} \times \hat{n}$.
+
+**2. Diamagnetism, Paramagnetism, and Curie's Law**
+
+- **Diamagnetism** ($\chi_m < 0$, e.g., $\text{Bi}, \text{Cu}, \text{H}_2\text{O}$): Induced orbital response opposes the applied field (Lenz's law at the atomic scale); $\chi_m$ is weak and largely temperature-independent.
+- **Paramagnetism** ($\chi_m > 0$, e.g., $\text{Al}, \text{Pt}, \text{O}_2$): Torque $\vec{N} = \vec{m} \times \vec{B}$ partially aligns permanent atomic/spin dipoles against thermal agitation. In the high-temperature, weak-field regime ($mB \ll k_B T$), **Curie's law** gives
+
+$$
+\chi_m = \frac{C}{T},
+$$
+
+where $C$ is the material-specific Curie constant and $T$ is the absolute temperature.
+
+**3. Ferromagnetism, Domains, and Hysteresis (§6.4.2)**
+
+**Ferromagnets** (e.g., $\text{Fe}, \text{Ni}, \text{Co}$) are strongly **nonlinear** and retain magnetization after the external field is removed. Quantum-mechanical exchange interactions lock neighboring unpaired electron spins virtually parallel within microscopic **magnetic domains**. In an unmagnetized sample, the domains are randomly oriented (or mutually cancelling across crystal grains), giving $\vec{M}_{\text{net}} = 0$.
+
+An applied field $\vec{H}$ exerts a torque on boundary spins, causing favorably oriented domains to grow at the expense of others until a single domain dominates (**saturation**). Because domain-wall motion is irreversible (pinning at crystal defects), reducing $\vec{H}$ to zero leaves a **remanent magnetization** (a permanent magnet). Reversing $\vec{H}$ to a **coercive field** brings $\vec{M}$ (or $\vec{B}$) back to zero, and cycling $\vec{H}$ traces a **hysteresis loop** in the $B\text{–}H$ (or $M\text{–}I$) plane: the state depends on the sample's magnetic history. Above a sharp phase-transition temperature—the **Curie point** $T_C$ ($770^\circ\text{C}$ for iron)—thermal fluctuations overcome exchange alignment and the material becomes paramagnetic.
+
+</div>
+
+<ProblemCard num="6.16" title="Coaxial Cable with Linear Magnetic Medium" tag="Griffiths 6.16 · Linear Media & Bound Currents">
+<div slot="problem">
+
+A coaxial cable consists of two very long cylindrical tubes, separated by linear insulating material of magnetic susceptibility $\chi_m$. A current $I$ flows down the inner conductor and returns along the outer one; in each case, the current distributes itself uniformly over the surface. Find the magnetic field in the region between the tubes. As a check, calculate the magnetization and the bound currents, and confirm that (together, of course, with the free currents) they generate the correct field.
+
+</div>
+<div slot="answer">
+
+Between the cylindrical tubes ($a < s < b$), the magnetic field is
+
+$$
+\vec{B}(s) = \frac{\mu_0(1 + \chi_m)I}{2\pi s}\,\hat{\phi}.
+$$
+
+The magnetization and bound currents in $a < s < b$ are
+
+$$
+\vec{M} = \frac{\chi_m I}{2\pi s}\,\hat{\phi}, \qquad \vec{J}_b = 0, \qquad \vec{K}_b(a) = \frac{\chi_m I}{2\pi a}\,\hat{z}, \qquad \vec{K}_b(b) = -\frac{\chi_m I}{2\pi b}\,\hat{z}.
+$$
+
+</div>
+<div slot="solution">
+
+**1. Direct calculation using $\vec{H}$ and Ampère's law**
+
+Let the inner tube have radius $a$ (carrying free current $I$ in the $+\hat{z}$ direction) and the outer tube have radius $b$ (carrying $-I\hat{z}$). By cylindrical symmetry, $\vec{H} = H(s)\,\hat{\phi}$. Taking a circular Amperian loop of radius $s$ ($a < s < b$) coaxial with the cable, the enclosed free current is $I_{f,\text{enc}} = I$, so
+
+$$
+\oint \vec{H} \cdot d\vec{l} = H(s)(2\pi s) = I \implies \vec{H}(s) = \frac{I}{2\pi s}\,\hat{\phi}.
+$$
+
+Since the insulating gap is a linear medium of permeability $\mu = \mu_0(1 + \chi_m)$, the magnetic field in $a < s < b$ is
+
+$$
+\vec{B}(s) = \mu\vec{H}(s) = \frac{\mu_0(1 + \chi_m)I}{2\pi s}\,\hat{\phi}.
+$$
+
+(For $s < a$ and $s > b$, $I_{f,\text{enc}} = 0$, so $\vec{H} = 0$ and $\vec{B} = 0$.)
+
+**2. Verification via magnetization and bound currents**
+
+Inside the linear medium ($a < s < b$), the magnetization is
+
+$$
+\vec{M} = \chi_m \vec{H} = \frac{\chi_m I}{2\pi s}\,\hat{\phi}.
+$$
+
+The volume bound current density vanishes, as expected for a homogeneous linear medium with $\vec{J}_f = 0$:
+
+$$
+\vec{J}_b = \nabla \times \vec{M} = \frac{1}{s}\frac{\partial}{\partial s}\left(s M_\phi\right)\hat{z} = \frac{1}{s}\frac{\partial}{\partial s}\left(\frac{\chi_m I}{2\pi}\right)\hat{z} = 0.
+$$
+
+On the boundaries of the magnetized region ($a < s < b$), the outward unit normal $\hat{n}$ points inward at $s = a$ ($\hat{n} = -\hat{s}$) and outward at $s = b$ ($\hat{n} = +\hat{s}$). Using $\vec{K}_b = \vec{M} \times \hat{n}$:
+
+$$
+\vec{K}_b(a) = \left(\frac{\chi_m I}{2\pi a}\,\hat{\phi}\right) \times (-\hat{s}) = +\frac{\chi_m I}{2\pi a}\,\hat{z}, \qquad \vec{K}_b(b) = \left(\frac{\chi_m I}{2\pi b}\,\hat{\phi}\right) \times (+\hat{s}) = -\frac{\chi_m I}{2\pi b}\,\hat{z}.
+$$
+
+Now apply Ampère's law for $\vec{B}$ to a circular loop of radius $s$ with $a < s < b$. The total enclosed current is the sum of the free current on the inner tube and the bound surface current at $s = a$:
+
+$$
+I_{\text{enc}} = I_f + I_b = I + K_{b,z}(a)(2\pi a) = I + \chi_m I = (1 + \chi_m)I.
+$$
+
+Therefore,
+
+$$
+\oint \vec{B} \cdot d\vec{l} = B(s)(2\pi s) = \mu_0 I_{\text{enc}} = \mu_0(1 + \chi_m)I \implies \vec{B}(s) = \frac{\mu_0(1 + \chi_m)I}{2\pi s}\,\hat{\phi},
+$$
+
+confirming the result obtained via $\vec{H}$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="6.17" title="Current-Carrying Linear Wire and Bound Currents" tag="Griffiths 6.17 · Volume & Surface Bound Currents">
+<div slot="problem">
+
+A current $I$ flows down a long straight wire of radius $a$. If the wire is made of linear material (copper, say, or aluminum) with susceptibility $\chi_m$, and the current is distributed uniformly, what is the magnetic field a distance $s$ from the axis? Find all the bound currents. What is the net bound current flowing down the wire?
+
+</div>
+<div slot="answer">
+
+Taking $\vec{I}$ along $+\hat{z}$, the magnetic field at distance $s$ from the axis is
+
+$$
+\vec{B}(s) = \begin{cases} \dfrac{\mu_0(1 + \chi_m)I s}{2\pi a^2}\,\hat{\phi}, & s < a, \\[10pt] \dfrac{\mu_0 I}{2\pi s}\,\hat{\phi}, & s > a. \end{cases}
+$$
+
+The bound currents are
+
+$$
+\vec{J}_b = \frac{\chi_m I}{\pi a^2}\,\hat{z} \quad (s < a), \qquad \vec{K}_b = -\frac{\chi_m I}{2\pi a}\,\hat{z} \quad (s = a),
+$$
+
+and the net bound current flowing down the wire is $I_b = 0$.
+
+</div>
+<div slot="solution">
+
+**1. Auxiliary field $\vec{H}$ and magnetic field $\vec{B}$**
+
+Take the wire axis along $+\hat{z}$. For a uniform free current density $\vec{J}_f = \frac{I}{\pi a^2}\hat{z}$ ($s < a$), the free current enclosed by a coaxial Amperian circle of radius $s$ is
+
+$$
+I_{f,\text{enc}} = \begin{cases} I\,\dfrac{s^2}{a^2}, & s < a, \\[8pt] I, & s > a. \end{cases}
+$$
+
+By cylindrical symmetry, $\oint \vec{H} \cdot d\vec{l} = H(s)(2\pi s) = I_{f,\text{enc}}$, which yields
+
+$$
+\vec{H}(s) = \begin{cases} \dfrac{I s}{2\pi a^2}\,\hat{\phi}, & s < a, \\[10pt] \dfrac{I}{2\pi s}\,\hat{\phi}, & s > a. \end{cases}
+$$
+
+Inside the wire ($s < a$), $\mu = \mu_0(1 + \chi_m)$; outside ($s > a$), $\mu = \mu_0$. Using $\vec{B} = \mu \vec{H}$:
+
+$$
+\vec{B}(s) = \begin{cases} \dfrac{\mu_0(1 + \chi_m)I s}{2\pi a^2}\,\hat{\phi}, & s < a, \\[10pt] \dfrac{\mu_0 I}{2\pi s}\,\hat{\phi}, & s > a. \end{cases}
+$$
+
+**2. Bound currents and net bound current**
+
+Inside the wire ($s < a$), the magnetization is $\vec{M} = \chi_m \vec{H} = \frac{\chi_m I s}{2\pi a^2}\hat{\phi}$ (and $\vec{M} = 0$ for $s > a$). The volume bound current density is
+
+$$
+\vec{J}_b = \nabla \times \vec{M} = \frac{1}{s}\frac{\partial}{\partial s}\left(s M_\phi\right)\hat{z} = \frac{1}{s}\frac{\partial}{\partial s}\left(\frac{\chi_m I s^2}{2\pi a^2}\right)\hat{z} = \frac{\chi_m I}{\pi a^2}\,\hat{z} = \chi_m \vec{J}_f,
+$$
+
+which flows in the same direction as $I$ when $\chi_m > 0$ (paramagnet) and opposite to $I$ when $\chi_m < 0$ (diamagnet).
+
+At the cylindrical surface $s = a$, the outward normal is $\hat{n} = +\hat{s}$, so the surface bound current density is
+
+$$
+\vec{K}_b = \vec{M}(a) \times \hat{s} = \left(\frac{\chi_m I}{2\pi a}\,\hat{\phi}\right) \times \hat{s} = -\frac{\chi_m I}{2\pi a}\,\hat{z},
+$$
+
+which flows opposite to $\vec{J}_b$.
+
+Integrating both contributions over the cross-section and perimeter of the wire gives the net bound current:
+
+$$
+I_b = J_{b,z}(\pi a^2) + K_{b,z}(2\pi a) = \left(\frac{\chi_m I}{\pi a^2}\right)(\pi a^2) + \left(-\frac{\chi_m I}{2\pi a}\right)(2\pi a) = \chi_m I - \chi_m I = 0.
+$$
+
+This cancellation is required: there is no net bound current transport through a finite cross-section of a magnetized cylinder, which also explains why the exterior field $\vec{B}$ for $s > a$ is unaffected by $\chi_m$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="6.18" title="Linear Magnetic Sphere in a Uniform Field" tag="Griffiths 6.18 · Boundary-Value Problem & Self-Consistency">
+<div slot="problem">
+
+A sphere of linear magnetic material is placed in an otherwise uniform magnetic field $\vec{B}_0$. Find the new field inside the sphere.
+
+</div>
+<div slot="answer">
+
+Inside the sphere of permeability $\mu = \mu_0(1 + \chi_m)$, the magnetic field is uniform and parallel to $\vec{B}_0$:
+
+$$
+\vec{B}_{\text{in}} = \frac{3\mu}{2\mu_0 + \mu}\,\vec{B}_0 = \left(\frac{1 + \chi_m}{1 + \chi_m/3}\right)\vec{B}_0.
+$$
+
+</div>
+<div slot="solution">
+
+**Method 1: Magnetic scalar potential (Laplace's equation)**
+
+Let the sphere have radius $R$, permeability $\mu = \mu_0(1 + \chi_m)$, and center at the origin, with $\vec{B}_0 = B_0\hat{z}$. Because there are no free currents anywhere ($\vec{J}_f = 0$), $\nabla \times \vec{H} = 0$ everywhere, so we may write $\vec{H} = -\nabla W$ for a magnetic scalar potential $W$. In both the homogeneous interior ($r < R$) and the vacuum exterior ($r > R$), $\nabla \cdot \vec{H} = \frac{1}{\mu}\nabla \cdot \vec{B} = 0$, so $W$ satisfies Laplace's equation $\nabla^2 W = 0$.
+
+As $r \to \infty$, $\vec{B} \to B_0\hat{z}$, so $\vec{H} \to \frac{B_0}{\mu_0}\hat{z}$ and $W_{\text{out}} \to -\frac{B_0}{\mu_0} r\cos\theta$. Expanding in azimuthally symmetric Legendre polynomials $P_l(\cos\theta)$:
+
+$$
+W_{\text{in}}(r,\theta) = \sum_{l=1}^{\infty} A_l r^l P_l(\cos\theta) \quad (r < R),
+$$
+
+$$
+W_{\text{out}}(r,\theta) = -\frac{B_0}{\mu_0}r\cos\theta + \sum_{l=1}^{\infty} \frac{C_l}{r^{l+1}} P_l(\cos\theta) \quad (r > R),
+$$
+
+where the $l=0$ constant is omitted by setting $W(R,\pi/2)=0$. The boundary conditions at $r = R$ are:
+
+1. Continuity of $\vec{H}_\parallel$ (equivalently, continuity of $W$): $W_{\text{in}}(R,\theta) = W_{\text{out}}(R,\theta)$.
+2. Continuity of $B_\perp$: $\mu \left.\dfrac{\partial W_{\text{in}}}{\partial r}\right|_{r=R} = \mu_0 \left.\dfrac{\partial W_{\text{out}}}{\partial r}\right|_{r=R}$.
+
+Matching coefficients of $P_l(\cos\theta)$:
+
+- For $l \neq 1$: Condition (1) gives $C_l = A_l R^{2l+1}$, and condition (2) gives $\mu l A_l R^{l-1} = -\mu_0(l+1)\frac{C_l}{R^{l+2}} = -\mu_0(l+1)A_l R^{l-1}$. Since $\mu l + \mu_0(l+1) > 0$, we must have $A_l = C_l = 0$ for all $l \neq 1$.
+- For $l = 1$:
+
+$$
+A_1 R = -\frac{B_0}{\mu_0}R + \frac{C_1}{R^2} \implies \frac{C_1}{R^3} = A_1 + \frac{B_0}{\mu_0},
+$$
+
+$$
+\mu A_1 = -B_0 - 2\mu_0\frac{C_1}{R^3} = -B_0 - 2\mu_0\left(A_1 + \frac{B_0}{\mu_0}\right) = -3B_0 - 2\mu_0 A_1.
+$$
+
+Solving for $A_1$ gives
+
+$$
+A_1 = -\frac{3B_0}{2\mu_0 + \mu} \implies W_{\text{in}}(r,\theta) = -\frac{3B_0}{2\mu_0 + \mu} r\cos\theta = -\frac{3B_0}{2\mu_0 + \mu}\,z.
+$$
+
+Hence the fields inside the sphere are uniform:
+
+$$
+\vec{H}_{\text{in}} = -\nabla W_{\text{in}} = \frac{3\vec{B}_0}{2\mu_0 + \mu}, \qquad \vec{B}_{\text{in}} = \mu\vec{H}_{\text{in}} = \frac{3\mu}{2\mu_0 + \mu}\,\vec{B}_0 = \left(\frac{1 + \chi_m}{1 + \chi_m/3}\right)\vec{B}_0.
+$$
+
+**Method 2: Iterative self-consistent magnetization**
+
+In a linear medium, any total interior magnetic field $\vec{B}$ induces a magnetization $\vec{M} = \chi_m\vec{H} = \frac{\chi_m}{\mu_0(1+\chi_m)}\vec{B} = \frac{\kappa}{\mu_0}\vec{B}$, where $\kappa \equiv \frac{\chi_m}{1+\chi_m}$. Moreover, a uniformly magnetized sphere of magnetization $\vec{M}$ produces a uniform interior field $\vec{B}_{\text{self}} = \frac{2}{3}\mu_0\vec{M}$.
+
+- Step 1: The external field $\vec{B}_0$ induces $\vec{M}_0 = \frac{\kappa}{\mu_0}\vec{B}_0$, which generates an additional interior field $\vec{B}_1 = \frac{2}{3}\mu_0\vec{M}_0 = \frac{2\kappa}{3}\vec{B}_0$.
+- Step 2: $\vec{B}_1$ induces $\vec{M}_1 = \frac{\kappa}{\mu_0}\vec{B}_1$, which generates $\vec{B}_2 = \frac{2}{3}\mu_0\vec{M}_1 = \left(\frac{2\kappa}{3}\right)^2\vec{B}_0$, and so on.
+
+Summing the geometric series gives the exact interior field:
+
+$$
+\vec{B}_{\text{in}} = \vec{B}_0 \sum_{n=0}^{\infty} \left(\frac{2\kappa}{3}\right)^n = \frac{\vec{B}_0}{1 - \frac{2}{3}\kappa} = \frac{3(1 + \chi_m)}{3(1 + \chi_m) - 2\chi_m}\,\vec{B}_0 = \left(\frac{1 + \chi_m}{1 + \chi_m/3}\right)\vec{B}_0.
+$$
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="6.19" title="Classical Estimate of Diamagnetic Susceptibility for Copper" tag="Griffiths 6.19 · Diamagnetism Estimate">
+<div slot="problem">
+
+On the basis of the naïve model presented in Sect. 6.1.3, estimate the magnetic susceptibility of a diamagnetic metal such as copper. Compare your answer with the empirical value in Table 6.1, and comment on any discrepancy.
+
+</div>
+<div slot="answer">
+
+The naïve classical model yields
+
+$$
+\chi_m \approx -\frac{\mu_0}{4\pi}\,\frac{3e^2}{4m_e r} \approx -2 \times 10^{-5}
+$$
+
+(for $r \approx 1\,\text{\AA} = 10^{-10}\,\text{m}$), which agrees in sign and order of magnitude with the empirical value for copper, $\chi_m = -9.7 \times 10^{-6} \approx -1 \times 10^{-5}$.
+
+</div>
+<div slot="solution">
+
+In the classical orbital model of Sect. 6.1.3, an electron of charge $-e$ and mass $m_e$ in a circular orbit of radius $r$ experiences an induced change in magnetic dipole moment when a magnetic field $\vec{B}$ is applied:
+
+$$
+\Delta \vec{m} = -\frac{e^2 r^2}{4m_e}\vec{B}.
+$$
+
+Assuming one valence electron per atomic volume $V \approx \frac{4}{3}\pi r^3$, the resulting magnetization is
+
+$$
+\vec{M} = \frac{\Delta \vec{m}}{V} = -\frac{e^2 r^2}{4m_e V}\vec{B}.
+$$
+
+Since $\vec{M} = \chi_m \vec{H} = \frac{\chi_m}{\mu_0(1 + \chi_m)}\vec{B}$ and $|\chi_m| \ll 1$, we can approximate $\vec{B} \approx \mu_0 \vec{H}$ (and likewise ignore local-field corrections between $\vec{B}$ and $\vec{B}_{\text{else}}$ at leading order in $\chi_m$):
+
+$$
+\chi_m \approx -\frac{\mu_0 e^2 r^2}{4m_e V} \approx -\frac{\mu_0}{4\pi}\,\frac{3e^2}{4m_e r}.
+$$
+
+Substituting $r \approx 1\,\text{\AA} = 10^{-10}\,\text{m}$, $\mu_0/(4\pi) = 10^{-7}\,\text{N/A}^2$, $e = 1.60 \times 10^{-19}\,\text{C}$, and $m_e = 9.11 \times 10^{-31}\,\text{kg}$:
+
+$$
+\chi_m \approx -\left(10^{-7}\right)\frac{3(1.60 \times 10^{-19})^2}{4(9.11 \times 10^{-31})(10^{-10})} \approx -2.1 \times 10^{-5} \approx -2 \times 10^{-5}.
+$$
+
+**Comparison and sources of discrepancy:**
+
+Table 6.1 lists the empirical susceptibility of copper as $\chi_m = -9.7 \times 10^{-6}$, so our crude estimate is off by only a factor of about $2$—remarkably close for a purely classical model. The discrepancy arises from several idealizations:
+
+1. **Electron count and orbital radii:** Copper has $29$ electrons per atom, not $1$; however, inner-shell electrons have much smaller orbital radii and contribute less because $\Delta m \propto r^2$.
+2. **Volume and radius estimates:** Taking $r = 1\,\text{\AA}$ and $V = \frac{4}{3}\pi r^3$ is only an order-of-magnitude approximation for the atomic volume in solid copper.
+3. **Quantum and paramagnetic effects:** A realistic metal involves conduction-electron **Pauli spin paramagnetism** and **Landau diamagnetism**, which partially compete with the core-electron diamagnetism and require quantum mechanics for an accurate calculation.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="6.20" title="Demagnetizing a Permanent Magnet" tag="Griffiths 6.20 · Hysteresis & Curie Point">
+<div slot="problem">
+
+How would you go about demagnetizing a permanent magnet (such as the wrench we have been discussing, at point $c$ in the hysteresis loop)? That is, how could you restore it to its original state, with $M = 0$ at $I = 0$?
+
+</div>
+<div slot="answer">
+
+There are three standard methods:
+
+1. **Thermal demagnetization:** Place the magnet in a region of zero magnetic field and heat it above its Curie point ($770^\circ\text{C}$ for iron), then allow it to cool in zero field.
+2. **Mechanical shock:** Drop or strike the object sharply on a hard surface in zero field to jar domain walls back toward random orientations.
+3. **Alternating-field degaussing:** Place the object in an alternating magnetic field whose amplitude starts near saturation and is slowly reduced to zero.
+
+</div>
+<div slot="solution">
+
+At point $c$ on the hysteresis loop, the applied field is zero ($I = 0$) yet a net remanent magnetization remains because domain boundaries are pinned in a state favoring one direction. Restoring $M = 0$ at $I = 0$ requires randomizing the domain orientations without leaving a net bias:
+
+1. **Heating above the Curie temperature:** Place the object in a magnetically shielded (zero-field) region and heat it above its Curie point ($T_C \approx 770^\circ\text{C}$ for iron). Above $T_C$, thermal agitation destroys the ferromagnetic alignment, turning the material paramagnetic. When it cools back below $T_C$ in zero external field, domains re-form with random orientations and zero net magnetization.
+2. **Mechanical agitation:** Simply dropping or hammering the wrench on a hard surface (away from strong magnetic fields) supplies mechanical energy that frees pinned domain walls, allowing the domains to relax toward a lower-energy, randomly oriented configuration.
+3. **Shrinking hysteresis loops (degaussing):** For delicate instruments (such as a watch) that cannot be heated or struck, place the object between the poles of an electromagnet and apply a reversing (AC) magnetic field. Start with an amplitude strong enough to saturate the sample, and gradually decrease the peak amplitude to zero over many cycles. The state traces progressively smaller hysteresis loops that spiral inward to the origin $(H = 0, M = 0)$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="6.21" title="Energy of a Magnetic Dipole and Dipole-Dipole Alignment" tag="Griffiths 6.21 · Magnetic Dipole Energy">
+<div slot="problem">
+
+**(a)** Show that the energy of a magnetic dipole in a magnetic field $\vec{B}$ is
+
+$$
+U = -\vec{m} \cdot \vec{B}.
+$$
+
+[Assume that the magnitude of the dipole moment is fixed, and all you have to do is move it into place and rotate it into its final orientation. The energy required to keep the current flowing is a different problem, which we will confront in Chapter 7.] Compare Eq. 4.6.
+
+**(b)** Show that the interaction energy of two magnetic dipoles separated by a displacement $\vec{r}$ is given by
+
+$$
+U = \frac{\mu_0}{4\pi r^3}\left[\vec{m}_1 \cdot \vec{m}_2 - 3(\vec{m}_1 \cdot \hat{r})(\vec{m}_2 \cdot \hat{r})\right].
+$$
+
+Compare Eq. 4.7.
+
+**(c)** Express your answer to (b) in terms of the angles $\theta_1$ and $\theta_2$ in Fig. 6.30, and use the result to find the stable configuration two dipoles would adopt if held a fixed distance apart, but left free to rotate.
+
+**(d)** Suppose you had a large collection of compass needles, mounted on pins at regular intervals along a straight line. How would they point (assuming the earth's magnetic field can be neglected)?
+
+</div>
+<div slot="answer">
+
+**(a)** $U = -\vec{m} \cdot \vec{B}$ by integrating $-\vec{F} = -\nabla(\vec{m}\cdot\vec{B})$ from infinity (or rotating against $\vec{N} = \vec{m}\times\vec{B}$).
+
+**(b)** $U = \dfrac{\mu_0}{4\pi r^3}\left[\vec{m}_1 \cdot \vec{m}_2 - 3(\vec{m}_1 \cdot \hat{r})(\vec{m}_2 \cdot \hat{r})\right]$.
+
+**(c)** $U(\theta_1, \theta_2) = \dfrac{\mu_0 m_1 m_2}{4\pi r^3}\left(\sin\theta_1\sin\theta_2 - 2\cos\theta_1\cos\theta_2\right)$. The unique stable minimum occurs when the dipoles align **parallel along the line joining them** ($\theta_1 = \theta_2 = 0$ or $\theta_1 = \theta_2 = \pi$), with $U_{\min} = -\dfrac{\mu_0 m_1 m_2}{2\pi r^3}$.
+
+**(d)** All compass needles point **parallel to one another along the line** connecting their pivots (all pointing in the same direction along the chain).
+
+</div>
+<div slot="solution">
+
+**(a) Energy of a dipole in an external field $\vec{B}$**
+
+The magnetic force on a dipole of fixed moment $\vec{m}$ is $\vec{F}_m = \nabla(\vec{m} \cdot \vec{B})$ (Eq. 6.3). To bring the dipole quasi-statically from infinity to position $\vec{r}$ with fixed orientation, an external agent must apply the opposing force $-\vec{F}_m$, doing mechanical work
+
+$$
+U = \int_{\infty}^{\vec{r}} (-\vec{F}_m) \cdot d\vec{l} = -\int_{\infty}^{\vec{r}} \nabla(\vec{m} \cdot \vec{B}) \cdot d\vec{l} = -\vec{m} \cdot \vec{B}(\vec{r}) + \vec{m} \cdot \vec{B}(\infty),
+$$
+
+by the gradient theorem. Provided $\vec{B}(\infty) = 0$, we obtain
+
+$$
+U = -\vec{m} \cdot \vec{B}.
+$$
+
+(If $\vec{B}$ is uniform and does not vanish at infinity, one starts with the dipole oriented perpendicular to $\vec{B}$, where the reference energy is zero, and rotates it from $\theta = \pi/2$ to $\theta$ against the restoring torque $N = mB\sin\theta$: $U = \int_{\pi/2}^{\theta} mB\sin\theta'\,d\theta' = -mB\cos\theta = -\vec{m}\cdot\vec{B}$, directly analogous to Eq. 4.6 for an electric dipole, $U = -\vec{p}\cdot\vec{E}$.)
+
+**(b) Interaction energy of two dipoles**
+
+The magnetic field produced by dipole $\vec{m}_1$ at displacement $\vec{r} \neq 0$ (Eq. 5.89) is
+
+$$
+\vec{B}_1(\vec{r}) = \frac{\mu_0}{4\pi r^3}\left[3(\vec{m}_1 \cdot \hat{r})\hat{r} - \vec{m}_1\right].
+$$
+
+Substituting this into $U = -\vec{m}_2 \cdot \vec{B}_1(\vec{r})$ from part (a) yields
+
+$$
+U = \frac{\mu_0}{4\pi r^3}\left[\vec{m}_1 \cdot \vec{m}_2 - 3(\vec{m}_1 \cdot \hat{r})(\vec{m}_2 \cdot \hat{r})\right],
+$$
+
+the exact magnetic counterpart of the electric dipole-dipole interaction (Eq. 4.7).
+
+**(c) Planar angles and stable equilibrium**
+
+In Fig. 6.30, $\vec{m}_1$ and $\vec{m}_2$ lie in a common plane making angles $\theta_1$ and $\theta_2$ with the separation vector $\hat{r}$. Then $\vec{m}_1 \cdot \hat{r} = m_1 \cos\theta_1$, $\vec{m}_2 \cdot \hat{r} = m_2 \cos\theta_2$, and $\vec{m}_1 \cdot \vec{m}_2 = m_1 m_2 \cos(\theta_2 - \theta_1) = m_1 m_2(\cos\theta_1\cos\theta_2 + \sin\theta_1\sin\theta_2)$. Thus
+
+$$
+U(\theta_1, \theta_2) = \frac{\mu_0 m_1 m_2}{4\pi r^3}\left(\sin\theta_1\sin\theta_2 - 2\cos\theta_1\cos\theta_2\right).
+$$
+
+Equilibrium configurations satisfy $\partial U / \partial \theta_1 = \partial U / \partial \theta_2 = 0$:
+
+$$
+\frac{\partial U}{\partial \theta_1} = \frac{\mu_0 m_1 m_2}{4\pi r^3}(\cos\theta_1\sin\theta_2 + 2\sin\theta_1\cos\theta_2) = 0 \implies 2\sin\theta_1\cos\theta_2 = -\cos\theta_1\sin\theta_2,
+$$
+
+$$
+\frac{\partial U}{\partial \theta_2} = \frac{\mu_0 m_1 m_2}{4\pi r^3}(\sin\theta_1\cos\theta_2 + 2\cos\theta_1\sin\theta_2) = 0 \implies 2\sin\theta_1\cos\theta_2 = -4\cos\theta_1\sin\theta_2.
+$$
+
+Subtracting these two equations forces $\cos\theta_1\sin\theta_2 = 0$ and consequently $\sin\theta_1\cos\theta_2 = 0$. The critical points fall into two classes:
+
+1. $\sin\theta_1 = \sin\theta_2 = 0$: either **parallel along $\hat{r}$** ($\theta_1 = \theta_2 = 0$ or $\pi$, giving $U_1 = -\frac{2\mu_0 m_1 m_2}{4\pi r^3}$) or **antiparallel along $\hat{r}$** ($\theta_1 = 0, \theta_2 = \pi$, giving $U = +\frac{2\mu_0 m_1 m_2}{4\pi r^3}$, a maximum).
+2. $\cos\theta_1 = \cos\theta_2 = 0$: either **antiparallel perpendicular to $\hat{r}$** ($\theta_1 = \pi/2, \theta_2 = -\pi/2$, giving $U_2 = -\frac{\mu_0 m_1 m_2}{4\pi r^3}$) or **parallel perpendicular to $\hat{r}$** ($\theta_1 = \theta_2 = \pi/2$, giving $U = +\frac{\mu_0 m_1 m_2}{4\pi r^3}$).
+
+Comparing the two negative-energy configurations, $U_1 = -\frac{\mu_0 m_1 m_2}{2\pi r^3}$ is strictly lower than $U_2 = -\frac{\mu_0 m_1 m_2}{4\pi r^3}$ (and in fact the antiparallel perpendicular state is a saddle point under small perturbations). Therefore, the unique stable configuration is **parallel alignment along the line joining the two dipoles**: $\vec{m}_1 \parallel \vec{m}_2 \parallel \hat{r}$ (head-to-tail: $\rightarrow\;\rightarrow$ or $\leftarrow\;\leftarrow$).
+
+**(d) Chain of compass needles**
+
+For a linear array of identical compass needles mounted along a straight line, every pair of needles minimizes its interaction energy when aligned head-to-tail along the axis of the chain, and the magnetic field produced by each needle along that axis reinforces the same collinear orientation at all other sites. Consequently, all the compass needles spontaneously align **parallel to one another along the line** joining their pivots ($\rightarrow\;\rightarrow\;\rightarrow\;\cdots$ or $\leftarrow\;\leftarrow\;\leftarrow\;\cdots$).
+
+</div>
+</ProblemCard>
+
+</section>

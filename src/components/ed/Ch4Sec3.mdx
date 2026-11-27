@@ -1,0 +1,287 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch4-sec3" class="ed-sec-block">
+
+### 4.3 The Electric Displacement
+
+<div class="ed-theory-box">
+
+#### 4.3.1 Gauss's Law in the Presence of Dielectrics
+
+Within a polarized dielectric, the total charge density splits naturally into two contributions:
+
+$$
+\rho = \rho_b + \rho_f,
+$$
+
+where $\rho_b = -\nabla \cdot \vec{P}$ is the **bound** volume charge density arising from non-uniform polarization, and $\rho_f$ denotes the **free** charge density—everything else not caused by polarization (such as excess electrons on conductors or embedded ions). Substituting this decomposition into Gauss's law, $\epsilon_0 \nabla \cdot \vec{E} = \rho$, gives
+
+$$
+\nabla \cdot (\epsilon_0 \vec{E} + \vec{P}) = \rho_f.
+$$
+
+Defining the **electric displacement** vector $\vec{D}$ as
+
+$$
+\vec{D} \equiv \epsilon_0 \vec{E} + \vec{P},
+$$
+
+Gauss's law in the presence of dielectrics takes the compact differential and integral forms
+
+$$
+\nabla \cdot \vec{D} = \rho_f, \qquad \oint_{\mathcal{S}} \vec{D} \cdot d\vec{a} = Q_{f,\text{enc}},
+$$
+
+where $Q_{f,\text{enc}}$ is the total free charge enclosed by the Gaussian surface $\mathcal{S}$. Because $\rho_f$ is the charge distribution under direct experimental control—whereas $\rho_b$ and $\sigma_b$ develop passively in response to the total field—this formulation allows $\vec{D}$ to be determined immediately whenever spherical, cylindrical, or planar symmetry is present. (At an abrupt dielectric interface, $\rho_b$ develops a Dirac-delta spike corresponding to $\sigma_b = \vec{P}\cdot\hat{n}$, so the differential equation holds everywhere away from the boundary—or everywhere if the boundary is modeled as a smooth transition skin—while the integral form remains exact across interfaces.)
+
+#### 4.3.2 A Deceptive Parallel
+
+Although $\nabla \cdot \vec{D} = \rho_f$ formally resembles $\epsilon_0 \nabla \cdot \vec{E} = \rho$, **there is no general Coulomb's law for $\vec{D}$**:
+
+$$
+\vec{D}(\vec{r}) \neq \frac{1}{4\pi} \int \frac{\rho_f(\vec{r}')\,\hat{\mathscr{r}}}{\mathscr{r}^2}\,d\tau' \quad \text{in general.}
+$$
+
+By the Helmholtz theorem, a vector field vanishing at infinity is uniquely determined only when both its divergence and its curl are specified. While electrostatics guarantees $\nabla \times \vec{E} = \vec{0}$ everywhere, the curl of $\vec{D}$ is
+
+$$
+\nabla \times \vec{D} = \epsilon_0 (\nabla \times \vec{E}) + \nabla \times \vec{P} = \nabla \times \vec{P},
+$$
+
+which generally does **not** vanish (especially at dielectric boundaries where $\vec{P}$ jumps discontinuously). Consequently, $\vec{D}$ cannot in general be expressed as the gradient of a scalar potential, and free charge alone does not determine $\vec{D}$ unless symmetry (or spatial homogeneity of a linear medium) forces $\nabla \times \vec{P} = \vec{0}$.
+
+#### 4.3.3 Boundary Conditions
+
+Applying the divergence theorem to a thin Gaussian pillbox and Stokes' theorem to a narrow Amperian loop straddling an interface yields the discontinuity relations for $\vec{D}$:
+
+$$
+D^\perp_{\text{above}} - D^\perp_{\text{below}} = \sigma_f, \qquad \vec{D}^\parallel_{\text{above}} - \vec{D}^\parallel_{\text{below}} = \vec{P}^\parallel_{\text{above}} - \vec{P}^\parallel_{\text{below}},
+$$
+
+which complement the fundamental boundary conditions on the total electric field $\vec{E}$:
+
+$$
+E^\perp_{\text{above}} - E^\perp_{\text{below}} = \frac{\sigma}{\epsilon_0} = \frac{\sigma_f + \sigma_b}{\epsilon_0}, \qquad \vec{E}^\parallel_{\text{above}} - \vec{E}^\parallel_{\text{below}} = \vec{0}.
+$$
+
+</div>
+
+<ProblemCard num="4.15" title="Thick Spherical Shell with Frozen-In Radial Polarization" tag="Griffiths 4.15 · Bound Charge vs. Electric Displacement">
+<div slot="problem">
+
+A thick spherical shell (inner radius $a$, outer radius $b$) is made of dielectric material with a "frozen-in" polarization
+
+$$
+\vec{P}(\vec{r}) = \frac{k}{r}\hat{r},
+$$
+
+where $k$ is a constant and $r$ is the distance from the center. (There is no free charge in the problem.) Find the electric field in all three regions by two different methods:
+
+**(a)** Locate all the bound charge, and use Gauss's law for $\vec{E}$ to calculate the field it produces.
+
+**(b)** Use $\oint \vec{D} \cdot d\vec{a} = Q_{f,\text{enc}}$ to find $\vec{D}$, and then obtain $\vec{E}$ from $\vec{D} = \epsilon_0 \vec{E} + \vec{P}$.
+
+</div>
+<div slot="answer">
+
+In all three regions, both methods yield the exact same electric field:
+
+$$
+\vec{E}(\vec{r}) = \begin{cases} \vec{0}, & r < a, \\ -\dfrac{k}{\epsilon_0 r}\,\hat{r}, & a < r < b, \\ \vec{0}, & r > b. \end{cases}
+$$
+
+</div>
+<div slot="solution">
+
+#### Method (a): Direct Calculation via Bound Charges
+
+Inside the dielectric ($a < r < b$), the volume bound charge density is
+
+$$
+\rho_b = -\nabla \cdot \vec{P} = -\frac{1}{r^2} \frac{\partial}{\partial r}\left(r^2 \cdot \frac{k}{r}\right) = -\frac{1}{r^2} \frac{\partial}{\partial r}(kr) = -\frac{k}{r^2}.
+$$
+
+At the two spherical boundaries, the outward unit normal $\hat{n}$ with respect to the dielectric is $+\hat{r}$ at $r = b$ and $-\hat{r}$ at $r = a$. Thus the surface bound charge densities are
+
+$$
+\sigma_b(b) = \vec{P}(b) \cdot (+\hat{r}) = +\frac{k}{b}, \qquad \sigma_b(a) = \vec{P}(a) \cdot (-\hat{r}) = -\frac{k}{a}.
+$$
+
+By spherical symmetry, $\vec{E}(\vec{r}) = E(r)\hat{r}$, and Gauss's law $\oint \vec{E} \cdot d\vec{a} = Q_{\text{enc}}/\epsilon_0$ gives $\vec{E} = \frac{Q_{\text{enc}}(r)}{4\pi \epsilon_0 r^2}\hat{r}$:
+
+1. **Inner cavity ($r < a$):** There is no charge enclosed, so $Q_{\text{enc}} = 0$ and therefore
+
+$$
+\vec{E} = \vec{0} \qquad (r < a).
+$$
+
+2. **Inside the shell ($a < r < b$):** The enclosed bound charge combines the inner surface charge and the volume bound charge from $a$ to $r$:
+
+$$
+Q_{\text{enc}}(r) = \sigma_b(a)(4\pi a^2) + \int_a^r \rho_b(r')\,4\pi r'^2\,dr' = \left(-\frac{k}{a}\right)(4\pi a^2) + \int_a^r \left(-\frac{k}{r'^2}\right) 4\pi r'^2\,dr' = -4\pi k a - 4\pi k(r - a) = -4\pi k r.
+$$
+
+Hence,
+
+$$
+\vec{E} = \frac{-4\pi k r}{4\pi \epsilon_0 r^2}\hat{r} = -\frac{k}{\epsilon_0 r}\hat{r} \qquad (a < r < b).
+$$
+
+3. **Outside the shell ($r > b$):** Including the outer surface bound charge gives
+
+$$
+Q_{\text{enc}} = -4\pi k b + \sigma_b(b)(4\pi b^2) = -4\pi k b + \left(\frac{k}{b}\right)(4\pi b^2) = 0,
+$$
+
+so
+
+$$
+\vec{E} = \vec{0} \qquad (r > b).
+$$
+
+#### Method (b): Via the Electric Displacement $\vec{D}$
+
+Because the polarization is purely radial and depends only on $r$, $\nabla \times \vec{P} = \vec{0}$ throughout space (including at the interfaces, where $\vec{P}^\parallel = \vec{0}$). Consequently $\nabla \times \vec{D} = \vec{0}$, and spherical symmetry guarantees that $\vec{D}$ is purely radial. Applying Gauss's law for $\vec{D}$ with $Q_{f,\text{enc}} = 0$ everywhere gives
+
+$$
+\oint \vec{D} \cdot d\vec{a} = 4\pi r^2 D(r) = 0 \implies \vec{D} = \vec{0} \quad \text{everywhere.}
+$$
+
+From the definition $\vec{D} = \epsilon_0 \vec{E} + \vec{P} = \vec{0}$, we immediately obtain
+
+$$
+\vec{E} = -\frac{1}{\epsilon_0}\vec{P},
+$$
+
+which gives $\vec{E} = \vec{0}$ for $r < a$ and $r > b$ (where $\vec{P} = \vec{0}$), and $\vec{E} = -\frac{k}{\epsilon_0 r}\hat{r}$ for $a < r < b$, matching Method (a) in two lines without explicitly computing bound charges.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.16" title="Fields Inside Spherical, Needle, and Wafer Cavities" tag="Griffiths 4.16 · Superposition & Operational Definitions of E and D">
+<div slot="problem">
+
+Suppose the field inside a large piece of dielectric is $\vec{E}_0$, so that the electric displacement is $\vec{D}_0 = \epsilon_0 \vec{E}_0 + \vec{P}$. Assume the polarization $\vec{P}$ is "frozen in" so it does not change when a small cavity is excavated, and assume the cavities are small enough that $\vec{P}$, $\vec{E}_0$, and $\vec{D}_0$ are essentially uniform.
+
+**(a)** A small spherical cavity is hollowed out of the material. Find the electric field $\vec{E}$ and displacement $\vec{D}$ at the center of the cavity in terms of $\vec{E}_0$, $\vec{D}_0$, and $\vec{P}$.
+
+**(b)** Do the same for a long needle-shaped cavity running parallel to $\vec{P}$.
+
+**(c)** Do the same for a thin wafer-shaped cavity perpendicular to $\vec{P}$.
+
+</div>
+<div slot="answer">
+
+**(a) Spherical cavity:** $\vec{E} = \vec{E}_0 + \dfrac{1}{3\epsilon_0}\vec{P}$, $\quad \vec{D} = \vec{D}_0 - \dfrac{2}{3}\vec{P}$.
+
+**(b) Needle cavity ($\parallel \vec{P}$):** $\vec{E} = \vec{E}_0$, $\quad \vec{D} = \vec{D}_0 - \vec{P}$.
+
+**(c) Wafer cavity ($\perp \vec{P}$):** $\vec{E} = \vec{E}_0 + \dfrac{1}{\epsilon_0}\vec{P}$, $\quad \vec{D} = \vec{D}_0$.
+
+</div>
+<div slot="solution">
+
+Because $\vec{P}$ is frozen in, excavating a cavity is mathematically equivalent to leaving the original uniform dielectric intact (with field $\vec{E}_0$) and **superimposing** a body of the exact shape of the cavity carrying uniform polarization $-\vec{P}$. Equivalently, if $\vec{E}_{\text{shape}}(\vec{P})$ denotes the field produced at the center of an isolated body of that geometry with uniform polarization $+\vec{P}$, then the field inside the cavity is
+
+$$
+\vec{E} = \vec{E}_0 - \vec{E}_{\text{shape}}(\vec{P}).
+$$
+
+Inside the empty cavity, $\vec{P}_{\text{cav}} = \vec{0}$, so the electric displacement inside the cavity is simply $\vec{D} = \epsilon_0 \vec{E}$. Substituting $\epsilon_0 \vec{E}_0 = \vec{D}_0 - \vec{P}$ expresses $\vec{D}$ directly in terms of $\vec{D}_0$ and $\vec{P}$.
+
+#### (a) Small Spherical Cavity
+
+The electric field at the center of a uniformly polarized sphere of polarization $+\vec{P}$ is $\vec{E}_{\text{sphere}} = -\frac{1}{3\epsilon_0}\vec{P}$. Subtracting this contribution gives
+
+$$
+\vec{E} = \vec{E}_0 - \left(-\frac{1}{3\epsilon_0}\vec{P}\right) = \vec{E}_0 + \frac{1}{3\epsilon_0}\vec{P}.
+$$
+
+Therefore, the displacement at the center of the spherical cavity is
+
+$$
+\vec{D} = \epsilon_0 \vec{E} = \epsilon_0 \vec{E}_0 + \frac{1}{3}\vec{P} = (\vec{D}_0 - \vec{P}) + \frac{1}{3}\vec{P} = \vec{D}_0 - \frac{2}{3}\vec{P}.
+$$
+
+#### (b) Long Needle-Shaped Cavity Parallel to $\vec{P}$
+
+For a long thin cylinder of length $L$ and radius $a$ ($L \gg a$) with uniform polarization $+\vec{P}$ along its axis, $\rho_b = 0$ inside and $\sigma_b = \vec{P}\cdot\hat{n} = 0$ on the curved lateral wall (where $\hat{n} \perp \vec{P}$). Bound charges $\sigma_b = \pm P$ appear only on the tiny end caps of area $\pi a^2$ at distances $\pm L/2$ from the center, producing a negligible field of order $(P/\epsilon_0)(a^2/L^2) \to 0$ at the midpoint. Hence $\vec{E}_{\text{needle}} = \vec{0}$, and
+
+$$
+\vec{E} = \vec{E}_0, \qquad \vec{D} = \epsilon_0 \vec{E}_0 = \vec{D}_0 - \vec{P}.
+$$
+
+*(Boundary-condition check: Across the lateral walls of the needle, $\sigma_f = 0$ and $\sigma_b = \vec{P}\cdot\hat{n} = 0$, so both $\vec{E}^\parallel$ and $E^\perp$ are continuous, forcing $\vec{E} = \vec{E}_0$ directly. This shows that $\vec{E}$ inside a dielectric is operationally measured in a narrow longitudinal needle cavity.)*
+
+#### (c) Thin Wafer-Shaped Cavity Perpendicular to $\vec{P}$
+
+For a flat circular wafer (radius $R$, thickness $d \ll R$) with uniform polarization $+\vec{P}$ perpendicular to its faces, $\rho_b = 0$ inside while the two broad faces carry uniform surface bound charges $\sigma_b = +P$ and $\sigma_b = -P$. Near the center, this behaves as an infinite parallel-plate capacitor, generating a uniform internal field $\vec{E}_{\text{wafer}} = -\frac{1}{\epsilon_0}\vec{P}$. Subtracting this gives
+
+$$
+\vec{E} = \vec{E}_0 - \left(-\frac{1}{\epsilon_0}\vec{P}\right) = \vec{E}_0 + \frac{1}{\epsilon_0}\vec{P},
+$$
+
+and consequently
+
+$$
+\vec{D} = \epsilon_0 \vec{E} = \epsilon_0 \vec{E}_0 + \vec{P} = \vec{D}_0.
+$$
+
+*(Boundary-condition check: Across the broad faces of the wafer, $\sigma_f = 0$ implies $D^\perp$ is continuous, while $\vec{P}^\parallel = \vec{0}$ and continuity of $\vec{E}^\parallel$ imply $\vec{D}^\parallel_{\text{cav}} = \epsilon_0 \vec{E}^\parallel = \epsilon_0 \vec{E}_0^\parallel = \vec{D}_0^\parallel$. Thus $\vec{D} = \vec{D}_0$ everywhere inside the wafer, giving the operational definition of $\vec{D}/\epsilon_0$ as the field measured in a transverse wafer cavity.)*
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.17" title="Field-Line Structure of P, E, and D for a Bar Electret" tag="Griffiths 4.17 · Curl of D & Electret Topology">
+<div slot="problem">
+
+For the bar electret of Problem 4.11—a cylinder of radius $a$ and length $L \approx 2a$ carrying uniform frozen-in polarization $\vec{P} = P\,\hat{z}$ parallel to its axis—make three careful sketches: one of $\vec{P}$, one of $\vec{E}$, and one of $\vec{D}$. (Hint: $\vec{E}$ lines terminate on total charges; $\vec{D}$ lines terminate only on free charges.)
+
+</div>
+<div slot="answer">
+
+- **$\vec{P}$:** Straight, parallel, uniformly spaced upward vectors confined strictly inside the cylinder ($s \le a$, $-L/2 \le z \le L/2$), starting at $z = -L/2$ and terminating abruptly at $z = +L/2$, with $\vec{P} = \vec{0}$ everywhere outside.
+- **$\vec{E}$:** Identical to the field of two uniformly charged disks of radius $a$ at $z = \pm L/2$ with $\sigma_b = \pm P$ (like a finite parallel-plate capacitor with $L \approx 2a$). Lines originate on the top disk ($z = +L/2$) and terminate on the bottom disk ($z = -L/2$), pointing **downward** inside the cylinder (opposing $\vec{P}$) and arching **downward** outside with strong fringing and dipole-like asymptotics at large distances.
+- **$\vec{D}$:** Since $\rho_f = 0$ everywhere, $\nabla \cdot \vec{D} = 0$, so **$\vec{D}$ lines form closed loops** (topologically identical to the magnetic field $\vec{B}$ of a cylindrical bar magnet): pointing **upward** inside the cylinder, passing continuously through the top face, curving **downward** through the exterior (where $\vec{D} = \epsilon_0\vec{E}$), and re-entering continuously through the bottom face.
+
+</div>
+<div slot="solution">
+
+Let the cylinder occupy $s \le a$ and $-L/2 \le z \le L/2$ with $L \approx 2a$, and take $\vec{P} = P\,\hat{z}$ ($P$ constant and upward) inside and $\vec{P} = \vec{0}$ outside. There is no free charge anywhere ($\rho_f = 0$, $\sigma_f = 0$).
+
+#### 1. Polarization $\vec{P}$
+
+- **Interior ($s < a$, $|z| < L/2$):** Uniform upward field lines of constant density, pointing along $+\hat{z}$.
+- **Exterior:** $\vec{P} = \vec{0}$ everywhere.
+- **Boundaries:** Lines begin abruptly on the bottom face ($z = -L/2$) and end abruptly on the top face ($z = +L/2$). Along the curved side wall $s = a$, $\vec{P}$ jumps tangentially from $P\,\hat{z}$ to $\vec{0}$, producing a singular surface curl $\nabla \times \vec{P} = P\,\delta(s - a)\,\hat{\phi}$ circulating azimuthally around the cylinder.
+
+#### 2. Electric Field $\vec{E}$
+
+Because $\rho_b = -\nabla \cdot \vec{P} = 0$ inside and $\sigma_b = \vec{P} \cdot \hat{n} = 0$ on the side wall, the **only** sources of $\vec{E}$ are the flat end-cap surface bound charges:
+
+$$
+\sigma_b(+L/2) = +P \quad \text{(top disk)}, \qquad \sigma_b(-L/2) = -P \quad \text{(bottom disk)}.
+$$
+
+- **Field-line topology:** Every $\vec{E}$ line originates on the positive top disk ($z = +L/2$) and terminates on the negative bottom disk ($z = -L/2$).
+- **Interior:** $\vec{E}$ points **downward** (opposite to $\vec{P}$), bowing slightly outward near the midplane $z = 0$ because the aspect ratio $L \approx 2a$ is comparable to the diameter. Exactly at the origin ($z = 0, s = 0$), the superposition of the two oppositely charged disks gives
+
+$$
+E_z(0) = -\frac{P}{\epsilon_0}\left(1 - \frac{L/2}{\sqrt{(L/2)^2 + a^2}}\right) = -\frac{P}{\epsilon_0}\left(1 - \frac{1}{\sqrt{2}}\right) \approx -0.293\,\frac{P}{\epsilon_0}.
+$$
+
+- **Exterior:** $\vec{E}$ lines emerge from the top face, arch outward and downward around the cylinder, and converge back onto the bottom face, approaching a pure physical dipole field at distances $r \gg a$.
+- **Boundary behavior & curl:** Across $z = \pm L/2$, $\vec{E}^\parallel$ is continuous while $E^\perp$ jumps by $\sigma_b/\epsilon_0 = \pm P/\epsilon_0$ (reversing direction across the disks). Across the side wall $s = a$, $\sigma_b = 0$, so $\vec{E}$ is completely continuous. Everywhere, $\nabla \times \vec{E} = \vec{0}$ ($\oint \vec{E}\cdot d\vec{l} = 0$): the upward exterior return path cancels the downward interior path.
+
+#### 3. Electric Displacement $\vec{D}$
+
+Because there is no free charge anywhere, $\nabla \cdot \vec{D} = \rho_f = 0$ and $\sigma_f = 0$ everywhere. Therefore, **$\vec{D}$ lines have no sources or sinks and must form closed loops.**
+
+- **Exterior:** Since $\vec{P} = \vec{0}$ outside, $\vec{D} = \epsilon_0 \vec{E}$, so the external $\vec{D}$ lines trace the exact same downward-arching paths from the top face to the bottom face as the external $\vec{E}$ lines.
+- **Interior:** Inside the cylinder, $\vec{D} = \epsilon_0 \vec{E} + \vec{P}$. Because the upward polarization $\vec{P}$ outweighs the downward depolarizing field $\epsilon_0 \vec{E}$ (for example, at the center $D_z(0) = \epsilon_0 E_z(0) + P = P/\sqrt{2} \approx +0.707\,P$), $\vec{D}$ points **upward** throughout the interior, bowing slightly inward toward the ends.
+- **Boundary behavior & curl:** Across the top and bottom disks ($z = \pm L/2$), $\sigma_f = 0$ ensures $D^\perp_{\text{above}} = D^\perp_{\text{below}}$ and $\vec{P}^\parallel = \vec{0}$ ensures $\vec{D}^\parallel$ is continuous, so $\vec{D}$ lines pass **smoothly and continuously** through both end caps to close their loops. Across the lateral wall ($s = a$), however, $\vec{D}^\parallel_{\text{in}} - \vec{D}^\parallel_{\text{out}} = \vec{P}^\parallel_{\text{in}} = P\,\hat{z}$: the tangential component of $\vec{D}$ reverses abruptly across $s = a$ (upward just inside, downward just outside). A closed rectangular loop straddling the side wall gives $\oint \vec{D} \cdot d\vec{l} = \oint \vec{P} \cdot d\vec{l} \neq 0$, demonstrating explicitly how $\nabla \times \vec{D} = \nabla \times \vec{P} \neq \vec{0}$ on the boundary sustains the closed $\vec{D}$ loops even when $\rho_f = 0$.
+
+</div>
+</ProblemCard>
+
+</section>

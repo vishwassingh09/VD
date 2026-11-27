@@ -1,0 +1,349 @@
+import ProblemCard from '../../components/ProblemCard.astro';
+
+<section id="ch4-sec2" class="ed-sec-block">
+
+### 4.2 The Field of a Polarized Object
+
+<div class="ed-theory-box">
+
+#### 4.2.1 Bound Charges
+
+Consider a polarized dielectric of volume $\mathcal{V}$ bounded by a closed surface $\mathcal{S}$, carrying a macroscopic dipole moment per unit volume $\vec{P}(\vec{r}')$. Treating each infinitesimal volume element $d\tau'$ as an electric dipole $d\vec{p} = \vec{P}(\vec{r}')\,d\tau'$, the electrostatic potential at field point $\vec{r}$ is
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\varepsilon_0} \int_{\mathcal{V}} \frac{\vec{P}(\vec{r}') \cdot \hat{\mathcal{R}}}{\mathcal{R}^2} \, d\tau'
+$$
+
+where $\vec{\mathcal{R}} \equiv \vec{r} - \vec{r}'$ is the separation vector from source to field point. Using the identity $\nabla'\!\left(\frac{1}{\mathcal{R}}\right) = \frac{\hat{\mathcal{R}}}{\mathcal{R}^2}$ (differentiating with respect to source coordinates $\vec{r}'$), integrating by parts via $\nabla' \cdot \left(\frac{\vec{P}}{\mathcal{R}}\right) = \frac{\nabla' \cdot \vec{P}}{\mathcal{R}} + \vec{P} \cdot \nabla'\!\left(\frac{1}{\mathcal{R}}\right)$, and applying the divergence theorem gives
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\varepsilon_0} \oint_{\mathcal{S}} \frac{\vec{P} \cdot d\vec{a}'}{\mathcal{R}} - \frac{1}{4\pi\varepsilon_0} \int_{\mathcal{V}} \frac{\nabla' \cdot \vec{P}}{\mathcal{R}} \, d\tau'
+$$
+
+Defining the **bound surface charge density** $\sigma_b$ and **bound volume charge density** $\rho_b$ as
+
+$$
+\sigma_b \equiv \vec{P} \cdot \hat{n}, \qquad \rho_b \equiv -\nabla \cdot \vec{P}
+$$
+
+(where $\hat{n}$ is the outward unit normal to $\mathcal{S}$), the potential becomes identical to that of ordinary surface and volume charge distributions in vacuum:
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\varepsilon_0} \oint_{\mathcal{S}} \frac{\sigma_b}{\mathcal{R}} \, da' + \frac{1}{4\pi\varepsilon_0} \int_{\mathcal{V}} \frac{\rho_b}{\mathcal{R}} \, d\tau'
+$$
+
+For a **uniformly polarized sphere** of radius $R$ ($\vec{P} = P\hat{z}$), $\rho_b = 0$ and $\sigma_b = P\cos\theta$, yielding a uniform internal field $\vec{E} = -\frac{1}{3\varepsilon_0}\vec{P}$ ($r < R$) and an external pure-dipole field with $\vec{p} = \frac{4}{3}\pi R^3 \vec{P}$ ($r > R$).
+
+#### 4.2.2 Physical Interpretation of Bound Charges
+
+Bound charges are genuine physical accumulations of charge, not mere mathematical bookkeeping devices. In a chain of aligned molecular dipoles, adjacent positive and negative ends cancel throughout the interior, leaving uncompensated charge at the boundaries. For a cylindrical tube of cross-sectional area $A$ parallel to $\vec{P}$ sliced obliquely at angle $\theta$ to the normal $\hat{n}$, the end area is $A_{\text{end}} = A/\cos\theta$ while the accumulated end charge is $q = PA$, producing $\sigma_b = q/A_{\text{end}} = P\cos\theta = \vec{P}\cdot\hat{n}$.
+
+When $\vec{P}$ is nonuniform, unequal amounts of charge shift across opposite faces of an interior volume $\mathcal{V}$. The net charge pushed outward across $\mathcal{S}$ is $\oint_{\mathcal{S}} \vec{P}\cdot d\vec{a}$, so the net bound charge left inside $\mathcal{V}$ is
+
+$$
+\int_{\mathcal{V}} \rho_b \, d\tau = -\oint_{\mathcal{S}} \vec{P} \cdot d\vec{a} = -\int_{\mathcal{V}} (\nabla \cdot \vec{P}) \, d\tau
+$$
+
+confirming $\rho_b = -\nabla \cdot \vec{P}$ locally.
+
+#### 4.2.3 The Macroscopic Field Inside a Dielectric
+
+Real dielectrics consist of discrete physical dipoles rather than a continuous distribution of pure point dipoles. While the true microscopic field fluctuates violently on atomic length scales, the **macroscopic electric field** $\vec{E}(\vec{r})$ is defined as the spatial average of the microscopic field over a small sphere of radius $R_{\text{avg}}$ large enough to enclose thousands of molecules yet small compared to macroscopic scales over which $\vec{P}$ varies. Splitting the field into contributions from dipoles outside and inside this averaging sphere, $\vec{E} = \vec{E}_{\text{out}} + \vec{E}_{\text{in}}$:
+
+- **Exterior dipoles** are far enough from $\vec{r}$ to be treated as continuous pure dipoles; by the mean-value theorem for harmonic potentials, their average over the sphere equals the field they produce at the center $\vec{r}$.
+- **Interior dipoles** produce an average field over the sphere depending only on their net dipole moment $\vec{p}_{\text{in}} = \frac{4}{3}\pi R_{\text{avg}}^3 \vec{P}(\vec{r})$, namely
+
+$$
+\vec{E}_{\text{in}} = -\frac{\vec{p}_{\text{in}}}{4\pi\varepsilon_0 R_{\text{avg}}^3} = -\frac{1}{3\varepsilon_0}\vec{P}(\vec{r})
+$$
+
+Combining both contributions reproduces the exact potential and macroscopic field obtained from the continuum bound-charge densities $\sigma_b$ and $\rho_b$.
+
+</div>
+
+<ProblemCard num="4.10" title="Radially Polarized Sphere" tag="Griffiths 4.10 · Bound Charges & Gauss's Law">
+<div slot="problem">
+
+A sphere of radius $R$ carries a polarization
+
+$$
+\vec{P}(\vec{r}) = k\vec{r}
+$$
+
+where $k$ is a constant and $\vec{r}$ is the vector from the center.
+
+(a) Calculate the bound charges $\sigma_b$ and $\rho_b$.
+
+(b) Find the electric field inside and outside the sphere.
+
+</div>
+<div slot="answer">
+
+(a) $\sigma_b = kR$, $\rho_b = -3k$.
+
+(b) $\vec{E} = -\dfrac{k}{\varepsilon_0}\vec{r} = -\dfrac{1}{\varepsilon_0}\vec{P}$ for $r < R$; $\vec{E} = \vec{0}$ for $r > R$.
+
+</div>
+<div slot="solution">
+
+**(a) Bound surface and volume charge densities:**
+
+On the spherical surface $r = R$, the outward unit normal is $\hat{n} = \hat{r}$, so
+
+$$
+\sigma_b = \vec{P}(R)\cdot\hat{n} = (kR\hat{r})\cdot\hat{r} = kR
+$$
+
+Inside the sphere ($r < R$), using the divergence in spherical coordinates (with $P_r = kr$):
+
+$$
+\rho_b = -\nabla\cdot\vec{P} = -\frac{1}{r^2}\frac{\partial}{\partial r}\!\left(r^2 \cdot kr\right) = -\frac{1}{r^2}(3kr^2) = -3k
+$$
+
+(Alternatively, in Cartesian coordinates, $\nabla\cdot(k\vec{r}) = k(\partial_x x + \partial_y y + \partial_z z) = 3k$, giving $\rho_b = -3k$.)
+
+**(b) Electric field inside and outside:**
+
+Because both $\sigma_b$ and $\rho_b$ are spherically symmetric, we can apply Gauss's law directly to a concentric spherical Gaussian surface of radius $r$.
+
+- **Inside ($r < R$):** The enclosed bound charge is
+
+$$
+Q_{\text{enc}} = \int_0^r \rho_b \, (4\pi r'^2 \, dr') = (-3k)\left(\frac{4}{3}\pi r^3\right) = -4\pi k r^3
+$$
+
+By Gauss's law, $4\pi r^2 E(r) = Q_{\text{enc}}/\varepsilon_0$, which yields
+
+$$
+\vec{E}(\vec{r}) = -\frac{kr}{\varepsilon_0}\hat{r} = -\frac{k}{\varepsilon_0}\vec{r} \qquad (r < R)
+$$
+
+- **Outside ($r > R$):** The total enclosed bound charge is the sum of the volume and surface bound charges:
+
+$$
+Q_{\text{enc}} = (-3k)\left(\frac{4}{3}\pi R^3\right) + (kR)\left(4\pi R^2\right) = -4\pi k R^3 + 4\pi k R^3 = 0
+$$
+
+Hence, by spherical symmetry,
+
+$$
+\vec{E}(\vec{r}) = \vec{0} \qquad (r > R)
+$$
+
+As a consistency check, at $r = R$ the radial field jumps by $E_{\text{out}} - E_{\text{in}} = 0 - (-kR/\varepsilon_0) = kR/\varepsilon_0 = \sigma_b/\varepsilon_0$.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.11" title="Uniformly Polarized Cylinder (Bar Electret)" tag="Griffiths 4.11 · Bound Charges & Field Geometry">
+<div slot="problem">
+
+A short cylinder, of radius $a$ and length $L$, carries a "frozen-in" uniform polarization $\vec{P}$, parallel to its axis. Find the bound charge, and sketch the electric field (i) for $L \gg a$, (ii) for $L \ll a$, and (iii) for $L \approx a$.
+
+</div>
+<div slot="answer">
+
+$\rho_b = 0$ everywhere; $\sigma_b = 0$ on the curved side wall; $\sigma_b = +P$ on the end cap toward which $\vec{P}$ points and $\sigma_b = -P$ on the opposite end cap.
+
+- (i) $L \gg a$: behaves like a physical dipole of length $L$ and charges $\pm P\pi a^2$.
+- (ii) $L \ll a$: behaves like a circular parallel-plate capacitor with nearly uniform internal field $\vec{E} \approx -\vec{P}/\varepsilon_0$ and edge fringing fields.
+- (iii) $L \approx a$: transitional geometry between a dipole and a parallel-plate capacitor.
+
+</div>
+<div slot="solution">
+
+**Bound charges:**
+
+Because $\vec{P}$ is uniform throughout the cylinder, the bound volume charge density vanishes:
+
+$$
+\rho_b = -\nabla \cdot \vec{P} = 0
+$$
+
+On the curved lateral surface, the outward normal $\hat{n} = \hat{s}$ is perpendicular to $\vec{P}$, so $\sigma_b = \vec{P}\cdot\hat{s} = 0$. On the two circular end caps, $\hat{n} = \pm \hat{P}$, giving
+
+$$
+\sigma_b = \begin{cases} +P & \text{on the end cap toward which } \vec{P} \text{ points}, \\ -P & \text{on the end cap from which } \vec{P} \text{ points}. \end{cases}
+$$
+
+Thus the field of this bar electret is identical to that of two uniformly charged circular disks of radius $a$ and surface charge densities $\pm P$, separated by distance $L$.
+
+**Electric field behavior in the three regimes:**
+
+- **(i) Long thin rod ($L \gg a$):** Each end cap carries total charge $\pm Q = \pm P\pi a^2$ over a region small compared to $L$. At distances large compared to $a$, the electret looks like a physical dipole of charges $+Q$ and $-Q$ separated by $L$. Field lines originate on the $+P$ end, arc widely through the surrounding space, and terminate on the $-P$ end. Inside the rod (far from the ends), the field is weak and points opposite to $\vec{P}$.
+- **(ii) Thin disk or wafer ($L \ll a$):** The two closely spaced charged faces act like a circular parallel-plate capacitor. In the interior, the field is nearly uniform and directed from the $+P$ face to the $-P$ face (antiparallel to $\vec{P}$):
+
+$$
+\vec{E}_{\text{in}} \approx -\frac{\vec{P}}{\varepsilon_0}
+$$
+
+Outside the disk, the field is weak except for localized fringing field lines looping closely around the rim from the $+P$ face to the $-P$ face.
+
+- **(iii) Intermediate cylinder ($L \approx a$):** The field interpolates smoothly between the two limits: field lines leave the $+P$ face, bulge outward both inside and outside the cylinder, and curve back into the $-P$ face, with the internal depolarizing field pointing generally opposite to $\vec{P}$ and comparable in magnitude to the external fringing field.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.12" title="Direct Integration for a Uniformly Polarized Sphere" tag="Griffiths 4.12 · Direct Potential Integral">
+<div slot="problem">
+
+Calculate the potential of a uniformly polarized sphere (Ex. 4.2) directly from Eq. 4.9:
+
+$$
+V(\vec{r}) = \frac{1}{4\pi\varepsilon_0} \int_{\mathcal{V}} \frac{\vec{P}(\vec{r}') \cdot \hat{\mathcal{R}}}{\mathcal{R}^2} \, d\tau'
+$$
+
+</div>
+<div slot="answer">
+
+$$
+V(r,\theta) = \begin{cases} \dfrac{P r \cos\theta}{3\varepsilon_0}, & r \le R, \\[10pt] \dfrac{P R^3 \cos\theta}{3\varepsilon_0 r^2}, & r \ge R. \end{cases}
+$$
+
+</div>
+<div slot="solution">
+
+Since $\vec{P}$ is constant throughout the sphere of radius $R$, it factors out of the volume integral in Eq. 4.9:
+
+$$
+V(\vec{r}) = \vec{P} \cdot \left( \frac{1}{4\pi\varepsilon_0} \int_{\text{sphere}} \frac{\hat{\mathcal{R}}}{\mathcal{R}^2} \, d\tau' \right)
+$$
+
+Notice that the vector inside the parentheses is precisely $\vec{E}_{\text{unif}}(\vec{r})/\rho$, where $\vec{E}_{\text{unif}}(\vec{r})$ is the electric field of a sphere of radius $R$ carrying a uniform volume charge density $\rho$ (found by direct integration in Probs. 2.7 and 2.8, or immediately via Gauss's law):
+
+$$
+\frac{1}{4\pi\varepsilon_0} \int_{\text{sphere}} \frac{\hat{\mathcal{R}}}{\mathcal{R}^2} \, d\tau' = \begin{cases} \dfrac{1}{4\pi\varepsilon_0} \dfrac{\frac{4}{3}\pi R^3}{R^3} \vec{r} = \dfrac{\vec{r}}{3\varepsilon_0}, & r \le R, \\[12pt] \dfrac{1}{4\pi\varepsilon_0} \dfrac{\frac{4}{3}\pi R^3}{r^2} \hat{r} = \dfrac{R^3}{3\varepsilon_0 r^2}\hat{r}, & r \ge R. \end{cases}
+$$
+
+Taking the dot product with $\vec{P}$ (and aligning the $z$-axis with $\vec{P}$ so that $\vec{P}\cdot\vec{r} = P r \cos\theta$ and $\vec{P}\cdot\hat{r} = P\cos\theta$), we obtain
+
+$$
+V(r,\theta) = \begin{cases} \dfrac{\vec{P}\cdot\vec{r}}{3\varepsilon_0} = \dfrac{P r \cos\theta}{3\varepsilon_0}, & r \le R, \\[12pt] \dfrac{R^3 (\vec{P}\cdot\hat{r})}{3\varepsilon_0 r^2} = \dfrac{P R^3 \cos\theta}{3\varepsilon_0 r^2}, & r \ge R, \end{cases}
+$$
+
+in exact agreement with Example 4.2.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.13" title="Transversely Polarized Long Cylinder" tag="Griffiths 4.13 · Overlapping Cylinders & Dipole Expansion">
+<div slot="problem">
+
+A very long cylinder, of radius $a$, carries a uniform polarization $\vec{P}$ perpendicular to its axis. Find the electric field inside the cylinder. Show that the field outside the cylinder can be expressed in the form
+
+$$
+\vec{E}(\vec{r}) = \frac{a^2}{2\varepsilon_0 s^2} \left[ 2(\vec{P}\cdot\hat{s})\hat{s} - \vec{P} \right]
+$$
+
+</div>
+<div slot="answer">
+
+Inside ($s < a$): $\vec{E} = -\dfrac{\vec{P}}{2\varepsilon_0}$ (uniform).
+
+Outside ($s > a$): $\vec{E}(\vec{s}) = \dfrac{a^2}{2\varepsilon_0 s^2}\left[2(\vec{P}\cdot\hat{s})\hat{s} - \vec{P}\right]$.
+
+</div>
+<div slot="solution">
+
+Model the polarized cylinder as two superimposed, infinitely long, uniformly charged cylinders of radius $a$ carrying volume charge densities $+\rho$ and $-\rho$, with the positive cylinder's axis displaced relative to the negative cylinder's axis by an infinitesimal vector $\vec{d}$ perpendicular to the cylinder axis ($\rho \to \infty$, $d \to 0$, with $\rho\vec{d}$ held fixed). For a segment of length $\ell$, the total dipole moment is
+
+$$
+\vec{p} = \vec{P}(\pi a^2 \ell) = (\rho \pi a^2 \ell)\vec{d} \implies \vec{P} = \rho\vec{d}
+$$
+
+By Gauss's law, the field of a single uniformly charged cylinder of radius $a$ and density $\rho$ at cylindrical radial vector $\vec{s}$ from its axis is
+
+$$
+\vec{E}_{\text{cyl}}(\vec{s}) = \begin{cases} \dfrac{\rho}{2\varepsilon_0}\vec{s}, & s < a, \\[10pt] \dfrac{\rho a^2}{2\varepsilon_0}\dfrac{\vec{s}}{s^2}, & s > a. \end{cases}
+$$
+
+Choose the origin on the midline between the two axes, so the positive axis sits at $+\vec{d}/2$ and the negative axis sits at $-\vec{d}/2$. The radial vectors from each axis to a field point $\vec{s}$ are $\vec{s}_+ = \vec{s} - \vec{d}/2$ and $\vec{s}_- = \vec{s} + \vec{d}/2$.
+
+**Inside the cylinder ($s < a$):**
+
+By superposition,
+
+$$
+\vec{E}_{\text{in}} = \vec{E}_+ + \vec{E}_- = \frac{\rho}{2\varepsilon_0}\left(\vec{s}_+ - \vec{s}_-\right) = \frac{\rho}{2\varepsilon_0}(-\vec{d}) = -\frac{\vec{P}}{2\varepsilon_0}
+$$
+
+The internal field is uniform and points opposite to $\vec{P}$.
+
+**Outside the cylinder ($s > a$):**
+
+Superposing the two external fields gives
+
+$$
+\vec{E}_{\text{out}} = \frac{\rho a^2}{2\varepsilon_0}\left(\frac{\vec{s}_+}{s_+^2} - \frac{\vec{s}_-}{s_-^2}\right)
+$$
+
+Expanding $s_\pm^{-2}$ to first order in $d \ll s$:
+
+$$
+s_\pm^2 = \left(\vec{s} \mp \frac{\vec{d}}{2}\right)^2 = s^2 \mp \vec{s}\cdot\vec{d} + \frac{d^2}{4} \approx s^2\left(1 \mp \frac{\vec{s}\cdot\vec{d}}{s^2}\right) \implies \frac{1}{s_\pm^2} \approx \frac{1}{s^2}\left(1 \pm \frac{\vec{s}\cdot\vec{d}}{s^2}\right)
+$$
+
+Multiplying by $\vec{s}_\pm = \vec{s} \mp \vec{d}/2$ and keeping terms up to first order in $\vec{d}$:
+
+$$
+\frac{\vec{s}_\pm}{s_\pm^2} \approx \frac{1}{s^2}\left[\vec{s} \pm \frac{(\vec{s}\cdot\vec{d})\vec{s}}{s^2} \mp \frac{\vec{d}}{2}\right]
+$$
+
+Subtracting the negative contribution from the positive one cancels the $\vec{s}$ term and doubles the first-order terms:
+
+$$
+\frac{\vec{s}_+}{s_+^2} - \frac{\vec{s}_-}{s_-^2} = \frac{1}{s^2}\left[2\frac{(\vec{s}\cdot\vec{d})\vec{s}}{s^2} - \vec{d}\right] = \frac{1}{s^2}\left[2(\vec{d}\cdot\hat{s})\hat{s} - \vec{d}\right]
+$$
+
+Substituting this back into $\vec{E}_{\text{out}}$ and using $\rho\vec{d} = \vec{P}$ yields
+
+$$
+\vec{E}_{\text{out}}(\vec{r}) = \frac{a^2}{2\varepsilon_0 s^2}\left[2(\vec{P}\cdot\hat{s})\hat{s} - \vec{P}\right]
+$$
+
+At $s = a$, the tangential component is continuous ($E_{\text{out},\phi} = E_{\text{in},\phi} = -P_\phi/(2\varepsilon_0)$) while the radial component jumps by $E_{\text{out},s} - E_{\text{in},s} = \frac{P_s}{2\varepsilon_0} - \left(-\frac{P_s}{2\varepsilon_0}\right) = \frac{\vec{P}\cdot\hat{s}}{\varepsilon_0} = \frac{\sigma_b}{\varepsilon_0}$, as required.
+
+</div>
+</ProblemCard>
+
+<ProblemCard num="4.14" title="Conservation of Total Bound Charge" tag="Griffiths 4.14 · Divergence Theorem Proof">
+<div slot="problem">
+
+When you polarize a neutral dielectric, the charge moves a bit, but the total remains zero. This fact should be reflected in the bound charges $\sigma_b$ and $\rho_b$. Prove from Eqs. 4.11 and 4.12 ($\sigma_b = \vec{P}\cdot\hat{n}$ and $\rho_b = -\nabla\cdot\vec{P}$) that the total bound charge vanishes.
+
+</div>
+<div slot="answer">
+
+$$
+Q_{\text{tot}} = \oint_{\mathcal{S}} \sigma_b \, da + \int_{\mathcal{V}} \rho_b \, d\tau = \oint_{\mathcal{S}} \vec{P}\cdot d\vec{a} - \int_{\mathcal{V}} (\nabla\cdot\vec{P}) \, d\tau = 0
+$$
+
+by the divergence theorem.
+
+</div>
+<div slot="solution">
+
+Let the polarized dielectric occupy a volume $\mathcal{V}$ bounded by a closed surface $\mathcal{S}$ with outward unit normal $\hat{n}$ (so $d\vec{a} = \hat{n}\,da$). The total bound charge $Q_{\text{tot}}$ is the sum of the bound surface charge on $\mathcal{S}$ and the bound volume charge in $\mathcal{V}$:
+
+$$
+Q_{\text{tot}} = \oint_{\mathcal{S}} \sigma_b \, da + \int_{\mathcal{V}} \rho_b \, d\tau
+$$
+
+Substituting $\sigma_b = \vec{P}\cdot\hat{n}$ (Eq. 4.11) and $\rho_b = -\nabla\cdot\vec{P}$ (Eq. 4.12):
+
+$$
+Q_{\text{tot}} = \oint_{\mathcal{S}} \vec{P} \cdot \hat{n} \, da - \int_{\mathcal{V}} (\nabla \cdot \vec{P}) \, d\tau = \oint_{\mathcal{S}} \vec{P} \cdot d\vec{a} - \int_{\mathcal{V}} (\nabla \cdot \vec{P}) \, d\tau
+$$
+
+By the divergence theorem, $\oint_{\mathcal{S}} \vec{P}\cdot d\vec{a} = \int_{\mathcal{V}} (\nabla\cdot\vec{P})\,d\tau$, so the two integrals cancel identically:
+
+$$
+Q_{\text{tot}} = 0
+$$
+
+(If $\vec{P}$ has internal discontinuities across surfaces inside $\mathcal{V}$, the same argument applies to each smooth subregion separately, with opposing surface charges $\Delta\sigma_b = (\vec{P}_1 - \vec{P}_2)\cdot\hat{n}_{12}$ cancelling at every interface, so total bound charge still vanishes.)
+
+</div>
+</ProblemCard>
+
+</section>
